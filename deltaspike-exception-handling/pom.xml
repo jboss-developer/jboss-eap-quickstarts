@@ -14,8 +14,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-deltaspike-exception-handling</artifactId>
@@ -40,11 +39,31 @@
 
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for JBoss EAP 6 located here:
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform 6 located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html-single/Development_Guide
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Development_Guide/ 
     -->
     <repositories>
+        <repository>
+            <id>redhat-earlyaccess-all-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>redhat-techpreview-all-repository</id>
             <url>https://maven.repository.redhat.com/techpreview/all/</url>
@@ -58,6 +77,26 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-earlyaccess-all-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>redhat-techpreview-all-repository</id>
             <url>https://maven.repository.redhat.com/techpreview/all/</url>
