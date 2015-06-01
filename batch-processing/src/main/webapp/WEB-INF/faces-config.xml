@@ -15,6 +15,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
+
 <!-- Marker file indicating JSF 2.2 should be enabled in the application -->
 <faces-config version="2.2"
     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
