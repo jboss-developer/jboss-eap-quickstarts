@@ -91,12 +91,6 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
 
-    
-        <!--Automatically created property by QSTools for
-        org.jboss.bom:jboss-javaee-7.0-eap-with-deltaspike BOM-->
-        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
-        <!--Automatically created property by QSTools for
-        org.jboss.bom:jboss-javaee-7.0-eap-with-tools BOM-->
         <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
     </properties>
 
