@@ -5,8 +5,7 @@ Level: Intermediate
 Technologies: CDI, DeltaSpike  
 Summary: The `cdi-add-interceptor-binding` quickstart demonstrates how to create a simple CDI extension to automatically add an interceptor binding to a class.  
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
@@ -17,7 +16,7 @@ bindings from CDI, and AnnotatedTypeBuilder from DeltaSpike. It demonstrates how
 to automatically add an interceptor binding to a class based on method parameter annotations.
 
 A Portable Extension is essentially an extension to Java EE which is tailored to a specific
-use case that will run on any Java EE 6 or higher implementation. This may be something that the
+use case that will run on any Java EE 7 or higher implementation. This may be something that the
 specifications don't support just yet, but could be implemented via a portable extension such as
 type safe messages or external configuration of beans.
 
@@ -30,9 +29,9 @@ correctly.
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
 Configure Maven

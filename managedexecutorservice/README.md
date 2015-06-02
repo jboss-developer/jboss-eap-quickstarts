@@ -4,8 +4,8 @@ Author: Rafael Benevides
 Level: Beginner  
 Technologies: EE Concurrency Utilities, JAX-RS, JAX-RS Client API 
 Summary:The `managedexecutorservice` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution.  
-Target Product: Sandbox  
-Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>  
+Target Product: EAP  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 
 What is it?
@@ -23,7 +23,7 @@ System requirements
 
 The application this project produces is designed to be run on WildFly . 
 
-All you need to build this project is Java 7.0 (Java SDK 1.7) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven

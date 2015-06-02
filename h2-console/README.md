@@ -16,14 +16,14 @@ The `h2-console` quickstart comes bundled with a version of the H2 Console built
 
 This quickstart demonstrates how to use the H2 console with Red Hat JBoss Enterprise Application Platform. It uses the `greeter` quickstart as a GUI for entering data.
 
-_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
  
 
 Configure Maven
@@ -43,7 +43,7 @@ You can verify the deployment of the `greeter` quickstart by accessing the follo
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Deploy the H2 Console

@@ -5,27 +5,26 @@ Level: Intermediate
 Technologies: JMS, CDI, DeltaSpike  
 Summary: The `deltaspike-helloworld-jms` quickstart demonstrates how to create JMS clients using DeltaSpike configuration properties.  
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `deltaspike-helloworld-jms` quickstart demonstrates the use of JMS clients in Red Hat JBoss Enterprise Application Platform 6.1 or later using DeltaSpike configuration properties.
+The `deltaspike-helloworld-jms` quickstart demonstrates the use of JMS clients in Red Hat JBoss Enterprise Application Platform 7 or later using DeltaSpike configuration properties.
 
 It contains the following:
 
-1. A message producer that sends messages to a JMS destination deployed to a JBoss EAP 6.1 or later server.
+1. A message producer that sends messages to a JMS destination deployed to a JBoss EAP server.
 
-2. A message consumer that receives message from a JMS destination deployed to a JBoss EAP 6.1 or later server. 
+2. A message consumer that receives message from a JMS destination deployed to a JBoss EAP server. 
 
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the  Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 Configure Maven
 ---------------

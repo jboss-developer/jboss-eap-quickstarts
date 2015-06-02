@@ -21,9 +21,9 @@ _Note: This quickstart demonstrates only a few of the basic functions. A fully f
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.3 or later, which is running on Java 7 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later, which is running on Java 8 or later.
 
-All you need to build this project is Java 6 (Java SDK 1.6) or later, Maven 3.0 or later. 
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later. 
 
  
 Configure Maven
@@ -35,13 +35,11 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Configure the JBoss EAP Server
 ---------------------------
-
-As a reminder, this application requires JBoss EAP 6.3 or later, running on Java 7 or later.
 
 Before you begin, you must enable the `NIO2` connector in the `web` subsystem of the JBoss EAP server configuration file. 
 

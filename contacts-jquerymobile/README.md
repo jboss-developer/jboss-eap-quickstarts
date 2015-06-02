@@ -3,17 +3,16 @@ contacts-mobile-basic: CRUD Example Using HTML5, jQuery Mobile and JAX-RS
 Author: Joshua Wilson  
 Level: Beginner  
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
-Summary: The `contacts-mobile-basic` quickstart demonstrates a Java EE 6 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA 2.0, and REST.  
+Summary: The `contacts-mobile-basic` quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.  
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------
 
 The `contact-mobile-basic` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
-mobile web applications with Java EE 6 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 6 
-application using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a 
+mobile web applications with Java EE 7 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 7 
+application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA and Bean Validation 1.0. It includes a 
 persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
 
 This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with with the 
@@ -49,9 +48,9 @@ and [Does JBoss EAP support the use of Jackson libraries?](https://access.redhat
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors 
 will vary slightly (ex. validations) based on browser support, especially IE 9.

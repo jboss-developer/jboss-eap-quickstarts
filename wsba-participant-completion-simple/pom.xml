@@ -39,9 +39,9 @@
 
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform 6 located here:
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Development_Guide/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
     -->
     <repositories>
         <repository>
@@ -132,15 +132,15 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of JBoss' Java EE 7 APIs and Tools we want to import.  -->
+            <!-- Define the version of the JBoss Java EE APIs and Tools we want to import.  -->
 
-            <!-- JBoss distributes a complete set of Java EE 7 APIs including a Bill
+            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
                 of artifacts. We use this here so that we always get the correct versions
                 of artifacts.-->
 
             <!-- This BOM provides the jboss-javaee-7.0 with tools stack (you can read this as
-                the JBoss stack of the Java EE 7 APIs, with some extras tools for your project, such
+                the JBoss stack of the Java EE APIs, with some extras tools for your project, such
                 as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
@@ -163,7 +163,7 @@
         </dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
-            as the API is included in JBoss EAP 6 -->
+            as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.2_spec</artifactId>
@@ -171,7 +171,7 @@
         </dependency>
         
         <!-- Import the Servlet API, we use provided scope
-            as the API is included in JBoss EAP 6 -->
+            as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
@@ -185,7 +185,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP 6 -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>

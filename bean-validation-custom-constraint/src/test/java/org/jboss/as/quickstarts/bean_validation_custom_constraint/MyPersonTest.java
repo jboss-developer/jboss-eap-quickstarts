@@ -68,7 +68,7 @@ public class MyPersonTest {
             .addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
-    // Get configured validator directly from JBoss EAP 6 environment
+    // Get configured validator directly from JBoss EAP environment
     @Inject
     Validator validator;
 

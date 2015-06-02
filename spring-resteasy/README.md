@@ -5,7 +5,6 @@ Level: Beginner
 Technologies: Resteasy, Spring  
 Summary: The `spring-resteasy` quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.  
 Target Product: JBoss EAP  
-Product Versions: EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
@@ -20,9 +19,9 @@ Currently the resteasy-spring.jar is using Spring 3.0.3, as such this quickstart
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven

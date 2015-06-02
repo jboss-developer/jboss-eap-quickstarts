@@ -31,8 +31,8 @@ import org.jboss.as.quickstarts.sfsb.ShoppingCartBean;
 
 public class Client {
 
-    private static final String SOAP = "JBoss SOA Platform 6";
-    private static final String EAP = "Red Hat JBoss Enterprise Application Platform 6";
+    private static final String SOAP = "JBoss SOA Platform Subscription";
+    private static final String EAP = "Red Hat JBoss Enterprise Application Platform Subscription";
 
     public static void main(String[] args) throws NamingException {
         // avoid INFO output for the client demo

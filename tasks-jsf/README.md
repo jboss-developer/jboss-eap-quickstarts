@@ -3,7 +3,7 @@ tasks-jsf: JSF, JPA quickstart
 Author: Lukas Fryc  
 Level: Intermediate  
 Technologies: JSF, JPA  
-Summary: The `tasks-jsf` quickstart demonstrates how to use JPA 2.0 persistence with JSF 2.1 as the view layer.  
+Summary: The `tasks-jsf` quickstart demonstrates how to use JPA persistence with JSF as the view layer.  
 Prerequisites: tasks  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,13 +11,13 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `tasks-jsf` quickstart demonstrates how to use JPA 2.0 persistence with JSF 2.1 as view layer in an application deployed to Red Hat JBoss Enterprise Application Platform. It provides a JSF front end for the [tasks](../tasks/README.md) quickstart.
+The `tasks-jsf` quickstart demonstrates how to use JPA persistence with JSF as view layer in an application deployed to Red Hat JBoss Enterprise Application Platform. It provides a JSF front end for the [tasks](../tasks/README.md) quickstart.
 
 The theme of this application is simple Task management with simple login. The project contains two entities - a `user` and a `task`.
 
 This sample includes a persistence unit and some sample persistence code to introduce you to database access in enterprise Java. Persistence code is covered by tests to help you write business logic without the need to use any view layer.
 
-JSF 2.1 is used to present the user two views.
+JSF is used to present the user two views.
 
 * authentication form: This provides the simple login
 * task view: This view contains the task list, a task detail, and a task addition form. The task view uses AJAX.
@@ -25,13 +25,13 @@ JSF 2.1 is used to present the user two views.
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
-_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
-_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP 6.4 and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
+_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
 
 
 Configure Maven 
@@ -43,7 +43,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server

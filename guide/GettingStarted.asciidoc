@@ -1,4 +1,4 @@
-= Getting started with Red Hat JBoss Enterprise Application Platform 6
+= Getting started with Red Hat JBoss Enterprise Application Platform
 :Author: Pete Muir
 
 [[GettingStarted-]]
@@ -22,10 +22,10 @@ Maven 3, to build and deploy the quickstarts::
 
 Make sure you have:
 
-The JBoss EAP 6 runtime::
+The JBoss EAP runtime::
   Download the link:http://www.jboss.org/products/eap/download/[Installer or ZIP]
 
-The JBoss EAP 6 quickstarts::
+The JBoss EAP quickstarts::
   Download the link:http://www.jboss.org/products/eap/download/[Quickstarts]
 
 If you wish to use the examples from an IDE, we recommend using Red Hat JBoss Developer Studio, or Eclipse with JBoss Tools.
@@ -37,7 +37,7 @@ Eclipse, with JBoss Tools::
 
 [TIP]
 ========================================================================
-JBoss EAP 6 offers the 
+JBoss EAP offers the 
 ability to manage multiple EAP instances from a single control point. 
 A collection of such servers are referred to as members of a "domain",
 with a single Domain Controller process acting as the management control
@@ -47,7 +47,7 @@ process. The Host Controllers interact with the Domain Controller to
 control the lifecycle of the EAP instances running on that host and to 
 assist the Domain Controller in managing them.
 
-JBoss EAP 6 also offers a standalone mode, which is perfect for a single 
+JBoss EAP also offers a standalone mode, which is perfect for a single 
 server. We use this throughout the quickstarts.
 ========================================================================
 
@@ -60,19 +60,19 @@ installed. In a console, type:
 
     java -version
 
-You should see a version string (at least `1.6.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
+You should see a version string (at least `1.7.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
 
     mvn --version
 
 You should see a version string (at lest `3.0.0`) printed. If not, contact the Maven community for assistance. 
 
-Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap.6.x.x` (where `6.x.x` matches the version you downloaded): 
+Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap.7.x.x` (where `7.x.x` matches the version you downloaded): 
 
-    unzip jboss-eap-6.2.x.zip
+    unzip jboss-eap-7.0.x.zip
 
 Now, let's start JBoss EAP in standalone mode:
 
-    jboss-eap-6.2.x/bin/standalone.sh
+    jboss-eap-7.0.x/bin/standalone.sh
 
 
 [TIP]
@@ -87,7 +87,7 @@ That's it, JBoss EAP is installed and running! Visit http://localhost:8080/ to c
 [TIP]
 ========================================================================
 You can find the server log for standalone instances in 
-`jboss-eap-6.x.x/standalone/log/server.log`. The JBoss EAP 6
+`jboss-eap-7.x.x/standalone/log/server.log`. The JBoss EAP
 link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide] covers more on configuring logging. 
 ========================================================================
 
@@ -97,9 +97,9 @@ link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_
 
 [TIP]
 ========================================================================
-See the JBoss EAP 6 
+See the JBoss EAP 
 link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Getting Started Guide] 
-for more complete instructions to get started with JBoss EAP 6, 
+for more complete instructions to get started with JBoss EAP, 
 the quickstarts and JBoss Developer Studio.
 ========================================================================
 
@@ -107,13 +107,13 @@ First, let's verify that verify that both Java and Maven are correctly installed
 
     java -version
 
-You should see a version string (at least `1.6.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
+You should see a version string (at least `1.7.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
 
     mvn --version
 
 You should see a version string (at lest `3.0.0`) printed. If not, contact the Maven community for assistance. 
 
-Next, we need to choose a location for JBoss EAP 6 to live. By default, JBoss EAP 6 will be extracted into `jboss-eap-6.x.x` (where `6.x.x` matches the version you downloaded). Unzip JBoss EAP using your tool of choice. 
+Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap-7.x.x` (where `7.x.x` matches the version you downloaded). Unzip JBoss EAP using your tool of choice. 
 
 Finally, let's start JBoss EAP in standalone mode. Locate your installation and run `standalone.bat` located in `bin`.
 
@@ -124,13 +124,13 @@ If you want to stop the server, simply press Crtl-C whilst the terminal
 has focus. 
 ========================================================================
 
-That's it, JBoss EAP 6 is installed and running! Visit http://localhost:8080/ to check the server has started properly. 
+That's it, JBoss EAP is installed and running! Visit http://localhost:8080/ to check the server has started properly. 
 
 
 [TIP]
 ========================================================================
 You can find the server log for standalone instances in 
-`jboss-as-6.x.x/standalone/log/server.log`. The JBoss EAP 6
+`jboss-as-7.x.x/standalone/log/server.log`. The JBoss EAP
 link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide] covers more on configuring logging.
 ========================================================================
 
@@ -138,7 +138,7 @@ link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_
 == Starting the JBoss server from JBDS or Eclipse with JBoss Tools
 [[GettingStarted-with_jboss_tools]]
 
-You may choose to use JBoss Developer Studio, or Eclipse with JBoss Tools, rather than the command line to run JBoss EAP 6 and to deploy the quickstarts. If you don't wish to use Eclipse, you should skip this section.
+You may choose to use JBoss Developer Studio, or Eclipse with JBoss Tools, rather than the command line to run JBoss EAP and to deploy the quickstarts. If you don't wish to use Eclipse, you should skip this section.
 
 Make sure you have installed and started JBoss Developer Studio or Eclipse. First, we need to add our JBoss EAP instance to it. First, navigate to _Preferences_:
 
@@ -216,19 +216,19 @@ image:gfx/Import_Quickstarts_5.jpg[]
 It will take a short time to import the projects, as Maven needs to download the project's dependencies from remote repositories.
 
 
-== Managing JBoss EAP 6
+== Managing JBoss EAP
 
-Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss EAP 6. Detailed information can be found in the JBoss EAP 6 link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide].
+Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss EAP. Detailed information can be found in the JBoss EAP link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide].
 
 When the server is running, the web management interface can be accessed at http://localhost:9990/console. You can use the web management interface to create datasources, manage deployments and configure the server. 
 
-JBoss EAP 6 comes with a command line interface. To run it on Linux, Unix or Mac, execute:
+JBoss EAP comes with a command line interface. To run it on Linux, Unix or Mac, execute:
 
-    jboss-eap-6.x.x/bin/jboss-admin.sh --connect
+    jboss-eap-7.x.x/bin/jboss-admin.sh --connect
 
 Or, on Windows:
 
-    jboss-eap-6.x.x/bin/jboss-admin.bat --connect
+    jboss-eap-7.x.x/bin/jboss-admin.bat --connect
 
 Once started, type help to discover the commands available to you. 
 

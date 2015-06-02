@@ -4,8 +4,8 @@ Author: Rafael Benevides
 Level: Intermediate  
 Technologies: CDI, Batch 1.0, JSF  
 Summary: Shows how to use chunk oriented batch jobs to import a file to a database.  
-Target Product: Sandbox  
-Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>   
+Target Product: EAP  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>   
 
 
 What is it?
@@ -23,7 +23,7 @@ The database schema defines that the column for name is unique. For that reason,
 System requirements
 -------------------
 
-All you need to build this project is Java 7.0 (Java SDK 1.7) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
  
 Configure Maven
 ---------------
@@ -179,7 +179,7 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 _NOTE_: The domain name for this application will be `batch-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
+Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP application:
 
        rhc create-app batch jboss-wildfly-8
 

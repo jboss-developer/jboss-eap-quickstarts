@@ -5,13 +5,12 @@ Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit  
 Summary: The `spring-kitchensink-controlleradvice` quickstart showcases Spring 4.x's `@ControllerAdvice`, which was introduced in Spring 3.2.  
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `spring-kitchensink-controlleradvice` quickstart is a deployable Maven 3 project that demonstrates how to use JSP, JPA, and Spring 4.x in Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The `spring-kitchensink-controlleradvice` quickstart is a deployable Maven 3 project that demonstrates how to use JSP, JPA, and Spring 4.x in Red Hat JBoss Enterprise Application Platform 7 or later. 
 
 This example showcases Spring 4.x's `@ControllerAdvice`, introduced in Spring 3.2, and used by `MemberControllerAdvice.java`.
 
@@ -30,7 +29,7 @@ and `<mvc:annotation-driven/>` are used to register both the non-rest and rest c
 System Requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
 To run the quickstart with the provided build script, you need the following:
 

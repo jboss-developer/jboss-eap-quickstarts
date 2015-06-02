@@ -3,15 +3,14 @@ spring-kitchensink-springmvctest: Kitchensink MVC Example Using Spring 4.x
 Author: Marius Bogoevici, Tejas Mehta, Joshua Wilson  
 Level: Intermediate  
 Technologies: JSP, JPA, JSON, Spring, JUnit  
-Summary: The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.x.   
+Summary: The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA and Spring 4.x.   
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA 2.0 and Spring 4.x in Red Hat JBoss Enterprise Application Platform. 
+The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA and Spring 4.x in Red Hat JBoss Enterprise Application Platform. 
 
 * This module adds `MemberMockMVCTest.java` to showcase a use case of `MockMVC` and `RestTemplate` to test the MVC aspect of the application.
 
@@ -30,7 +29,7 @@ and `<mvc:annotation-driven/>` are used to register both the non-rest and rest c
 System Requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
 To run the quickstart with the provided build script, you need the following:
 

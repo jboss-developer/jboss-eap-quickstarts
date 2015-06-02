@@ -44,8 +44,7 @@
 
         </div>
         <div id="aside">
-            <p>Learn more about JBoss Enterprise Application
-                Platform 6.</p>
+            <p>Learn more about Red Hat JBoss Enterprise Application Platform.</p>
             <ul>
                <li><a href="https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/">Documentation</a></li>
                <li><a href="http://red.ht/jbeap-6">Product Information</a></li>

@@ -1,11 +1,11 @@
 Red Hat JBoss Enterprise Application Platform (EAP) Quickstarts
 ====================
-Summary: The quickstarts demonstrate Java EE 6 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.  
+Summary: The quickstarts demonstrate Java EE 7 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.  
 
 Introduction
 ------------
 
-These quickstarts run on Red Hat JBoss Enterprise Application Platform 6.1 or later. We recommend using the JBoss EAP ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
+These quickstarts run on Red Hat JBoss Enterprise Application Platform 7 or later. We recommend using the JBoss EAP ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
 
 Be sure to read this entire document before you attempt to work with the quickstarts. It contains the following information:
 
@@ -28,7 +28,7 @@ Be sure to read this entire document before you attempt to work with the quickst
 Use of EAP_HOME and JBOSS_HOME Variables
 ---------------------------------
 
-The quickstart README files use the *replaceable* value `EAP_HOME` to denote the path to the JBoss EAP 6 installation. When you encounter this value in a README file, be sure to replace it with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+The quickstart README files use the *replaceable* value `EAP_HOME` to denote the path to the JBoss EAP installation. When you encounter this value in a README file, be sure to replace it with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Available Quickstarts
@@ -36,7 +36,7 @@ Available Quickstarts
 
 All available quickstarts can be found here: <http://www.jboss.org/developer-materials/#!formats=jbossdeveloper_quickstart>. You can filter by the quickstart name, the product, and the technologies demonstrated by the quickstart. You can also limit the results based on skill level and date published. The resulting page provides a brief description of each matching quickstart, the skill level, and the technologies used. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the `Prerequisites` section of the quickstart README file.
 
-_Note_: Some of these quickstarts use the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
+_Note_: Some of these quickstarts use the H2 database included with JBoss EAP. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 
 
 [TOC-quickstart]
@@ -55,7 +55,7 @@ We suggest you approach the quickstarts as follows:
 System Requirements
 -------------------
 
-The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
 To run these quickstarts with the provided build scripts, you need the following:
 

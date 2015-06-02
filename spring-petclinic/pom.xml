@@ -38,9 +38,9 @@
 
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform 6 located here:
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Development_Guide/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
     -->
     <repositories>
         <repository>
@@ -185,15 +185,15 @@
 
     <dependencyManagement>
 		<dependencies>
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+            <!-- Define the version of the JBoss Java EE APIs we want to import.
                  Any dependencies from org.jboss.spec will have their version defined by this BOM
 
-                 JBoss distributes a complete set of Java EE 6 APIs including
+                 JBoss distributes a complete set of Java EE APIs including
                  a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                  a collection) of artifacts. We use this here so that we always get the correct
                  versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
-                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
-                 use this stack with any version of JBoss EAP that implements Java EE 6. -->
+                 read this as the JBoss stack of the Java EE APIs). You can actually
+                 use this stack with any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>

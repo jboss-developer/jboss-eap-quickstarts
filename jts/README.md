@@ -39,15 +39,15 @@ A simple MDB has been provided that prints out the messages sent but this is not
 
 After  you complete this quickstart, you are invited to run through the [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) quickstart. The crash recovery quickstart builds upon this quickstart by demonstrating the fault tolerance of Red Hat JBoss Enterprise Application Platform.
 
-_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP 6.4 and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
+_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
 
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 Configure Maven
 ---------------
@@ -58,7 +58,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Prerequisites
@@ -88,9 +88,9 @@ For this example, you will need two instances of the application server, with a 
 
 Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. 
 
-_Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP 6 server.
+_Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
 
-  * `EAP_HOME` denotes the path to the original JBoss EAP 6 installation. 
+  * `EAP_HOME` denotes the path to the original JBoss EAP installation. 
   * `EAP_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
   * `EAP_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
  

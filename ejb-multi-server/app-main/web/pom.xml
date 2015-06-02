@@ -42,9 +42,9 @@
 
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform 6 located here:
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Development_Guide/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
     -->
     <repositories>
         <repository>
@@ -199,7 +199,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${war.plugin.version}</version>
                 <configuration>
-        <!-- Java EE 7 doesn't require web.xml, Maven needs to catch up! -->
+        <!-- Java EE doesn't require web.xml, Maven needs to catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>

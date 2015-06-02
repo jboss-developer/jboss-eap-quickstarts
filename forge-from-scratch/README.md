@@ -3,27 +3,27 @@ forge-from-scratch: Shows How Forge Can Generate an Application
 Author: Lincoln Baxter, Matej Briskar  
 Level: Intermediate  
 Technologies: Forge  
-Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB 3.1, JAX-RS, JSF) web-enabled database application.   
+Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB, JAX-RS, JSF) web-enabled database application.   
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 8** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 6.4** or later. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 8** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7.4** or later. 
 
-Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA 2.0, EJB 3.1, CDI 1.0, JSF 2.1** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
+Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA, EJB, CDI, JSF** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 
 But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.
 
-_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.4 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.4 or later.
 
-All you need to build this project is Java 7.0 (Java SDK 1.7) or later and Red Hat JBoss Developer Studio 8 or greater.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 8 or greater.
 
 
 Configure Maven for JBoss Developer Studio
@@ -58,7 +58,7 @@ Forge is available in JBoss Developer Studio. To run this example, you must use 
 
 ### What Did This Create?
 
-This quickstart created a native Java EE 6 application. 
+This quickstart created a native Java EE 7 application. 
 
 * After the command completes, look in your `QUICKSTART_HOME/forge-from-scratch/` folder. You see a folder with the name `forge-example`. 
 * This project also appears in the `Project Explorer` view in JBoss Developer Studio. 
@@ -66,8 +66,8 @@ This quickstart created a native Java EE 6 application.
 
 ### Deploy the Generated Application
 
-1. If you have not yet done so, add the JBoss EAP 6.4 runtime server to Red Hat JBoss Developer Studio. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md).
-2. Right-click on the project name and choose `Run As` --> `Run on Server`. If you have more than one server, choose the JBoss EAP 6.4 Runtime server.
+1. If you have not yet done so, add the JBoss EAP 7 runtime server to Red Hat JBoss Developer Studio. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md).
+2. Right-click on the project name and choose `Run As` --> `Run on Server`. If you have more than one server, choose the JBoss EAP 7 Runtime server.
 3. Upon successful deployment, a **Welcome to Forge Window** opens with the application running at the following URL: <http://localhost:8080/forge-example/>
     
 ### Server Log: Expected warnings and errors
@@ -111,7 +111,7 @@ When you are ready to undeploy the application from JBoss EAP:
 
    
 1. Go to the Red Hat JBoss Developer Studio `Servers` window.
-2. Expand the JBoss EAP 6.4 Server to see the list of deployed applications.
+2. Expand the JBoss EAP Server to see the list of deployed applications.
 3. Choose the `forge-example` project created by this quickstart, right-click, and choose `Remove`. 
 4. Click `OK` when asked if you are sure you want to remove resource from the server. You should see the following message:
 

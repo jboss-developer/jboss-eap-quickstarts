@@ -51,7 +51,7 @@
         </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>jaxrs-api</artifactId>
@@ -59,7 +59,7 @@
         </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -67,7 +67,7 @@
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
@@ -89,7 +89,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE 7 doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to 
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>

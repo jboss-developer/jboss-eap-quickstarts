@@ -6,8 +6,7 @@ Technologies: JSF, CDI, DeltaSpike
 Summary: The `deltaspike-projectstage` quickstart shows how to use DeltaSpike project stage to customize the implementation based on the deployment environment.  
 Prerequisites:   
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
@@ -35,9 +34,9 @@ This project has a interface called `MyBean` that has 4 different implementation
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.7. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
  

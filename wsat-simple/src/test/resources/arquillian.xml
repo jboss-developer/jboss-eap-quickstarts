@@ -30,7 +30,7 @@
 
    
 
-   <!-- Example configuration for a remote JBoss EAP 6 instance -->
+   <!-- Example configuration for a remote JBoss EAP instance -->
    <container qualifier="jboss" default="true">
         <configuration>
             <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->

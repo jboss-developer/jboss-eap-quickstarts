@@ -3,21 +3,21 @@ helloworld-singleton: Helloworld Using a Singleton EJB
 Author: Serge Pagop  
 Level: Beginner  
 Technologies: EJB, Singleton  
-Summary: The `helloworld-singleton` quickstart demonstrates an *EJB 3.1 Singleton Bean* that is instantiated once and maintains state for the life of the session.  
+Summary: The `helloworld-singleton` quickstart demonstrates an *EJB Singleton Bean* that is instantiated once and maintains state for the life of the session.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `helloworld-singleton` quickstart demonstrates the use of an *EJB 3.1 Singleton Bean* in Red Hat JBoss Enterprise Application Platform. It is instantiated once and maintains its state for the life of the session.
+The `helloworld-singleton` quickstart demonstrates the use of an *EJB Singleton Bean* in Red Hat JBoss Enterprise Application Platform. It is instantiated once and maintains its state for the life of the session.
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -29,7 +29,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server

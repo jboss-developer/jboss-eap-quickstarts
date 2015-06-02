@@ -5,8 +5,7 @@ Level: Beginner
 Technologies: CDI, DeltaSpike  
 Summary: The `deltaspike-deactivatable` quickstart demonstrates how to use DeltaSpike `ClassDeactivator` to manually deactivate artifacts.   
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
@@ -19,9 +18,9 @@ To deactivate a class you need to implement `ClassDeactivator`. Returning 'false
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
 Configure Maven

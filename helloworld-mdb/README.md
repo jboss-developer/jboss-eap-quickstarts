@@ -3,14 +3,14 @@ helloworld-mdb: Helloworld Using an MDB (Message-Driven Bean)
 Author: Serge Pagop, Andy Taylor, Jeff Mesnil  
 Level: Intermediate  
 Technologies: JMS, EJB, MDB  
-Summary: The `helloworld-mdb` quickstart uses *JMS 1.1* and *EJB 3.1 Message-Driven Bean* (MDB) to create and deploy JMS topic and queue resources in JBoss EAP.  
+Summary: The `helloworld-mdb` quickstart uses *JMS 1.1* and *EJB Message-Driven Bean* (MDB) to create and deploy JMS topic and queue resources in JBoss EAP.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `helloworld-mdb` quickstart demonstrates the use of *JMS 1.1* and *EJB 3.1 Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform.
+The `helloworld-mdb` quickstart demonstrates the use of *JMS 1.1* and *EJB Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform.
 
 This project creates two JMS resources:
 
@@ -21,9 +21,9 @@ This project creates two JMS resources:
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -35,7 +35,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server with the Full Profile
@@ -124,7 +124,7 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 _NOTE_: The domain name for this application will be `helloworldmdb-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
+Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP application:
 
         rhc app create -a helloworldmdb -t jbosseap-6
 

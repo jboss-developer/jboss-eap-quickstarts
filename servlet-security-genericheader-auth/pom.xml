@@ -63,16 +63,16 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of JBoss' Java EE 7 APIs we want to import. 
+            <!-- Define the version of the JBoss Java EE APIs we want to import. 
                 Any dependencies from org.jboss.spec will have their version defined by this 
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE 7 APIs including 
+            <!-- JBoss distributes a complete set of Java EE APIs including 
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
                 a collection) of artifacts. We use this here so that we always get the correct 
                 versions of artifacts. Here we use the jboss-javaee-7.0-with-tools stack 
-                (you can read this as the JBoss stack of the Java EE 7 APIs with tools). 
+                (you can read this as the JBoss stack of the Java EE APIs with tools). 
                 You can actually use this stack with any version of JBoss EAP that implements 
-                Java EE 7, not just JBoss EAP 7! -->
+                Java EE, not just JBoss EAP 7! -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
@@ -95,7 +95,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
@@ -140,7 +140,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE 6 doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to 
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>

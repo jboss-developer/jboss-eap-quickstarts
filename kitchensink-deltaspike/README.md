@@ -5,13 +5,12 @@ Level: Intermediate
 Technologies: CDI, JSF, JPA, JPA, JAX-RS, BV, DeltaSpike  
 Summary: The `kitchensink-deltaspike` quickstart demonstrates how to give transacational behavior to a CDI bean using the Deltaspike @Transactional Annotation.  
 Target Product: JBoss EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.7  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `kitchensink-deltaspike` quickstart is a deployable Maven 3 project that demonstrates how to create a compliant Java EE 6 application using JSF 2.1, CDI 1.0, JPA 2.0 and Bean Validation 1.0 in Red Hat JBoss Enterprise Application Platform. It uses the `kitchensink` quickstart as its starting point, however, rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean. The entity manager is managed by the application rather than the container. 
+The `kitchensink-deltaspike` quickstart is a deployable Maven 3 project that demonstrates how to create a compliant Java EE 7 application using JSF, CDI, JPA and Bean Validation 1.0 in Red Hat JBoss Enterprise Application Platform. It uses the `kitchensink` quickstart as its starting point, however, rather than using a Stateless EJB, it leverages the DeltaSpike @Transactional annotation to give transactional behavior to a CDI bean. The entity manager is managed by the application rather than the container. 
 
 The DeltaSpike project (http://incubator.apache.org/deltaspike) consists of a number of portable CDI extensions that provide useful features for Java application developers.
 
@@ -29,9 +28,9 @@ Changes compared to the original `kitchensink` quickstart
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 6.1 or later with the Red Hat JBoss Web Framework Kit (WFK) 2.7.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
 Configure Maven

@@ -16,4 +16,4 @@ those packaged by this quickstart. See [JBOSS DEPLOYMENT STRUCTURE](<https://doc
 5. Add loadtime-weaving support.
 6. Add OpenShift support.
 7. Add Apache license text.
-8. Regress Hibernate core to 4.2.7.SP1 or before to ensure that it runs on EAP 6.x
+8. Regress Hibernate core to 4.2.7.SP1 or before to ensure that it runs on EAP 7.

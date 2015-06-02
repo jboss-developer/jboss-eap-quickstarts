@@ -22,7 +22,7 @@
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="true">
 
-    <display-name>Java EE 6 Starter Application</display-name>
+    <display-name>Java EE Starter Application</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

@@ -3,14 +3,14 @@ ejb-in-war: Deployment of a WAR Containing an EJB
 Author: Paul Robinson  
 Level: Intermediate  
 Technologies: EJB, JSF, WAR  
-Summary: The `ejb-in-war` quickstart demonstrates how to package an *EJB 3.1* bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.  
+Summary: The `ejb-in-war` quickstart demonstrates how to package an *EJB* bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `ejb-in-war` quickstart demonstrates the deployment of an *EJB 3.1* bean bundled in a WAR archive for deployment to Red Hat JBoss Enterprise Application Platform. The project also includes a set of Arquillian tests for the managed bean and EJB.
+The `ejb-in-war` quickstart demonstrates the deployment of an *EJB* bean bundled in a WAR archive for deployment to Red Hat JBoss Enterprise Application Platform. The project also includes a set of Arquillian tests for the managed bean and EJB.
 
 The example follows the common "Hello World" pattern. These are the steps that occur:
 
@@ -23,9 +23,9 @@ The example follows the common "Hello World" pattern. These are the steps that o
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
 Configure Maven 
@@ -37,7 +37,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server

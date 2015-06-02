@@ -39,9 +39,9 @@
 
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform 6 located here:
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Development_Guide/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
     -->
     <repositories>
         <repository>
@@ -134,17 +134,17 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import. 
+            <!-- Define the version of the JBoss Java EE APIs we want to import. 
                 Any dependencies from org.jboss.spec will have their version defined by this 
                 BOM -->
-             <!-- JBoss distributes a complete set of Java EE 6 APIs including 
+             <!-- JBoss distributes a complete set of Java EE APIs including 
                  a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
                  a collection) of artifacts. We use this here so that we always get the correct 
                  versions of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack 
-                 (you can read this as the JBoss stack of the Java EE 6 APIs with Hibernate) 
+                 (you can read this as the JBoss stack of the Java EE APIs with Hibernate) 
                  and jboss-javaee-6.0-with-deltaspike with extras from the DeltaSpike project. 
                  You can actually use this stack with any version of JBoss that implements 
-                 Java EE 6, not just JBoss EAP 6! -->
+                 Java EE, not just JBoss EAP! -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap</artifactId>
@@ -165,7 +165,7 @@
     <dependencies>
 
         <!-- Import the CDI API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -173,7 +173,7 @@
         </dependency>
 
         <!-- Import the JSF API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.2_spec</artifactId>
@@ -181,7 +181,7 @@
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
@@ -189,7 +189,7 @@
         </dependency>
 
         <!-- Import the EJB API, we use provided scope as the API is included 
-            in JBoss EAP 6 -->
+            in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
@@ -197,7 +197,7 @@
         </dependency>
 
         <!-- Import the Hibernate implementation of Bean Validation API, 
-            we use provided scope as the API is included in JBoss EAP 6 -->
+            we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -229,7 +229,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE 6 doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to 
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>

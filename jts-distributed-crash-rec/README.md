@@ -32,9 +32,9 @@ As an overview, the sequence of events to expect:
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
 Configure Maven
@@ -67,15 +67,15 @@ You can verify the deployment of the `jts` quickstart by accessing the following
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Test the Application
 -----------------------------------
 
-_Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP 6 server.
+_Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
 
-  * `EAP_HOME` denotes the path to the original JBoss EAP 6 installation. 
+  * `EAP_HOME` denotes the path to the original JBoss EAP installation. 
   * `EAP_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
   * `EAP_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
  

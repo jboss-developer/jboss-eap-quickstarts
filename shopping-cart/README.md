@@ -1,16 +1,16 @@
-shopping-cart: EJB 3.1 Stateful Session Bean (SFSB) Example 
+shopping-cart: EJB Stateful Session Bean (SFSB) Example 
 =====================================
 Author: Serge Pagop  
 Level: Intermediate  
 Technologies: SFSB EJB  
-Summary: The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 shopping cart application that uses a stateful session bean (SFSB).   
+Summary: The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 7 shopping cart application that uses a stateful session bean (SFSB).   
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 6 application that uses a stateful session bean (SFSB) in Red Hat JBoss Enterprise Application Platform. The application allows customers to buy, checkout, and view their cart contents. 
+The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 7 application that uses a stateful session bean (SFSB) in Red Hat JBoss Enterprise Application Platform. The application allows customers to buy, checkout, and view their cart contents. 
 
 The `shopping-cart` application consists of the following:
 
@@ -25,9 +25,9 @@ The `shopping-cart` application consists of the following:
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -39,7 +39,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server
@@ -80,7 +80,7 @@ Investigate the Console Output
 
 You should see the following: 
 
-1. The client sends a remote method invocation to the stateful session bean to buy two "Red Hat JBoss Enterprise Application Platform 6" subscriptions and one "JBoss SOA Platform 6" subscription.
+1. The client sends a remote method invocation to the stateful session bean to buy two "Red Hat JBoss Enterprise Application Platform 7. subscriptions and one "JBoss SOA Platform Subscription".
 2. The client sends a remote method invocation to get the contents of the cart and prints it to the console.
 3. The client sends a remote method invocation to invoke checkout. Note the `checkout()` method in the server `ShoppingCartBean` has the `@Remove` annotation. This means the container will destroy shopping cart after the call and it will no longer be available. 
 4. The client calls `getCartContents()` to make sure the shopping cart was removed after checkout. This results in a `javax.ejb.NoSuchEJBException` trace in the server, proving the cart was removed.
@@ -89,13 +89,13 @@ On the client console, you should see output similar to:
 
     &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     Obtained the remote interface to the shopping cart
-    Buying a "Red Hat JBoss Enterprise Application Platform 6"
-    Buying another "Red Hat JBoss Enterprise Application Platform 6"
-    Buying a "JBoss SOA Platform 6"
+    Buying a "Red Hat JBoss Enterprise Application Platform Subscription".
+    Buying another "Red Hat JBoss Enterprise Application Platform Subscription".
+    Buying a "JBoss SOA Platform Subscription"
     
     Print cart:
-    1     JBoss SOA Platform 6
-    2     Red Hat JBoss Enterprise Application Platform 6
+    1     JBoss SOA Platform Subscription
+    2     Red Hat JBoss Enterprise Application Subscription
     
     Checkout
     Cart was correctly removed, as expected, after Checkout

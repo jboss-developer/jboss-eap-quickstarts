@@ -22,7 +22,7 @@
     <artifactId>jboss-spring-kitchensink-asyncrequestmapping-test-webdriver</artifactId>
     <version>7.0.0-SNAPSHOT</version>
     <name>JBoss AS Quickstarts: Kitchensink test via WebDriver with Arquillian</name>
-    <description>This project tests a starter Java EE 6 webapp project for use on JBoss AS 7 / EAP 6 by WebDriver</description>
+    <description>This project tests a starter Java EE webapp project for use on JBoss EAP by WebDriver</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>
@@ -70,15 +70,15 @@
     <dependencyManagement>
         <dependencies>
             <!-- Arquillian dependency -->
-            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+            <!-- Define the version of the JBoss Java EE APIs we want to import.
                  Any dependencies from org.jboss.spec will have their version defined by this BOM
 
-                 JBoss distributes a complete set of Java EE 6 APIs including
+                 JBoss distributes a complete set of Java EE APIs including
                  a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                  a collection) of artifacts. We use this here so that we always get the correct
                  versions of artifacts. Here we use the jboss-javaee-6.0 stack (you can
-                 read this as the JBoss stack of the Java EE 6 APIs). You can actually
-                 use this stack with any version of JBoss EAP that implements Java EE 6. -->
+                 read this as the JBoss stack of the Java EE APIs). You can actually
+                 use this stack with any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>

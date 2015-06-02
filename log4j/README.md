@@ -10,19 +10,19 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `log4j` quickstart is a simple JSF 2.1 application that shows how to use container defined modules to limit the size of the application package in Red Hat JBoss Enterprise Application Platform. It also shows how to use common versions of certain classes at runtime.
+The `log4j` quickstart is a simple JSF application that shows how to use container defined modules to limit the size of the application package in Red Hat JBoss Enterprise Application Platform. It also shows how to use common versions of certain classes at runtime.
 
-Applications must often depend on third-party libraries. By default, Java EE packages allow you to include dependencies in a deployable unit which can lead to uncontrolled growth of the deployable unit. This can be avoided by the use of container defined modules. A module is nothing more than a container managed binary dependency which is shared by all deployed applications. For more informatin on class loading and modules please refer to "About Modules and the New Modular Class Loading System used in JBoss EAP 6" in the [Development Guide for Red Hat JBoss Enterprise Application Platform](https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform).
+Applications must often depend on third-party libraries. By default, Java EE packages allow you to include dependencies in a deployable unit which can lead to uncontrolled growth of the deployable unit. This can be avoided by the use of container defined modules. A module is nothing more than a container managed binary dependency which is shared by all deployed applications.
 
-This example is very simple. It declares dependency on the Apache Log4j module which allows it to use a custom logging framework. This is achieved with a simple addition to the xml file: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`. For more information about this file please refer to the the [Development Guide for Red Hat JBoss Enterprise Application Platform](https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform).
+This example is very simple. It declares dependency on the Apache Log4j module which allows it to use a custom logging framework. This is achieved with a simple addition to the xml file: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`. This file and modular class loading are described in more detail in the [Red Hat JBoss Enterprise Application Platform](https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform) documentation.
 
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -34,7 +34,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server

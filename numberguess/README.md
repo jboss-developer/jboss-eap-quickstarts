@@ -3,22 +3,22 @@ numberguess: Example Using CDI and JSF
 Author: Pete Muir  
 Level: Beginner  
 Technologies: CDI, JSF  
-Summary: The `numberguess` quickstart demonstrates the use of *CDI 1.0*  (Contexts and Dependency Injection) and *JSF 2.1* (JavaServer Faces) in JBoss EAP.  
+Summary: The `numberguess` quickstart demonstrates the use of *CDI*  (Contexts and Dependency Injection) and *JSF* (JavaServer Faces) in JBoss EAP.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `numberguess` quickstart demonstrates the use of *CDI 1.0*  (Contexts and Dependency Injection) and *JSF 2.1* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
+The `numberguess` quickstart demonstrates the use of *CDI*  (Contexts and Dependency Injection) and *JSF* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
 
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -30,7 +30,7 @@ If you have not yet done so, you must [Configure Maven](https://github.com/jboss
 Use of EAP_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Start the JBoss EAP Server

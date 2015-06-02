@@ -44,9 +44,9 @@ There is another test that shows what happens if the client decides to rollback 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
  
 Configure Maven
@@ -181,7 +181,7 @@ If you do not yet have an OpenShift account and domain, [Sign in to OpenShift](h
 
 _NOTE_: The domain name for this application will be `wsatsimple-YOUR_DOMAIN_NAME.rhcloud.com`. In these instructions, be sure to replace all instances of `YOUR_DOMAIN_NAME` with your own OpenShift account user name.
 
-Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP 6 application:
+Open a shell command prompt and change to a directory of your choice. Enter the following command to create a JBoss EAP application:
 
     rhc app create -a wsatsimple -t jbosseap-6
 
