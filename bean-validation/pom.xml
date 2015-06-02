@@ -168,7 +168,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSR-303 (Bean Validation) Implementation -->
+        <!-- Bean Validation Implementation -->
         <!-- Provides portable constraints such as @Email -->
         <!-- Hibernate Validator is shipped in JBoss EAP -->
         <dependency>

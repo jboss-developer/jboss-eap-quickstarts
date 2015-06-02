@@ -136,9 +136,8 @@
             <!-- JBoss distributes a complete set of Java EE APIs including 
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
                 a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-7.0-with-hibernate stack 
-                (you can read this as the JBoss stack of the Java EE Web Profile APIs with 
-                extras from the Hibernate family of projects) -->
+                versions of artifacts. Here we use the jboss-javaee-7.0-eap stack 
+             -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap</artifactId>
@@ -195,7 +194,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSR-303 (Bean Validation) Implementation -->
+        <!-- Bean Validation Implementation -->
         <!-- Provides portable constraints such as @Email -->
         <!-- Hibernate Validator is shipped in JBoss EAP -->
         <dependency>

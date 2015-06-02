@@ -137,7 +137,7 @@
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
                 a collection) of artifacts. We use this here so that we always get the correct 
                 versions of artifacts. Here we use the jboss-javaee-6.0-with-deltaspike and 
-                jboss-javaee-6.0-with-tools with extras from the DeltaSpike project . You 
+                jboss-javaee-7.0-eap-with-tools with extras from the DeltaSpike project . You 
                 can actually use this stack with any version of JBoss that implements 
                 Java EE, not just JBoss EAP6! -->
 

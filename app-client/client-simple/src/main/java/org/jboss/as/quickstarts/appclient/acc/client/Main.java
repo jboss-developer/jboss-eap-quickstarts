@@ -38,7 +38,7 @@ public class Main {
      * Use field injection for the EJB reference.<br/>
      * <b>Notice that the application-container injection only works for 
      * static fields within the main class of the application</b><br/>
-     * See JSR316 (EE6 platform spec) chapter 5.2.5 .
+     * See JSR 342 (EE7 platform spec) chapter 5.2.5 .
      */
     @EJB
     private static StatelessSession slsb;

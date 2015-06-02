@@ -47,7 +47,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
-        <version.jboss.bom.wfk>2.7.0-redhat-1</version.jboss.bom.wfk>
+        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -72,8 +72,8 @@
             <!-- Arquillian dependency -->
             <dependency>
                 <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
