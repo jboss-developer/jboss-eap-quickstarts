@@ -60,7 +60,7 @@ public class ContactValidator {
         Set<ConstraintViolation<Contact>> violations = validator.validate(contact);
 
         if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
+            throw new ConstraintViolationException(new HashSet<>(violations));
         }
 
         // Check the uniqueness of the email address

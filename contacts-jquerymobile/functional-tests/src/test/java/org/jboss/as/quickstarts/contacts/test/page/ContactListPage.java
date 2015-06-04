@@ -57,7 +57,7 @@ public class ContactListPage {
     }
 
     public List<Contact> getContacts() {
-        List<Contact> ret = new ArrayList<Contact>();
+        List<Contact> ret = new ArrayList<>();
         for (ContactListItemPageFragment contactPF : contacts) {
             ret.add(contactPF.getContact());
         }

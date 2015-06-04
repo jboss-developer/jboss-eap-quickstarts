@@ -79,7 +79,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
      */
     @Override
     public Collection<Owner> findByLastName(String lastName) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("lastName", lastName + "%");
         List<Owner> owners = this.namedParameterJdbcTemplate.query(
                 "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
@@ -98,7 +98,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     public Owner findById(int id) throws DataAccessException {
         Owner owner;
         try {
-            Map<String, Object> params = new HashMap<String, Object>();
+            Map<String, Object> params = new HashMap<>();
             params.put("id", id);
             owner = this.namedParameterJdbcTemplate.queryForObject(
                     "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE id= :id",
@@ -113,7 +113,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     }
 
     public void loadPetsAndVisits(final Owner owner) {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", owner.getId().intValue());
         final List<JdbcPet> pets = this.namedParameterJdbcTemplate.query(
                 "SELECT id, name, birth_date, type_id, owner_id FROM pets WHERE owner_id=:id",
@@ -146,7 +146,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     public Collection<PetType> getPetTypes() throws DataAccessException {
         return this.namedParameterJdbcTemplate.query(
-                "SELECT id, name FROM types ORDER BY name", new HashMap<String, Object>(),
+                "SELECT id, name FROM types ORDER BY name", new HashMap<>(),
                 ParameterizedBeanPropertyRowMapper.newInstance(PetType.class));
     }
 

@@ -16,15 +16,17 @@
  */
 package org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import com.arjuna.wst.BusinessAgreementWithCoordinatorCompletionParticipant;
 import com.arjuna.wst.FaultedException;
 import com.arjuna.wst.SystemException;
 import com.arjuna.wst.WrongStateException;
 import com.arjuna.wst11.ConfirmCompletedParticipant;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * An adapter class that exposes the SetManager as a WS-BA participant using the 'Coordinator Completion' protocol.
@@ -43,9 +45,9 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
     private String txID;
     // A list of values added to the set. These are removed from the set at
     // compensation time.
-    private List<String> values = new LinkedList<String>();
+    private List<String> values = new LinkedList<>();
     // table of currently active participants
-    private static HashMap<String, SetParticipantBA> participants = new HashMap<String, SetParticipantBA>();
+    private static Map<String, SetParticipantBA> participants = new HashMap<>();
 
     /**
      * Participant instances are related to business method calls in a one to one manner.

@@ -16,6 +16,7 @@
  */
 package org.jboss.as.quickstarts.ejb.asynchronous;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutionException;
@@ -44,7 +45,7 @@ public class ParallelAccessBean implements ParallelAccess {
 
     @Override
     public Collection<String> invokeAsyncParallel() {
-        ArrayList<String> results = new ArrayList<String>();
+        List<String> results = new ArrayList<>();
         Future<String> call1 = asyncBean.longerRunning(5000);
         Future<String> call2 = asyncBean.longerRunning(3000);
 

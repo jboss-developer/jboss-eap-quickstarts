@@ -16,6 +16,7 @@
  */
 package org.jboss.as.quickstarts.client;
 
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public class Client {
         Logger.getLogger("org.jboss.ejb.client").setLevel(Level.WARNING);
 
         // Create the JNDI InitialContext, configuring it for use with JBoss EJB
-        Hashtable<String, String> jndiProperties = new Hashtable<String, String>();
+        Hashtable<String, String> jndiProperties = new Hashtable<>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
 
@@ -91,7 +92,7 @@ public class Client {
         cart.buy(SOAP, 1);
 
         System.out.println("\nPrint cart:");
-        HashMap<String, Integer> cartContents = cart.getCartContents();
+        Map<String, Integer> cartContents = cart.getCartContents();
         for (String product : cartContents.keySet()) {
             System.out.println(cartContents.get(product) + "     " + product);
         }

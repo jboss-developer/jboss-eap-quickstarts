@@ -77,7 +77,7 @@ public class SAXXMLParser extends XMLParser {
         @Override
         public void startDocument() throws SAXException {
             System.out.println("Parsing the document using the SAXXMLParser!");
-            this.catalog = new ArrayList<Book>();
+            this.catalog = new ArrayList<>();
             this.book = null;
             super.startDocument();
         }

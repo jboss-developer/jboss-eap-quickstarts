@@ -106,7 +106,7 @@ public class RemoteEJBClient {
      * @throws NamingException
      */
     private static RemoteCalculator lookupRemoteStatelessCalculator() throws NamingException {
-        final Hashtable<String, String> jndiProperties = new Hashtable<String, String>();
+        final Hashtable<String, String> jndiProperties = new Hashtable<>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
 
@@ -140,7 +140,7 @@ public class RemoteEJBClient {
      * @throws NamingException
      */
     private static RemoteCounter lookupRemoteStatefulCounter() throws NamingException {
-        final Hashtable<String, String> jndiProperties = new Hashtable<String, String>();
+        final Hashtable<String, String> jndiProperties = new Hashtable<>();
         jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
 

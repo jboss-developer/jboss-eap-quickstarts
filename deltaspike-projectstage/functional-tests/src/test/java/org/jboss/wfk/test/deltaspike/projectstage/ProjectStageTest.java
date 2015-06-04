@@ -51,7 +51,7 @@ public class ProjectStageTest {
     @FindByJQuery("h2:contains('List of available CDI instances for MessageProvider') + table tbody tr td:first-child")
     List<WebElement> TABLE_FIRST_COLUMN;
 
-    private Set<String> allMessages = new HashSet<String>();
+    private Set<String> allMessages = new HashSet<>();
     private static final String EXCLUDED_IF_NOT_DEVEL = "I should ALWAYS be available if the project stage is DEVELOPMENT";
     private static final String EXCLUDED_IF_DEVEL = "I should ALWAYS be available if project stage is NOT DEVELOPMENT";
     private static final String EXCLUDED_ALWAYS = "I should NEVER be available";

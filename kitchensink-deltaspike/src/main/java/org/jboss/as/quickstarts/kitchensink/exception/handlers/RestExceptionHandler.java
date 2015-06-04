@@ -49,7 +49,7 @@ public class RestExceptionHandler {
 
     public void handleGenericException(@Handles @RestRequest ExceptionEvent<Throwable> evt, ResponseBuilder builder) {
         // Handle generic exceptions
-        Map<String, String> responseObj = new HashMap<String, String>();
+        Map<String, String> responseObj = new HashMap<>();
         responseObj.put("error", evt.getException().getMessage());
         builder.status(Response.Status.BAD_REQUEST).entity(responseObj);
         // Mark as handled
@@ -58,7 +58,7 @@ public class RestExceptionHandler {
 
     public void handleValidationException(@Handles @RestRequest ExceptionEvent<ValidationException> evt, ResponseBuilder builder) {
         // Handle the unique constrain violation
-        Map<String, String> responseObj = new HashMap<String, String>();
+        Map<String, String> responseObj = new HashMap<>();
         responseObj.put("email", "Email taken");
         builder.status(Response.Status.CONFLICT).entity(responseObj);
         // Mark as handled
@@ -84,7 +84,7 @@ public class RestExceptionHandler {
     private Map<String, String> createViolationEntity(Set<ConstraintViolation<?>> violations) {
         log.fine("Validation completed. violations found: " + violations.size());
 
-        Map<String, String> responseObj = new HashMap<String, String>();
+        Map<String, String> responseObj = new HashMap<>();
 
         for (ConstraintViolation<?> violation : violations) {
             responseObj.put(violation.getPropertyPath().toString(), violation.getMessage());

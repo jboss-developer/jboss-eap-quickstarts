@@ -303,7 +303,7 @@ public class PetclinicTest {
     public void checkXmlAndFeedOfVets() throws UnsupportedEncodingException, IOException, ValidityException, ParsingException {
         openVetsPage();
 
-        List<Vet> vets = new ArrayList<Vet>();
+        List<Vet> vets = new ArrayList<>();
         for (WebElement vetRow : VETS_TABLE_ROWS) {
             List<WebElement> vetAttributes = vetRow.findElements(ByJQuery.selector("td"));
             String[] vetName = vetAttributes.get(0).getText().split(" ");
@@ -348,7 +348,7 @@ public class PetclinicTest {
             int numberOfSpecs = 0;
 
             if (vet.getSpecialties().length > 0 && !vet.getSpecialties()[0].equals("none")) {
-                StringBuffer specsBuffer = new StringBuffer("");
+                StringBuilder specsBuffer = new StringBuilder("");
                 numberOfSpecs = vet.getSpecialties().length;
 
                 for (int i = 0; i < numberOfSpecs; i++) {
@@ -376,7 +376,7 @@ public class PetclinicTest {
             int numberOfSpecs = 0;
 
             if (vet.getSpecialties().length > 0 && !vet.getSpecialties()[0].equals("none")) {
-                StringBuffer specQuery = new StringBuffer("");
+                StringBuilder specQuery = new StringBuilder("");
                 numberOfSpecs = vet.getSpecialties().length;
 
                 for (int i = 1; i <= numberOfSpecs; i++) {

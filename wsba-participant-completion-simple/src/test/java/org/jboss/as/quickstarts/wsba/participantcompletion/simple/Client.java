@@ -59,7 +59,7 @@ public class Client implements SetServiceBA {
          */
         BindingProvider bindingProvider = (BindingProvider) set;
         @SuppressWarnings("rawtypes")
-        List<Handler> handlers = new ArrayList<Handler>(1);
+        List<Handler> handlers = new ArrayList<>(1);
         handlers.add(new JaxWSHeaderContextProcessor());
         bindingProvider.getBinding().setHandlerChain(handlers);
     }

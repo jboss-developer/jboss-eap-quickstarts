@@ -81,7 +81,7 @@ public class DOM4JXMLParser extends XMLParser {
 
         Document document = this.dom4jReader.read(is);
 
-        List<Book> catalog = new ArrayList<Book>();
+        List<Book> catalog = new ArrayList<>();
         Element root = document.getRootElement();
         if (!root.getQName().getName().equals("catalog")) {
             throw new RuntimeException("Wrong element: " + root.getQName());

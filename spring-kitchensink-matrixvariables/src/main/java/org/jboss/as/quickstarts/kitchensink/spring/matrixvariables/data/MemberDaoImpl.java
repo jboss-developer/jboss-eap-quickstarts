@@ -51,7 +51,7 @@ public class MemberDaoImpl implements MemberDao {
         CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
         EntityType<Member> type = em.getMetamodel().entity(Member.class);
         Root<Member> member = criteria.from(Member.class);
-        List<Predicate> predicatesList = new ArrayList<Predicate>();
+        List<Predicate> predicatesList = new ArrayList<>();
         // If the name exist create the Predicate for a LIKE comparison of the name.
         if (name != null && !name.isEmpty()) {
             Predicate isLikeName = cb.like(cb.lower(member.get(type.getDeclaredSingularAttribute("name", String.class))), "%" + name.toLowerCase() + "%");

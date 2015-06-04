@@ -568,14 +568,14 @@ public class MemberResourceRESTService {
         } catch (ValidationException e) {
             //Handle the unique constrain violation
             Map<String, String> responseObj = 
-                new HashMap<String, String>();
+                new HashMap<>();
             responseObj.put("email", "Email taken");
             builder = Response.status(Response.Status.CONFLICT)
                               .entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj 
-                = new HashMap<String, String>();
+                = new HashMap<>();
             responseObj.put("error", e.getMessage());
             builder = Response.status(Response.Status.BAD_REQUEST)
                               .entity(responseObj);
@@ -614,7 +614,7 @@ public class MemberResourceRESTService {
 
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(
-                new HashSet<ConstraintViolation<?>>(violations));
+                new HashSet<>(violations));
         }
 
         //Check the uniqueness of the email address
@@ -638,7 +638,7 @@ public class MemberResourceRESTService {
             + violations.size());
 
         Map<String, String> responseObj = 
-            new HashMap<String, String>();
+            new HashMap<>();
 
         for (ConstraintViolation<?> violation : violations) {
             responseObj.put(violation.getPropertyPath().toString(), 

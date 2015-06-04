@@ -115,7 +115,7 @@ public class MemberResourceRESTService {
         Set<ConstraintViolation<Member>> violations = validator.validate(member);
 
         if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
+            throw new ConstraintViolationException(new HashSet<>(violations));
         }
 
         // Check the uniqueness of the email address

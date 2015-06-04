@@ -16,7 +16,7 @@
  */
 package org.jboss.as.quickstarts.sfsb;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.ejb.Remote;
 
@@ -29,5 +29,5 @@ public interface ShoppingCart {
 
     public void checkout();
 
-    public HashMap<String, Integer> getCartContents();
+    public Map<String, Integer> getCartContents();
 }

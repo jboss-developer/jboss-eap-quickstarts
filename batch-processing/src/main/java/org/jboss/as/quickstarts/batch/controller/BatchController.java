@@ -110,7 +110,7 @@ public class BatchController {
                 return o2.getJobInstanceId().compareTo(o1.getJobInstanceId());
             }
         });
-        Map<Long, JobExecution> jobIntances = new HashMap<Long, JobExecution>();
+        Map<Long, JobExecution> jobIntances = new HashMap<>();
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         try {
             List<JobInstance> instances = jobOperator.getJobInstances("import-file", 0, jobOperator.getJobInstanceCount("import-file"));

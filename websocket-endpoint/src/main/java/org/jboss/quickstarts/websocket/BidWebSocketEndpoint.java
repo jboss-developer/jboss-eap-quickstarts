@@ -49,7 +49,7 @@ public class BidWebSocketEndpoint {
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
-    private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
+    private static Set<Session> clients = Collections.synchronizedSet(new HashSet<>());
 
     private Runnable intervalNotifier;
 

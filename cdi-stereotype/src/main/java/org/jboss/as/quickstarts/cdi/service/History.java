@@ -28,7 +28,7 @@ import org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor;
  * @author ievgen.shulga
  */
 public class History {
-    private static List<String> itemHistory = new ArrayList<String>();
+    private static List<String> itemHistory = new ArrayList<>();
 
     public static List<String> getItemHistory() {
         return itemHistory;

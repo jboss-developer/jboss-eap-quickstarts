@@ -150,13 +150,13 @@ public class ContactRESTService {
         } catch (ValidationException e) {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
-            Map<String, String> responseObj = new HashMap<String, String>();
+            Map<String, String> responseObj = new HashMap<>();
             responseObj.put("email", "That email is already used, please use a unique email");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
+            Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", e.getMessage());
             builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         }
@@ -208,7 +208,7 @@ public class ContactRESTService {
         } catch (ValidationException e) {
             log.info("ValidationException - " + e.toString());
             // Handle the unique constrain violation
-            Map<String, String> responseObj = new HashMap<String, String>();
+            Map<String, String> responseObj = new HashMap<>();
             responseObj.put("email", "That email is already used, please use a unique email");
             responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
             responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/contact/ContactRESTService.java line 242.");
@@ -216,7 +216,7 @@ public class ContactRESTService {
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
+            Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", e.getMessage());
             builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         }
@@ -252,7 +252,7 @@ public class ContactRESTService {
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
             // Handle generic exceptions
-            Map<String, String> responseObj = new HashMap<String, String>();
+            Map<String, String> responseObj = new HashMap<>();
             responseObj.put("error", e.getMessage());
             builder = Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
         }
@@ -270,7 +270,7 @@ public class ContactRESTService {
     private Response.ResponseBuilder createViolationResponse(Set<ConstraintViolation<?>> violations) {
         log.fine("Validation completed. violations found: " + violations.size());
 
-        Map<String, String> responseObj = new HashMap<String, String>();
+        Map<String, String> responseObj = new HashMap<>();
 
         for (ConstraintViolation<?> violation : violations) {
             responseObj.put(violation.getPropertyPath().toString(), violation.getMessage());

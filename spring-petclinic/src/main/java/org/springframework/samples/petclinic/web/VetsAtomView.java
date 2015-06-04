@@ -48,7 +48,7 @@ public class VetsAtomView extends AbstractAtomFeedView {
         throws Exception {
         Vets vets = (Vets) model.get("vets");
         List<Vet> vetList = vets.getVetList();
-        List<Entry> entries = new ArrayList<Entry>(vetList.size());
+        List<Entry> entries = new ArrayList<>(vetList.size());
         for (Vet vet : vetList) {
             Entry entry = new Entry();
             // see

@@ -91,7 +91,7 @@ public class DOMXMLParser extends XMLParser {
 
         Document document = this.builder.parse(is);
 
-        List<Book> catalog = new ArrayList<Book>();
+        List<Book> catalog = new ArrayList<>();
 
         Element root = document.getDocumentElement();
         if (!root.getLocalName().equals("catalog")) {

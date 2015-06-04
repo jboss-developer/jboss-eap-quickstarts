@@ -28,7 +28,7 @@ import org.jboss.as.quickstart.cdi.parameterlogger.model.ParameterLog;
 @Alternative
 public class TestableParameterLog extends ParameterLog {
     
-    private List<String> log = new ArrayList<String>();
+    private List<String> log = new ArrayList<>();
     
     @Override
     public void info(String message) {

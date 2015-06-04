@@ -21,11 +21,6 @@ import java.util.logging.Logger;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import org.jboss.as.quickstart.cdi.veto.model.Car;
@@ -69,15 +64,7 @@ public class CarManager {
             em.joinTransaction();
             em.persist(car);
             utx.commit();
-        } catch (NotSupportedException e) {
-            log.severe("Transaction Error: " + e.getMessage());
-        } catch (SystemException e) {
-            log.severe("Transaction Error: " + e.getMessage());
-        } catch (HeuristicRollbackException e) {
-            log.severe("Transaction Error: " + e.getMessage());
-        } catch (RollbackException e) {
-            log.severe("Transaction Error: " + e.getMessage());
-        } catch (HeuristicMixedException e) {
+        } catch (Exception e) {
             log.severe("Transaction Error: " + e.getMessage());
         }
     }

@@ -35,7 +35,7 @@ import org.jboss.as.quickstarts.jaxrsclient.model.Contact;
 @Path("/contacts")
 public class ContactResourceRESTService {
 
-    private static Map<Long, Contact> contactsRepository = new HashMap<Long, Contact>();
+    private static Map<Long, Contact> contactsRepository = new HashMap<>();
 
     /**
      * Creates a new contact from the values provided and will return a JAX-RS response with either 200 ok, or 400 (BAD REQUEST)
