@@ -147,7 +147,7 @@
             </plugin>
             <!-- JBoss AS plugin to deploy war -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
+                <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
@@ -178,7 +178,7 @@
                     <!-- To use, set the JBOSS_HOME environment variable 
                         and run: mvn package jboss-as:deploy -->
                     <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
+                        <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>
                         <version>${version.wildfly.maven.plugin}</version>
                     </plugin>

@@ -117,7 +117,7 @@
         
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
         
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -217,9 +217,9 @@
             </plugin>
             <!-- JBoss AS plugin to deploy war -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
             </plugin>
         </plugins>
     </build>
@@ -249,9 +249,9 @@
                     <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
                     <!-- To use, set the JBOSS_HOME environment variable and run: mvn package jboss-as:deploy -->
                     <plugin>
-                        <groupId>org.jboss.as.plugins</groupId>
-                        <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>${version.jboss.maven.plugin}</version>
+                        <groupId>org.wildfly.plugins</groupId>
+                        <artifactId>wildfly-maven-plugin</artifactId>
+                        <version>${version.wildfly.maven.plugin}</version>
                     </plugin>
                 </plugins>
             </build>

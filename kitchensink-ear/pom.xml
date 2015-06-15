@@ -122,7 +122,7 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
 
-        <version.wildfly>9.0.0.CR1</version.wildfly>
+        <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
 
         <!-- other plugin versions -->
         <version.ear.plugin>2.8</version.ear.plugin>

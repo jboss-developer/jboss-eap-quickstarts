@@ -123,7 +123,7 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
 
-        <version.wildfly>9.0.0.CR1</version.wildfly>
+        <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
 
         <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>

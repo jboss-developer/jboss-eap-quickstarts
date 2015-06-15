@@ -835,8 +835,8 @@
 				container -->
 			<!-- To use, run: mvn package jboss-as:deploy -->
 			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>${jboss.maven.plugin.version}</version>
 			</plugin>
 		</plugins>

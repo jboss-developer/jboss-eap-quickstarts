@@ -120,7 +120,7 @@
         <version.commons.logging>1.1.1</version.commons.logging>
 
         <!-- JBoss AS plugin for deployment -->
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
         <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
 
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -268,9 +268,9 @@
         <plugins>
             <!-- Deployent on AS from console -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
             </plugin>
             <!-- Surefire plugin before 2.9 version is buggy -->
             <plugin>
