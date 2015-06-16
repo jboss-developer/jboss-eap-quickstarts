@@ -122,7 +122,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
         <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
 
-        <version.jboss.spec.javaee.7.0>1.0.2.Final</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
     <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>

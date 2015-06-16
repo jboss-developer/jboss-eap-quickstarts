@@ -46,7 +46,7 @@
 
         <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
 
-        <version.jboss.spec.javaee.7.0>1.0.2.Final</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
         <!-- other plugin versions -->
         <version.ejb.plugin>2.3</version.ejb.plugin>
