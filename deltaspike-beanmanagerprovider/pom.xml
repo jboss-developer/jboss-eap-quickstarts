@@ -134,24 +134,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import. 
-                Any dependencies from org.jboss.spec will have their version defined by this 
-                BOM -->
              <!-- JBoss distributes a complete set of Java EE APIs including 
                  a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
                  a collection) of artifacts. We use this here so that we always get the correct 
-                 versions of artifacts. Here we use the jboss-javaee-6.0-with-hibernate stack 
-                 (you can read this as the JBoss stack of the Java EE APIs with Hibernate) 
-                 and jboss-javaee-6.0-with-deltaspike with extras from the DeltaSpike project. 
+                 versions of artifacts. Here we use the jboss-javaee-6.0-with-deltaspike stack 
+                 (you can read this as the JBoss stack of the Java EE APIs with Deltaspike). 
                  You can actually use this stack with any version of JBoss that implements 
                  Java EE, not just JBoss EAP! -->
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-7.0-eap</artifactId>
-                <version>${version.jboss.bom.eap}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-deltaspike</artifactId>
