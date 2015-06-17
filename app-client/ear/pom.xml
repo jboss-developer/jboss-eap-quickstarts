@@ -45,12 +45,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-ejb-client-bom</artifactId>
-            <scope>provided</scope>
-            <type>pom</type>
-        </dependency>
-        <dependency>
           <groupId>${project.groupId}</groupId>
           <artifactId>jboss-app-client-client-simple</artifactId>
           <version>${project.version}</version>

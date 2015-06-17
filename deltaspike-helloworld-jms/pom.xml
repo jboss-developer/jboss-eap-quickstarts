@@ -120,8 +120,6 @@
 
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
-
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -129,7 +127,7 @@
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
 
-        <version.jboss.bom.eap>7.0.0-build-2</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-3</version.jboss.bom.eap>
     </properties>
 
     <dependencyManagement>
@@ -147,14 +145,6 @@
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-deltaspike</artifactId>
                 <version>${version.jboss.bom.eap}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-jms-client-bom</artifactId>
-                <version>${version.org.wildfly}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

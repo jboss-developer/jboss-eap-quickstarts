@@ -116,14 +116,13 @@
             BOM -->
         <!-- Define the version of the JBoss Java EE APIs and Tools we want 
             to import. -->
-        <version.jboss.bom.eap>7.0.0-build-2</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-3</version.jboss.bom.eap>
 
-        <!-- JBoss dependency versions -->
+        <!-- EAP component version management BOM -->
+        <version.jboss.bom.eap>7.0.0-build-3</version.jboss.bom.eap>
+
+        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-
-        <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
-
-        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
         <!-- other plugin versions -->
         <version.ear.plugin>2.8</version.ear.plugin>

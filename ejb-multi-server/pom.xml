@@ -118,21 +118,19 @@
       resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <!-- JBoss dependency versions -->
+        <!-- EAP component version management BOM -->
+        <version.jboss.bom.eap>7.0.0-build-3</version.jboss.bom.eap>
 
+        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.org.wildfly>10.0.0.Alpha3</version.org.wildfly>
 
-        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
-
-    <!-- other versions -->
+        <!-- other versions -->
         <version.jboss.ejb.client>2.0.3.Final</version.jboss.ejb.client>
         
-    <!-- other plugin versions -->
+        <!-- other plugin versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
 
-    <!-- maven-compiler-plugin -->
-            <!-- maven-compiler-plugin -->
+        <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
@@ -153,28 +151,17 @@
 
     <dependencyManagement>
         <dependencies>
-      <!-- Define the version of the JBoss Java EE APIs we want to import. Any 
-        dependencies from org.jboss.spec will have their version defined by this 
-        BOM -->
-      <!-- JBoss distributes a complete set of Java EE APIs including a Bill 
-        of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-        of artifacts. We use this here so that we always get the correct versions 
-        of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as 
-        the JBoss stack of the Java EE APIs). You can actually use this stack with 
-        any version of JBoss EAP that implements Java EE. -->
+            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
+                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+                of artifacts. We use this here so that we always get the correct versions
+                of artifacts. Here we use the jboss-javaee-7.0-eap stack (you can
+                read this as the JBoss stack of the Java EE APIs and related components.  -->
             <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>${version.jboss.spec.javaee.7.0}</version>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>${version.org.wildfly}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
