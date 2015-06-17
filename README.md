@@ -89,8 +89,6 @@ The root folder of each individual quickstart contains a README file with specif
 
 See the README file in each individual quickstart folder for specific details and information on how to run and access the example. 
 
-_Note:_ If you do not configure the Maven settings as described here, [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts), you must pass the configuration setting on every Maven command as follows: ` -s QUICKSTART_HOME/settings.xml`
-
 
 #### Build the Quickstart Archive
 
@@ -98,12 +96,8 @@ In most cases, you can use the following steps to build the application to test 
 
 1. Open a command prompt and navigate to the root directory of the quickstart you want to build.
 2. Use this command if you only want to build the archive, but not deploy it:
-   * If you have configured the Maven settings :
 
             mvn clean install
-   * If you have NOT configured settings Maven settings:
-
-            mvn clean install -s QUICKSTART_HOME/settings.xml
 
 #### Build and Deploy the Quickstart Archive
 
@@ -113,13 +107,8 @@ In most cases, you can use the following steps to build and deploy the applicati
 2. Open a command prompt and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
-   * If you have configured the Maven settings :
-
             mvn clean install jboss-as:deploy
-   * If you have NOT configured the Maven settings :
-
-            mvn clean install jboss-as:deploy -s QUICKSTART_HOME/settings.xml
-
+ 
 #### Undeploy an Archive
 
 The command to undeploy the quickstart is simply: 
@@ -138,13 +127,7 @@ To build the quickstarts:
 2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to build the quickstarts that do not have complex dependencies:
 
-   * If you have configured the Maven settings :
-
             mvn clean install '-Pdefault,!complex-dependencies'
-
-   * If you have NOT configured the Maven settings :
-
-            mvn clean install '-Pdefault,!complex-dependencies' -s QUICKSTART_HOME/settings.xml
 
 _Note_: If you see a `java.lang.OutOfMemoryError: PermGen space` error when you run this command, increase the memory by typing the following command for your operating system, then try the above command again.
 

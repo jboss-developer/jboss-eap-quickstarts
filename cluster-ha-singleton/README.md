@@ -72,8 +72,6 @@ _Note: If you want to test with more than two servers, you can start additional 
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/BUILD_AND_DEPLOY.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
-
 1. Make sure you have started the JBoss EAP servers as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:

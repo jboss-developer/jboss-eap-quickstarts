@@ -45,8 +45,6 @@ Start the JBoss EAP Server
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/BUILD_AND_DEPLOY.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
-
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
@@ -86,8 +84,6 @@ Run the Client Tests using Arquillian
 -------------------------
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
-
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
@@ -240,8 +236,6 @@ This is a benign error that occurs when the status of the deployment is checked 
 ### Run the Remote Client Tests against Openshift
 
 This quickstart provides tests that can be run remotely. By default, these tests are configured to be skipped as the tests require the application to be running remotely. 
-
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line._
 
 1. Make sure you have deployed the Application to Openshift as described above.
 2. Type the following command to run the test goal with the following profile activated and the URL of the deployed Application. Be sure to replaces `YOUR_DOMAIN_NAME` in the URL with your OpenShift account domain name:
