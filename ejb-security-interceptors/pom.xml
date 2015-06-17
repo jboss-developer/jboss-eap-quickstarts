@@ -90,34 +90,13 @@
 
         <dependency>
             <groupId>org.wildfly</groupId>
-            <artifactId>jboss-as-security-api</artifactId>
-            <version>${version.security.api}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>jboss-as-build-config</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>jboss-as-security</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.picketbox</groupId>
-            <artifactId>picketbox</artifactId>
+            <artifactId>wildfly-security-api</artifactId>
+            <version>${version.org.wildfly}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.wildfly</groupId>
-            <artifactId>wildfly-core-security-api</artifactId>
-            <version>${version.security.api}</version>
-            <exclusions>
-                    <exclusion>
-                    <groupId>org.wildfly</groupId>
-                    <artifactId>jboss-as-build-config</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.picketbox</groupId>
+            <artifactId>picketbox</artifactId>
         </dependency>
 
           <!-- Import the CDI API, we use provided scope as the API is included in
