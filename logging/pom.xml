@@ -137,7 +137,7 @@
             <!-- JBoss distributes a complete set of Java EE APIs including a Bill 
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
                 of artifacts. We use this here so that we always get the correct versions 
-                of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack (you can 
+                of artifacts. Here we use the jboss-javaee-7.0-eap stack (you can 
                 read this as the JBoss stack of the Java EE APIs, with some extras tools 
                 for your project, such as Arquillian for testing) -->
             <dependency>
