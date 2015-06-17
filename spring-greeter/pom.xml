@@ -121,7 +121,7 @@
 
         <!-- JBoss AS plugin for deployment -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-2</version.jboss.bom.eap>
 
         <version.surefire.plugin>2.10</version.surefire.plugin>
 

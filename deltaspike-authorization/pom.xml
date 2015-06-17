@@ -127,7 +127,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     
-        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-2</version.jboss.bom.eap>
     </properties>
 
     <dependencyManagement>
@@ -164,6 +164,11 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.interceptor</groupId>
+            <artifactId>jboss-interceptors-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 

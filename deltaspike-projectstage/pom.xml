@@ -126,7 +126,7 @@
         <!-- other plugin versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
 
-        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-2</version.jboss.bom.eap>
     </properties>
 
     <dependencyManagement>

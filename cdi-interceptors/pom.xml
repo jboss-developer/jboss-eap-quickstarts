@@ -123,7 +123,7 @@
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- Define the version of the JBoss Java EE APIs and Tools we want to import. -->
-        <version.jboss.bom.eap>7.0.0-build-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-2</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -158,6 +158,11 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.interceptor</groupId>
+            <artifactId>jboss-interceptors-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
