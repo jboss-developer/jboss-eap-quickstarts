@@ -87,9 +87,7 @@ Start the JBoss EAP Server
 Build and Deploy the Quickstart
 -------------------------
 
-<!-- Contributor: If the quickstart is built and deployed using the standard Maven commands, "mvn install package" and "mvn jboss-as:deploy", copy the following: -->
-
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/BUILD_AND_DEPLOY.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+<!-- Contributor: If the quickstart is built and deployed using the standard Maven commands, copy the following: -->
 
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
@@ -141,8 +139,6 @@ Run the Arquillian Tests (For quickstarts that contain Arquillian tests)
 <!-- Contributor: For example: -->
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
-
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.

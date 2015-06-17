@@ -54,17 +54,11 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container.
 
-_NOTE: The following commands assume you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
-
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
         mvn clean test -Parq-jbossas-remote
-
-_NOTE: If you use the Maven settings command line argument with this quickstart, you need to pass an additional argument to allow ShrinkWrap Resolver to function properly:_
-
-    mvn clean test -Parq-jbossas-remote -s /path/to/custom/settings.xml -Dorg.apache.maven.user-settings=/path/to/custom/settings.xml
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
