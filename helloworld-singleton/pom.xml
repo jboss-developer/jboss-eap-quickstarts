@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld-singleton</name>
     <description>JBoss EAP Quickstart: Helloworld Singleton Session Bean with JSF as client</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

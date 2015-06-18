@@ -26,7 +26,7 @@
     <name>JBoss EAP Quickstart: ejb-remote - client</name>
     <description>JBoss EAP Quickstart: ejb-remote-client</description>
 
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

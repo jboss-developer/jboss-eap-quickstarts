@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: spring-kitchensink-matrixvariables</name>
     <description>Getting Started with Spring 4.0 on JBoss - Matrix Variables</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

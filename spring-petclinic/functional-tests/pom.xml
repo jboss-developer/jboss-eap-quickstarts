@@ -25,7 +25,7 @@
     <name>JBoss AS Quickstarts: Spring Petclinic Demo ftest via WebDriver with Arquillian</name>
     <description>This project tests a starter Java EE webapp project for use in JBoss EAP by WebDriver</description>
 
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

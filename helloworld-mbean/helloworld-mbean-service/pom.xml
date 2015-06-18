@@ -28,7 +28,7 @@
 
     <name>JBoss EAP Quickstart: helloworld-mbean - helloworld-mbean-service</name>
 
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

@@ -25,7 +25,7 @@
     <name>JBoss EAP Quickstart: servlet-security-genericheader-auth</name>
     <description>Generic Header Authenticator: Demonstrates how to authenticate via an externally provided request header</description>
 
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

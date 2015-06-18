@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: temperature-converter</name>
     <description>JBoss EAP Quickstart: Temperature Converter. Given Celsius return Fahrenheit; Given Fahrenheit return Celsius</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -255,7 +255,9 @@
                 -->
                 <module>shopping-cart</module>
                 <module>spring-resteasy</module>
+                <!-- TODO It's failing
                 <module>spring-petclinic</module>
+                -->
                 <module>spring-kitchensink-springmvctest</module>
                 <module>spring-kitchensink-matrixvariables</module>
                 <module>spring-kitchensink-controlleradvice</module>

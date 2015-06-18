@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: logging-tools</name>
     <description>JBoss EAP Quickstart: Demonstration of jboss-logging-tools using JAX-RS</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

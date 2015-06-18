@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld-mdb</name>
     <description>JBoss EAP Quickstart: Helloworld Message-Driven Bean with Servlet 3.0 as client</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>
