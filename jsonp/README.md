@@ -20,7 +20,7 @@ It shows how the JSON-P API can be used to generate JSON files and also parses i
 System requirements
 -------------------
 
-The application this project produces is designed to be run on WildFly. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.x or later.
 
@@ -31,21 +31,21 @@ Configure Maven
 If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 
-Start the WildFly Server
+Start the JBoss EAP Server
 -------------------------
 
-1. Open a command line and navigate to the root of the  WildFly directory.
+1. Open a command line and navigate to the root of the  JBoss EAP directory.
 2. The following shows the command line to start the server with the default profile:
 
-        For Linux:   WILDFLY_HOME/bin/standalone.sh
-        For Windows: WILDFLY_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
 -------------------------
 
 
-1. Make sure you have started the WildFly server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -72,7 +72,7 @@ Undeploy the Archive
 
 <!--Contributor: For example: -->
 
-1. Make sure you have started the WildFly server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
