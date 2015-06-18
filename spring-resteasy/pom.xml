@@ -23,7 +23,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: spring-resteasy</name>
     <description>JBoss EAP Quickstart: Resteasy Spring Demonstrates the use of a JAX-RS RestEasy client</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

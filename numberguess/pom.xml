@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: numberguess</name>
     <description>JBoss EAP Quickstart: Numberguess</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

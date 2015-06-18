@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: kitchensink-ml</name>
     <description>A localized starter Java EE webapp project for use in JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

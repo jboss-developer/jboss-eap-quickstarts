@@ -57,8 +57,8 @@ Build and Deploy the Quickstart
         JBWS024061: Adding service endpoint metadata: id=org.jboss.as.quickstarts.wshelloworld.HelloWorldServiceImpl
          address=http://localhost:8080/jboss-helloworld-ws/HelloWorldService
          implementor=org.jboss.as.quickstarts.wshelloworld.HelloWorldServiceImpl
-         serviceName={http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld}HelloWorldService
-         portName={http://www.jboss.org/jbossas/quickstarts/wshelloworld/HelloWorld}HelloWorld
+         serviceName={http://www.jboss.org/eap/quickstarts/wshelloworld/HelloWorld}HelloWorldService
+         portName={http://www.jboss.org/eap/quickstarts/wshelloworld/HelloWorld}HelloWorld
          annotationWsdlLocation=null
          wsdlLocationOverride=null
          mtomEnabled=false

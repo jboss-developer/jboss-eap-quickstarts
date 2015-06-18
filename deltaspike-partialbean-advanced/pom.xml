@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: deltaspike-partialbean-advanced</name>
     <description>DeltaSpike PartialBean: Demonstrates a more advanced usage scenario involving the DeltaSpike Partial Bean module</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

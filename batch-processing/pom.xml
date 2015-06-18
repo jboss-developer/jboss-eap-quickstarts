@@ -27,7 +27,7 @@
     <name>JBoss EAP Quickstart: jboss-batch-processing</name>
     <description>Shows how to use a Chunk oriented batch processing</description>
 
-    <url>http://wildfly.org</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

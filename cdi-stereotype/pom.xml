@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-stereotype</name>
     <description>JBoss EAP Quickstart: CDI-Stereotype</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: deltaspike-partialbean-basic</name>
     <description>DeltaSpike InvocationHandler: Demonstrates the basics of using the DeltaSpike PartialBean module</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

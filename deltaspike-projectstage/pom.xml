@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: deltaspike-projectstage</name>
     <description>DeltaSpike Project Stage: shows how to use DeltaSpike ProjectStage that allows to use implementations depending on the current environment</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -26,7 +26,7 @@
     <name> JBoss EAP Quickstart: jaxrs-client</name>
     <description>JAX-RS Client API example</description>
 
-    <url>http://wildfly.org</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

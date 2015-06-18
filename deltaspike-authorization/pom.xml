@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: deltaspike-authorization</name>
     <description>DeltaSpike Authorization: shows a custom authorization example using security binding types from DeltaSpike</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

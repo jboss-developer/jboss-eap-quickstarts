@@ -22,7 +22,7 @@
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-asynchronous</name>
     <description>ejb-asynchronous: Demonstrates asynchronous method invocations on an EJB</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

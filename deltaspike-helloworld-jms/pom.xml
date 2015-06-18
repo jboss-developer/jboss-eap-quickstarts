@@ -22,7 +22,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: deltaspike-helloworld-jms</name>
     <description>deltaspike-helloworld-jms: Helloworld JMS producer/consumer client with DeltaSpike property configuration</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

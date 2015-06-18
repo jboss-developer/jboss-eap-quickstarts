@@ -23,7 +23,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: deltaspike-beanmanagerprovider test via WebDriver with Arquillian</name>
 
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

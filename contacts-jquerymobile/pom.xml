@@ -23,7 +23,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: contacts-jquerymobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss.</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>
