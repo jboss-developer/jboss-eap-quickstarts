@@ -302,7 +302,6 @@
                 <!-- TODO: missing deps jboss-as-clustering-singleton and jboss-as-logging 
                 <module>cluster-ha-singleton</module> 
                 -->
-                <module>inter-app</module>                
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>
                 <!-- TODO: needs dependency update for EAP 7/Wildfly 9 
