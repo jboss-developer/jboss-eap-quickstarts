@@ -202,9 +202,7 @@
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
-                <!-- TODO It's failing
                 <module>contacts-jquerymobile</module>
-                -->
                 <module>deltaspike-authorization</module>
                 <module>deltaspike-beanbuilder</module>
                 <module>deltaspike-beanmanagerprovider</module>
