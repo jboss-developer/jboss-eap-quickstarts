@@ -195,7 +195,6 @@
                 <module>bean-validation-custom-constraint</module>
                 <module>bmt</module>
                 <module>cdi-alternative</module>
-                <module>cdi-add-interceptor-binding</module>
                 <module>cdi-decorator</module>
                 <module>cdi-interceptors</module>
                 <module>cdi-injection</module>
