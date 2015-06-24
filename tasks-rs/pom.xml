@@ -264,7 +264,7 @@
             <!-- This profile will start a new JBoss EAP instance, and execute
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
-            <id>arq-jbossas-managed</id>
+            <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
@@ -278,7 +278,7 @@
             <!-- An optional Arquillian testing profile that executes tests
                 in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
-            <id>arq-jbossas-remote</id>
+            <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>

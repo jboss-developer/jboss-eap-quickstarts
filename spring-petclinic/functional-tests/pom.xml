@@ -116,11 +116,11 @@
     <profiles>
         <profile>
             <!-- Profile that executes tests in managed JBoss AS instance. -->
-            <id>arq-jbossas-managed</id>
+            <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -128,11 +128,11 @@
 
         <profile>
             <!-- Profile that executes tests in remote JBoss AS instance. -->
-            <id>arq-jbossas-remote</id>
+            <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

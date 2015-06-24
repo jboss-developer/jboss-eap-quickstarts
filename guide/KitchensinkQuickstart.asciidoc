@@ -1032,12 +1032,12 @@ Now, we need to look at how we select between containers in the `pom.xml`:
     <!-- This profile will start a new JBoss EAP instance, and 
         execute the test, shutting it down when done -->
     <!-- Run with: mvn clean test -Parq-jbossas-managed -->
-    <id>arq-jbossas-managed</id>                                     <1>
+    <id>arq-wildfly-managed</id>                                     <1>
     <dependencies>
         <dependency>
-            <groupId>org.jboss.as</groupId>
+            <groupId>org.wildfly.arquillian</groupId>
             <artifactId>                                             <2>
-                jboss-as-arquillian-container-managed
+                wildfly-arquillian-container-managed
             </artifactId>
             <scope>test</scope>
         </dependency>
@@ -1048,12 +1048,12 @@ Now, we need to look at how we select between containers in the `pom.xml`:
     <!-- An optional Arquillian testing profile that executes 
         tests in a remote JBoss EAP instance -->
     <!-- Run with: mvn clean test -Parq-jbossas-remote -->
-    <id>arq-jbossas-remote</id>
+    <id>arq-wldfly-remote</id>
     <dependencies>
         <dependency>
-            <groupId>org.jboss.as</groupId>
+            <groupId>org.wildfly.arquillian</groupId>
             <artifactId>                                             <3>
-                jboss-as-arquillian-container-remote
+                wildfly-arquillian-container-remote
             </artifactId>
             <scope>test</scope>
         </dependency>
