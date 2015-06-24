@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.cluster.hasingleton.service.ejb;
 
+import java.util.logging.Logger;
+
 import javax.annotation.Resource;
 import javax.ejb.ScheduleExpression;
 import javax.ejb.Singleton;
@@ -23,8 +25,6 @@ import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
-
-import org.jboss.logging.Logger;
 
 
 /**
@@ -34,7 +34,7 @@ import org.jboss.logging.Logger;
  */
 @Singleton
 public class SchedulerBean implements Scheduler {
-    private static Logger LOGGER = Logger.getLogger(SchedulerBean.class);
+    private static Logger LOGGER = Logger.getLogger(SchedulerBean.class.toString());
     @Resource
     private TimerService timerService;
 
@@ -56,7 +56,7 @@ public class SchedulerBean implements Scheduler {
     public void stop() {
         LOGGER.info("Stop all existing HASingleton timers");
         for (Timer timer : timerService.getTimers()) {
-            LOGGER.trace("Stop HASingleton timer: " + timer.getInfo());
+            LOGGER.fine("Stop HASingleton timer: " + timer.getInfo());
             timer.cancel();
         }
     }

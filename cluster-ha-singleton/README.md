@@ -59,13 +59,13 @@ Start the the two JBoss EAP servers with the HA profile, passing a unique node I
 
 If you are using Linux:
 
-        Server 1: EAP_HOME_1/bin/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=Node1
-        Server 2: EAP_HOME_2/bin/standalone.sh --server-config=standalone-ha.xml -Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1/bin/standalone.sh --server-config=standalone-ha.xml 
+        Server 2: EAP_HOME_2/bin/standalone.sh --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: EAP_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=Node1
-        Server 2: EAP_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml -Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml 
+        Server 2: EAP_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
 
 _Note: If you want to test with more than two servers, you can start additional servers by specifying a unique node name and unique port offset for each one._
 
@@ -91,21 +91,17 @@ Build and Deploy the Quickstart
  
 7. To verify the application deployed to each server instance, check the server logs. All instances should have the following message:
 
-        INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010342: Node1/cluster elected as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+        INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) WFLYCLSV0003: <host> elected as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
         
-   Only `Node1` will have this message:
+   Only `EAP 1` will have this message:
    
-        INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) JBAS010340: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
+        INFO  [org.jboss.as.clustering.singleton] (SingletonService lifecycle - 1) WFLYCLSV0001: This node will now operate as the singleton provider of the jboss.quickstart.ejb.ha.singleton service
     
-    You also see the following warning in the server logs. As mentioned above, this quickstart accesses the class `org.jboss.as.clustering.singleton.SingletonService`, which is part of the JBoss EAP private API. This server log message provides an additional warning about the use of the private API.
-   
-        WARN  [org.jboss.as.dependency.private] (MSC service thread 1-11) JBAS018567: Deployment "deployment.jboss-cluster-ha-singleton-service.jar" is using a private module ("org.jboss.as.clustering.singleton:main") which may be changed or removed in future versions without notice.
 
-
-8. The timer on the started node will log a message every 10 seconds. If you stop the `Node1` server, you see messages in the `Node2` server console indicating it is now the singleton provider.
+8. The timer on the started node will log a message every 10 seconds. If you stop the `EAP 1` server, you see messages in the `EAP 2` server console indicating it is now the singleton provider.
 
 9. If you prefer to use a special node, the election-policy can be used.
-   In the example, the node with the name `Node1` will be used as master, if it is available.
+   In the example, the node with the name `EAP 1` will be used as master, if it is available.
    If it has failed or shutdown, any other node will be used.
 
 
@@ -121,7 +117,7 @@ Undeploy the Archive
 
 _Note: You may see the following exception when you undeploy the archive from the second server. You can ignore this message as it is expected._
 
-        ERROR [org.jboss.as.ejb3.invocation] (MSC service thread 1-11) JBAS014134: EJB Invocation failed on component SchedulerBean for method public abstract void org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler.stop(): org.jboss.as.ejb3.component.EJBComponentUnavailableException: JBAS014559: Invocation cannot proceed as component is shutting down
+        ERROR [org.jboss.as.ejb3.invocation] (MSC service thread 1-11) WFLYEJB0034: EJB Invocation failed on component SchedulerBean for method public abstract void org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler.stop(): org.jboss.as.ejb3.component.EJBComponentUnavailableException: WFLYEJB0421: Invocation cannot proceed as component is shutting down
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
@@ -146,7 +142,6 @@ This quickstart is more complex than the others. It requires that you configure 
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `Node1` to open it. 
-   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node1" and click `OK`.
    
 4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
@@ -161,7 +156,7 @@ This quickstart is more complex than the others. It requires that you configure 
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `Node2` to open the `Overview` page. 
-   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.node.name=Node2 -Djboss.socket.binding.port-offset=100" and click `OK`.
+   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.socket.binding.port-offset=100" and click `OK`.
    * Still in the `Overview` page for `Node2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
 
 5. To deploy the cluster-ha-singleton service to `Node 1`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `Node1` and click `Finish`. Note the messages in the `Node1` server console indicate it is the singleton provider of the service.

@@ -16,15 +16,17 @@
  */
 package org.jboss.as.quickstarts.cluster.hasingleton.service.ejb;
 
-import org.jboss.as.clustering.singleton.SingletonService;
-import org.jboss.as.clustering.singleton.election.NamePreference;
-import org.jboss.as.clustering.singleton.election.PreferredSingletonElectionPolicy;
-import org.jboss.as.clustering.singleton.election.SimpleSingletonElectionPolicy;
-import org.jboss.logging.Logger;
+import java.util.logging.Logger;
+
 import org.jboss.msc.service.DelegatingServiceContainer;
 import org.jboss.msc.service.ServiceActivator;
 import org.jboss.msc.service.ServiceActivatorContext;
 import org.jboss.msc.service.ServiceController;
+import org.jboss.msc.service.ServiceName;
+import org.wildfly.clustering.singleton.SingletonServiceBuilderFactory;
+import org.wildfly.clustering.singleton.election.NamePreference;
+import org.wildfly.clustering.singleton.election.PreferredSingletonElectionPolicy;
+import org.wildfly.clustering.singleton.election.SimpleSingletonElectionPolicy;
 
 /**
  * Service activator that installs the HATimerService as a clustered singleton service
@@ -34,14 +36,17 @@ import org.jboss.msc.service.ServiceController;
  * @author Wolf-Dieter Fink
  */
 public class HATimerServiceActivator implements ServiceActivator {
-    private final Logger log = Logger.getLogger(this.getClass());
+    private final Logger log = Logger.getLogger(this.getClass().toString());
 
     @Override
     public void activate(ServiceActivatorContext context) {
         log.info("HATimerService will be installed!");
 
         HATimerService service = new HATimerService();
-        SingletonService<String> singleton = new SingletonService<String>(service, HATimerService.SINGLETON_SERVICE_NAME);
+        ServiceName factoryServiceName = SingletonServiceBuilderFactory.SERVICE_NAME.append("server", "default");
+        ServiceController<?> factoryService = context.getServiceRegistry().getRequiredService(factoryServiceName);
+        SingletonServiceBuilderFactory factory = (SingletonServiceBuilderFactory) factoryService.getValue();
+        factory.createSingletonServiceBuilder(HATimerService.SINGLETON_SERVICE_NAME, service)
         /*
          * The NamePreference is a combination of the node name (-Djboss.node.name) and the name of
          * the configured cache "singleton". If there is more than 1 node, it is possible to add more than
@@ -52,10 +57,10 @@ public class HATimerServiceActivator implements ServiceActivator {
          *   - To pass a list of more than one node, comment the first line and uncomment the
          * second line below.
          */
-        singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node1/singleton")));
+        .electionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node1/singleton")))
         //singleton.setElectionPolicy(new PreferredSingletonElectionPolicy(new SimpleSingletonElectionPolicy(), new NamePreference("node1/singleton"), new NamePreference("node2/singleton")));
 
-        singleton.build(new DelegatingServiceContainer(context.getServiceTarget(), context.getServiceRegistry()))
+        .build(new DelegatingServiceContainer(context.getServiceTarget(), context.getServiceRegistry()))
                 .setInitialMode(ServiceController.Mode.ACTIVE)
                 .install()
         ;
