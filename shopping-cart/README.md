@@ -60,7 +60,7 @@ Build and Deploy the Quickstart
 2. Open a command prompt and navigate to the `shopping-cart` quickstart directory
 3. To build both the server component and the remote client program, deploy the server module, change into the examples shopping-cart directory and type the following:
 
-        mvn clean install jboss-as:deploy 
+        mvn clean install wildfly:deploy 
 4. This Maven goal will deploy `server/target/jboss-shopping-cart-server.jar`. You can check the Application Server console to see information messages regarding the deployment.
 
 
@@ -128,7 +128,7 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse

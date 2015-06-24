@@ -91,7 +91,7 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
 
 4. This deploys `target/jboss-contacts-mobile-basic.war` to the running instance of the server.
 
@@ -152,7 +152,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Run the Arquillian Functional Tests
@@ -208,12 +208,12 @@ NOTE: By default there are turn off tests so you must use the arquillian test pr
 For example:
 
     #No Tests
-    mvn clean package jboss-as:deploy -Pminify
+    mvn clean package wildfly:deploy -Pminify
 
 OR
 
     #With Tests
-    mvn clean package jboss-as:deploy -Pminify,arq-jbossas-remote
+    mvn clean package wildfly:deploy -Pminify,arq-jbossas-remote
  
 Run the Arquillian tests
 ============================

@@ -264,7 +264,7 @@
                     <!-- The JBoss AS plugin deploys your war to a local 
                         JBoss AS container -->
                     <!-- To use, set the JBOSS_HOME environment variable 
-                        and run: mvn package jboss-as:deploy -->
+                        and run: mvn package wildfly:deploy -->
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>

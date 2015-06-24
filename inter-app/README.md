@@ -58,7 +58,7 @@ Build and Deploy the Quickstart
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install jboss-as:deploy
+        mvn clean install wildfly:deploy
 4. This will deploy `shared/target/jboss-inter-app-shared.jar`, `appA/target/jboss-inter-app-appA.war` and `appB/target/jboss-inter-app-appB.war` to the running instance of the server.
 
 Access the application
@@ -80,7 +80,7 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn package jboss-as:undeploy
+        mvn package wildfly:undeploy
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse

@@ -76,16 +76,16 @@ Build and Deploy the Quickstart
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install jboss-as:deploy
+        mvn clean install wildfly:deploy
 
 4. This deploys `service/target/jboss-cluster-ha-singleton-service.jar` to the running instance of the first server.
 5. Since default socket binding port is `9999` and the second server runs at a port offset of `100`, you must pass port `10099` (9999 + 100) as an argument when you deploy to the second server. Type this command to deploy the archive to the second server. 
 
-        mvn jboss-as:deploy -Djboss-as.port=10099
+        mvn wildfly:deploy -Djboss-as.port=10099
     
     If the second server is on a different host, you must also pass an argument for the host name as follows:
     
-        mvn jboss-as:deploy [-Djboss-as.hostname=OTHERHOST] -Djboss-as.port=10099
+        mvn wildfly:deploy [-Djboss-as.hostname=OTHERHOST] -Djboss-as.port=10099
     _Note: If you test with more than two servers, repeat the command, replacing the unique node name and unique port offset for each server._
 6. This deploys `service/target/jboss-cluster-ha-singleton-service.jar` to the running instance of the additional server.
  
@@ -116,8 +116,8 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type the following commands to undeploy the archives:
 
-        mvn jboss-as:undeploy
-        mvn jboss-as:undeploy [-Djboss-as.hostname=OTHERHOST] -Djboss-as.port=10099
+        mvn wildfly:undeploy
+        mvn wildfly:undeploy [-Djboss-as.hostname=OTHERHOST] -Djboss-as.port=10099
 
 _Note: You may see the following exception when you undeploy the archive from the second server. You can ignore this message as it is expected._
 
