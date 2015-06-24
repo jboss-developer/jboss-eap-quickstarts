@@ -112,7 +112,7 @@
 
 		<!-- JBoss dependency versions -->
 		<jboss.maven.plugin.version>7.4.Final</jboss.maven.plugin.version>
-        <version.jboss.bom.eap>7.0.0-build-3</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 

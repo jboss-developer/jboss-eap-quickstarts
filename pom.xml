@@ -283,14 +283,9 @@
                 </property>
             </activation>
             <modules>
-                <!-- TODO: missing deps jboss-as-clustering-singleton and jboss-as-logging 
                 <module>cluster-ha-singleton</module> 
-                -->
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>
-                <!-- TODO: needs dependency update for EAP 7/Wildfly 9 
-                <module>servlet-security-genericheader-auth</module>
-                -->
             </modules>
         </profile>
         <profile>
