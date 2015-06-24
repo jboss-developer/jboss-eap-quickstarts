@@ -238,9 +238,6 @@
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
-                <!-- TODO: needs dependency update for EAP 7/Wildfly 9 
-                <module>servlet-security-genericheader-auth</module>
-                -->
                 <module>shopping-cart</module>
                 <module>spring-resteasy</module>
                 <!-- TODO It's failing
