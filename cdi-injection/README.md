@@ -50,7 +50,7 @@ Build and Deploy the Quickstart
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install jboss-as:deploy
+        mvn clean install wildfly:deploy
 
 4. This will deploy `target/jboss-cdi-injection.war` to the running instance of the server.
 
@@ -68,7 +68,7 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse

@@ -93,7 +93,7 @@ Build and Deploy the Quickstart
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install jboss-as:deploy
+        mvn clean install wildfly:deploy
 4. This will deploy `target/jboss-QUICKSTART_NAME.war` (or `target/jboss-QUICKSTART_NAME.ear`) to the running instance of the server.
  
 <!-- Contributor: Be sure to replace the `QUICKSTART_NAME`. If this quickstart requires different or additional instructions, be sure to modify or add those instructions here. -->
@@ -130,7 +130,7 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Run the Arquillian Tests (For quickstarts that contain Arquillian tests)
