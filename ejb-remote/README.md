@@ -70,7 +70,7 @@ Since this quickstart builds two separate components, you can not use the standa
             mvn clean install        
     * Deploy the EJB JAR to your server. This Maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss EAP server console to see information messages regarding the deployment.
 
-            mvn jboss-as:deploy
+            mvn wildfly:deploy
 4. Build and run the client application
     * Navigate to the client subdirectory:
 
@@ -156,7 +156,7 @@ To undeploy the server side component from the JBoss EAP server:
         cd ../server-side
 2. Type the following command:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 

@@ -107,13 +107,13 @@ In most cases, you can use the following steps to build and deploy the applicati
 2. Open a command prompt and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
-            mvn clean install jboss-as:deploy
+            mvn clean install wildfly:deploy
  
 #### Undeploy an Archive
 
 The command to undeploy the quickstart is simply: 
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 ### Verify the Quickstarts Build with One Command
@@ -146,7 +146,7 @@ You can undeploy quickstarts using the following procedure:
 2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to undeploy any deployed quickstarts:
 
-            mvn jboss-as:undeploy -fae
+            mvn wildfly:undeploy -fae
 
 To undeploy any quickstarts that fail due to complex dependencies, follow the undeploy procedure described in the quickstart's README file.
 

@@ -62,7 +62,7 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
 4. This will deploy `target/jboss-deltaspike-projectstage.war` to the running instance of the server.
 
 Access the application
@@ -74,7 +74,7 @@ You be presented with a simple page that shows the current project stage: *Stagi
 
 Edit the file `src/main/resources/META-INF/apache-deltaspike.properties` and change the `org.apache.deltaspike.ProjectStage` property to `Development`. Deploy the application again
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
 
 Access the application again at the same URL:  <http://localhost:8080/jboss-deltaspike-projectstage>
 
@@ -87,7 +87,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 Run the Arquillian Functional Tests
 -----------------------------------

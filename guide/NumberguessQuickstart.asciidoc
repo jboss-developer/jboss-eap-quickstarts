@@ -7,7 +7,7 @@ This quickstart shows you how to create and deploy a simple application to Red H
 
 Switch to the `quickstarts/numberguess` directory and instruct Maven to build and deploy the application:
 
-    mvn package jboss-as:deploy
+    mvn package wildfly:deploy
 
 The quickstart uses a Maven plugin to deploy the application. The plugin requires Red Hat JBoss Enterprise Application Platform to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss server on Windows>>).
 
@@ -20,9 +20,9 @@ Now, see if you can determine the most efficient approach to pinpoint the random
 Should you wish to undeploy the quickstart, or redeploy after making
 some changes, it's pretty easy:
 
-* `mvn jboss-as:deploy` - deploy any changes to the application to the
+* `mvn wildfly:deploy` - deploy any changes to the application to the
   application server
-* `mvn jboss-as:undeploy` - undeploy the quickstart
+* `mvn wildfly:undeploy` - undeploy the quickstart
 ========================================================================
 
 It's time to pull the covers back and dive into the internals of the quickstart.
