@@ -86,7 +86,7 @@ Build and Deploy the Quickstart
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build the artifacts:
 
-        mvn clean install jboss-as:deploy
+        mvn clean install wildfly:deploy
 
 
 
@@ -147,7 +147,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 4. Open a command prompt and navigate to the root directory of the quickstart.
 5. Deploy the `app-client` quickstart to the remote machine using the following command:
 
-        mvn clean install jboss-as:deploy -Djboss-as.hostname=MACHINE_1_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
+        mvn clean install wildfly:deploy -Dwildfy.hostname=MACHINE_1_IP_ADDRESS [-Dwildfy.port=9099] -Dwildfy.username=admin -Dwildfy.password=admin-123
 6. Be sure that the quickstart deployed successfully and the server is running on `Machine_1` as described above.
 7. Type this command to run the `app-client` application:
 
@@ -180,7 +180,7 @@ Follow these instructions if you are testing the quickstart on the same machine.
 2. Open a command prompt on that server and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from the local machine.
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
         
 
 Undeploy the Archive from the Remote Machine
@@ -192,7 +192,7 @@ Follow these instructions if you are testing the quickstart on a diffent machine
 2. Open a command prompt on the local client machine, `Machine_2`, and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from the remote server machine, `Machine_1`.
 
-        mvn jboss-as:undeploy -Djboss-as.hostname=MACHINE_1_IP_ADDRESS [-Djboss-as.port=9099] -Djboss-as.username=admin -Djboss-as.password=admin-123
+        mvn wildfly:undeploy -Dwildfy.hostname=MACHINE_1_IP_ADDRESS [-Dwildfy.port=9099] -Dwildfy.username=admin -Dwildfy.password=admin-123
         
 
 
