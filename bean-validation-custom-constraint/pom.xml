@@ -300,7 +300,7 @@
                 in your JBoss EAP instance -->
             <!-- This profile will start a new JBoss EAP instance, and execute the
                 test, shutting it down when done -->
-            <!-- Run with: mvn clean test -Parq-jbossas-managed -->
+            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -317,7 +317,7 @@
         <profile>
             <!-- An optional Arquillian testing profile that executes tests
                 in a remote JBoss EAP instance -->
-            <!-- Run with: mvn clean test -Parq-jbossas-remote -->
+            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>

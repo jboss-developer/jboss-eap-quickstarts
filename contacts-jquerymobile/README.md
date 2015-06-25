@@ -170,13 +170,13 @@ To run these tests, you must build the main project as described above.
 3. Navigate to the functional-tests/ directory in this quickstart.
 4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
 
-        mvn clean verify -Parq-jbossas-remote
+        mvn clean verify -Parq-wildfly-remote
 
 5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
 
 _NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
 
-        mvn clean verify -Parq-jbossas-managed
+        mvn clean verify -Parq-wildfly-managed
 
 
 
@@ -223,7 +223,7 @@ the use of a container. You can activate this test by selecting one of the conta
 
 To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:
 
-    mvn clean test -Parq-jbossas-remote
+    mvn clean test -Parq-wildfly-remote
 
 Run the QUnit tests
 ============================

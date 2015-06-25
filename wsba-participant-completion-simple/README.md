@@ -83,7 +83,7 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-remote 
+        mvn clean test -Parq-wildfly-remote 
 
 4. You should see the following result.
 
@@ -158,7 +158,7 @@ This quickstart is more complex than the others. It requires that you configure 
             Configuration base directory: (This should already point to your server configuration directory)
             Configuration file: ../../docs/examples/configs/standalone-xts.xml
 3. Start the new `JBoss EAP XTS Configuration` server. 
-4. Right-click on the `jboss-wsba-participant-completion-simple` project, choose `Run As` --> `Maven build`, enter "clean test -Parq-jbossas-remote" for the `Goals:`, and click `Run` to run the Arquillian tests. The test results appear in the console.
+4. Right-click on the `jboss-wsba-participant-completion-simple` project, choose `Run As` --> `Maven build`, enter "clean test -Parq-wildfly-remote" for the `Goals:`, and click `Run` to run the Arquillian tests. The test results appear in the console.
 
 
 Debug the Application

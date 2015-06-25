@@ -144,7 +144,7 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-remote 
+        mvn clean test -Parq-wildfly-remote 
 
 <!-- Contributor: The quickstart README should show what to expect from the the tests. -->
 

@@ -120,12 +120,12 @@ To run these tests, you must build the main project as described above.
 3. Navigate to the functional-tests/ directory in this quickstart.
 4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
 
-        mvn clean verify -Parq-jbossas-remote
+        mvn clean verify -Parq-wildfly-remote
 
 5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the 
 server for you, type the following command:
 
-        mvn clean verify -Parq-jbossas-managed
+        mvn clean verify -Parq-wildfly-managed
 
 _Note:_ The spring-petclinic quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
 
