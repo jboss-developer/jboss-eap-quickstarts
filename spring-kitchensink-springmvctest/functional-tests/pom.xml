@@ -21,7 +21,7 @@
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-spring-kitchensink-springmvctest-test-webdriver</artifactId>
     <version>7.0.0-SNAPSHOT</version>
-    <name>JBoss AS Quickstarts: Kitchensink test via WebDriver with Arquillian</name>
+    <name>JBoss EAP Quickstarts: Kitchensink test via WebDriver with Arquillian</name>
     <description>This project tests a starter Java EE webapp project for use on JBoss EAP by WebDriver</description>
 
     <url>http://www.jboss.org/products/eap</url>
@@ -49,7 +49,7 @@
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
         <version.jboss.bom.eap>6.3.2.GA</version.jboss.bom.eap>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -126,7 +126,7 @@
 
     <profiles>
         <profile>
-            <!-- Profile that executes tests in managed JBoss AS instance. -->
+            <!-- Profile that executes tests in managed JBoss EAP instance. -->
             <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
@@ -138,7 +138,7 @@
         </profile>
 
         <profile>
-            <!-- Profile that executes tests in remote JBoss AS instance. -->
+            <!-- Profile that executes tests in remote JBoss EAP instance. -->
             <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>

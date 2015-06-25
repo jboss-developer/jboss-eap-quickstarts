@@ -4,7 +4,7 @@ Quickstarts Release Procedure
 Testing the quickstarts
 -----------------------
 
-  Most of the quickstarts require Red Hat JBoss Enterprise Application Platform or JBoss AS only in standalone mode. Some require the "standalone-full" profile, some require XTS, some require Postgres and some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:
+  Most of the quickstarts require starting Red Hat JBoss Enterprise Application Platform in standalone mode. Some require the "standalone-full" profile, some require XTS, some require Postgres and some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:
 
       mvn clean install wildfly:deploy wildfly:undeploy -Parq-wildfly-remote -P-requires-postgres,-requires-full,-complex-dependencies,-requires-xts
 
@@ -74,7 +74,7 @@ Publishing builds to Maven
               <password>myPassword</password>
           </server>
 
-  4. Add `org.sonatype.plugins` plugin group to your `settings.xml` so nexus plugin can be available for publishing scripts.
+  4. Add `org.sonatype.plugins` plug-in group to your `settings.xml` so the Nexus plug-in can be available for publishing scripts.
 
           <pluginGroups>
               <pluginGroup>org.sonatype.plugins</pluginGroup>

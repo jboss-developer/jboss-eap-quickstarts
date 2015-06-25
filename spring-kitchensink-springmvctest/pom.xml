@@ -401,7 +401,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
-            <!-- Surefire plugin before 2.9 version is buggy -->
+            <!-- Surefire plug-in before 2.9 version is buggy -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.maven.surefire}</version>

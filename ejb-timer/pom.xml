@@ -177,7 +177,7 @@
         <finalName>${project.artifactId}</finalName>
 
         <plugins>
-            <!-- JBoss AS plugin to deploy the war. -->
+            <!-- WildFly plug-in to deploy the war. -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

@@ -126,7 +126,7 @@
          <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
         
-       <!-- other plugin versions -->
+       <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -287,7 +287,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys your war to a local JBoss EAP 
                 container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>

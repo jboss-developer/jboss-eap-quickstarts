@@ -151,7 +151,7 @@ _Note_: After the above INFO message, you may see the following error. You can i
 Optional Properties
 -------------------
 
-The example provides for a certain amount of customization for the `mvn:exec` plugin using the system properties.
+The example provides for a certain amount of customization for the `mvn:exec` plug-in using the system properties.
 
 * `username`
    

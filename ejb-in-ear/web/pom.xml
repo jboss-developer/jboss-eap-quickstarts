@@ -33,7 +33,7 @@
     <packaging>war</packaging>
 
     <name>JBoss EAP Quickstart: ejb-in-ear - web</name>
-    <description>JBoss EAP Quickstart: EJB and War in an Ear - WEB</description>
+    <description>JBoss EAP Quickstart: EJB and War in an EAR - WEB</description>
 
     <licenses>
         <license>

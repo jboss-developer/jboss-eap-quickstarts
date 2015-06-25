@@ -122,7 +122,7 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -222,7 +222,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

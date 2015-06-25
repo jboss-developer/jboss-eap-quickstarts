@@ -114,7 +114,7 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.org.jboss.spec.javax.websocket>1.0.0.Final</version.org.jboss.spec.javax.websocket>
  
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
         
          <!-- maven-compiler-plugin -->
@@ -143,7 +143,7 @@
                 </configuration>
             </plugin>
             
-           <!-- JBoss AS plugin to deploy war -->
+           <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

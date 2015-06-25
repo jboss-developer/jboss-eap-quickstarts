@@ -22,7 +22,7 @@
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server</name>
     <description>ejb-multi-server: An example that demonstrates multiple applications deployed on different servers.
-     This POM defines common properties to specify the used versions and plugins.
+     This POM defines common properties to specify the used versions and plug-ins.
      The subprojects are built in the appropriate sequence.</description>
     <url>http://www.jboss.org/products/eap</url>
 
@@ -121,13 +121,13 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
+        <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- other versions -->
         <version.jboss.ejb.client>2.0.3.Final</version.jboss.ejb.client>
         
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
 
         <!-- maven-compiler-plugin -->

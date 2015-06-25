@@ -118,10 +118,10 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
+        <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -214,7 +214,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

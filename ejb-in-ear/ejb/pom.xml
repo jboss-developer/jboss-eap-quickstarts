@@ -31,7 +31,7 @@
 
     <artifactId>jboss-ejb-in-ear-ejb</artifactId>
     <name>JBoss EAP Quickstart: ejb-in-ear - ejb</name>
-    <description>JBoss EAP Quickstart: EJB and War in an Ear - EJB</description>
+    <description>JBoss EAP Quickstart: EJB and War in an EAR - EJB</description>
 
     <licenses>
         <license>
@@ -70,7 +70,7 @@
     <build>
         <!-- Specify the artifact name, this is referred to in the EAR's application.xml -->
         <finalName>${project.artifactId}</finalName>
-        <!-- Compiler plugin enforces Java 1.6 compatibility and activates
+        <!-- Compiler plug-in enforces Java 1.6 compatibility and activates
             annotation processors -->
         <plugins>
             <plugin>

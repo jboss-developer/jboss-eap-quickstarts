@@ -127,7 +127,7 @@
         <version.org.hibernate.infinispan>3.6.8.Final</version.org.hibernate.infinispan>
         <version.org.hibernate.validator>3.1.0.GA</version.org.hibernate.validator>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -321,7 +321,7 @@
         <!-- Define dependency on hibernate 3.x, since scope is 'compile', 
             it will be included in WEB-INF/lib -->
         <!-- Import the hibernate-core, so its included in deployment unit: 
-            NOTE! this scope is "compile", this will make Maven war plugin to include 
+            NOTE! this scope is "compile", this will make Maven WAR plug-in to include 
             it in WEB-INF/lib -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -329,7 +329,7 @@
         </dependency>
 
         <!-- Import the hibernate-entitymanager, so its included in deployment 
-            unit: NOTE! this scope is "compile", this will make Maven war plugin to include 
+            unit: NOTE! this scope is "compile", this will make Maven WAR plug-in to include 
             it in WEB-INF/lib -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -337,7 +337,7 @@
         </dependency>
 
         <!-- Import the hibernate-validator, so its included in deployment 
-            unit: NOTE! this scope is "compile", this will make Maven war plugin to include 
+            unit: NOTE! this scope is "compile", this will make Maven WAR plug-in to include 
             it in WEB-INF/lib -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -346,14 +346,14 @@
 
         <!-- Import the hibernate-commons-annotations, so its included in 
             deployment unit: NOTE! this scope is "compile", this will make Maven war 
-            plugin to include it in WEB-INF/lib -->
+            plug-in to include it in WEB-INF/lib -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
         </dependency>
 
         <!-- Import the hibernate-infinispan, so its included in deployment 
-            unit: NOTE! this scope is "compile", this will make Maven war plugin to include 
+            unit: NOTE! this scope is "compile", this will make Maven WAR plug-in to include 
             it in WEB-INF/lib -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -383,7 +383,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

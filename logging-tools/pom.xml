@@ -124,7 +124,7 @@
         <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
         
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -188,14 +188,14 @@
                 <version>${version.war.plugin}</version>
             </plugin>
 
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
 
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation processors -->
+            <!-- Compiler plug-in enforces Java 1.6 compatibility and activates annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.compiler.plugin}</version>

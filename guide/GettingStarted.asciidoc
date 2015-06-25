@@ -130,7 +130,7 @@ That's it, JBoss EAP is installed and running! Visit http://localhost:8080/ to c
 [TIP]
 ========================================================================
 You can find the server log for standalone instances in 
-`jboss-as-7.x.x/standalone/log/server.log`. The JBoss EAP
+`jboss-eap/standalone/log/server.log`. The JBoss EAP
 link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/[Administration and Configuration Guide] covers more on configuring logging.
 ========================================================================
 
@@ -232,5 +232,5 @@ Or, on Windows:
 
 Once started, type help to discover the commands available to you. 
 
-Throughout this guide we use the `jboss-as` maven plugin to deploy and undeploy applications. This plugin uses the Native Java Detyped Management API to communicate with the server. The Detyped API is used by management tools to control an entire domain of servers, and exposes only a small number of types, allowing for backwards and forwards compatibility. 
+Throughout this guide we use the WildFly Maven plug-in to deploy and undeploy applications. This plug-in uses the Native Java Detyped Management API to communicate with the server. The Detyped API is used by management tools to control an entire domain of servers, and exposes only a small number of types, allowing for backwards and forwards compatibility. 
 

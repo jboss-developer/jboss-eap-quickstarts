@@ -202,7 +202,7 @@ First, in the <project-root>/src/main/webapp/index.html file, search for referen
 uncomment the appropriate lines.
 
 Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. 
-The plugin is in a profile with an id of "minify" so you will want to specify that profile in your maven build.
+The plug-in is in a profile with an id of "minify" so you will want to specify that profile in your maven build.
 
 NOTE: By default there are turn off tests so you must use the arquillian test profile to run tests when minifying.
 For example:
@@ -213,7 +213,7 @@ For example:
 OR
 
     #With Tests
-    mvn clean package wildfly:deploy -Pminify,arq-jbossas-remote
+    mvn clean package wildfly:deploy -Pminify,arq-wildfly-remote
  
 Run the Arquillian tests
 ============================

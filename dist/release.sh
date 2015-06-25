@@ -71,7 +71,7 @@ release()
    git checkout -b $RELEASEVERSION
    echo "Regenerating html from markdown"
    $DIR/release-utils.sh -m
-   echo "Releasing JBoss AS Quickstarts version $RELEASEVERSION"
+   echo "Releasing JBoss EAP Quickstarts version $RELEASEVERSION"
    $DIR/release-utils.sh -u -o $SNAPSHOTVERSION -n $RELEASEVERSION
    echo "Removing unnecessary files"
    git rm --cached -r dist/

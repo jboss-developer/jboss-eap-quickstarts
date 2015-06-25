@@ -119,13 +119,13 @@
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- Define the version of the JBoss Java EE APIs and Tools we want to import. -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -244,7 +244,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
@@ -272,7 +272,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The JBoss AS plugin deploys your war to a local JBoss EAP container -->
+                    <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
                     <!-- To use, set the JBOSS_HOME environment variable and run:
                         mvn package wildfly:deploy -->
                     <plugin>

@@ -121,10 +121,10 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
+        <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.ear.plugin>2.8</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -195,9 +195,9 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- The JBoss AS plugin deploys your ear to a local JBoss EAP container -->
+                <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container -->
                 <!-- Due to Maven's lack of intelligence with EARs we need 
-                    to configure the jboss-as maven plugin to skip deployment for all modules. 
+                    to configure the WildFly Maven plug-in to skip deployment for all modules. 
                     We then enable it specifically in the ear module. -->
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>

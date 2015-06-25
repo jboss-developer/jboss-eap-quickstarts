@@ -50,7 +50,7 @@
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
         <version.resteasy>3.0.10.Final</version.resteasy>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.surefire.plugin>2.16</version.surefire.plugin>
         <version.war.plugin>2.5</version.war.plugin>
 
@@ -240,7 +240,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The WildFly plugin deploys your war to a local WildFly container -->
+            <!-- The WildFly plug-in deploys your war to a local WildFly container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

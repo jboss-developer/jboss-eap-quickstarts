@@ -42,7 +42,7 @@ By now, we're very used to seeing <b>beans.xml</b> and <b>faces-config.xml</b> i
 Notice that, once again, we don&apos;t need a web.xml. 
 There are two configuration files in <b>WEB-INF/classes/META-INF</b> 
 (which can be found in the <b>src/main/resources</b> directory of the example) — <b>persistence.xml</b>, 
-which sets up JPA, and <b>import.sql</b> which Hibernate, the JPA provider in JBoss AS 7, 
+which sets up JPA, and <b>import.sql</b> which Hibernate, the JPA provider in JBoss EAP, 
 will use to load the initial users into the application when the application starts. 
 We discussed both of these files in detail in The <b>greeter example in depth</b>, and these are largely the same.
     </description> 
@@ -292,38 +292,31 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
     <subitem
             label="We use the 'resource producer' pattern, from CDI, to 'alias' the old fashioned @PersistenceContext injection of the entity manager to a CDI style injection. This allows us to use a consistent injection style (@Inject) throughout the application. "
             skip="true">
-    <command
+      <command
       required="false"
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/kitchensink/util/Resources.java,fromLine=43)"/>
-  </subitem>
-  <subitem
+    </subitem>
+    <subitem
             label="We expose a JDK logger for injection. In order to save a bit more boiler plate, we automatically set the logger category as the class name! "
             skip="true">
-    <command
+      <command
       required="false"
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/kitchensink/util/Resources.java,fromLine=47)"/>
-  </subitem>
-  <subitem
+    </subitem>
+    <subitem
             label="We expose the FacesContext via a producer method, which allows it to be injected. If we were adding tests, we could also then mock it out."
             skip="true">
-    <command
+      <command
       required="false"
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/kitchensink/util/Resources.java,fromLine=52)"/>
-  </subitem>
+    </subitem>
     <subitem
-            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform"
+            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform."
             skip="true">
     <command
            required="false"
-           serialization="org.eclipse.ui.browser.openBrowser(url=https://access.redhat.com/documentation/JBoss_Enterprise_Application_Platform/)"/>
-  </subitem>
-  <subitem
-            label="or at the JBoss AS Getting Started Guide."
-            skip="true">
-    <command
-           required="false"
-           serialization="org.eclipse.ui.browser.openBrowser(url=https://docs.jboss.org/author/display/AS71/Getting+Started+Guide)"/>
-  </subitem>
+           serialization="org.eclipse.ui.browser.openBrowser(url=https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/)"/>
+    </subitem>
   </item>
   
   <item
@@ -459,7 +452,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/kitchensink/rest/MemberResourceRESTService.java,fromLine=65)"/>
   </subitem>
   <subitem
-            label="The listAllMembers() method is called when the raw endpoint is accessed and offers up a list of endpoints. Notice that the object is automatically marshalled to JSON by RESTEasy (the JAX-RS implementation included in Red Hat JBoss Enterprise Application Platform and JBoss AS 7)."
+            label="The listAllMembers() method is called when the raw endpoint is accessed and offers up a list of endpoints. Notice that the object is automatically marshalled to JSON by RESTEasy (the JAX-RS implementation included in Red Hat JBoss Enterprise Application Platform)."
             skip="true">
     <command
       required="false"
@@ -525,7 +518,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
        you&apos;re probably getting a bit nervous by now, wondering how on earth you are going to test your application. 
        Lucky for you, the Arquillian project is here to help!
     <br/><br/>
-    Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform or JBoss AS 7, 
+    Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform, 
     allowing you to concentrate on testing your application. 
     In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, 
     to create an archive to deploy. 
@@ -545,20 +538,20 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       The following action starts the test in the <b>remote</b> mode because you have started the server in the previous step. 
     <br/>
         Right-click the project, select <b>Properties&gt;Maven</b> and 
-        enter <b>arq-jbossas-remote</b> to the <b>Active Maven Profile</b> field. 
+        enter <b>arq-wildfly-remote</b> to the <b>Active Maven Profile</b> field. 
         After that, right-click the project and select <b>Run As&gt;JUnit test</b>.
     </description>
     <!-- the launchJUnitTest command is not implemented yey
     <command
       required="false"
-      serialization="org.jboss.tools.project.examples.cheatsheet.actions.launchJUnitTest(project=${currentProject}, activateProfile=arq-jbossas-remote)"/>
+      serialization="org.jboss.tools.project.examples.cheatsheet.actions.launchJUnitTest(project=${currentProject}, activateProfile=arq-wildfly-remote)"/>
   -->
   
   <action
       pluginId="org.jboss.tools.project.examples.cheatsheet"
       class="org.jboss.tools.project.examples.cheatsheet.actions.LaunchJUnitTest"
       param1="${currentProject}" 
-        param2="arq-jbossas-remote"/> 
+        param2="arq-wildfly-remote"/> 
   </item>
   
   <item
@@ -639,7 +632,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
     First of all, let&apos;s take a look at <b>arquillian.xml</b> in <b>src/test/resources</b>.
     </description>
     <subitem
-            label="Arquillian deploys the test war to JBoss AS, and doesn't write it to disk. For debugging, it can be very useful to see exactly what is in your war, so Arquillian allows you to export the war when the tests runs "
+            label="Arquillian deploys the test war to JBoss EAP, and doesn't write it to disk. For debugging, it can be very useful to see exactly what is in your war, so Arquillian allows you to export the war when the tests runs "
             skip="true">
     <command
       required="false"
@@ -661,7 +654,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/pom.xml,fromLine=238,toLine=314)"/>
   </subitem>
   <subitem
-            label="Arquillian decides which container to use depending on your classpath. Here we define the remote JBoss AS container. "
+            label="Arquillian decides which container to use depending on your classpath. Here we define the remote JBoss EAP container. "
             skip="true">
     <command
       required="false"

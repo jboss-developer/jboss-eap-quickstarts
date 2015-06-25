@@ -45,7 +45,7 @@
         
         <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.ejb.plugin>2.3</version.ejb.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -95,7 +95,7 @@
         <!-- Set the name of the deployment -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- JBoss AS plugin to deploy the application -->
+            <!-- WildFly plug-in to deploy the application -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

@@ -122,7 +122,7 @@
 
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.exec.plugin>1.2.1</version.exec.plugin>
 
@@ -197,14 +197,14 @@
               </configuration>
             </plugin>
 
-            <!-- JBoss AS plugin to deploy war -->
+            <!-- WildFly plug-in to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
             
-            <!-- exec maven plugin to execute client to show how to get security token from PicketLink STS  -->
+            <!-- exec maven plug-in to execute client to show how to get security token from PicketLink STS  -->
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>exec-maven-plugin</artifactId>

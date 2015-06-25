@@ -169,7 +169,7 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-            <!-- Configure the plugin to copy the jar containing javax.annotation.* to a folder named "endorsed" within the 
+            <!-- Configure the plug-in to copy the jar containing javax.annotation.* to a folder named "endorsed" within the 
               project's build directory -->
                             <artifactItems>
                                 <artifactItem>
@@ -186,7 +186,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.compiler.plugin}</version>
                 <configuration>
-                    <!-- Setup the compiler plugin to use the endorsed directory containing
+                    <!-- Setup the compiler plug-in to use the endorsed directory containing
                          the jar for javax.annotation.* classes. Remember that we setup this folder
                          via the maven-dependency-plugin configuration, above.
                          See JsfController.java for more details.

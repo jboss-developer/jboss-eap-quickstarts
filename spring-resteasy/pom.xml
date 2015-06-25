@@ -90,7 +90,7 @@
         <!-- RESTEasy Version -->
 <!--         <version.springframework>3.2.7.RELEASE</version.springframework> -->
 
-        <!-- Maven Plugin Versions -->
+        <!-- Maven Plug-in Versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
@@ -234,7 +234,7 @@
             root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
+            <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

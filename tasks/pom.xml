@@ -119,10 +119,10 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
+        <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -212,9 +212,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys your war to a local JBoss EAP 
                 container -->
-            <!-- As this project has tests only, so we disable the JBoss AS plugin, 
+            <!-- As this project has tests only, so we disable the WildFly plug-in, 
                 this allows us to continue to use the standard deployment commands 
                 without error. -->
             <plugin>

@@ -12,7 +12,7 @@ CHANGES
 those packaged by this quickstart. See [JBOSS DEPLOYMENT STRUCTURE](<https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7#ClassLoadinginAS7-JBossDeploymentStructureFile>) for more details.
 2. Configured to use Red Hat JBoss EAP BOMs.
 3. Regressed the jQuery version to 1.9 as that is what is currently certified on EAP.
-4. Add plugin to deploy directly to running JBoss from mvn build.
+4. Add plug-in to deploy directly to running JBoss from mvn build.
 5. Add loadtime-weaving support.
 6. Add OpenShift support.
 7. Add Apache license text.

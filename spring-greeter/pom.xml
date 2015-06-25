@@ -119,7 +119,7 @@
         <version.standard.taglibs>1.1.2</version.standard.taglibs>
         <version.commons.logging>1.1.1</version.commons.logging>
 
-        <!-- JBoss AS plugin for deployment -->
+        <!-- WildFly plug-in for deployment -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
@@ -272,7 +272,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
             </plugin>
-            <!-- Surefire plugin before 2.9 version is buggy -->
+            <!-- Surefire plug-in before 2.9 version is buggy -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>

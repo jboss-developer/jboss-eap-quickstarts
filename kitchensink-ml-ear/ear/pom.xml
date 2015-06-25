@@ -82,9 +82,9 @@
                     <fileNameMapping>no-version</fileNameMapping>
                 </configuration>
             </plugin>
-            <!-- The JBoss AS plugin deploys your ear to a local JBoss EAP container -->
+            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container -->
             <!-- Due to Maven's lack of intelligence with EARs we need to configure 
-                the jboss-as maven plugin to skip deployment for all modules. We then enable 
+                the WildFly Maven plug-in to skip deployment for all modules. We then enable 
                 it specifically in the ear module. -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

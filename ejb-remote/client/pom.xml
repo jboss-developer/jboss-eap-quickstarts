@@ -45,11 +45,11 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
+        <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.exec.plugin>1.2.1</version.exec.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
@@ -115,7 +115,7 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
 
-            <!-- Add the maven exec plugin to allow us to run a java program 
+            <!-- Add the maven exec plug-in to allow us to run a java program 
                 via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -156,7 +156,7 @@
                 </configuration>
             </plugin>
 
-            <!-- The JBoss AS plugin deploys your apps to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys your apps to a local JBoss EAP 
                 container -->
             <!-- Disabling it here means that we don't try to deploy this 
                 POM! -->

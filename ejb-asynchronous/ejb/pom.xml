@@ -64,7 +64,7 @@
                 </configuration>
             </plugin>
             
-            <!-- JBoss AS plugin to deploy jar -->
+            <!-- WildFly plug-in to deploy jar -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

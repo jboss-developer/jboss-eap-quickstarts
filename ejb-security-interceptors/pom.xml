@@ -44,13 +44,13 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plugin used for deploying to Wildfly or EAP 7 -->
+        <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
 
-        <!-- other plugin versions -->
+        <!-- other plug-in versions -->
         <version.exec.plugin>1.2.1</version.exec.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -118,7 +118,7 @@
             <generateClient>true</generateClient>
           </configuration>
         </plugin>
-                <!-- Add the maven exec plugin to allow us to run a java program via maven -->
+                <!-- Add the maven exec plug-in to allow us to run a java program via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -144,7 +144,7 @@
                 </configuration>
             </plugin>
 
-                <!-- JBoss AS plugin to deploy ejb -->
+                <!-- WildFly plug-in to deploy ejb -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
