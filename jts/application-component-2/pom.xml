@@ -25,7 +25,7 @@
     </parent>
 
     <artifactId>jboss-jts-application-component-2</artifactId>
-    <packaging>ejb</packaging>
+    <packaging>jar</packaging>
 
     <name>JBoss EAP Quickstart: jts - application-component-2</name>
     <description>Using CMT with JTS</description>

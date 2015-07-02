@@ -124,25 +124,19 @@ _NOTE:_ When you have completed testing this quickstart, it is important to [Rem
 
 After stopping the server, open the `EAP_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
-1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `jacorb` subsystem to enable JTS. A naming root is also added to the subsystem.
+1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `iiop-openjdk` subsystem to enable JTS. A naming root is also added to the subsystem.
 
-        <subsystem xmlns="urn:jboss:domain:jacorb:1.4">
-            <orb name="${jboss.node.name}" socket-binding="jacorb" ssl-socket-binding="jacorb-ssl">
-                <initializers security="identity" transactions="on"/>
+        <subsystem xmlns="urn:jboss:domain:iiop-openjdk:1.0">
+            <orb>
+                <initializers security="identity" transactions="full"/>
             </orb>
-            <naming root-context="${jboss.node.name}/Naming/root"/>
         </subsystem>
 
 2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
 
         <subsystem xmlns="urn:jboss:domain:transactions:1.5">
             <core-environment node-identifier="${jboss.tx.node.id}">
-                <process-id>
-                    <uuid/>
-                </process-id>
-            </core-environment>
-            <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
-            <coordinator-environment default-timeout="300"/>
+            <!-- LEAVE THE EXISTING CONFIGURATION AND APPEND THE FOLLOWING -->
             <jts/>
         </subsystem>
         
@@ -262,12 +256,14 @@ This script removes the JTS configuration from the `jacorb` and `transactions` s
         For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect
 3. At the prompt, type the following:
 
-        /subsystem=jacorb/:write-attribute(name=transactions,value=spec)
-        /subsystem=jacorb/:undefine-attribute(name=name)
+        /subsystem=iiop-openjdk/:write-attribute(name=transactions,value=spec)
         /subsystem=transactions/:undefine-attribute(name=jts)
         /subsystem=transactions/:undefine-attribute(name=node-identifier)
-        :reload
+ You should see the following result when you run the script:
 
+        The batch executed successfully.
+        {"outcome" => "success"}
+      
 ### Remove the JTS Server Configuration Manually
 
 1. Stop the server.
@@ -276,9 +272,9 @@ This script removes the JTS configuration from the `jacorb` and `transactions` s
 
     * Find the orb subsystem and change the configuration back to:
 
-            <subsystem xmlns="urn:jboss:domain:jacorb:1.4">
+            <subsystem xmlns="urn:jboss:domain:iiop-openjdk:1.0">
                 <orb>
-                    <initializers security="on" transactions="spec"/>
+                    <initializers security="identity" transactions="spec"/>
                 </orb>
             </subsystem>
     * Find the transaction subsystem and remove the `<jts/>` element:
