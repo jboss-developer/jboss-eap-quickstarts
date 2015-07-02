@@ -17,13 +17,13 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.quickstarts.wfk</groupId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-kitchensink-html5-mobile</artifactId>
-    <version>2.7.0-SNAPSHOT</version>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss WFK Quickstart: kitchensink-html5-mobile</name>
-    <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
-    <url>http://jboss.org/jdf</url>
+    <name>JBoss EAP Quickstart: kitchensink-html5-mobile</name>
+    <description>A Java EE HTML5 mobile web application for use with JBoss.</description>
+    <url>http://jboss.org/jbossas</url>
 
     <licenses>
         <license>
@@ -34,17 +34,34 @@
     </licenses>
 
     <!-- Activate JBoss Product Maven repository.
-
         NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
         and is only done here to make it easier to use the quickstarts.
-
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for JBoss EAP 6 located here:
-
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html-single/Development_Guide
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
+        <repository>
+            <id>redhat-earlyaccess-all-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>redhat-techpreview-all-repository</id>
             <url>https://maven.repository.redhat.com/techpreview/all/</url>
@@ -58,6 +75,26 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-earlyaccess-all-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>redhat-techpreview-all-repository</id>
             <url>https://maven.repository.redhat.com/techpreview/all/</url>
@@ -77,45 +114,36 @@
 
         <!-- JBoss dependency versions -->
 
-        <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.3.2.GA</version.jboss.bom.eap>
-        <version.jboss.bom.wfk>2.7.0-redhat-1</version.jboss.bom.wfk>
+        <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>
-        <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>
+        <version.ro.isdc.wro4j>1.7.8</version.ro.isdc.wro4j>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+            <!-- JBoss distributes a complete set of Java EE APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                 a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack
-                (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras
-                tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate
-                stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras
-                from the Hibernate family of projects) -->
+                versions of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack
+                (you can read this as the JBoss stack of the Java EE APIs, with some extras
+                tools for your project, such as Arquillian for testing) and the jboss-javaee-7.0-eap
+                stack you can read this as the JBoss stack of the Java EE APIs) -->
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
-                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.bom.eap</groupId>
-                <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -136,35 +164,35 @@
         <!-- Import the Common Annotations API (JSR-250), we use provided scope as the API is included in JBoss -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+            <artifactId>jboss-annotations-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included in JBoss -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- Import the EJB API, we use provided scope as the API is included in JBoss -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6 -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -185,7 +213,7 @@
 
         <!-- Now we declare any tools needed -->
 
-        <!-- Annotation processor to generate the JPA 2.0 metamodel classes for typesafe criteria queries -->
+        <!-- Annotation processor to generate the JPA metamodel classes for typesafe criteria queries -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
@@ -224,16 +252,16 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+                    <!-- Java EE doesn't require web.xml, Maven needs to catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
-            <!-- To use, run: mvn package jboss-as:deploy -->
+            <!-- The WildFly plugin deploys your war to a local JBoss EAP container -->
+            <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
-                <groupId>org.jboss.as.plugins</groupId>
-                <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>${version.jboss.maven.plugin}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
             </plugin>
             <plugin>
                <artifactId>maven-surefire-plugin</artifactId>
@@ -298,14 +326,14 @@
             </build>
         </profile>
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in your JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute the test, shutting it down when done -->
-            <!-- Run with: mvn clean test -Parq-jbossas-managed -->
-            <id>arq-jbossas-managed</id>
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done -->
+            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+            <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -323,13 +351,13 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss AS instance -->
-            <!-- Run with: mvn clean test -Parq-jbossas-remote -->
-            <id>arq-jbossas-remote</id>
+            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance -->
+            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
+            <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

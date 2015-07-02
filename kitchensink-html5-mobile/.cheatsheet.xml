@@ -18,7 +18,7 @@
 <cheatsheet title="HTML5 + Mobile + JAX-RS: Kitchensink quickstart">
   <intro>
     <description>
-      This quickstart shows off HTML5 based desktop/mobile web application development with Java EE 6 on Red Hat JBoss Enterprise Application Platform 6.1 or later. This project uses HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
+      This quickstart shows off HTML5 based desktop/mobile web application development with Java EE 7 on Red Hat JBoss Enterprise Application Platform 7 or later. This project uses HTML5, jQuery Mobile, JAX-RS 2.0, CDI 1.1, EJB 3.2, JPA 2.1 and Bean Validation 1.1. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
       <br/><br/>
       <b>HTML5</b>
       <br/><br/>
@@ -30,19 +30,19 @@
       <br/><br/>
       <b>JAX-RS: The Java API for RESTful Web Services</b>
       <br/><br/>
-      JAX-RS is a new specification in Java EE 6. It allows application developers to easily expose Java services as RESTful web services.
+      JAX-RS is a specification in Java EE that allows application developers to easily expose Java services as RESTful web services.
       <br/><br/>
-      <b>EJB 3.1</b>
+      <b>EJB 3.2</b>
       <br/><br/>
-      EJB 3.1 is an update to the EJB specification for Java EE 6. It allows application developers to build business components and services.
+      EJB 3.2 is an update to the EJB specification for Java EE 7. It allows application developers to build business components and services.
       <br/><br/>
-      <b>JPA 2.0</b>
+      <b>JPA 2.1</b>
       <br/><br/>
-      JPA 2.0 is an update to the JPA specification for Java EE 6. It provides application developers with an object-relational mapping facility to manage relational data. 
+      JPA 2.1 is an update to the JPA specification for Java EE 7. It provides application developers with an object-relational mapping facility to manage relational data.
       <br/><br/>
-      <b>Bean Validation</b>
+      <b>Bean Validation 1.1</b>
       <br/><br/>
-      Bean Validation is a new specification in Java EE 6, inspired by Hibernate Validator. It allows application developers to specify constraints once (often in their domain model), and have them applied in all layers of the application, protecting data and giving useful feedback to users.
+      Bean Validation 1.1 is an update to the JPA specification for Java EE 7. It was inspired by Hibernate Validator. It allows application developers to specify constraints once (often in their domain model), and have them applied in all layers of the application, protecting data and giving useful feedback to users.
       <br/><br/>
     </description>
   </intro>
@@ -50,7 +50,7 @@
     skip="false"
     title="The kitchensink-html5-mobile example in depth">
     <description>
-      The kitchensink-html5-mobile application shows off a number of Java EE technologies such as HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. 
+      The kitchensink-html5-mobile application shows off a number of Java EE technologies such as HTML5, jQuery Mobile, JAX-RS 2.0, CDI 1.1, EJB 3.2, JPA 2.1 and Bean Validation 1.1.
       It does this by providing a member registration database, available via HTML5 and JAX-RS.
       <br/><br/>
       As usual, let&apos;s start by looking at the necessary deployment descriptors. By now, we&apos;re very used to seeing <b>beans.xml</b> in <b>WEB-INF/</b> (which can be found in the <b>src/main/webapp</b> directory of the example). Notice that, once again, we don&apos;t need a web.xml. There are two configuration files (which can be found in the <b>src/main/resources</b> directory of the example) — <b>WEB-INF/classes/META-INF/persistence.xml</b>, which sets up JPA, and <b>WEB-INF/classes/import.sql</b> which Hibernate, the JPA provider in Red Hat JBoss Enterprise Application Platform, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in The <b>greeter example in depth</b>, and these are largely the same.
@@ -619,7 +619,7 @@
       The following action starts the test in the <b>remote</b> mode because you have started the server in the previous step. 
     <br/>
         Right-click the project, select <b>Properties&gt;Maven</b> and 
-        enter <b>arq-jbossas-remote</b> to the <b>Active Maven Profile</b> field. 
+        enter <b>arq-wildfly-remote</b> to the <b>Active Maven Profile</b> field.
         After that, right-click the project and select <b>Run As&gt;JUnit test</b>.
         <br/><br/>
         After performing this action, you should see a green bar in the <b>JUnit</b> view!
@@ -628,14 +628,14 @@
     <!-- the launchJUnitTest command is not implemented yey
     <command
       required="false"
-      serialization="org.jboss.tools.project.examples.cheatsheet.actions.launchJUnitTest(project=${currentProject}, activateProfile=arq-jbossas-remote)"/>
+      serialization="org.jboss.tools.project.examples.cheatsheet.actions.launchJUnitTest(project=${currentProject}, activateProfile=arq-wildfly-remote)"/>
   -->
   
   <action
       pluginId="org.jboss.tools.project.examples.cheatsheet"
       class="org.jboss.tools.project.examples.cheatsheet.actions.LaunchJUnitTest"
       param1="${currentProject}" 
-        param2="arq-jbossas-remote"/> 
+        param2="arq-wildfly-remote"/>
   </item>
   
   <item
@@ -716,7 +716,7 @@
     First of all, let&apos;s take a look at <b>arquillian.xml</b> in <b>src/test/resources</b>.
     </description>
     <subitem
-            label="Arquillian deploys the test war to JBoss AS, and doesn't write it to disk. For debugging, it can be very useful to see exactly what is in your war, so Arquillian allows you to export the war when the tests runs "
+            label="Arquillian deploys the test war to JBoss EAP, and doesn't write it to disk. For debugging, it can be very useful to see exactly what is in your war, so Arquillian allows you to export the war when the tests runs "
             skip="true">
     <command
       required="false"
@@ -740,7 +740,7 @@
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/pom.xml,fromLine=300,toLine=323)"/>
   </subitem>
   <subitem
-            label="Arquillian decides which container to use depending on your classpath. Here we define the remote JBoss AS container. "
+            label="Arquillian decides which container to use depending on your classpath. Here we define the remote JBoss EAP container. "
             skip="true">
     <command
       required="false"
