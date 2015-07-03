@@ -23,7 +23,7 @@
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: kitchensink-html5-mobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss.</description>
-    <url>http://jboss.org/jbossas</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>
@@ -139,8 +139,7 @@
                 a collection) of artifacts. We use this here so that we always get the correct
                 versions of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack
                 (you can read this as the JBoss stack of the Java EE APIs, with some extras
-                tools for your project, such as Arquillian for testing) and the jboss-javaee-7.0-eap
-                stack you can read this as the JBoss stack of the Java EE APIs) -->
+                tools for your project, such as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
@@ -168,28 +167,28 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss -->
+        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JPA API, we use provided scope as the API is included in JBoss -->
+        <!-- Import the JPA API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the EJB API, we use provided scope as the API is included in JBoss -->
+        <!-- Import the EJB API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP 6 -->
+        <!-- Import the Servlet API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>

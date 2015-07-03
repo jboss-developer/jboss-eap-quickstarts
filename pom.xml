@@ -213,6 +213,7 @@
                 <module>ejb-multi-server</module>
                 <module>greeter</module>
                 <module>helloworld</module>
+                <module>helloworld-html5</module>
                 <module>helloworld-jms</module>
                 <module>helloworld-mbean</module>
                 <module>helloworld-mdb</module>
