@@ -20,7 +20,6 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import org.apache.deltaspike.core.api.projectstage.ProjectStage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -48,13 +47,13 @@ public class ShrinkwrapImportFromPomTest {
     public static Archive<?> createTestArchive() {
 
         File[] libs = Maven.resolver()
-            // This will load the pom.xml file. For example purpose, the pom file had the arq-jbossas-remote profile
+            // This will load the pom.xml file. For example purpose, the pom file had the arq-wildfly-remote profile
             // activated and default profile deactivated (which was active by default)
-            .loadPomFromFile("pom.xml", "arq-jbossas-remote", "!default")
+            .loadPomFromFile("pom.xml", "arq-wildfly-remote", "!default")
             .importCompileAndRuntimeDependencies().resolve().withoutTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(MyDeltaspikeBean.class)
+            .addClasses(MyBean.class)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsLibraries(libs)
@@ -63,12 +62,12 @@ public class ShrinkwrapImportFromPomTest {
     }
 
     @Inject
-    private MyDeltaspikeBean myDeltaspikeBean;
+    private MyBean myBean;
 
     // Basic test to demonstrate that the Arquillian is working with the Shrinkwrap resolver use case in this class
     @Test
     public void test() {
-        // getActualProjectStage uses Deltaspike that was resolved by Shrinkwrap-resolver through pom.xml
-        Assert.assertEquals(myDeltaspikeBean.getActualProjectStage(), ProjectStage.Production);
+        // toString uses Apache Commons Lang that was resolved by Shrinkwrap-resolver through pom.xml
+        Assert.assertNotNull(myBean.toString());
     }
 }

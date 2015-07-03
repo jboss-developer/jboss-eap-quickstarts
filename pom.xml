@@ -240,6 +240,7 @@
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
                 <module>shopping-cart</module>
+                <module>shrinkwrap-resolver</module>
                 <module>spring-resteasy</module>
                 <!-- TODO It's failing
                 <module>spring-petclinic</module>
