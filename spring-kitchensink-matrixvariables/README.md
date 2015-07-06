@@ -39,23 +39,9 @@ the url form: `/filter;n=Name;e=Email`.
 System Requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-To run the quickstart with the provided build script, you need the following:
-
-1. Java 1.6, to run JBoss and Maven. You can choose from the following:
-    * OpenJDK
-    * Oracle Java SE
-    * Oracle JRockit
-
-2. Maven 3.0.0 or later, to build and deploy the examples
-    * If you have not yet installed Maven, see the [Maven Getting Started Guide](http://maven.apache.org/guides/getting-started/index.html) for details.
-    * If you have installed Maven, you can check the version by typing the following in a command line:
-
-            mvn --version 
-
-3. The JBoss EAP distribution ZIP.
-    * For information on how to install and run JBoss, refer to the product documentation.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.0 or later.
 
 
 Configure Maven
