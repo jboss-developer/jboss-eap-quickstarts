@@ -45,8 +45,8 @@
     -->
     <repositories>
         <repository>
-            <id>redhat-earlyaccess-all-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <id>redhat-earlyaccess-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -65,8 +65,8 @@
             </snapshots>
         </repository>
         <repository>
-            <id>redhat-techpreview-all-repository</id>
-            <url>https://maven.repository.redhat.com/techpreview/all/</url>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -78,8 +78,8 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>redhat-earlyaccess-all-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <id>redhat-earlyaccess-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -98,8 +98,8 @@
             </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>redhat-techpreview-all-repository</id>
-            <url>https://maven.repository.redhat.com/techpreview/all/</url>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
