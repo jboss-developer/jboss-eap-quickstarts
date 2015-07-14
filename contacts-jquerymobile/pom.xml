@@ -14,8 +14,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-contacts-jquerymobile</artifactId>
@@ -40,11 +39,21 @@
 
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
-        in the Development Guide for JBoss EAP located here:
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html-single/Development_Guide
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
     -->
     <repositories>
+        <repository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>redhat-ga-repository</id>
             <url>https://maven.repository.redhat.com/ga/</url>
@@ -58,6 +67,16 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>redhat-ga-repository</id>
             <url>https://maven.repository.redhat.com/ga/</url>
@@ -82,7 +101,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-5</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>

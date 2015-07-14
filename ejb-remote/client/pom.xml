@@ -43,7 +43,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-5</version.jboss.bom.eap>
 
         <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>

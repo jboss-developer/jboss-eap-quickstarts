@@ -52,16 +52,6 @@
     -->
     <repositories>
         <repository>
-            <id>redhat-earlyaccess-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
             <id>jboss-developer-staging-repository</id>
             <url>http://jboss-developer.github.io/temp-maven-repo/</url>
             <releases>
@@ -84,16 +74,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>redhat-earlyaccess-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
         <pluginRepository>
             <id>jboss-developer-staging-repository</id>
             <url>http://jboss-developer.github.io/temp-maven-repo/</url>
@@ -191,6 +171,7 @@
                 <!-- All the modules that require nothing but JBoss Enterprise
                     Application Platform or JBoss EAP -->
                 <module>app-client</module>
+                <module>batch-processing</module>
                 <module>bean-validation</module>
                 <module>bean-validation-custom-constraint</module>
                 <module>bmt</module>
@@ -205,7 +186,6 @@
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
-                <module>ejb-remote</module>
                 <module>ejb-security</module>
                 <module>ejb-security-interceptors</module> 
                 <module>ejb-throws-exception</module>
@@ -287,6 +267,7 @@
             </activation>
             <modules>
                 <module>cluster-ha-singleton</module> 
+                <module>ejb-remote</module>
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>
             </modules>

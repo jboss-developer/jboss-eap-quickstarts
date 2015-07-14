@@ -14,18 +14,16 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-ejb-security-interceptors</artifactId>
     <version>7.0.0-SNAPSHOT</version>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-security-interceptors</name>
     <description>JBoss EAP Quickstart: EJB Security Interceptors</description>
-
     <url>http://www.jboss.org/products/eap</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -33,6 +31,63 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+
+    <!-- Activate JBoss Product Maven repository.
+
+        NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
+        and is only done here to make it easier to use the quickstarts.
+
+        For more information about how to configure Maven for your application,
+        see the section entitled 'Use the Maven Repository'
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
+
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+    -->
+    <repositories>
+        <repository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following
@@ -42,7 +97,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0-build-4</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-5</version.jboss.bom.eap>
 
         <!-- Wildfly Maven plug-in used for deploying to Wildfly or EAP 7 -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
@@ -155,5 +210,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
