@@ -16,6 +16,7 @@
  */
 package org.jboss.as.quickstarts.kitchensink.test.page;
 
+import org.jboss.arquillian.graphene.angular.findby.FindByNg;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.as.quickstarts.kitchensink.test.Member;
@@ -35,7 +36,7 @@ public class MembersTablePageFragment {
     /**
      * Locator for rows of the members table
      */
-    @FindByJQuery("tbody tr.ng-scope")
+    @FindByNg(repeat = "member in members | orderBy:orderBy")
     private List<MemberPageFragment> members;
 
 

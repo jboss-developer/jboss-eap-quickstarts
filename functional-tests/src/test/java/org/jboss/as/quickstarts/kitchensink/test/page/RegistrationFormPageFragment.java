@@ -17,6 +17,7 @@
 package org.jboss.as.quickstarts.kitchensink.test.page;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.angular.findby.FindByNg;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
@@ -30,6 +31,7 @@ import org.openqa.selenium.support.FindBy;
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
 public class RegistrationFormPageFragment {
+
     /**
      * Injects browser to our test.
      */
@@ -51,19 +53,19 @@ public class RegistrationFormPageFragment {
     /**
      * Locator for name field
      */
-    @FindBy(id = "name")
+    @FindByNg(model = "newMember.name")
     private WebElement nameField;
 
     /**
      * Locator for email field
      */
-    @FindBy(id = "email")
+    @FindByNg(model = "newMember.email")
     private WebElement emailField;
 
     /**
      * Locator for phone number field
      */
-    @FindBy(id = "phoneNumber")
+    @FindByNg(model = "newMember.phoneNumber")
     private WebElement phoneField;
 
     /**
