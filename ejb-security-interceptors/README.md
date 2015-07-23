@@ -77,7 +77,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or later, Maven 3.
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
 
 Prerequisites
 -------------
