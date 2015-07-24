@@ -81,7 +81,7 @@
       <port binding='tns:ProfileMgmtBinding' name='ProfileMgmtPort'>
  
          <soap:address
-             location='SERVER:PORT/jaxws-samples-retail/ProfileMgmtBean'/>
+             location='SERVER:PORT/jboss-jaxws-retail/ProfileMgmtBean'/>
       </port>
    </service>
 </definitions>	

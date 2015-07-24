@@ -1,11 +1,10 @@
 jaxws-retail: A Retail JAX-WS Web Service
 =========================================
-Author: R Searls
+Author: R Searls  
 Level: Beginner  
 Technologies: JAX-WS  
 Summary: The `jaxws-retail` quickstart is a working example of a simple web service endpoint.
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, EAP 6.4  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
@@ -46,22 +45,29 @@ _NOTE: The following build command assumes you have configured your Maven user s
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean install jboss-as:deploy
+        mvn clean install wildfy:deploy
 
 4. This will deploy `service/target/jboss-jaxws-retail-service.war` to the running instance of the server.
 
 Access the application 
 ---------------------
 
-You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jaxws-samples-retail/ProfileMgmtService/ProfileMgmt?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-jaxws-retail/ProfileMgmtService/ProfileMgmt?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 Run the Client
 --------------
 1. Make sure the service deployed properly.
 2. Open a command prompt and navigate into the client directory of this quickstart.
+
+     cd client/
 3. Type this command to run the client.
 
      mvn exec:java
+     
+4. You should see the following output in the client console.
+   
+     Jay Boss's discount is 10.00
+
 
 Undeploy the Archive
 --------------------
@@ -70,4 +76,4 @@ Undeploy the Archive
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfy:undeploy

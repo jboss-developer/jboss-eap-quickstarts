@@ -16,5 +16,5 @@
     limitations under the License.
 -->
 <jboss-web>
-    <context-root>jaxws-samples-endpoint-pojo</context-root>
+    <context-root>jboss-jaxws-pojo-endpoint</context-root>
 </jboss-web>
