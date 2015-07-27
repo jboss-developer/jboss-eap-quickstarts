@@ -33,6 +33,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -129,6 +130,8 @@ public class KitchensinkAngularjsTest {
 
     @Before
     public void loadPage() {
+        browser.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+
         browser.get(contextPath.toString());
         form.waitUntilPresent();
     }
