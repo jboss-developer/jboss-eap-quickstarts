@@ -1,10 +1,10 @@
-contacts-mobile-basic: JAX-RS Services Documentation 
+contacts-jquerymobile: JAX-RS Services Documentation 
 =======================================================
 Author: Joshua Wilson
 
 This example supports various RESTFul end points which also includes JSONP support for cross domain requests.
 
-By default the base URL for services is `/jboss-contacts-mobile-basic/rest`.
+By default the base URL for services is `/jboss-contacts-jquerymobile/rest`.
 
 ContactService End Points
 ------------------------

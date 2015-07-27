@@ -24,9 +24,9 @@
     <!-- The datasource is bound into JNDI at this location. We reference 
          this in META-INF/persistence.xml -->
     <datasource jndi-name="java:jboss/datasources/JbossContactsMobileBasicQuickstartDS"
-                pool-name="contacts-mobile-basic" enabled="true"
+                pool-name="contacts-jquerymobile" enabled="true"
                 use-java-context="true">
-        <connection-url>jdbc:h2:mem:jboss-contacts-mobile-basic-quickstart;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
+        <connection-url>jdbc:h2:mem:jboss-contacts-jquerymobile-quickstart;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
         <driver>h2</driver>
         <security>
             <user-name>sa</user-name>
