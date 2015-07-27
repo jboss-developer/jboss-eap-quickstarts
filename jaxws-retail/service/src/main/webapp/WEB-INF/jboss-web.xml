@@ -16,5 +16,5 @@
     limitations under the License.
 -->
 <jboss-web>
-   <context-root>jaxws-samples-retail</context-root>
+   <context-root>jboss-jaxws-retail</context-root>
 </jboss-web>

@@ -16,5 +16,5 @@
     limitations under the License.
 -->
 <jboss-web>
-    <context-root>jaxws-samples-endpoint-ejb</context-root>
+    <context-root>jboss-jaxws-ejb-endpoint</context-root>
 </jboss-web>
