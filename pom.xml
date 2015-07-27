@@ -203,6 +203,10 @@
                 <module>helloworld-ws</module>
                 <module>hibernate3</module>
                 <module>hibernate4</module>
+                <module>jaxws-addressing</module>
+                <module>jaxws-ejb</module>
+                <module>jaxws-pojo</module>
+                <module>jaxws-retail</module>
                 <module>kitchensink</module>
                 <module>kitchensink-ear</module>
                 <module>kitchensink-html5-mobile</module>
