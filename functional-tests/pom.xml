@@ -52,6 +52,7 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+
     </properties>
 
     <build>
@@ -62,6 +63,15 @@
                 <version>${version.surefire.plugin}</version>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
     <dependencyManagement>
@@ -131,12 +141,12 @@
     <profiles>
         <profile>
             <!-- Profile that executes tests in managed JBoss AS instance. -->
-            <id>arq-jbossas-managed</id>
+            <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.2.0.Final</version>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>1.0.0.Final</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -144,12 +154,12 @@
 
         <profile>
             <!-- Profile that executes tests in remote JBoss AS instance. -->
-            <id>arq-jbossas-remote</id>
+            <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.2.0.Final</version>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <version>1.0.0.Final</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

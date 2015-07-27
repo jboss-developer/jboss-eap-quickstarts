@@ -24,11 +24,9 @@
     <container qualifier="jboss" default="true">
         <!-- By default, Arquillian will use the JBOSS_HOME environment variable.
             Alternatively, the configuration below can be uncommented. -->
-        <!--
         <configuration>
-            <property name="jbossHome">/path/to/jboss/as</property>
+            <property name="jbossHome">${jboss.home}</property>
         </configuration>
-        -->
     </container>
 
     <!-- WebDriver extension -->
