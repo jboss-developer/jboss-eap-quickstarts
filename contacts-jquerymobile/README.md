@@ -1,16 +1,16 @@
-contacts-mobile-basic: CRUD Example Using HTML5, jQuery Mobile and JAX-RS
+contacts-jquerymobile: CRUD Example Using HTML5, jQuery Mobile and JAX-RS
 ======================================================================
 Author: Joshua Wilson  
 Level: Beginner  
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
-Summary: The `contacts-mobile-basic` quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.  
+Summary: The `contacts-jquerymobile` quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------
 
-The `contact-mobile-basic` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
+The `contact-jquerymobile` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
 mobile web applications with Java EE 7 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 7 
 application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA and Bean Validation 1.0. It includes a 
 persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
@@ -93,13 +93,13 @@ Build and Deploy the Quickstart
 
         mvn clean package wildfly:deploy
 
-4. This deploys `target/jboss-contacts-mobile-basic.war` to the running instance of the server.
+4. This deploys `target/jboss-contacts-jquerymobile.war` to the running instance of the server.
 
 
 Access the application
 ----------------------
 
-Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-contacts-mobile-basic/>.
+Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-contacts-jquerymobile/>.
 
 The app is made up of the following pages:
 
@@ -235,7 +235,7 @@ QUnit test cases are quite easy.
 
 Simply load the following HTML in the browser you wish to test.
 
-        QUICKSTART_HOME/contacts-mobile-basic/src/test/qunit/index.html
+        QUICKSTART_HOME/jquerymobile/src/test/qunit/index.html
 
 _Note:_ If you use **Chrome**, some date tests fail. These are false failures and are known issues with Chrome. FireFox, Safari, and IE run the tests correctly. 
 

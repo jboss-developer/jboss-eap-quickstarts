@@ -84,7 +84,7 @@ public class ContactRegistrationTest {
     Logger log;
     
     // The URI is needed for the JAX-RS 2.0 tests.
-//    private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-mobile-basic/rest/contact").port(8080).build();
+//    private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-jquerymobile/rest/contact").port(8080).build();
     
     // JAX-RS 2.0 Client API
 //    private static Client client = ClientBuilder.newClient();
