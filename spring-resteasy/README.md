@@ -13,9 +13,6 @@ What is it?
 The `spring-resteasy` quickstart demonstrates how to package and deploy a web application, which includes resteasy-spring integration, in 
 Red Hat JBoss Enterprise Application Platform.
 
-Currently the resteasy-spring.jar is using Spring 3.0.3, as such this quickstart needs to run on some version of Spring 3.x.
-
-
 System requirements
 -------------------
 
