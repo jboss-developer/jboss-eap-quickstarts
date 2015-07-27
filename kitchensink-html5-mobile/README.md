@@ -87,10 +87,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 
 
-Build and Deploy the Quickstart - to OpenShift
--------------------------------------
-
-You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
+<!-- Build and Deploy the Quickstart to OpenShift - Coming soon! -->
 
 
 Minification

@@ -185,13 +185,10 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
-### Deploying to OpenShift
-
-You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the 
-instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
+<!-- Build and Deploy the Quickstart to OpenShift - Coming soon! -->
 
 Minification
-============================
+------------
 
 By default, the project uses the [wro4j](http://code.google.com/p/wro4j/) plugin, which provides the ability to concatenate, 
 validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.
@@ -216,7 +213,7 @@ OR
     mvn clean package wildfly:deploy -Pminify,arq-wildfly-remote
  
 Run the Arquillian tests
-============================
+------------------------
 
 By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires 
 the use of a container. You can activate this test by selecting one of the container configuration provided  for JBoss.
@@ -226,7 +223,7 @@ To run the test in JBoss, first start the container instance. Then, run the test
     mvn clean test -Parq-wildfly-remote
 
 Run the QUnit tests
-============================
+-------------------
 
 QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of this HTML5 
 application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. Executing 
@@ -245,7 +242,7 @@ For more information on QUnit tests see http://docs.jquery.com/QUnit
 
 
 Import the Project into an IDE
-=================================
+--------------------------------
 
 If you created the project using the Maven archetype wizard in your IDE (Eclipse, NetBeans or IntelliJ IDEA), then there 
 is nothing to do. You should already have an IDE project.
@@ -255,7 +252,7 @@ If you are using NetBeans 6.8 or IntelliJ IDEA 9, then all you have to do is ope
 Both of these IDEs recognize Maven projects natively.
 
 Debug the Application
-=============================
+---------------------
 
 If you want to be able to debug into the source code or look at the Javadocs of any library in the project, you can run 
 either of the following two commands to pull them into your local repository. The IDE should then detect them.

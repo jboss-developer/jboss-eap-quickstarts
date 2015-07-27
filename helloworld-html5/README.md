@@ -118,11 +118,7 @@ If you want to debug the source code or look at the Javadocs of any library in t
         mvn dependency:resolve -Dclassifier=javadoc
 
 
-Build and Deploy the Quickstart - to OpenShift
--------------------------
-
-You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
-
+<!-- Build and Deploy the Quickstart to OpenShift - Coming soon! -->
 
 
 
