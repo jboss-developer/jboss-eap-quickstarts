@@ -235,7 +235,7 @@ QUnit test cases are quite easy.
 
 Simply load the following HTML in the browser you wish to test.
 
-        QUICKSTART_HOME/jquerymobile/src/test/qunit/index.html
+        QUICKSTART_HOME/contacts-jquerymobile/src/test/qunit/index.html
 
 _Note:_ If you use **Chrome**, some date tests fail. These are false failures and are known issues with Chrome. FireFox, Safari, and IE run the tests correctly. 
 
