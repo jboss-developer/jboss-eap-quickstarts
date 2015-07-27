@@ -142,7 +142,7 @@
             <dependency>
               <groupId>org.jboss.ws.native</groupId>
               <artifactId>jbossws-native-core</artifactId>
-              <version>3.4.1.GA</version>
+              <version>4.2.1.Final</version>
             </dependency>
             <!-- required for ProviderImpl to resolve org.jboss.logging.Logger -->
             <dependency>
