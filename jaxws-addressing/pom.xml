@@ -28,7 +28,7 @@
    <description>jaxws-addressing: Working example of the web service discussed in section,
       "Enable Web Services Addressing (WS-Addressing)" of the "JBoss Development Application Platform Development Guide".
    </description>
-   <url>http://jboss.org/jbossas</url>
+   <url>http://www.jboss.org/products/eap</url>
    <licenses>
       <license>
          <name>Apache License, Version 2.0</name>
