@@ -19,6 +19,8 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
 
+If running with Java SDK 1.8, file jaxws-retail/jaxp.properties must be installed
+in ${JDK-8-PATH}/jre/lib/jaxp.properties.  (see http://docs.oracle.com/javase/7/docs/api/javax/xml/XMLConstants.html#ACCESS_EXTERNAL_SCHEMA)
  
 Configure Maven
 ---------------

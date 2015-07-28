@@ -29,7 +29,7 @@
 
    <artifactId>jboss-jaxws-addressing-client</artifactId>
    <packaging>jar</packaging>
-   <name>EAP Quickstart: jaxws-addressing - client</name>
+   <name>JBoss EAP Quickstart: jaxws-addressing - client</name>
    <url>http://maven.apache.org</url>
   
    <licenses>

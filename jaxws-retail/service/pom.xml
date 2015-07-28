@@ -31,7 +31,7 @@
 
    <artifactId>jboss-jaxws-retail-service</artifactId>
    <packaging>war</packaging>
-   <name>EAP Quickstart: jaxws-retail - service</name>
+   <name>JBoss EAP Quickstart: jaxws-retail - service</name>
    <url>http://maven.apache.org</url>
 
    <licenses>

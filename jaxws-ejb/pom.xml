@@ -24,7 +24,7 @@
   <version>7.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-    <name>EAP Quickstart: jaxws-ejb</name>
+    <name>JBoss EAP Quickstart: jaxws-ejb</name>
     <description>jaxws-ejb: Working example of the web service discussed in section,
         "About JAX-WS Web Service Endpoints" of the "JBoss Development Application Platform Development Guide".
     </description>
@@ -107,8 +107,11 @@
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.jboss-ejb3-ext-api>2.0.0-redhat-2</version.jboss-ejb3-ext-api>
         <version.istack.commons.runtime>2.6.1.redhat-3</version.istack.commons.runtime>
-        <version.jboss-ejb-api_3.2_spec>1.0.0.Final</version.jboss-ejb-api_3.2_spec>           
-
+        <version.jboss-ejb-api_3.2_spec>1.0.0.Final</version.jboss-ejb-api_3.2_spec>
+        <version.jbossws-native-core>3.4.1.GA</version.jbossws-native-core>
+        <version.jboss-logging-spi>2.1.2.GA</version.jboss-logging-spi>           
+        <version.jbossxb>2.0.3.GA-redhat-2</version.jbossxb>
+        
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -142,13 +145,13 @@
             <dependency>
               <groupId>org.jboss.ws.native</groupId>
               <artifactId>jbossws-native-core</artifactId>
-              <version>3.4.1.GA</version>
+              <version>${version.jbossws-native-core}</version>
             </dependency>
             <!-- required for ProviderImpl to resolve org.jboss.logging.Logger -->
             <dependency>
               <groupId>org.jboss.logging</groupId>
               <artifactId>jboss-logging-spi</artifactId>
-              <version>2.1.2.GA</version>
+              <version>${version.jboss-logging-spi}</version>
             </dependency> 
             <dependency>
               <groupId>org.jboss.ejb3</groupId>
@@ -164,6 +167,11 @@
               <groupId>com.sun.istack</groupId>
               <artifactId>istack-commons-runtime</artifactId>
               <version>${version.istack.commons.runtime}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.jboss</groupId>
+              <artifactId>jbossxb</artifactId>
+              <version>${version.jbossxb}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

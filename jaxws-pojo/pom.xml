@@ -24,7 +24,7 @@
   <version>7.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-    <name>EAP Quickstart: jaxws-pojo</name>
+    <name>JBoss EAP Quickstart: jaxws-pojo</name>
     <description>jaxws-pojo: Working example of the web service discussed in section,
         "About JAX-WS Web Service Endpoints" of the "JBoss Development Application Platform Development Guide".
     </description>

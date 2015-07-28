@@ -28,7 +28,7 @@
 
    <artifactId>jboss-jaxws-addressing-service</artifactId>
     <packaging>war</packaging>
-    <name>EAP Quickstart: jaxws-addressing - service</name>
+    <name>JBoss EAP Quickstart: jaxws-addressing - service</name>
     <url>http://maven.apache.org</url>
 
    <licenses>
