@@ -21,8 +21,6 @@ The example is composed of a Maven subproject and a parent project. The projects
 1. `service`: This subproject contains the Service and the EJB code to instantiate, start, and access the service.
 2. The root parent `pom.xml` builds the `service` subproject and deploys the archive to the server.
 
-_Note: This quickstart uses a class, org.jboss.as.clustering.singleton.SingletonService, that is part of the JBoss EAP private API. A public API will become available in a future EAP release and the private classes will be deprecated, but these classes will be maintained and available for the duration of the EAP 6.x release cycle._
-
 
 System requirements
 -------------------

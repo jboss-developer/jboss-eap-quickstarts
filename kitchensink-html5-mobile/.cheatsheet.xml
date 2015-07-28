@@ -540,7 +540,7 @@
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/html5_mobile/util/Resources.java,fromLine=44,toLine=47)"/>
   </subitem>
   <subitem
-            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform 6"
+            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform 7"
             skip="true">
     <command
            required="false"
@@ -552,7 +552,7 @@
         skip="true"
         title="Run and deploy the application">
      <description>
-       Before you proceed, ensure that you have setup and configured a JBoss EAP 6 server.
+       Before you proceed, ensure that you have setup and configured a JBoss EAP 7 server.
        <br/><br/>
        Right-click the project and select <b>Run As</b> &gt; <b>Run On Server</b> or click on the &quot;Click to Perform&quot; link below.
     </description>
@@ -582,13 +582,13 @@
         skip="true"
         title="Using LiveReload with the deployed application">
      <description>
-       Once again in the Servers view, select the &quot;jboss-kitchensink-html5-mobile&quot; deployment under the JBoss EAP 6 Runtime Server, and right-click on it.
+       Once again in the Servers view, select the &quot;jboss-kitchensink-html5-mobile&quot; deployment under the JBoss EAP 7 Runtime Server, and right-click on it.
        Select the &quot;Show In&quot; entry in the menu, and open the deployed resource in a <b>Web Browser via LiveReload Server</b>. This launches the application in a web browser with the LiveReload scripts injected into it.
        You can proceed to make changes to the <b>index.html</b> and it would immediately reflect in the opened Web Browser on saving the changes.
        <br/><br/>
-       As is the case with LiveReload tooling, there is no need to refresh the web browser after you save the changes in the editor. At the same time, opening the application in this manner will allow the client-side JavaScript in <b>app.js</b> to access the <b>MemberResource</b> REST API on the server-side. You can make changes to the page without refreshing them while continuing to use the backend services deployed on JBoss EAP 6.
+       As is the case with LiveReload tooling, there is no need to refresh the web browser after you save the changes in the editor. At the same time, opening the application in this manner will allow the client-side JavaScript in <b>app.js</b> to access the <b>MemberResource</b> REST API on the server-side. You can make changes to the page without refreshing them while continuing to use the backend services deployed on JBoss EAP 7.
        <br/><br/>
-       <b>Note:</b> In the earlier section in the tutorial, where the <b>index.html</b> file was opened via the LiveReload Server, the file was not deployed in an application running on a JBoss EAP 6 server. Hence, it could not access the backend - and member details could not displayed and new members could not be added. We have just demonstrated how to overcome that problem.
+       <b>Note:</b> In the earlier section in the tutorial, where the <b>index.html</b> file was opened via the LiveReload Server, the file was not deployed in an application running on a JBoss EAP 7 server. Hence, it could not access the backend - and member details could not displayed and new members could not be added. We have just demonstrated how to overcome that problem.
     </description>
   </item>
   <item
@@ -599,7 +599,7 @@
        you&apos;re probably getting a bit nervous by now, wondering how on earth you are going to test your application. 
        Lucky for you, the Arquillian project is here to help!
     <br/><br/>
-    Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform 6, 
+    Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform 7, 
     allowing you to concentrate on testing your application. 
     In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, 
     to create an archive to deploy. 

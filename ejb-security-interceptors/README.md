@@ -24,8 +24,6 @@ Rather than open multiple client connections, this quickstart offers an alternat
  
 The quickstart then makes use of two EJBs, `SecuredEJB` and `IntermediateEJB`, to verify that the propagation and identity switching is correct and a `RemoteClient` standalone client. 
 
-_Note:  A previous version of this quickstart had been making use of internal classes, this quickstart has now been updated to make use a new API available from EAP 6.3_
-
 ### SecuredEJB
 
 The `SecuredEJB` has three methods: 
