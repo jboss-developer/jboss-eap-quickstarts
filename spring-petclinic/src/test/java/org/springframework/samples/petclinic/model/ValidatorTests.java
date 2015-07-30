@@ -1,13 +1,15 @@
 package org.springframework.samples.petclinic.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Locale;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-
-import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
@@ -26,8 +28,9 @@ public class ValidatorTests {
 	  }
 
 	@Test
-    public void emptyFirstName() {
+    public void shouldNotValidateWhenFirstNameEmpty() {
 
+	LocaleContextHolder.setLocale(Locale.ENGLISH);
         Person person = new Person();
         person.setFirstName("");
         person.setLastName("smith");
@@ -35,10 +38,10 @@ public class ValidatorTests {
         Validator validator = createValidator();
         Set<ConstraintViolation<Person>> constraintViolations = validator.validate(person);
 
-        Assert.assertEquals(1, constraintViolations.size());
+        assertThat(constraintViolations.size()).isEqualTo(1);
         ConstraintViolation<Person> violation =  constraintViolations.iterator().next();
-        Assert.assertEquals(violation.getPropertyPath().toString(), "firstName");
-        Assert.assertEquals(violation.getMessage(), "may not be empty");
+        assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
+        assertThat(violation.getMessage()).isEqualTo("may not be empty");
     }
 	
 }
