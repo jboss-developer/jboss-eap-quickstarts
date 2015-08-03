@@ -21,15 +21,9 @@ _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterpri
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.4 or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 8 or greater.
-
-
-Configure Maven for JBoss Developer Studio
-------------------------------------------
-
-If you have not yet done so, you must [Configure Maven - For Use with JBoss Developer Studio](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-for-use-with-jboss-developer-studio) before testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 8 or greater. This version of JBoss Developer Studio embeds Maven 3.2.1, so you do not need to install it separately.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio

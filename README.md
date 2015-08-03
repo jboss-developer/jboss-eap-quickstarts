@@ -57,22 +57,11 @@ System Requirements
 
 The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-To run these quickstarts with the provided build scripts, you need the following:
+All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.0 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
-1. Java 1.6, to run JBoss EAP and Maven. You can choose from the following:
-    * OpenJDK
-    * Oracle Java SE
+To run these quickstarts with the provided build scripts, you need the the JBoss EAP distribution ZIP. For information on how to install and run JBoss, see the [Red Hat JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) _Getting Started Guide_ located on the Customer Portal.
 
-2. Maven 3.0.0 or newer, to build and deploy the examples
-    * If you have not yet installed Maven, see the [Maven Getting Started Guide](http://maven.apache.org/guides/getting-started/index.html) for details.
-    * If you have installed Maven, you can check the version by typing the following in a command prompt:
-
-            mvn --version 
-
-3. The JBoss EAP distribution ZIP.
-    * For information on how to install and run JBoss, see the [Red Hat JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) _Getting Started Guide_ located on the Customer Portal.
-
-4. You can also use [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
+You can also use [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
 
 
 Run the Quickstarts
