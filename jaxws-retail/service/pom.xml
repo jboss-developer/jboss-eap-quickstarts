@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
-    Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
+    Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
 
@@ -24,13 +24,14 @@
       <groupId>org.jboss.quickstarts.eap</groupId>
       <artifactId>jboss-jaxws-retail</artifactId>
       <version>7.0.0-SNAPSHOT</version>
-      <!-- -->
+     <!-- -->
       <relativePath>../pom.xml</relativePath>
       
    </parent>
 
    <artifactId>jboss-jaxws-retail-service</artifactId>
    <packaging>war</packaging>
+
    <name>JBoss EAP Quickstart: jaxws-retail - service</name>
    <url>http://maven.apache.org</url>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
-    Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
+    Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
 
@@ -29,7 +29,7 @@
    <description>jaxws-retail: Working example of the web service discussed in section,
       "Write and Deploy a JAX-WS Web Service Endpoint" of the "JBoss Development Application Platform Development Guide".
    </description>
-   <url>http://jboss.org/jbossas</url>
+   <url>http://www.jboss.org/products/eap</url>
    <licenses>
       <license>
          <name>Apache License, Version 2.0</name>
@@ -95,7 +95,7 @@
         </pluginRepository>
     </pluginRepositories>
 
-   <properties>
+ <properties>
       <!-- Explicitly declaring the source encoding eliminates the following message: -->
       <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent! -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -104,12 +104,13 @@
       <!-- maven-compiler-plugin -->
       <maven.compiler.target>1.8</maven.compiler.target>
       <maven.compiler.source>1.8</maven.compiler.source>
+      <version.exec.plugin>1.2.1</version.exec.plugin>
       <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
       <version.jboss.bom.eap>7.0.0-build-5</version.jboss.bom.eap>
       <version.maven-jaxws-tools-plugin>1.1.2.Final</version.maven-jaxws-tools-plugin>
       <version.war.plugin>2.1.1</version.war.plugin>
       <version.jboss-ejb-api>1.0.2.Final</version.jboss-ejb-api>
-      <version.jbossws-cxf-client>5.0.0.Final</version.jbossws-cxf-client>
+      <version.jbossws-cxf-client>4.2.3.Final</version.jbossws-cxf-client>
    </properties>
 
    <modules>
@@ -119,15 +120,15 @@
 
    <dependencyManagement>
       <dependencies>
-         <!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any
+         <!-- Define the version of JBoss' Java EE APIs we want to import. Any
          dependencies from org.jboss.spec will have their version defined by this
          BOM -->
-         <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
+         <!-- JBoss distributes a complete set of Java EE APIs including a Bill
          of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
          of artifacts. We use this here so that we always get the correct versions
-         of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as
-         the JBoss stack of the Java EE 6 APIs). You can actually use this stack with
-         any version of JBoss EAP that implements Java EE 6. -->
+         of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as
+         the JBoss stack of the Java EE APIs). You can actually use this stack with
+         any version of JBoss EAP that implements Java EE. -->
          <dependency>
             <groupId>org.jboss.bom</groupId>
             <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
@@ -144,6 +145,12 @@
            <groupId>org.jboss.ws.cxf</groupId>
            <artifactId>jbossws-cxf-client</artifactId>
            <version>${version.jbossws-cxf-client}</version>
+           <exclusions>
+             <exclusion>
+               <groupId>org.jboss.com.sun.httpserver</groupId>
+               <artifactId>httpserver</artifactId>
+             </exclusion>
+           </exclusions>
          </dependency>
       </dependencies>
    </dependencyManagement>
@@ -157,6 +164,11 @@
             <configuration>
                <skip>true</skip>
             </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${version.exec.plugin}</version>
          </plugin>
       </plugins>
    </build>

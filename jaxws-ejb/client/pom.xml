@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
-    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
 
@@ -29,6 +29,7 @@
 
     <artifactId>jboss-jaxws-ejb-client</artifactId>
     <packaging>jar</packaging>
+
     <name>JBoss EAP Quickstart: jaxws-ejb - client</name>
     <url>http://maven.apache.org</url>
 
@@ -40,20 +41,18 @@
         </license>
     </licenses>
 
-   <repositories>
-     <!-- repo needed to retrieve jbossws-native-core -->
-     <!-- todo replace this --> 
+   <repositories> 
      <repository>
        <id>jboss-product-builds</id>
        <url>http://repository.jboss.org/nexus/content/groups/public/ </url>
      </repository>
   
    </repositories> 
-   
+ 
    <properties>
      <version.exec-plugin>1.2.1</version.exec-plugin>
    </properties>
-   
+
    <dependencies>
 
       <dependency>
@@ -79,6 +78,13 @@
        <dependency>
          <groupId>org.jboss</groupId>
            <artifactId>jbossxb</artifactId>
+           <version>2.0.3.GA</version>
+           <exclusions>
+             <exclusion>
+               <groupId>sun-jaxb</groupId>
+               <artifactId>jaxb-api</artifactId>
+             </exclusion>
+           </exclusions>
        </dependency>
    </dependencies>
 
@@ -89,7 +95,7 @@
          <plugin>
            <groupId>org.codehaus.mojo</groupId>
            <artifactId>exec-maven-plugin</artifactId>
-           <version>${version.exec-plugin}</version>
+           <version>1.2.1</version>
            <configuration>
              <mainClass>org.jboss.quickstarts.ws.client.Client</mainClass>
            </configuration>
