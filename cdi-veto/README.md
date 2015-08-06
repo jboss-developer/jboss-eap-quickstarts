@@ -16,10 +16,9 @@ This particular extension explores the ProcessInjectionTarget and
 InjectionTarget SPI classes of CDI to demonstrate removing a bean from CDI's knowledge and
 correctly injecting JPA entities in your application.
 
-A Portable Extension is a user extension to Java EE 7 or above which is tailored to a specific
-use case which will run on any Java EE 7 or later implementation. This may be something that the
-specifications don't support just yet, but could be implemented via a portable extension such as
-type-safe messages or external configuration of beans.
+A Portable Extension is an extension to Java EE 6 and above, which is tailored to a specific
+use case and will run on any Java EE 6 or later implementation. Portable extensions can implement 
+features not yet supported by the specifications, such as type-safe messages or external configuration of beans.
 
 The project contains very simple domain model classes, an extension class, the service provider configuration file,
 and an Arquillian test to verify the extension is working correctly.
