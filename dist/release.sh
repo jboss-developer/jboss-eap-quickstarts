@@ -87,10 +87,6 @@ release()
    git add template/
    git commit -a -m "Prepare for development of $NEWSNAPSHOTVERSION"
    git checkout $BRANCH
-   #echo "Building Distribution zip"
-   #git checkout $RELEASEVERSION
-   #echo "Uploading distribution to http://download.jboss.org/jbossas/$MAJOR_VERSION.$MINOR_VERSION/jboss-as-$RELEASEVERSION/jboss-eap-quickstarts-$RELEASEVERSION-dist.zip"
-   #rsync -Pv --protocol=28 $DIR/target/jboss-eap-quickstarts-$RELEASEVERSION-dist.zip jbossas@filemgmt.jboss.org:downloads_htdocs/jbossas/$MAJOR_VERSION.$MINOR_VERSION/jboss-eap-$RELEASEVERSION/
    read -p "Do you want to send release notifcations to $EAP_EMAIL_TO[y/N]?" yn
    case $yn in
        [Yy]* ) notify_email;;
