@@ -16,11 +16,11 @@ The example uses the default Mail provider that comes out of the box with JBoss 
 
 The configuration of the mail provider is found in the `EAP_HOME/standalone/configuration/standalone.xml` if you are running a standalone server or in the `EAP_HOME/domain/configuration/domain.xml` file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:
 
-    <subsystem xmlns="urn:jboss:domain:mail:1.0">
-        <mail-session jndi-name="java:jboss/mail/Default" >
-            <smtp-server address="localhost" port="25"/>
+    <subsystem xmlns="urn:jboss:domain:mail:2.0">
+        <mail-session name="default" jndi-name="java:jboss/mail/Default">
+            <smtp-server outbound-socket-binding-ref="mail-smtp"/>
         </mail-session>
-        <mail-session jndi-name="java:/MyOtherMail">
+        <mail-session name="my-other-mail" jndi-name="java:/MyOtherMail">
             <smtp-server address="localhost" port="9999">
                 <login name="nobody" password="pass"/>
             </smtp-server>
