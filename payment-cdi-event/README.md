@@ -16,7 +16,7 @@ The JSF front-end client allows you to create both credit and debit operation ev
 
 To test this quickstart, enter an amount, choose either a Credit or Debit operation, and then click on *Pay* to create the event.
 
-A Session scoped (@SessionScoped) payment event handler catches the operation and produces (@Produces) a named list of all operations performed during this session.  The event is logged in the JBoss console and the event list is displayed in a table at the bottom of the form.
+A Session scoped (@SessionScoped) payment event handler catches the operation and produces (@Produces) a named list of all operations performed during this session.  The event is logged in the JBoss EAP server log and the event list is displayed in a table at the bottom of the form.
  
 The payment-cdi-event quickstart defines the following classes:
  
