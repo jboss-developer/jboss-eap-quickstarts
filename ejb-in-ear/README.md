@@ -63,7 +63,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-ejb-in-ear.ear` to the running instance of the server.
+4. This will deploy `ear/target/jboss-ejb-in-ear.ear` to the running instance of the server.
 
  
 
