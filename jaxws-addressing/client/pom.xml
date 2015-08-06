@@ -29,9 +29,10 @@
 
    <artifactId>jboss-jaxws-addressing-client</artifactId>
    <packaging>jar</packaging>
-   <name>EAP Quickstart: jaxws-addressing - client</name>
+
+   <name>JBoss EAP Quickstart: jaxws-addressing - client</name>
    <url>http://maven.apache.org</url>
-  
+
    <licenses>
       <license>
          <name>Apache License, Version 2.0</name>
@@ -43,7 +44,7 @@
    <properties>
      <version.exec.plugin>1.2.1</version.exec.plugin>
    </properties>
-   
+
    <dependencies>
 
       <dependency>
@@ -56,6 +57,7 @@
    </dependencies>
 
    <build>
+
       <finalName>${project.artifactId}</finalName> 
 
       <plugins>       

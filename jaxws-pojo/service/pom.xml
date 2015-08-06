@@ -28,7 +28,8 @@
 
     <artifactId>jboss-jaxws-pojo-service</artifactId>
     <packaging>war</packaging>
-    <name>EAP Quickstart: jaxws-pojo - service</name>
+
+    <name>JBoss EAP Quickstart: jaxws-pojo - service</name>
     <url>http://maven.apache.org</url>
 
     <licenses>
@@ -53,6 +54,7 @@
                     <attachClasses>true</attachClasses>
                 </configuration>
             </plugin>
+
             <!-- Wildfly plugin to deploy war -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
