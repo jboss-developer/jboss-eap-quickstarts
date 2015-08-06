@@ -15,6 +15,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
+<!DOCTYPE jboss-web>
 <jboss-web>
     <context-root>jboss-jaxws-pojo-endpoint</context-root>
 </jboss-web>

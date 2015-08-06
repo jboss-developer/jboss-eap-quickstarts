@@ -29,7 +29,8 @@
 
     <artifactId>jboss-jaxws-ejb-client</artifactId>
     <packaging>jar</packaging>
-    <name>EAP Quickstart: jaxws-ejb - client</name>
+
+    <name>JBoss EAP Quickstart: jaxws-ejb - client</name>
     <url>http://maven.apache.org</url>
 
     <licenses>
@@ -40,9 +41,7 @@
         </license>
     </licenses>
 
-   <repositories>
-     <!-- repo needed to retrieve jbossws-native-core -->
-     <!-- todo replace this --> 
+   <repositories> 
      <repository>
        <id>jboss-product-builds</id>
        <url>http://repository.jboss.org/nexus/content/groups/public/ </url>
@@ -50,6 +49,11 @@
   
    </repositories> 
  
+   <properties>
+     <version.exec-plugin>1.2.1</version.exec-plugin>
+     <version.jboss.jbossxb>2.0.3.GA</version.jboss.jbossxb>
+   </properties>
+
    <dependencies>
 
       <dependency>
@@ -75,7 +79,7 @@
        <dependency>
          <groupId>org.jboss</groupId>
            <artifactId>jbossxb</artifactId>
-           <version>2.0.3.GA</version>
+           <version>${version.jboss.jbossxb}</version>
            <exclusions>
              <exclusion>
                <groupId>sun-jaxb</groupId>
@@ -92,7 +96,7 @@
          <plugin>
            <groupId>org.codehaus.mojo</groupId>
            <artifactId>exec-maven-plugin</artifactId>
-           <version>1.2.1</version>
+           <version>${version.exec.plugin}</version>
            <configuration>
              <mainClass>org.jboss.quickstarts.ws.client.Client</mainClass>
            </configuration>
