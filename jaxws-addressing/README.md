@@ -51,6 +51,7 @@ You can check that the Web Service is running and deployed correctly by accessin
 Run the Client
 --------------
 1. Make sure the service deployed properly.
+
 2. Open a command prompt and navigate into the client directory of this quickstart.
 
         cd client/

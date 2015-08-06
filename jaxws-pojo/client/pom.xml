@@ -29,7 +29,8 @@
 
     <artifactId>jboss-jaxws-pojo-client</artifactId>
     <packaging>jar</packaging>
-    <name>EAP Quickstart: jaxws-pojo - client</name>
+
+    <name>JBoss EAP Quickstart: jaxws-pojo - client</name>
     <url>http://maven.apache.org</url>
 
     <licenses>
