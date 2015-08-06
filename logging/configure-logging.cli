@@ -1,4 +1,4 @@
-# Batch script to add and configure logging in the JBoss server
+# Batch script to add and configure logging in the JBoss EAP server
 
 # Start batching commands
 batch

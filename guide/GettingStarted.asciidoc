@@ -52,7 +52,7 @@ server. We use this throughout the quickstarts.
 ========================================================================
 
 
-== Installing and starting the JBoss server on Linux, Unix or Mac OS X
+== Installing and starting the JBoss EAP server on Linux, Unix or Mac OS X
 [[GettingStarted-on_linux]]
 
 First, let's verify that verify that both Java and Maven are correctly 
@@ -92,7 +92,7 @@ link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_
 ========================================================================
 
 
-== Installing and starting the JBoss server on Windows
+== Installing and starting the JBoss EAP server on Windows
 [[GettingStarted-on_windows]]
 
 [TIP]
@@ -135,7 +135,7 @@ link:https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_
 ========================================================================
 
 
-== Starting the JBoss server from JBDS or Eclipse with JBoss Tools
+== Starting the JBoss EAP server from JBDS or Eclipse with JBoss Tools
 [[GettingStarted-with_jboss_tools]]
 
 You may choose to use JBoss Developer Studio, or Eclipse with JBoss Tools, rather than the command line to run JBoss EAP and to deploy the quickstarts. If you don't wish to use Eclipse, you should skip this section.

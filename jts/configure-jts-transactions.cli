@@ -1,4 +1,4 @@
-# Batch script to configure the JBoss server for JTS transactions
+# Batch script to configure the JBoss EAP server for JTS transactions
 
 # Start batching commands
 batch

@@ -76,7 +76,7 @@ Start the JBoss EAP Server
 Build and Deploy the Quickstart
 -------------------------
 
-1. Make sure you have started the JBoss Server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build the artifacts:
 
@@ -170,7 +170,7 @@ Undeploy the Archive from the Local machine
 
 Follow these instructions if you are testing the quickstart on the same machine.
 
-1. Make sure you have started the JBoss Server on the machine where the quickstart is deployed as described above.
+1. Make sure you have started the JBoss EAP server on the machine where the quickstart is deployed as described above.
 2. Open a command prompt on that server and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from the local machine.
 
@@ -182,7 +182,7 @@ Undeploy the Archive from the Remote Machine
 
 Follow these instructions if you are testing the quickstart on a diffent machine.
 
-1. Make sure you have started the JBoss Server on the remote server machine, `Machine_1`, where the quickstart is deployed as described above.
+1. Make sure you have started the JBoss EAP server on the remote server machine, `Machine_1`, where the quickstart is deployed as described above.
 2. Open a command prompt on the local client machine, `Machine_2`, and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive from the remote server machine, `Machine_1`.
 
