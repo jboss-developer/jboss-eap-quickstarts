@@ -15,7 +15,7 @@ The `ejb-in-war` quickstart demonstrates the deployment of an *EJB* bean bundled
 The example follows the common "Hello World" pattern. These are the steps that occur:
 
 1. A JSF page asks the user for their name.
-2. On clicking submit, the name is sent to a managed bean namde `Greeter`.
+2. On clicking submit, the name is sent to a managed bean named `Greeter`.
 3. On setting the name, the `Greeter` invokes the `GreeterEJB`, which was injected into the managed bean. Notice the field annotated with `@EJB`.
 4. The response from invoking the `GreeterEJB` is stored in a field `message` of the managed bean.
 5. The managed bean is annotated as `@SessionScoped`, so the same managed bean instance is used for the entire session. This ensures that the message is available when the page reloads and is displayed to the user.
