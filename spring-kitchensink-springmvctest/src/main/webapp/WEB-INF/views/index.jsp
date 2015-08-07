@@ -115,7 +115,7 @@
         <p>Learn more about Red Hat JBoss Enterprise Application Platform.</p>
         <ul>
             <li><a href="https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/">Documentation</a></li>
-            <li><a href="http://red.ht/jbeap-6">Product Information</a></li>
+            <li><a href="http://www.redhat.com/en/technologies/jboss-middleware/application-platform">Product Information</a></li>
         </ul>
     </div>
     <div id="footer">

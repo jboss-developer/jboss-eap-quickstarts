@@ -103,7 +103,7 @@ Next, let's take a look at the JSF view the user sees. As usual, we use a templa
                     </a>
                 </li>
                 <li>
-                    <a href="http://red.ht/jbeap-6">
+                    <a href="http://www.redhat.com/en/technologies/jboss-middleware/application-platform">
                         Product Information
                     </a>
                </li>
