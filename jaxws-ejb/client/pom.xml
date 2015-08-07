@@ -79,13 +79,6 @@
        <dependency>
          <groupId>org.jboss</groupId>
            <artifactId>jbossxb</artifactId>
-           <version>${version.jboss.jbossxb}</version>
-           <exclusions>
-             <exclusion>
-               <groupId>sun-jaxb</groupId>
-               <artifactId>jaxb-api</artifactId>
-             </exclusion>
-           </exclusions>
        </dependency>
    </dependencies>
 

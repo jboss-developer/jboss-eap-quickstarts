@@ -17,13 +17,13 @@
 -->
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.jboss.quickstarts.eap</groupId>
-  <artifactId>jboss-jaxws-ejb</artifactId>
+    <groupId>org.jboss.quickstarts.eap</groupId>
+    <artifactId>jboss-jaxws-ejb</artifactId>
 
-  <version>7.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+    <version>7.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>JBoss EAP Quickstart: jaxws-ejb</name>
     <description>jaxws-ejb: Working example of the web service discussed in section,
@@ -134,39 +134,51 @@
             the JBoss stack of the Java EE APIs). You can actually use this stack with
             any version of JBoss EAP that implements Java EE. -->
             <dependency>
-               <groupId>org.jboss.bom</groupId>
-               <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
-               <version>${version.jboss.bom.eap}</version>
-               <type>pom</type>
-               <scope>import</scope>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <!-- required for client to resolve org/jboss/ws/core/jaxws/spi/ProviderImpl -->      
+            <!-- required for client to resolve org/jboss/ws/core/jaxws/spi/ProviderImpl -->
             <dependency>
-              <groupId>org.jboss.ws.native</groupId>
-              <artifactId>jbossws-native-core</artifactId>
-              <version>4.2.1.Final</version>
+                <groupId>org.jboss.ws.native</groupId>
+                <artifactId>jbossws-native-core</artifactId>
+                <version>4.2.1.Final</version>
             </dependency>
             <!-- required for ProviderImpl to resolve org.jboss.logging.Logger -->
             <dependency>
-              <groupId>org.jboss.logging</groupId>
-              <artifactId>jboss-logging-spi</artifactId>
-              <version>2.1.2.GA</version>
-            </dependency> 
-            <dependency>
-              <groupId>org.jboss.ejb3</groupId>
-              <artifactId>jboss-ejb3-ext-api</artifactId>
-              <version>${version.jboss-ejb3-ext-api}</version>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging-spi</artifactId>
+                <version>2.1.2.GA</version>
             </dependency>
             <dependency>
-              <groupId>org.jboss.spec.javax.ejb</groupId>
-              <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-              <version>${version.jboss-ejb-api_3.2_spec}</version>
+                <groupId>org.jboss.ejb3</groupId>
+                <artifactId>jboss-ejb3-ext-api</artifactId>
+                <version>${version.jboss-ejb3-ext-api}</version>
             </dependency>
             <dependency>
-              <groupId>com.sun.istack</groupId>
-              <artifactId>istack-commons-runtime</artifactId>
-              <version>${version.istack.commons.runtime}</version>
+                <groupId>org.jboss.spec.javax.ejb</groupId>
+                <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+                <version>${version.jboss-ejb-api_3.2_spec}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sun.istack</groupId>
+                <artifactId>istack-commons-runtime</artifactId>
+                <version>${version.istack.commons.runtime}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jbossxb</artifactId>
+                <version>${version.jboss.jbossxb}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>sun-jaxb</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
