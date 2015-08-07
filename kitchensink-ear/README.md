@@ -52,7 +52,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-kitchensink-ear.ear` to the running instance of the server.
+4. This will deploy `ear/target/jboss-kitchensink-ear.ear` to the running instance of the server.
 
 
 Access the application 
