@@ -83,23 +83,24 @@ There are two logging statements done when the tests are run:
 
 #### Example
 
-    15:07:13,145 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015876: Starting deployment of "test.war"
-    15:07:13,267 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016002: Processing weld deployment test.war
-    15:07:13,283 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016005: Starting Services for CDI deployment: test.war
-    15:07:13,290 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) JBAS016008: Starting weld service for deployment test.war
-    15:07:13,338 INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
-    15:07:13,343 INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
-    15:07:13,377 INFO  [org.jboss.web] (MSC service thread 1-1) JBAS018210: Registering web context: /test
-    15:07:13,495 INFO  [org.jboss.as.server] (management-handler-thread - 5) JBAS018559: Deployed "test.war"
-    15:07:13,922 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016009: Stopping weld service for deployment test.war
-    15:07:13,932 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment test.war in 16ms
-    15:07:14,039 INFO  [org.jboss.as.repository] (management-handler-thread - 6) JBAS014901: Content removed from location /home/jporter/java_libraries/jboss-as/build/target/jboss-as-7.1.1.Final/standalone/data/content/4d/40e4e277a16327b45b62954d70d91bbf3fcf42/content
-    15:07:14,040 INFO  [org.jboss.as.server] (management-handler-thread - 6) JBAS018558: Undeployed "test.war"
+    [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0003: Processing weld deployment test.war
+    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0006: Starting Services for CDI deployment: test.war
+    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0009: Starting weld service for deployment test.war
+    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
+    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
+    [timestamp] INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 70) WFLYUT0021: Registered web context: /test
+    [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 6) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+    [timestamp] INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 70) WFLYUT0022: Unregistered web context: /test
+    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0010: Stopping weld service for deployment test.war
+    [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 27ms
+    [timestamp] INFO  [org.jboss.as.repository] (management-handler-thread - 6) WFLYDR0002: Content removed from location /home/sgilda/tools/jboss-eap-7.0/standalone/data/content/68/a7e9a0fc594166f8c1d77dfd770c5adbfb5a92/content
+    [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 6) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
 The two statements to look for are these:
 
-    15:07:13,338 INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
-    15:07:13,343 INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
+    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
+    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------

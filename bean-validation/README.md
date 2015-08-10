@@ -65,20 +65,20 @@ If you are interested in more details, look in the `target/surefire-reports` dir
 
 You can also check the server console output to verify that the Arquillian tests deployed to and ran in the application server. Search for lines similar to the following ones in the server output log:
 
-    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test.war"
+    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-5) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
     ...
-    [timestamp] INFO [org.jboss.as.server] (management-handler-threads - 1) JBAS018559: Deployed "test.war"
+    [timestamp] INFO [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
     ...
-    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-3) Stopped deployment test.war in 48ms
+    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 32ms
     ...
-    [timestamp] INFO [org.jboss.as.server] (management-handler-threads - 1) JBAS018558: Undeployed "test.war
+    [timestamp] INFO [[org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
 Server Log: Expected warnings and errors
 -----------------------------------
 
 _Note:_ You will see the following warnings in the server log. You can ignore these warnings.
 
-    JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
 
     HHH000431: Unable to determine H2 database version, certain features may not work
 
