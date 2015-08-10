@@ -83,7 +83,7 @@ _Note:_ You will see the following warnings in the server log.
 
     You will also see the following warning in the server log. You can ignore this warning.
 
-      JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+      WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
 
 
 Access the application 

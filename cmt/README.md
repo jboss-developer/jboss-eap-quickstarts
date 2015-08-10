@@ -114,7 +114,7 @@ Server Log: Expected warnings and errors
 
 _Note:_ You will see the following warning in the server log. You can ignore this warning.
 
-    JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
 
 You also see the following errors. This is because Hibernate attempts to drop the table and constraints before they are created and without checking first to see if they exist. This issue, <https://hibernate.atlassian.net/browse/HHH-9545>, is fixed in the 4.3 version of Hibernate.  You can ignore these errors.
 

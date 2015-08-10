@@ -203,7 +203,7 @@ Server Log: Expected warnings and errors
 
 _Note:_ You will see the following warnings in the server log. You can ignore these warnings. 
 
-    JBAS010489: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
     ARJUNA022261: ServerTopLevelAction detected that the transaction was inactive
 
 Undeploy the Archive
