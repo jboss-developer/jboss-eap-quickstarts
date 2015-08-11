@@ -133,7 +133,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
         remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
         remote.connections=default
         remote.connection.default.host=MACHINE_1_IP_ADDRESS
-        remote.connection.default.port=4447
+        remote.connection.default.port=8080
         remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
         remote.connection.default.username=quickuser
         remote.connection.default.password=quick-123
