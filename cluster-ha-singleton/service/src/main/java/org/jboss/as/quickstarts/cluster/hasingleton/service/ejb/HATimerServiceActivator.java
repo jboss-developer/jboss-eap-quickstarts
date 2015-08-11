@@ -24,6 +24,7 @@ import org.jboss.msc.service.ServiceActivatorContext;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceName;
 import org.wildfly.clustering.singleton.SingletonServiceBuilderFactory;
+import org.wildfly.clustering.singleton.SingletonServiceName;
 import org.wildfly.clustering.singleton.election.NamePreference;
 import org.wildfly.clustering.singleton.election.PreferredSingletonElectionPolicy;
 import org.wildfly.clustering.singleton.election.SimpleSingletonElectionPolicy;
@@ -43,7 +44,7 @@ public class HATimerServiceActivator implements ServiceActivator {
         log.info("HATimerService will be installed!");
 
         HATimerService service = new HATimerService();
-        ServiceName factoryServiceName = SingletonServiceBuilderFactory.SERVICE_NAME.append("server", "default");
+        ServiceName factoryServiceName = SingletonServiceName.BUILDER.getServiceName("server", "default");
         ServiceController<?> factoryService = context.getServiceRegistry().getRequiredService(factoryServiceName);
         SingletonServiceBuilderFactory factory = (SingletonServiceBuilderFactory) factoryService.getValue();
         factory.createSingletonServiceBuilder(HATimerService.SINGLETON_SERVICE_NAME, service)
