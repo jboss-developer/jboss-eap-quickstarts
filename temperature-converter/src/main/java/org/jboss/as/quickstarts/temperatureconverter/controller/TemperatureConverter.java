@@ -66,8 +66,8 @@ public class TemperatureConverter implements Serializable {
         try {
             temperature = temperatureConvertEJB.convert(Temperature.parse(sourceTemperature, defaultScale)).toString();
         } catch (IllegalArgumentException e) {
-            temperature = "0.0 Err";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.toString()));
+            temperature = "Invalid temperature";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
         }
     }
 
