@@ -267,7 +267,7 @@
         <profile>
             <!-- The default profile skips all tests, though you can tune it to run 
                 just unit tests based on a custom pattern -->
-            <!-- Seperate profiles are provided for running all tests, including Arquillian 
+            <!-- Separate profiles are provided for running all tests, including Arquillian 
                 tests that execute in the specified container -->
             <id>default</id>
             <activation>
