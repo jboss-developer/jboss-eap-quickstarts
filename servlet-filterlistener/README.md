@@ -73,19 +73,24 @@ You are presented with a form containing an input field and a *Send* button. To 
 
    The following messages appear in the log when you access the application URL. This is because the ParameterDumpingRequestListener, which is a ServletRequestListener, and the VowelRemoverFilter both map to the application context and print logs for every request. Note that the VowelRemoveFilter contains logic to handle empty input field arguments.
 
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been initialized. It has 0 parameters:
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter invoking filter chain...
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter done filtering request
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been destroyed
+        INFO  [io.undertow.servlet] (default task-46) ParameterDumpingRequestListener: request has been initialized. It has 0 parameters:
+        INFO  [io.undertow.servlet] (default task-46) VowelRemoverFilter initialized
+        INFO  [io.undertow.servlet] (default task-46) VowelRemoverFilter invoking filter chain...
+        INFO  [io.undertow.servlet] (default task-46) VowelRemoverFilter done filtering request
+        INFO  [io.undertow.servlet] (default task-46) ParameterDumpingRequestListener: request has been destroyed
+        INFO  [io.undertow.servlet] (default task-48) ParameterDumpingRequestListener: request has been initialized. It has 0 parameters:
+        INFO  [io.undertow.servlet] (default task-48) VowelRemoverFilter invoking filter chain...
+        INFO  [io.undertow.servlet] (default task-48) VowelRemoverFilter done filtering request
+        INFO  [io.undertow.servlet] (default task-48) ParameterDumpingRequestListener: request has been destroyed
+
         
     The following messages appear in the log when you type "This is only a test!" in the input field and click `Send`. 
         
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been initialized. It has 1 parameters:
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1)   userInput=This is only a test!
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter invoking filter chain...
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) VowelRemoverFilter done filtering request
-        INFO  [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/jboss-servlet-filterlistener]] (http-/127.0.0.1:8080-1) ParameterDumpingRequestListener: request has been destroyed
-
+        INFO  [io.undertow.servlet] (default task-50) ParameterDumpingRequestListener: request has been initialized. It has 1 parameters:
+        INFO  [io.undertow.servlet] (default task-50)   userInput=This is only a test!
+        INFO  [io.undertow.servlet] (default task-50) VowelRemoverFilter invoking filter chain...
+        INFO  [io.undertow.servlet] (default task-50) VowelRemoverFilter done filtering request
+        INFO  [io.undertow.servlet] (default task-50) ParameterDumpingRequestListener: request has been destroyed
 
 Undeploy the Archive
 --------------------
