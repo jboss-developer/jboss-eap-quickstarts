@@ -48,7 +48,7 @@ You enable MDB property substitution by running JBoss CLI commands. For your con
 
         For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
         For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
-3. Review the `enable-mdb-property-substitution.cli` script file in the root of this quickstart directory. This script adds the `test` queue to the `messaging` subsystem in the server configuration file.
+3. Review the `enable-mdb-property-substitution.cli` script file in the root of this quickstart directory. This script first enables MDB annotation property substitution the `ee` subsystem of the server configuration file by creating an `annotation-property-replacement` property with a value of `true`. It then defines the system properties that are used in the substitution. 
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
