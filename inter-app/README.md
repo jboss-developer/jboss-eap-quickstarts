@@ -18,8 +18,8 @@ CDI only provides intra-applicaion injection (i.e within a top level deployment,
 In all, the project has three modules:
 
 * `jboss-inter-app-shared.jar` - this module contains the interfaces which define the contract between the beans exposed by the WARs. It is deployed as an EJB JAR module because Eclipse Web Tools Platform can not deploy simple JARs.
-* `jboss-inter-app-A.war` - the first WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB
-* `jboss-inter-app-B.war` - the second WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA
+* `jboss-inter-app-appA.war` - the first WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appB
+* `jboss-inter-app-appB.war` - the second WAR, whiches exposes an EJB singleton, and a simple UI that allows you to read the value set on the bean in appA
 
 System requirements
 -------------------
