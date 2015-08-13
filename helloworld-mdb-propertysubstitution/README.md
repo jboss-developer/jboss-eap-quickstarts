@@ -70,10 +70,10 @@ After stopping the server, open the `EAP_HOME/standalone/configuration/standalon
 
 The `<annotation-property-replacement>` attribute is set to true in the `ee` subsystem :
 
-        <subsystem xmlns="urn:jboss:domain:ee:1.2">
-            <spec-descriptor-property-replacement>false</spec-descriptor-property-replacement>
-            <jboss-descriptor-property-replacement>true</jboss-descriptor-property-replacement>
-             <annotation-property-replacement>true</annotation-property-replacement>
+        <subsystem xmlns="urn:jboss:domain:ee:3.0">
+            ...
+            <annotation-property-replacement>true</annotation-property-replacement>
+            ...
         </subsystem>
 
 The following system properties are defined and appear after the `<extensions>`:
