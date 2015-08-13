@@ -105,7 +105,7 @@
         <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
-        <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>
+        <version.ro.isdc.wro4j>1.7.8</version.ro.isdc.wro4j>
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
