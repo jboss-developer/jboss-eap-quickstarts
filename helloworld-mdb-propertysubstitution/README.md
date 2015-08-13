@@ -3,14 +3,14 @@ helloworld-mdb-propertysubstitution: MDB (Message-Driven Bean) Using Property Su
 Author: Serge Pagop, Andy Taylor, Jeff Mesnil  
 Level: Intermediate  
 Technologies: JMS, EJB, MDB  
-Summary: The `helloworld-mdb-propertysubstitution` quickstart demonstrates the use of *JMS 1.1* and *EJB MDB*, enabling property substitution with annotations.  
+Summary: The `helloworld-mdb-propertysubstitution` quickstart demonstrates the use of *JMS* and *EJB MDB*, enabling property substitution with annotations.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `helloworld-mdb-propertysubstitution` quickstart demonstrates the use of *JMS 1.1* and *EJB Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform. 
+The `helloworld-mdb-propertysubstitution` quickstart demonstrates the use of *JMS* and *EJB Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform. 
 
 It is based on the [helloworld-mdb](../helloworld-mdb/README.md) quickstart, but has been enhanced to enable property substitution using 
 the `@Resource` and `@ActivationConfigProperty` annotations.

@@ -3,14 +3,14 @@ helloworld-mdb: Helloworld Using an MDB (Message-Driven Bean)
 Author: Serge Pagop, Andy Taylor, Jeff Mesnil  
 Level: Intermediate  
 Technologies: JMS, EJB, MDB  
-Summary: The `helloworld-mdb` quickstart uses *JMS 1.1* and *EJB Message-Driven Bean* (MDB) to create and deploy JMS topic and queue resources in JBoss EAP.  
+Summary: The `helloworld-mdb` quickstart uses *JMS* and *EJB Message-Driven Bean* (MDB) to create and deploy JMS topic and queue resources in JBoss EAP.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `helloworld-mdb` quickstart demonstrates the use of *JMS 1.1* and *EJB Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform.
+The `helloworld-mdb` quickstart demonstrates the use of *JMS* and *EJB Message-Driven Bean* in Red Hat JBoss Enterprise Application Platform.
 
 This project creates two JMS resources:
 
