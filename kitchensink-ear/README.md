@@ -102,16 +102,14 @@ Investigate the Server Console Output
 ---------------------
 You should see messages similar to the following:
 
-    INFO  [org.jboss.as.server] (management-handler-thread - 9) JBAS018559: Deployed "test.war"
-    INFO  [org.jboss.as.quickstarts.kitchensink_ear.controller.MemberRegistration] (http--127.0.0.1-8080-2) Registering Jane Doe
-    INFO  [org.jboss.as.quickstarts.kitchensink_ear.test.MemberRegistrationTest] (http--127.0.0.1-8080-2) Jane Doe was persisted with id 1
-    INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) JBAS016009: Stopping weld service for deployment test.war
-    INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011403: Stopping Persistence Unit Service 'test.war#primary'
-    INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (MSC service thread 1-1) HHH000227: Running hbm2ddl schema export
-    INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (MSC service thread 1-1) HHH000230: Schema export complete
-    INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) JBAS010409: Unbound data source [jboss/datasources/KitchensinkEarQuickstartTestDS]
-    INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) JBAS015877: Stopped deployment test.war in 19ms
-    INFO  [org.jboss.as.server] (management-handler-thread - 10) JBAS018558: Undeployed "test.war"
+    INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+    ...
+    INFO  [org.jboss.as.quickstarts.kitchensink_ear.service.MemberRegistration] (default task-102) Registering Jane Doe
+    INFO  [org.jboss.as.quickstarts.kitchensink_ear.test.MemberRegistrationTest] (default task-102) Jane Doe was persisted with id 1
+    ...
+    INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 38ms
+    ....
+    INFO  [org.jboss.as.server] (management-handler-thread - 22) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
 
 Server Log: Expected warnings and errors

@@ -95,13 +95,13 @@ If you are interested in more details, check ``target/surefire-reports`` directo
 You can check console output to verify that Arquillian has really used the real application server. 
 Search for lines similar to the following ones in the server output log:
 
-    [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "test.war"
+    INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
     ...
-    [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 7) JBAS018559: Deployed "test.war"
+    INFO  [org.jboss.as.server] (management-handler-thread - 29) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
     ...
-    [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015877: Stopped deployment test.war in 51ms
+     INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 12ms
     ...
-    [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 5) JBAS018558: Undeployed "test.war"
+    INFO  [org.jboss.as.server] (management-handler-thread - 30) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse

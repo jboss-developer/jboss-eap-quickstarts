@@ -83,24 +83,21 @@ There are two logging statements done when the tests are run:
 
 #### Example
 
-    [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
-    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0003: Processing weld deployment test.war
-    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0006: Starting Services for CDI deployment: test.war
-    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0009: Starting weld service for deployment test.war
-    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
+    INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+    ...
+    INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
     [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
-    [timestamp] INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 70) WFLYUT0021: Registered web context: /test
-    [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 6) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
-    [timestamp] INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 70) WFLYUT0022: Unregistered web context: /test
-    [timestamp] INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0010: Stopping weld service for deployment test.war
+    ...
+    INFO  [org.jboss.as.server] (management-handler-thread - 6) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+    ...
     [timestamp] INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 27ms
-    [timestamp] INFO  [org.jboss.as.repository] (management-handler-thread - 6) WFLYDR0002: Content removed from location /home/sgilda/tools/jboss-eap-7.0/standalone/data/content/68/a7e9a0fc594166f8c1d77dfd770c5adbfb5a92/content
-    [timestamp] INFO  [org.jboss.as.server] (management-handler-thread - 6) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+    ...
+    INFO  [org.jboss.as.server] (management-handler-thread - 6) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
 The two statements to look for are these:
 
-    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
-    [timestamp] INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
+    INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.Monster
+    INFO  [org.jboss.as.quickstart.cdi.extension.CreatureExtension] (MSC service thread 1-3) Setting up injection target for class org.jboss.as.quickstart.cdi.extension.model.NonPlayerCharacter
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------

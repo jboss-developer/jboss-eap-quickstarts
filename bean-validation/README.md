@@ -65,13 +65,13 @@ If you are interested in more details, look in the `target/surefire-reports` dir
 
 You can also check the server console output to verify that the Arquillian tests deployed to and ran in the application server. Search for lines similar to the following ones in the server output log:
 
-    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-5) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+    INFO [org.jboss.as.server.deployment] (MSC service thread 1-5) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
     ...
-    [timestamp] INFO [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+    INFO [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
     ...
-    [timestamp] INFO [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 32ms
+    INFO [org.jboss.as.server.deployment] (MSC service thread 1-3) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 32ms
     ...
-    [timestamp] INFO [[org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+    INFO [[org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
 Server Log: Expected warnings and errors
 -----------------------------------
