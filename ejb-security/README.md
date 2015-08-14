@@ -128,7 +128,7 @@ When you access the application, you are presented with a browser login challeng
         message
         description  The server encountered an internal error () that prevented it from fulfilling this request.
         exception
-        javax.ejb.EJBAccessException: JBAS014502: Invocation on method: public java.lang.String org.jboss.as.quickstarts.ejb_security.SecuredEJB.getSecurityInfo() of bean: SecuredEJB is not allowed
+        javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public java.lang.String org.jboss.as.quickstarts.ejb_security.SecuredEJB.getSecurityInfo() of bean: SecuredEJB is not allowed
 
 
 
