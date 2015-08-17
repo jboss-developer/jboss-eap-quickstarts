@@ -164,6 +164,7 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
+                <!--
                   <configuration>
                     <before-deployment>
                         <scripts>
@@ -176,6 +177,7 @@
                         </scripts>
                     </after-deployment>
                 </configuration>
+                -->
             </plugin>
         </plugins>
     </build>
