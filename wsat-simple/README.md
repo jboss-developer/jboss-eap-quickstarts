@@ -86,7 +86,7 @@ _Note: You see the following warning when you run the Arquillian tests in remote
 
       WARNING: Configuration contain properties not supported by the backing object org.jboss.as.arquillian.container.remote.RemoteContainerConfiguration
       Unused property entries: {serverConfig=../../docs/examples/configs/standalone-xts.xml}
-      Supported property names: [managementPort, username, managementAddress, password]
+      Supported property names: [managementAddress, password, managementPort, managementProtocol, username]]
 
 _This is because, in remote mode, you are responsible for starting the server with the XTS subsystem enabled. When you run the Arquillian tests in managed mode, the container uses the `serverConfig` property defined in the `arquillian.xml` file to start the server with the XTS subsystem enabled._
 
