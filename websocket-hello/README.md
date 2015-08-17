@@ -16,6 +16,8 @@ The `websocket-hello` quickstart demonstrates how to create a simple WebSocket-e
 * A WebSocket server endpoint that uses annotations to interact with the WebSocket events.
 * A `jboss-web.xml` file configured to enable WebSockets
 
+WebSockets are a requirement of the Java EE 7 specification and are implemented in JBoss EAP 7. They are configured in the `undertow` subsystem of the server configuration file. This quickstart uses the WebSocket default settings, so it is not necessary to modify the server configuration to deploy and run this quickstart. 
+
 _Note: This quickstart demonstrates only a few of the basic functions. A fully functional application should provide better error handling and intercept and handle additional events._
 
 System requirements
@@ -31,46 +33,6 @@ Use of EAP_HOME
 
 In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
-
-Configure the JBoss EAP Server
----------------------------
-
-Before you begin, you must enable the `NIO2` connector in the `web` subsystem of the JBoss EAP server configuration file. 
-
-1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss EAP server.
-    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
-    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-2. Start the JBoss EAP server by typing the following: 
-
-        For Linux:  EAP_HOME/bin/standalone.sh
-        For Windows:  EAP_HOME\bin\standalone.bat
-3. Review the `configure-http-connector.cli` file in the root of this quickstart directory. This script configures the http connector in the `web` subsystem to use the "NIO2" protocol.
-
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
-
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-http-connector.cli 
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-http-connector.cli
-You should see the following result when you run the script:
-
-        The batch executed successfully.
-        {"outcome" => "success"}
-5. Stop the JBoss EAP server.
-
-Review the Modified Server Configuration
------------------------------------
-
-After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes. 
-
-The  `http` connector in the `web` subsystem was modified to use the "org.apache.coyote.http11.Http11NioProtocol" protocol:
-
-        <subsystem xmlns="urn:jboss:domain:web:2.2" default-virtual-server="default-host" native="false">
-            <connector name="http" protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="http" socket-binding="http"/>
-            <virtual-server name="default-host" enable-welcome-root="true">
-            <alias name="localhost"/>
-                <alias name="example.com"/>
-            </virtual-server>
-        </subsystem>
 
 
 Start the JBoss EAP Server
@@ -94,9 +56,6 @@ Build and Deploy the Quickstart
 
 4. This will deploy `target/jboss-websocket-hello.war` to the running instance of the server.
 
-_Note: If JBoss EAP is running on Java 6, you will see the following message in the server log when you deploy a websocket enabled application. This is a reminder that it needs to be running on Java 7 or greater._
-
-        INFO [org.apache.tomcat.websocket] (ServerService Thread Pool -- 64) JBWEB008813: WebSocket support is not available when running on Java 6
 
 Access the application 
 ---------------------
@@ -117,49 +76,6 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn wildfly:undeploy
-
-
-Remove the NIO2  HTTP Connector Configuration
-----------------------------
-
-You can remove the connector configuration by running the  `restore-http-connector.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
-
-### Remove the Connector Configuration by Running the JBoss CLI Script
-
-1. Start the JBoss EAP server by typing the following: 
-
-        For Linux:  EAP_HOME/bin/standalone.sh
-        For Windows:  EAP_HOME\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
-
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=restore-http-connector.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-http-connector-cli
-This script restores the http connector protocol in the web subsystem of the server configuration file to the original `HTTP/1.1` protocol. You should see the following result when you run the script:
-
-        The batch executed successfully.
-        {"outcome" => "success"}
-
-
-### Remove the Connector Configuration Manually
-1. If it is running, stop the JBoss EAP server.
-2. Replace the `EAP_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
-
-
-Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
--------------------------------------
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
-
-
-This quickstart requires additional steps to configure the server and configure an external WebSocket enabled browser.
-
-1. Be sure to enable the `NIO2` connector in the `web` subsystem by running the JBoss CLI commands as described above in [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
-
-2. The Eclipse embedded browser does not support WebSockets on all platforms. If the buttons do not function and the quickstart does not run as described above, you should switch to use an external browser. In JBoss Developer Studio, choose menu item `Window` --> `Web Browser` --> `Default System Browser`.
-
-3. When you deploy and run this quickstart in JBoss Developer Studio, the application opens in the browser. 
-
-4. When you complete testing, [Remove the NIO2  HTTP Connector Configuration](#remove-the-nio2-http-connector-configuration) from the server. If you prefer, reset the `Web Browser` preference back to `Internal Web Browser`.
-
 
 
 Debug the Application
