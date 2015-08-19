@@ -32,7 +32,7 @@ public interface DateLogger extends BasicLogger {
 
     @LogMessage(level = Level.ERROR)
     @Message(id = 3, value = "Invalid date passed as string: %s")
-    void logStringCouldntParseAsDate(String datestring, @Cause ParseException exception);
+    void logStringCouldntParseAsDate(String dateString, @Cause Throwable exception);
 
     @LogMessage
     @Message(id = 4, value = "Requested number of days until '%s'")
