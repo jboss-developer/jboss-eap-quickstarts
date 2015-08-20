@@ -51,8 +51,8 @@ Start the JBoss EAP Server
 1. Open a command line and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the default profile:
 
-        For Linux:   EAP_HOME/bin/standalone.sh
-        For Windows: EAP_HOME\bin\standalone.bat
+        For Linux:   EAP7_HOME/bin/standalone.sh
+        For Windows: EAP7_HOME\bin\standalone.bat
 
 Build and Deploy the Quickstart
 ----------------------------
@@ -64,7 +64,7 @@ Build and Deploy the Quickstart
 
 4. This will deploy target/spring-greeter.war to the running instance of the server.
 
-If you don't have maven configured you can manually copy target/spring-greeter.war to EAP_HOME/standalone/deployments.
+If you don't have maven configured you can manually copy target/spring-greeter.war to EAP7_HOME/standalone/deployments.
 
 Access the application
 ----------------------
@@ -80,7 +80,7 @@ Undeploy the Archive
 
         mvn wildfly:undeploy
 
-Or you can manually remove the application by removing spring-greeter.war from EAP_HOME/standalone/deployments
+Or you can manually remove the application by removing spring-greeter.war from EAP7_HOME/standalone/deployments
 
 Run the Arquillian Functional Tests
 -----------------------------------

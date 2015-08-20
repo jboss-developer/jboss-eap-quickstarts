@@ -58,10 +58,10 @@ IMPORTANT: This quickstart depends on the deployment of the `jts` quickstart for
 You can verify the deployment of the `jts` quickstart by accessing the following URL:  <http://localhost:8080/jboss-jts-application-component-1/>.
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Test the Application
@@ -69,9 +69,9 @@ Test the Application
 
 _Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
 
-  * `EAP_HOME` denotes the path to the original JBoss EAP installation. 
-  * `EAP_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
-  * `EAP_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
+  * `EAP7_HOME` denotes the path to the original JBoss EAP installation. 
+  * `EAP7_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
+  * `EAP7_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
  
 
 1. If you have not yet done so, configure the two application servers and deploy the `jts` quickstart. Follow the instructions in the [jts README](../jts/README.md) file.
@@ -95,13 +95,13 @@ _Note:_ This quickstart README file use the following replaceable values. When y
 
    If you are using Linux:
 
-        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP7_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
    If you are using Windows
 
-        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100 
+        Server 1: EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP7_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100 
 
 4. Access the application at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>
     * When you enter a name and click to "add" that customer, you will see the following in the application server 1 console:
@@ -125,13 +125,13 @@ _Note:_ This quickstart README file use the following replaceable values. When y
             15:53:31,638 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
             15:53:31,644 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $3
 
-5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store for this server by typing the following in the terminal for server 1. Be sure to replace `EAP_HOME_1` with the path to the first server.
+5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store for this server by typing the following in the terminal for server 1. Be sure to replace `EAP7_HOME_1` with the path to the first server.
 
-        tree EAP_HOME_1/standalone/data/tx-object-store
+        tree EAP7_HOME_1/standalone/data/tx-object-store
 
     This should display:
 
-        EAP_HOME_1/standalone/data/tx-object-store
+        EAP7_HOME_1/standalone/data/tx-object-store
         `-- ShadowNoFileLockStore
             `-- defaultStore
                 |-- CosTransactions
@@ -150,13 +150,13 @@ _Note:_ This quickstart README file use the following replaceable values. When y
                             `-- ArjunaTransactionImple
                                 `-- 0_ffffc0a8013c_38e104bd_4f280cdb_19
 
-   View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP_HOME_2` with the path to the second server.
+   View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP7_HOME_2` with the path to the second server.
    
-         tree EAP_HOME_2/standalone/data/tx-object-store
+         tree EAP7_HOME_2/standalone/data/tx-object-store
 
     This should display:
 
-        EAP_HOME_2/standalone/data/tx-object-store
+        EAP7_HOME_2/standalone/data/tx-object-store
         `-- ShadowNoFileLockStore
             `-- defaultStore
                 |-- CosTransactions
@@ -233,11 +233,11 @@ _Note:_ This quickstart README file use the following replaceable values. When y
     * The easiest way to check when JBoss EAP server 1 is recovered is to look in the object store and check that all the records are now cleaned up. The records that should be cleared are the ones in the defaultStore/CosTransactions/XAResourceRecord and defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple. 
     * Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator for server 1 and that is to be expected. Run:
 
-            tree EAP_HOME_1/standalone/data/tx-object-store
+            tree EAP7_HOME_1/standalone/data/tx-object-store
 
       You should see this output:
 
-            EAP_HOME_1/standalone/data/tx-object-store
+            EAP7_HOME_1/standalone/data/tx-object-store
             `-- ShadowNoFileLockStore
                 `-- defaultStore
                     |-- CosTransactions
@@ -253,13 +253,13 @@ _Note:_ This quickstart README file use the following replaceable values. When y
                         `-- BasicAction
                             `-- TwoPhaseCoordinator
                               `-- ArjunaTransactionImple
-      View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP_HOME_2` with the path to the second server.
+      View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP7_HOME_2` with the path to the second server.
    
-            tree EAP_HOME_2/standalone/data/tx-object-store
+            tree EAP7_HOME_2/standalone/data/tx-object-store
 
       This should display:
 
-            EAP_HOME_2/standalone/data/tx-object-store
+            EAP7_HOME_2/standalone/data/tx-object-store
             `-- ShadowNoFileLockStore
                 `-- defaultStore
                     |-- CosTransactions

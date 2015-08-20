@@ -30,13 +30,13 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
-Clone the EAP_HOME Directory
+Clone the EAP7_HOME Directory
 ----------------------------
 
 While you can run this example starting only one instance of the server, if you want to see the singleton behavior, you must start at least two instances of the server. Make a copy of the JBoss EAP directory structure to use for the second server.
@@ -51,13 +51,13 @@ Start the the two JBoss EAP servers with the HA profile, passing a unique node I
 
 If you are using Linux:
 
-        Server 1: EAP_HOME_1/bin/standalone.sh --server-config=standalone-ha.xml 
-        Server 2: EAP_HOME_2/bin/standalone.sh --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1/bin/standalone.sh --server-config=standalone-ha.xml 
+        Server 2: EAP7_HOME_2/bin/standalone.sh --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: EAP_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml 
-        Server 2: EAP_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml 
+        Server 2: EAP7_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
 
 _Note: If you want to test with more than two servers, you can start additional servers by specifying a unique node name and unique port offset for each one._
 
@@ -120,7 +120,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 This quickstart is more complex than the others. It requires that you configure and run two instances of the JBoss EAP server, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
 1. Be sure to import the quickstart into JBoss Developer Studio. 
-2. Follow the instructions above to [Clone the EAP_HOME Directory](#clone-the-eaphome-directory).
+2. Follow the instructions above to [Clone the EAP7_HOME Directory](#clone-the-eaphome-directory).
 3. Configure the first server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "Node1" and click `Next`.

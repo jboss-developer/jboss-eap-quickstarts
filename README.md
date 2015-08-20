@@ -25,10 +25,10 @@ Be sure to read this entire document before you attempt to work with the quickst
 
 * [Contributing Guide](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONTRIBUTING.md#jboss-developer-contributing-guide): This document contains information targeted for developers who want to contribute to JBoss developer projects.
 
-Use of EAP_HOME and JBOSS_HOME Variables
+Use of EAP7_HOME and JBOSS_HOME Variables
 ---------------------------------
 
-The quickstart README files use the *replaceable* value `EAP_HOME` to denote the path to the JBoss EAP installation. When you encounter this value in a README file, be sure to replace it with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+The quickstart README files use the *replaceable* value `EAP7_HOME` to denote the path to the JBoss EAP installation. When you encounter this value in a README file, be sure to replace it with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Available Quickstarts

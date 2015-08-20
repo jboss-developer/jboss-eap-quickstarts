@@ -38,10 +38,10 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Download and Configure Byteman
@@ -66,8 +66,8 @@ Start the JBoss EAP Server with the Full Profile
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the JBoss EAP server with the full profile:
 
-        For Linux:   EAP_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows: EAP_HOME\bin\standalone.bat -c standalone-full.xml
+        For Linux:   EAP7_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows: EAP7_HOME\bin\standalone.bat -c standalone-full.xml
  
 
 Build and Deploy the Quickstart
@@ -119,7 +119,7 @@ Test the application
     * Start the H2 console by typing:
 
 
-            java -cp EAP_HOME/modules/system/layers/base/com/h2database/h2/main/h2*.jar org.h2.tools.Console
+            java -cp EAP7_HOME/modules/system/layers/base/com/h2database/h2/main/h2*.jar org.h2.tools.Console
     * Log in:
        
             Database URL: jdbc:h2:file:~/jta-crash-rec-quickstart
@@ -132,10 +132,10 @@ Test the application
     * Log out of the H2 console and be sure to close out the command prompt. H2 is limited to one connection and the application will need it from this point forward.
     * If you are using the default file based transaction logging store, there will be a record in the file system corresponding to the pending transaction. 
 
-        * Open a command prompt and navigate to the `EAP_HOME` directory
+        * Open a command prompt and navigate to the `EAP7_HOME` directory
         * List the contents of the following directory:
 
-                ls EAP_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
+                ls EAP7_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/
         * An example of a logging record file name is: 
  
                 0_ffff7f000001_-7f1cf331_4f0b0ad4_15

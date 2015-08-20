@@ -14,7 +14,7 @@ The `mail` quickstart demonstrates sending email with the use of *CDI* (Contexts
 
 The example uses the default Mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25.
 
-The mail provider is configured in the `mail` subsystem of the `EAP_HOME/standalone/configuration/standalone.xml` configuration file if you are running a standalone server or in the `EAP_HOME/domain/configuration/domain.xml` configuration file if you are running in a managed domain. 
+The mail provider is configured in the `mail` subsystem of the `EAP7_HOME/standalone/configuration/standalone.xml` configuration file if you are running a standalone server or in the `EAP7_HOME/domain/configuration/domain.xml` configuration file if you are running in a managed domain. 
 
 This example is a web application that takes `To`, `From`, `Subject`, and `Message Body` input and sends mail to that address. The front end is a JSF page with a simple POJO backing, leveraging CDI for resource injection.
 
@@ -26,10 +26,10 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 Configure the JBoss EAP Server
 ---------------------------
@@ -38,18 +38,18 @@ You configure the custom mail session in JBoss EAP by running Management CLI com
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
+    * Backup the file: `EAP7_HOME/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME/bin/standalone.sh
-        For Windows:  EAP_HOME\bin\standalone.batl
+        For Linux:  EAP7_HOME/bin/standalone.sh
+        For Windows:  EAP7_HOME\bin\standalone.batl
 3. Review the `configure-mail-session.cli` file in the root of this quickstart directory. This script creates custom outbound socket binding port for SMTP, POP3, and IMAP. It then creates the custom "MyOtherMail" mail session and configures it to use the custom outbound socket binding ports. 
 
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-mail-session.cli 
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-mail-session.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-mail-session.cli 
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-mail-session.cli
    You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -61,7 +61,7 @@ You configure the custom mail session in JBoss EAP by running Management CLI com
 Review the Modified Server Configuration
 -----------------------------------
 
-After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes.
+After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
 The following `outbound-socket-binding` groups are added to the "standard-sockets" `<socket-binding-group>` element.
 
@@ -98,8 +98,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   EAP_HOME/bin/standalone.sh
-        For Windows: EAP_HOME\bin\standalone.bat
+        For Linux:   EAP7_HOME/bin/standalone.sh
+        For Windows: EAP7_HOME\bin\standalone.bat
 
  
 Build and Deploy the Quickstart
@@ -139,12 +139,12 @@ You can remove the mail configuration by running the  `remove-mail-session.cli` 
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME/bin/standalone.sh
-        For Windows:  EAP_HOME\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+        For Linux:  EAP7_HOME/bin/standalone.sh
+        For Windows:  EAP7_HOME\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-mail-session.cli 
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-mail-session.cli 
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-mail-session.cli 
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-mail-session.cli 
    This script removes the custom "MyOtherMail" session from the `mail` subsystem in the server configuration. file You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -153,7 +153,7 @@ You can remove the mail configuration by running the  `remove-mail-session.cli` 
 
 ### Remove the Custom Mail Configuration Manually
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `EAP_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
+2. Replace the `EAP7_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse

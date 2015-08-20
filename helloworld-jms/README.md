@@ -27,10 +27,10 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Add an Application User
@@ -44,8 +44,8 @@ This quickstart uses secured management interfaces and requires that you create 
 
 To add the application user, open a command prompt and type the following command:
 
-        For Linux:   EAP_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
-        For Windows: EAP_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+        For Linux:   EAP7_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+        For Windows: EAP7_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
 
 If you prefer, you can use the add-user utility interactively. 
 For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
@@ -58,18 +58,18 @@ You configure the JMS `test` queue by running JBoss CLI commands. For your conve
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
+    * Backup the file: `EAP7_HOME/standalone/configuration/standalone-full.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-full.xml
 3. Review the `configure-jms.cli` file in the root of this quickstart directory. This script adds the `test` queue to the `messaging` subsystem in the server configuration file.
 
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-jms.cli 
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
    You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -80,7 +80,7 @@ You configure the JMS `test` queue by running JBoss CLI commands. For your conve
 Review the Modified Server Configuration
 -----------------------------------
 
-After stopping the server, open the `EAP_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
+After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
 The following `testQueue` jms-queue was configured in a new `<jms-destinations>` element under the hornetq-server section of the `messaging` subsystem.
 
@@ -98,8 +98,8 @@ Start the JBoss EAP Server with the Full Profile
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the full profile:
 
-        For Linux:   EAP_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows: EAP_HOME\bin\standalone.bat -c standalone-full.xml
+        For Linux:   EAP7_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows: EAP7_HOME\bin\standalone.bat -c standalone-full.xml
 
 
 Build and Execute the Quickstart
@@ -199,12 +199,12 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-full.xml
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-jms.cli 
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
    This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -213,7 +213,7 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
 
 ### Remove the JMS Configuration Manually
 1. If it is running, stop the JBoss EAP server.
-2. Replace the `EAP_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
+2. Replace the `EAP7_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse

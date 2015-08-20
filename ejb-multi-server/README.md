@@ -42,10 +42,10 @@ Start with a Clean JBoss EAP Install
 It is important to start with a clean version of JBoss EAP before testing this quickstart. Be sure to unzip or install a fresh JBoss EAP instance. 
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Add the Application Users
@@ -62,14 +62,14 @@ The following users must be added to the `ApplicationRealm` to run this quicksta
 To add the users, open a command prompt and type the following commands:
 
         For Linux:
-            EAP_HOME/bin/add-user.sh -a -u quickuser -p quick-123
-            EAP_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+
-            EAP_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123
+            EAP7_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+            EAP7_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+
+            EAP7_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123
 
         For Windows:
-            EAP_HOME\bin\add-user.bat -a -u quickuser -p quick-123
-            EAP_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
-            EAP_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
+            EAP7_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+            EAP7_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
+            EAP7_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
 
 If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
@@ -85,10 +85,10 @@ You configure the domain server by running JBoss CLI commands. For your convenie
 
 3. Before you begin, back up your server configuration files.
     * If it is running, stop the JBoss EAP server.
-    * Backup the following files, replacing EAP_HOME with the path to your server: 
+    * Backup the following files, replacing EAP7_HOME with the path to your server: 
 
-            EAP_HOME/domain/configuration/domain.xml
-            EAP_HOME/domain/configuration/host.xml        
+            EAP7_HOME/domain/configuration/domain.xml
+            EAP7_HOME/domain/configuration/host.xml        
     * After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
 4.  Start the JBoss EAP server 
     * Open a command prompt and navigate to the root of the EAP directory. 
@@ -97,10 +97,10 @@ You configure the domain server by running JBoss CLI commands. For your convenie
             bin/domain.sh    
 5. Review the `install-domain.cli` file in the root of this quickstart directory. This script configures and starts multiple servers needed to run this quickstart. 
 
-6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
  
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=install-domain.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=install-domain.cli
      You should see the following result when you run the script:
 
         The batch executed successfully
@@ -122,8 +122,8 @@ Build and Deploy the Quickstart
         
 4. Open a new command prompt and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=deploy-domain.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=deploy-domain.cli
        
     This will deploy the app-*.ear files to different server-groups of the running domain.
 
@@ -163,12 +163,12 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
     To update the roles, open a command prompt and type the following commands:
 
         For Linux:
-              EAP_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ -g Intern
-              EAP_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 -g AppTwo
+              EAP7_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ -g Intern
+              EAP7_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 -g AppTwo
 
         For Windows:
-              EAP_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ -g Intern
-              EAP_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 -g AppTwo
+              EAP7_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ -g Intern
+              EAP7_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 -g AppTwo
 
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
@@ -182,9 +182,9 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
         * The clustered view is created using `quickuser2`. This takes some time, but once it takes effect, all calls are load-balanced.
     * The calls to the 'AppTwo' bean in `app-two` are made using two different scoped-context settings and both are used alternately 7 times. This means the servers `app-twoA` and `app-twoB` are called alternately seven times each.
 
-5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP_HOME with your current installation path. The output should be similar to the previous mvn executions.
+5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP7_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
-        java -cp EAP_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
+        java -cp EAP7_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
 
 
 _NOTE:_
@@ -224,8 +224,8 @@ Undeploy the Archives
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
 
 
 Remove the Server Domain Configuration
@@ -235,7 +235,7 @@ You can remove the domain configuration by manually restoring the back-up copies
 
 ### Remove the Server Domain Configuration Manually           
 1. If it is running, stop the JBoss EAP server.
-2. Restore the `EAP_HOME/domain/configuration/domain.xml` and `EAP_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace EAP_HOME with the path to your server.
+2. Restore the `EAP7_HOME/domain/configuration/domain.xml` and `EAP7_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace EAP7_HOME with the path to your server.
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
@@ -243,12 +243,12 @@ _Note: This script returns the server to a default configuration and the result 
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:   EAP_HOME/bin/domain.sh
-        For Windows: EAP_HOME\bin\domain.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server.
+        For Linux:   EAP7_HOME/bin/domain.sh
+        For Windows: EAP7_HOME\bin\domain.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server.
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-configuration.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-configuration.cli
 This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.

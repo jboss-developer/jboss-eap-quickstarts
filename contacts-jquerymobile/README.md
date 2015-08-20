@@ -67,15 +67,15 @@ Start the JBoss EAP Server
 1. Open a command line and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server with the default profile:
 
-        For Linux:   EAP_HOME/bin/standalone.sh
-        For Windows: EAP_HOME\bin\standalone.bat
+        For Linux:   EAP7_HOME/bin/standalone.sh
+        For Windows: EAP7_HOME\bin\standalone.bat
 
    Note: Adding "-b 0.0.0.0" to the above commands will allow external clients (phones, tablets, desktops, etc...) connect through your local network.
 
    For example
 
-        For Linux:   EAP_HOME/bin/standalone.sh -b 0.0.0.0
-        For Windows: EAP_HOME\bin\standalone.bat -b 0.0.0.0
+        For Linux:   EAP7_HOME/bin/standalone.sh -b 0.0.0.0
+        For Windows: EAP7_HOME\bin\standalone.bat -b 0.0.0.0
 
 
 Build and Deploy the Quickstart

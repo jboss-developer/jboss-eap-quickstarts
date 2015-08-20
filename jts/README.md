@@ -50,10 +50,10 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP_HOME
+Use of EAP7_HOME
 ---------------
 
-In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Prerequisites
@@ -85,9 +85,9 @@ Since both application servers must be configured in the same way, you must conf
 
 _Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
 
-  * `EAP_HOME` denotes the path to the original JBoss EAP installation. 
-  * `EAP_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
-  * `EAP_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
+  * `EAP7_HOME` denotes the path to the original JBoss EAP installation. 
+  * `EAP7_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
+  * `EAP7_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
  
 ### Configure the First Server 
 
@@ -95,17 +95,17 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
-    * Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
+    * Backup the file: `EAP7_HOME/standalone/configuration/standalone-full.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 2. Start the JBoss EAP server with the full profile, passing a unique node ID by typing the following command. Be sure to replace `UNIQUE_NODE_ID_1` with a node identifier that is unique to both servers.
 
-        For Linux:  EAP_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        For Windows:  EAP_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
 3. Review the `configure-jts-transactions.cli` file in the root of this quickstart directory. This script configures the server to use jts transaction processing.
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
-        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-jts-transactions.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-jts-transactions.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-jts-transactions.cli
  You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -117,7 +117,7 @@ _NOTE:_ When you have completed testing this quickstart, it is important to [Rem
 
 ### Review the Modified Server Configuration
 
-After stopping the server, open the `EAP_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
+After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
 1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `iiop-openjdk` subsystem to enable JTS. A naming root is also added to the subsystem.
 
@@ -137,7 +137,7 @@ After stopping the server, open the `EAP_HOME/standalone/configuration/standalon
         
 _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss EAP Server](#remove-the-jts-configuration-from-the-jboss-eap-server).
   
-### Clone the EAP_HOME Directory     
+### Clone the EAP7_HOME Directory     
 
 Make a copy of this JBoss EAP directory structure to use for the second server.
 
@@ -157,13 +157,13 @@ Start the the two JBoss EAP servers with the full profile, passing a unique node
 
 If you are using Linux:
 
-        Server 1: EAP_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP7_HOME_2/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: EAP_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
-        Server 2: EAP_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        Server 2: EAP7_HOME_2\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_2 -Djboss.socket.binding.port-offset=100
 
 
 Build and Deploy the Quickstart
@@ -227,12 +227,12 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  EAP_HOME_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME_1\bin\standalone.bat -c standalone-full.xml
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+        For Linux:  EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
-        For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect --file=remove-jts-transactions.cli 
+        For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
+        For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=remove-jts-transactions.cli 
 This script removes the JTS configuration from the `jacorb` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
@@ -243,12 +243,12 @@ This script removes the JTS configuration from the `jacorb` and `transactions` s
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  EAP_HOME_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP_HOME_1\bin\standalone.bat -c standalone-full.xml
-2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP_HOME directory, and type the following:
+        For Linux:  EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml
+        For Windows:  EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml
+2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP7_HOME directory, and type the following:
     
-        For Linux: EAP_HOME_1/bin/jboss-cli.sh --connect
-        For Windows: EAP_HOME_1\bin\jboss-cli.bat --connect
+        For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect
+        For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect
 3. At the prompt, type the following:
 
         /subsystem=iiop-openjdk/:write-attribute(name=transactions,value=spec)
@@ -262,8 +262,8 @@ This script removes the JTS configuration from the `jacorb` and `transactions` s
 ### Remove the JTS Server Configuration Manually
 
 1. Stop the server.
-2. If you backed up the EAP_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
-3. If you did not make a backup copy, open the file EAP_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
+2. If you backed up the EAP7_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
+3. If you did not make a backup copy, open the file EAP7_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
 
     * Find the orb subsystem and change the configuration back to:
 
