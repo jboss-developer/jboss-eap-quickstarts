@@ -13,11 +13,11 @@ What is it?
 
 The `tasks-rs` quickstart demonstrates how to implement a JAX-RS service that uses JPA persistence deployed to Red Hat JBoss Enterprise Application Platform.
 
-* The client uses HTTP to interact with the service. It builds on the *tasks* quickstarts which provide simple Task management with secure login.
+* The client uses HTTP to interact with the service. It builds on the *tasks* quickstart, which provides simple task management with secure login.
 
 * The service interface is implemented using JAX-RS. The SecurityContext JAX-RS annotation is used to inject the security details into each REST method.
 
-The application manages User and Task JPA entities. A user represents an authenticated principal and is associated with zero or more Tasks. Service methods validate that there is an authenticated principal and the first time a principal is seen, a JPA User entity is created to correspond to the principal. JAX-RS annotated methods are provided for associating Tasks with this User and for listing and removing Tasks.
+The application manages `User` and `Task` JPA entities. A user represents an authenticated principal and is associated with zero or more tasks. Service methods validate that there is an authenticated principal and the first time a principal is seen, a JPA User entity is created to correspond to the principal. JAX-RS annotated methods are provided for associating tasks with this user and for listing and removing tasks.
 
 _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
@@ -81,16 +81,16 @@ Build and Deploy the Quickstart
 Access the Application Resources
 ---------------------
 
-Application resources for this quickstart are prefixed with the URL http://localhost:8080/jboss-tasks-rs/ and can be accessed by an HTTP client.
+Application resources for this quickstart are prefixed with the URL <http://localhost:8080/jboss-tasks-rs/> and can be accessed by an HTTP client.
 
-* For methods that accept *GET*, a web browser can be used.
+* A web browser can be used for methods that accept *GET*.
 * Otherwise, you must use cURL or some other command line tool that supports HTTP *POST* and *DELETE* methods.
 
 Below you will find instructions to create, display, and delete tasks.
 
 ### Create a Task
 
-To associate a task called `task1` with the user `quickstartUser`, you must authenticate as user `quickstartUser` and send an HTTP *POST* request to the url 'http://localhost:8080/jboss-tasks-rs/tasks/task1'.
+To associate a task called `task1` with the user `quickstartUser`, you must authenticate as user `quickstartUser` and send an HTTP *POST* request to the url <http://localhost:8080/jboss-tasks-rs/tasks/task1>.
 
 To issue the *POST* command using cURL, type the following command:
 
@@ -106,7 +106,7 @@ You will see the following response:
 
 This is what happens when the command is issued:
 
-* The `-i` flag tells cURL to print the returned headers. Notice that the `Location` header contains the URI of the resource corresponding to the new task you have just created.
+* The `-i` flag tells cURL to print the returned headers.
 * The `-u` flag provides the authentication information for the request.
 * The `-H` flag adds a header to the outgoing request.
 * The `-X` flag tells cURL which HTTP method to use. The HTTP *POST* is used to create resources.
