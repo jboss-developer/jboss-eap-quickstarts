@@ -14,24 +14,9 @@ The `mail` quickstart demonstrates sending email with the use of *CDI* (Contexts
 
 The example uses the default Mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25.
 
-The configuration of the mail provider is found in the `EAP_HOME/standalone/configuration/standalone.xml` if you are running a standalone server or in the `EAP_HOME/domain/configuration/domain.xml` file if you are running in a managed domain. An example of the mail subsystem XML configuration is provided below:
+The mail provider is configured in the `mail` subsystem of the `EAP_HOME/standalone/configuration/standalone.xml` configuration file if you are running a standalone server or in the `EAP_HOME/domain/configuration/domain.xml` configuration file if you are running in a managed domain. 
 
-    <subsystem xmlns="urn:jboss:domain:mail:2.0">
-        <mail-session name="default" jndi-name="java:jboss/mail/Default">
-            <smtp-server outbound-socket-binding-ref="mail-smtp"/>
-        </mail-session>
-        <mail-session name="my-other-mail" jndi-name="java:/MyOtherMail">
-            <smtp-server address="localhost" port="9999">
-                <login name="nobody" password="pass"/>
-            </smtp-server>
-            <pop3-server address="example.com" port="1234"/>
-            <imap-server address="example.com" port="432">
-                <login name="nobody" password="pass"/>
-            </imap-server>
-        </mail-session>
-    </subsystem>
-
-The example is a web application that takes `To`, `From`, `Subject`, and `Message Body` input and sends mail to that address. The front end is a JSF page with a simple POJO backing, leveraging CDI for resource injection.
+This example is a web application that takes `To`, `From`, `Subject`, and `Message Body` input and sends mail to that address. The front end is a JSF page with a simple POJO backing, leveraging CDI for resource injection.
 
 System requirements
 -------------------
@@ -46,6 +31,66 @@ Use of EAP_HOME
 
 In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
+Configure the JBoss EAP Server
+---------------------------
+
+You configure the custom mail session in JBoss EAP by running Management CLI commands. For your convenience, this quickstart batches the commands into a `configure-mail-session.cli` script provided in the root directory of this quickstart. 
+
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss EAP server.
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+2. Start the JBoss EAP server by typing the following: 
+
+        For Linux:  EAP_HOME/bin/standalone.sh
+        For Windows:  EAP_HOME\bin\standalone.batl
+3. Review the `configure-mail-session.cli` file in the root of this quickstart directory. This script creates custom outbound socket binding port for SMTP, POP3, and IMAP. It then creates the custom "MyOtherMail" mail session and configures it to use the custom outbound socket binding ports. 
+
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=configure-mail-session.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=configure-mail-session.cli
+   You should see the following result when you run the script:
+
+        The batch executed successfully.
+        process-state: reload-required 
+}
+5. Stop the JBoss EAP server.
+
+
+Review the Modified Server Configuration
+-----------------------------------
+
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes.
+
+The following `outbound-socket-binding` groups are added to the "standard-sockets" `<socket-binding-group>` element.
+
+      <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+        ...
+        </outbound-socket-binding>
+        <outbound-socket-binding name="my-smtp-binding">
+            <remote-destination host="localhost" port="25"/>
+        </outbound-socket-binding>
+        <outbound-socket-binding name="my-pop3-binding">
+            <remote-destination host="localhost" port="110"/>
+        </outbound-socket-binding>
+        <outbound-socket-binding name="my-imap-binding">
+            <remote-destination host="localhost" port="143"/>
+        </outbound-socket-binding>
+     </socket-binding-group>
+
+The "MyOtherMail" mail session is added to the `mail` subsystem and configured to use the custom outbound socket binding ports.
+
+      <subsystem xmlns="urn:jboss:domain:mail:2.0">
+         <mail-session name="default" jndi-name="java:jboss/mail/Default">
+            <smtp-server outbound-socket-binding-ref="mail-smtp"/>
+         </mail-session>
+         <mail-session name="MyOtherMail" jndi-name="java:jboss/mail/MyOtherMail">
+            <smtp-server password="pass" username="nobody" tls="true" outbound-socket-binding-ref="my-smtp-binding"/>
+            <pop3-server outbound-socket-binding-ref="my-pop3-binding"/>
+            <imap-server password="pass" username="nobody" outbound-socket-binding-ref="my-imap-binding"/>
+         </mail-session>
+      </subsystem>
 
 Start the JBoss EAP Server
 -------------------------
@@ -83,6 +128,32 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn wildfly:undeploy
+
+
+Remove the Mail Configuration
+----------------------------
+
+You can remove the mail configuration by running the  `remove-mail-session.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
+
+### Remove the Custom Mail Configuration by Running the JBoss CLI Script
+
+1. Start the JBoss EAP server by typing the following: 
+
+        For Linux:  EAP_HOME/bin/standalone.sh
+        For Windows:  EAP_HOME\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
+
+        For Linux: EAP_HOME/bin/jboss-cli.sh --connect --file=remove-mail-session.cli 
+        For Windows: EAP_HOME\bin\jboss-cli.bat --connect --file=remove-mail-session.cli 
+   This script removes the custom "MyOtherMail" session from the `mail` subsystem in the server configuration. file You should see the following result when you run the script:
+
+        The batch executed successfully.
+        process-state: reload-required 
+
+
+### Remove the Custom Mail Configuration Manually
+1. If it is running, stop the JBoss EAP server.
+2. Replace the `EAP_HOME/standalone/configuration/standalone-full.xml` file with the back-up copy of the file.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
