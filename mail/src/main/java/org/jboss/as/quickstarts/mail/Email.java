@@ -53,7 +53,7 @@ public class Email implements Serializable {
      * Resource for sending the email. The mail subsystem is defined in either standalone.xml or domain.xml in your respective
      * configuration directory.
      */
-    @Resource(mappedName = "java:jboss/mail/Default")
+    @Resource(mappedName = "java:jboss/mail/MyOtherMail")
     private Session mySession;
 
     private String to;
