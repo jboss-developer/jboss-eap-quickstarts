@@ -66,7 +66,7 @@ Check the Server Logs
 The log files are located in the `EAP_HOME/standalone/log` log directory. At this point you should see the following log files.
 
         * `server.log` - This is the standard log produced by the application server. By default, it contains all the server log messages, including the server startup messages.
-        * `gc.log.0` - This is a garbage collection log. It contains garbage collection activity and can be used for diagnostic purposes. This log can be ignored as it is not used in this quickstart.
+        * `gc.log.0.current` - This is a garbage collection log. It contains garbage collection activity and can be used for diagnostic purposes. This log can be ignored as it is not used in this quickstart.
 
 
 Configure the Logging Quickstart Log File Handlers
@@ -279,7 +279,7 @@ The log files are located in the `EAP_HOME/standalone/log` log directory. You sh
 
 * The following logs are the standard log files produced by the application server:
     * `server.log` - The standard log produced by the application server.
-    * `gc.log.0` - The garbage collection log can be ignored as it is not used in this quickstart.
+    * `gc.log.0.current` - The garbage collection log can be ignored as it is not used in this quickstart.
 
     
 * The following logs are produced by the quickstart. They are listed in hierarchical order from the largest file containing the most messages to the smallest file containing the least messages. 
