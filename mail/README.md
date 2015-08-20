@@ -12,11 +12,12 @@ What is it?
 
 The `mail` quickstart demonstrates sending email with the use of *CDI* (Contexts and Dependency Injection) and *JSF* (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.
 
-The example uses the default Mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25.
-
 The mail provider is configured in the `mail` subsystem of the `EAP7_HOME/standalone/configuration/standalone.xml` configuration file if you are running a standalone server or in the `EAP7_HOME/domain/configuration/domain.xml` configuration file if you are running in a managed domain. 
 
+You can use the default mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25. However, this quickstart demonstrates how to define and use a custom mail provider.
+
 This example is a web application that takes `To`, `From`, `Subject`, and `Message Body` input and sends mail to that address. The front end is a JSF page with a simple POJO backing, leveraging CDI for resource injection.
+
 
 System requirements
 -------------------
