@@ -49,8 +49,8 @@ This quickstart uses secured management interfaces and requires that you create 
 
 To add the application user, open a command prompt and type the following command:
 
-        For Linux:   EAP7_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
-        For Windows: EAP7_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+      For Linux:   EAP7_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+      For Windows: EAP7_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
 
 If you prefer, you can use the add-user utility interactively. 
 For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
@@ -206,10 +206,10 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
 2. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with "// JSON:".
     * Remove comments from these lines:
 
-        //@Produces({ "application/xml", "application/json" })
+          //@Produces({ "application/xml", "application/json" })
     * Add comments to these lines:
 
-        @Produces({ "application/xml" })
+          @Produces({ "application/xml" })
 3. Open pom.xml and remove the comments from the dependency with artifactId `resteasy-jackson-provider`
 
         <!--
@@ -221,17 +221,17 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
         </dependency>
         -->
 
-4. [Create a Task](#create-a-task) as you did for the XML version of this quickstart.
-5. Rebuild and redeploy the quickstart.
+4. Rebuild and redeploy the quickstart.
+5. [Create a Task](#create-a-task) as you did for the XML version of this quickstart.
 
 
-Now you can view task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:
+6. View task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:
 
-    curl -H "Accept: application/json" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/1
+        curl -H "Accept: application/json" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/1
 
-You will see the following response:
+  You will see the following response:
 
-    {"id":1,"title":"task1","ownerName":"quickstartUser"}
+      {"id":1,"title":"task1","ownerName":"quickstartUser"}
 
 
 Server Log: Expected warnings and errors
@@ -272,5 +272,5 @@ Debug the Application
 
 If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
 
-        mvn dependency:sources
+    mvn dependency:sources
 
