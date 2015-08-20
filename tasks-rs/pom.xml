@@ -119,6 +119,13 @@
                 as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-7.0-eap</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
@@ -154,8 +161,6 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jackson-provider</artifactId>
-            <version>2.3.1.GA</version>
-            <scope>provided</scope>
         </dependency>
         -->
 

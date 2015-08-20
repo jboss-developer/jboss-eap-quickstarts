@@ -99,10 +99,15 @@ To issue the *POST* command using cURL, type the following command:
 You will see the following response:
 
     HTTP/1.1 201 Created
-    Server: Apache-Coyote/1.1
+    Expires: 0
+    Cache-Control: no-cache, no-store, must-revalidate
+    X-Powered-By: Undertow/1
+    Server: WildFly/10
+    Pragma: no-cache
     Location: http://localhost:8080/jboss-tasks-rs/tasks/1
+    Date: Thu, 20 Aug 2015 17:30:24 GMT
+    Connection: keep-alive
     Content-Length: 0
-    Date: Sun, 15 Apr 2012 22:46:26 GMT
 
 This is what happens when the command is issued:
 
@@ -133,7 +138,7 @@ Using either of the above *GET* methods, you should see the following XML:
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
        <task id="1" ownerName="quickstartUser">
           <title>task1</title>
-      </task>
+       </task>
 
 
 ### Display the XML Representation of all Tasks for a User
@@ -168,11 +173,14 @@ To delete the task with id `1`:
 You will see this response:
 
     HTTP/1.1 204 No Content
-    Server: Apache-Coyote/1.1
-    Pragma: No-cache
-    Cache-Control: no-cache
-    Expires: Thu, 01 Jan 1970 01:00:00 GMT
-    Date: Sun, 15 Apr 2012 22:51:56 GMT
+    Expires: 0
+    Cache-Control: no-cache, no-store, must-revalidate
+    X-Powered-By: Undertow/1
+    Server: WildFly/10
+    Pragma: no-cache
+    Date: Thu, 20 Aug 2015 17:32:39 GMT
+    Connection: keep-alive
+    Content-Length: 0
 
 Now list all tasks associated with user `quickstartUser`:
 
