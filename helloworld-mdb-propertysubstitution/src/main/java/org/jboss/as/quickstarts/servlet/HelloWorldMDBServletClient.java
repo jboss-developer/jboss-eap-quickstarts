@@ -20,20 +20,37 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.annotation.Resource;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
+import javax.inject.Inject;
 import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
+import javax.jms.JMSContext;
+import javax.jms.JMSDestinationDefinition;
+import javax.jms.JMSDestinationDefinitions;
 import javax.jms.Queue;
-import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Definition of the two JMS destinations used by the quickstart
+ * (one queue and one topic).
+ */
+@JMSDestinationDefinitions(
+        value =  {
+                @JMSDestinationDefinition(
+                        name = "java:/queue/HELLOWORLDMDBQueue",
+                        interfaceName = "javax.jms.Queue",
+                        destinationName = "HelloWorldMDBQueue"
+                ),
+                @JMSDestinationDefinition(
+                        name = "java:/topic/HELLOWORLDMDBTopic",
+                        interfaceName = "javax.jms.Topic",
+                        destinationName = "HelloWorldMDBTopic"
+                )
+        }
+)
 
 /**
  * <p>
@@ -55,55 +72,33 @@ public class HelloWorldMDBServletClient extends HttpServlet {
 
     private static final int MSG_COUNT = 5;
 
-    @Resource(mappedName = "${property.connection.factory}")
-    private ConnectionFactory connectionFactory;
+    @Inject
+    private JMSContext context;
 
-    @Resource(mappedName = "${property.helloworldmdb.queue}")   
+    @Resource(lookup = "java:/queue/HELLOWORLDMDBQueue")
     private Queue queue;
 
-    @Resource(mappedName = "${property.helloworldmdb.topic}")
+    @Resource(lookup = "java:/topic/HELLOWORLDMDBTopic")
     private Topic topic;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        Connection connection = null;
-        out.write("<h1>Quickstart: This example demonstrates the use of <strong>JMS 1.1</strong> and <strong>EJB Message-Driven Bean</strong> in Red Hat JBoss Enterprise Application Platform.</h1>");
+        out.write("<h1>Quickstart: Example demonstrates the use of <strong>JMS 2.0</strong> and <strong>EJB 3.2 Message-Driven Bean</strong> in JBoss EAP.</h1>");
         try {
-            Destination destination;
-            if (req.getParameterMap().keySet().contains("topic")) {
-                destination = topic;
-            } else {
-                destination = queue;
-            }
-            out.write("<p>Sending messages to <em>" + destination + "</em></p>");
-            connection = connectionFactory.createConnection();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            MessageProducer messageProducer = session.createProducer(destination);
-            connection.start();
-            out.write("<h2>Following messages will be send to the destination:</h2>");
-            TextMessage message = session.createTextMessage();
-            for (int i = 0; i < MSG_COUNT; i++) {
-                message.setText("This is message " + (i + 1));
-                messageProducer.send(message);
-                out.write("Message (" + i + "): " + message.getText() + "</br>");
-            }
-            out.write("<p><i>Go to your JBoss EAP server console or log to see the result of messages processing</i></p>");
+            boolean useTopic = req.getParameterMap().keySet().contains("topic");
+            final Destination destination = useTopic ? topic : queue;
 
-        } catch (JMSException e) {
-            e.printStackTrace();
-            out.write("<h2>A problem occurred during the delivery of this message</h2>");
-            out.write("</br>");
-            out.write("<p><i>Go your the JBoss EAP server console or log to see the error stack trace</i></p>");
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (JMSException e) {
-                    e.printStackTrace();
-                }
+            out.write("<p>Sending messages to <em>" + destination + "</em></p>");
+            out.write("<h2>Following messages will be send to the destination:</h2>");
+            for (int i = 0; i < MSG_COUNT; i++) {
+                String text = "This is message " + (i + 1);
+                context.createProducer().send(destination, text);
+                out.write("Message (" + i + "): " + text + "</br>");
             }
+            out.write("<p><i>Go to your JBoss EAP Server console or Server log to see the result of messages processing</i></p>");
+        } finally {
             if (out != null) {
                 out.close();
             }
@@ -113,5 +108,4 @@ public class HelloWorldMDBServletClient extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-
 }
