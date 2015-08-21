@@ -19,15 +19,13 @@ package org.jboss.as.quickstarts.jms;
 import java.util.logging.Logger;
 import java.util.Properties;
 
-import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.JMSConsumer;
+import javax.jms.JMSContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class HelloWorldJMSClient {
     private static final Logger log = Logger.getLogger(HelloWorldJMSClient.class.getName());
@@ -40,73 +38,62 @@ public class HelloWorldJMSClient {
     private static final String DEFAULT_USERNAME = "quickstartUser";
     private static final String DEFAULT_PASSWORD = "quickstartPwd1!";
     private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
-    private static final String PROVIDER_URL = "remote://localhost:4447";
+    private static final String PROVIDER_URL = "http-remoting://127.0.0.1:8080";
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
-        ConnectionFactory connectionFactory = null;
-        Connection connection = null;
-        Session session = null;
-        MessageProducer producer = null;
-        MessageConsumer consumer = null;
-        Destination destination = null;
-        TextMessage message = null;
-        Context context = null;
+        Context namingContext = null;
 
         try {
-            // Set up the context for the JNDI lookup
+            String userName = System.getProperty("username", DEFAULT_USERNAME);
+            String password = System.getProperty("password", DEFAULT_PASSWORD);
+
+            // Set up the namingContext for the JNDI lookup
             final Properties env = new Properties();
             env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
             env.put(Context.PROVIDER_URL, System.getProperty(Context.PROVIDER_URL, PROVIDER_URL));
-            env.put(Context.SECURITY_PRINCIPAL, System.getProperty("username", DEFAULT_USERNAME));
-            env.put(Context.SECURITY_CREDENTIALS, System.getProperty("password", DEFAULT_PASSWORD));
-            context = new InitialContext(env);
+            env.put(Context.SECURITY_PRINCIPAL, userName);
+            env.put(Context.SECURITY_CREDENTIALS, password);
+            namingContext = new InitialContext(env);
 
             // Perform the JNDI lookups
             String connectionFactoryString = System.getProperty("connection.factory", DEFAULT_CONNECTION_FACTORY);
             log.info("Attempting to acquire connection factory \"" + connectionFactoryString + "\"");
-            connectionFactory = (ConnectionFactory) context.lookup(connectionFactoryString);
+            ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup(connectionFactoryString);
             log.info("Found connection factory \"" + connectionFactoryString + "\" in JNDI");
 
             String destinationString = System.getProperty("destination", DEFAULT_DESTINATION);
             log.info("Attempting to acquire destination \"" + destinationString + "\"");
-            destination = (Destination) context.lookup(destinationString);
+            Destination destination = (Destination) namingContext.lookup(destinationString);
             log.info("Found destination \"" + destinationString + "\" in JNDI");
-
-            // Create the JMS connection, session, producer, and consumer
-            connection = connectionFactory.createConnection(System.getProperty("username", DEFAULT_USERNAME), System.getProperty("password", DEFAULT_PASSWORD));
-            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            producer = session.createProducer(destination);
-            consumer = session.createConsumer(destination);
-            connection.start();
 
             int count = Integer.parseInt(System.getProperty("message.count", DEFAULT_MESSAGE_COUNT));
             String content = System.getProperty("message.content", DEFAULT_MESSAGE);
 
-            log.info("Sending " + count + " messages with content: " + content);
+            try (JMSContext context = connectionFactory.createContext(userName, password)) {
+                log.info("Sending " + count + " messages with content: " + content);
+                // Send the specified number of messages
+                for (int i = 0; i < count; i++) {
+                    context.createProducer().send(destination, content);
+                }
 
-            // Send the specified number of messages
-            for (int i = 0; i < count; i++) {
-                message = session.createTextMessage(content);
-                producer.send(message);
+                // Create the JMS consumer
+                JMSConsumer consumer = context.createConsumer(destination);
+                // Then receive the same number of messages that were sent
+                for (int i = 0; i < count; i++) {
+                    String text = consumer.receiveBody(String.class, 5000);
+                    log.info("Received message with content " + text);
+                }
             }
-
-            // Then receive the same number of messages that were sent
-            for (int i = 0; i < count; i++) {
-                message = (TextMessage) consumer.receive(5000);
-                log.info("Received message with content " + message.getText());
-            }
-        } catch (Exception e) {
+        } catch (NamingException e) {
             log.severe(e.getMessage());
-            throw e;
         } finally {
-            if (context != null) {
-                context.close();
-            }
-
-            // closing the connection takes care of the session, producer, and consumer
-            if (connection != null) {
-                connection.close();
+            if (namingContext != null) {
+                try {
+                    namingContext.close();
+                } catch (NamingException e) {
+                    log.severe(e.getMessage());
+                }
             }
         }
     }

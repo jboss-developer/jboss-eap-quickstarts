@@ -82,14 +82,9 @@ Review the Modified Server Configuration
 
 After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
-The following `testQueue` jms-queue was configured in a new `<jms-destinations>` element under the hornetq-server section of the `messaging` subsystem.
+The following `testQueue` jms-queue was configured in the default server configuration of the  `messaging-activemq` subsystem.
 
-      <jms-destinations>
-          <jms-queue name="testQueue">
-              <entry name="queue/test"/>
-              <entry name="java:jboss/exported/jms/queue/test"/>
-          </jms-queue>
-      </jms-destinations>
+      <jms-queue name="testQueue" entries="queue/test java:jboss/exported/jms/queue/test"/>
  
 
 Start the JBoss EAP Server with the Full Profile
@@ -123,23 +118,21 @@ Investigate the Console Output
 
 If the Maven command is successful, with the default configuration you will see output similar to this:
 
-    Mar 14, 2012 1:38:58 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+    timestamp org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
     INFO: Attempting to acquire connection factory "jms/RemoteConnectionFactory"
-    Mar 14, 2012 1:38:58 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+    SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+    SLF4J: Defaulting to no-operation (NOP) logger implementation
+    SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+    timestamp org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
     INFO: Found connection factory "jms/RemoteConnectionFactory" in JNDI
-    Mar 14, 2012 1:38:58 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+    timestamp org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
     INFO: Attempting to acquire destination "jms/queue/test"
-    Mar 14, 2012 1:38:58 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+    timestamp org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
     INFO: Found destination "jms/queue/test" in JNDI
-    Mar 14, 2012 1:38:58 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+    timestamp AM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
     INFO: Sending 1 messages with content: Hello, World!
-    Mar 14, 2012 1:38:58 PM org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
+    timestamp org.jboss.as.quickstarts.jms.HelloWorldJMSClient main
     INFO: Received message with content Hello, World!
-
-_Note_: After the above INFO message, you may see the following error. You can ignore the error as it is a well known error message and does not indicate the Maven command was unsuccessful in any way. 
-
-    Mar 14, 2012 1:38:58 PM org.jboss.naming.remote.protocol.v1.RemoteNamingStoreV1$MessageReceiver handleEnd
-    ERROR: Channel end notification received, closing channel Channel ID cd114175 (outbound) of Remoting connection 00392fe8 to localhost/127.0.0.1:4447
 
 
 Optional Properties
