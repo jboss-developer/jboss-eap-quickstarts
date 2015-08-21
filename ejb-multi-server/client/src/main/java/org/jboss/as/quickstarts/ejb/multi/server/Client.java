@@ -55,7 +55,7 @@ public class Client {
         Properties p = new Properties();
         p.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
         p.put("remote.connections", "one");
-        p.put("remote.connection.one.port", "4447");
+        p.put("remote.connection.one.port", "8080");
         p.put("remote.connection.one.host", "localhost");
         p.put("remote.connection.one.username", "quickuser");
         p.put("remote.connection.one.password", "quick-123");
