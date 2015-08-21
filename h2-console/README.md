@@ -33,6 +33,8 @@ This quickstart depends on the deployment of the `greeter` quickstart. Before ru
 
 You can verify the deployment of the `greeter` quickstart by accessing the following URL: <http://localhost:8080/jboss-greeter> 
 
+When you have completed testing this quickstart, see the [greeter README](../greeter/README.md) file for instructions to undeploy the archive.
+
 
 Use of EAP7_HOME
 ---------------
@@ -68,14 +70,12 @@ Take a look at the data added by the `greeter` application. Run the following SQ
 
 You should see the two users seeded by the `greeter` quickstart, plus any users you added when testing that application.
 
+Undeploy the Archive
+--------------------
 
+To undeploy this example, simply delete the `h2console.war` from the `EAP7_HOME/standalone/deployments` directory. 
 
-
-Server Log: Expected warnings and errors
------------------------------------
-
-_Note:_ You will see the following warnings in the server log. You can ignore this warning.
-
-        JBAS018568: Deployment "deployment.h2console.war" is using an unsupported module ("com.h2database.h2:main") which may be changed or removed in future versions without notice.
+     cd EAP7_HOME/standalone/deployments
+     rm h2console.war
 
 
