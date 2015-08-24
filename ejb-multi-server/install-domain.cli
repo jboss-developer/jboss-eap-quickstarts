@@ -1,7 +1,5 @@
 # Change the default configuration for the ejb-multi-server quickstart
 
-# Batch the commands
-batch
 # Stop the preconfigured server for the domain
 # First stop the default servers and block until the server is down
 /host=master/server-config=server-one:stop(blocking=true)
@@ -15,6 +13,9 @@ batch
 /server-group=other-server-group:remove
 
 # Configure the domain for the quickstart ejb-multi-server
+
+# Batch the commands
+batch
 
 # Disable the local authentication for applications
 /host=master/core-service=management/security-realm=ApplicationRealm/authentication=local:remove
@@ -97,10 +98,9 @@ batch
 /profile=default-web/subsystem="logging"/logger="sun.rmi":add(category="sun.rmi",level="WARN")
 /profile=default-web/subsystem="logging"/root-logger="ROOT":add(handlers=["FILE"],level="INFO")
 
-### THE FOLLOWING COMMAND FAILS!
-/profile=default-web/subsystem="batch":add(job-repository-type="in-memory")
-/profile=default-web/subsystem="batch"/job-repository="jdbc":add()
-/profile=default-web/subsystem="batch"/thread-pool="batch":add(keepalive-time={"time" => "30","unit" => "SECONDS"},max-threads="10",name="batch")
+/profile=default-web/subsystem="batch-jberet":add(default-job-repository="in-memory", default-thread-pool="batch")
+/profile=default-web/subsystem="batch-jberet"/in-memory-job-repository=in-memory:add()
+/profile=default-web/subsystem="batch-jberet"/thread-pool="batch":add(keepalive-time={"time" => "30","unit" => "SECONDS"},max-threads="10",name="batch")
 
 /profile=default-web/subsystem="bean-validation":add()
 
