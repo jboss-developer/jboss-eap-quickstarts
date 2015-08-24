@@ -211,8 +211,7 @@
                     <version>${version.surefire.plugin}</version>
                 </plugin>
                 <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
-                <!-- To use, set the JBOSS_HOME environment variable and run:
-                    mvn package wildfly:deploy -->
+                <!-- To use, run: mvn package wildfly:deploy -->
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
                     <artifactId>wildfly-maven-plugin</artifactId>
@@ -252,8 +251,7 @@
                         </configuration>
                     </plugin>
                     <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
-                    <!-- To use, set the JBOSS_HOME environment variable and run:
-                        mvn package wildfly:deploy -->
+                    <!-- To use,  run: mvn package wildfly:deploy -->
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>

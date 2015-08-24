@@ -159,7 +159,7 @@
             is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- WildFly plug-in to deploy war -->
+            <!-- WildFly plug-in to deploy the WAR -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

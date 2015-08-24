@@ -76,10 +76,10 @@
     <dependencies>
 
         <!-- First declare the APIs we depend on and need for compilation. All 
-            of them are provided by JBoss WildFly -->
+            of them are provided by JBoss EAP -->
             
         <!--  Use JSON do parse messages from websocket , we use provided scope as the API is included in 
-            JBoss WildFly -->
+            JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.json</groupId>
             <artifactId>jboss-json-api_1.0_spec</artifactId>
@@ -87,7 +87,7 @@
         </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included in 
-            JBoss WildFly -->
+            JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -96,7 +96,7 @@
 
 
         <!-- Import the WebSocket API, we use provided scope as the API is included in 
-            JBoss WildFly -->
+            JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.websocket</groupId>
             <artifactId>jboss-websocket-api_1.0_spec</artifactId>
@@ -104,7 +104,7 @@
         </dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope 
-            as the API is included in JBoss WildFly -->
+            as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.2_spec</artifactId>
@@ -112,7 +112,7 @@
         </dependency>
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included 
-            in JBoss WildFly -->
+            in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
@@ -120,7 +120,7 @@
         </dependency>
 
         <!-- Import the EJB API, we use provided scope as the API is included in 
-            JBoss WildFly -->
+            JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
@@ -129,7 +129,7 @@
 
 
         <!-- Import the JSF API, we use provided scope as the API is included in 
-            JBoss WildFly -->
+            JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.2_spec</artifactId>
@@ -191,7 +191,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The WildFly plug-in deploys your war to a local WildFly container -->
+            <!-- WildFly plug-in to deploy your WAR to a local JBoss EAP container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
@@ -227,8 +227,8 @@
         <profile>
 
             <!-- An optional Arquillian testing profile that executes tests
-                in your WildFly instance -->
-            <!-- This profile will start a new WildFly instance, and execute the
+                in your JBoss EAP instance -->
+            <!-- This profile will start a new JBoss EAP instance, and execute the
                 test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
@@ -244,7 +244,7 @@
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests
-                in a remote WildFly instance -->
+                in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
             <dependencies>

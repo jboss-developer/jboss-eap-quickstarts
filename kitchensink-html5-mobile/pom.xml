@@ -237,7 +237,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The WildFly plugin deploys your war to a local JBoss EAP container -->
+            <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
