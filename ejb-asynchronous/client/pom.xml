@@ -64,12 +64,19 @@
             <type>ejb-client</type>
         </dependency>
         
+        <!-- Include the EJB API -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Include the ejb client jars -->
         <dependency>
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-ejb-client-bom</artifactId>
             <type>pom</type>
-            <scope>provided</scope>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
