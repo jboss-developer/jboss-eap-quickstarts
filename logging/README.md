@@ -261,11 +261,7 @@ Remove the Logging Configuration
 
 You can remove the logging configuration by running the  `remove-logging.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
 
-### Remove the Server Logging Configuration
-
-You can remove the logging configuration by running the  `remove-logging.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy of the configuration file. 
-
-#### Remove the Logging Configuration by Running the JBoss CLI Script
+### Remove the Logging Configuration by Running the JBoss CLI Script
 
 1. Start the JBoss EAP server by typing the following: 
 
@@ -281,7 +277,7 @@ This script removes the log and file handlers from the `logging` subsystem in th
         {"outcome" => "success"}
 
 
-#### Remove the Logging Configuration Manually
+### Remove the Logging Configuration Manually
 1. If it is running, stop the JBoss EAP server.
 2. Replace the `EAP7_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
