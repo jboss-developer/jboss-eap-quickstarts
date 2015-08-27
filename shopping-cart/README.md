@@ -36,6 +36,45 @@ Use of EAP7_HOME
 In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
+Configure the JBoss EAP Server
+---------------------------
+
+This example quickstart purposely throws a `NoSuchEJBException` exception when the shopping cart is empty. This is the expected result because method is annotated with `@Remove`. This means the next invocation after the shopping cart checkout fails because the container has destroyed the instance and it is no longer available. If you don't run this script, you see the following ERROR in the server log, followed by the stacktrace
+  
+    ERROR [org.jboss.as.ejb3.invocation] (EJB default - 7) WFLYEJB0034: EJB Invocation failed on component ShoppingCartBean for method public abstract java.util.Map org.jboss.as.quickstarts.sfsb.ShoppingCart.getCartContents(): javax.ejb.NoSuchEJBException: WFLYEJB0168: Could not find EJB with id UnknownSessionID [5168576665505352655054705267485457555457535250485552546568575254]
+
+Follow the steps below to suppress system exception logging.
+
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss EAP server.
+    * Backup the file: `EAP7_HOME/standalone/configuration/standalone.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+2. Start the JBoss EAP server by typing the following: 
+
+        For Linux:  EAP7_HOME/bin/standalone.sh
+        For Windows:  EAP7_HOME\bin\standalone.bat
+3. Review the `configure-system-exception.cli` file in the root of this quickstart directory. This script sets the `log-system-exceptions` attribute to `false` in the `ejb3` subsystem in the server configuration file.
+
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-system-exception.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-system-exception.cli
+   You should see the following result when you run the script:
+
+        {"outcome" => "success"}
+5. Stop the JBoss EAP server.
+
+
+Review the Modified Server Configuration
+-----------------------------------
+
+After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone.xml` file and review the changes.
+
+You should see the following configuration in the `ejb3` subsystem.
+
+      <log-system-exceptions value="false"/>
+
+
 Start the JBoss EAP Server
 -------------------------
 
@@ -55,7 +94,21 @@ Build and Deploy the Quickstart
 3. To build both the server component and the remote client program, deploy the server module, change into the examples shopping-cart directory and type the following:
 
         mvn clean install wildfly:deploy 
-4. This Maven goal will deploy `server/target/jboss-shopping-cart-server.jar`. You can check the Application Server console to see information messages regarding the deployment.
+4. This Maven goal will deploy `server/target/jboss-shopping-cart-server.jar`. You can check the server console to see information messages regarding the deployment.
+
+        INFO  [org.jboss.as.ejb3.deployment] (MSC service thread 1-2) WFLYEJB0473: JNDI bindings for session bean named 'ShoppingCartBean' in deployment unit 'deployment "jboss-shopping-cart-server.jar"' are as follows:
+
+          java:global/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
+          java:app/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
+          java:module/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
+          java:jboss/exported/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
+          java:global/jboss-shopping-cart-server/ShoppingCartBean
+          java:app/jboss-shopping-cart-server/ShoppingCartBean
+          java:module/ShoppingCartBean
+
+        INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) WFLYWELD0006: Starting Services for CDI deployment: jboss-shopping-cart-server.jar
+        INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0009: Starting weld service for deployment jboss-shopping-cart-server.jar
+        INFO  [org.jboss.as.server] (management-handler-thread - 3) WFLYSRV0010: Deployed "jboss-shopping-cart-server.jar" (runtime-name : "jboss-shopping-cart-server.jar")
 
 
 Run the Client Application
@@ -96,23 +149,36 @@ On the client console, you should see output similar to:
     &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
-On the server console, you should see output similar to (remember the server messages might change for different versions):
+On the server log, you should see:
 
-    INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-2) JNDI bindings for session bean named ShoppingCartBean in deployment unit deployment "jboss-shopping-cart-server.jar" are as follows:
-
-    	java:global/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
-    	java:app/jboss-shopping-cart-server/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
-    	java:module/ShoppingCartBean!org.jboss.as.quickstarts.sfsb.ShoppingCart
-    	java:global/jboss-shopping-cart-server/ShoppingCartBean
-    	java:app/jboss-shopping-cart-server/ShoppingCartBean
-    	java:module/ShoppingCartBean
-
-    INFO  [org.jboss.as.server] (management-handler-threads - 2) JBAS018559: Deployed "jboss-shopping-cart-server.jar"
     INFO  [stdout] (pool-9-thread-8) implementing checkout() left as exercise for the reader!
-    
-_Note_: You also see the following `EJB Invocation failed` and `NoSuchEJBException` messages in the server log. This is the expected result because method is annotated with `@Remove`. This means the next invocation after the shopping cart checkout fails because the container has destroyed the instance and it is no longer available.
-    
-    ERROR [org.jboss.as.ejb3.invocation] (EJB default - 5) JBAS014134: EJB Invocation failed on component ShoppingCartBean for method public abstract java.util.HashMap org.jboss.as.quickstarts.sfsb.ShoppingCart.getCartContents(): javax.ejb.NoSuchEJBException: JBAS014300: Could not find EJB with id {...]}
+
+
+Restore the Server Configuration
+----------------------------
+
+You can restore the system exception configuration by running the `restore-system-exception.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
+
+### Restore the Server Configuration by Running the JBoss CLI Script
+
+1. Start the JBoss EAP server by typing the following: 
+
+        For Linux:  EAP7_HOME/bin/standalone.sh
+        For Windows:  EAP7_HOME\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-system-exception.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=restore-system-exception.cli
+   This script restores the  the `log-system-exceptions` attribute value to `true`. You should see the following result when you run the script:
+
+        The batch executed successfully.
+        {"outcome" => "success"}
+
+
+### Restore the Server Configuration Manually
+1. If it is running, stop the JBoss EAP server.
+2. Replace the `EAP7_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+
 
 
 Undeploy the Archive
