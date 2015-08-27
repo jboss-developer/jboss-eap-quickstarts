@@ -112,95 +112,92 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
 
 The following XML was added to the `logging` subsystem.
 
-    <profile>
-        <subsystem xmlns="urn:jboss:domain:logging:3.0">
-            <async-handler name="TRACE_QS_ASYNC">
-                <level name="TRACE"/>
-                <queue-length value="1024"/>
-                <overflow-action value="block"/>
-                <subhandlers>
-                    <handler name="FILE_QS_TRACE"/>
-                </subhandlers>
-            </async-handler>
-            <async-handler name="DEBUG_QS_ASYNC">
-                <level name="DEBUG"/>
-                <queue-length value="1024"/>
-                <overflow-action value="block"/>
-                <subhandlers>
-                    <handler name="FILE_QS_DEBUG"/>
-                </subhandlers>
-            </async-handler>
-            <async-handler name="INFO_QS_ASYNC">
-                <level name="INFO"/>
-                <queue-length value="1024"/>
-                <overflow-action value="block"/>
-                <subhandlers>
-                    <handler name="FILE_QS_INFO"/>
-                </subhandlers>
-            </async-handler>
-            <async-handler name="WARN_QS_ASYNC">
-                <level name="WARN"/>
-                <queue-length value="1024"/>
-                <overflow-action value="block"/>
-                <subhandlers>
-                    <handler name="FILE_QS_WARN"/>
-                </subhandlers>
-            </async-handler>
-            <async-handler name="ERROR_QS_ASYNC">
-                <level name="ERROR"/>
-                <queue-length value="1024"/>
-                <overflow-action value="block"/>
-                <subhandlers>
-                    <handler name="FILE_QS_ERROR"/>
-                </subhandlers>
-            </async-handler>
-            <async-handler name="FATAL_QS_ASYNC">
-                <level name="FATAL"/>
-                <queue-length value="1024"/>
-                <overflow-action value="block"/>
-                <subhandlers>
-                    <handler name="FILE_QS_FATAL"/>
-                </subhandlers>
-            </async-handler>
-            ...
-            <periodic-rotating-file-handler name="FILE_QS_TRACE">
-                <file relative-to="jboss.server.log.dir" path="quickstart.trace.log"/>
-                <suffix value=".yyyy.MM.dd"/>
-            </periodic-rotating-file-handler>
-            <periodic-rotating-file-handler name="FILE_QS_DEBUG">
-                <file relative-to="jboss.server.log.dir" path="quickstart.debug.log"/>
-                <suffix value=".yyyy.MM.dd"/>
-            </periodic-rotating-file-handler>
-            <periodic-rotating-file-handler name="FILE_QS_INFO">
-                <file relative-to="jboss.server.log.dir" path="quickstart.info.log"/>
-                <suffix value=".yyyy.MM.dd"/>
-            </periodic-rotating-file-handler>
-            <periodic-rotating-file-handler name="FILE_QS_WARN">
-                <file relative-to="jboss.server.log.dir" path="quickstart.warn.log"/>
-                <suffix value=".yyyy.MM.dd"/>
-            </periodic-rotating-file-handler>
-            <periodic-rotating-file-handler name="FILE_QS_ERROR">
-                <file relative-to="jboss.server.log.dir" path="quickstart.error.log"/>
-                <suffix value=".yyyy.MM.dd"/>
-            </periodic-rotating-file-handler>
-            <periodic-rotating-file-handler name="FILE_QS_FATAL">
-                <file relative-to="jboss.server.log.dir" path="quickstart.fatal.log"/>
-                <suffix value=".yyyy.MM.dd"/>
-            </periodic-rotating-file-handler>
-            ...
-            <logger category="org.jboss.as.quickstarts.logging">
-                <level name="TRACE"/>
-                <handlers>
-                    <handler name="TRACE_QS_ASYNC"/>
-                    <handler name="DEBUG_QS_ASYNC"/>
-                    <handler name="INFO_QS_ASYNC"/>
-                    <handler name="WARN_QS_ASYNC"/>
-                    <handler name="ERROR_QS_ASYNC"/>
-                    <handler name="FATAL_QS_ASYNC"/>
-                </handlers>
-            </logger>
-            ...
-        </subsystem>
+        <async-handler name="TRACE_QS_ASYNC">
+            <level name="TRACE"/>
+            <queue-length value="1024"/>
+            <overflow-action value="block"/>
+            <subhandlers>
+                <handler name="FILE_QS_TRACE"/>
+            </subhandlers>
+        </async-handler>
+        <async-handler name="DEBUG_QS_ASYNC">
+            <level name="DEBUG"/>
+            <queue-length value="1024"/>
+            <overflow-action value="block"/>
+            <subhandlers>
+                <handler name="FILE_QS_DEBUG"/>
+            </subhandlers>
+        </async-handler>
+        <async-handler name="INFO_QS_ASYNC">
+            <level name="INFO"/>
+            <queue-length value="1024"/>
+            <overflow-action value="block"/>
+            <subhandlers>
+                <handler name="FILE_QS_INFO"/>
+            </subhandlers>
+        </async-handler>
+        <async-handler name="WARN_QS_ASYNC">
+            <level name="WARN"/>
+            <queue-length value="1024"/>
+            <overflow-action value="block"/>
+            <subhandlers>
+                <handler name="FILE_QS_WARN"/>
+            </subhandlers>
+        </async-handler>
+        <async-handler name="ERROR_QS_ASYNC">
+            <level name="ERROR"/>
+            <queue-length value="1024"/>
+            <overflow-action value="block"/>
+            <subhandlers>
+                <handler name="FILE_QS_ERROR"/>
+            </subhandlers>
+        </async-handler>
+        <async-handler name="FATAL_QS_ASYNC">
+            <level name="FATAL"/>
+            <queue-length value="1024"/>
+            <overflow-action value="block"/>
+            <subhandlers>
+                <handler name="FILE_QS_FATAL"/>
+            </subhandlers>
+        </async-handler>
+        ...
+        <periodic-rotating-file-handler name="FILE_QS_TRACE">
+            <file relative-to="jboss.server.log.dir" path="quickstart.trace.log"/>
+            <suffix value=".yyyy.MM.dd"/>
+        </periodic-rotating-file-handler>
+        <periodic-rotating-file-handler name="FILE_QS_DEBUG">
+            <file relative-to="jboss.server.log.dir" path="quickstart.debug.log"/>
+            <suffix value=".yyyy.MM.dd"/>
+        </periodic-rotating-file-handler>
+        <periodic-rotating-file-handler name="FILE_QS_INFO">
+            <file relative-to="jboss.server.log.dir" path="quickstart.info.log"/>
+            <suffix value=".yyyy.MM.dd"/>
+        </periodic-rotating-file-handler>
+        <periodic-rotating-file-handler name="FILE_QS_WARN">
+            <file relative-to="jboss.server.log.dir" path="quickstart.warn.log"/>
+            <suffix value=".yyyy.MM.dd"/>
+        </periodic-rotating-file-handler>
+        <periodic-rotating-file-handler name="FILE_QS_ERROR">
+            <file relative-to="jboss.server.log.dir" path="quickstart.error.log"/>
+            <suffix value=".yyyy.MM.dd"/>
+        </periodic-rotating-file-handler>
+        <periodic-rotating-file-handler name="FILE_QS_FATAL">
+            <file relative-to="jboss.server.log.dir" path="quickstart.fatal.log"/>
+            <suffix value=".yyyy.MM.dd"/>
+        </periodic-rotating-file-handler>
+        ...
+        <logger category="org.jboss.as.quickstarts.logging">
+            <level name="TRACE"/>
+            <handlers>
+                <handler name="TRACE_QS_ASYNC"/>
+                <handler name="DEBUG_QS_ASYNC"/>
+                <handler name="INFO_QS_ASYNC"/>
+                <handler name="WARN_QS_ASYNC"/>
+                <handler name="ERROR_QS_ASYNC"/>
+                <handler name="FATAL_QS_ASYNC"/>
+            </handlers>
+        </logger>
+
 
 Test the New Logging Configuration
 -------------------------
