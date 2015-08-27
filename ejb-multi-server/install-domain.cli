@@ -193,7 +193,7 @@ batch
 /profile=default-web/subsystem="undertow":add()
 /profile=default-web/subsystem="undertow"/buffer-cache="default":add()
 /profile=default-web/subsystem="undertow"/configuration="filter":add()
-/profile=default-web/subsystem="undertow"/configuration="filter"/response-header="server-header":add(header-name="Server",header-value="WildFly/10")
+/profile=default-web/subsystem="undertow"/configuration="filter"/response-header="server-header":add(header-name="Server",header-value="JBossEAP/7")
 /profile=default-web/subsystem="undertow"/configuration="filter"/response-header="x-powered-by-header":add(header-name="X-Powered-By",header-value="Undertow/1")
 /profile=default-web/subsystem="undertow"/configuration="handler":add()
 /profile=default-web/subsystem="undertow"/configuration="handler"/file="welcome-content":add(path="${jboss.home.dir}/welcome-content")
