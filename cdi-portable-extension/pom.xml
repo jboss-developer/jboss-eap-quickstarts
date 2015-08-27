@@ -203,7 +203,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
+                    <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
                     <!-- To use, run: mvn package wildfly:deploy -->
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>

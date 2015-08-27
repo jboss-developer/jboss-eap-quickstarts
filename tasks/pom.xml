@@ -99,7 +99,7 @@
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 
-        <!-- Wildfly Maven plug-in to deploy your WAR to a local JBoss EAP container -->
+        <!-- WildFly Maven plug-in to deploy your WAR to a local JBoss EAP container -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- other plug-in versions -->
@@ -175,7 +175,7 @@
 
     <build>
         <!-- Maven will append the version to the finalName (which is the 
-            name given to the generated war, and hence the context root) -->
+            name given to the generated WAR, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
@@ -192,7 +192,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
             </plugin>
-            <!-- The WildFly plug-in deploys your war to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP 
                 container -->
             <!-- As this project has tests only, so we disable the WildFly plug-in, 
                 this allows us to continue to use the standard deployment commands 

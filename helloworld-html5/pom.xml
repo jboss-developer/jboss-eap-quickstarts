@@ -153,7 +153,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the war, used as the context root when the app is deployed. -->
+        <!-- Set the name of the WAR, used as the context root when the app is deployed. -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
@@ -164,7 +164,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
+            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

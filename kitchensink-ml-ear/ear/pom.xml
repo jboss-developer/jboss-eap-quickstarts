@@ -40,7 +40,7 @@
 
     <dependencies>
 
-        <!-- Depend on the ejb module and war so that we can package them -->
+        <!-- Depend on the EJB module and WAR so that we can package them -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-kitchensink-ml-ear-web</artifactId>

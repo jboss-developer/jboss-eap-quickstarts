@@ -214,7 +214,7 @@
 
     <build>
         <!-- Maven will append the version to the finalName (which is the name
-            given to the generated war, and hence the context root) -->
+            given to the generated WAR, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
 
         <!-- Define plug-in versions required for Deployment and Testing Tools -->
@@ -225,7 +225,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${version.surefire.plugin}</version>
                 </plugin>
-                <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
+                <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
                 <!-- To use, run: mvn package wildfly:deploy -->
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
@@ -266,7 +266,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
+                    <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
                     <!-- To use, run: mvn package wildfly:deploy -->
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>

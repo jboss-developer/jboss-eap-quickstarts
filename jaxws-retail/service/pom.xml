@@ -69,7 +69,7 @@
                <attachClasses>true</attachClasses>
             </configuration>
          </plugin>
-         <!-- Wildfly plugin to deploy war -->
+         <!-- WildFly Maven plug-in to deploy WAR -->
          <plugin>
             <groupId>org.wildfly.plugins</groupId>
             <artifactId>wildfly-maven-plugin</artifactId>

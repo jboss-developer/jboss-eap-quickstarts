@@ -212,7 +212,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the war, used as the context root when the app is
+        <!-- Set the name of the WAR, used as the context root when the app is
             deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -252,7 +252,7 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The WildFly plug-in deploys your war to a local JBoss EAP container -->
+                    <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
                     <!-- To use, set the JBOSS_HOME environment variable and run:
                         mvn package wildfly:deploy -->
                     <plugin>
