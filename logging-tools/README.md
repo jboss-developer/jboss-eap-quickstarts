@@ -98,11 +98,11 @@ This landing page provides details and links to test the quickstart features. Yo
     * Attempts to divide by zero, catches the exception, and throws the localized one.
    
 4. `http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/'targetdate'`
-    * Example: <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/25-12-2020>
+    * Example: <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/2020-12-25>
     * Demonstrates how to pass parameters through to the constructor of a localized exception, and how to specify an exception as a cause of a log message. 
     * Attempts to turn the `targetdate` URL component into a date object using the format `dd-MM-yyyy`
     * Returns number of days (as an integer) until that date
-    * If the `targetdate` is invalid, for example, <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/31-02-2015>:
+    * If the `targetdate` is invalid, for example, <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/2015-02-31>:
         * Catches the `ParseException`
         * Creates a localized `ParseException` passing values from the caught exception as parameters to its constructor
         * Logs a localized message with the localized exception as the cause
