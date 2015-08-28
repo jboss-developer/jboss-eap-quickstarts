@@ -45,7 +45,7 @@ Start the JBoss EAP Server with a HA profile
 
 _Note: You must start the server using the HA profile or the singleton service will not start correctly._
 
-Start the the two JBoss EAP servers with the HA profile, passing a unique node ID by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
+Start the the two JBoss EAP servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
 
 If you are using Linux:
 
@@ -54,10 +54,10 @@ If you are using Linux:
 
 If you are using Windows
 
-        Server 1: EAP7_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml 
-        Server 2: EAP7_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml
+        Server 2: EAP7_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml -Djboss.socket.binding.port-offset=100
 
-_Note: If you want to test with more than two servers, you can start additional servers by specifying a unique node name and unique port offset for each one._
+_Note: If you want to test with more than two servers, you can start additional servers by specifying a unique port offset for each one._
 
 Build and Deploy the Quickstart
 -------------------------
@@ -76,23 +76,32 @@ Build and Deploy the Quickstart
     If the second server is on a different host, you must also pass an argument for the host name as follows:
     
         mvn wildfly:deploy [-Dwildfly.hostname=OTHERHOST] -Dwildfly.port=10090
-    _Note: If you test with more than two servers, repeat the command, replacing the unique node name and unique port offset for each server._
+    _Note: If you test with more than two servers, repeat the command, replacing the unique port offset for each server._
 6. This deploys `service/target/jboss-cluster-ha-singleton-service.jar` to the running instance of the additional server.
  
-7. To verify the application deployed to each server instance, check the server logs. All instances should have the following message:
+7. To verify the application deployed to each server instance, check the server logs. The first instance should have the following message:
 
         INFO  [org.wildfly.clustering.server] (remote-thread--p2-t1) WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
 
-   Only `EAP7_HOME_1` will have this message:
+   The first server instance will also have messages like the following:
    
-        INFO  [org.wildfly.clustering.server] (ServerService Thread Pool -- 67) WFLYCLSV0001: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
-1
+        INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 4) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
+        INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 5) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
 
-8. The timer on the started node will log a message every 10 seconds. If you stop the `EAP7_HOME_1` server, you see messages in the `EAP7_HOME_2` server console indicating it is now the singleton provider.
+   The other servers will have the message: 
 
-9. If you prefer to use a special node, the election-policy can be used.
-   In the example, the node with the name `EAP7_HOME_1` will be used as master, if it is available.
-   If it has failed or shutdown, any other node will be used.
+        WFLYSRV0010: Deployed "jboss-cluster-ha-singleton-service.jar" (runtime-name : "jboss-cluster-ha-singleton-service.jar")
+
+8. The timer started on the server instance will log a message every 10 seconds. If you stop the `EAP7_HOME_1` server, you see messages in the `EAP7_HOME_2` server console indicating it is now the singleton provider.
+
+        WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
+        INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.HATimerService] (MSC service thread 1-5) Start HASingleton timer service 'org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.HATimerService'
+        INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (Incoming-2,ee,localhost) ISPN000094: Received new cluster view for channel server: [localhost|2] (1) [localhost]
+        INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
+        INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
+
+
+9. In the example, the `EAP7_HOME_1` instance used as master, if it is available. If it has failed or shutdown, any other service instance will be used.
 
 
 Undeploy the Archive
@@ -119,51 +128,50 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
 2. Follow the instructions above to [Clone the EAP7_HOME Directory](#clone-the-eaphome-directory).
 3. Configure the first server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
-   * For the `Server name`, enter "Node1" and click `Next`.
+   * For the `Server name`, enter "EAP7-Server1" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
    
-            Name: Node1
+            Name: EAP7-Server1
             Home Directory: (Browse to the directory for the first server and select it)
             Execution Environment: (Choose your JRE 8 runtime if not correct)
             Configuration base directory: (This should already point to your server configuration directory)
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
-   * In the `Server` tab, double-click on `Node1` to open it. 
+   * In the `Server` tab, double-click on `EAP7-Server1` to open it. 
 4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
-   * For the `Server name`, enter "Node2" and click `Next`.
+   * For the `Server name`, enter "EAP7-Server2" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
    
-            Name: Node2
+            Name: EAP7-Server2
             Home Directory: (Browse to the cloned directory for the second server and select it)
             Execution Environment: (Choose your JRE 8 runtime if not correct)
             Configuration base directory: (This should already point to your cloned server configuration directory)
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
-   * In the `Server` tab, double-click on `Node2` to open the `Overview` page. 
+   * In the `Server` tab, double-click on `EAP7-Server2` to open the `Overview` page. 
    * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.socket.binding.port-offset=100" and click `OK`.
-   * Still in the `Overview` page for `Node2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
+   * Still in the `Overview` page for `EAP7-Server2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
 
-5. To deploy the cluster-ha-singleton service to `Node 1`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `Node1` and click `Finish`. Note the messages in the `Node1` server console indicate it is the singleton provider of the service.
+5. To deploy the cluster-ha-singleton service to `EAP7-Server, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server1` and click `Finish`. Note the messages in the `EAP7-Server1` server console indicate it is the singleton provider of the service.
    
-        WFLYCLSV0001: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
+        WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
         WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
         WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 3) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
 
-6. To deploy the cluster-ha-singleton service to `Node 2`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `Node2` and click `Finish`. Note the messages in the `Node2` server console indicate `Node1` is the singleton provider of the service and `Node1` continues to provide the service.
+6. To deploy the cluster-ha-singleton service to `EAP7-Server2`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server2` and click `Finish`. Note that `EAP7-Server1` is still the singleton provider of the service. This messagee is in the `EAP7-Server2` console.
    
-            JBAS010342: Node1/singleton elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
-            JBAS015961: Http management interface listening on http://127.0.0.1:10090/management   
+        WFLYSRV0060: Http management interface listening on http://127.0.0.1:10090/management   
 
-7. Stop the `Node1` server and note the following message in the `Node2` server console indicating it is now the singleton provider.
+7. Stop the `EAP7-Server1` server and note the following message in the `EAP7-Server2` server console indicating it is now the singleton provider.
 
-        WFLYCLSV0001: This node will now operate as the singleton provider of the jboss.quickstart.ha.singleton.timer service
-         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
+        WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
+        INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 3) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
 
