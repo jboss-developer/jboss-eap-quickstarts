@@ -15,12 +15,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<messaging-deployment xmlns="urn:jboss:messaging-deployment:1.0">
-    <hornetq-server>
+<messaging-deployment xmlns="urn:jboss:messaging-activemq-deployment:1.0">
+    <server>
         <jms-destinations>
             <jms-queue name="CMTQueue">
                 <entry name="/queue/CMTQueue"/>
             </jms-queue>
         </jms-destinations>
-    </hornetq-server>
+    </server>
 </messaging-deployment>
