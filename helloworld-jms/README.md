@@ -112,6 +112,11 @@ To run the quickstart from the command line:
 
         mvn clean compile exec:java
 
+_NOTE: If you execute this command multiple times, you may see the following warning and exception, followed by a stacktrace. This is caused by a bug in Artemis that has been fixed, but not yet released. For details, see <https://issues.apache.org/jira/browse/ARTEMIS-158>. You can ignore this warning._
+
+    WARN: AMQ212007: connector.create or connectorFactory.createConnector should never throw an exception, implementation is badly behaved, but we will deal with it anyway.
+    java.lang.IllegalArgumentException: port out of range:-1
+
  
 Investigate the Console Output
 -------------------------
