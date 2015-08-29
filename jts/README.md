@@ -91,7 +91,7 @@ _Note:_ This quickstart README file use the following replaceable values. When y
  
 ### Configure the First Server 
 
-You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-transactions.cli` script provided in the root directory of this quickstart. 
+You configure JTS transactions by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-jts-transactions.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the JBoss EAP server.
