@@ -155,10 +155,10 @@ Review the Modified Server Configuration
 After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
 1. The following `quickstart-domain` security-domain was added to the `security` subsystem.
-
+      
         <security-domain name="quickstart-domain" cache-type="default">
             <authentication>
-                <login-module code="org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule" flag="optional">
+                <login-module name="DelegationLoginModule" code="org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule" flag="optional">
                     <module-option name="password-stacking" value="useFirstPass"/>
                 </login-module>
                 <login-module code="Remoting" flag="optional">
@@ -169,7 +169,7 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
                 </login-module>
             </authentication>
         </security-domain>
-      
+
     The EJB side of this quickstart makes use of a new security domain called `quickstart-domain`, which delegates to the `ApplicationRealm`. The `DelegationLoginModule` is used to support identity switching in this quickstart.
 
     The login module can either be added before or after the existing `Remoting` login module in the domain, but it MUST be somewhere before the existing `RealmDirect` login module. If the majority of requests will involve an identity switch, then it is recommended to have this module as the first module in the list. However, if the majority of requests will run as the connection user with occasional switches, it is recommended to place the `Remoting` login module first and this one second.
