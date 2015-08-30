@@ -41,7 +41,7 @@ public class CustomerManager {
     private CustomerManagerEJB customerManager;
 
     public List<Customer> getCustomers() throws SecurityException, IllegalStateException, NamingException,
-        NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+            NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
         return customerManager.listCustomers();
     }
 
@@ -50,10 +50,6 @@ public class CustomerManager {
             customerManager.createCustomer(name);
             return "customerAdded";
         } catch (Exception e) {
-            if (e.getMessage().contains("Invalid name")) {
-                logger.warning("Invalid name: " + e.getMessage());
-                return "customerInvalidName";
-            }
             logger.warning("Caught a duplicate: " + e.getMessage());
             // Transaction will be marked rollback only anyway utx.rollback();
             return "customerDuplicate";
