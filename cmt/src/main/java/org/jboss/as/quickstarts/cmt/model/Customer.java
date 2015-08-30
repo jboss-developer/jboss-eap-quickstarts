@@ -27,10 +27,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Customer")
 public class Customer implements Serializable {
-
-    /** Default value included to remove warning. **/
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue
     private int id;

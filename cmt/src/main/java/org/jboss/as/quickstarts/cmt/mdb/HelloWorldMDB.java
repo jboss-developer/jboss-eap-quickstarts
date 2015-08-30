@@ -16,14 +16,13 @@
  */
 package org.jboss.as.quickstarts.cmt.mdb;
 
-import java.util.logging.Logger;
-
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import java.util.logging.Logger;
 
 /**
  * <p>
