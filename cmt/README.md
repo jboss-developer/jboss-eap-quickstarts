@@ -2,7 +2,7 @@ cmt: Container Managed Transactions (CMT)
 =========================================
 Author: Tom Jenkinson  
 Level: Intermediate  
-Technologies: EJB, CMT  
+Technologies: EJB, CMT, JMS  
 Summary: The `cmt` quickstart demonstrates Container-Managed Transactions (CMT), showing how to use transactions managed by the container.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -14,7 +14,7 @@ The `cmt` quickstart demonstrates using transactions managed by the container in
 Aspects touched upon in the code:
 
 1. XA transaction control using the container managed transaction annotations
-2. XA access to a PostgreSQL database using the JPA API
+2. XA access to the standard default datasource using the JPA API
 3. XA access to a JMS queue
 
 After users complete this quickstart, they are invited to run through the following quickstarts:
@@ -33,7 +33,7 @@ With CMT, the EJB container sets the boundaries of a transaction. This differs f
 
 ### What makes this an example of container managed transactions?
 
-Take a look at <code>org.jboss.as.quickstarts.cmt.ejb.CustomerManagerEJBImpl</code>. You can see that this stateless session bean has been marked up with the @javax.ejb.TransactionAttribute annotation.
+Take a look at <code>org.jboss.as.quickstarts.cmt.ejb.CustomerManagerEJB</code>. You can see that this stateless session bean has been marked up with the @javax.ejb.TransactionAttribute annotation.
 
 The available options for this annotation are as follows:
 
@@ -59,18 +59,6 @@ Use of EAP7_HOME
 In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
-Configure the PostgreSQL Database for Use with this Quickstart
---------------------------------------------------
-
-This quickstart requires the PostgreSQL database. Instructions to install and configure PostgreSQL can be found here: [Configure the PostgreSQL Database for Use with the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#configure-the-postgresql-database-for-use-with-the-quickstarts)
-
-_Note_: For the purpose of this quickstart, replace the word `QUICKSTART_DATABASE_NAME` with `cmt-quickstart-database` in the PostgreSQL instructions.
-
-1. Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
-2. Follow the instructions to [Add the PostgreSQL Module to the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#add-the-postgresql-module-to-the-red-hat-jboss-enterprise-application-platform-server).
-3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#configure-the-postgresql-driver-in-the-red-hat-jboss-enterprise-application-platform-server).
-
-
 Start the JBoss EAP Server with the Full Profile
 ---------------
 
@@ -84,13 +72,12 @@ Start the JBoss EAP Server with the Full Profile
 Build and Deploy the Quickstart
 -------------------------
 
-1. Make sure you have started the JBoss EAP server with the PostgreSQL driver
-2. Open a command prompt and navigate to the root directory of this quickstart.
-3. Type this command to build and deploy the archive:
+1. Open a command prompt and navigate to the root directory of this quickstart.
+2. Type this command to build and deploy the archive:
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-cmt.war` to the running instance of the server.
+3. This will deploy `target/jboss-cmt.war` to the running instance of the server.
 
 Access the application 
 ---------------------
@@ -101,25 +88,12 @@ You will be presented with a simple form for adding customers to a database.
 
 After a user is successfully added to the database, a message is produced containing the details of the user. An example MDB will dequeue this message and print the following contents:
 
-    Received Message: Created invoice for customer named:  Tom
+    Received Message: Created invoice for customer named:  Jack
 
 When the same customer name is given, a duplicate warning is given and no JMS-message is send to cause the above message.
 
-The customer name should match: letter & '-', else an error is given. This is to show that a 'LogMessage' entity is still stored in the database thanks to the ```@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)```
+The customer name should match: letter & '-', otherwise an error is given. This is to show that a 'LogMessage' entity is still stored in the database thanks to the ```@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)```
 that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated with. 
-
-
-Server Log: Expected warnings and errors
------------------------------------
-
-_Note:_ You will see the following warning in the server log. You can ignore this warning.
-
-    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-
-You also see the following errors. This is because Hibernate attempts to drop the table and constraints before they are created and without checking first to see if they exist. This issue, <https://hibernate.atlassian.net/browse/HHH-9545>, is fixed in the 4.3 version of Hibernate.  You can ignore these errors.
-
-    HHH000389: Unsuccessful: drop sequence hibernate_sequence
-    Sequence "HIBERNATE_SEQUENCE" not found; SQL statement: drop sequence hibernate_sequence [90036-168]
 
 
 Undeploy the Archive
