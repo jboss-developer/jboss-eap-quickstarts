@@ -31,7 +31,7 @@ import javax.jms.Queue;
 public class InvoiceManagerEJBImpl {
 
 	@Inject
-	@JMSConnectionFactory("java/JmsXA")
+	@JMSConnectionFactory("java:/JmsXA")
 	private JMSContext jmsContext;
 	@Resource(lookup = "java:/queue/jts-quickstart")
 	private Queue queue;
