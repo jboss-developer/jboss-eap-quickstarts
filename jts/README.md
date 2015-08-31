@@ -2,7 +2,7 @@ jts: Java Transaction Service - Distributed EJB Transactions
 ============================================================
 Author: Tom Jenkinson  
 Level: Intermediate  
-Technologies: JTS  
+Technologies: JTS, EJB, JMS  
 Summary: The `jts` quickstart shows how to use JTS to perform distributed transactions across multiple containers, fulfilling the properties of an ACID transaction.  
 Prerequisites: cmt  
 Target Product: JBoss EAP  
@@ -36,6 +36,8 @@ The changes to `CustomerManagerEJB` are purely to accommodate the fact that `Inv
 You will see that the `CustomerManagerEJB` uses the EJB home for the remote EJB, this is expected to connect to remote EJBs. The example expects the EJBs to be deployed onto the same physical machine. This is not a restriction of JTS and the example can easily be converted to run on separate machines by editing the hostname value for the `InvoiceManagerEJB` in `org.jboss.as.quickstarts.cmt.jts.ejb.CustomerManagerEJB`.
 
 A simple MDB has been provided that prints out the messages sent but this is not a transactional MDB and is purely provided for debugging purposes.
+
+Also, while the _cmt_ quickstart uses the Java EE container default datasource, which is not distributed, this quickstart instead uses an external PostgreSQL database.
 
 After  you complete this quickstart, you are invited to run through the [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) quickstart. The crash recovery quickstart builds upon this quickstart by demonstrating the fault tolerance of Red Hat JBoss Enterprise Application Platform.
 
@@ -128,13 +130,17 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
         </subsystem>
 
 2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
-
-        <subsystem xmlns="urn:jboss:domain:transactions:1.5">
+      
+        <subsystem xmlns="urn:jboss:domain:transactions:3.0">
             <core-environment node-identifier="${jboss.tx.node.id}">
-            <!-- LEAVE THE EXISTING CONFIGURATION AND APPEND THE FOLLOWING -->
+                <process-id>
+                    <uuid/>
+                </process-id>
+            </core-environment>
+            <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
             <jts/>
         </subsystem>
-        
+
 _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss EAP Server](#remove-the-jts-configuration-from-the-jboss-eap-server).
   
 ### Clone the EAP7_HOME Directory     

@@ -77,7 +77,7 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <configuration>
-                    <port>10099</port>
+                    <port>10090</port>
                     <filename>${project.build.finalName}.jar</filename>
                 </configuration>
             </plugin>
