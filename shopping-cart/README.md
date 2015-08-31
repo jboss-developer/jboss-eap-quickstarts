@@ -127,7 +127,7 @@ Investigate the Console Output
 
 You should see the following: 
 
-1. The client sends a remote method invocation to the stateful session bean to buy two "Red Hat JBoss Enterprise Application Platform 7. subscriptions and one "JBoss SOA Platform Subscription".
+1. The client sends a remote method invocation to the stateful session bean to buy two "32 GB USB 2.0 Flash Drive" and one "Wireless Ergonomic Keyboard and Mouse".
 2. The client sends a remote method invocation to get the contents of the cart and prints it to the console.
 3. The client sends a remote method invocation to invoke checkout. Note the `checkout()` method in the server `ShoppingCartBean` has the `@Remove` annotation. This means the container will destroy shopping cart after the call and it will no longer be available. 
 4. The client calls `getCartContents()` to make sure the shopping cart was removed after checkout. This results in a `javax.ejb.NoSuchEJBException` trace in the server, proving the cart was removed.
@@ -136,13 +136,13 @@ On the client console, you should see output similar to:
 
     &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     Obtained the remote interface to the shopping cart
-    Buying a "Red Hat JBoss Enterprise Application Platform Subscription".
-    Buying another "Red Hat JBoss Enterprise Application Platform Subscription".
-    Buying a "JBoss SOA Platform Subscription"
+    Buying a "32 GB USB 2.0 Flash Drive".
+    Buying another "32 GB USB 2.0 Flash Drive".
+    Buying a "Wireless Ergonomic Keyboard and Mouse"
     
     Print cart:
-    1     JBoss SOA Platform Subscription
-    2     Red Hat JBoss Enterprise Application Subscription
+    1     Wireless Ergonomic Keyboard and Mouse
+    2     32 GB USB 2.0 Flash Drive
     
     Checkout
     Cart was correctly removed, as expected, after Checkout

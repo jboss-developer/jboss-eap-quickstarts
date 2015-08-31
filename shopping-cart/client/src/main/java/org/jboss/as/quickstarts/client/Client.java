@@ -32,8 +32,8 @@ import org.jboss.as.quickstarts.sfsb.ShoppingCartBean;
 
 public class Client {
 
-    private static final String SOAP = "JBoss SOA Platform Subscription";
-    private static final String EAP = "Red Hat JBoss Enterprise Application Platform Subscription";
+    private static final String ACCESSORIES_1 = "Wireless Ergonomic Keyboard and Mouse";
+    private static final String ACCESSORIES_2 = "32 GB USB 2.0 Flash Drive";
 
     public static void main(String[] args) throws NamingException {
         // avoid INFO output for the client demo
@@ -83,13 +83,13 @@ public class Client {
         System.out.println("Obtained the remote interface to the shopping cart");
 
         /* invoke on the remote interface */
-        System.out.println("Buying a \"" + EAP + "\"");
-        cart.buy(EAP, 1);
-        System.out.println("Buying another \"" + EAP + "\"");
-        cart.buy(EAP, 1);
+        System.out.println("Buying a \"" + ACCESSORIES_2 + "\"");
+        cart.buy(ACCESSORIES_2, 1);
+        System.out.println("Buying another \"" + ACCESSORIES_2 + "\"");
+        cart.buy(ACCESSORIES_2, 1);
 
-        System.out.println("Buying a \"" + SOAP + "\"");
-        cart.buy(SOAP, 1);
+        System.out.println("Buying a \"" + ACCESSORIES_1 + "\"");
+        cart.buy(ACCESSORIES_1, 1);
 
         System.out.println("\nPrint cart:");
         Map<String, Integer> cartContents = cart.getCartContents();
