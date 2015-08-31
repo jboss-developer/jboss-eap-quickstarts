@@ -182,6 +182,7 @@
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
+                <module>cmt</module>
                 <module>contacts-jquerymobile</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
