@@ -7,7 +7,7 @@ clear;
 project-new --named forge-example --topLevelPackage org.example;
 
 # Setup JPA in our project;
-jpa-setup --provider Hibernate --container JBOSS_AS7;
+jpa-setup --provider Hibernate --container JBOSS_EAP7;
 
 # Create some JPA @Entities on which to base our application;
 jpa-new-entity --named Customer --targetPackage org.example.domain;

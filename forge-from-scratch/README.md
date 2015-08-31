@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 8** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7.4** or later. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 8** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
 
 Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA, EJB, CDI, JSF** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 
