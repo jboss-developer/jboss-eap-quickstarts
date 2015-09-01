@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="btn-group-vertical">
-                            <h:commandButton styleClass="btn btn-default btn-sm" action="#{batchController.generateFileAndStarJob()}" value="Generate a new file and start impot job" >
+                            <h:commandButton styleClass="btn btn-default btn-sm" action="#{batchController.generateFileAndStarJob()}" value="Generate a new file and start import job" >
                                 <f:ajax execute="@form" render="@form"/>
                             </h:commandButton>
                             <h:commandButton styleClass="btn btn-default btn-sm" action="#{batchController.generate()}" value="Generate new file" >
@@ -73,16 +73,16 @@
                 <div class="col-md-8">
                     <h2>Instructions</h2>
                     <h3>Usage 1: Import the file without any errors</h3>
-                     Click on <strong>Generate a new file and start import job</strong> button. This will generate a new file with 10 unique records to be imported. After the file is generated, the import job will start. You will see a table containing information about the task that was just started. You can click on <strong>Update jobs list</strong> button and realize that the job was completed.
+                     Click on <strong>Generate a new file and start import job</strong> button. This will generate a new file with 10 unique records to be imported. After the file is generated, the import job will start. You will see a table containing information about the task that was just started. You can click on <strong>Update jobs list</strong> button and verify that the job was completed.
                      
                      <h3>Usage 2: Import an error file and fix it</h3>
-                     Mark the <strong>Generate a duplicate record</strong> checkbox and click on <strong>Generate a new file and start import job</strong> button. If you click on <strong>Update jobs list</strong> button, you will see that the job failed with the following Exit Status: <em>Error : org.hibernate.exception.ConstraintViolationException: could not execute statement</em>. This was caused because the job tried to insert a duplicate record at the Database.
+                     Check the <strong>Generate a duplicate record</strong> checkbox and click on <strong>Generate a new file and start import job</strong> button. If you click on <strong>Update jobs list</strong> button, you will see that the job failed with the following Exit Status: <em>Error : org.hibernate.exception.ConstraintViolationException: could not execute statement</em>. This was caused because the job tried to insert a duplicate record at the Database. You will also see `org.h2.jdbc.JdbcSQLException: Unique index or primary key violation` exception stacktraces in the server log.
                      Uncheck the <strong>Generate a duplicate record</strong> checkbox and click on <strong>Generate a new file</strong> button. This will generate file without errors.
-                     Click on <strong>Restart</strong> button on the <strong>List of Jobs</strong> table. If you  click on <strong>Update jobs list</strong> button, you will realize that the job was completed. Analyze the logs and check that the job started from the last checkpoint.
+                     Click on <strong>Restart</strong> button in the last column for that job instance in the <strong>List of Jobs</strong> table. If you  click on <strong>Update jobs list</strong> button to verify that the job was completed. Analyze the logs and check that the job started from the last checkpoint.
                     
-                     <h3>Usage 3: Import an error file and keep it wrong </h3>
-                     Mark the <strong>Generate a duplicate record</strong> checkbox and click on <strong>Generate a new file and start import job</strong> button. If you click on <strong>Update jobs list</strong> button, you will see that the job failed with the following Exit Status: <em>Error : org.hibernate.exception.ConstraintViolationException: could not execute statement</em>. This was caused because the job tried to insert a duplicate record at the Database.
-                     Just click on <strong>Restart</strong> button again. If you  click on <strong>Update jobs list</strong> button, you will realize that the job was marked as <strong>ABANDONED</strong> this time because it was restarted once (Realize that there's a new parameter restartedOnce=true)
+                     <h3>Usage 3: Import an error file and do not fix the errors </h3>
+                     Check the <strong>Generate a duplicate record</strong> checkbox and click on <strong>Generate a new file and start import job</strong> button. If you click on <strong>Update jobs list</strong> button, you will see that the job failed with the following Exit Status: <em>Error : org.hibernate.exception.ConstraintViolationException: could not execute statement</em>. This was caused because the job tried to insert a duplicate record at the Database.
+                     Just click on <strong>Restart</strong> button again. If you  click on <strong>Update jobs list</strong> button, you will see that the job was marked as <strong>ABANDONED</strong> this time because it was restarted once. Notice that there's a new parameter: `restartedOnce=true`.
                 </div>
             </div>
             <hr />

@@ -41,7 +41,7 @@ public class PersistListener extends AbstractItemWriteListener {
 
     @Override
     public void beforeWrite(List<Object> items) throws Exception {
-        log.info("Prearing to persist " + items.size() + " contacts");
+        log.info("Preparing to persist " + items.size() + " contacts");
     }
 
     // Write a custom Exit status
