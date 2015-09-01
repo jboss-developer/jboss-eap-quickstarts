@@ -3,8 +3,7 @@ jsonp: JSON-P Object-based JSON generation and Stream-based JSON consuming
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: CDI, JSF, JSON-P  
-Summary: This 
-Prerequisites: This Quickstarts creates a JSON string through Object-based JSON generation and them parses it using Stream-based JSON consuming.  
+Summary: This quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings.
 Target Product: EAP
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
@@ -12,9 +11,9 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>
 What is it?
 -----------
 
-The `jsonp` quickstarts creates a JSON string through Object-based JSON generation and them parses it using Stream-based JSON consuming.
+The `jsonp` quickstarts creates a JSON string through object-based JSON generation and then parses and consumes it using stream-based JSON.
 
-It shows how the JSON-P API can be used to generate JSON files and also parses it. 
+It shows how to use the JSON-P API to generate, parse, and consume JSON files. 
 
 
 System requirements
@@ -51,13 +50,13 @@ Access the application
 
 Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-jsonp/>
 
-You're presented with a simple form that shows a pre filled Personal data. You can change those values if you want. 
+You're presented with a simple form that is pre-filled with personal data. You can change those values if you prefer. 
 
-Click on `Generate JSON String from Personal Data` button. The textarea bellow the button will present a JSON string representing the data and values from the previous form.
+Click on `Generate JSON String from Personal Data` button. The textarea below the button presents a JSON string representing the data and values from the completed form.
 
 Note that the JSON string contains String, number, boolean and array values.
 
-Now, Click on `Parse JSON String using Stream` button. The textarea bellow the button will show the events generated from the parsed json string.
+Now, click on `Parse JSON String using Stream` button. The textarea below the button show sthe events generated from the parsed JSON string.
 
 
 Undeploy the Archive
