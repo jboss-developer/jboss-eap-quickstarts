@@ -102,10 +102,81 @@ You configure the domain server by running JBoss CLI commands. For your convenie
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=install-domain.cli
      You should see the following result when you run the script:
-
-        The batch executed successfully
-        {"outcome" => "success"}
         
+        {
+            "outcome" => "success",
+            "result" => "STOPPED"
+        }
+        {
+            "outcome" => "success",
+            "result" => "STOPPED"
+        }
+        {
+            "outcome" => "success",
+            "result" => undefined,
+            "server-groups" => undefined
+        }
+        {
+            "outcome" => "success",
+            "result" => undefined,
+            "server-groups" => undefined
+        }
+        {
+            "outcome" => "success",
+            "result" => undefined,
+            "server-groups" => undefined
+        }
+        {
+            "outcome" => "success",
+            "result" => undefined,
+            "server-groups" => undefined
+        }
+        {
+            "outcome" => "success",
+            "result" => undefined,
+            "server-groups" => undefined
+        }
+        The batch executed successfully
+        process-state: reload-required 
+        {
+            "outcome" => "success",
+            "result" => undefined,
+            "server-groups" => undefined,
+            "response-headers" => {"process-state" => "reload-required"}
+        }
+        {
+            "outcome" => "success",
+            "result" => "STARTING",
+            "response-headers" => {"process-state" => "reload-required"}
+        }
+        {
+            "outcome" => "success",
+            "result" => "STARTING",
+            "response-headers" => {"process-state" => "reload-required"}
+        }
+        {
+            "outcome" => "success",
+            "result" => "STARTING",
+            "response-headers" => {"process-state" => "reload-required"}
+        }
+        {
+            "outcome" => "success",
+            "result" => "STARTING",
+            "response-headers" => {"process-state" => "reload-required"}
+        }
+        {
+            "outcome" => "success",
+            "result" => "STARTING",
+            "response-headers" => {"process-state" => "reload-required"}
+        }
+        {
+            "outcome" => "success",
+            "result" => "FAILED",
+            "response-headers" => {"process-state" => "reload-required"}
+
+_NOTE:  Depending on your machine configuration, you may see "Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread" exceptions in the server log when you run this script. If you do, you must increase the ulimit open files and max user processes settings. Instructions to do this are located here: <http://ithubinfo.blogspot.com/2013/07/how-to-increase-ulimit-open-file-and.html>. After you update the ulimit settings, be sure to reboot and start with a fresh instance of the server._
+
+
 Review the Modified Server Configuration
 -----------------------------------
 
@@ -125,7 +196,10 @@ Build and Deploy the Quickstart
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=deploy-domain.cli
        
-    This will deploy the app-*.ear files to different server-groups of the running domain.
+     This will deploy the app-*.ear files to different server-groups of the running domain. You should see the following result when you run the script:
+
+        The batch executed successfully
+        {"outcome" => "success"}
 
  
 _NOTE: If ERRORs appear in the server.log when the installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
