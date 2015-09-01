@@ -19,7 +19,6 @@
 <!-- We're declaring the schema to save you time if you do have to configure 
    this in the future -->
 <beans xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="
-        http://xmlns.jcp.org/xml/ns/javaee 
-        http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd" bean-discovery-mode="all">
+   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+      http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd" bean-discovery-mode="all">
 </beans>
