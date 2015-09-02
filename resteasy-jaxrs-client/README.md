@@ -47,7 +47,7 @@ This quickstart provides Arquillian tests.
 3. Open a command prompt and navigate to the root directory of this quickstart.
 4. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test 
+        mvn test -DskipTests=false 
 
 
 Investigate the Console Output
