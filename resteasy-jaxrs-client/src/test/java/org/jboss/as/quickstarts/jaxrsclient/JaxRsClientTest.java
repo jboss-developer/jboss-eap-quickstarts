@@ -26,16 +26,12 @@ package org.jboss.as.quickstarts.jaxrsclient;
  */
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import org.apache.http.client.ClientProtocolException;
-import org.jboss.resteasy.client.ClientRequest;
-import org.jboss.resteasy.client.ClientResponse;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -97,17 +93,15 @@ public class JaxRsClientTest {
         System.out.println("===============================================");
         System.out.println("URL: " + url);
         System.out.println("MediaType: " + mediaType.toString());
-
+        Response response = null;
         try {
             // Using the RESTEasy libraries, initiate a client request
-            // using the url as a parameter
-            ClientRequest request = new ClientRequest(url);
-
-            // Be sure to set the mediatype of the request
-            request.accept(mediaType);
+            // set the url as a parameter
+            Client client = ClientBuilder.newClient();
+            WebTarget target = client.target(url);
 
             // Request has been made, now let's get the response
-            ClientResponse<String> response = request.get(String.class);
+            response = target.request().get();
 
             // Check the HTTP status of the request
             // HTTP 200 indicates the request is OK
@@ -116,22 +110,17 @@ public class JaxRsClientTest {
             }
 
             // We have a good response, let's now read it
-            BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(response.getEntity()
-                    .getBytes())));
+            String value = response.readEntity(String.class);
 
-            // Loop over the br in order to print out the contents
             System.out.println("\n*** Response from Server ***\n");
-            String output = null;
-            while ((output = br.readLine()) != null) {
-                System.out.println(output);
-                result = output;
-            }
-        } catch (ClientProtocolException cpe) {
-            System.err.println(cpe);
-        } catch (IOException ioe) {
-            System.err.println(ioe);
+            System.out.println(value);
+
+            return value;
         } catch (Exception e) {
             System.err.println(e);
+        } finally {
+            if (response != null)
+                response.close();
         }
 
         System.out.println("\n===============================================");
