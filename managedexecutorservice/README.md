@@ -43,7 +43,7 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn package wildfly:deploy
+        mvn clean package wildfly:deploy
 4. This will deploy `target/jboss-managedexecutorservice.war` to the running instance of the server.
  
 
@@ -77,11 +77,11 @@ Investigate the Console Output
      T E S T S
     -------------------------------------------------------
     Running org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest
-    Feb 12, 2015 1:26:40 PM org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
+    [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
     INFO: creating a new product
-    Feb 12, 2015 1:26:41 PM org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
+    [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
     INFO: Product created. Executing a Long running task
-    Feb 12, 2015 1:26:44 PM org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
+    [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
     INFO: Deleting all products
     Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.202 sec - in org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest
     
