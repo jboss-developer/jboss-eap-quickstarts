@@ -17,21 +17,19 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-ejb-multi-server</artifactId>
         <version>7.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>jboss-ejb-multi-server-app-web</artifactId>
     <packaging>war</packaging>
-
     <name>JBoss EAP Quickstart: ejb-multi-server - app-web</name>
     <description>A simple web application, which contains a simple Servlet,
     to demonstrate how a plain web application can use a EJB application
     deployed on a different server.</description>
-
-    <url>http://maven.apache.org</url>
+    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

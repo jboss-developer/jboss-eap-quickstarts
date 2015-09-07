@@ -18,19 +18,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
+    <parent>
       <artifactId>jboss-kitchensink-ear</artifactId>
       <groupId>org.jboss.quickstarts.eap</groupId>
       <version>7.0.0-SNAPSHOT</version>
    </parent>
+    <artifactId>jboss-kitchensink-ear-web</artifactId>
+    <packaging>war</packaging>
+    <name>JBoss EAP Quickstart: kitchensink-ear - web</name>
+    <url>http://www.jboss.org/products/eap</url>
 
-   <artifactId>jboss-kitchensink-ear-web</artifactId>
-   <packaging>war</packaging>
-
-   <name>JBoss EAP Quickstart: kitchensink-ear - web</name>
-
-   <url>http://www.jboss.org/products/eap</url>
-   <licenses>
+    <licenses>
       <license>
          <name>Apache License, Version 2.0</name>
          <distribution>repo</distribution>
@@ -38,7 +36,7 @@
       </license>
    </licenses>
 
-   <dependencies>
+    <dependencies>
 
       <!-- Dependency on the EJB module so we can use it's services if needed -->
       <dependency>
@@ -93,7 +91,7 @@
 
    </dependencies>
 
-   <build>
+    <build>
       <finalName>${project.artifactId}</finalName>
       <plugins>
          <plugin>

@@ -23,10 +23,8 @@
         <artifactId>jboss-ejb-multi-server</artifactId>
         <version>7.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>jboss-ejb-multi-server-app-one</artifactId>
     <packaging>pom</packaging>
-
     <name>JBoss EAP Quickstart: ejb-multi-server - app-one</name>
     <description>ejb-multi-server: Application one for the scenario</description>
 

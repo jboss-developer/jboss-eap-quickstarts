@@ -23,12 +23,9 @@
         <artifactId>jboss-ejb-asynchronous</artifactId>
         <version>7.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>jboss-ejb-asynchronous-client</artifactId>
     <packaging>jar</packaging>
-
     <name>JBoss EAP Quickstart: ejb-asynchronous - client</name>
-
 
     <licenses>
         <license>

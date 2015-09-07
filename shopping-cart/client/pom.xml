@@ -23,7 +23,6 @@
         <artifactId>jboss-shopping-cart</artifactId>
         <version>7.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>jboss-shopping-cart-client</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: shopping-cart - client</name>

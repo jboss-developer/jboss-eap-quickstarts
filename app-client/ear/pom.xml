@@ -29,6 +29,7 @@
     <description>Create the deployable application archive
      Include the EJB and client application together with the necessary API libraries
     </description>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -36,6 +37,7 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+
     <dependencies>
         <!-- add the EJB and WEB project as dependency to include it in the EAR -->
         <dependency>

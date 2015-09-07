@@ -24,12 +24,11 @@
         <artifactId>jboss-app-client</artifactId>
         <version>7.0.0-SNAPSHOT</version>
      </parent>
-
     <artifactId>jboss-app-client-client-simple</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: app-client - client-simple</name>
-
     <url>http://www.jboss.org/products/eap</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -37,7 +36,6 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
-
 
     <dependencies>
         <dependency>
@@ -52,6 +50,7 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <!-- Specify the artifact name -->
         <finalName>${project.artifactId}</finalName>

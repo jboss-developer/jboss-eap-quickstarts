@@ -23,14 +23,12 @@
         <artifactId>jboss-jts</artifactId>
         <version>7.0.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>jboss-jts-application-component-2</artifactId>
     <packaging>jar</packaging>
-
     <name>JBoss EAP Quickstart: jts - application-component-2</name>
     <description>Using CMT with JTS</description>
-
     <url>http://www.jboss.org/products/eap</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>

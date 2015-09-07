@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -15,21 +15,18 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.jboss.quickstarts.eap</groupId>
-  <artifactId>jboss-jaxws-pojo</artifactId>
-
-  <version>7.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jboss.quickstarts.eap</groupId>
+    <artifactId>jboss-jaxws-pojo</artifactId>
+    <version>7.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: jaxws-pojo</name>
     <description>jaxws-pojo: Working example of the web service discussed in section,
         "About JAX-WS Web Service Endpoints" of the "JBoss Development Application Platform Development Guide".
     </description>
     <url>http://www.jboss.org/products/eap</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -115,7 +112,6 @@
         <module>service</module>
         <module>client</module>
     </modules>
-
 
     <dependencyManagement>
         <dependencies>

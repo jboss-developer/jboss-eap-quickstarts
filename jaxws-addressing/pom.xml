@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -15,22 +15,19 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-
-   <groupId>org.jboss.quickstarts.eap</groupId>
-   <artifactId>jboss-jaxws-addressing</artifactId>
-
-   <version>7.0.0-SNAPSHOT</version>
-   <packaging>pom</packaging>
-
-   <name>JBoss EAP Quickstart: jaxws-addressing</name>
-   <description>jaxws-addressing: Working example of the web service discussed in section,
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jboss.quickstarts.eap</groupId>
+    <artifactId>jboss-jaxws-addressing</artifactId>
+    <version>7.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JBoss EAP Quickstart: jaxws-addressing</name>
+    <description>jaxws-addressing: Working example of the web service discussed in section,
       "Enable Web Services Addressing (WS-Addressing)" of the "JBoss Development Application Platform Development Guide".
    </description>
-   <url>http://www.jboss.org/products/eap</url>
-   <licenses>
+    <url>http://www.jboss.org/products/eap</url>
+
+    <licenses>
       <license>
          <name>Apache License, Version 2.0</name>
          <distribution>repo</distribution>
@@ -110,12 +107,12 @@
       <version.war.plugin>2.1.1</version.war.plugin>
    </properties>
 
-   <modules>
+    <modules>
       <module>service</module>
       <module>client</module>
    </modules>
 
-   <dependencyManagement>
+    <dependencyManagement>
       <dependencies>
          <!-- JBoss distributes a complete set of Java EE APIs including a Bill
          of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
@@ -134,7 +131,7 @@
       </dependencies>
    </dependencyManagement>
 
-   <build>
+    <build>
       <plugins>
          <plugin>
             <groupId>org.wildfly.plugins</groupId>
