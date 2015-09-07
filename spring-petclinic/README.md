@@ -18,7 +18,7 @@ uses Spring Data JPA. Additionally, this is only required when using the spring-
 For detailed explanation of the changes made to adapt the Quickstart to Red Hat JBoss Enterprise Application Platform see: [CHANGES.md](CHANGES.md)
 
 PetClinic features alternative DAO implementations and application configurations for JDBC, JPA, and Spring Data JPA, with 
-HSQLDB and MySQL as target databases. The default PetClinic configuration is JDBC on HSQLDB.  
+HSQLDB and MySQL as target databases. The default PetClinic configuration is JPA on HSQLDB.  
 
 * The `src/main/resources/spring/business-config.xml` pulls in `src/main/resources/spring/data-access.properties` to set 
 the JDBC-related settings for the JPA EntityManager definition. 
@@ -38,8 +38,7 @@ The cacheManager in configured in `tools-config.xml` and `ehcache.xml` specifies
 The default transaction manager for JDBC is DataSourceTransactionManager and for JPA and Spring Data JPA, JpaTransactionManager.
 Those local strategies allow for working with any locally defined DataSource. These are defined in the `business-config.xml`
 
-_Note that the sample configurations for JDBC, JPA, and Spring Data JPA configure a BasicDataSource from the Apache Commons 
-DBCP project for connection pooling. See `datasource-config.xml`._
+_Note that the sample configurations for JDBC, JPA, and Spring Data JPA configure a DataSource from the Apachce Tomcat JDBC Pool project for connection pooling. See `datasource-config.xml`._
 
 System requirements  
 -------------------
@@ -68,9 +67,9 @@ Build and Deploy the Quickstart
 
         mvn clean package wildfly:deploy
 
-4. This will deploy `petclinic-spring/target/jboss-petclinic-spring.war` to the running instance of the server.
+4. This will deploy `spring-petclinic/target/jboss-spring-petclinic.war` to the running instance of the server.
 
-If you don't have maven configured you can manually copy `petclinic-spring/target/jboss-petclinic-spring.war` to EAP7_HOME/standalone/deployments.
+If you don't have maven configured you can manually copy `spring-petclinic/target/jboss-spring-petclinic.war` to EAP7_HOME/standalone/deployments.
 
 For MySQL, you'll need to use the corresponding schema and SQL scripts in the "db/mysql" subdirectory.
 
@@ -81,7 +80,7 @@ To use a JTA DataSource, you need to set up corresponding DataSources in your Ja
 Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-petclinic-spring/>.
+The application will be running at the following URL: <http://localhost:8080/jboss-spring-petclinic/>.
 
 
 Undeploy the Archive
