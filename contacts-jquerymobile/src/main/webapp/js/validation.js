@@ -25,19 +25,19 @@ CONTACTS.namespace('CONTACTS.validation.addContactsFormValidator');
 CONTACTS.namespace('CONTACTS.validation.editContactsFormValidator');
 
 /**
- * jQuery Mobile and moblie devices do not currently support HTML5 form validation.  Therefore, basic things like 
- * checking if a value had only Alpha characters would either need to be done on the server or with some custom JavaScript. 
- * 
+ * jQuery Mobile and moblie devices do not currently support HTML5 form validation.  Therefore, basic things like
+ * checking if a value had only Alpha characters would either need to be done on the server or with some custom JavaScript.
+ *
  * I think it is best to validate the UI in the UI whenever possible so that you don't keep going back and forth
- * over the network doing validation.  That said, there are two basic options when it comes to validating fields 
+ * over the network doing validation.  That said, there are two basic options when it comes to validating fields
  * in JavaScript: You role your own or use a library.  We are using the jQuery Validator library.  It is one of the
  * oldest plugins in jQuery history and is still actively supported.  As you will see below it works very nicely.
- * 
+ *
  * If jQuery Mobile ever gets HTML5 form validation to work then we should consider using that instead or in addition
  * to the Validation plugin.
- * 
- * These functions control the form validation. 
- * 
+ *
+ * These functions control the form validation.
+ *
  * @author Joshua Wilson
  */
 $(document).ready(function() {
@@ -45,20 +45,20 @@ $(document).ready(function() {
     var getCurrentTime = CONTACTS.util.getCurrentTime;
 
     /**
-     * We try to catch the format errors while on the client but some things require a database lookup.  There is 
+     * We try to catch the format errors while on the client but some things require a database lookup.  There is
      * exception handling on the server side and the exceptions send back the errors through the form AJAX call. In
-     * the submit handler we catch those errors thrown by the server.  They are in turn sent to this method, which 
+     * the submit handler we catch those errors thrown by the server.  They are in turn sent to this method, which
      * will display them in the appropriate field(s).
-     * 
-     * This is only displayed on submit.  If you want to use this validation during the form edits you will need to 
+     *
+     * This is only displayed on submit.  If you want to use this validation during the form edits you will need to
      * add that to the validation process, just as it has been done for the email uniqueness test.
-     * 
+     *
      * @param pageID = the page the error will be displayed on
      * @param errorMsg = a JS object in JSON with the field name and the message to be displayed
      */
     CONTACTS.validation.displayServerSideErrors = function (pageID, errorMsg) {
         var validator = $( pageID ).validate();
-        
+
         // Look at each error 'key' and determine where to display the message.
         $.each(errorMsg, function(index, val) {
             // Look for a form input with the 'key' from the error.
@@ -76,7 +76,7 @@ $(document).ready(function() {
             }
         });
     };
-    
+
     // Add a 'max' attribute to the Birth Date fields to set the maximum allowed date to today.
     $('.birthDate').attr('max', function() {
         return CONTACTS.util.getCurrentDate();
@@ -84,7 +84,7 @@ $(document).ready(function() {
 
     /**
      * Check if the birthdate fits the regex pattern of YYYY-DD-MM.
-     */ 
+     */
     CONTACTS.validation.validateBirthDate = function(date) {
         var parseBirthDate = /^([1-2][0,9][0-9][0-9])[-](0[1-9]|1[0-2])[-](0[1-9]|[12][0-9]|3[01])$/;
         var match = parseBirthDate.exec(date);
@@ -96,20 +96,20 @@ $(document).ready(function() {
             var d = parseInt(match[3], 10);
             // Pass those date parts into a new date.
             var date = new Date(y, m - 1, d);
-            // Check to see if the new date matches the original date.  If something like Feb 31 was used originally, 
-            // it will automatically get converted to Mar 02.  These dates would not match. 
+            // Check to see if the new date matches the original date.  If something like Feb 31 was used originally,
+            // it will automatically get converted to Mar 02.  These dates would not match.
             return (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d);
         } else {
             // The date passed into the regex did not get parsed.
             return false;
         }
     };
-    
+
     // Create a custom method for the Validator to check if a 'birth date' is formatted correctly.
     $.validator.addMethod("birthdate", function(value, element) {
         return this.optional(element) || CONTACTS.validation.validateBirthDate(value);
     }, "Only valid date formats like yyyy-mm-dd. (hint: There are only 12 months and at most 31 days.)");
-    
+
     /**
      * Check if the phone number is a valid format.
      */
@@ -125,7 +125,7 @@ $(document).ready(function() {
                 return false;
             }
 //        } else {
-//        	// Nothing is in the field, let the Require validation handle it. 
+//        	// Nothing is in the field, let the Require validation handle it.
 //        	return true;
 //        }
     };
@@ -134,7 +134,7 @@ $(document).ready(function() {
     $.validator.addMethod("intlTel", function(value, element, param) {
         return this.optional(element) || CONTACTS.validation.validatePhone(value, param);
     }, "Please use a valid phone number with county code.");
-    
+
     /**
      * Check if the name fits the regex pattern of a Alpha characters only.
      */
@@ -142,15 +142,15 @@ $(document).ready(function() {
         var parseName = /^([A-Za-z-']+)$/;
         return parseName.test(name);
     };
-    
+
     // Create a custom method for the Validator to check if a 'name' is formatted correctly.
     $.validator.addMethod("personName", function(value, element) {
         return this.optional(element) || CONTACTS.validation.validateName(value);
     }, "Please use a name without numbers or specials.");
-    
+
     /**
      * Compare the email in the form to the one returned from the server.  If they match then the user is still using
-     * an email that is already in use. 
+     * an email that is already in use.
      * (hint: it is only returned after the submit is fired, otherwise it is null)
      */
     CONTACTS.validation.validateEmailUniqueness = function(email) {
@@ -160,22 +160,22 @@ $(document).ready(function() {
             return true;
         }
     };
-    
+
     // Create a custom method for the Validator to check if an email is already used.
     $.validator.addMethod("emailUnique", function(value, element) {
         return this.optional(element) || CONTACTS.validation.validateEmailUniqueness(value);
     }, "That email is already used, please use a unique email.");
-    
+
     /**
      *  We need a way to apply the form validation in cases where the forms don't exist yet, like the unit tests.
-     */ 
+     */
     CONTACTS.validation.runFormValidators = function() {
         // Turn on the intl-Tel-Input validation for the Add form. Turn it on for the Edit form in the app.js buildContactDetail.
         $('#contacts-add-input-tel').intlTelInput({nationalMode:false});
-        
+
         // Set up the validator for the 'add' form.
         // NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
-        //       It appears that the plugin only works when it is given only 1 form at a time. 
+        //       It appears that the plugin only works when it is given only 1 form at a time.
         CONTACTS.validation.addContactsFormValidator = $('#contacts-add-form').validate({
             rules: {
                 firstName: {
@@ -231,12 +231,12 @@ $(document).ready(function() {
                     min: "Nobody is that old. Unless they are a vampire."
                 }
             }
-        }); 
-        
+        });
+
         /**
          * Set up the validator for the 'edit' form.
          * NOTE: I tried setting it up to use the form class but then it only applied the validation to the first form.
-         *       It appears that the plugin only works when it is given only 1 form at a time. 
+         *       It appears that the plugin only works when it is given only 1 form at a time.
          */
         CONTACTS.validation.editContactsFormValidator = $('#contacts-edit-form').validate({
             rules: {
@@ -293,12 +293,12 @@ $(document).ready(function() {
                     min: "Nobody is that old. Unless they are a vampire."
                 }
             }
-        }); 
+        });
     };
-    
+
     /**
      * Run the form validators.
      */
     CONTACTS.validation.runFormValidators();
-}); 
+});
 

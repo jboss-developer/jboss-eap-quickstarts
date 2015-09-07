@@ -22,7 +22,7 @@ CONTACTS.namespace('CONTACTS.util.convertDateStringToOffsetUTC');
 
 /**
  * Abstract away generic functions that are used by all.
- * 
+ *
  * @author Joshua Wilson
  */
 CONTACTS.util.getCurrentDate = function() {
@@ -33,7 +33,7 @@ CONTACTS.util.getCurrentDate = function() {
     var output = d.getFullYear() + '-' +
         (month<10 ? '0' : '') + month + '-' +
         (day<10 ? '0' : '') + day;
-    
+
     return output;
 };
 
@@ -43,12 +43,12 @@ CONTACTS.util.getCurrentTime = function() {
     var min = d.getMinutes();
     var sec = d.getSeconds();
     var millisec = d.getMilliseconds();
-    
-    var output = (hour<10 ? '0' : '') + hour + ":" + 
-                 (min<10 ? '0' : '') + min + ":" + 
-                 (sec<10 ? '0' : '') + sec + "," + 
+
+    var output = (hour<10 ? '0' : '') + hour + ":" +
+                 (min<10 ? '0' : '') + min + ":" +
+                 (sec<10 ? '0' : '') + sec + "," +
                  (millisec<10 ? '0' : (millisec<100 ? '0' : '')) + millisec;
-    
+
     return output;
 };
 
@@ -64,7 +64,7 @@ CONTACTS.util.convertMillisToDate = function(milliseconds) {
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertMillisToDate) - milliseconds passed in = " + milliseconds);
     var d = new Date(milliseconds);
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertMillisToDate) - date after converting milliseconds passed in = " + d);
-    
+
     // Must add 1 due to zero based array of months.
     var month = d.getMonth()+1;
     var day = d.getDate();
@@ -73,7 +73,7 @@ CONTACTS.util.convertMillisToDate = function(milliseconds) {
     var output = d.getFullYear() + '-' +
         (month<10 ? '0' : '') + month + '-' +
         (day<10 ? '0' : '') + day;
-    
+
     return output;
 };
 
@@ -83,26 +83,26 @@ CONTACTS.util.convertMillisToDate = function(milliseconds) {
  */
 CONTACTS.util.convertDateStringToOffsetUTC = function(utcDate) {
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date String passed in = " + utcDate);
-    
+
     // The date passed in is a String, this makes it a Date object/type.
     var d = new Date(utcDate);
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date after converting " +
             "String to the Date type (displayed in local time) = " + d);
-    
-    // Get the Timezone Offset, in minutes, from UTC to local. This will either be a negative or positive number depending 
+
+    // Get the Timezone Offset, in minutes, from UTC to local. This will either be a negative or positive number depending
     // on your timezone.
     var offsetInMin = d.getTimezoneOffset();
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - offset in Minutes = " + offsetInMin);
-    
+
     // We need the Offset in Milliseconds if we are going to add it more Milliseconds.
     var offsetInMillis = offsetInMin * 60 * 1000;
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - offset in Milliseconds = " + offsetInMillis);
-    
+
     // Add the Offset to the UTC time so that we can store the actual time that was intended to be recorded.
     var offsetUTCDateTime = new Date(d.getTime() + offsetInMillis);
     console.log(CONTACTS.util.getCurrentTime() + " [js/util.js] (convertDateStringToOffsetUTC) - date after applying timezone " +
             "offset to UTC Date (displayed in local time) = " + offsetUTCDateTime);
-    
+
     return offsetUTCDateTime;
 };
 

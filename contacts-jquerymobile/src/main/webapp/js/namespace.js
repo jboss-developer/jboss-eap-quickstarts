@@ -16,29 +16,29 @@
  */
 /**
  * The following is taken from "JavaScript Patterns" by Stoyan Stefanov
- * 
- * As the complexity of a program grows and some parts of code get split into different files and included 
- * conditionally, it becomes unsafe to just assume that your code is the first to define a certain namespace 
- * or a property inside of it. Some of the properties your're adding to the namespace may already exist, and 
- * you could be overwriting them. Therefore before adding a property or creating a namespace, it's best to 
- * check first that it doesn't already exist, as shown in this example: 
- * 
+ *
+ * As the complexity of a program grows and some parts of code get split into different files and included
+ * conditionally, it becomes unsafe to just assume that your code is the first to define a certain namespace
+ * or a property inside of it. Some of the properties your're adding to the namespace may already exist, and
+ * you could be overwriting them. Therefore before adding a property or creating a namespace, it's best to
+ * check first that it doesn't already exist, as shown in this example:
+ *
  *         // unsafe
  *         var CONTACTS = {};
- * 
+ *
  *         // better
  *         if (typeof CONTACTS === "undefined") {
  *             var CONTACTS = {};
  *         }
- * 
+ *
  *         // or shorter
  *         var CONTACTS = CONTACTS || {};
- * 
+ *
  * The module pattern is widely used because it provides structure and helps organize your code as it grows.
- * Unlike other languages, JavaScript doesn't have special syntax for packages, but the module pattern provides 
- * the tools to create self-contained decoupled pieces of code, which can be treated as black boxes of functionality 
+ * Unlike other languages, JavaScript doesn't have special syntax for packages, but the module pattern provides
+ * the tools to create self-contained decoupled pieces of code, which can be treated as black boxes of functionality
  * and added, replaced, or removed according to the (ever-changing requirements of the software you're writing.
- * 
+ *
  * @author Joshua Wilson
  */
 
@@ -48,18 +48,18 @@ CONTACTS.namespace = function (ns_string) {
     var parts = ns_string.split('.'),
         parent = CONTACTS,
         i;
-    
+
     // Strip redundant leading global
     if (parts[0] === "CONTACTS") {
         parts = parts.slice(1);
     }
-    
+
     for (i=0; i < parts.length; i += 1) {
         // Create a property if it doesn't exist
         if  (typeof parent[parts[i]] === "undefined") {
             parent[parts[i]] = {};
         }
-        
+
         parent = parent[parts[i]];
     }
     return parent;

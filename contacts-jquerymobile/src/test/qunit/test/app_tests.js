@@ -21,9 +21,9 @@
 module('The main App', {
     setup: function() {
         // run before
-        
+
         var $fixture = $( "#qunit-fixture" );
-        
+
         $fixture.append(
             '<div><ul data-role="listview" id="contacts-display-listview" class="sortedList" data-autodividers="true" data-filter="true"></ul></div>' +
             '<div><ul data-role="listview" id="contacts-display-detail-listview" class="sortedList" data-autodividers="true" data-filter="true"></ul></div>'
@@ -54,7 +54,7 @@ test('should display nothing when no records are found. ', 1, function() {
 
 test('should be able to fill in the edit form with values', 5, function() {
     var $fixture = $( "#qunit-fixture" );
-    
+
     $fixture.append(
         '<form name="contacts-edit-form" id="contacts-edit-form" class="contact_info" method="post" data-ajax="false">' +
             '<div>' +
@@ -82,7 +82,7 @@ test('should be able to fill in the edit form with values', 5, function() {
             '<input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />' +
         '</form>'
     );
-    
+
     var contacts = {email: "jane.doe@company.com", id: 14, firstName: "Jane", lastName: 'Doe', phoneNumber: "1231231231", birthDate:'1966-01-03'};
     CONTACTS.app.buildContactDetail(contacts);
     strictEqual($('#contacts-edit-input-firstName').val(), 'Jane', 'Expected to find Jane in the first name field.');
@@ -94,7 +94,7 @@ test('should be able to fill in the edit form with values', 5, function() {
 
 test('should be able to GET a contact from the db', 1, function() {
     var $fixture = $( "#qunit-fixture" );
-    
+
     $fixture.append(
             '<form name="contacts-edit-form" id="contacts-edit-form" class="contact_info" method="post" data-ajax="false">' +
             '<div>' +
@@ -122,11 +122,11 @@ test('should be able to GET a contact from the db', 1, function() {
             '<input id="cancel-edit-btn" data-inline="true" type="reset" value="Cancel" data-theme="c" />' +
         '</form>'
     );
-    
+
     var contacts = {email: "john.smith@mailinator.com", id: 14, firstName: "Johne", lastName: 'Smith', phoneNumber: "2125551212", birthDate:'1963-06-03'};
-    
+
     // It looks like the following will not work but I may yet find a way so I will keep this here for now.
-    // I think to get this work you need to set the URL to the full (http://...) version and setup CORS. In addition 
+    // I think to get this work you need to set the URL to the full (http://...) version and setup CORS. In addition
     //  the Contact needs to be returned by the method.
 //    var imported = CONTACTS.app.getContactById(10001);
 //    deepEqual(imported, contacts, 'Expected John Smith to have been returned.');
@@ -135,7 +135,7 @@ test('should be able to GET a contact from the db', 1, function() {
 
 test('should be able to GET a contact from the db and fill in the edit form', 5, function() {
     var $fixture = $( "#qunit-fixture" );
-    
+
     $fixture.append(
         '<form name="contacts-edit-form" id="contacts-edit-form" class="contact_info" method="post" data-ajax="false">' +
             '<div>' +
@@ -164,7 +164,7 @@ test('should be able to GET a contact from the db and fill in the edit form', 5,
         '</form>'
     );
 
-    // It looks like the following will not work but I may yet find a way so I will keep this here for now. 
+    // It looks like the following will not work but I may yet find a way so I will keep this here for now.
     // I think to get this work you need to set the URL to the full (http://...) version and setup CORS. In addition
 //    CONTACTS.app.getContactById(10001);
 //    strictEqual($('#contacts-edit-input-firstName').val(), 'John', 'Expected to find John in the first name field.');

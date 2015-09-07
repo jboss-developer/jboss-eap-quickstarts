@@ -27,9 +27,9 @@
     <h2>
         <span id="title">Item</span>
     </h2>
-    <img id="image" alt="" src="resources/gfx/redfedora1.jpg" align="left" /> 
+    <img id="image" alt="" src="resources/gfx/redfedora1.jpg" align="left" />
     <label id="statusLabel">Status: </label>
-    <span id="status">STATUS</span> 
+    <span id="status">STATUS</span>
     <br />
     <span id="currentPrice"></span>
     <br />
@@ -39,7 +39,7 @@
     <hr />
     <form id="formBuyItNow">
         <fieldset>
-            Buy it now for <span id="buyItNowPrice">1000</span> dollars. 
+            Buy it now for <span id="buyItNowPrice">1000</span> dollars.
             <input type="button" value="Buy It NOW!" id="buyItNowButton" onclick="sendWebSocketMessage('buyItNow')">
         </fieldset>
     </form>
@@ -47,7 +47,7 @@
     <form id="formBid">
         <fieldset>
             <label id="bidLabel">Bid:</label>
-            <input id="bidValue" type="number" min="10" max="100" required="required" maxlength="3" autofocus="autofocus" value="10"> 
+            <input id="bidValue" type="number" min="10" max="100" required="required" maxlength="3" autofocus="autofocus" value="10">
             <input type="button" value="Do a bid!" id="doBidButton" onclick="doBid()">
             <br />
         </fieldset>

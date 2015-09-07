@@ -31,7 +31,7 @@ module('Util', {
 
 test('should be able to provide the current date', 1, function() {
     // I'm not sure how to test this without reproducing the exact code here, then what is the point?
-    
+
     var d = new Date();
     var month = d.getMonth()+1;
     var day = d.getDate();
@@ -45,31 +45,31 @@ test('should be able to provide the current date', 1, function() {
 
 test('should be able to provide the current time', 1, function() {
     // I'm not sure how to test this without reproducing the exact code here, then what is the point
-    
-    // Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should 
-    //  always be different but apparently they are not. I guess both operations are done in the same millisecond. 
-    // This still may fail on a slower computer. 
+
+    // Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should
+    //  always be different but apparently they are not. I guess both operations are done in the same millisecond.
+    // This still may fail on a slower computer.
 
     var d = new Date();
     var hour = d.getHours();
     var min = d.getMinutes();
     var sec = d.getSeconds();
     var millisec = d.getMilliseconds();
-    
-    var output = (hour<10 ? '0' : '') + hour + ":" + 
-                 (min<10 ? '0' : '') + min + ":" + 
-                 (sec<10 ? '0' : '') + sec + "," + 
+
+    var output = (hour<10 ? '0' : '') + hour + ":" +
+                 (min<10 ? '0' : '') + min + ":" +
+                 (sec<10 ? '0' : '') + sec + "," +
                  (millisec<10 ? '0' : (millisec<100 ? '0' : '')) + millisec;
-    
+
     strictEqual(CONTACTS.util.getCurrentTime(), output, 'The time was provide.');
 });
 
 test('should be able to provide the current date time', 1, function() {
     // I'm not sure how to test this without reproducing the exact code here, then what is the point
-    
-    // Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should 
-    //  always be different but apparently they are not. I guess both operations are done in the same millisecond. 
-    // This still may fail on a slower computer. 
+
+    // Also how do you test if it is providing the same exact time if you are going to the milliseconds?  They should
+    //  always be different but apparently they are not. I guess both operations are done in the same millisecond.
+    // This still may fail on a slower computer.
 
     var d = new Date();
     var month = d.getMonth()+1;
@@ -79,13 +79,13 @@ test('should be able to provide the current date time', 1, function() {
     var min = d.getMinutes();
     var sec = d.getSeconds();
     var millisec = d.getMilliseconds();
-    
+
     var output = d.getFullYear() + '-' +
                  (month<10 ? '0' : '') + month + '-' +
                  (day<10 ? '0' : '') + day + ' ' +
-                 (hour<10 ? '0' : '') + hour + ":" + 
-                 (min<10 ? '0' : '') + min + ":" + 
-                 (sec<10 ? '0' : '') + sec + "," + 
+                 (hour<10 ? '0' : '') + hour + ":" +
+                 (min<10 ? '0' : '') + min + ":" +
+                 (sec<10 ? '0' : '') + sec + "," +
                  (millisec<10 ? '0' : (millisec<100 ? '0' : '')) + millisec;
 
     strictEqual(CONTACTS.util.getCurrentDateTime(), output, 'The date time was provide.');

@@ -32,7 +32,7 @@
                     displayMessage('Connection is now open. Type a name and click Say Hello to send a message.');
                 };
                 websocket.onmessage = function(event) {
-                    // log the event                
+                    // log the event
                     displayMessage('The response was received! ' + event.data, 'success');
                 };
                 websocket.onerror = function(event) {

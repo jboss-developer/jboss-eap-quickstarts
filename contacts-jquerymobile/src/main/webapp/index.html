@@ -38,23 +38,23 @@
     <!-- Disable phone number detection on iOS.  -->
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Default theme with just 2 schemes, A (light) and B (dark) -->
     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" type="text/css" media="all" />
 <!--     <link rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" type="text/css" media="all" /> -->
 <!--     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" /> -->
-    
+
     <!-- Import jQuery so that it can be used by the custom JavaScript -->
     <script src="js/libs/jquery-2.0.3.js"></script>
 <!--     <script src="js/libs/jquery-2.0.3.min.js"></script> -->
 <!--     <script src="http://code.jquery.com/jquery-2.0.3.js"></script> -->
-    
+
     <!-- This is the CSS for the Validation plug-in. -->
     <link rel="stylesheet" href="css/app-style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="css/validator.css" type="text/css" media="all" />
 <!--     <link rel="stylesheet" href="css/app-style.min.css" type="text/css" media="all" /> -->
 <!--     <link rel="stylesheet" href="css/validator.min.css" type="text/css" media="all" /> -->
-    
+
     <!-- This is the CSS for the International Telephone Input plug-in. -->
     <link rel="stylesheet" href="css/intlTelInput-4.0.1.css">
 
@@ -73,7 +73,7 @@
 <!--     <script src="js/validation.min.js"></script> -->
 <!--     <script src="js/submissions.min.js"></script> -->
 <!--     <script src="js/theming.min.js"></script> -->
-    
+
     <!-- Mobile browsers do not support HTML5 form validation, this lib provides client side validation. -->
     <script src="js/libs/jquery.validate-1.13.1.js"></script>
 <!--     <script src="js/libs/jquery.validate-1.13.1.min.js"></script> -->
@@ -87,20 +87,20 @@
     <script src="js/libs/intlTelInput-libPhoneNumber-4.0.1.js"></script>
     <script src="js/libs/intlTelInput-4.0.1.js"></script>
 <!--     <script src="js/libs/intlTelInput-4.0.1.min.js"></script> -->
-    
-    <!-- Because the mobileinit event is triggered immediately, you'll need to bind your event handler 
-         before jQuery Mobile is loaded. 
-         Unlike other jQuery projects, such as jQuery and jQuery UI, jQuery Mobile automatically applies 
-         many markup enhancements as soon as it loads (long before the document.ready event fires). 
+
+    <!-- Because the mobileinit event is triggered immediately, you'll need to bind your event handler
+         before jQuery Mobile is loaded.
+         Unlike other jQuery projects, such as jQuery and jQuery UI, jQuery Mobile automatically applies
+         many markup enhancements as soon as it loads (long before the document.ready event fires).
          Therefore call the jQuery Mobile code last. -->
     <script src="js/libs/jquery.mobile-1.4.2.js"></script>
 <!--     <script src="js/libs/jquery.mobile-1.4.2.min.js"></script> -->
 <!--     <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.js"></script> -->
-    
+
 </head>
 <body>
     <!-- This is the main list.  It is just names. -->
-    <!-- It is worth noting that in a jQuery Mobile app, only the first "page" is loaded & displayed. 
+    <!-- It is worth noting that in a jQuery Mobile app, only the first "page" is loaded & displayed.
           The following/other pages will be partially loaded.  Just their "divs." -->
     <div data-role="page" id="contacts-list-page" class="ui-page-theme-a" data-url="/jboss-contacts-jquerymobile/">
         <div data-role="panel" id="contacts-list-page-menu-panel">
@@ -139,7 +139,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- This is the detail view of the main list.  -->
     <div data-role="page" id="contacts-detail-list-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-detail-list-page-menu-panel">
@@ -167,7 +167,7 @@
             <h4>Red Hat JBoss Quickstarts</h4>
         </div>
     </div>
-    
+
     <!-- This is for the Info/About page. -->
     <div data-role="page" id="about-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-about-page-menu-panel">
@@ -189,7 +189,7 @@
             </ul>
         </div>
     </div>
-    
+
     <!-- A blank form for adding a contact. -->
     <div data-role="page" id="contacts-add-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-add-page-menu-panel">
@@ -203,11 +203,11 @@
             <h1>Add Contact</h1>
         </div>
         <div role="main" class="ui-content">
-            <!-- 
-                In order to catch server side errors we need to disable the automatic page tranisition when the form is 
+            <!--
+                In order to catch server side errors we need to disable the automatic page tranisition when the form is
                   submitted.  This done is by adding data-ajax="false" to the form element.  We then manually change the page
                   in the function that handles form submission. Thus allowing us to control when the form transitions to
-                  another page. 
+                  another page.
              -->
             <form name="contacts-add-form" id="contacts-add-form" class="contact_info" method="post" data-ajax="false">
                 <div>
@@ -238,8 +238,8 @@
         <div data-role="footer" data-position="fixed" >
             <fieldset class="ui-grid-b">
                 <!-- There is currently a bug in jQM 1.4.2. The CSS forces all ui-btn in a toolbar(header or footer) to be
-                     set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized. 
-                     To fix this we had to override the style with a 'block-button' class referenced in app.css, this 
+                     set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized.
+                     To fix this we had to override the style with a 'block-button' class referenced in app.css, this
                      should be removed when the bug is fixed.-->
                 <div class="ui-block-a">
                     <a class="ui-btn ui-corner-all ui-shadow ui-btn-b block-button" onclick="$('#submit-add-btn').trigger('click');">Save</a>
@@ -250,10 +250,10 @@
                 <div class="ui-block-c">
                     <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow block-button" onclick="$('#cancel-add-btn').trigger('click');">Cancel</a>
                 </div>
-            </fieldset>             
+            </fieldset>
         </div>
     </div>
-    
+
     <!-- A pre-populated form for editing a contact -->
     <div data-role="page" id="contacts-edit-page" class="ui-page-theme-a" >
         <div data-role="panel" id="contacts-edit-page-menu-panel">
@@ -269,14 +269,14 @@
             <a href="#contact-delete-dialog" id="contacts-delete-button" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-mini ui-btn-inline" data-rel="popup" data-position-to="window">Delete</a>
         </div>
         <div role="main" class="ui-content">
-            <!-- 
-                PUT and DELETE are not supported in an HTML form, you must use POST.  
-                  Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24 
-                
-                In order to catch server side errors we need to disable the automatic page tranisition when the form is 
+            <!--
+                PUT and DELETE are not supported in an HTML form, you must use POST.
+                  Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24
+
+                In order to catch server side errors we need to disable the automatic page tranisition when the form is
                   submitted.  This done is by adding data-ajax="false" to the form element.  We then manually change the page
                   in the function that handles form submission. Thus allowing us to control when the form transitions to
-                  another page. 
+                  another page.
              -->
             <form name="contacts-edit-form" id="contacts-edit-form" class="contact_info" method="post" data-ajax="false">
                 <div>
@@ -310,8 +310,8 @@
         <div data-role="footer" data-position="fixed" >
             <fieldset class="ui-grid-b">
                 <!-- There is currently a bug in jQM 1.4.2. The CSS forces all ui-btn in a toolbar(header or footer) to be
-                     set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized. 
-                     To fix this we had to override the style with a 'block-button' class referenced in app.css, this 
+                     set to display:inline-block.  This interferes with the Grid making the buttons appear normal sized.
+                     To fix this we had to override the style with a 'block-button' class referenced in app.css, this
                      should be removed when the bug is fixed.-->
                 <div class="ui-block-a">
                     <a class="ui-btn ui-corner-all ui-shadow ui-btn-b block-button" onclick="$('#submit-edit-btn').trigger('click');">Save</a>
@@ -322,7 +322,7 @@
                 <div class="ui-block-c">
                     <a href="#contacts-list-page" class="ui-btn ui-corner-all ui-shadow block-button" onclick="$('#cancel-edit-btn').trigger('click');">Cancel</a>
                 </div>
-            </fieldset>             
+            </fieldset>
         </div>
         <!-- A delete confirmation dialog. -->
         <div data-role="popup" id="contact-delete-dialog" data-overlay-theme="b">
@@ -330,8 +330,8 @@
                 <h1>Delete Contact</h1>
             </div>
             <div role="main" class="ui-content">
-                <!-- PUT and DELETE are not supported in an HTML form.  Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24 
-                     That is why we are using a dialog with simple Yes/No.  The ID of the Contact to be deleted will programatically be 
+                <!-- PUT and DELETE are not supported in an HTML form.  Please see http://www.w3.org/TR/2010/WD-html5-diff-20101019/#changes-2010-06-24
+                     That is why we are using a dialog with simple Yes/No.  The ID of the Contact to be deleted will programatically be
                      pulled in from the Update form.
                 -->
                 <h3>Are you sure you want to Delete?</h3>
@@ -340,6 +340,6 @@
             </div>
         </div>
     </div>
-    
+
 </body>
 </html>

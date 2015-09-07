@@ -33,7 +33,7 @@ test('should only allow names with alpha characters, an apostrophe, or a dash in
     ok(CONTACTS.validation.validateName('John'), 'John is well formed');
     ok(CONTACTS.validation.validateName('smith-jones'), 'smith-jones is well formed');
     ok(CONTACTS.validation.validateName("O'Maley"), "O'Maley is well formed");
-    
+
     // mal-formed names
     ok(!CONTACTS.validation.validateName('John Smith'), 'John Smith is not well formed. It has a space in it.');
     ok(!CONTACTS.validation.validateName('john3'), 'john3 is not well formed. No numbers allowed.');
@@ -45,9 +45,9 @@ test('should only allow names with alpha characters, an apostrophe, or a dash in
 module('Validation in the Add form', {
     setup: function() {
         // run before
-        
+
         var $fixture = $( "#qunit-fixture" );
-        
+
         $fixture.append(
             '<form name="contacts-add-form" id="contacts-add-form" class="contact_info" method="post" data-ajax="false">' +
                 '<div>' +
@@ -88,7 +88,7 @@ test('should only allow names with alpha characters, an apostrophe, or a dash in
     ok(CONTACTS.validation.validateName('John'), 'John is well formed');
     ok(CONTACTS.validation.validateName('smith-jones'), 'smith-jones is well formed');
     ok(CONTACTS.validation.validateName("O'Maley"), "O'Maley is well formed");
-    
+
     // mal-formed names
     ok(!CONTACTS.validation.validateName('John Smith'), 'John Smith is not well formed. It has a space in it.');
     ok(!CONTACTS.validation.validateName('john3'), 'john3 is not well formed. No numbers allowed.');
@@ -271,9 +271,9 @@ test('should display an error message in the birth date field when the birth dat
 module('Validation in the Edit form', {
     setup: function() {
         // run before
-        
+
         var $fixture = $( "#qunit-fixture" );
-        
+
         $fixture.append(
             '<form name="contacts-edit-form" id="contacts-edit-form" class="contact_info" method="post" data-ajax="false">' +
                 '<div>' +
