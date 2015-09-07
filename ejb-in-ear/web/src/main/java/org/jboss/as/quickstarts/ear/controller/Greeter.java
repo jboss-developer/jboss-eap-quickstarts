@@ -27,7 +27,7 @@ import java.io.Serializable;
 /**
  * A simple managed bean that is used to invoke the GreeterEJB and store the
  * response. The response is obtained by invoking getMessage().
- * 
+ *
  * @author paul.robinson@redhat.com, 2011-12-21
  */
 @Named("greeter")
@@ -50,7 +50,7 @@ public class Greeter implements Serializable {
 
     /**
      * Invoke greeterEJB.sayHello(...) and store the message
-     * 
+     *
      * @param name
      *            The name of the person to be greeted
      */
@@ -61,7 +61,7 @@ public class Greeter implements Serializable {
     /**
      * Get the greeting message, customized with the name of the person to be
      * greeted.
-     * 
+     *
      * @return message. The greeting message.
      */
     public String getMessage() {

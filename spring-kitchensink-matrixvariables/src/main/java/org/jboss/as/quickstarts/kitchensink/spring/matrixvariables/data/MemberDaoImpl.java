@@ -35,9 +35,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class MemberDaoImpl implements MemberDao {
-    
+
     private static final Logger log = Logger.getLogger(MemberDaoImpl.class.getName());
-    
+
     @Autowired
     private EntityManager em;
 
@@ -57,12 +57,12 @@ public class MemberDaoImpl implements MemberDao {
             Predicate isLikeName = cb.like(cb.lower(member.get(type.getDeclaredSingularAttribute("name", String.class))), "%" + name.toLowerCase() + "%");
             predicatesList.add(isLikeName);
         }
-        // If the email exist create the Predicate for a LIKE comparison of the email. 
+        // If the email exist create the Predicate for a LIKE comparison of the email.
         if (email != null && !email.isEmpty()) {
             Predicate isLikeEmail = cb.like(cb.lower(member.get(type.getDeclaredSingularAttribute("email", String.class))), "%" + email.toLowerCase() + "%");
             predicatesList.add(isLikeEmail);
         }
-        // Add the Predicates to the criteria query. A predicate is utilized for filtering the result only when it is provided. 
+        // Add the Predicates to the criteria query. A predicate is utilized for filtering the result only when it is provided.
         criteria.where(predicatesList.toArray(new Predicate[predicatesList.size()]));
         return em.createQuery(criteria).getResultList();
     }

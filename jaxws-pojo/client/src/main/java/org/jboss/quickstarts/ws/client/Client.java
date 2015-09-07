@@ -23,7 +23,7 @@ import java.lang.System;
 import java.net.URL;
 
 /**
- * 
+ *
  * @author rsearls@redhat.com
  */
 public class Client {

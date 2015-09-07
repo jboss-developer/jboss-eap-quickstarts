@@ -32,9 +32,9 @@ import org.jboss.as.quickstarts.ejb_security.SecuredEJB;
 /**
  * A simple secured Servlet which calls a secured EJB. Upon successful authentication and authorization the EJB will return the
  * principal's name. Servlet security is implemented using annotations.
- * 
+ *
  * @author Sherif Makary
- * 
+ *
  */
 @SuppressWarnings("serial")
 @WebServlet("/SecuredEJBServlet")

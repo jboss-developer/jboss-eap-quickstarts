@@ -28,19 +28,19 @@ import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 /**
- * 
+ *
  * @author Joshua Wilson
  *
  */
 @Path("/")
 public class HelloSpringResource {
-    
+
     @Autowired
     GreetingBean greetingBean;
-    
+
     /**
      * Create a default REST endpoint that directs the user to use the demonstration endpoints.
-     * 
+     *
      * @return html
      */
     @GET
@@ -59,8 +59,8 @@ public class HelloSpringResource {
         System.out.println("getDefault()");
         return Response.ok(msg).build();
     }
-    
-    @GET  
+
+    @GET
     @Path("hello")
     @Produces("text/plain")
     public Response sayHello(@QueryParam("name") String name) {
@@ -76,7 +76,7 @@ public class HelloSpringResource {
         System.out.println("getBasic()");
         return "basic";
     }
-    
+
     @PUT
     @Path("basic")
     @Consumes("text/plain")
@@ -104,5 +104,5 @@ public class HelloSpringResource {
     public int getUriParam(@PathParam("param") int param) {
         return param;
     }
-    
+
 }

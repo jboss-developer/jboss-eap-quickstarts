@@ -36,21 +36,21 @@ public class GreeterBean {
 
     /* Inject the Local interface of the GreeterEJB so we can invoke sayHello */
     private @EJB GreeterEJBLocal greeterEJB;
-    
+
     /* An instance variable to hold the data bound in the inputText of the JSF page */
     private String name;
-    
+
     /* And instance variable to hold the EJB response or exception message that is bound to the outputText on the JSF page */
     private String response;
-    
+
     /**
-     * 
+     *
      */
     public GreeterBean() {
     }
-    
+
     /**
-     * The name getter to retrieve the name value which will be displayed in the inputText 
+     * The name getter to retrieve the name value which will be displayed in the inputText
      * @return the name to be displayed in the inputText on the JSF page
      */
     public String getName() {
@@ -67,7 +67,7 @@ public class GreeterBean {
 
     /**
      * The response displayed on the JSF page is an outputText, so we only need a getter
-     * @return the value of the response variable which is set after the EJB is invoked in the sayHello action 
+     * @return the value of the response variable which is set after the EJB is invoked in the sayHello action
      */
     public String getResponse() {
         return response;
@@ -78,15 +78,15 @@ public class GreeterBean {
      * @return a string which JSF uses for page navigation, an empty string means reload the original page
      */
     public String sayHello() {
-        
+
         try {
-            response = greeterEJB.sayHello(name);    
-        } 
+            response = greeterEJB.sayHello(name);
+        }
         catch(GreeterException e) {
             response = "Error: " + e.getMessage();
         }
         return "";
     }
-    
+
 
 }

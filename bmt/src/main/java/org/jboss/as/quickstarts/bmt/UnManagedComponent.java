@@ -36,7 +36,7 @@ public class UnManagedComponent {
     /*
      * Inject an entity manager factory. The reason we do not inject an entity manager (as we do in ManagedComponent) is that
      * the factory is thread safe whereas the entity manager is not.
-     * 
+     *
      * Specify a persistence unit name (perhaps the application may want to interact with multiple databases).
      */
     @PersistenceUnit(unitName = "primary")
@@ -82,7 +82,7 @@ public class UnManagedComponent {
             /*
              * An application cannot handle any of the other exceptions raised by begin and commit so we just catch the generic
              * exception. The meaning of the other exceptions is:
-             * 
+             *
              * NotSupportedException - the thread is already associated with a transaction HeuristicRollbackException - should
              * not happen since the example is interacting with a single database HeuristicMixedException - should not happen
              * since the example is interacting with a single database SystemException - the TM raised an unexpected error.

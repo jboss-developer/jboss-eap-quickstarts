@@ -29,7 +29,7 @@ import java.util.UUID;
 
 /**
  * An adapter class that exposes a set as a transactional Web Service.
- * 
+ *
  * @author Paul Robinson (paul.robinson@redhat.com)
  */
 @WebService(serviceName = "SetServiceBAService", portName = "SetServiceBA", name = "SetServiceBA", targetNamespace = "http://www.jboss.org/jboss-jdf/jboss-as-quickstart/helloworld/wsba/coordinatorcompletion/set")
@@ -39,7 +39,7 @@ import java.util.UUID;
 public class SetServiceBAImpl implements SetServiceBA {
     /**
      * Add an item to a set and enroll a Participant if necessary then pass the call through to the business logic.
-     * 
+     *
      * @param value the value to add to the set.
      * @throws AlreadyInSetException if value is already in the set
      * @throws SetServiceException if an error occurred when attempting to add the item to the set.
@@ -91,7 +91,7 @@ public class SetServiceBAImpl implements SetServiceBA {
 
     /**
      * Query the set to see if it contains a particular value.
-     * 
+     *
      * @param value the value to check for.
      * @return true if the value was present, false otherwise.
      */

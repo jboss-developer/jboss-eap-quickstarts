@@ -36,20 +36,20 @@ import org.junit.runner.RunWith;
 /**
  * Simple tests for Bean Validator. Arquillian deploys an WAR archive to the application server, which constructs Validator
  * object.
- * 
+ *
  * This object is injected into the tests so user can verify the validators are working. This example does not touch validation
  * on database layer, e.g. it is not validating uniqueness constraint for email field.
- * 
- * 
+ *
+ *
  * @author <a href="kpiwko@redhat.com>Karel Piwko</a>
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class MemberValidationTest {
 
     /**
      * Constructs a deployment archive
-     * 
+     *
      * @return the deployment archive
      */
     @Deployment
@@ -71,7 +71,7 @@ public class MemberValidationTest {
 
     /**
      * Tests an empty member registration, e.g. violation of:
-     * 
+     *
      * <ul>
      * <li>@NotNull</li>
      * <li>@NotNull</li>

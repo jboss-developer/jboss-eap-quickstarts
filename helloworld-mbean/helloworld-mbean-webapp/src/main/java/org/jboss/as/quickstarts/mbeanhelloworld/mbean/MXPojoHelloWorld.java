@@ -23,9 +23,9 @@ import org.jboss.as.quickstarts.mbeanhelloworld.util.CDIExtension;
 
 /**
  * Mbean pojo using MXBean interface and declared in jboss-service.xml.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 public class MXPojoHelloWorld implements IHelloWorldMXBean {
 

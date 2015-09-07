@@ -16,7 +16,7 @@
  */
 package org.jboss.quickstarts.websocket.model;
 
-//This class represents a Item that is being offered 
+//This class represents a Item that is being offered
 public class Item {
 
     private String title;

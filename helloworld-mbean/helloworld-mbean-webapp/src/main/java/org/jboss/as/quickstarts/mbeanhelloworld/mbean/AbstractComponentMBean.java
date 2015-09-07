@@ -26,14 +26,14 @@ import javax.management.ObjectName;
 
 /**
  * Abstract component class to register it as mbean.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 public abstract class AbstractComponentMBean {
-    
+
     private static final Logger log = Logger.getLogger(AbstractComponentMBean.class.getName());
-    
+
     private final String domain;
     private String name;
     private MBeanServer mbeanServer;
@@ -50,7 +50,7 @@ public abstract class AbstractComponentMBean {
         try {
             objectName = new ObjectName(domain, "type", name);
             mbeanServer = ManagementFactory.getPlatformMBeanServer();
-            mbeanServer.registerMBean(this, objectName);            
+            mbeanServer.registerMBean(this, objectName);
         } catch (Exception e) {
             throw new IllegalStateException("Error during registration of "
                 + name + " into JMX:" + e, e);

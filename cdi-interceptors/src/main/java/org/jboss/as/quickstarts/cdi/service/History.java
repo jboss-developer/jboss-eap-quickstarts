@@ -24,7 +24,7 @@ import org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor;
 /**
  * The class, that holds history of {@link ItemServiceBean} methods invocation. {@link AuditInterceptor} is responsible for
  * updating history.
- * 
+ *
  * @author ievgen.shulga
  */
 public class History {

@@ -31,7 +31,7 @@ public class InvoiceManagerEJB {
     @Inject
     @JMSConnectionFactory("java:/JmsXA")
     private JMSContext jmsContext;
-    
+
     @Resource(lookup = "java:/queue/CMTQueue")
     private Queue queue;
 

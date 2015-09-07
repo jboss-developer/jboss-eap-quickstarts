@@ -33,9 +33,9 @@ import javax.xml.validation.Validator;
 /**
  * Simple class to provide base for XML file parsing. It will validate any document using the schema produced by
  * {@link Constants}
- * 
+ *
  * @author baranowb
- * 
+ *
  */
 public abstract class XMLParser {
 
@@ -71,7 +71,7 @@ public abstract class XMLParser {
     }
 
     /**
-     * 
+     *
      * @param is
      * @return
      * @throws Exception

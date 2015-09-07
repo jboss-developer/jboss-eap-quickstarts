@@ -25,7 +25,7 @@ import javax.persistence.EntityManager;
 /**
  * Simple EJB bean, that demonstrates how application works without interceptors. This implementation invokes when alternative
  * stereotype and interceptors are commented out in beans.xml file
- * 
+ *
  * @author Ievgen Shulga
  */
 @Stateless

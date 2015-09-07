@@ -27,7 +27,7 @@ import org.jboss.logging.Logger;
 
 /**
  * A simple JSF controller to show how the EJB invocation on different servers.
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @Model
@@ -57,7 +57,7 @@ public class JsfController {
    * Lookup is introduced in Java EE6, so there are compiler or runtime problems if a Java version is used which not contain
    * the <code>javax.annotation.Resource</code> <code>lookup</code>.
    * Therefore a fix/workaround is necessary to be able to compile.
-   * See <a href="http://jaitechwriteups.blogspot.co.uk/2011/02/resource-and-new-lookup-attribute-how.html">Jaikiran's technical blog<a> 
+   * See <a href="http://jaitechwriteups.blogspot.co.uk/2011/02/resource-and-new-lookup-attribute-how.html">Jaikiran's technical blog<a>
    */
     @Resource(lookup = "ejb:jboss-ejb-multi-server-app-one/ejb//AppOneBean!org.jboss.as.quickstarts.ejb.multi.server.app.AppOne")
     AppOne oneApp;

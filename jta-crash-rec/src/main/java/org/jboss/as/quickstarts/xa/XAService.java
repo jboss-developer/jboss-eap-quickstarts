@@ -36,7 +36,7 @@ import javax.transaction.UserTransaction;
 
 /**
  * A bean for updating a database and sending a JMS message within a single JTA transaction
- * 
+ *
  * @author Mike Musgrove
  */
 public class XAService {
@@ -113,12 +113,12 @@ public class XAService {
 
     /**
      * Update a key value database. The method must be called within a transaction.
-     * 
+     *
      * @param entityManager an open JPA entity manager
      * @param delete if true then delete rows. If key is empty all rows are deleted.
      * @param key if not null then a pair is inserted into the database
      * @param value the value to be associated with the key
-     * 
+     *
      * @return true if a key was inserted or a value modified
      */
     public boolean modifyKeyValueTable(EntityManager entityManager, boolean delete, String key, String value) {
@@ -161,11 +161,11 @@ public class XAService {
 
     /**
      * Update a key value database. The method must not be called within a transaction.
-     * 
+     *
      * @param delete if true then delete rows. If key is empty all rows are deleted.
      * @param key if not null then a pair is inserted into the database
      * @param value the value to be associated with the key
-     * 
+     *
      * @return The contents of the table after the update
      */
     public String updateKeyValueDatabase(boolean delete, String key, String value) {

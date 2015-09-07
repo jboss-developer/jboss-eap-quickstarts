@@ -84,7 +84,7 @@ public class TransactionServlet extends HttpServlet {
      * parameter "strategy" is not set to the value "managed" then both the transaction and the EntityManager are controlled
      * manually. Otherwise the Entity Manager is controlled by the container and the transaction is controlled by the developer.
      * </p>
-     * 
+     *
      * @param req the HTTP request
      * @param resp the HTTP response
      * @throws ServletException

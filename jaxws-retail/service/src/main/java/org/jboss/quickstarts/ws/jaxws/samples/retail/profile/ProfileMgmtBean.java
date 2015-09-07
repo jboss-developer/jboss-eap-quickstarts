@@ -25,7 +25,7 @@ import javax.jws.WebMethod;
 import javax.jws.soap.SOAPBinding;
 
 /**
- * 
+ *
  * @author rsearls@redhat.com
  */
 @Stateless

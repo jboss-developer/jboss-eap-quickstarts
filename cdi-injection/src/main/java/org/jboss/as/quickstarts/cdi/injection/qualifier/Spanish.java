@@ -29,12 +29,12 @@ import static java.lang.annotation.ElementType.PARAMETER;
 
 /**
  * Qualifier used to help determine the intended injection object.
- * 
+ *
  * Qualifiers are special annotations created in a CDI application. The {@link Qualifier} annotation specifies this as a CDI
  * qualifier, which is used during injection to narrow the intended type to be injected.
- * 
+ *
  * This particular qualifier will be used to specify types which should be used for the Spanish language.
- * 
+ *
  * @author Jason Porter
  */
 @Qualifier

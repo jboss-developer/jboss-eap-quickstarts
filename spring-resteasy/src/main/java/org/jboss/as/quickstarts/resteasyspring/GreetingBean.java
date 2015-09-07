@@ -18,12 +18,12 @@ package org.jboss.as.quickstarts.resteasyspring;
 
 /**
  * Basic hello world bean with greeting message
- * 
+ *
  */
 public class GreetingBean {
 
     private String greeting;
-    
+
     private final String DEFAULT_NAME = "I'm sorry I don't know your name";
 
     public GreetingBean(String greeting) {

@@ -18,7 +18,7 @@ package org.jboss.as.quickstarts.cdi.decorator;
 
 /**
  * A simple implementation for the StaffService interface.
- * 
+ *
  * @author Ievgen Shulga
  */
 public class StaffServiceImpl implements StaffService {
@@ -34,7 +34,7 @@ public class StaffServiceImpl implements StaffService {
     /**
      * CDI decorator can be abstract class and does not implement all methods of the StaffServiceImpl class.
      * {@link StaffServiceDecorator} are abstract and do not wrap deleteStaff(Staff staff) method.
-     * 
+     *
      */
     @Override
     public void deleteStaff(Staff staff) {

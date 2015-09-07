@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
 
 /**
  * A simple test case using Arquillian to test a CDI bean.
- * 
+ *
  * @author david@davidsalter.co.uk
  */
 @RunWith(Arquillian.class)

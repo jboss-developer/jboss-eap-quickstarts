@@ -20,13 +20,13 @@ import javax.management.MXBean;
 
 /**
  * Annotated interface.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 @MXBean
 public interface IAnnotatedHelloWorldMBean {
-    
+
     /**
      * Read only attribute
      */

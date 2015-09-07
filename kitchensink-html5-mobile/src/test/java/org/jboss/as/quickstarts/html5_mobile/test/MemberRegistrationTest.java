@@ -43,7 +43,7 @@ import org.jboss.as.quickstarts.html5_mobile.util.Resources;
 
 /**
  * Uses Arquilian to test the JAX-RS processing class for member registration.
- * 
+ *
  * @author balunasj
  */
 @RunWith(Arquillian.class)

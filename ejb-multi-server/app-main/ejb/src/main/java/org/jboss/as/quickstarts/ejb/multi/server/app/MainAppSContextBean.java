@@ -42,18 +42,18 @@ import org.jboss.logging.Logger;
  * The sub applications, deployed in different servers are called direct by
  * using the ejb-client scoped context properties.
  * </p>
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @Stateless
 public class MainAppSContextBean implements MainApp {
     private static final Logger LOGGER = Logger.getLogger(MainAppSContextBean.class);
-    
+
     private static Integer activeInstances = 0;
     private static Context appOneScopedEjbContext;
     private static Context appTwoScopedEjbContextA;
     private static Context appTwoScopedEjbContextB;
-    
+
     @Resource
     SessionContext context;
 
@@ -70,7 +70,7 @@ public class MainAppSContextBean implements MainApp {
         // In this example, we are just configuring a single connection.
         final String connectionName = "appOneConnection";
         ejbClientContextProps.put("remote.connections", connectionName);
-        // add the properties to connect the app-one host 
+        // add the properties to connect the app-one host
         ejbClientContextProps.put("remote.connection." + connectionName + ".host", "localhost");
         ejbClientContextProps.put("remote.connection." + connectionName + ".port", "8180");
         ejbClientContextProps.put("remote.connection." + connectionName + ".username", "quickuser1");
@@ -83,7 +83,7 @@ public class MainAppSContextBean implements MainApp {
             appOneScopedEjbContext = (Context)new InitialContext(ejbClientContextProps).lookup("ejb:");
         } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appOne')", e);}
     }
-    
+
     private void createAppTwoContext() {
         final Properties ejbClientContextProps = new Properties();
         ejbClientContextProps.put("endpoint.name", "appMain->appTwoA_endpoint");
@@ -101,7 +101,7 @@ public class MainAppSContextBean implements MainApp {
         ejbClientContextProps.put("remote.connection." + connectionName + ".port", "8280");
         ejbClientContextProps.put("remote.connection." + connectionName + ".username", "quickuser1");
         ejbClientContextProps.put("remote.connection." + connectionName + ".password", "quick123+");
-        
+
         try {
             appTwoScopedEjbContextA = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
         } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoA')", e);}
@@ -116,7 +116,7 @@ public class MainAppSContextBean implements MainApp {
             appTwoScopedEjbContextB = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
         } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoB')", e);}
     }
-    
+
     @PostConstruct
     private void createScopedContext() {
         synchronized (activeInstances) {
@@ -128,7 +128,7 @@ public class MainAppSContextBean implements MainApp {
             activeInstances++;
         }
     }
-    
+
     @PreDestroy
     private void destroyScopedContext() {
         synchronized (activeInstances) {
@@ -156,7 +156,7 @@ public class MainAppSContextBean implements MainApp {
             }
         }
     }
-    
+
     @Override
     public String getJBossNodeName() {
         return System.getProperty("jboss.node.name");
@@ -186,7 +186,7 @@ public class MainAppSContextBean implements MainApp {
      * will use the 'quickuser1', to differentiate the cluster connection it
      * will be use the user 'quickuser2' to see if the clustered context is used
      * or not.
-     * 
+     *
      * @param text
      *            Simple text which will be logged at server side.
      * @return simple collection of the returned results
@@ -220,7 +220,7 @@ public class MainAppSContextBean implements MainApp {
 
     /**
     * Close the given context and write a log message which endpoint is closed.
-    * 
+    *
     * @param iCtx
     *            context to close, <code>null</code> will be ignored.
     */
@@ -235,13 +235,13 @@ public class MainAppSContextBean implements MainApp {
             }
         }
     }
-    
+
     /**
     * Invoke the App2 with different ejb-client context. The server AppTwoA
     * will be called with the user quickuser1. The server AppTwoB will be
     * called with the user quickuser2. Both invocations are separate, there
     * will no mix between. Also the outbound-connection is not used.
-    * 
+    *
     * @param text
     *            Simple text which will be logged at server side.
     * @return simple collection of the returned results
@@ -263,7 +263,7 @@ public class MainAppSContextBean implements MainApp {
         StringBuilder result = new StringBuilder(" appTwo loop(4 time A-B expected){");
         for (int i = 0; i < 4; i++) {
             // invoke on the bean
-            String appResult = beanA.invokeSecured(text);  
+            String appResult = beanA.invokeSecured(text);
             if (i > 0) {
                 result.append(", ");
             }
@@ -278,16 +278,16 @@ public class MainAppSContextBean implements MainApp {
 
         return result.toString();
     }
-    
+
     /**
     * Same method as {@link #invokeAppTwo(String)}, but the scoped context is created and destroyed
     * inside the method. Because of this it is not possbile to use the transaction managed by the container
     * as the connection must be open until the container send commit/rollback to the foreign server.
-    * Therefore it is necessary to add the annotation @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED) 
+    * Therefore it is necessary to add the annotation @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     * to the {@link #invokeAll(String)} method.
-    * 
+    *
     * For test you might rename this method.
-    * 
+    *
     * @param text
     *            Simple text which will be logged at server side.
     * @return simple collection of the returned results
@@ -313,7 +313,7 @@ public class MainAppSContextBean implements MainApp {
         ejbClientContextProps.put("remote.connection." + connectionName + ".port", "8280");
         ejbClientContextProps.put("remote.connection." + connectionName + ".username", "quickuser1");
         ejbClientContextProps.put("remote.connection." + connectionName + ".password", "quick123+");
-        
+
         Context iCtxA = null;
         try {
             iCtxA = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
@@ -336,7 +336,7 @@ public class MainAppSContextBean implements MainApp {
         StringBuilder result = new StringBuilder(" appTwo loop(4 time A-B expected){");
         for (int i = 0; i < 4; i++) {
             // invoke on the bean
-            String appResult = beanA.invokeSecured(text);  
+            String appResult = beanA.invokeSecured(text);
             if (i > 0) {
                 result.append(", ");
             }

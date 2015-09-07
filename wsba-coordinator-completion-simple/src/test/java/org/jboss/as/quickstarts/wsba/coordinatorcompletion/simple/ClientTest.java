@@ -33,10 +33,10 @@ import javax.inject.Inject;
 
 @RunWith(Arquillian.class)
 public class ClientTest {
-   
+
     private static String ManifestMF = "Manifest-Version: 1.0\n"
           + "Dependencies: org.jboss.xts\n";
-   
+
     @Inject
     @ClientStub
     public SetServiceBA client;
@@ -52,7 +52,7 @@ public class ClientTest {
 
     /**
      * Test the simple scenario where an item is added to the set within a Business Activity which is closed successfully.
-     * 
+     *
      * @throws Exception if something goes wrong.
      */
     @Test
@@ -91,7 +91,7 @@ public class ClientTest {
      * Tests the scenario where an item is added to the set with in a business activity that is later cancelled. The test checks
      * that the item is in the set after invoking addValueToSet on the Web service. After cancelling the Business Activity, the
      * work should be compensated and thus the item should no longer be in the set.
-     * 
+     *
      * @throws Exception if something goes wrong
      */
     @Test
@@ -132,7 +132,7 @@ public class ClientTest {
 
     /**
      * Utility method for cancelling a Business Activity if it is currently active.
-     * 
+     *
      * @param uba The User Business Activity to cancel.
      */
     private void cancelIfActive(UserBusinessActivity uba) {

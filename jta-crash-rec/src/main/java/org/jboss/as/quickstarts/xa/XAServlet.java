@@ -47,9 +47,9 @@ public class XAServlet extends HttpServlet {
     // page content describing the quickstart and providing a form to perform basic operations against a database
     private static String PAGE_CONTENT = "<h2>XA Recovery</h2>" +
             "<p>This quickstart demonstrates how to atomically update multiple resources within one XA transaction. " +
-            "It updates a relational database table using JPA and sends a message using JMS. " + 
+            "It updates a relational database table using JPA and sends a message using JMS. " +
             "In this example, you can perform the following operations:</p>" +
-            "<ul>" + 
+            "<ul>" +
             "<li>To add a <b>key</b>/<b>value</b> pair, enter values in the input text boxes and click <i>Submit</i></li>" +
             "<li>To update a <b>key</b>/<b>value</b> pair, enter the key and click <i>Submit</i></li>" +
             "<li>To delete a <b>key</b>/<b>value</b> pair, enter the key and click <i>Delete</i></li>" +
@@ -74,7 +74,7 @@ public class XAServlet extends HttpServlet {
             "</p> " +
             "<p>See the README file located in the root of <i>jta-crash-rec</i> folder in the quickstart distribution " +
             "for complete instructions and details about how this quickstart works.</p> " +
- 
+
            "<form>" +
             "Key: <input type=\"text\" name=\"key\" />" +
             "&nbsp;(Leave blank to list all key/value pairs).<br />" +

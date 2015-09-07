@@ -45,7 +45,7 @@ import com.arjuna.mw.wst11.client.JaxWSHeaderContextProcessor;
  * <p/>
  * <p/>
  * The servlet is registered and mapped to /WSATSimpleServletClient using the {@linkplain javax.servlet.annotation.WebServlet}
- * 
+ *
  * @author Paul Robinson (paul.robinson@redhat.com)
  * @HttpServlet .
  *              </p>
@@ -118,7 +118,7 @@ public class WSATSimpleServletClient extends HttpServlet {
 
     /**
      * Utility method for rolling back a transaction if it is currently active.
-     * 
+     *
      * @param ut The User Business Activity to cancel.
      */
     private void rollbackIfActive(UserTransaction ut) {

@@ -26,7 +26,7 @@ import javax.interceptor.InvocationContext;
 /**
  * LoggingInterceptor binds to {@link @Logging} annotation, so methods or beans which @Logging annotation is applied to, will be
  * intercepted.
- * 
+ *
  * @author ievgen.shulga
  */
 @Interceptor

@@ -19,7 +19,7 @@ package org.jboss.quickstarts.ws.jaxws.samples.wsa;
 import javax.jws.WebService;
 
 /**
- * 
+ *
  * @author rsearls@redhat.com
  */
 @WebService

@@ -38,20 +38,20 @@ import org.jboss.ejb.client.remoting.ConfigBasedEJBClientContextSelector;
  * <p>
  * With the boolean property <i>UseScopedContext</i> the basic example or the example with the scoped-environment will be called.
  * </p>
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 public class Client {
 
     /**
      * @param args no args needed
-     * @throws Exception 
+     * @throws Exception
      */
     public static void main(String[] args) throws Exception {
         // suppress output of client messages
         Logger.getLogger("org.jboss").setLevel(Level.OFF);
         Logger.getLogger("org.xnio").setLevel(Level.OFF);
-        
+
         Properties p = new Properties();
         p.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
         p.put("remote.connections", "one");

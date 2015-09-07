@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
 
 /**
  * Simple set of tests for the HelloWorld Web Service to demonstrate accessing the web service using a client
- * 
+ *
  * @author lnewson@redhat.com
  */
 @RunWith(Arquillian.class)

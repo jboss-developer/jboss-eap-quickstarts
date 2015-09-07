@@ -38,7 +38,7 @@ import org.jboss.msc.service.StopContext;
  * and exists twice within the cluster.<br/>
  * As this approach is no designed to interact with remote clients it is not possible to trigger reconfigurations.
  * For this purpose it might be a solution to read the timer configuration from a datasource and create a scheduler
- * which checks this configuration and trigger the reconfiguration.  
+ * which checks this configuration and trigger the reconfiguration.
  * </p>
  *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>

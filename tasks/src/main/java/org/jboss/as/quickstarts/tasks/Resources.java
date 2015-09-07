@@ -26,11 +26,11 @@ import javax.persistence.PersistenceContextType;
 /**
  * This class uses CDI to alias Java EE resources, such as the persistence context, to CDI beans. As it is a stateful bean, it
  * can produce extended persistence contexts.
- * 
+ *
  * <p>
  * Example injection on a managed bean field:
  * </p>
- * 
+ *
  * <pre>
  * &#064;Inject
  * private EntityManager em;

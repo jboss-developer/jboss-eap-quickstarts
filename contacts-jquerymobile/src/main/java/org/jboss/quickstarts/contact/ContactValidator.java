@@ -30,7 +30,7 @@ import javax.validation.Validator;
  * JAX-RS Example
  * <p/>
  * This class produces a RESTful service to read/write the contents of the contacts table.
- * 
+ *
  * @author Joshua Wilson
  *
  */
@@ -50,7 +50,7 @@ public class ContactValidator {
      * If the error is caused because an existing contact with the same email is registered it throws a regular validation
      * exception so that it can be interpreted separately.
      * </p>
-     * 
+     *
      * @param contact Contact to be validated
      * @throws ConstraintViolationException If Bean Validation errors exist
      * @throws ValidationException If contact with the same email already exists
@@ -72,12 +72,12 @@ public class ContactValidator {
     /**
      * Checks if a contact with the same email address is already registered. This is the only way to easily capture the
      * "@UniqueConstraint(columnNames = "email")" constraint from the Contact class.
-     * 
+     *
      * Since Update will being using an email that is already in the database we need to make sure that it is the email
-     * from the record being updated.  
-     * 
+     * from the record being updated.
+     *
      * @param email The email to check
-     * @param id 
+     * @param id
      * @return True if the email already exists, and false otherwise
      */
     boolean emailAlreadyExists(String email, Long id) {

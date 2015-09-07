@@ -26,9 +26,9 @@ import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
 
 /**
  * Mbean component using .MXBean interface.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 @Singleton
 @Startup

@@ -24,10 +24,10 @@ import javax.persistence.EntityManager;
 
 /**
  * Provides functionality for manipulation with users using persistence context from {@link Resources}.
- * 
+ *
  * @author Lukas Fryc
  * @author Oliver Kiss
- * 
+ *
  */
 @Stateful
 public class UserDaoImpl implements UserDao {

@@ -38,9 +38,9 @@ import org.xml.sax.SAXParseException;
 
 /**
  * Implementation of parser based on DOM4J.
- * 
+ *
  * @author baranowb
- * 
+ *
  */
 @RequestScoped
 @Default

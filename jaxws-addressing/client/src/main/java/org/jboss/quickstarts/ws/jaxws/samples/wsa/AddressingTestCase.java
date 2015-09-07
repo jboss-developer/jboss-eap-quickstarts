@@ -22,7 +22,7 @@ import javax.xml.ws.Service;
 import javax.xml.ws.soap.AddressingFeature;
 
 /**
- * 
+ *
  * @author rsearls@redhat.com
  */
 public final class AddressingTestCase

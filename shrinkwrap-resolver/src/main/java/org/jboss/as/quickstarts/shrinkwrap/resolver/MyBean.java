@@ -20,15 +20,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * This is a simple CDI Bean that will be injected on test cases
- * 
+ *
  * @author Rafael Benevides
- * 
+ *
  */
 public class MyBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

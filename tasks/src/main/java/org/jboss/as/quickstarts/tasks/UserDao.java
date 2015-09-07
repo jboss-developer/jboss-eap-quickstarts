@@ -20,9 +20,9 @@ import javax.ejb.Local;
 
 /**
  * Basic operations for manipulation with users
- * 
+ *
  * @author Lukas Fryc
- * 
+ *
  */
 @Local
 public interface UserDao {

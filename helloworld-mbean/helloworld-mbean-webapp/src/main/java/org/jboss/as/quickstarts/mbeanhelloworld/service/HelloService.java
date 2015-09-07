@@ -18,9 +18,9 @@ package org.jboss.as.quickstarts.mbeanhelloworld.service;
 
 /**
  * A simple CDI service which is able to say hello to someone
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 public class HelloService {
 

@@ -18,9 +18,9 @@ package org.jboss.as.quickstarts.temperatureconverter.ejb;
 
 /**
  * The temperature scale.
- * 
+ *
  * @author Pete Muir
- * 
+ *
  */
 public enum Scale {
 
@@ -30,7 +30,7 @@ public enum Scale {
 
     /**
      * Constructor for a scale, taking the symbol used to represent the temperature scale.
-     * 
+     *
      * @param symbol
      */
     private Scale(String symbol) {

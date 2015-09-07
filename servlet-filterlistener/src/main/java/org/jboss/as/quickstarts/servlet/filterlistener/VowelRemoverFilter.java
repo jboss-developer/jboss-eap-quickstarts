@@ -55,7 +55,7 @@ import javax.servlet.http.HttpSession;
  * <p>
  * Note that this application also employs a {@linkplain ParameterDumpingRequestListener Request Listener}, which will see all
  * requests before this Filter sees them.
- * 
+ *
  * @author Jonathan Fuerth <jfuerth@redhat.com>
  */
 @WebFilter("/*")
@@ -132,7 +132,7 @@ public class VowelRemoverFilter implements Filter {
 
     /**
      * Performs the vowel removal work of this filter.
-     * 
+     *
      * @param parameterMap the map of parameter names and values in the original request.
      * @return A copy of the original map with all the same keys, but whose values do not contain vowels.
      */

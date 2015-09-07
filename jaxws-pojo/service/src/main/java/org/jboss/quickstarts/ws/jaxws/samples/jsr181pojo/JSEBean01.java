@@ -21,7 +21,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 /**
- * 
+ *
  * @author rsearls@redhat.com
  */
 @WebService

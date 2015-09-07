@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * A Client stub to the SetService.
- * 
+ *
  * @author paul.robinson@redhat.com, 2012-01-04
  */
 @ClientStub
@@ -41,7 +41,7 @@ public class Client implements SetServiceBA {
 
     /**
      * Default constructor with hard-coded values for the SetService endpoint details (wsdl url, service name & port name)
-     * 
+     *
      * @throws MalformedURLException if the WSDL url is malformed.
      */
     public Client() throws MalformedURLException {
@@ -66,7 +66,7 @@ public class Client implements SetServiceBA {
 
     /**
      * Add a value to the set
-     * 
+     *
      * @param value Value to add to the set.
      * @throws AlreadyInSetException if the item is already in the set.
      * @throws SetServiceException if an error occurred during the adding of the item to the set.
@@ -77,7 +77,7 @@ public class Client implements SetServiceBA {
 
     /**
      * Query the set to see if it contains a particular value.
-     * 
+     *
      * @param value the value to check for.
      * @return true if the value was present, false otherwise.
      */

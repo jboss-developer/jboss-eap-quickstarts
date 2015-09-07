@@ -34,16 +34,16 @@ import org.junit.runner.RunWith;
 
 /**
  * Testing pojo mbean with mxbean interface.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class MXPojoHelloWorldTest {
 
     /**
      * Constructs a deployment archive
-     * 
+     *
      * @return the deployment archive
      */
     @Deployment

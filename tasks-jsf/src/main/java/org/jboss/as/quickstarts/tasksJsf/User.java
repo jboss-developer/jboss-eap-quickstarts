@@ -31,7 +31,7 @@ import javax.persistence.OneToMany;
 
 /**
  * User entity
- * 
+ *
  * @author Oliver Kiss
  */
 @SuppressWarnings("serial")

@@ -29,10 +29,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 
 /**
  * Qualifier for specifying which RestaurantServiceAT implementation to use.
- * 
+ *
  * This Qualifier only supports the ClientStub implementation. The only other class to implement RestaurantServiceAT is the
  * RestaurantServiceATImpl class, which is not injected by CDI, so does not require Qualifier support.
- * 
+ *
  * @author paul.robinson@redhat.com, 2012-01-04
  */
 @Qualifier

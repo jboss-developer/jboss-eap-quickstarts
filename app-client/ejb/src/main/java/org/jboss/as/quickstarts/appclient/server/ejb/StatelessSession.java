@@ -28,8 +28,8 @@ public interface StatelessSession {
      */
     public abstract void invokeWithClientContext();
     /**
-     * 
-     * @return a greeting string with the jboss.node.name 
+     *
+     * @return a greeting string with the jboss.node.name
      */
     public abstract String getGreeting();
 }

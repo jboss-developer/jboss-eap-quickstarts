@@ -26,8 +26,8 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-// This class is responsible to "decode" the received String 
-// from clients in a Message object 
+// This class is responsible to "decode" the received String
+// from clients in a Message object
 public class MessageDecoder implements Decoder.Text<Message> {
 
     private Logger logger = Logger.getLogger(getClass().getName());

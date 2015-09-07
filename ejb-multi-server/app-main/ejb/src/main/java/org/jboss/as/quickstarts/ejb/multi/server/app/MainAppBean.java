@@ -34,7 +34,7 @@ import org.jboss.logging.Logger;
  * <p>The main bean called by the standalone client.</p>
  * <p>The sub applications, deployed in different servers are called direct or via indirect naming to hide the lookup name and use
  * a configured name via comp/env environment.</p>
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @Stateless
@@ -113,7 +113,7 @@ public class MainAppBean implements MainApp {
      /**
      * The application one can only be called with the standard naming, there is
      * no alias.
-     * 
+     *
      * @param text
      *            Simple text for logging in the target servers logfile
      * @return A text with server details for demonstration
@@ -141,7 +141,7 @@ public class MainAppBean implements MainApp {
     * <li><i>java:comp/env/AppTwoAlias</i> the local alias provided by the
     * ejb-jar.xml configuration</li>
     * </ul>
-    * 
+    *
     * @param text
     *            Simple text for logging in the target servers logfile
     * @return A text with server details for demonstration

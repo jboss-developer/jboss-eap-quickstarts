@@ -38,11 +38,11 @@ import org.jboss.quickstarts.websocket.model.BiddingFactory;
 /**
  * WebSocket server endpoint example
  * <p/>
- * 
+ *
  * This class produces a Websocket endpoint to receive messages from clients.
- * 
+ *
  * @author <a href="mailto:benevides@redhat.com">Rafael Benevides</a>
- * 
+ *
  */
 @ServerEndpoint(value = "/bidsocket", encoders = { BiddingEncoder.class }, decoders = { MessageDecoder.class })
 public class BidWebSocketEndpoint {

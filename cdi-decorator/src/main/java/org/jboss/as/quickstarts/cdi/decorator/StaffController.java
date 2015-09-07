@@ -21,11 +21,11 @@ import javax.inject.Named;
 
 /**
  * Simple JSF backing bean, demonstrating CDI injection.
- * 
+ *
  * Bean name overridden to "staff" to be accessible from view with this name.
- * 
+ *
  * The {@link Inject} says that it is CDI bean and should be injected.
- * 
+ *
  * @author Ievgen Shulga
  */
 @Named(value = "staff")

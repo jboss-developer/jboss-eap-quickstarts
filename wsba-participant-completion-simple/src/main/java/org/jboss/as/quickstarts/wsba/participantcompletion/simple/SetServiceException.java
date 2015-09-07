@@ -18,11 +18,11 @@ package org.jboss.as.quickstarts.wsba.participantcompletion.simple;
 
 /**
  * Exception used to communicate a general error in the SetService.
- * 
+ *
  * @author paul.robinson@redhat.com, 2012-01-04
  */
 public class SetServiceException extends Exception {
-    
+
     /** Default value included to remove warning. **/
     private static final long serialVersionUID = 1L;
 

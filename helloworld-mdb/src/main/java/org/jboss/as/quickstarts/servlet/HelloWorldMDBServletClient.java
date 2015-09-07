@@ -56,14 +56,14 @@ import javax.servlet.http.HttpServletResponse;
  * <p>
  * A simple servlet 3 as client that sends several messages to a queue or a topic.
  * </p>
- * 
+ *
  * <p>
  * The servlet is registered and mapped to /HelloWorldMDBServletClient using the {@linkplain WebServlet
  * @HttpServlet}.
  * </p>
- * 
+ *
  * @author Serge Pagop (spagop@redhat.com)
- * 
+ *
  */
 @WebServlet("/HelloWorldMDBServletClient")
 public class HelloWorldMDBServletClient extends HttpServlet {

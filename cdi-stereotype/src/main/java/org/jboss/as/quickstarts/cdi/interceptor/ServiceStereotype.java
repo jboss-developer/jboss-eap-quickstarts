@@ -29,7 +29,7 @@ import javax.enterprise.inject.Stereotype;
  * A stereotype is an annotation, annotated @Stereotype, that packages several other annotations. It specify 2 interceptors
  * bindings (@Logging and @Audit) to be inherited by all beans with that stereotype. This stereotype also indicate that all
  * beans to which it is applied are @Alternatives. An alternative stereotype lets us classify beans by deployment scenario.
- * 
+ *
  * @author ievgen.shulga
  */
 @Stereotype

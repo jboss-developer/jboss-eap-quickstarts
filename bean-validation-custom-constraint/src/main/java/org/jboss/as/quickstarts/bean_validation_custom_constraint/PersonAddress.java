@@ -32,7 +32,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "person_address")
 public class PersonAddress implements Serializable{
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -47,13 +47,13 @@ public class PersonAddress implements Serializable{
     private String state;
     private String country;
     private String pinCode;
-    
+
     @OneToOne
     @PrimaryKeyJoinColumn
     private Person person;
-    
+
     public PersonAddress () {
-        
+
     }
 
     public PersonAddress(String streetAddress, String locality, String city, String state, String country, String pinCode) {

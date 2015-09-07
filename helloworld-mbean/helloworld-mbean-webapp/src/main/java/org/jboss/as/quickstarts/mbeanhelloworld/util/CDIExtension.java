@@ -25,9 +25,9 @@ import javax.enterprise.inject.spi.Extension;
 
 /**
  * A CDI Extension to retrieve bean in a non-CDI context.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 public class CDIExtension implements Extension {
 

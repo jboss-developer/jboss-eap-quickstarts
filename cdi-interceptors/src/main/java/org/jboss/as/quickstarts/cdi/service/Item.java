@@ -24,7 +24,7 @@ import javax.persistence.Id;
 
 /**
  * Simple Entity bean, that can be mapped to database.
- * 
+ *
  * @author Ievgen Shulga
  */
 @Entity

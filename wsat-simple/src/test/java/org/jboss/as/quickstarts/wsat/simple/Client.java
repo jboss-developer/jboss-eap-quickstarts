@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * A Client stub to the restaurant service.
- * 
+ *
  * @author paul.robinson@redhat.com, 2012-01-04
  */
 @ClientStub
@@ -42,7 +42,7 @@ public class Client implements RestaurantServiceAT {
     /**
      * Default constructor with hard-coded values for the RestaurantServiceAT endpoint details (wsdl url, service name & port
      * name)
-     * 
+     *
      * @throws MalformedURLException if the WSDL url is malformed.
      */
     public Client() throws MalformedURLException {
@@ -75,7 +75,7 @@ public class Client implements RestaurantServiceAT {
 
     /**
      * obtain the number of existing bookings
-     * 
+     *
      * @return the number of current bookings
      */
     @Override

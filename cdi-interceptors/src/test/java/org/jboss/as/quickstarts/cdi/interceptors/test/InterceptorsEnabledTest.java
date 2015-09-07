@@ -34,7 +34,7 @@ import org.junit.runner.RunWith;
 /**
  * Simple tests for cdi interceptors. Arquillian deploys an WAR archive to the application server and run the test.
  * ItemServiceBean is injected into the test so user can verify the interceptors are working.
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class InterceptorsEnabledTest {

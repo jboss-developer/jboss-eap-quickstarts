@@ -23,7 +23,7 @@ public class Contact {
     private String name;
 
     private String phoneNumber;
-    
+
     private String savedBy;
 
     public Long getId() {
@@ -49,11 +49,11 @@ public class Contact {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
+
     public String getSavedBy() {
         return savedBy;
     }
-    
+
     public void setSavedBy(String savedBy) {
         this.savedBy = savedBy;
     }

@@ -30,9 +30,9 @@ import org.apache.log4j.Logger;
  * <p>
  * The {@link #text} variable is populated with content which is logged in {@link #log()} method.
  * </p>
- * 
+ *
  * @author baranowb
- * 
+ *
  */
 @SessionScoped
 @Named

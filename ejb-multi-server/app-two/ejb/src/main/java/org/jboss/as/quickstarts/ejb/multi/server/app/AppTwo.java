@@ -20,7 +20,7 @@ import javax.ejb.Remote;
 
 /**
  * Interface for the demo application One.
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @Remote
@@ -28,7 +28,7 @@ public interface AppTwo {
 
   /**
    * Unsecured invocation, will return the name of application, principal and JBoss node.
-   * 
+   *
    * @param text Simple text written to to the logfile to identify the invocation
    * @return app1[&lt;PrincipalName&gt;]@&lt;jboss.node.name&gt;
    */
@@ -41,7 +41,7 @@ public interface AppTwo {
 
   /**
    * Secured invocation for Roles ( AppTwo, Intern ). See {@link #invoke(String)}
-   * 
+   *
    * @param text Simple text written to to the logfile to identify the invocation
    * @return app1[&lt;PrincipalName&gt;]@&lt;jboss.node.name&gt;
    */

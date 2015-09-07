@@ -41,12 +41,12 @@ public class PetValidator implements Validator {
         } else if (pet.isNew() && pet.getOwner().getPet(name, true) != null) {
             errors.rejectValue("name", "duplicate", "already exists");
         }
-        
+
         // type validation
         if (pet.isNew() && pet.getType() == null) {
             errors.rejectValue("type", "required", "required");
         }
-        
+
         // birth date validation
         if (pet.getBirthDate()==null) {
             errors.rejectValue("birthDate", "required", "required");

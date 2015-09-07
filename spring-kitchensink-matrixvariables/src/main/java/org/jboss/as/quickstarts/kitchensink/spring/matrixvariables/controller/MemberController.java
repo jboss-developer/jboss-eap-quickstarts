@@ -46,8 +46,8 @@ public class MemberController {
     private MemberDao memberDao;
 
     /*
-     * When you go to http://localhost:8080/jboss-spring-kitchensink-matrixvariables/ this method is fired.  This is 
-     *   because of the class level @RequestMapping(value = "/").  This method does not specify the path and therefore it 
+     * When you go to http://localhost:8080/jboss-spring-kitchensink-matrixvariables/ this method is fired.  This is
+     *   because of the class level @RequestMapping(value = "/").  This method does not specify the path and therefore it
      *   runs when you access the root level of the URI.
      * This method will access DAO to query the database and return all the Members.
      */
@@ -60,13 +60,13 @@ public class MemberController {
         return "index";
     }
 
-    // Note that to enable the use of matrix variables, you must set the removeSemicolonContent property of RequestMappingHandlerMapping 
-    //  to false. By default it is set to true with the exception of the MVC namespace and the MVC Java config both of which automatically 
-    //  enable the use of matrix variables. 
+    // Note that to enable the use of matrix variables, you must set the removeSemicolonContent property of RequestMappingHandlerMapping
+    //  to false. By default it is set to true with the exception of the MVC namespace and the MVC Java config both of which automatically
+    //  enable the use of matrix variables.
     // This will allow the Matrix Variables to be passed in because they use semicolons to separate each one.
-    // This was done by creating a Configuration class and pointing to it in the jboss-as-spring-mvc-context.xml. 
+    // This was done by creating a Configuration class and pointing to it in the jboss-as-spring-mvc-context.xml.
     @RequestMapping(value = "/mv/{filter}", method = RequestMethod.GET)
-    public ModelAndView filteredMembers(@MatrixVariable(value = "n", pathVar = "filter", required = false, defaultValue = "") String n, 
+    public ModelAndView filteredMembers(@MatrixVariable(value = "n", pathVar = "filter", required = false, defaultValue = "") String n,
                                         @MatrixVariable(value = "e", pathVar = "filter", required = false, defaultValue = "") String e) {
         log.fine("filteredMembers @MatrixVariable n = " + n + ", e = " + e);
         ModelAndView model = new ModelAndView("index");
@@ -103,7 +103,7 @@ public class MemberController {
     /**
      * Checks if a member with the same email address is already registered. This is the only way to easily capture the
      * "@UniqueConstraint(columnNames = "email")" constraint from the Member class.
-     * 
+     *
      * @param email The email to check
      * @return True if the email already exists, and false otherwise
      */

@@ -30,9 +30,9 @@ import javax.faces.render.RenderKit;
 
 /**
  * Stub of {@link FacesContext} to allow testing without real JSF session.
- * 
+ *
  * @author Lukas Fryc
- * 
+ *
  */
 public class FacesContextStub extends FacesContext {
 

@@ -53,7 +53,7 @@ public class LogMessageManagerEJB {
 
     /**
      * List all the log-messages.
-     * 
+     *
      * @return
      * @throws NamingException
      * @throws NotSupportedException

@@ -28,7 +28,7 @@ import org.jboss.as.quickstarts.cdi.service.History;
 /**
  * AuditInterceptor binds to {@link @Audit} annotation, so methods or beans which @Audit annotation is applied to, will be
  * intercepted.
- * 
+ *
  * @author ievgen.shulga
  */
 @Interceptor

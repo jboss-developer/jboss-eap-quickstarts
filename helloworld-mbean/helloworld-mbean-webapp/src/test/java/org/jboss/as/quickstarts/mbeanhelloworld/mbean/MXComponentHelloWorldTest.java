@@ -36,16 +36,16 @@ import org.junit.runner.RunWith;
 
 /**
  * Testing component mbean with mxbean interface.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class MXComponentHelloWorldTest {
 
     /**
      * Constructs a deployment archive
-     * 
+     *
      * @return the deployment archive
      */
     @Deployment

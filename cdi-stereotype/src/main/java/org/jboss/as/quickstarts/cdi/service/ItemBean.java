@@ -26,9 +26,9 @@ import javax.inject.Named;
 
 /**
  * JSF backing bean that demonstrates CDI injection.
- * 
+ *
  * Bean name overridden to "itemBean" to be accessible from view with this name.
- * 
+ *
  * @author Ievgen Shulga
  */
 @Named("itemBean")

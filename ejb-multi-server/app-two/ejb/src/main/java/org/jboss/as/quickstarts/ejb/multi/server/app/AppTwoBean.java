@@ -29,7 +29,7 @@ import org.jboss.logging.Logger;
 /**
  * Simple bean with methods to get the node name of the server and log messages. One method is annotated with a security role.
  * The security-domain is declared by the JBoss specific annotation SecurityDomain.
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @SecurityDomain(value = "other")

@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue
     @Column(name="person_id")
@@ -60,7 +60,7 @@ public class Person implements Serializable {
     private PersonAddress personAddress;
 
     public Person() {
-        
+
     }
 
     public Person(String firstName, String lastName, PersonAddress address) {
@@ -68,7 +68,7 @@ public class Person implements Serializable {
         this.lastName = lastName;
         this.personAddress = address;
     }
-    
+
     public Long getId() {
         return personId;
     }
@@ -76,7 +76,7 @@ public class Person implements Serializable {
     public void setId(Long id) {
         this.personId = id;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }

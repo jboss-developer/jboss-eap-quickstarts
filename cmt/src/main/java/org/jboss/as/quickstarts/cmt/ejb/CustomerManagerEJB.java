@@ -72,7 +72,7 @@ public class CustomerManagerEJB {
 
     /**
      * List all the customers.
-     * 
+     *
      * @return
      * @throws NamingException
      * @throws NotSupportedException

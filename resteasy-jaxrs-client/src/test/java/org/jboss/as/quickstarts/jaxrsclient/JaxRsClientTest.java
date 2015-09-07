@@ -18,10 +18,10 @@ package org.jboss.as.quickstarts.jaxrsclient;
 
 /**
  * This example demonstrates the use an external JAX-RS RestEasy client
- * which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS 
- * in Red Hat JBoss Enterprise Application Platform.  Specifically, 
- * this client "calls" the HelloWorld JAX-RS Web Service created in  
- * quickstart helloworld-rs.  Please refer to the helloworld-rs README.md 
+ * which interacts with a JAX-RS Web service that uses CDI 1.0 and JAX-RS
+ * in Red Hat JBoss Enterprise Application Platform.  Specifically,
+ * this client "calls" the HelloWorld JAX-RS Web Service created in
+ * quickstart helloworld-rs.  Please refer to the helloworld-rs README.md
  * for instructions on how to build and deploy helloworld-rs.
  */
 import static org.junit.Assert.*;
@@ -41,9 +41,9 @@ import org.junit.Test;
 
 /**
  * JUnit4 Test class which makes a request to the RESTful helloworld-rs web service.
- * 
+ *
  * @author bmincey (Blaine Mincey)
- * 
+ *
  */
 public class JaxRsClientTest {
     /**
@@ -87,7 +87,7 @@ public class JaxRsClientTest {
 
     /**
      * The purpose of this method is to run the external REST request.
-     * 
+     *
      * @param url The url of the RESTful service
      * @param mediaType The mediatype of the RESTful service
      */

@@ -25,19 +25,19 @@ import org.w3c.dom.Element;
 
 /**
  * This class demonstrates how to request SAML 2.0 security token from PicketLink STS.
- *   
+ *
  * @author Peter Skopek (pskopek ( at redhat dot com))
  *
  */
 public class WSTrustClientExample {
 
     public static void main(String[] args) throws Exception {
-        
+
         String userName = (args.length > 0 ? args[0] : "tomcat");
         String password = (args.length > 1 ? args[1] : "tomcat");
-        
+
         // Step 1: Create a WS Trust Client
-        WSTrustClient client = new WSTrustClient("PicketLinkSTS", "PicketLinkSTSPort", "http://localhost:8080/picketlink-sts/PicketLinkSTS", 
+        WSTrustClient client = new WSTrustClient("PicketLinkSTS", "PicketLinkSTSPort", "http://localhost:8080/picketlink-sts/PicketLinkSTS",
                 new SecurityInfo(userName, password));
         Element assertionElement = null;
         try {
@@ -54,7 +54,7 @@ public class WSTrustClientExample {
             e.printStackTrace();
             System.exit(2);
         }
-        
+
         // Step 3: Display the SAML2 token
         String el = DocumentUtil.getDOMElementAsString(assertionElement);
         System.out.println(el);

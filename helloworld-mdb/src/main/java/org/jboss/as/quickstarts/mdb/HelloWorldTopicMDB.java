@@ -28,9 +28,9 @@ import javax.jms.TextMessage;
  * <p>
  * A simple Message Driven Bean that asynchronously receives and processes the messages that are sent to the topic.
  * </p>
- * 
+ *
  * @author Serge Pagop (spagop@redhat.com)
- * 
+ *
  */
 @MessageDriven(name = "HelloWorldQTopicMDB", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/HELLOWORLDMDBTopic"),

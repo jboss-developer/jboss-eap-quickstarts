@@ -35,7 +35,7 @@ import javax.inject.Inject;
 
 /**
  * Simple set of tests for the RestaurantServiceAT
- * 
+ *
  * @author paul.robinson@redhat.com, 2012-01-04
  */
 @RunWith(Arquillian.class)
@@ -50,7 +50,7 @@ public class ClientTest {
 
     /**
      * Create the deployment archive to be deployed by Arquillian.
-     * 
+     *
      * @return a WebArchive representing the required deployment
      */
     @Deployment
@@ -64,7 +64,7 @@ public class ClientTest {
 
     /**
      * Test the simple scenario where a booking is made and then committed.
-     * 
+     *
      * @throws Exception if something goes wrong.
      */
     @Test
@@ -94,7 +94,7 @@ public class ClientTest {
 
     /**
      * Tests the scenario where a booking is made and the transaction is later rolledback.
-     * 
+     *
      * @throws Exception if something goes wrong
      */
     @Test
@@ -125,7 +125,7 @@ public class ClientTest {
 
     /**
      * Utility method for rolling back a transaction if it is currently active.
-     * 
+     *
      * @param ut The User Business Activity to cancel.
      */
     private void rollbackIfActive(UserTransaction ut) {

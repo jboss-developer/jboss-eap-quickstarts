@@ -28,15 +28,15 @@ import org.jboss.logging.Logger;
 /**
  * A simple EJB client to demonstrate the use of the JBoss application container
  * to show that the injection will work for server EJB-beans.
- *  
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class);
-    
+
     /**
      * Use field injection for the EJB reference.<br/>
-     * <b>Notice that the application-container injection only works for 
+     * <b>Notice that the application-container injection only works for
      * static fields within the main class of the application</b><br/>
      * See JSR 342 (EE7 platform spec) chapter 5.2.5 .
      */

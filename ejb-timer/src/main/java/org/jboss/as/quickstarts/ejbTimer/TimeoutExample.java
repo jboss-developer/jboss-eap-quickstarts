@@ -27,7 +27,7 @@ import javax.interceptor.InvocationContext;
 
 /**
  * Demonstrates how to use the EJB's @Timeout.
- * 
+ *
  * @author <a href="mailto:ozizka@redhat.com">Ondrej Zizka</a>
  */
 @Singleton
@@ -36,14 +36,14 @@ public class TimeoutExample {
 
     @Resource
     private TimerService timerService;
-    
+
     @Timeout
     public void scheduler(Timer timer) {
         Date currentTime = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
         System.out.println("TimeoutExample.scheduler() " + timer.getInfo() + simpleDateFormat.format(currentTime));
     }
-    
+
     @PostConstruct
     public void initialize( InvocationContext ctx ) {
         ScheduleExpression se = new ScheduleExpression();
@@ -51,9 +51,9 @@ public class TimeoutExample {
         se.hour("*").minute("*").second("0/3");
         timerService.createCalendarTimer( se, new TimerConfig("EJB timer service timeout at ", false) );
     }
-    
+
     @PreDestroy
-    public void stop() {    
+    public void stop() {
         System.out.println("EJB Timer: Stop timers.");
         for (Timer timer : timerService.getTimers()) {
             System.out.println("Stopping timer: " + timer.getInfo());

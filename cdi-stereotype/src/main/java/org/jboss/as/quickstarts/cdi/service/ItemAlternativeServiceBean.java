@@ -29,7 +29,7 @@ import org.jboss.as.quickstarts.cdi.interceptor.ServiceStereotype;
  * and @Audit interceptor bindings is applied. Interceptors are applied to all business methods, since @ServiceStereotype
  * specified at class level. This implementation with interceptors is used only if alternative stereotype and interceptors are
  * specified in beans.xml descriptor.
- * 
+ *
  * @author Ievgen Shulga
  */
 @Stateless

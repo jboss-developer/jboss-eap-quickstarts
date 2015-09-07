@@ -30,9 +30,9 @@ import javax.jms.TextMessage;
  * A simple Message Driven Bean that asynchronously receives and processes the
  * messages that are sent to the queue.
  * </p>
- * 
+ *
  * @author Serge Pagop (spagop@redhat.com)
- * 
+ *
  */
 @MessageDriven(name = "HelloWorldMDB", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),

@@ -28,7 +28,7 @@ import java.util.Hashtable;
 /**
  * A sample program which acts a remote client for a EJB deployed on AS7 server. This program shows how to lookup stateful and
  * stateless beans via JNDI and then invoke on them
- * 
+ *
  * @author Jaikiran Pai
  */
 public class RemoteEJBClient {
@@ -43,7 +43,7 @@ public class RemoteEJBClient {
 
     /**
      * Looks up a stateless bean and invokes on it
-     * 
+     *
      * @throws NamingException
      */
     private static void invokeStatelessBean() throws NamingException {
@@ -75,7 +75,7 @@ public class RemoteEJBClient {
 
     /**
      * Looks up a stateful bean and invokes on it
-     * 
+     *
      * @throws NamingException
      */
     private static void invokeStatefulBean() throws NamingException {
@@ -101,7 +101,7 @@ public class RemoteEJBClient {
 
     /**
      * Looks up and returns the proxy to remote stateless calculator bean
-     * 
+     *
      * @return
      * @throws NamingException
      */
@@ -135,7 +135,7 @@ public class RemoteEJBClient {
 
     /**
      * Looks up and returns the proxy to remote stateful counter bean
-     * 
+     *
      * @return
      * @throws NamingException
      */

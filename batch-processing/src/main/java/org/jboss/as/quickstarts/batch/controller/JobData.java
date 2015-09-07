@@ -40,8 +40,8 @@ public class JobData {
 
     private String exitStatus;
 
-    public JobData(Long jobInstanceId, Long executionId, String jobName, 
-        Date startTime, Date endTime, BatchStatus batchStatus, 
+    public JobData(Long jobInstanceId, Long executionId, String jobName,
+        Date startTime, Date endTime, BatchStatus batchStatus,
         Properties parameters, String exitStatus) {
         this.jobInstanceId = jobInstanceId;
         this.executionId = executionId;

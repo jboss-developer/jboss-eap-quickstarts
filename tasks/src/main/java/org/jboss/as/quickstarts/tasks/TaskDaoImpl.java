@@ -25,10 +25,10 @@ import javax.persistence.TypedQuery;
 
 /**
  * Provides functionality for manipulation with tasks using the persistence context from {@link Resources}.
- * 
+ *
  * @author Lukas Fryc
  * @author Oliver Kiss
- * 
+ *
  */
 @Stateful
 public class TaskDaoImpl implements TaskDao {

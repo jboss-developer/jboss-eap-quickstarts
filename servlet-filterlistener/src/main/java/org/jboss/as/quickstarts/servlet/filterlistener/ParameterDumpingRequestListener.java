@@ -28,7 +28,7 @@ import javax.servlet.annotation.WebListener;
  * <p>
  * Because Request Listeners see requests before Filters see them, this listener sees the original parameter values as sent by
  * the user rather than the modified ones passed down the filter chain by {@link VowelRemoverFilter}.
- * 
+ *
  * @author Jonathan Fuerth <jfuerth@redhat.com>
  */
 @WebListener

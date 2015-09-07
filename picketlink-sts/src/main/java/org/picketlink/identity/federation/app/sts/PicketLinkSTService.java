@@ -29,7 +29,7 @@ import org.picketlink.identity.federation.core.wstrust.PicketLinkSTS;
  * <p>
  * Default implementation of the {@code SecurityTokenService} interface.
  * </p>
- * 
+ *
  * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
  * @author <a href="mailto:pskopek@redhat.com">Peter Skopek</a>
  */

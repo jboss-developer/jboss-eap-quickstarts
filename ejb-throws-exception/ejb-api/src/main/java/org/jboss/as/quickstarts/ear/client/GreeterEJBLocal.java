@@ -26,5 +26,5 @@ import javax.ejb.Local;
 public interface GreeterEJBLocal {
 
     public String sayHello(String name) throws GreeterException;
-    
+
 }

@@ -18,7 +18,7 @@ package org.jboss.as.quickstarts.cdi.decorator;
 
 /**
  * Simple POJO, that can be used by decorator.
- * 
+ *
  * @author Ievgen Shulga
  */
 public class Staff {

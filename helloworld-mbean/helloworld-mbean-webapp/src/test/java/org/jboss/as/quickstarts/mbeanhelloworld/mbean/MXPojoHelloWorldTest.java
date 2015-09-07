@@ -39,18 +39,18 @@ import org.junit.runner.RunWith;
 
 /**
  * Testing pojo mbean with mxbean interface.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class MXPojoHelloWorldTest {
 
     private static final String WEBAPP_SRC = "src/main/webapp";
-    
+
     /**
      * Constructs a deployment archive
-     * 
+     *
      * @return the deployment archive
      */
     @Deployment

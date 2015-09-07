@@ -35,11 +35,11 @@ import org.junit.runner.RunWith;
 /**
  * This test demonstrates how to use Shrinkwrap-resolver to resolve artifacts using G:A:V (GroupId, ArtifactId and Version) and
  * also shows how to use G:A:P:C:V (GroupId, ArtifactId, Packaging, Classifier and Version) dependencies as a file array.
- * 
+ *
  * The Shrinkwrap-resolver also was customized to use a custom maven settings xml file and disable the Maven Central repository.
- * 
+ *
  * @author Rafael Benevides
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class ShrinkwrapResolveGAPCVCustomRepoWithoutCentralTest {

@@ -24,7 +24,7 @@ import org.jboss.ejb.client.EJBClientInvocationContext;
 /**
  * Example of an interceptor at client side which can be configures with the {@link EJBClientContext#registerInterceptor(int
  * priority, new ClientInterceptor())}.
- * 
+ *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 public class ClientInterceptor implements EJBClientInterceptor {

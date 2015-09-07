@@ -26,7 +26,7 @@ import javax.xml.ws.Service;
 import java.net.URL;
 
 /**
- * 
+ *
  * @author rsearls@redhat.com
  */
 public class Client {

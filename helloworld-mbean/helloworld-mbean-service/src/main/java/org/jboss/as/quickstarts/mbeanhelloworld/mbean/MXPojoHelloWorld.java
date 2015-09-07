@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 
 /**
  * Mbean pojo using MXBean interface and declared in jboss-service.xml.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 public class MXPojoHelloWorld implements IHelloWorldMXBean {
 

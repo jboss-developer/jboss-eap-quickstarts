@@ -18,12 +18,12 @@ package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
 /**
  * Annotated interface.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 public interface IHelloWorldMXBean {
-    
+
     /**
      * Read only attribute
      */
@@ -39,5 +39,5 @@ public interface IHelloWorldMXBean {
      * Operation
      */
     String sayHello(String name);
-    
+
 }

@@ -34,7 +34,7 @@ public class JsonController {
     private Person person;
 
     private String jsonString;
-    
+
     private String parsedResult;
 
     public void generateJson() {
@@ -54,7 +54,7 @@ public class JsonController {
             )
             .build().toString();
     }
-    
+
     public void parseJsonStream(){
         StringBuilder sb = new StringBuilder();
         String json = getJsonString();
@@ -83,7 +83,7 @@ public class JsonController {
         }
         parsedResult = sb.toString();
     }
-    
+
     public void setJsonString(String jsonString) {
         this.jsonString = jsonString;
     }
@@ -91,7 +91,7 @@ public class JsonController {
     public String getJsonString() {
         return jsonString;
     }
-    
+
     public String getParsedResult() {
         return parsedResult;
     }

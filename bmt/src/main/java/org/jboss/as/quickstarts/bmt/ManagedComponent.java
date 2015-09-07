@@ -43,7 +43,7 @@ public class ManagedComponent {
     /**
      * Ask the container to inject an Entity Manager (EM). As a consequence the EM will be automatically enlisted into any new
      * transactions started by the managed component.
-     * 
+     *
      */
     @PersistenceContext
     private EntityManager entityManager;

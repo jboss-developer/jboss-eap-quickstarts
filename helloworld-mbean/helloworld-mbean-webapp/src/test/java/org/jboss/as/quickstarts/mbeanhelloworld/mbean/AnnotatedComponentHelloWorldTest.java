@@ -36,16 +36,16 @@ import org.junit.runner.RunWith;
 
 /**
  * Testing annotated component mbean.
- * 
+ *
  * @author Jeremie Lagarde
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class AnnotatedComponentHelloWorldTest {
 
     /**
      * Constructs a deployment archive
-     * 
+     *
      * @return the deployment archive
      */
     @Deployment

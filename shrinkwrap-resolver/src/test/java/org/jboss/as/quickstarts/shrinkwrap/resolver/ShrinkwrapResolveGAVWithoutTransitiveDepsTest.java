@@ -35,9 +35,9 @@ import org.junit.runner.RunWith;
 /**
  * This test demonstrates how to use Shrinkwrap-resolver to resolve an artifact via G:A:V without transitive dependencies as a
  * single file
- * 
+ *
  * @author Rafael Benevides
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class ShrinkwrapResolveGAVWithoutTransitiveDepsTest {

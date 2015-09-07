@@ -22,9 +22,9 @@ import javax.ejb.Local;
 
 /**
  * Basic operations for manipulation of tasks
- * 
+ *
  * @author Lukas Fryc
- * 
+ *
  */
 @Local
 public interface TaskDao {

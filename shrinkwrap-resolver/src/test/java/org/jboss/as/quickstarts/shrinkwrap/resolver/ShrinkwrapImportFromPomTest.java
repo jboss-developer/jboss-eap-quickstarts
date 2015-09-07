@@ -35,10 +35,10 @@ import org.junit.runner.RunWith;
  * This test demonstrates how to use Shrinkwrap-resolver to import dependencies specified in the pom.xml file. You can control
  * what dependencies will be imported based on its scope and you can also define what profiles can be active or inactive. It
  * returns a file array with the dependencies.
- * 
- * 
+ *
+ *
  * @author Rafael Benevides
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class ShrinkwrapImportFromPomTest {

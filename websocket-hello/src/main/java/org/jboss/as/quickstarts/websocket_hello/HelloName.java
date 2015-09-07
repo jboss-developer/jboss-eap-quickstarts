@@ -36,7 +36,7 @@ public class HelloName {
     public void helloOnOpen(Session session) {
         System.out.println("WebSocket opened: " + session.getId());
     }
-    
+
     @OnClose
     public void helloOnClose(CloseReason reason) {
     	System.out.println("WebSocket connection closed with CloseCode: " + reason.getCloseCode());

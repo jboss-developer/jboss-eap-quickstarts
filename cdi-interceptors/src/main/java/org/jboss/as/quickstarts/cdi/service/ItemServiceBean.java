@@ -29,7 +29,7 @@ import org.jboss.as.quickstarts.cdi.interceptor.Logging;
  * Methods of ItemServiceBean marked with annotations, which specify that an annotation type is an interceptor binding type.
  * CDI-interceptors are disabled by default, so must be added to WEB-INF/beans.xml, also the order of execution can be specified
  * in descriptor.
- * 
+ *
  * @author Ievgen Shulga
  */
 @Stateless
