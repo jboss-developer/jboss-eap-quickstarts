@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -90,9 +90,9 @@
     </pluginRepositories>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
+        <!-- Explicitly declaring the source encoding eliminates the following
             message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -114,14 +114,14 @@
     <!-- NOTE: -->
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import. Any 
-                dependencies from org.jboss.spec will have their version defined by this 
+            <!-- Define the version of the JBoss Java EE APIs we want to import. Any
+                dependencies from org.jboss.spec will have their version defined by this
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE APIs including a Bill 
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-                of artifacts. We use this here so that we always get the correct versions 
-                of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as 
-                the JBoss stack of the Java EE APIs). You can actually use this stack with 
+            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
+                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+                of artifacts. We use this here so that we always get the correct versions
+                of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as
+                the JBoss stack of the Java EE APIs). You can actually use this stack with
                 any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.spec</groupId>
@@ -135,10 +135,10 @@
 
     <dependencies>
 
-        <!-- First declare the APIs we depend on and need for compilation. All 
+        <!-- First declare the APIs we depend on and need for compilation. All
             of them are provided by JBoss EAP -->
 
-        <!-- Import the CDI API, we use provided scope as the API is included in 
+        <!-- Import the CDI API, we use provided scope as the API is included in
             JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -146,21 +146,21 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided scope 
+        <!-- Import the Common Annotations API (JSR-250), we use provided scope
             as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Import the JSF API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
@@ -177,7 +177,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app is 
+        <!-- Set the name of the WAR, used as the context root when the app is
             deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>

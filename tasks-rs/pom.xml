@@ -40,7 +40,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -96,7 +96,7 @@
 
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        
+
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 

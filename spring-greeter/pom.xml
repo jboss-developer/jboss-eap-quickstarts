@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -132,7 +132,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
@@ -262,11 +262,11 @@
 
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be 
+            <!-- When built in OpenShift the 'openshift' profile will be
                 used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization 
+            <!-- Use this profile for any OpenShift specific customization
                 your app will need. -->
-            <!-- By default that is to put the resulting archive into the 
+            <!-- By default that is to put the resulting archive into the
                 'deployments' folder. -->
             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>

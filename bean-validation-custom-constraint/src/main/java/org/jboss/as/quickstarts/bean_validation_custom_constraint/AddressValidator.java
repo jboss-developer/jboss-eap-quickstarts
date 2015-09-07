@@ -24,6 +24,7 @@ public class AddressValidator implements ConstraintValidator<Address, PersonAddr
 
     public void initialize(Address constraintAnnotation) {
     }
+
     /**
      * 1. The address should not be null.
      * 2. The address should have all the data values specified.

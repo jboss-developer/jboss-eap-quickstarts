@@ -76,7 +76,7 @@ public class WSATSimpleServletClient extends HttpServlet {
         String openshift = System.getenv("OPENSHIFT_APP_DNS");
         if (openshift != null) {
             bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                    "http://" + openshift + "/RestaurantServiceAT");
+                "http://" + openshift + "/RestaurantServiceAT");
         }
 
         resp.setContentType("text/html");
@@ -88,7 +88,7 @@ public class WSATSimpleServletClient extends HttpServlet {
         UserTransaction ut = UserTransactionFactory.userTransaction();
         try {
             System.out
-                    .println("[CLIENT] Beginning Atomic Transaction (All calls to Web services that support WS-AT wil be included in this transaction)");
+                .println("[CLIENT] Beginning Atomic Transaction (All calls to Web services that support WS-AT wil be included in this transaction)");
             ut.begin();
             System.out.println("[CLIENT] invoking makeBooking() on WS");
             client.makeBooking();

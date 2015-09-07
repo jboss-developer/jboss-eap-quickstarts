@@ -55,14 +55,14 @@ public class MemberValidationTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(Member.class)
-        // enable JPA
-                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-                // add sample data
-                .addAsResource("import.sql")
-                // enable CDI
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                // Deploy our test datasource
-                .addAsWebInfResource("test-ds.xml", "test-ds.xml");
+            // enable JPA
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            // add sample data
+            .addAsResource("import.sql")
+            // enable CDI
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+            // Deploy our test datasource
+            .addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
     // Get configured validator directly from JBoss EAP environment
@@ -109,7 +109,7 @@ public class MemberValidationTest {
 
         Assert.assertEquals("One violation was found", 1, violations.size());
         Assert.assertEquals("Name was invalid", "must contain only letters and spaces", violations.iterator().next()
-                .getMessage());
+            .getMessage());
     }
 
     /**
@@ -136,7 +136,7 @@ public class MemberValidationTest {
 
         Assert.assertEquals("One violation was found", 1, violations.size());
         Assert.assertEquals("Phone number was invalid", "size must be between 10 and 12", violations.iterator().next()
-                .getMessage());
+            .getMessage());
     }
 
     private Member createValidMember() {

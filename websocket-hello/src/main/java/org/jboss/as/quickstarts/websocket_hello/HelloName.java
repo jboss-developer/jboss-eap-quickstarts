@@ -39,6 +39,6 @@ public class HelloName {
 
     @OnClose
     public void helloOnClose(CloseReason reason) {
-    	System.out.println("WebSocket connection closed with CloseCode: " + reason.getCloseCode());
+        System.out.println("WebSocket connection closed with CloseCode: " + reason.getCloseCode());
     }
 }

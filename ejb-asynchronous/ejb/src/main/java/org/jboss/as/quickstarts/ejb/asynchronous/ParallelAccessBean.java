@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-
 /**
  * Stateless session bean implementation to demonstrate how to invoke asynchronous methods to parallelize different actions to
  * minimize the duration time of client invocation.

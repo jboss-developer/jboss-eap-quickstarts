@@ -45,7 +45,7 @@ public class WebResources {
     @Produces
     public ResourceBundle produceResourceBundle() {
         return ResourceBundle.getBundle("org.jboss.as.quickstarts.kitchensink-ml.bundle.Resources", FacesContext
-                .getCurrentInstance().getViewRoot().getLocale());
+            .getCurrentInstance().getViewRoot().getLocale());
     }
 
 }

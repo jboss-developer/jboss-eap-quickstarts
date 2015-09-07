@@ -44,7 +44,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>

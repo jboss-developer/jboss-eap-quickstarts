@@ -23,7 +23,6 @@ import javax.inject.Named;
 import org.jboss.as.quickstarts.ear.client.GreeterEJBLocal;
 import org.jboss.as.quickstarts.ear.client.GreeterException;
 
-
 /**
  * @author bmaxwell
  *
@@ -35,7 +34,8 @@ import org.jboss.as.quickstarts.ear.client.GreeterException;
 public class GreeterBean {
 
     /* Inject the Local interface of the GreeterEJB so we can invoke sayHello */
-    private @EJB GreeterEJBLocal greeterEJB;
+    private @EJB
+    GreeterEJBLocal greeterEJB;
 
     /* An instance variable to hold the data bound in the inputText of the JSF page */
     private String name;
@@ -81,12 +81,10 @@ public class GreeterBean {
 
         try {
             response = greeterEJB.sayHello(name);
-        }
-        catch(GreeterException e) {
+        } catch (GreeterException e) {
             response = "Error: " + e.getMessage();
         }
         return "";
     }
-
 
 }

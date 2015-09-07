@@ -41,10 +41,10 @@
 
     <dependencies>
 
-        <!-- Declare the APIs we depend on and need for compilation. All 
+        <!-- Declare the APIs we depend on and need for compilation. All
             of them are provided by JBoss EAP -->
 
-        <!-- Import the EJB API, we use provided scope as the API is included 
+        <!-- Import the EJB API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -52,7 +52,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included 
+        <!-- Import the CDI API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -60,7 +60,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JPA API, we use provided scope as the API is included 
+        <!-- Import the JPA API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -81,7 +81,7 @@
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
         </dependency>
-        
+
     </dependencies>
 
     <build>

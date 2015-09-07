@@ -3,9 +3,6 @@
  */
 package org.jboss.as.quickstarts.spring.petclinic.test.webdriver;
 
-
-
-
 /**
  * @author mjobanek
  *
@@ -71,7 +68,5 @@ public class Vet {
     public void setSpecialties(String[] specialties) {
         this.specialties = specialties;
     }
-
-
 
 }

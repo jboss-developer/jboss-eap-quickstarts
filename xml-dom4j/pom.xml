@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -90,16 +90,16 @@
     </pluginRepositories>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
+        <!-- Explicitly declaring the source encoding eliminates the following
             message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        
+
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        
+
         <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
         <!-- Other dependency versions -->
@@ -116,14 +116,14 @@
     <!-- NOTE: -->
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import. 
-                Any dependencies from org.jboss.spec will have their version defined by this 
+            <!-- Define the version of the JBoss Java EE APIs we want to import.
+                Any dependencies from org.jboss.spec will have their version defined by this
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE APIs including a Bill 
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-                of artifacts. We use this here so that we always get the correct versions 
-                of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as 
-                the JBoss stack of the Java EE APIs). You can actually use this stack with 
+            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
+                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+                of artifacts. We use this here so that we always get the correct versions
+                of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as
+                the JBoss stack of the Java EE APIs). You can actually use this stack with
                 any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.spec</groupId>
@@ -137,7 +137,7 @@
 
     <dependencies>
 
-        <!-- First declare the APIs we depend on and need for compilation. 
+        <!-- First declare the APIs we depend on and need for compilation.
             All of them are provided by JBoss EAP -->
 
         <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
@@ -147,7 +147,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided 
+        <!-- Import the Common Annotations API (JSR-250), we use provided
             scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -169,7 +169,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Servlet API, we use provided scope as the API is 
+        <!-- Import the Servlet API, we use provided scope as the API is
             included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
@@ -177,8 +177,8 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- include DOM4J. JBoss declares specific module, but we want to 
-            have different version than included in EAP to show how it can be done. This 
+        <!-- include DOM4J. JBoss declares specific module, but we want to
+            have different version than included in EAP to show how it can be done. This
             will include dependencies also. -->
         <dependency>
             <groupId>dom4j</groupId>
@@ -188,7 +188,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app 
+        <!-- Set the name of the WAR, used as the context root when the app
             is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -196,7 +196,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>

@@ -24,7 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 /**
  * Provides authentication operations with current user store: {@link Authentication}.
  *

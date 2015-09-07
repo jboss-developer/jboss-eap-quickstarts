@@ -16,7 +16,7 @@
     limitations under the License.
 -->
 <!-- This is an unmanaged datasource. It should be used for proofs of concept
-   or testing only. It uses H2, an in memory database that ships with JBoss 
+   or testing only. It uses H2, an in memory database that ships with JBoss
    AS. -->
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -34,4 +34,4 @@
         </security>
     </datasource>
 </datasources>
- 
+

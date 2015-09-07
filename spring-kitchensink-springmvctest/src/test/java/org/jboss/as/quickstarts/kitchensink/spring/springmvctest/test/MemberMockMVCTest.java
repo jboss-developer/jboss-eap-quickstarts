@@ -42,8 +42,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:test-context.xml",
-        "classpath:/META-INF/spring/applicationContext.xml"})
+@ContextConfiguration(locations = { "classpath:test-context.xml",
+    "classpath:/META-INF/spring/applicationContext.xml" })
 public class MemberMockMVCTest {
 
     @Autowired
@@ -76,7 +76,7 @@ public class MemberMockMVCTest {
     @Test
     public void getAccount() throws Exception {
         this.mockMvc.perform(get("/rest/members/0").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.name").value("John Smith"));
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.name").value("John Smith"));
     }
 }

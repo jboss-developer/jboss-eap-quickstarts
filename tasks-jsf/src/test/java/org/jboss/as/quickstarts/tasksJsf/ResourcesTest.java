@@ -45,7 +45,7 @@ public class ResourcesTest {
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
         return new DefaultDeployment().withPersistence().withFaces().getArchive()
-                .addClasses(Resources.class, FacesContextStub.class);
+            .addClasses(Resources.class, FacesContextStub.class);
     }
 
     @Inject

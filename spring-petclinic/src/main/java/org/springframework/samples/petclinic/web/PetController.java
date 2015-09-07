@@ -47,7 +47,6 @@ public class PetController {
 
     private final ClinicService clinicService;
 
-
     @Autowired
     public PetController(ClinicService clinicService) {
         this.clinicService = clinicService;
@@ -91,7 +90,7 @@ public class PetController {
         return "pets/createOrUpdatePetForm";
     }
 
-    @RequestMapping(value = "/owners/{ownerId}/pets/{petId}/edit", method = {RequestMethod.PUT, RequestMethod.POST})
+    @RequestMapping(value = "/owners/{ownerId}/pets/{petId}/edit", method = { RequestMethod.PUT, RequestMethod.POST })
     public String processUpdateForm(@Valid Pet pet, BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
             return "pets/createOrUpdatePetForm";

@@ -15,10 +15,10 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-  
+
   <!-- proxies
      This is a list of proxies which can be used on this machine to connect to the network.
      Unless otherwise specified (by system property or command-line switch), the first proxy
@@ -41,7 +41,7 @@
     </proxy>
     -->
   </proxies>
-    
+
   <profiles>
 
     <!-- Configure the JBoss GA Maven repository -->
@@ -72,7 +72,7 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
-    
+
     <!-- Configure the JBoss Early Access Maven repository -->
     <profile>
       <id>jboss-earlyaccess-repository</id>
@@ -101,7 +101,7 @@
         </pluginRepository>
       </pluginRepositories>
     </profile>
-    
+
     <!-- Configure the JBoss Developer Temporary Maven repository -->
     <profile>
       <id>jboss-developer-repository</id>
@@ -137,7 +137,7 @@
     <!-- Optionally, make the repositories active by default -->
     <activeProfile>jboss-ga-repository</activeProfile>
     <activeProfile>jboss-earlyaccess-repository</activeProfile>
-    <activeProfile>jboss-developer-repository</activeProfile> 
+    <activeProfile>jboss-developer-repository</activeProfile>
   </activeProfiles>
 
 </settings>

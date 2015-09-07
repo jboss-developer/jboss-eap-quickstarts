@@ -75,7 +75,6 @@ public class RegistrationFormPageFragment {
     @FindBy(id = "phoneNumber.errors")
     private WebElement phoneNumberErrorMessage;
 
-
     public void register(Member member) {
         nameField.clear();
         nameField.sendKeys(member.getName());

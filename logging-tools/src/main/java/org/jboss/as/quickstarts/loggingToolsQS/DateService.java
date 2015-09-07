@@ -65,7 +65,7 @@ public class DateService {
 
             // throw a WebApplicationException (400) with the localized message from nex
             throw new WebApplicationException(Response.status(400).entity(nex.getLocalizedMessage()).type(MediaType.TEXT_PLAIN)
-                    .build());
+                .build());
         }
 
         return days;

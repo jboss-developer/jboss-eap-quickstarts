@@ -22,11 +22,9 @@ import javax.jws.WebService;
  *
  * @author rsearls@redhat.com
  */
-@WebService
-    (
-        name="ServiceIface",
-        targetNamespace = "http://www.jboss.org/jbossws/ws-extensions/wsaddressing"
-    )
+@WebService(
+    name = "ServiceIface",
+    targetNamespace = "http://www.jboss.org/jbossws/ws-extensions/wsaddressing")
 public interface ServiceIface {
     public String sayHello();
 }

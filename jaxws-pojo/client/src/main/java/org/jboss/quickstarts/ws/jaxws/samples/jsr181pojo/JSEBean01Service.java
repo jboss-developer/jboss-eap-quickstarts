@@ -31,8 +31,8 @@ import javax.xml.ws.Service;
  *
  */
 @WebServiceClient(name = "JSEBean01Service",
-                  wsdlLocation = "file:/tmp/JSEBean01Service.wsdl",
-                  targetNamespace = "http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/")
+    wsdlLocation = "file:/tmp/JSEBean01Service.wsdl",
+    targetNamespace = "http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/")
 public class JSEBean01Service extends Service {
 
     public final static URL WSDL_LOCATION;
@@ -46,7 +46,7 @@ public class JSEBean01Service extends Service {
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(JSEBean01Service.class.getName())
                 .log(java.util.logging.Level.INFO,
-                     "Can not initialize the default wsdl from {0}", "file:/tmp/JSEBean01Service.wsdl");
+                    "Can not initialize the default wsdl from {0}", "file:/tmp/JSEBean01Service.wsdl");
         }
         WSDL_LOCATION = url;
     }
@@ -66,21 +66,21 @@ public class JSEBean01Service extends Service {
     //This constructor requires JAX-WS API 2.2. You will need to endorse the 2.2
     //API jar or re-run wsdl2java with "-frontend jaxws21" to generate JAX-WS 2.1
     //compliant code instead.
-    public JSEBean01Service(WebServiceFeature ... features) {
+    public JSEBean01Service(WebServiceFeature... features) {
         super(WSDL_LOCATION, SERVICE, features);
     }
 
     //This constructor requires JAX-WS API 2.2. You will need to endorse the 2.2
     //API jar or re-run wsdl2java with "-frontend jaxws21" to generate JAX-WS 2.1
     //compliant code instead.
-    public JSEBean01Service(URL wsdlLocation, WebServiceFeature ... features) {
+    public JSEBean01Service(URL wsdlLocation, WebServiceFeature... features) {
         super(wsdlLocation, SERVICE, features);
     }
 
     //This constructor requires JAX-WS API 2.2. You will need to endorse the 2.2
     //API jar or re-run wsdl2java with "-frontend jaxws21" to generate JAX-WS 2.1
     //compliant code instead.
-    public JSEBean01Service(URL wsdlLocation, QName serviceName, WebServiceFeature ... features) {
+    public JSEBean01Service(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
         super(wsdlLocation, serviceName, features);
     }
 

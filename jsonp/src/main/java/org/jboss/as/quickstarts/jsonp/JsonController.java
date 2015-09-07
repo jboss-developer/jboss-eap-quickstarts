@@ -55,26 +55,26 @@ public class JsonController {
             .build().toString();
     }
 
-    public void parseJsonStream(){
+    public void parseJsonStream() {
         StringBuilder sb = new StringBuilder();
         String json = getJsonString();
         try {
             JsonParser parser = Json.createParser(new StringReader(json));
-            while (parser.hasNext()){
+            while (parser.hasNext()) {
                 Event event = parser.next();
-                if (event.equals(Event.KEY_NAME)){
+                if (event.equals(Event.KEY_NAME)) {
                     sb.append(" - - - -  >  Key: " + parser.getString() + "  < - - - - - \n");
                 }
-                if (event.equals(Event.VALUE_STRING)){
+                if (event.equals(Event.VALUE_STRING)) {
                     sb.append("Value as String: " + parser.getString() + "\n");
                 }
-                if (event.equals(Event.VALUE_NUMBER)){
+                if (event.equals(Event.VALUE_NUMBER)) {
                     sb.append("Value as Number: " + parser.getInt() + "\n");
                 }
-                if (event.equals(Event.VALUE_TRUE)){
+                if (event.equals(Event.VALUE_TRUE)) {
                     sb.append("Value as Boolean: true\n");
                 }
-                if (event.equals(Event.VALUE_FALSE)){
+                if (event.equals(Event.VALUE_FALSE)) {
                     sb.append("Value as Boolean: false \n");
                 }
             }

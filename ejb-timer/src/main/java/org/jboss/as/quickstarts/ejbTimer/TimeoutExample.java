@@ -24,7 +24,6 @@ import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.interceptor.InvocationContext;
 
-
 /**
  * Demonstrates how to use the EJB's @Timeout.
  *
@@ -45,11 +44,11 @@ public class TimeoutExample {
     }
 
     @PostConstruct
-    public void initialize( InvocationContext ctx ) {
+    public void initialize(InvocationContext ctx) {
         ScheduleExpression se = new ScheduleExpression();
         // Set schedule to every 3 seconds (starting at second 0 of every minute).
         se.hour("*").minute("*").second("0/3");
-        timerService.createCalendarTimer( se, new TimerConfig("EJB timer service timeout at ", false) );
+        timerService.createCalendarTimer(se, new TimerConfig("EJB timer service timeout at ", false));
     }
 
     @PreDestroy

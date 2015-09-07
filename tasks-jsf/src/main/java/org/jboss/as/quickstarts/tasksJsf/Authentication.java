@@ -20,7 +20,6 @@ import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
 
-
 /**
  * Store for current authenticated user
  *

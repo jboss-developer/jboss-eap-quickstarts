@@ -36,7 +36,7 @@
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
         resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -56,7 +56,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import. 
+            <!-- Define the version of the JBoss Java EE APIs we want to import.
             Any dependencies from org.jboss.spec will have their version defined by this BOM -->
             <!-- JBoss distributes a complete set of Java EE APIs including
             a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
@@ -83,7 +83,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided scope 
+        <!-- Import the Common Annotations API (JSR-250), we use provided scope
         as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -122,7 +122,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app 
+        <!-- Set the name of the WAR, used as the context root when the app
         is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>

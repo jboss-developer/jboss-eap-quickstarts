@@ -18,7 +18,6 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.List;
 
-
 /**
  * <p>
  * Operations with cached list of tasks for current user.

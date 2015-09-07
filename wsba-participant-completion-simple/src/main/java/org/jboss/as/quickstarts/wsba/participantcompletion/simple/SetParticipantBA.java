@@ -34,7 +34,7 @@ import java.io.Serializable;
  * @author Paul Robinson (paul.robinson@redhat.com)
  */
 public class SetParticipantBA implements BusinessAgreementWithParticipantCompletionParticipant, ConfirmCompletedParticipant,
-        Serializable {
+    Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -60,7 +60,7 @@ public class SetParticipantBA implements BusinessAgreementWithParticipantComplet
     public void close() throws WrongStateException, SystemException {
         // nothing to do here as the item has already been added to the set
         System.out
-                .println("[SERVICE] Participant.close (The participant knows that this BA is now finished and can throw away any temporary state)");
+            .println("[SERVICE] Participant.close (The participant knows that this BA is now finished and can throw away any temporary state)");
     }
 
     /**
@@ -117,9 +117,9 @@ public class SetParticipantBA implements BusinessAgreementWithParticipantComplet
     public void confirmCompleted(boolean confirmed) {
         if (confirmed) {
             System.out
-                    .println("[SERVICE] Participant.confirmCompleted('"
-                            + confirmed
-                            + "') (This tells the participant that compensation information has been logged and that it is safe to commit any changes.)");
+                .println("[SERVICE] Participant.confirmCompleted('"
+                    + confirmed
+                    + "') (This tells the participant that compensation information has been logged and that it is safe to commit any changes.)");
             MockSetManager.commit();
         } else {
             MockSetManager.rollback(value);

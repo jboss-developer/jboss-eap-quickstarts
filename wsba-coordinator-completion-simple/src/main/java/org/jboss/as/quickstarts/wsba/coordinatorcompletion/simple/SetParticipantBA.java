@@ -39,7 +39,7 @@ import com.arjuna.wst11.ConfirmCompletedParticipant;
  * @author Paul Robinson (paul.robinson@redhat.com)
  */
 public class SetParticipantBA implements BusinessAgreementWithCoordinatorCompletionParticipant, ConfirmCompletedParticipant,
-        Serializable {
+    Serializable {
     private static final long serialVersionUID = 1L;
     // The ID of the corresponding transaction
     private String txID;
@@ -79,7 +79,7 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
     public void close() throws WrongStateException, SystemException {
         // nothing to do here as the item has already been added to the set
         System.out
-                .println("[SERVICE] Participant.close (The participant knows that this BA is now finished and can throw away any temporary state)");
+            .println("[SERVICE] Participant.close (The participant knows that this BA is now finished and can throw away any temporary state)");
         removeParticipant(txID);
     }
 
@@ -133,7 +133,7 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
     @Override
     public void complete() throws WrongStateException, SystemException {
         System.out
-                .println("[SERVICE] Participant.complete (This tells the participant that the BA completed, but may be compensated later)");
+            .println("[SERVICE] Participant.complete (This tells the participant that the BA completed, but may be compensated later)");
     }
 
     /**
@@ -146,9 +146,9 @@ public class SetParticipantBA implements BusinessAgreementWithCoordinatorComplet
     public void confirmCompleted(boolean confirmed) {
         if (confirmed) {
             System.out
-                    .println("[SERVICE] Participant.confirmCompleted('"
-                            + confirmed
-                            + "') (This tells the participant that compensation information has been logged and that it is safe to commit any changes.)");
+                .println("[SERVICE] Participant.confirmCompleted('"
+                    + confirmed
+                    + "') (This tells the participant that compensation information has been logged and that it is safe to commit any changes.)");
             MockSetManager.commit();
         } else {
             doCompensate();

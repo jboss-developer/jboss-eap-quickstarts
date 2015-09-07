@@ -28,7 +28,6 @@ public class MembersTablePageFragment {
     @FindByJQuery("tbody tr")
     private List<MemberPageFragment> members;
 
-
     public Member getLatestMember() {
         return members.get(0).getMember();
     }

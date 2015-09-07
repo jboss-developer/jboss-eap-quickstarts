@@ -42,7 +42,7 @@ import javax.inject.Inject;
 public class ClientTest {
 
     private static final String ManifestMF = "Manifest-Version: 1.0\n"
-            + "Dependencies: org.jboss.xts,org.jboss.modules,org.jboss.msc\n";
+        + "Dependencies: org.jboss.xts,org.jboss.modules,org.jboss.msc\n";
 
     @Inject
     @ClientStub
@@ -57,9 +57,9 @@ public class ClientTest {
     public static WebArchive createTestArchive() {
 
         return ShrinkWrap.create(WebArchive.class, "wsat-simple.war")
-                .addPackages(true, RestaurantServiceATImpl.class.getPackage()).addAsResource("context-handlers.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .setManifest(new StringAsset(ManifestMF));
+            .addPackages(true, RestaurantServiceATImpl.class.getPackage()).addAsResource("context-handlers.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .setManifest(new StringAsset(ManifestMF));
     }
 
     /**
@@ -71,12 +71,12 @@ public class ClientTest {
     public void testCommit() throws Exception {
 
         System.out
-                .println("\n\nStarting 'testCommit'. This test invokes a WS within an AT. The AT is later committed, which causes the back-end resource(s) to be committed.");
+            .println("\n\nStarting 'testCommit'. This test invokes a WS within an AT. The AT is later committed, which causes the back-end resource(s) to be committed.");
         System.out.println("[CLIENT] Creating a new WS-AT User Transaction");
         UserTransaction ut = UserTransactionFactory.userTransaction();
         try {
             System.out
-                    .println("[CLIENT] Beginning Atomic Transaction (All calls to Web services that support WS-AT wil be included in this transaction)");
+                .println("[CLIENT] Beginning Atomic Transaction (All calls to Web services that support WS-AT wil be included in this transaction)");
             ut.begin();
             System.out.println("[CLIENT] invoking makeBooking() on WS");
             client.makeBooking();
@@ -101,17 +101,17 @@ public class ClientTest {
     public void testRollback() throws Exception {
 
         System.out
-                .println("\n\nStarting 'testRollback'. This test invokes a WS within an AT. The AT is later rolled back, which causes the back-end resource(s) to be rolled back.");
+            .println("\n\nStarting 'testRollback'. This test invokes a WS within an AT. The AT is later rolled back, which causes the back-end resource(s) to be rolled back.");
         System.out.println("[CLIENT] Creating a new WS-AT User Transaction");
         UserTransaction ut = UserTransactionFactory.userTransaction();
         try {
             System.out
-                    .println("[CLIENT] Beginning Atomic Transaction (All calls to Web services that support WS-AT wil be included in this transaction)");
+                .println("[CLIENT] Beginning Atomic Transaction (All calls to Web services that support WS-AT wil be included in this transaction)");
             ut.begin();
             System.out.println("[CLIENT] invoking makeBooking() on WS");
             client.makeBooking();
             System.out
-                    .println("[CLIENT] rolling back Atomic Transaction (This will cause the AT and thus the enlisted back-end resources to rollback)");
+                .println("[CLIENT] rolling back Atomic Transaction (This will cause the AT and thus the enlisted back-end resources to rollback)");
             ut.rollback();
 
             // Check the booking is visible after the transaction has committed.

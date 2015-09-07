@@ -26,7 +26,7 @@
     <context:component-scan base-package="org.jboss.as.quickstarts.kitchensink.spring.matrixvariables.controller" />
 
 <!--     <mvc:annotation-driven/> -->
-    <!-- We needed to use the Configuration class to set removeSemicolonContent property of RequestMappingHandlerMapping to false. 
+    <!-- We needed to use the Configuration class to set removeSemicolonContent property of RequestMappingHandlerMapping to false.
           This will allow the Matrix Variables to be passed in because they use semicolons to separate each one.-->
     <bean class='org.jboss.as.quickstarts.kitchensink.spring.matrixvariables.config.WebConfig'/>
 

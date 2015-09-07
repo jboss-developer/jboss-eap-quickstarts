@@ -79,10 +79,10 @@ public class JaxRsClientTest {
     @Test
     public void test() {
         assertEquals("XML Response", JaxRsClientTest.XML_RESPONSE,
-                this.runRequest(JaxRsClientTest.XML_URL, MediaType.APPLICATION_XML_TYPE));
+            this.runRequest(JaxRsClientTest.XML_URL, MediaType.APPLICATION_XML_TYPE));
 
         assertEquals("JSON Response", JaxRsClientTest.JSON_RESPONSE,
-                this.runRequest(JaxRsClientTest.JSON_URL, MediaType.APPLICATION_JSON_TYPE));
+            this.runRequest(JaxRsClientTest.JSON_URL, MediaType.APPLICATION_JSON_TYPE));
     }
 
     /**
@@ -117,7 +117,7 @@ public class JaxRsClientTest {
 
             // We have a good response, let's now read it
             BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(response.getEntity()
-                    .getBytes())));
+                .getBytes())));
 
             // Loop over the br in order to print out the contents
             System.out.println("\n*** Response from Server ***\n");

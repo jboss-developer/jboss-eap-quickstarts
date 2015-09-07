@@ -47,7 +47,6 @@ public class OwnerController {
 
     private final ClinicService clinicService;
 
-
     @Autowired
     public OwnerController(ClinicService clinicService) {
         this.clinicService = clinicService;
@@ -98,9 +97,9 @@ public class OwnerController {
             return "owners/findOwners";
         }
         else if (results.size() == 1) {
-	    	// 1 owner found
-	    	owner = results.iterator().next();
-	    	return "redirect:/owners/" + owner.getId();
+            // 1 owner found
+            owner = results.iterator().next();
+            return "redirect:/owners/" + owner.getId();
         } else {
             // multiple owners found
             model.put("selections", results);

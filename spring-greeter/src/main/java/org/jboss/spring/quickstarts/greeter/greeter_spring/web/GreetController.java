@@ -33,15 +33,13 @@ public class GreetController {
     private UserDao userDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public
-    @ModelAttribute("message")
+    public @ModelAttribute("message")
     String getInitialMessage() {
         return "Enter a valid name";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public
-    @ModelAttribute("message")
+    public @ModelAttribute("message")
     String getGreeting(@RequestParam("username") String username) {
         User user = userDao.getForUsername(username);
         if (user != null) {

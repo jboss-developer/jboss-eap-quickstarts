@@ -73,8 +73,9 @@ public class Task implements Serializable {
 
     @XmlTransient
     // JSON: uncomment to include json support (note json is not part of the JAX-RS standard)
-//    @JsonIgnore
-    public User getOwner() {
+    //    @JsonIgnore
+        public
+        User getOwner() {
         return owner;
     }
 

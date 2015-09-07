@@ -57,7 +57,7 @@ public class JSONPRequestFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-            ServletException {
+        ServletException {
 
         if (!(request instanceof HttpServletRequest)) {
             throw new ServletException("Only HttpServletRequest requests are supported");

@@ -41,7 +41,7 @@
 
     <dependencies>
 
-        <!-- Dependency on the EJB module so we can use it's services if 
+        <!-- Dependency on the EJB module so we can use it's services if
             needed -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
@@ -50,7 +50,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JAX-RS API, we use provided scope as the API is included 
+        <!-- Import the JAX-RS API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
@@ -58,7 +58,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included 
+        <!-- Import the CDI API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -66,7 +66,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JPA API, we use provided scope as the API is included 
+        <!-- Import the JPA API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -89,7 +89,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>

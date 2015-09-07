@@ -29,7 +29,7 @@ import org.jboss.logging.Messages;
 public interface KitchensinkMessages {
 
     KitchensinkMessages MESSAGES = Messages.getBundle(KitchensinkMessages.class, FacesContext.getCurrentInstance()
-            .getViewRoot().getLocale());
+        .getViewRoot().getLocale());
 
     @Message("Registered!")
     String registeredMessage();

@@ -36,7 +36,7 @@ public class Person implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name="person_id")
+    @Column(name = "person_id")
     private Long personId;
 
     /* Asserts that the annotated string, collection, map or array is not null or empty. */
@@ -56,7 +56,7 @@ public class Person implements Serializable {
 
     // Custom Constraint @Address for bean validation
     @Address
-    @OneToOne(mappedBy="person", cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private PersonAddress personAddress;
 
     public Person() {

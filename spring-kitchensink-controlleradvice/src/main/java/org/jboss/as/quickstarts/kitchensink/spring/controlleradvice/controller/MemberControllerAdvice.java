@@ -49,7 +49,6 @@ public class MemberControllerAdvice {
         return stringWriter.toString();
     }
 
-
     //Global Exception Handler, removing the need for an extra Exception Handler Controller
     @ExceptionHandler(value = IOException.class)
     public ModelAndView exception(IOException e) {

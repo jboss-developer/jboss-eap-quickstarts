@@ -22,7 +22,6 @@ import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
-
 /**
  * <p>
  * Holds current task in context of conversation

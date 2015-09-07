@@ -24,7 +24,8 @@ package org.jboss.as.quickstarts.temperatureconverter.ejb;
  */
 public enum Scale {
 
-    CELSIUS("\u2103"), FAHRENHEIT("\u2109");
+    CELSIUS("\u2103"),
+    FAHRENHEIT("\u2109");
 
     private final String symbol;
 

@@ -35,7 +35,7 @@ public class GreeterEJB implements GreeterEJBLocal {
 
     public String sayHello(String name) throws GreeterException {
 
-        if(name == null || name.equals(""))
+        if (name == null || name.equals(""))
             throw new GreeterException("name cannot be null or empty");
 
         return "Hello " + name;

@@ -44,7 +44,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -149,7 +149,7 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-            <!-- Configure the plug-in to copy the jar containing javax.annotation.* to a folder named "endorsed" within the 
+            <!-- Configure the plug-in to copy the jar containing javax.annotation.* to a folder named "endorsed" within the
               project's build directory -->
                             <artifactItems>
                                 <artifactItem>

@@ -65,7 +65,7 @@ public class MainAppSContextBean implements MainApp {
         ejbClientContextProps.put("org.jboss.ejb.client.scoped.context", true);
         // Property which will handle the ejb: namespace during JNDI lookup
         ejbClientContextProps.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-        ejbClientContextProps.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED","false");
+        ejbClientContextProps.put("remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED", "false");
         // add a property which lists the connections that we are configuring.
         // In this example, we are just configuring a single connection.
         final String connectionName = "appOneConnection";
@@ -80,8 +80,10 @@ public class MainAppSContextBean implements MainApp {
         ejbClientContextProps.put("remote.cluster.ejb.password", "quick+123");
 
         try {
-            appOneScopedEjbContext = (Context)new InitialContext(ejbClientContextProps).lookup("ejb:");
-        } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appOne')", e);}
+            appOneScopedEjbContext = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
+        } catch (NamingException e) {
+            LOGGER.error("Could not create InitialContext('appOne')", e);
+        }
     }
 
     private void createAppTwoContext() {
@@ -104,7 +106,9 @@ public class MainAppSContextBean implements MainApp {
 
         try {
             appTwoScopedEjbContextA = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
-        } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoA')", e);}
+        } catch (NamingException e) {
+            LOGGER.error("Could not create InitialContext('appTwoA')", e);
+        }
 
         // change the necessary properties to call the other server
         ejbClientContextProps.put("endpoint.name", "appMain->appTwoB_endpoint");
@@ -114,13 +118,15 @@ public class MainAppSContextBean implements MainApp {
 
         try {
             appTwoScopedEjbContextB = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
-        } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoB')", e);}
+        } catch (NamingException e) {
+            LOGGER.error("Could not create InitialContext('appTwoB')", e);
+        }
     }
 
     @PostConstruct
     private void createScopedContext() {
         synchronized (activeInstances) {
-            if(activeInstances == 0) {
+            if (activeInstances == 0) {
                 LOGGER.info("First instance of " + this.getClass().getSimpleName() + " initializing scoped-context");
                 createAppOneContext();
                 createAppTwoContext();
@@ -133,7 +139,7 @@ public class MainAppSContextBean implements MainApp {
     private void destroyScopedContext() {
         synchronized (activeInstances) {
             activeInstances--;
-            if(activeInstances == 0) {
+            if (activeInstances == 0) {
                 LOGGER.info("Last active instance of " + this.getClass().getSimpleName() + " closing scoped-context");
                 try {
                     appOneScopedEjbContext.close();
@@ -166,7 +172,7 @@ public class MainAppSContextBean implements MainApp {
     public String invokeAll(String text) {
         Principal caller = context.getCallerPrincipal();
         LOGGER.info("[" + caller.getName() + "] " + text);
-        final StringBuilder result = new StringBuilder("MainAppSContext["+ caller.getName() + "]@" + getJBossNodeName());
+        final StringBuilder result = new StringBuilder("MainAppSContext[" + caller.getName() + "]@" + getJBossNodeName());
         // Call AppOne with the direct ejb: naming
         try {
             result.append("  >  [ " + invokeAppOne(text));
@@ -181,7 +187,7 @@ public class MainAppSContextBean implements MainApp {
         return result.toString();
     }
 
-     /**
+    /**
      * Invoke the AppOne with the scoped client context. The initial connection
      * will use the 'quickuser1', to differentiate the cluster connection it
      * will be use the user 'quickuser2' to see if the clustered context is used
@@ -193,9 +199,9 @@ public class MainAppSContextBean implements MainApp {
      */
     private String invokeAppOne(String text) {
         try {
-        // this context will not use the server configured
-        // 'outbound-connection' and also did not use the
-        // jboss-ejb-client.xml.
+            // this context will not use the server configured
+            // 'outbound-connection' and also did not use the
+            // jboss-ejb-client.xml.
             final AppOne bean = (AppOne) appOneScopedEjbContext.lookup("jboss-ejb-multi-server-app-one/ejb//AppOneBean!" + AppOne.class.getName());
 
             StringBuilder result = new StringBuilder("{");
@@ -219,15 +225,15 @@ public class MainAppSContextBean implements MainApp {
     }
 
     /**
-    * Close the given context and write a log message which endpoint is closed.
-    *
-    * @param iCtx
-    *            context to close, <code>null</code> will be ignored.
-    */
+     * Close the given context and write a log message which endpoint is closed.
+     *
+     * @param iCtx
+     *            context to close, <code>null</code> will be ignored.
+     */
     private static void saveContextClose(Context iCtx) {
         if (iCtx != null) {
             try {
-                LOGGER.info("close Context "+ iCtx.getEnvironment().get("endpoint.name"));
+                LOGGER.info("close Context " + iCtx.getEnvironment().get("endpoint.name"));
                 iCtx.close();
 
             } catch (NamingException e) {
@@ -237,22 +243,24 @@ public class MainAppSContextBean implements MainApp {
     }
 
     /**
-    * Invoke the App2 with different ejb-client context. The server AppTwoA
-    * will be called with the user quickuser1. The server AppTwoB will be
-    * called with the user quickuser2. Both invocations are separate, there
-    * will no mix between. Also the outbound-connection is not used.
-    *
-    * @param text
-    *            Simple text which will be logged at server side.
-    * @return simple collection of the returned results
-    */
+     * Invoke the App2 with different ejb-client context. The server AppTwoA
+     * will be called with the user quickuser1. The server AppTwoB will be
+     * called with the user quickuser2. Both invocations are separate, there
+     * will no mix between. Also the outbound-connection is not used.
+     *
+     * @param text
+     *            Simple text which will be logged at server side.
+     * @return simple collection of the returned results
+     */
     private String invokeAppTwo(String text) {
         AppTwo beanA = null;
         AppTwo beanB = null;
 
         try {
             beanA = (AppTwo) appTwoScopedEjbContextA.lookup("jboss-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
-        } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoA')");}
+        } catch (NamingException e) {
+            LOGGER.error("Could not create InitialContext('appTwoA')");
+        }
 
         try {
             beanB = (AppTwo) appTwoScopedEjbContextB.lookup("jboss-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
@@ -280,18 +288,18 @@ public class MainAppSContextBean implements MainApp {
     }
 
     /**
-    * Same method as {@link #invokeAppTwo(String)}, but the scoped context is created and destroyed
-    * inside the method. Because of this it is not possbile to use the transaction managed by the container
-    * as the connection must be open until the container send commit/rollback to the foreign server.
-    * Therefore it is necessary to add the annotation @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    * to the {@link #invokeAll(String)} method.
-    *
-    * For test you might rename this method.
-    *
-    * @param text
-    *            Simple text which will be logged at server side.
-    * @return simple collection of the returned results
-    */
+     * Same method as {@link #invokeAppTwo(String)}, but the scoped context is created and destroyed
+     * inside the method. Because of this it is not possbile to use the transaction managed by the container
+     * as the connection must be open until the container send commit/rollback to the foreign server.
+     * Therefore it is necessary to add the annotation @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+     * to the {@link #invokeAll(String)} method.
+     *
+     * For test you might rename this method.
+     *
+     * @param text
+     *            Simple text which will be logged at server side.
+     * @return simple collection of the returned results
+     */
     @SuppressWarnings("unused")
     private String invokeAppTwoAlternative(String text) {
         AppTwo beanA = null;
@@ -318,7 +326,9 @@ public class MainAppSContextBean implements MainApp {
         try {
             iCtxA = (Context) new InitialContext(ejbClientContextProps).lookup("ejb:");
             beanA = (AppTwo) iCtxA.lookup("jboss-ejb-multi-server-app-two/ejb//AppTwoBean!" + AppTwo.class.getName());
-        } catch (NamingException e) {LOGGER.error("Could not create InitialContext('appTwoA')");}
+        } catch (NamingException e) {
+            LOGGER.error("Could not create InitialContext('appTwoA')");
+        }
 
         // change the necessary properties to call the other server
         ejbClientContextProps.put("endpoint.name", "appMain->appTwoB_endpoint");

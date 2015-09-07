@@ -4,8 +4,8 @@ Author: Rafael Benevides
 Level: Intermediate  
 Technologies: CDI, Arquillian, Shrinkwrap  
 Summary: The `shrinkwrap-resolver` quickstart demonstrates 3 common use cases for ShrinkWrap Resolver.   
-Target Product: JBoss EAP
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Target Product: JBoss EAP  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 What is it?

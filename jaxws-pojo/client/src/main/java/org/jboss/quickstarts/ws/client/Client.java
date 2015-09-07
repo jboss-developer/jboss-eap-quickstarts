@@ -28,7 +28,7 @@ import java.net.URL;
  */
 public class Client {
 
-    public static void main (String [] args)
+    public static void main(String[] args)
     {
         String endPointAddress = "http://localhost:8080/jboss-jaxws-pojo-endpoint/JSEBean01";
         QName serviceName = new QName("http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/", "JSEBean01Service");

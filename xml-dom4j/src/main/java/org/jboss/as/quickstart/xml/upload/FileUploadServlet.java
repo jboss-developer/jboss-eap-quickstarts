@@ -85,7 +85,7 @@ public class FileUploadServlet extends HttpServlet {
                 String partContentType = p.getContentType();
                 String partName = p.getName();
                 if (partContentType != null && partContentType.equals("text/xml") && partName != null
-                        && partName.equals(INPUT_NAME)) {
+                    && partName.equals(INPUT_NAME)) {
 
                     InputStream is = p.getInputStream();
                     fileUploadBean.parseUpload(is);

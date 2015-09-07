@@ -26,7 +26,6 @@ import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
 
-
 /**
  * A simple example to demonstrate a implementation of a cluster-wide singleton timer.
  *

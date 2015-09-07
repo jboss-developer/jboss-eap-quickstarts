@@ -38,7 +38,7 @@ public class WSTrustClientExample {
 
         // Step 1: Create a WS Trust Client
         WSTrustClient client = new WSTrustClient("PicketLinkSTS", "PicketLinkSTSPort", "http://localhost:8080/picketlink-sts/PicketLinkSTS",
-                new SecurityInfo(userName, password));
+            new SecurityInfo(userName, password));
         Element assertionElement = null;
         try {
             System.out.println("Invoking token service to get SAML assertion for user:" + userName + " with password:" + password);

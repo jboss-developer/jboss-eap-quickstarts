@@ -47,7 +47,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -108,7 +108,7 @@
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.jboss-ejb3-ext-api>2.1.0</version.jboss-ejb3-ext-api>
         <version.istack.commons.runtime>2.21</version.istack.commons.runtime>
-        <version.jboss-ejb-api_3.2_spec>1.0.0.Final</version.jboss-ejb-api_3.2_spec>           
+        <version.jboss-ejb-api_3.2_spec>1.0.0.Final</version.jboss-ejb-api_3.2_spec>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>

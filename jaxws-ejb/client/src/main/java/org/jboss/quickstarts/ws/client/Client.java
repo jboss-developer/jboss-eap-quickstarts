@@ -29,7 +29,7 @@ import java.net.URL;
  */
 public class Client {
 
-    public static void main (String [] args)
+    public static void main(String[] args)
     {
         String endPointAddress = "http://localhost:8080/jboss-jaxws-ejb-endpoint/EJB3Bean01";
         QName serviceName = new QName("http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/", "EJB3Bean01Service");
@@ -37,7 +37,7 @@ public class Client {
         try {
             URL wsdlURL = new URL(endPointAddress + "?wsdl");
             Service service = Service.create(wsdlURL, serviceName);
-            EJB3RemoteInterface proxy = (EJB3RemoteInterface)service.getPort(EJB3RemoteInterface.class);
+            EJB3RemoteInterface proxy = (EJB3RemoteInterface) service.getPort(EJB3RemoteInterface.class);
             System.out.println(proxy.echo("ejbClient calling"));
         } catch (Exception e) {
             System.out.println(e);

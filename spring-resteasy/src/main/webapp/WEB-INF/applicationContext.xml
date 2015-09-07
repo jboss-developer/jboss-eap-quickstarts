@@ -21,7 +21,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Allows use of Spring annotation -->         
+    <!-- Allows use of Spring annotation -->
     <context:annotation-config />
 
     <!-- JAX-RS basic resource -->

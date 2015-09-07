@@ -46,7 +46,6 @@ import static org.junit.Assert.assertFalse;
 @RunWith(Arquillian.class)
 public class KitchensinkSpringControllerAdviceTest {
 
-
     @FindBy(id = "reg")
     RegistrationFormPageFragment form;
 
@@ -74,7 +73,6 @@ public class KitchensinkSpringControllerAdviceTest {
     public static WebArchive deployment() {
         return Deployments.kitchensink();
     }
-
 
     /**
      * Name of the member to register in the right format.

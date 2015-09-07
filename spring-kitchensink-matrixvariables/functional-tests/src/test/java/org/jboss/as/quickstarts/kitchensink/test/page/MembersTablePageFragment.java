@@ -28,7 +28,6 @@ public class MembersTablePageFragment {
     @FindByJQuery("tbody tr")
     private List<MemberPageFragment> members;
 
-
     public Member getLatestMember() {
         return members.get(0).getMember();
     }
@@ -39,7 +38,8 @@ public class MembersTablePageFragment {
 
     public boolean containsMember(Member member) {
         for (MemberPageFragment memberPF : members) {
-            if (memberPF.getMember().equals(member)) return true;
+            if (memberPF.getMember().equals(member))
+                return true;
         }
         return false;
     }

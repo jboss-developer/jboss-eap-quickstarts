@@ -35,7 +35,6 @@ public interface JSEBean01 {
     @WebResult(name = "return", targetNamespace = "http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/", partName = "return")
     @WebMethod
     public java.lang.String echo(
-        @WebParam(partName = "arg0", name = "arg0")
-        java.lang.String arg0
-    );
+        @WebParam(partName = "arg0", name = "arg0") java.lang.String arg0
+        );
 }

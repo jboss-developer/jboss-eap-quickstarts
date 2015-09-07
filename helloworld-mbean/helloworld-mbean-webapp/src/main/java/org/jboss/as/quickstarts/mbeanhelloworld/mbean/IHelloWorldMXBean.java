@@ -33,6 +33,7 @@ public interface IHelloWorldMXBean {
      * Read write attribute
      */
     void setWelcomeMessage(String message);
+
     String getWelcomeMessage();
 
     /**

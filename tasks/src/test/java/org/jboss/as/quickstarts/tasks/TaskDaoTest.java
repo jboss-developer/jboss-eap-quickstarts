@@ -70,7 +70,7 @@ public class TaskDaoTest {
         em.persist(user);
         taskDao.createTask(user, task);
         List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = :owner", Task.class).setParameter("owner", user)
-                .getResultList();
+            .getResultList();
 
         // then
         assertEquals(1, userTasks.size());

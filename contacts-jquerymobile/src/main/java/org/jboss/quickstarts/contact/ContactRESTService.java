@@ -111,7 +111,7 @@ public class ContactRESTService {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         log.info("findById " + id + ": found Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
-                + contact.getBirthDate() + " " + contact.getId());
+            + contact.getBirthDate() + " " + contact.getId());
 
         return Response.ok(contact).build();
     }
@@ -178,7 +178,7 @@ public class ContactRESTService {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         log.info("updateContact started. Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
-                + contact.getBirthDate() + " " + contact.getId());
+            + contact.getBirthDate() + " " + contact.getId());
 
         if (contact.getId() != id) {
             // The client attempted to update the read-only Id. This is not permitted.
@@ -278,6 +278,5 @@ public class ContactRESTService {
 
         return Response.status(Response.Status.BAD_REQUEST).entity(responseObj);
     }
-
 
 }

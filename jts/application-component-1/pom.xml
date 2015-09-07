@@ -84,7 +84,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the 
+        <!-- Maven will append the version to the finalName (which is the
             name given to the generated WAR, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -93,7 +93,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>

@@ -43,7 +43,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -117,7 +117,7 @@
                     <description>A simple quickstart application to demonstrate the
                         server-server communication</description>
                     <version>6</version>
-          <!-- it work also without a application.xml but this is to demonstrate 
+          <!-- it work also without a application.xml but this is to demonstrate
             how to use it and activate the jarModule in it -->
                     <generateApplicationXml>true</generateApplicationXml>
                     <modules>

@@ -3,7 +3,7 @@ jaxws-pojo: An POJO JAX-WS Web Service
 Author: R Searls  
 Level: Beginner  
 Technologies: JAX-WS  
-Summary: The `jaxws-pojo` quickstart is a working example of the web service endpoint created from a POJO.
+Summary: The `jaxws-pojo` quickstart is a working example of the web service endpoint created from a POJO.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 

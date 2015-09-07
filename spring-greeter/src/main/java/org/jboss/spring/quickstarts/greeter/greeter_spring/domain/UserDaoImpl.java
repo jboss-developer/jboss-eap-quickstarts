@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
     public User getForUsername(String username) {
         try {
             Query query = entityManager
-                    .createQuery("select u from User u where u.username = ?");
+                .createQuery("select u from User u where u.username = ?");
             query.setParameter(1, username);
             return (User) query.getSingleResult();
         } catch (NoResultException e) {

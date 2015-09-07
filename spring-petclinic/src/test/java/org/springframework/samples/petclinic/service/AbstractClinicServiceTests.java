@@ -92,7 +92,7 @@ public abstract class AbstractClinicServiceTests {
 
     @Test
     @Transactional
-    public void shouldUpdateOwner()  {
+    public void shouldUpdateOwner() {
         Owner owner = this.clinicService.findOwnerById(1);
         String oldLastName = owner.getLastName();
         String newLastName = oldLastName + "X";
@@ -105,87 +105,86 @@ public abstract class AbstractClinicServiceTests {
         assertThat(owner.getLastName()).isEqualTo(newLastName);
     }
 
-	@Test
-	public void shouldFindPetWithCorrectId() {
-	    Pet pet7 = this.clinicService.findPetById(7);
-	    assertThat(pet7.getName()).startsWith("Samantha");
-	    assertThat(pet7.getOwner().getFirstName()).isEqualTo("Jean");
+    @Test
+    public void shouldFindPetWithCorrectId() {
+        Pet pet7 = this.clinicService.findPetById(7);
+        assertThat(pet7.getName()).startsWith("Samantha");
+        assertThat(pet7.getOwner().getFirstName()).isEqualTo("Jean");
 
-	}
+    }
 
-	@Test
-	public void shouldFindAllPetTypes() {
-	    Collection<PetType> petTypes = this.clinicService.findPetTypes();
+    @Test
+    public void shouldFindAllPetTypes() {
+        Collection<PetType> petTypes = this.clinicService.findPetTypes();
 
-	    PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
-	    assertThat(petType1.getName()).isEqualTo("cat");
-	    PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4);
-	    assertThat(petType4.getName()).isEqualTo("snake");
-	}
+        PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
+        assertThat(petType1.getName()).isEqualTo("cat");
+        PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4);
+        assertThat(petType4.getName()).isEqualTo("snake");
+    }
 
-	@Test
-	@Transactional
-	public void shouldInsertPetIntoDatabaseAndGenerateId() {
-	    Owner owner6 = this.clinicService.findOwnerById(6);
-	    int found = owner6.getPets().size();
+    @Test
+    @Transactional
+    public void shouldInsertPetIntoDatabaseAndGenerateId() {
+        Owner owner6 = this.clinicService.findOwnerById(6);
+        int found = owner6.getPets().size();
 
-	    Pet pet = new Pet();
-	    pet.setName("bowser");
-	    Collection<PetType> types = this.clinicService.findPetTypes();
-	    pet.setType(EntityUtils.getById(types, PetType.class, 2));
-	    pet.setBirthDate(new DateTime());
-	    owner6.addPet(pet);
-	    assertThat(owner6.getPets().size()).isEqualTo(found + 1);
+        Pet pet = new Pet();
+        pet.setName("bowser");
+        Collection<PetType> types = this.clinicService.findPetTypes();
+        pet.setType(EntityUtils.getById(types, PetType.class, 2));
+        pet.setBirthDate(new DateTime());
+        owner6.addPet(pet);
+        assertThat(owner6.getPets().size()).isEqualTo(found + 1);
 
-	    this.clinicService.savePet(pet);
-	    this.clinicService.saveOwner(owner6);
+        this.clinicService.savePet(pet);
+        this.clinicService.saveOwner(owner6);
 
-	    owner6 = this.clinicService.findOwnerById(6);
-	    assertThat(owner6.getPets().size()).isEqualTo(found + 1);
-	    // checks that id has been generated
-	    assertThat(pet.getId()).isNotNull();
-	}
+        owner6 = this.clinicService.findOwnerById(6);
+        assertThat(owner6.getPets().size()).isEqualTo(found + 1);
+        // checks that id has been generated
+        assertThat(pet.getId()).isNotNull();
+    }
 
-	@Test
-	@Transactional
-	public void shouldUpdatePetName() throws Exception {
-	    Pet pet7 = this.clinicService.findPetById(7);
-	    String oldName = pet7.getName();
+    @Test
+    @Transactional
+    public void shouldUpdatePetName() throws Exception {
+        Pet pet7 = this.clinicService.findPetById(7);
+        String oldName = pet7.getName();
 
-	    String newName = oldName + "X";
-		pet7.setName(newName);
-	    this.clinicService.savePet(pet7);
+        String newName = oldName + "X";
+        pet7.setName(newName);
+        this.clinicService.savePet(pet7);
 
-	    pet7 = this.clinicService.findPetById(7);
-	    assertThat(pet7.getName()).isEqualTo(newName);
-	}
+        pet7 = this.clinicService.findPetById(7);
+        assertThat(pet7.getName()).isEqualTo(newName);
+    }
 
-	@Test
-	public void shouldFindVets() {
-	    Collection<Vet> vets = this.clinicService.findVets();
+    @Test
+    public void shouldFindVets() {
+        Collection<Vet> vets = this.clinicService.findVets();
 
-	    Vet vet = EntityUtils.getById(vets, Vet.class, 3);
-	    assertThat(vet.getLastName()).isEqualTo("Douglas");
-	    assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
-	    assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
-	    assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
-	}
+        Vet vet = EntityUtils.getById(vets, Vet.class, 3);
+        assertThat(vet.getLastName()).isEqualTo("Douglas");
+        assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
+        assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
+        assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
+    }
 
-	@Test
-	@Transactional
-	public void shouldAddNewVisitForPet() {
-	    Pet pet7 = this.clinicService.findPetById(7);
-	    int found = pet7.getVisits().size();
-	    Visit visit = new Visit();
-	    pet7.addVisit(visit);
-	    visit.setDescription("test");
-	    this.clinicService.saveVisit(visit);
-	    this.clinicService.savePet(pet7);
+    @Test
+    @Transactional
+    public void shouldAddNewVisitForPet() {
+        Pet pet7 = this.clinicService.findPetById(7);
+        int found = pet7.getVisits().size();
+        Visit visit = new Visit();
+        pet7.addVisit(visit);
+        visit.setDescription("test");
+        this.clinicService.saveVisit(visit);
+        this.clinicService.savePet(pet7);
 
-	    pet7 = this.clinicService.findPetById(7);
-	    assertThat(pet7.getVisits().size()).isEqualTo(found + 1);
-	    assertThat(visit.getId()).isNotNull();
-	}
-
+        pet7 = this.clinicService.findPetById(7);
+        assertThat(pet7.getVisits().size()).isEqualTo(found + 1);
+        assertThat(visit.getId()).isNotNull();
+    }
 
 }

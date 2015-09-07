@@ -30,15 +30,15 @@ import javax.jms.Queue;
 @Stateless
 public class InvoiceManagerEJBImpl {
 
-	@Inject
-	@JMSConnectionFactory("java:/JmsXA")
-	private JMSContext jmsContext;
-	@Resource(lookup = "java:/queue/jts-quickstart")
-	private Queue queue;
+    @Inject
+    @JMSConnectionFactory("java:/JmsXA")
+    private JMSContext jmsContext;
+    @Resource(lookup = "java:/queue/jts-quickstart")
+    private Queue queue;
 
-	@TransactionAttribute(TransactionAttributeType.MANDATORY)
-	public void createInvoice(String name) {
-		jmsContext.createProducer().send(queue, "Created invoice for customer named: " + name);
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
+    public void createInvoice(String name) {
+        jmsContext.createProducer().send(queue, "Created invoice for customer named: " + name);
 
-	}
+    }
 }

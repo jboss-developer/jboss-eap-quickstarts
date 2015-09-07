@@ -63,7 +63,7 @@
             <artifactId>jboss-ejb-asynchronous-ejb</artifactId>
             <type>ejb-client</type>
         </dependency>
-        
+
         <!-- Include the EJB API -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -84,7 +84,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Add the maven exec plug-in to allow us to run a java program 
+            <!-- Add the maven exec plug-in to allow us to run a java program
                 via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -101,7 +101,7 @@
                     <executable>java</executable>
                     <workingDirectory>${project.build.directory}/exec-working-directory</workingDirectory>
                     <arguments>
-                        <!-- automatically creates the classpath using all 
+                        <!-- automatically creates the classpath using all
                             project dependencies, also adding the project build directory -->
                         <argument>-classpath</argument>
                         <classpath>

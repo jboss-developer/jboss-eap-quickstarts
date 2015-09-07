@@ -3,9 +3,9 @@ helloworld-html5: HTML5 and REST Hello World Example
 Author: Jay Balunas, Burr Sutter, Douglas Campos, Bruno Olivera  
 Level: Beginner  
 Technologies: CDI, JAX-RS, HTML5  
-Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.1* and *JAX-RS 2.0* using the HTML5 architecture and RESTful services on the backend.
-Target Product: JBoss EAP
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>
+Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.1* and *JAX-RS 2.0* using the HTML5 architecture and RESTful services on the backend.  
+Target Product: JBoss EAP  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------

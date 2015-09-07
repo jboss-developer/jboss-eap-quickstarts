@@ -36,6 +36,7 @@ public interface IAnnotatedHelloWorldMBean {
      * Read write attribute
      */
     void setWelcomeMessage(String message);
+
     String getWelcomeMessage();
 
     /**

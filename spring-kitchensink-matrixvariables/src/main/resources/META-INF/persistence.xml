@@ -20,13 +20,13 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
                         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="primarymatrix">
-        <!-- If you are running in a production environment, add a managed 
+        <!-- If you are running in a production environment, add a managed
            data source, this example data source is just for development and testing! -->
         <!-- The datasource is deployed as WEB-INF/spring-quickstart-ds.xml, you
            can find it in the source at src/main/webapp/WEB-INF/spring-quickstart-ds.xml -->
         <jta-data-source>java:jboss/datasources/SpringQuickstartDSMatrix</jta-data-source>
         <properties>
-            <property name="jboss.entity.manager.factory.jndi.name" 
+            <property name="jboss.entity.manager.factory.jndi.name"
                       value="java:jboss/spring-quickstart/persistencematrix" />
             <!-- Properties for Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />

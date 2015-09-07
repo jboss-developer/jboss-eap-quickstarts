@@ -67,7 +67,7 @@ public class MemberController {
     // This was done by creating a Configuration class and pointing to it in the jboss-as-spring-mvc-context.xml.
     @RequestMapping(value = "/mv/{filter}", method = RequestMethod.GET)
     public ModelAndView filteredMembers(@MatrixVariable(value = "n", pathVar = "filter", required = false, defaultValue = "") String n,
-                                        @MatrixVariable(value = "e", pathVar = "filter", required = false, defaultValue = "") String e) {
+        @MatrixVariable(value = "e", pathVar = "filter", required = false, defaultValue = "") String e) {
         log.fine("filteredMembers @MatrixVariable n = " + n + ", e = " + e);
         ModelAndView model = new ModelAndView("index");
         model.addObject("newMember", new Member());
@@ -76,7 +76,6 @@ public class MemberController {
         model.addObject("members", members);
         return model;
     }
-
 
     @RequestMapping(method = RequestMethod.POST)
     public String registerNewMember(@Valid @ModelAttribute("newMember") Member newMember, BindingResult result, Model model) {

@@ -103,7 +103,6 @@ public class RegistrationFormPageFragment {
     @FindByJQuery("a.ui-state-highlight")
     private WebElement today;
 
-
     public void register(Member member, boolean fillDate) {
         nameField.clear();
         nameField.sendKeys(member.getName());

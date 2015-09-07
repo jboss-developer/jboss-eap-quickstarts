@@ -31,14 +31,14 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "person_address")
-public class PersonAddress implements Serializable{
+public class PersonAddress implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name="person_id", unique=true, nullable=false)
-    @GeneratedValue(generator="generator")
-    @GenericGenerator(name="generator", strategy="foreign", parameters= @Parameter(name="property", value="person"))
+    @Column(name = "person_id", unique = true, nullable = false)
+    @GeneratedValue(generator = "generator")
+    @GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "person"))
     private Long personId;
 
     private String streetAddress;
@@ -52,7 +52,7 @@ public class PersonAddress implements Serializable{
     @PrimaryKeyJoinColumn
     private Person person;
 
-    public PersonAddress () {
+    public PersonAddress() {
 
     }
 
@@ -69,21 +69,17 @@ public class PersonAddress implements Serializable{
         return personId;
     }
 
-
     public void setPersonId(Long personId) {
         this.personId = personId;
     }
-
 
     public Person getPerson() {
         return person;
     }
 
-
     public void setPerson(Person person) {
         this.person = person;
     }
-
 
     public String getStreetAddress() {
         return streetAddress;

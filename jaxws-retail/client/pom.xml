@@ -44,7 +44,7 @@
    <properties>
      <version.exec.plugin>1.2.1</version.exec.plugin>
    </properties>
-   
+
    <dependencies>
       <dependency>
          <groupId>org.jboss.quickstarts.eap</groupId>
@@ -65,7 +65,7 @@
            <configuration>
              <mainClass>org.jboss.quickstarts.ws.client.Client</mainClass>
            </configuration>
-         </plugin>         
+         </plugin>
       </plugins>
    </build>
 

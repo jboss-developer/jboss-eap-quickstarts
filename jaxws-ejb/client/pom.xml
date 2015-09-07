@@ -41,14 +41,14 @@
         </license>
     </licenses>
 
-   <repositories> 
+   <repositories>
      <repository>
        <id>jboss-product-builds</id>
        <url>http://repository.jboss.org/nexus/content/groups/public/ </url>
      </repository>
-  
-   </repositories> 
- 
+
+   </repositories>
+
    <properties>
      <version.exec-plugin>1.2.1</version.exec-plugin>
      <version.jboss.jbossxb>2.0.3.GA</version.jboss.jbossxb>
@@ -61,8 +61,8 @@
           <artifactId>jboss-jaxws-ejb-service</artifactId>
           <version>${project.version}</version>
          <classifier>classes</classifier>
-      </dependency>      
-        <!-- required for client to resolve org/jboss/ws/core/jaxws/spi/ProviderImpl -->      
+      </dependency>
+        <!-- required for client to resolve org/jboss/ws/core/jaxws/spi/ProviderImpl -->
        <dependency>
            <groupId>org.jboss.ws.native</groupId>
            <artifactId>jbossws-native-core</artifactId>
@@ -71,7 +71,7 @@
        <dependency>
            <groupId>org.jboss.logging</groupId>
            <artifactId>jboss-logging-spi</artifactId>
-       </dependency> 
+       </dependency>
        <dependency>
            <groupId>org.jboss.spec.javax.ejb</groupId>
            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
@@ -93,7 +93,7 @@
            <configuration>
              <mainClass>org.jboss.quickstarts.ws.client.Client</mainClass>
            </configuration>
-         </plugin>        
+         </plugin>
       </plugins>
    </build>
 

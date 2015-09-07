@@ -39,7 +39,7 @@ public final class AddressingTestCase
         URL wsdlURL = new URL(serviceURL + "?wsdl");
         Service service = Service.create(wsdlURL, serviceName);
         org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface proxy =
-            (org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface)service.getPort(org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface.class,
+            (org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface) service.getPort(org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface.class,
                 new AddressingFeature());
         // invoke method
         System.out.println(proxy.sayHello());

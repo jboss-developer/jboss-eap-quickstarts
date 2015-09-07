@@ -29,7 +29,6 @@ import org.jboss.msc.service.StartContext;
 import org.jboss.msc.service.StartException;
 import org.jboss.msc.service.StopContext;
 
-
 /**
  * <p>A service to start schedule-timer as HASingleton timer in a clustered environment.
  * The {@link HATimerServiceActivator} will ensure that the timer is initialized only once in a cluster.</p>
@@ -69,7 +68,8 @@ public class HATimerService implements Service<String> {
         final String node = System.getProperty("jboss.node.name");
         try {
             InitialContext ic = new InitialContext();
-            ((Scheduler) ic.lookup("global/jboss-cluster-ha-singleton-service/SchedulerBean!org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler")).initialize("HASingleton timer @" + node + " " + new Date());
+            ((Scheduler) ic.lookup("global/jboss-cluster-ha-singleton-service/SchedulerBean!org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler"))
+                .initialize("HASingleton timer @" + node + " " + new Date());
         } catch (NamingException e) {
             throw new StartException("Could not initialize timer", e);
         }
@@ -84,7 +84,7 @@ public class HATimerService implements Service<String> {
                 InitialContext ic = new InitialContext();
                 ((Scheduler) ic.lookup("global/jboss-cluster-ha-singleton-service/SchedulerBean!org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler")).stop();
             } catch (NamingException e) {
-                LOGGER.info("Could not stop timer:" +  e.getMessage());
+                LOGGER.info("Could not stop timer:" + e.getMessage());
             }
         }
     }

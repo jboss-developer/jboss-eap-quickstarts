@@ -33,7 +33,8 @@ import org.picketlink.identity.federation.core.wstrust.PicketLinkSTS;
  * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
  * @author <a href="mailto:pskopek@redhat.com">Peter Skopek</a>
  */
-@WebServiceProvider(serviceName = "PicketLinkSTS", portName = "PicketLinkSTSPort", targetNamespace = "urn:picketlink:identity-federation:sts", wsdlLocation = "WEB-INF/wsdl/PicketLinkSTS.wsdl")
+@WebServiceProvider(serviceName = "PicketLinkSTS", portName = "PicketLinkSTSPort", targetNamespace = "urn:picketlink:identity-federation:sts",
+    wsdlLocation = "WEB-INF/wsdl/PicketLinkSTS.wsdl")
 @ServiceMode(value = Service.Mode.MESSAGE)
 public class PicketLinkSTService extends PicketLinkSTS {
     private static Logger log = Logger.getLogger(PicketLinkSTService.class);

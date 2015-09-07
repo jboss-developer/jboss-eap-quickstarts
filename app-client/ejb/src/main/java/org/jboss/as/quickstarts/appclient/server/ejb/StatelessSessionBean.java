@@ -36,7 +36,7 @@ public class StatelessSessionBean implements StatelessSession {
 
     @Override
     public void invokeWithClientContext() {
-        LOGGER.info("ClientContext is here = "+context.getContextData());
+        LOGGER.info("ClientContext is here = " + context.getContextData());
     }
 
     @Override

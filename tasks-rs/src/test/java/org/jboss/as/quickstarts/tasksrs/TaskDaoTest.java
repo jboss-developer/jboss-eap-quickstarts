@@ -44,7 +44,7 @@ public class TaskDaoTest {
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
         return new DefaultDeployment().withPersistence().withImportedData().getArchive()
-                .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, TaskDaoImpl.class);
+            .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, TaskDaoImpl.class);
     }
 
     @Inject
@@ -72,7 +72,7 @@ public class TaskDaoTest {
         em.persist(user);
         taskDao.createTask(user, task);
         List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = :owner", Task.class)
-                .setParameter("owner", user).getResultList();
+            .setParameter("owner", user).getResultList();
 
         // then
         assertEquals(1, userTasks.size());

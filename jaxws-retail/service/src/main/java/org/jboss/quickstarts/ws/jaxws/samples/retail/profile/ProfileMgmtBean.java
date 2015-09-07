@@ -29,15 +29,14 @@ import javax.jws.soap.SOAPBinding;
  * @author rsearls@redhat.com
  */
 @Stateless
-@WebService (
-    name="ProfileMgmt",
+@WebService(
+    name = "ProfileMgmt",
     targetNamespace = "http://org.jboss.ws/samples/retail/profile",
-    serviceName = "ProfileMgmtService"
-)
-@SOAPBinding (parameterStyle = SOAPBinding.ParameterStyle.BARE)
+    serviceName = "ProfileMgmtService")
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 public class ProfileMgmtBean {
     @WebMethod
-    public DiscountResponse getCustomerDiscount(DiscountRequest request){
+    public DiscountResponse getCustomerDiscount(DiscountRequest request) {
         DiscountResponse dResponse = new DiscountResponse();
         dResponse.setCustomer(request.getCustomer());
         dResponse.setDiscount(10.00);

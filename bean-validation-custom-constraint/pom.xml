@@ -40,7 +40,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -180,14 +180,14 @@
             <artifactId>hibernate-jpamodelgen</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Needed for Hibernate Annotations -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
             <groupId>junit</groupId>
@@ -254,7 +254,7 @@
             <!-- Separate profiles are provided for running all tests, including
                 Arquillian tests that execute in the specified container -->
             <id>default</id>
-            
+
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>

@@ -68,7 +68,7 @@ public class MockSetManager {
      */
     public static void commit() {
         System.out
-                .println("[SERVICE] Commit the backend resource (e.g. commit any changes to databases so that they are visible to others)");
+            .println("[SERVICE] Commit the backend resource (e.g. commit any changes to databases so that they are visible to others)");
     }
 
     /**
@@ -81,7 +81,7 @@ public class MockSetManager {
      */
     public static void rollback(String item) {
         System.out.println("[SERVICE] Compensate the backend resource by removing '" + item
-                + "' from the set (e.g. undo any changes to databases that were previously made visible to others)");
+            + "' from the set (e.g. undo any changes to databases that were previously made visible to others)");
         synchronized (set) {
 
             set.remove(item);

@@ -48,7 +48,7 @@ public class PetValidator implements Validator {
         }
 
         // birth date validation
-        if (pet.getBirthDate()==null) {
+        if (pet.getBirthDate() == null) {
             errors.rejectValue("birthDate", "required", "required");
         }
     }
@@ -60,6 +60,5 @@ public class PetValidator implements Validator {
     public boolean supports(Class<?> clazz) {
         return Pet.class.equals(clazz);
     }
-
 
 }

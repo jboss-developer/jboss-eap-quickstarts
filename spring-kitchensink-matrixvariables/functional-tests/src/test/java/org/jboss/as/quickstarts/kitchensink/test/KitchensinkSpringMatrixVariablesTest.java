@@ -145,7 +145,6 @@ public class KitchensinkSpringMatrixVariablesTest {
      */
     private static final String DEFAULT_PHONE = "2125551212";
 
-
     @Before
     public void loadPage() {
         browser.get(contextPath.toString());

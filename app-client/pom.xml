@@ -23,7 +23,7 @@
     <name>JBoss EAP Quickstart: app-client</name>
     <description>app-client: An example that demonstrates how to package and use an EE application client.
      This POM defines common properties to specify the used versions and plug-ins.
-     The subprojects are built in the appropriate sequence. 
+     The subprojects are built in the appropriate sequence.
     </description>
     <url>http://www.jboss.org/products/eap</url>
 
@@ -44,7 +44,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>

@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -90,16 +90,16 @@
     </pluginRepositories>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
+        <!-- Explicitly declaring the source encoding eliminates the following
             message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        
+
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        
+
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 
@@ -117,14 +117,14 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import. 
-                Any dependencies from org.jboss.spec will have their version defined by this 
+            <!-- Define the version of the JBoss Java EE APIs we want to import.
+                Any dependencies from org.jboss.spec will have their version defined by this
                 BOM -->
-            <!-- JBoss distributes a complete set of Java EE APIs including a Bill 
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-                of artifacts. We use this here so that we always get the correct versions 
-                of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as 
-                the JBoss stack of the Java EE APIs). You can actually use this stack with 
+            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
+                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+                of artifacts. We use this here so that we always get the correct versions
+                of artifacts. Here we use the jboss-javaee-7.0 stack (you can read this as
+                the JBoss stack of the Java EE APIs). You can actually use this stack with
                 any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
@@ -137,7 +137,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Import the CDI API, we use provided scope as the API is included 
+        <!-- Import the CDI API, we use provided scope as the API is included
             in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -145,7 +145,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Servlet API, we use provided scope as the API is 
+        <!-- Import the Servlet API, we use provided scope as the API is
             included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
@@ -153,7 +153,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided 
+        <!-- Import the Common Annotations API (JSR-250), we use provided
             scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -176,7 +176,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app 
+        <!-- Set the name of the WAR, used as the context root when the app
             is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -198,7 +198,7 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune 
+            <!-- The default profile skips all tests, though you can tune
                 it to run just unit tests based on a custom pattern -->
             <!-- Separate profiles are provided for running all tests -->
             <id>default</id>
@@ -223,9 +223,9 @@
         </profile>
 
         <profile>
-            <!-- An optional testing profile that executes tests in your 
+            <!-- An optional testing profile that executes tests in your
                 JBoss EAP instance using Arquillian -->
-            <!-- This profile will start a new JBoss EAP instance, and execute 
+            <!-- This profile will start a new JBoss EAP instance, and execute
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
@@ -252,7 +252,7 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests 
+            <!-- An optional Arquillian testing profile that executes tests
                 in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
@@ -279,7 +279,7 @@
         </profile>
 
         <profile>
-            <!-- An optional testing profile that executes tests in a remote 
+            <!-- An optional testing profile that executes tests in a remote
                 JBoss EAP instance where the application has already been deployed -->
             <!-- Run with: mvn clean test -Pjbossas-remote -->
             <id>jbossas-remote</id>
@@ -305,11 +305,11 @@
         </profile>
 
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be 
+            <!-- When built in OpenShift the 'openshift' profile will be
                 used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization 
+            <!-- Use this profile for any OpenShift specific customization
                 your app will need. -->
-            <!-- By default that is to put the resulting archive into the 
+            <!-- By default that is to put the resulting archive into the
                 'deployments' folder. -->
             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>

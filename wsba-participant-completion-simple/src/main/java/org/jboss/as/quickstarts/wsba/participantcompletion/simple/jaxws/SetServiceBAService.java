@@ -54,7 +54,7 @@ public class SetServiceBAService extends Service {
 
     public SetServiceBAService() {
         super(SETSERVICEBASERVICE_WSDL_LOCATION, new QName("http://www.jboss.org/jboss-jdf/jboss-as-quickstart/Set",
-                "SetServiceBAService"));
+            "SetServiceBAService"));
     }
 
     /**

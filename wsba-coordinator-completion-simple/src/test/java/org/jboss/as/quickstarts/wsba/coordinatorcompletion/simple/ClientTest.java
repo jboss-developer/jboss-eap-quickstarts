@@ -35,7 +35,7 @@ import javax.inject.Inject;
 public class ClientTest {
 
     private static String ManifestMF = "Manifest-Version: 1.0\n"
-          + "Dependencies: org.jboss.xts\n";
+        + "Dependencies: org.jboss.xts\n";
 
     @Inject
     @ClientStub
@@ -44,10 +44,10 @@ public class ClientTest {
     @Deployment
     public static WebArchive createTestArchive() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackages(true, SetServiceBAImpl.class.getPackage().getName())
-                .addAsResource("context-handlers.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                .setManifest(new StringAsset(ManifestMF));
+            .addPackages(true, SetServiceBAImpl.class.getPackage().getName())
+            .addAsResource("context-handlers.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+            .setManifest(new StringAsset(ManifestMF));
     }
 
     /**
@@ -59,7 +59,7 @@ public class ClientTest {
     public void testSuccess() throws Exception {
 
         System.out
-                .println("\n\nStarting 'testSuccess'. This test invokes a WS twice within a BA. The BA is later closes, which causes these WS calls to complete successfully.");
+            .println("\n\nStarting 'testSuccess'. This test invokes a WS twice within a BA. The BA is later closes, which causes these WS calls to complete successfully.");
         System.out.println("[CLIENT] Creating a new Business Activity");
         UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
         try {
@@ -67,7 +67,7 @@ public class ClientTest {
             String value2 = "2";
 
             System.out
-                    .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA wil be included in this activity)");
+                .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA wil be included in this activity)");
             uba.begin();
 
             System.out.println("[CLIENT] invoking addValueToSet(1) on WS");
@@ -98,7 +98,7 @@ public class ClientTest {
     public void testCancel() throws Exception {
 
         System.out
-                .println("\n\nStarting 'testCancel'. This test invokes a WS twice within a BA. The BA is later cancelled, which causes these WS calls to be compensated.");
+            .println("\n\nStarting 'testCancel'. This test invokes a WS twice within a BA. The BA is later cancelled, which causes these WS calls to be compensated.");
         System.out.println("[CLIENT] Creating a new Business Activity");
         UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
         try {
@@ -106,7 +106,7 @@ public class ClientTest {
             String value2 = "2";
 
             System.out
-                    .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA will be included in this activity)");
+                .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA will be included in this activity)");
             uba.begin();
 
             System.out.println("[CLIENT] invoking addValueToSet(1) on WS");

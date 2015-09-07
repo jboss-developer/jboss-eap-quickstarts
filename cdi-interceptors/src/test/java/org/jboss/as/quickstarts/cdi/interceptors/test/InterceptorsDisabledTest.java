@@ -38,12 +38,12 @@ public class InterceptorsDisabledTest {
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addPackages(true, "org.jboss.as.quickstarts.cdi")
-        // enable JPA
-                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-                // enable CDI and passing empty beans.xml descriptor to war archive, so cdi interceptors are disabled.
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                // Deploy test datasource
-                .addAsWebInfResource("test-ds.xml", "test-ds.xml");
+            // enable JPA
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            // enable CDI and passing empty beans.xml descriptor to war archive, so cdi interceptors are disabled.
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+            // Deploy test datasource
+            .addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
     @EJB

@@ -48,7 +48,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -188,7 +188,7 @@
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
                 <module>ejb-security</module>
-                <module>ejb-security-interceptors</module> 
+                <module>ejb-security-interceptors</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
                 <module>ejb-multi-server</module>
@@ -267,7 +267,7 @@
                 </property>
             </activation>
             <modules>
-                <module>cluster-ha-singleton</module> 
+                <module>cluster-ha-singleton</module>
                 <module>ejb-remote</module>
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>

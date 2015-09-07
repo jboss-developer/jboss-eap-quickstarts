@@ -43,7 +43,6 @@ public class VisitController {
 
     private final ClinicService clinicService;
 
-
     @Autowired
     public VisitController(ClinicService clinicService) {
         this.clinicService = clinicService;
@@ -71,13 +70,13 @@ public class VisitController {
         return visit;
     }
 
-	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is called
+    // Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is called
     @RequestMapping(value = "/owners/*/pets/{petId}/visits/new", method = RequestMethod.GET)
     public String initNewVisitForm(@PathVariable("petId") int petId, Map<String, Object> model) {
         return "pets/createOrUpdateVisitForm";
     }
 
-	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is called
+    // Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is called
     @RequestMapping(value = "/owners/{ownerId}/pets/{petId}/visits/new", method = RequestMethod.POST)
     public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
         if (result.hasErrors()) {

@@ -55,14 +55,19 @@ public class Member {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Member member = (Member) o;
 
-        if (email != null ? !email.equals(member.email) : member.email != null) return false;
-        if (name != null ? !name.equals(member.name) : member.name != null) return false;
-        if (phoneNumber != null ? !phoneNumber.equals(member.phoneNumber) : member.phoneNumber != null) return false;
+        if (email != null ? !email.equals(member.email) : member.email != null)
+            return false;
+        if (name != null ? !name.equals(member.name) : member.name != null)
+            return false;
+        if (phoneNumber != null ? !phoneNumber.equals(member.phoneNumber) : member.phoneNumber != null)
+            return false;
 
         return true;
     }

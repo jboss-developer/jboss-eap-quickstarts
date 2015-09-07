@@ -57,19 +57,19 @@ public class ContactRegistrationTest {
 
     @Deployment
     public static Archive<?> createTestArchive() {
-//        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
-//                "org.hibernate.javax.persistence:hibernate-jpa-2.0-api"
-//        ).withTransitivity().asFile();
+        //        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
+        //                "org.hibernate.javax.persistence:hibernate-jpa-2.0-api"
+        //        ).withTransitivity().asFile();
 
         Archive<?> archive = ShrinkWrap
             .create(WebArchive.class, "test.war")
             .addClasses(Contact.class,
-                        ContactRESTService.class,
-                        ContactRepository.class,
-                        ContactValidator.class,
-                        ContactService.class,
-                        Resources.class)
-//            .addAsLibraries(libs)
+                ContactRESTService.class,
+                ContactRepository.class,
+                ContactValidator.class,
+                ContactService.class,
+                Resources.class)
+            //            .addAsLibraries(libs)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource("arquillian-ds.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -84,10 +84,10 @@ public class ContactRegistrationTest {
     Logger log;
 
     // The URI is needed for the JAX-RS 2.0 tests.
-//    private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-jquerymobile/rest/contact").port(8080).build();
+    //    private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-jquerymobile/rest/contact").port(8080).build();
 
     // JAX-RS 2.0 Client API
-//    private static Client client = ClientBuilder.newClient();
+    //    private static Client client = ClientBuilder.newClient();
 
     //Set millis 498484800000 from 1985-10-10T12:00:00.000Z
     private Date date = new Date(498484800000L);
@@ -136,49 +136,49 @@ public class ContactRegistrationTest {
     }
 
     // Uncomment when you have access to JAX-RS 2.0
-//    @Test
-//    @InSequence(4)
-//    public void shouldNotCreateANullContact() throws JAXBException {
-//        //POSTs a null Contact
-//        Response response = client.target(uri).request().post(Entity.entity(null, MediaType.APPLICATION_JSON));
-//        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
-//    }
-//
-//    @Test
-//    @InSequence(5)
-//    public void shouldNotFindTheContactID() throws JAXBException {
-//        // GETs a Contact with an unknown ID
-//        Response response = client.target(uri).path("unknownID").request().get();
-//        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
-//    }
-//
-//    @Test
-//    @InSequence(6)
-//    public void shouldCreateAndDeleteAContact() throws JAXBException {
-//
-//        Contact contact = createContactInstance("Jason", "Smith", "jason@mailinator.com", "2125551234", date);
-//
-//        // POSTs a Contact
-//        Response response = client.target(uri).request().post(Entity.entity(contact, MediaType.APPLICATION_JSON));
-//
-//        assertEquals(Response.Status.CREATED, response.getStatusInfo());
-//        URI contactURI = response.getLocation();
-//
-//        // With the location, GETs the Contact
-//        response = client.target(contactURI).request().get();
-//        contact = response.readEntity(Contact.class);
-//        assertEquals(Response.Status.OK, response.getStatusInfo());
-//        assertEquals("Jason", contact.getFirstName());
-//
-//        // GETs the Contact ID and DELETEs it
-//        String contactID = contactURI.toString().split("/")[6];
-//        response = client.target(uri).path(contactID).request().delete();
-//        assertEquals(Response.Status.NO_CONTENT, response.getStatusInfo());
-//
-//        // GETs the Contact and checks if it has been deleted
-//        response = client.target(bookURI).request().get();
-//        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
-//    }
+    //    @Test
+    //    @InSequence(4)
+    //    public void shouldNotCreateANullContact() throws JAXBException {
+    //        //POSTs a null Contact
+    //        Response response = client.target(uri).request().post(Entity.entity(null, MediaType.APPLICATION_JSON));
+    //        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
+    //    }
+    //
+    //    @Test
+    //    @InSequence(5)
+    //    public void shouldNotFindTheContactID() throws JAXBException {
+    //        // GETs a Contact with an unknown ID
+    //        Response response = client.target(uri).path("unknownID").request().get();
+    //        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+    //    }
+    //
+    //    @Test
+    //    @InSequence(6)
+    //    public void shouldCreateAndDeleteAContact() throws JAXBException {
+    //
+    //        Contact contact = createContactInstance("Jason", "Smith", "jason@mailinator.com", "2125551234", date);
+    //
+    //        // POSTs a Contact
+    //        Response response = client.target(uri).request().post(Entity.entity(contact, MediaType.APPLICATION_JSON));
+    //
+    //        assertEquals(Response.Status.CREATED, response.getStatusInfo());
+    //        URI contactURI = response.getLocation();
+    //
+    //        // With the location, GETs the Contact
+    //        response = client.target(contactURI).request().get();
+    //        contact = response.readEntity(Contact.class);
+    //        assertEquals(Response.Status.OK, response.getStatusInfo());
+    //        assertEquals("Jason", contact.getFirstName());
+    //
+    //        // GETs the Contact ID and DELETEs it
+    //        String contactID = contactURI.toString().split("/")[6];
+    //        response = client.target(uri).path(contactID).request().delete();
+    //        assertEquals(Response.Status.NO_CONTENT, response.getStatusInfo());
+    //
+    //        // GETs the Contact and checks if it has been deleted
+    //        response = client.target(bookURI).request().get();
+    //        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+    //    }
 
     private Contact createContactInstance(String firstName, String lastName, String email, String phone, Date birthDate) {
         Contact contact = new Contact();

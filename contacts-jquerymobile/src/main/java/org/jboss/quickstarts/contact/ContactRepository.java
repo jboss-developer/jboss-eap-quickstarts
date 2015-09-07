@@ -142,7 +142,7 @@ public class ContactRepository {
      * @return Contact
      * @throws ConstraintViolationException, ValidationException, Exception
      */
-//    Map<String, Object> update(Contact contact) throws Exception {
+    //    Map<String, Object> update(Contact contact) throws Exception {
     Contact update(Contact contact) throws ConstraintViolationException, ValidationException, Exception {
         log.info("ContactRepository.update() - Updating " + contact.getFirstName() + " " + contact.getLastName());
 
@@ -159,7 +159,7 @@ public class ContactRepository {
      * @return Contact
      * @throws Exception
      */
-//    Map<String, Object> delete(Contact contact) throws Exception {
+    //    Map<String, Object> delete(Contact contact) throws Exception {
     Contact delete(Contact contact) throws Exception {
         log.info("ContactRepository.delete() - Deleting " + contact.getFirstName() + " " + contact.getLastName());
 

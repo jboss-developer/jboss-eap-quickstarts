@@ -37,12 +37,11 @@ public class CreateController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public
-    @ModelAttribute("message")
+    public @ModelAttribute("message")
     String create(User user) {
         try {
             userDao.createUser(user);
-            return "A new user with id "+user.getId()+" has been created successfully";
+            return "A new user with id " + user.getId() + " has been created successfully";
         } catch (Exception e) {
             return "An error has occured while creating the user (see log for details)";
         }

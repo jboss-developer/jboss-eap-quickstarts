@@ -190,7 +190,7 @@ public class XAService {
         } finally {
             try {
                 if (userTransaction.getStatus() == Status.STATUS_ACTIVE
-                        || userTransaction.getStatus() == Status.STATUS_MARKED_ROLLBACK)
+                    || userTransaction.getStatus() == Status.STATUS_MARKED_ROLLBACK)
                     userTransaction.rollback();
             } catch (Throwable e) {
                 result.append(" Transaction did not finish: ").append(e.getMessage());

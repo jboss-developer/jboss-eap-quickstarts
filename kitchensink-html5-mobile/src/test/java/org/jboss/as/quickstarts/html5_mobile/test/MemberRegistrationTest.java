@@ -51,12 +51,12 @@ public class MemberRegistrationTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap
-                .create(WebArchive.class, "test.war")
-                .addClasses(Member.class, MemberService.class, MemberRepository.class, MemberRegistration.class,
-                        Resources.class)
-                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsWebInfResource("arquillian-ds.xml");
+            .create(WebArchive.class, "test.war")
+            .addClasses(Member.class, MemberService.class, MemberRepository.class, MemberRegistration.class,
+                Resources.class)
+            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+            .addAsWebInfResource("arquillian-ds.xml");
     }
 
     @Inject
@@ -85,7 +85,7 @@ public class MemberRegistrationTest {
         assertEquals("Unexpected response status", 400, response.getStatus());
         assertNotNull("response.getEntity() should not null", response.getEntity());
         assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 3,
-                ((Map<String, String>) response.getEntity()).size());
+            ((Map<String, String>) response.getEntity()).size());
         log.info("Invalid member register attempt failed with return code " + response.getStatus());
     }
 
@@ -104,7 +104,7 @@ public class MemberRegistrationTest {
         assertEquals("Unexpected response status", 409, response.getStatus());
         assertNotNull("response.getEntity() should not null", response.getEntity());
         assertEquals("Unexpected response.getEntity(). It contains" + response.getEntity(), 1,
-                ((Map<String, String>) response.getEntity()).size());
+            ((Map<String, String>) response.getEntity()).size());
         log.info("Duplicate member register attempt failed with return code " + response.getStatus());
     }
 

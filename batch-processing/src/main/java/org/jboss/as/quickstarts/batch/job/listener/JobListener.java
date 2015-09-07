@@ -47,7 +47,7 @@ public class JobListener extends AbstractJobListener {
         JobOperator jobOperator = BatchRuntime.getJobOperator();
         Properties jobParameters = jobOperator.getParameters(jobContext.getExecutionId());
         //If the JOB was already restarted once, mark it as abandoned
-        if (jobParameters.get("restartedOnce") != null && jobContext.getBatchStatus().equals(BatchStatus.FAILED)){
+        if (jobParameters.get("restartedOnce") != null && jobContext.getBatchStatus().equals(BatchStatus.FAILED)) {
             log.info("Job already restarted once! Abandoning it forever");
             jobOperator.abandon(jobContext.getExecutionId());
         }

@@ -58,9 +58,9 @@
 
    <build>
 
-      <finalName>${project.artifactId}</finalName> 
+      <finalName>${project.artifactId}</finalName>
 
-      <plugins>       
+      <plugins>
          <!-- Allows AddressingTestCase to be run via 'mvn exec:java' -->
          <plugin>
            <groupId>org.codehaus.mojo</groupId>
@@ -69,7 +69,7 @@
            <configuration>
              <mainClass>org.jboss.quickstarts.ws.jaxws.samples.wsa.AddressingTestCase</mainClass>
            </configuration>
-         </plugin>        
+         </plugin>
       </plugins>
    </build>
 

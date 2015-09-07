@@ -38,7 +38,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
  * @author Jason Porter
  */
 @Qualifier
-@Target({TYPE, METHOD, FIELD, PARAMETER})
+@Target({ TYPE, METHOD, FIELD, PARAMETER })
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Spanish {

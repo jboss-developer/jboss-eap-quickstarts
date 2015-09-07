@@ -52,8 +52,9 @@ public class Main {
      */
     public static void main(String args[]) {
         // Show that the client is started with arguments at command line
-        LOG.info("Main started " + ( args.length != 0 ? "with" : "without") + " arguments");
-        if(args.length > 0) LOG.info("            " + Arrays.asList(args));
+        LOG.info("Main started " + (args.length != 0 ? "with" : "without") + " arguments");
+        if (args.length > 0)
+            LOG.info("            " + Arrays.asList(args));
 
         // add an client side interceptor to provide the client machine name to the server application
         EJBClientContext.getCurrent().registerInterceptor(0, new ClientInterceptor());

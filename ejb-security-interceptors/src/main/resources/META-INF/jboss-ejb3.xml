@@ -15,11 +15,11 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee" 
+<jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
     xmlns:jee="http://java.sun.com/xml/ns/javaee"
     xmlns:ci="urn:container-interceptors:1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd 
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd
                   http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd
                   urn:container-interceptors:1.0 https://www.jboss.org/j2ee/schema/jboss-ejb-container-interceptors_1_0.xsd"
                   version="3.1" impl-version="2.0">

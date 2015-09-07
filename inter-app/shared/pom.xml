@@ -26,7 +26,7 @@
 
     <artifactId>jboss-inter-app-shared</artifactId>
     <packaging>ejb</packaging>
-    
+
     <name>JBoss EAP Quickstart: inter-app - shared</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
@@ -53,7 +53,7 @@
         <!-- Set the name of the deployment -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- This jar is deployed to JBoss EAP as a JBoss Module, which 
+            <!-- This jar is deployed to JBoss EAP as a JBoss Module, which
                 we can depend on from other deployments -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

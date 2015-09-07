@@ -41,7 +41,7 @@ public class ParameterDumpingRequestListener implements ServletRequestListener {
 
         // to see log messages at runtime, check the terminal window where you started JBoss EAP.
         servletContext.log("ParameterDumpingRequestListener: request has been initialized. It has " + paramMap.size()
-                + " parameters:");
+            + " parameters:");
         for (Map.Entry<String, String[]> entry : paramMap.entrySet()) {
             for (String val : entry.getValue()) {
                 servletContext.log("  " + entry.getKey() + "=" + val);

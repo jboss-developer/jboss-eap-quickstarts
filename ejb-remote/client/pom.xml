@@ -40,9 +40,9 @@
     </licenses>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
+        <!-- Explicitly declaring the source encoding eliminates the following
             message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -81,7 +81,7 @@
 
     <dependencies>
 
-        <!-- Import the transaction spec API, we use runtime scope because 
+        <!-- Import the transaction spec API, we use runtime scope because
             we aren't using any direct reference to the spec API in our client code -->
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
@@ -89,7 +89,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Import the EJB API, we use runtime scope because we aren't using 
+        <!-- Import the EJB API, we use runtime scope because we aren't using
             any direct reference to EJB spec API in our client code -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -119,7 +119,7 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
 
-            <!-- Add the maven exec plug-in to allow us to run a java program 
+            <!-- Add the maven exec plug-in to allow us to run a java program
                 via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -136,7 +136,7 @@
                     <executable>java</executable>
                     <workingDirectory>${project.build.directory}/exec-working-directory</workingDirectory>
                     <arguments>
-                        <!-- automatically creates the classpath using all 
+                        <!-- automatically creates the classpath using all
                             project dependencies, also adding the project build directory -->
                         <argument>-classpath</argument>
                         <classpath>
@@ -160,9 +160,9 @@
                 </configuration>
             </plugin>
 
-            <!-- The WildFly plug-in deploys your apps to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys your apps to a local JBoss EAP
                 container -->
-            <!-- Disabling it here means that we don't try to deploy this 
+            <!-- Disabling it here means that we don't try to deploy this
                 POM! -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

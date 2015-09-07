@@ -24,15 +24,13 @@ import javax.xml.ws.soap.Addressing;
 /**
  * @author rsearls@redhat.com
  */
-@WebService
-    (
-        portName = "AddressingServicePort",
-        serviceName = "AddressingService",
-        wsdlLocation = "WEB-INF/wsdl/AddressingService.wsdl",
-        targetNamespace = "http://www.jboss.org/jbossws/ws-extensions/wsaddressing",
-        endpointInterface = "org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface"
-    )
-@Addressing(enabled=true, required=true)
+@WebService(
+    portName = "AddressingServicePort",
+    serviceName = "AddressingService",
+    wsdlLocation = "WEB-INF/wsdl/AddressingService.wsdl",
+    targetNamespace = "http://www.jboss.org/jbossws/ws-extensions/wsaddressing",
+    endpointInterface = "org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface")
+@Addressing(enabled = true, required = true)
 public class ServiceImpl implements ServiceIface
 {
     public String sayHello()

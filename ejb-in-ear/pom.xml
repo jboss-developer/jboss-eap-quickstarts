@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -119,7 +119,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the EJB jar so that we don't need 
+            <!-- Define the version of the EJB jar so that we don't need
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
@@ -127,8 +127,8 @@
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
-            
-            <!-- Define the version of the WAR so that we don't need to repeat 
+
+            <!-- Define the version of the WAR so that we don't need to repeat
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
@@ -156,8 +156,8 @@
     <build>
         <plugins>
                 <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container -->
-                <!-- Due to Maven's lack of intelligence with EARs we need 
-                    to configure the WildFly Maven plug-in to skip deployment for all modules. 
+                <!-- Due to Maven's lack of intelligence with EARs we need
+                    to configure the WildFly Maven plug-in to skip deployment for all modules.
                     We then enable it specifically in the ear module. -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>

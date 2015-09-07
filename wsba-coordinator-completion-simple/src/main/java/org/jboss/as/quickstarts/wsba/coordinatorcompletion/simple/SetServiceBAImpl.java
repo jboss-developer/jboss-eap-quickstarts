@@ -32,7 +32,8 @@ import java.util.UUID;
  *
  * @author Paul Robinson (paul.robinson@redhat.com)
  */
-@WebService(serviceName = "SetServiceBAService", portName = "SetServiceBA", name = "SetServiceBA", targetNamespace = "http://www.jboss.org/jboss-jdf/jboss-as-quickstart/helloworld/wsba/coordinatorcompletion/set")
+@WebService(serviceName = "SetServiceBAService", portName = "SetServiceBA", name = "SetServiceBA",
+    targetNamespace = "http://www.jboss.org/jboss-jdf/jboss-as-quickstart/helloworld/wsba/coordinatorcompletion/set")
 @HandlerChain(file = "/context-handlers.xml", name = "Context Handlers")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 @WebServlet("/SetServiceBA")
@@ -74,7 +75,7 @@ public class SetServiceBAImpl implements SetServiceBA {
 
                 System.out.println("[SERVICE] Enlisting a participant into the BA");
                 activityManager.enlistForBusinessAgreementWithCoordinatorCompletion(participant, "SetServiceBAImpl:"
-                        + UUID.randomUUID());
+                    + UUID.randomUUID());
             } catch (Exception e) {
                 System.err.println("Participant enlistment failed");
                 throw new SetServiceException("Error enlisting participant", e);

@@ -71,9 +71,9 @@ public class Client {
         final boolean useScopedExample = Boolean.getBoolean("UseScopedContext");
         final String rcal = "ejb:jboss-ejb-multi-server-app-main/ejb//" + (useScopedExample ? "MainAppSContextBean" : "MainAppBean") + "!" + MainApp.class.getName();
         final MainApp remote = (MainApp) context.lookup(rcal);
-        final String result = remote.invokeAll("Client call at "+new Date());
+        final String result = remote.invokeAll("Client call at " + new Date());
 
-        System.out.println("InvokeAll succeed: "+result);
+        System.out.println("InvokeAll succeed: " + result);
     }
 
 }

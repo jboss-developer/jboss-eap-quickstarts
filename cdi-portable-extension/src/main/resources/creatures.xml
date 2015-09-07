@@ -14,7 +14,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<creatures xsi:noNamespaceSchemaLocation="creatures.xsd" 
+<creatures xsi:noNamespaceSchemaLocation="creatures.xsd"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <monster name="Cat" initiative="25" hitPoints="10" />
     <nonplayercharacter name="Drunkard" location="Drunken Duck Tavern" />

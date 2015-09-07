@@ -28,7 +28,6 @@ import org.jboss.quickstarts.ws.jaxws.samples.jsr181pojo.EJB3RemoteInterface;
  */
 @Stateless
 @Remote(EJB3RemoteInterface.class)
-
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class EJB3Bean01 implements EJB3RemoteInterface {

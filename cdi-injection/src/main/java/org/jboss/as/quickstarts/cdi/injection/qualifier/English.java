@@ -36,7 +36,7 @@ import static java.lang.annotation.ElementType.PARAMETER;
  * @see Spanish
  */
 @Qualifier
-@Target({TYPE, METHOD, FIELD, PARAMETER})
+@Target({ TYPE, METHOD, FIELD, PARAMETER })
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface English {

@@ -68,17 +68,17 @@
                 <configuration>
                     <!-- Tell Maven we are using Java EE -->
                     <version>${version.javaee}</version>
-                    <!-- Use Java EE ear libraries as needed. Java EE ear 
-                        libraries are in easy way to package any libraries needed in the ear, and 
+                    <!-- Use Java EE ear libraries as needed. Java EE ear
+                        libraries are in easy way to package any libraries needed in the ear, and
                         automatically have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <fileNameMapping>no-version</fileNameMapping>
                 </configuration>
             </plugin>
-            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP
                 container -->
-            <!-- Due to Maven's lack of intelligence with EARs we need to 
-                configure the WildFly Maven plug-in to skip deployment for all modules. We 
+            <!-- Due to Maven's lack of intelligence with EARs we need to
+                configure the WildFly Maven plug-in to skip deployment for all modules. We
                 then enable it specifically in the ear module. -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
@@ -92,11 +92,11 @@
 
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be 
+            <!-- When built in OpenShift the 'openshift' profile will be
                 used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization 
+            <!-- Use this profile for any OpenShift specific customization
                 your app will need. -->
-            <!-- By default that is to put the resulting archive into the 
+            <!-- By default that is to put the resulting archive into the
                 'deployments' folder. -->
             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>

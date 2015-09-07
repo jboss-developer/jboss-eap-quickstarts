@@ -31,7 +31,6 @@ public class MemberPageFragment {
     @FindByJQuery("td:nth-child(4)")
     private WebElement phoneNumber;
 
-
     public Member getMember() {
         return new Member(name.getText(), email.getText(), phoneNumber.getText());
     }

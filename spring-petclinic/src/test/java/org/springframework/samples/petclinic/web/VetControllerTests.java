@@ -38,7 +38,7 @@ import org.springframework.web.context.WebApplicationContext;
  * Test class for the UserResource REST controller.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/business-config.xml", "classpath:spring/tools-config.xml", "classpath:spring/mvc-core-config.xml"})
+@ContextConfiguration({ "classpath:spring/business-config.xml", "classpath:spring/tools-config.xml", "classpath:spring/mvc-core-config.xml" })
 @WebAppConfiguration
 @ActiveProfiles("spring-data-jpa")
 public class VetControllerTests {
@@ -55,9 +55,9 @@ public class VetControllerTests {
 
     @Test
     public void testGetExistingUser() throws Exception {
-    	ResultActions actions = mockMvc.perform(get("/vets.json").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    	actions.andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.vetList[0].id").value(1));
+        ResultActions actions = mockMvc.perform(get("/vets.json").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+        actions.andExpect(content().contentType("application/json;charset=UTF-8"))
+            .andExpect(jsonPath("$.vetList[0].id").value(1));
     }
 }

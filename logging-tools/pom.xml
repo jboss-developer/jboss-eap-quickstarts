@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -97,13 +97,13 @@
         <!-- JBoss dependency versions -->
 
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        
+
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap> 
+        <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 
         <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
-        
+
         <!-- other plug-in versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -115,8 +115,8 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import. 
-                Any dependencies from org.jboss.spec will have their version defined by this 
+            <!-- Define the version of the JBoss Java EE APIs we want to import.
+                Any dependencies from org.jboss.spec will have their version defined by this
                 BOM -->
             <!-- JBoss distributes a complete set of Java EE APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
@@ -135,7 +135,7 @@
     </dependencyManagement>
 
     <dependencies>
-      
+
         <!-- not related to jboss-logging-tools, just required for JAX-RS  -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>

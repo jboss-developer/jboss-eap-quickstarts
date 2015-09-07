@@ -15,7 +15,7 @@
     limitations under the License.
 -->
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
-    <deployment>     
+    <deployment>
         <dependencies>
             <!-- Add dependency on log4j, this is not automatic dependency, it has to be explicitly defined, like follows: -->
             <module name="org.apache.log4j" />

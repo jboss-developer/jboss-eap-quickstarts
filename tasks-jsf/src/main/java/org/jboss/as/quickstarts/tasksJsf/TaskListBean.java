@@ -22,7 +22,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 /**
  * <p>
  * Operations with cached list of tasks for current user.

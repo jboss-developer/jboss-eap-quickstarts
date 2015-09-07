@@ -89,7 +89,7 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
         <filter-name>httpMethodFilter</filter-name>
         <servlet-name>petclinic</servlet-name>
     </filter-mapping>
-    
+
     <!-- used to provide the ability to enter Chinese characters inside the Owner Form -->
     <filter>
         <filter-name>encodingFilter</filter-name>
@@ -108,13 +108,13 @@ see here: http://static.springsource.org/spring/docs/current/spring-framework-re
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
- 
+
      <!-- Dandelion-Datatables filter definition -->
     <filter>
         <filter-name>datatablesFilter</filter-name>
         <filter-class>com.github.dandelion.datatables.extras.servlet2.filter.DatatablesFilter</filter-class>
     </filter>
-    
+
     <!-- Dandelion-Datatables filter mapping -->
     <filter-mapping>
         <filter-name>datatablesFilter</filter-name>

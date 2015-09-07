@@ -21,7 +21,6 @@ import java.util.Date;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 
-
 /**
  * Demonstrates how to use the EJB's @Schedule.
  *
@@ -30,11 +29,11 @@ import javax.ejb.Singleton;
 @Singleton
 public class ScheduleExample {
 
-    @Schedule(second="*/6", minute="*",hour="*", persistent=false)
-    public void doWork(){
+    @Schedule(second = "*/6", minute = "*", hour = "*", persistent = false)
+    public void doWork() {
         Date currentTime = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
-        System.out.println( "ScheduleExample.doWork() invoked at " + simpleDateFormat.format(currentTime) );
+        System.out.println("ScheduleExample.doWork() invoked at " + simpleDateFormat.format(currentTime));
     }
 
 }

@@ -36,12 +36,14 @@ public class MemberRestController {
     private MemberDao memberDao;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<Member> listAllMembers() {
+    public @ResponseBody
+    List<Member> listAllMembers() {
         return memberDao.findAllOrderedByName();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody public Callable<Member> lookupMemberById(@PathVariable("id") final Long id) {
+    @ResponseBody
+    public Callable<Member> lookupMemberById(@PathVariable("id") final Long id) {
         return new Callable<Member>() {
             public Member call() {
                 try {

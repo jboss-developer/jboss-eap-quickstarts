@@ -33,7 +33,8 @@ import org.jboss.logging.Logger;
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @SecurityDomain(value = "other")
-public @Stateless class AppTwoBean implements AppTwo {
+public @Stateless
+class AppTwoBean implements AppTwo {
     private static final Logger LOGGER = Logger.getLogger(AppTwoBean.class);
 
     @Resource

@@ -33,7 +33,8 @@ import java.util.UUID;
  *
  * @author Paul Robinson (paul.robinson@redhat.com)
  */
-@WebService(serviceName = "SetServiceBAService", portName = "SetServiceBA", name = "SetServiceBA", targetNamespace = "http://www.jboss.org/jboss-jdf/jboss-as-quickstart/helloworld/wsba/participantcompletion/set")
+@WebService(serviceName = "SetServiceBAService", portName = "SetServiceBA", name = "SetServiceBA",
+    targetNamespace = "http://www.jboss.org/jboss-jdf/jboss-as-quickstart/helloworld/wsba/participantcompletion/set")
 @HandlerChain(file = "/context-handlers.xml", name = "Context Handlers")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 @WebServlet("/SetServiceBA")
@@ -58,7 +59,7 @@ public class SetServiceBAImpl implements SetServiceBA {
             BusinessActivityManager activityManager = BusinessActivityManagerFactory.businessActivityManager();
             System.out.println("[SERVICE] Enlisting a participant into the BA");
             participantManager = activityManager.enlistForBusinessAgreementWithParticipantCompletion(participant,
-                    "SetServiceBAImpl:" + UUID.randomUUID());
+                "SetServiceBAImpl:" + UUID.randomUUID());
         } catch (Exception e) {
             System.err.println("Participant enlistment failed");
             e.printStackTrace(System.err);
@@ -76,7 +77,7 @@ public class SetServiceBAImpl implements SetServiceBA {
          * decides to cancel we can rely upon being told to compensate.
          */
         System.out
-                .println("[SERVICE] Prepare the backend resource and if successful notify the coordinator that we have completed our work");
+            .println("[SERVICE] Prepare the backend resource and if successful notify the coordinator that we have completed our work");
         if (MockSetManager.prepare()) {
             try {
                 // tell the coordinator manager we have finished our work

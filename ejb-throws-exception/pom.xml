@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -91,10 +91,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Define the version of the JBoss Java EE APIs we want to import. 
-            Any dependencies from org.jboss.spec will have their version defined by this 
+        <!-- Define the version of the JBoss Java EE APIs we want to import.
+            Any dependencies from org.jboss.spec will have their version defined by this
             BOM -->
-        <!-- Define the version of the JBoss Java EE APIs and Tools we want 
+        <!-- Define the version of the JBoss Java EE APIs and Tools we want
             to import. -->
         <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 
@@ -129,7 +129,7 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- Define the version of the EJB jar so that we don't need 
+            <!-- Define the version of the EJB jar so that we don't need
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
@@ -138,7 +138,7 @@
                 <type>ejb</type>
             </dependency>
 
-            <!-- Define the version of the WAR so that we don't need to repeat 
+            <!-- Define the version of the WAR so that we don't need to repeat
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
@@ -148,7 +148,7 @@
                 <scope>compile</scope>
             </dependency>
 
-            <!-- Define the version of the ejb-api so that we don't need to 
+            <!-- Define the version of the ejb-api so that we don't need to
                 repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.quickstarts.eap</groupId>
@@ -156,11 +156,11 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- JBoss distributes a complete set of Java EE APIs including 
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-                a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack 
-                (you can read this as the JBoss stack of the Java EE APIs, with some extras 
+            <!-- JBoss distributes a complete set of Java EE APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack
+                (you can read this as the JBoss stack of the Java EE APIs, with some extras
                 tools for your project, such as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
@@ -176,8 +176,8 @@
         <pluginManagement>
             <plugins>
                 <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container -->
-                <!-- Due to Maven's lack of intelligence with EARs we need 
-                    to configure the WildFly Maven plug-in to skip deployment for all modules. 
+                <!-- Due to Maven's lack of intelligence with EARs we need
+                    to configure the WildFly Maven plug-in to skip deployment for all modules.
                     We then enable it specifically in the ear module. -->
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>

@@ -45,8 +45,8 @@
             <type>ejb</type>
         </dependency>
 
-        <!-- JBoss EJB client stack. We use runtime scope because the EJB 
-            client API isn't directly used in this example. We just need it in our runtime 
+        <!-- JBoss EJB client stack. We use runtime scope because the EJB
+            client API isn't directly used in this example. We just need it in our runtime
             classpath -->
         <dependency>
             <groupId>org.wildfly</groupId>
@@ -54,7 +54,7 @@
             <scope>runtime</scope>
             <type>pom</type>
         </dependency>
-        
+
         <!--  Import the Java EJB API, as we use exceptions from it -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -66,7 +66,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Add the maven exec plug-in to allow us to run a java program 
+            <!-- Add the maven exec plug-in to allow us to run a java program
                 via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

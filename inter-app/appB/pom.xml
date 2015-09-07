@@ -54,8 +54,8 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the shared API module, which is used by Maven at compilation 
-            time. See the corresponding Dependencies entry in the MANIFEST.mf which defines 
+        <!-- Import the shared API module, which is used by Maven at compilation
+            time. See the corresponding Dependencies entry in the MANIFEST.mf which defines
             the dependency at runtime. -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
@@ -67,7 +67,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app 
+        <!-- Set the name of the WAR, used as the context root when the app
             is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -75,11 +75,11 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!-- Define a dependency on the shared API, which will 
-                        be used by JBoss Modules at runtime. See the corresponding dependency declared 
+                    <!-- Define a dependency on the shared API, which will
+                        be used by JBoss Modules at runtime. See the corresponding dependency declared
                         in the POM, which defines the dependency at compile time. -->
                     <archive>
                         <manifestEntries>

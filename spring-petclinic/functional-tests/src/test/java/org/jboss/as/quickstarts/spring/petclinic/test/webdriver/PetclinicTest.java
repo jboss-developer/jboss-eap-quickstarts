@@ -191,7 +191,7 @@ public class PetclinicTest {
         waitModel().withMessage("Pets and visits page should be loaded").until().element(PETS_AND_VISITS).is().visible();
         // TODO: fix the date
         Assert.assertTrue(SAMANTHA_THIRD_VISIT.getText().contains("Check paws!") &&
-                SAMANTHA_THIRD_VISIT.getText().contains("2009-03-2"));
+            SAMANTHA_THIRD_VISIT.getText().contains("2009-03-2"));
     }
 
     @Test
@@ -248,7 +248,7 @@ public class PetclinicTest {
 
         waitModel().until().element(OWNER_FORM).is().visible();
         Assert.assertEquals(newOwner[0] + " " + newOwner[1],
-                OWNER_FORM.findElement(ByJQuery.selector("tr:contains('Name') td b")).getText());
+            OWNER_FORM.findElement(ByJQuery.selector("tr:contains('Name') td b")).getText());
         Assert.assertEquals(newOwner[2], OWNER_FORM.findElement(ByJQuery.selector("tr:contains('Address') td")).getText());
         Assert.assertEquals(newOwner[3], OWNER_FORM.findElement(ByJQuery.selector("tr:contains('City') td")).getText());
         Assert.assertEquals("486351729", OWNER_FORM.findElement(ByJQuery.selector("tr:contains('Telephone') td")).getText());

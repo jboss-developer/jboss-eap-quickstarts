@@ -58,18 +58,18 @@ public class RemoteEJBClient {
         System.out.println("Remote calculator returned sum = " + sum);
         if (sum != a + b) {
             throw new RuntimeException("Remote stateless calculator returned an incorrect sum " + sum + " ,expected sum was "
-                    + (a + b));
+                + (a + b));
         }
         // try one more invocation, this time for subtraction
         int num1 = 3434;
         int num2 = 2332;
         System.out.println("Subtracting " + num2 + " from " + num1
-                + " via the remote stateless calculator deployed on the server");
+            + " via the remote stateless calculator deployed on the server");
         int difference = statelessRemoteCalculator.subtract(num1, num2);
         System.out.println("Remote calculator returned difference = " + difference);
         if (difference != num1 - num2) {
             throw new RuntimeException("Remote stateless calculator returned an incorrect difference " + difference
-                    + " ,expected difference was " + (num1 - num2));
+                + " ,expected difference was " + (num1 - num2));
         }
     }
 
@@ -130,7 +130,7 @@ public class RemoteEJBClient {
 
         // let's do the lookup
         return (RemoteCalculator) context.lookup("ejb:/jboss-ejb-remote-server-side/CalculatorBean!"
-                + RemoteCalculator.class.getName());
+            + RemoteCalculator.class.getName());
     }
 
     /**
@@ -164,6 +164,6 @@ public class RemoteEJBClient {
 
         // let's do the lookup
         return (RemoteCounter) context.lookup("ejb:/jboss-ejb-remote-server-side/CounterBean!"
-                + RemoteCounter.class.getName() + "?stateful");
+            + RemoteCounter.class.getName() + "?stateful");
     }
 }

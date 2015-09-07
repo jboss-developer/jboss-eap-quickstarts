@@ -95,7 +95,6 @@ public class ContactsMobileBasicTest {
     private static String DATE_TOO_OLD = "1700-02-04";
     private static String DATE_FUTURE = "2020-01-01";
 
-
     /**
      * Creates deployment which is sent to the container upon test's start.
      *
@@ -105,7 +104,6 @@ public class ContactsMobileBasicTest {
     public static WebArchive deployment() {
         return Deployments.contacts();
     }
-
 
     @Before
     public void loadPage() {
@@ -206,6 +204,5 @@ public class ContactsMobileBasicTest {
         listPage.showDetails();
         assertTrue(listPage.getContacts().contains(contact));
     }
-
 
 }

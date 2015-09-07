@@ -37,7 +37,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
 
     @OneToMany(cascade = ALL, mappedBy = "owner")

@@ -41,7 +41,7 @@
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
 
-        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/ 
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
     -->
     <repositories>
         <repository>
@@ -90,9 +90,9 @@
     </pluginRepositories>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
+        <!-- Explicitly declaring the source encoding eliminates the following
             message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -105,7 +105,7 @@
 
          <!-- To run this quickstart in Eclipse, we must turn on JDT APT to activate annotation processing-->
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
-        
+
        <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
@@ -117,11 +117,11 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- JBoss distributes a complete set of Java EE APIs including 
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-                a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack 
-                (you can read this as the JBoss stack of the Java EE APIs, with some extras 
+            <!-- JBoss distributes a complete set of Java EE APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack
+                (you can read this as the JBoss stack of the Java EE APIs, with some extras
                 tools for your project, such as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
@@ -135,7 +135,7 @@
 
     <dependencies>
 
-        <!-- First declare the APIs we depend on and need for compilation. 
+        <!-- First declare the APIs we depend on and need for compilation.
             All of them are provided by JBoss EAP -->
 
         <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
@@ -145,7 +145,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided 
+        <!-- Import the Common Annotations API (JSR-250), we use provided
             scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -198,7 +198,7 @@
 
         <!-- Now we declare any tools needed -->
 
-        <!-- Annotation processor to generate the JPA metamodel classes 
+        <!-- Annotation processor to generate the JPA metamodel classes
             for typesafe criteria queries -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -206,7 +206,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Annotation processor that raising compilation errors whenever 
+        <!-- Annotation processor that raising compilation errors whenever
             constraint annotations are incorrectly used. -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -221,7 +221,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Logging tooling is only needed for annotation processing at 
+        <!-- Logging tooling is only needed for annotation processing at
             compile time, no runtime dependency needed -->
         <dependency>
             <groupId>org.jboss.logging</groupId>
@@ -237,7 +237,7 @@
         </dependency>
 
         <!-- Optional, but highly recommended -->
-        <!-- Arquillian allows you to test enterprise code such as EJBs and 
+        <!-- Arquillian allows you to test enterprise code such as EJBs and
             Transactional(JTA) JPA from JUnit/TestNG -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -254,7 +254,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the 
+        <!-- Maven will append the version to the finalName (which is the
             name given to the generated WAR, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -262,12 +262,12 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to 
+                    <!-- Java EE doesn't require web.xml, Maven needs to
                         catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP 
+            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP
                 container -->
             <!-- To use, run: mvn package wildfly:deploy -->
             <plugin>
@@ -280,9 +280,9 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune 
+            <!-- The default profile skips all tests, though you can tune
                 it to run just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including 
+            <!-- Separate profiles are provided for running all tests, including
                 Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
@@ -302,9 +302,9 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests 
+            <!-- An optional Arquillian testing profile that executes tests
                 in your JBoss EAP instance -->
-            <!-- This profile will start a new JBoss EAP instance, and execute 
+            <!-- This profile will start a new JBoss EAP instance, and execute
                 the test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
@@ -318,7 +318,7 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests 
+            <!-- An optional Arquillian testing profile that executes tests
                 in a remote JBoss EAP instance -->
             <!-- Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
@@ -332,11 +332,11 @@
         </profile>
 
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be 
+            <!-- When built in OpenShift the 'openshift' profile will be
                 used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization 
+            <!-- Use this profile for any OpenShift specific customization
                 your app will need. -->
-            <!-- By default that is to put the resulting archive into the 
+            <!-- By default that is to put the resulting archive into the
                 'deployments' folder. -->
             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
