@@ -3,7 +3,7 @@ CHANGES TO SPRING PETCLINIC EXAMPLE
 
 ORIGINAL SOURCE
 ---------------
-[Spring PetClinic](<https://github.com/SpringSource/spring-petclinic>)
+[Spring PetClinic](<https://github.com/spring-projects/spring-petclinic>)
 
 CHANGES
 -------
