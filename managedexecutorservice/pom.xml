@@ -317,7 +317,7 @@
                 </configuration>
             </plugin>
             <!-- WildFly plug-in to deploy the WAR to a local JBoss EAP container -->
-            <!-- To use, run: mvn package wildfly:deploy -->
+            <!-- To use, run: mvn clean package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
@@ -351,7 +351,7 @@
 
         <profile>
             <!-- An optional testing profile that executes JAX-RS Client API tests  -->
-            <!-- Run with: mvn clean test -Prest-client -->
+            <!-- Run with: mvn clean test -Prest-test -->
             <id>rest-test</id>
             <build>
                 <plugins>

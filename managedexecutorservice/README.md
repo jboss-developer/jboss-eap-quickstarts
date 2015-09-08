@@ -59,7 +59,7 @@ This quickstart provides tests that shows how the asynchronous tasks are execute
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn test -Prest-test
+        mvn clean test -Prest-test
 
 Run tests from JBDS
 -----------------------
