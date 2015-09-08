@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.eap</groupId>
-    <artifactId>jboss-managedexecutorservice</artifactId>
+    <artifactId>jboss-managed-executor-service</artifactId>
     <version>1.0.0-build-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: jboss-managedexecutorservice</name>
+    <name>JBoss EAP Quickstart: jboss-managed-executor-service</name>
     <description>A starter Java EE webapp project for use on JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
 
     <url>http://www.jboss.org/products/eap</url>

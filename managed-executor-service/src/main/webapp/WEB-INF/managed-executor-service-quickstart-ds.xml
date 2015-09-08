@@ -23,10 +23,9 @@
     xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
     <!-- The datasource is bound into JNDI at this location. We reference
         this in META-INF/persistence.xml -->
-    <datasource jndi-name="java:jboss/datasources/jboss-managedexecutorserviceDS"
-        pool-name="jboss-managedexecutorservice" enabled="true"
+    <datasource jndi-name="java:jboss/datasources/ManagedExecutorServiceDS" pool-name="managed-executor-service-quickstart" enabled="true"
         use-java-context="true">
-        <connection-url>jdbc:h2:mem:jboss-managedexecutorservice;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
+        <connection-url>jdbc:h2:mem:managed-executor-service-quickstart;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
         <driver>h2</driver>
         <security>
             <user-name>sa</user-name>

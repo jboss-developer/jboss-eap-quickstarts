@@ -1,9 +1,9 @@
-managedexecutorservice: ManagedExecutorService example
+managed-executor-service: Managed Executor Service example
 ================================================================
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: EE Concurrency Utilities, JAX-RS, JAX-RS Client API 
-Summary:The `managedexecutorservice` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution.  
+Summary:The `managed-executor-service` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution.  
 Target Product: EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
@@ -44,7 +44,7 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-4. This will deploy `target/jboss-managedexecutorservice.war` to the running instance of the server.
+4. This will deploy `target/jboss-managed-executor-service.war` to the running instance of the server.
  
 
 
@@ -80,7 +80,7 @@ Investigate the Console Output
     [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
     INFO: creating a new product
     [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
-    INFO: Product created. Executing a Long running task
+    INFO: Product created. Executing a long running task
     [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
     INFO: Deleting all products
     Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.202 sec - in org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest

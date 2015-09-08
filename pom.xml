@@ -219,6 +219,7 @@
                 <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>
+                <module>managed-executor-service</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
                 <module>picketlink-sts</module>
