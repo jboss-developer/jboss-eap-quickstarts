@@ -189,7 +189,7 @@
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <skip>false</skip>
+                            <skip>true</skip>
                             <systemProperties>
                                 <property>
                                     <name>xmlUrl</name>

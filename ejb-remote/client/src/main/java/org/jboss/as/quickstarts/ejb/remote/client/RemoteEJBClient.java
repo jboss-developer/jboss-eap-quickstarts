@@ -120,7 +120,7 @@ public class RemoteEJBClient {
         // <moduleName> By the default the module name is the name of the EJB JAR file (without the
         // .jar suffix). The module name might be overridden in the ejb-jar.xml
         //
-        // <distinctName> : AS7 allows each deployment to have an (optional) distinct name.
+        // <distinctName> : EAP allows each deployment to have an (optional) distinct name.
         // This example does not use this so leave it blank.
         //
         // <beanName> : The name of the session been to be invoked.
@@ -154,7 +154,7 @@ public class RemoteEJBClient {
         // <moduleName> By the default the module name is the name of the EJB JAR file (without the
         // .jar suffix). The module name might be overridden in the ejb-jar.xml
         //
-        // <distinctName> : AS7 allows each deployment to have an (optional) distinct name.
+        // <distinctName> : EAP allows each deployment to have an (optional) distinct name.
         // This example does not use this so leave it blank.
         //
         // <beanName> : The name of the session been to be invoked.

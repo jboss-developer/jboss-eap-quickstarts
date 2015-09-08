@@ -204,6 +204,7 @@
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
                 <module>hibernate5</module>
+                <module>inter-app</module>
                 <module>jaxws-addressing</module>
                 <module>jaxws-ejb</module>
                 <module>jaxws-pojo</module>
