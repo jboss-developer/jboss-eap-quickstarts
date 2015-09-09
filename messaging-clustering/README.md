@@ -1,9 +1,9 @@
-hornetq-clustering: HornetQ Demonstrating using Clustering
+messaging-clustering: Messaging Example that Demonstrates Clustering
 ============================================================
 Author: Jess Sightler  
 Level: Intermediate  
-Technologies: JMS, MDB, HornetQ  
-Summary: The `hornetq-clustering` quickstart does not contain any code and instead uses the `helloworld-mdb` quickstart to demonstrate clustering using HornetQ.  
+Technologies: JMS, MDB, Messaging  
+Summary: The `messaging-clustering` quickstart does not contain any code and instead uses the `helloworld-mdb` quickstart to demonstrate clustering using ActiveMQ Messaging.  
 Prerequisites: helloworld-mdb  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `hornetq-clustering` quickstart demonstrates the use of clustering with HornetQ and Red Hat JBoss Enterprise Application Platform. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
+The `messaging-clustering` quickstart demonstrates the use of clustering with Apache ActiveMQ and Red Hat JBoss Enterprise Application Platform. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
 
 System requirements
 -------------------
@@ -76,11 +76,11 @@ You configure the server by running the install-domain.cli script provided in th
 
 #### Configure the Domain Server and Deploy the Quickstart Using the JBoss CLI
 
-1. Review the `install-domain.cli` file in the root of this quickstart directory. This script creates the server group and servers and configures HornetQ Clustering for testing this quickstart. You will note it does the following:
+1. Review the `install-domain.cli` file in the root of this quickstart directory. This script creates the server group and servers and configures messaging clustering for testing this quickstart. You will note it does the following:
     * Stops the servers
-    * Creates a server-group to test HornetQ Clustering
+    * Creates a server-group to test ActiveMQ Clustering
     * Adds 2 servers to the server-group
-    * Configures HornetQ clustering in the full-ha profile
+    * Configures ActiveMQ clustering in the full-ha profile
     * Deploys the `helloworld-mdb.war` archive
     * Restarts the servers.
     
@@ -138,9 +138,9 @@ After you have successfully configured the server, you must make a copy of this 
 2. Make a copy of this JBoss EAP directory structure to use for the second server.
 3. Remove the following directories from the cloned instance:
 
-        EAP7_HOME_2/standalone/data/messagingbindings
-        EAP7_HOME_2/standalone/data/messagingjournal
-        EAP7_HOME_2/standalone/data/messaginglargemessages
+        EAP7_HOME_2/standalone/data/activemq/bindings
+        EAP7_HOME_2/standalone/data/activemq/journal
+        EAP7_HOME_2/standalone/data/activemq/largemessages
 
 #### Start the JBoss EAP Standalone Servers with the Full HA Profile
 
@@ -180,13 +180,13 @@ Investigate the Server Console Output
 
 Look at the JBoss EAP server console or log and you should see log messages like the following:
 
-        [Server:jdf-hornetqcluster-node1] 16:34:41,165 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (HornetQ-client-global-threads-1067469862)) Received Message from queue: This is message 1
-        [Server:jdf-hornetqcluster-node1] 16:34:41,274 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (HornetQ-client-global-threads-1067469862)) Received Message from queue: This is message 3
-        [Server:jdf-hornetqcluster-node1] 16:34:41,323 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-6 (HornetQ-client-global-threads-1067469862)) Received Message from queue: This is message 5
-        [Server:jdf-hornetqcluster-node2] 16:34:41,324 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (HornetQ-client-global-threads-1771031398)) Received Message from queue: This is message 2
-        [Server:jdf-hornetqcluster-node2] 16:34:41,330 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-7 (HornetQ-client-global-threads-1771031398)) Received Message from queue: This is message 4
+        [Server:quickstart-messagingcluster-node1] 16:34:41,165 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (ActiveMQ-client-global-threads-1067469862)) Received Message from queue: This is message 1
+        [Server:quickstart-messagingcluster-node1] 16:34:41,274 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (ActiveMQ-client-global-threads-1067469862)) Received Message from queue: This is message 3
+        [Server:quickstart-messagingcluster-node1] 16:34:41,323 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-6 (ActiveMQ-client-global-threads-1067469862)) Received Message from queue: This is message 5
+        [Server:quickstart-messagingcluster-node2] 16:34:41,324 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (ActiveMQ-client-global-threads-1771031398)) Received Message from queue: This is message 2
+        [Server:quickstart-messagingcluster-node2] 16:34:41,330 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-7 (ActiveMQ-client-global-threads-1771031398)) Received Message from queue: This is message 4
 
-Note that the logging indicates messages have arrived from both node 1 (jdf-hornetqcluster-node1) as well as node 2 (jdf-hornetqcluster-node2).
+Note that the logging indicates messages have arrived from both node 1 (quickstart-messagingcluster-node1) as well as node 2 (quickstart-messagingcluster-node2).
 
 Undeploy the Archive
 --------------------
@@ -244,7 +244,7 @@ _Note: This script returns the server to a default configuration and the result 
         
    _Note: If the `:stop-server` command does not complete before the the next commands are issued, you may see an error similar to the following:
    
-         {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-1" => "JBAS010977: Server (jdf-hornetqcluster-node1) still running"}}
+         {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-1" => "JBAS010977: Server (quickstart-messagingcluster-node1) still running"}}
    Simply wait a few seconds and run the command a second time.
 
 ### Remove the Standalone Server Configuration
