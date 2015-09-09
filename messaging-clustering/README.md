@@ -188,6 +188,13 @@ Look at the JBoss EAP server console or log and you should see log messages like
 
 Note that the logging indicates messages have arrived from both node 1 (quickstart-messagingcluster-node1) as well as node 2 (quickstart-messagingcluster-node2).
 
+_Note:_ You will see the following warnings in the server logs. You can ignore these warnings as they are intended for production servers.
+
+        WARNING [org.jgroups.protocols.UDP] (Thread-0 (ActiveMQ-server-ActiveMQServerImpl::serverUUID=c79278db-56e6-11e5-af50-69dd76236ee8-1573164340)) JGRP000015: the send buffer of socket DatagramSocket was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+        WARNING [org.jgroups.protocols.UDP] (Thread-0 (ActiveMQ-server-ActiveMQServerImpl::serverUUID=c79278db-56e6-11e5-af50-69dd76236ee8-1573164340)) JGRP000015: the receive buffer of socket DatagramSocket was set to 20MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+        WARNING [org.jgroups.protocols.UDP] (Thread-0 (ActiveMQ-server-ActiveMQServerImpl::serverUUID=c79278db-56e6-11e5-af50-69dd76236ee8-1573164340)) JGRP000015: the send buffer of socket MulticastSocket was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+        WARNING [org.jgroups.protocols.UDP] (Thread-0 (ActiveMQ-server-ActiveMQServerImpl::serverUUID=c79278db-56e6-11e5-af50-69dd76236ee8-1573164340)) JGRP000015: the receive buffer of socket MulticastSocket was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+
 Undeploy the Archive
 --------------------
 
