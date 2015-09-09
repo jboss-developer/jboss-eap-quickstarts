@@ -199,7 +199,7 @@ When you enter a name and click to "Add" that customer, you will see the followi
 You will also see the following in application-server-2 console:
 
     INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.26.Final-redhat-1
-    INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-2 (HornetQ-client-global-threads-2003471369)) Received Message: Created invoice for customer named: Tom
+    INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-2 (ActiveMQ-client-global-threads-2003471369)) Received Message: Created invoice for customer named: Tom
 
 The web page will also change and show you the new list of customers.
 

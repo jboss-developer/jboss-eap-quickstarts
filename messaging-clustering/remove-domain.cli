@@ -10,7 +10,7 @@ batch
 /host=master/server-config=quickstart-messagingcluster-node1:remove
 /host=master/server-config=quickstart-messagingcluster-node2:remove
 
-# -- Remove the HornetQ Clustering group
+# -- Remove the quickstart-messaging-clustering-group
 /server-group=quickstart-messaging-clustering-group:remove
 
 # -- Run this batch file
