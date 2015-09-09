@@ -144,15 +144,17 @@ After you have successfully configured the server, you must make a copy of this 
 
 #### Start the JBoss EAP Standalone Servers with the Full HA Profile
 
+When you start the servers, you must pass the cluster on the command line to avoid the warning "AMQ222186: unable to authorise cluster control".
+
 If you are using Linux:
 
-        Server 1: EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml
-        Server 2: EAP7_HOME_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+        Server 2: EAP7_HOME_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password -Djboss.socket.binding.port-offset=100
 
 If you are using Windows:
 
-        Server 1: EAP7_HOME_1\bin\standalone.bat -c standalone-full-ha.xml
-        Server 2: EAP7_HOME_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.socket.binding.port-offset=100
+        Server 1: EAP7_HOME_1\bin\standalone.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+        Server 2: EAP7_HOME_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password -Djboss.socket.binding.port-offset=100
 
 
 Access the application 
@@ -271,8 +273,8 @@ _Note: This script returns the server to a default configuration and the result 
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:   EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml
-        For Windows: EAP7_HOME_1\bin\domain.bat -c standalone-full-ha.xml
+        For Linux:   EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+        For Windows: EAP7_HOME_1\bin\domain.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME_1 with the path to your server.
 
         For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
