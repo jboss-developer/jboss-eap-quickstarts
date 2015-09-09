@@ -294,5 +294,21 @@
             </build>
         </profile>
 
+        <profile>
+            <!-- Excludes the kitchensink-quickstart-ds.xml file so a managed datasource can be used. -->
+            <id>exclude-datasource</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>${version.war.plugin}</version>
+                        <configuration>
+                            <warSourceExcludes>WEB-INF/*-ds.xml</warSourceExcludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 </project>
