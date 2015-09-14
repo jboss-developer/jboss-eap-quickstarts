@@ -103,12 +103,7 @@
         <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
-<!--         <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents> -->
-        <version.org.apache.httpcomponents>3.1</version.org.apache.httpcomponents>
-        <version.commons.logging>1.1.1</version.commons.logging>
-
-        <!-- RESTEasy Version -->
-<!--         <version.springframework>3.2.7.RELEASE</version.springframework> -->
+        <version.org.apache.httpcomponents>4.5</version.org.apache.httpcomponents>
 
         <!-- Maven Plug-in Versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
@@ -146,30 +141,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${version.commons.logging}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-httpclient</groupId>
-                <artifactId>commons-httpclient</artifactId>
-                <version>${version.org.apache.httpcomponents}</version>
-            </dependency>
-
-            <!-- Spring -->
-<!--             <dependency> -->
-<!--                 <groupId>org.springframework</groupId> -->
-<!--                 <artifactId>spring-context</artifactId> -->
-<!--                 <version>${version.springframework}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.springframework</groupId> -->
-<!--                 <artifactId>spring-web</artifactId> -->
-<!--                 <version>${version.springframework}</version> -->
-<!--             </dependency> -->
-
         </dependencies>
     </dependencyManagement>
 
@@ -182,28 +153,7 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-spring</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.resteasy</groupId>
-                    <artifactId>resteasy-jaxrs</artifactId>
-                </exclusion>
-                <exclusion>
-                     <groupId>org.jboss.resteasy</groupId>
-                     <artifactId>jaxrs-api</artifactId>
-                </exclusion>
-                <exclusion>
-                     <groupId>org.jboss.resteasy</groupId>
-                     <artifactId>resteasy-jettison-provider</artifactId>
-                </exclusion>
-                <exclusion>
-                     <groupId>org.jboss.spec.javax.annotation</groupId>
-                     <artifactId>jboss-annotations-api_1.1_spec</artifactId>
-                </exclusion>
-            </exclusions>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
@@ -216,8 +166,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${version.org.apache.httpcomponents}</version>
             <scope>test</scope>
         </dependency>
 
@@ -225,26 +176,27 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-<!--             <version>${version.springframework}</version> -->
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-<!--             <version>${version.springframework}</version> -->
         </dependency>
 
         <!-- Bring in the Servlet jars to avoid errors while compiling with jdt. -->
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
             <artifactId>jboss-jsp-api_2.3_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
             <artifactId>jboss-jstl-api_1.2_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
