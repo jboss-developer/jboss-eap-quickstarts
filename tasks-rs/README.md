@@ -216,7 +216,6 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jackson-provider</artifactId>
-            <version>2.3.1.GA</version>
             <scope>provided</scope>
         </dependency>
         -->
