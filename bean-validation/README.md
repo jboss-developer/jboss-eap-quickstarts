@@ -73,9 +73,6 @@ You can also check the server console output to verify that the Arquillian tests
     ...
     INFO [[org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 
-_Note:_ You may see the following warning. You can ignore it as it should be resolved by this JIRA: https://issues.jboss.org/browse/WFLY-5165.
-
-    WARN: The protocol 'http-remoting-jmx' is deprecated, instead you should use 'remote+http'.
 
 Server Log: Expected warnings and errors
 -----------------------------------

@@ -76,10 +76,6 @@ Maven prints summary of the 2 performed tests to the console.
 
     Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
-_Note:_ You may see the following warning. You can ignore it as it should be resolved by this JIRA: https://issues.jboss.org/browse/WFLY-5165.
-
-    WARN: The protocol 'http-remoting-jmx' is deprecated, instead you should use 'remote+http'.
-
 
 ### Server log
 
