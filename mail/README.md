@@ -32,6 +32,13 @@ Use of EAP7_HOME
 
 In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
+Configure an SMTP Server on Your Local Machine
+---------------------------
+
+This quickstart expects that you have a SMTP mail server running on your machine and configured for the default port `localhost:25`. 
+It is beyond the scope of this quickstart to provide these instructions because it is dependent on the operating system and network. 
+Instructions to configure an SMTP server for your operating system can be found by searching the Internet.
+
 Configure the JBoss EAP Server
 ---------------------------
 
