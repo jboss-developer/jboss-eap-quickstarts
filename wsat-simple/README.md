@@ -22,7 +22,7 @@ This example demonstrates the basics of implementing a WS-AT enabled Web service
 
 For a more complete example, please see the XTS demonstrator application that ships with the Narayana project: http://narayana.io/.
 
-It is also assumed that you have an understanding of WS-AtomicTransaction. For more details, read the XTS documentation that ships with the Narayana project, which can be downloaded here: http://www.jboss.org/narayana/documentation/4_17_4_Final.
+It is also assumed that you have an understanding of WS-AtomicTransaction. For more details, read the XTS documentation that ships with the Narayana project: http://narayana.io/docs/product.
 
 The application consists of a single JAX-WS web service that is deployed within a WAR archive. It is tested with a JBoss Arquillian enabled JUnit test.
 
@@ -127,7 +127,7 @@ Test commit:
         10:54:31,209 INFO  [stdout] (TaskWorker-2) [SERVICE] all participants voted 'prepared', so coordinator tells the participant to commit
         10:54:31,210 INFO  [stdout] (TaskWorker-2) [SERVICE] commit called on backend resource.
 
-_Note: You can ignore the warning message `ARJUNA043219: Could not save recovery state for non-serializable durable WS-AT participant restaurantServiceAT` that is printed in the server console. This quickstart does not implement the required recovery hooks in the interest of making it easy to follow. In a real world production application, you should provide the required recovery code. For more information, see_ <http://docs.jboss.org/jbosstm/4.17.4.Final/guides/xts-administration_and_development_guide/index.html#d0e2450>.
+_Note: You can ignore the warning message `ARJUNA043219: Could not save recovery state for non-serializable durable WS-AT participant restaurantServiceAT` that is printed in the server console. This quickstart does not implement the required recovery hooks in the interest of making it easy to follow. In a real world production application, you should provide the required recovery code. For more information, see_ <http://narayana.io/docs/product>.
 
 
 
