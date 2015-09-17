@@ -141,7 +141,7 @@
         </dependency>
         <dependency>
             <groupId>org.picketlink</groupId>
-            <artifactId>picketlink</artifactId>
+            <artifactId>picketlink-impl</artifactId>
             <scope>provided</scope>
             <exclusions>
               <exclusion>
