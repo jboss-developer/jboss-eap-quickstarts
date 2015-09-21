@@ -56,7 +56,7 @@ Click on `Generate JSON String from Personal Data` button. The textarea below th
 
 Note that the JSON string contains String, number, boolean and array values.
 
-Now, click on `Parse JSON String using Stream` button. The textarea below the button show sthe events generated from the parsed JSON string.
+Now, click on `Parse JSON String using Stream` button. The textarea below the button shows the events generated from the parsed JSON string.
 
 
 Undeploy the Archive
