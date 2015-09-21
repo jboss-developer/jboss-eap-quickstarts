@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>
 What is it?
 -----------
 
-The `jsonp` quickstarts creates a JSON string through object-based JSON generation and then parses and consumes it using stream-based JSON.
+The `jsonp` quickstart creates a JSON string through object-based JSON generation and then parses and consumes it using stream-based JSON.
 
 It shows how to use the JSON-P API to generate, parse, and consume JSON files. 
 
@@ -61,8 +61,6 @@ Now, click on `Parse JSON String using Stream` button. The textarea below the bu
 
 Undeploy the Archive
 --------------------
-
-<!--Contributor: For example: -->
 
 1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
