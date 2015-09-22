@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `cdi-stereotype` quickstart is an extension of the [cdi-interceptors](../cdi_interceptors/README.md) quickstart and demonstrates how to use a CDI stereotype in Red Hat JBoss Enterprise Application Platform. 
+The `cdi-stereotype` quickstart is an extension of the [cdi-interceptors](../cdi-interceptors/README.md) quickstart and demonstrates how to use a CDI stereotype in Red Hat JBoss Enterprise Application Platform. 
 
 A stereotype is an annotation, annotated `@Stereotype`, that packages several other annotations. Stereotypes allow a developer to declare common metadata for beans in a central place. 
 
@@ -20,7 +20,7 @@ In this example, the stereotype encapsulates the following :
 * All beans with this stereotype are alternatives
 
 This quickstart defines stereotype with 2 interceptors bindings (`@Logging` and `@Audit`) to be inherited by all beans with that stereotype. It also indicates that all beans to which it is applied are `@Alternatives`. An alternative stereotype lets us classify beans by deployment scenario.
-Arquillian tests added in [cdi-interceptors](../cdi_interceptors/README.md) quickstart.
+Arquillian tests added in [cdi-interceptors](../cdi-interceptors/README.md) quickstart.
 
 _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
