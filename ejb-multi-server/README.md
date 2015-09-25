@@ -256,7 +256,7 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
         * The clustered view is created using `quickuser2`. This takes some time, but once it takes effect, all calls are load-balanced.
     * The calls to the 'AppTwo' bean in `app-two` are made using two different scoped-context settings and both are used alternately 7 times. This means the servers `app-twoA` and `app-twoB` are called alternately seven times each.
 
-5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP7_HOME with your current installation path. The output should be similar to the previous mvn executions.
+5. If it is necessary to invoke the client with a different JBoss EAP version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP7_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
         java -cp EAP7_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
 
