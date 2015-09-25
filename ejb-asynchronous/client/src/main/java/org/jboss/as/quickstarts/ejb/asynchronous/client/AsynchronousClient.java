@@ -33,7 +33,7 @@ import org.jboss.as.quickstarts.ejb.asynchronous.AsynchronousAccess;
 import org.jboss.as.quickstarts.ejb.asynchronous.ParallelAccess;
 
 /**
- * A client to call the SingletonService via EJB remoting (AS7.1 / EAP6) to demonstrate the behaviour of asynchronous invocations.
+ * A client to call the SingletonService via EJB remoting to demonstrate the behaviour of asynchronous invocations.
  *
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
@@ -142,8 +142,7 @@ public class AsynchronousClient {
                 // This is the expected behavior
                 LOGGER.info("Catch the expected Exception of the asynchronous execution!");
             } else if (e.getCause().getCause() instanceof IllegalAccessException) {
-                // For releases < AS7.1.2 (EAP6.0.0) the Exception is covered by a second ExecutionException because of a bug
-                LOGGER.info("Catch the covered Exception of the asynchronous execution, you may be using a release <= AS7.1.2 or EAP6.0.0!");
+                LOGGER.info("Catch the covered Exception of the asynchronous execution, you may be using an older release of JBoss EAP!");
             } else {
                 throw new RuntimeException("Unexpected ExecutionException during asynchronous call!", e);
             }
