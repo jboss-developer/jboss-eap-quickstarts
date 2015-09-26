@@ -76,19 +76,6 @@ Maven prints summary of the 8 performed tests to the console.
 
     Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
     
-    -------------------------------------------------------
-     T E S T S
-    -------------------------------------------------------
-    Running org.jboss.as.quickstarts.tasks.UserDaoTest
-    ...
-    Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.513 sec
-    Running org.jboss.as.quickstarts.tasks.TaskDaoTest
-    Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.769 sec
-
-    Results :
-
-    Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
-
 
 ### Server log
 
