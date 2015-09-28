@@ -202,7 +202,7 @@ Build and Deploy the Quickstart
         {"outcome" => "success"}
 
  
-_NOTE: If ERRORs appear in the server.log when the installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
+_NOTE: If ERRORs appear in the server.log when installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
 
 
 Access the Remote Client Application
