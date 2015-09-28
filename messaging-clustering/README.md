@@ -2,7 +2,7 @@ messaging-clustering: Messaging Example that Demonstrates Clustering
 ============================================================
 Author: Jess Sightler  
 Level: Intermediate  
-Technologies: JMS, MDB, Messaging  
+Technologies: JMS, MDB  
 Summary: The `messaging-clustering` quickstart does not contain any code and instead uses the `helloworld-mdb` quickstart to demonstrate clustering using ActiveMQ Messaging.  
 Prerequisites: helloworld-mdb  
 Target Product: JBoss EAP  
