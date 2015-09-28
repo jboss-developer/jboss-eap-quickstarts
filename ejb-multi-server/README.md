@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `ejb-multi-server` quickstart demonstrates communication between applications deployed to different Red Hat JBoss Enterprise Application Platform servers. Each application is deployed as an EAR and contains a simple EJB3.1 bean. The only function of each bean is to log the invocation.
+The `ejb-multi-server` quickstart demonstrates communication between applications deployed to different Red Hat JBoss Enterprise Application Platform servers. Each application is deployed as an EAR and contains a simple EJB bean. The only function of each bean is to log the invocation.
 
 This example consists of the following Maven projects, each with a shared parent:
 
