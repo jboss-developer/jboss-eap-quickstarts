@@ -22,6 +22,8 @@ After users complete this quickstart, they are invited to run through the follow
 1. [jts](../jts/README.md) - The JTS quickstart builds upon this quickstart by distributing the CustomerManager and InvoiceManager
 2. [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) - The crash recovery quickstart builds upon the [jts](../jts/README.md) quickstart by demonstrating the fault tolerance of JBoss EAP.
 
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+
 _Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
 
 
@@ -95,6 +97,15 @@ When the same customer name is given, a duplicate warning is given and no JMS-me
 The customer name should match: letter & '-', otherwise an error is given. This is to show that a 'LogMessage' entity is still stored in the database thanks to the ```@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)```
 that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated with. 
 
+
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warnings in the server log. You can ignore these warnings.
+
+    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
+    HHH000431: Unable to determine H2 database version, certain features may not work
 
 Undeploy the Archive
 --------------------

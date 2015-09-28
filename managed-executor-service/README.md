@@ -17,7 +17,10 @@ Managed Executor Service instances are managed by the application server, thus J
 
 A JAX-RS resource provides access to some operations that are executed asynchronously. 
 
-  
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+
+_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
+
 System requirements
 -------------------
 
@@ -121,6 +124,15 @@ Look at the JBoss EAP console or Server log and you should see log messages like
 Note that the PersistTask and DeleteTask were executed after ProductResourceRESTService sends a Response. The only exception is for LongRunningTask where ProductResourceRESTService waits for its response.
     
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warnings in the server log. You can ignore these warnings.
+
+    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
+    HHH000431: Unable to determine H2 database version, certain features may not work
+
 
 Undeploy the Archive
 --------------------
@@ -130,16 +142,6 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn wildfly:undeploy
-
-
-Server Log: Expected warnings and errors
------------------------------------
-
-_Note:_ You will see the following warnings in the server log. You can ignore these warnings.
-
-    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-
-    HHH000431: Unable to determine H2 database version, certain features may not work
 
 
 Run the Quickstart in JBoss Developer Studio or Eclipse
