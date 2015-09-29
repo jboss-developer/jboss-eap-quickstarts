@@ -3,8 +3,8 @@
 # Start batching commands
 batch
 
-# Restore system exception stacktraces in the server log
-/subsystem=ejb3:write-attribute(name=log-system-exceptions,value=true)
+# Suppress system exception stacktraces in the server log
+/subsystem=ejb3:write-attribute(name=log-system-exceptions,value=false)
 
 # Run the batch commands
 run-batch

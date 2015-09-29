@@ -134,7 +134,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
         For Linux:  EAP7_HOME/bin/standalone.sh 
         For Windows:  EAP7_HOME\bin\standalone.bat
-3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `quickstart-domain` security domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.
+3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `quickstart-domain` security domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands. 
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
@@ -147,7 +147,18 @@ You configure the security domain by running JBoss CLI commands. For your conven
             "outcome" => "success",
             "result" => undefined
         }
-5. Stop the JBoss EAP server.
+5. Because this example quickstart demonstrates security, exceptions are thrown when secured EJB access is attempted by an invalid user. If you want to review the security exceptions in the server log, you can skip this step. If you want to suppress these exceptions in the server log, run the following command, replacing EAP7_HOME with the path to your server:
+
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-system-exception.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-system-exception.cli
+   You should see the following result when you run the script:
+
+        The batch executed successfully
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
+6. Stop the JBoss EAP server.
 
 Review the Modified Server Configuration
 -----------------------------------
@@ -217,7 +228,9 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
                 </properties>
             </remote-outbound-connection>
         </outbound-connections>
+5. If you chose to run the script to suppress system exceptions, you should see the following configuration in the `ejb3` subsystem.
 
+      <log-system-exceptions value="false"/>
 
 
 Start the JBoss EAP Server 
@@ -393,7 +406,7 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
 Investigate the Server Console Output
 ----------------------------
 
-Look at the JBoss EAP server console or log and you should see the following exceptions. The exceptions are logged for each of the tests where a request is rejected because the user is not authorized. The stacktraces were removed from this text for readability.
+If you chose not to run the script to suppress system exceptions, you should see the following exceptions in the JBoss EAP server console or log. The exceptions are logged for each of the tests where a request is rejected because the user is not authorized. The stacktraces were removed from this text for readability.
 
     ERROR [org.jboss.as.ejb3.invocation] (EJB default - 3) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
     ...
@@ -469,7 +482,10 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
         The batch executed successfully.
         {"outcome" => "success"}
+3. If you chose to run the script to suppress system exceptions, run the following command, replacing EAP7_HOME with the path to your server:
 
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-system-exception.cli 
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=restore-system-exception.cli 
 
 ### Remove the Security Domain Configuration Manually
 1. If it is running, stop the JBoss EAP server.
