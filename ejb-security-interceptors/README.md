@@ -432,6 +432,12 @@ Look at the JBoss EAP server console or log and you should see the following exc
     ERROR [org.jboss.as.ejb3.invocation] (EJB default - 8) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract java.lang.String org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.getSecurityInformation(): javax.ejb.EJBAccessException: WFLYSEC0027: Invalid User
 
 
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning appear twice in the server log. You can ignore these warnings.
+
+    WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-7) WFLYSRV0221: Deployment "deployment.jboss-ejb-security-interceptors.jar" is using a deprecated module ("org.jboss.as.core-security-api:main") which may be removed in future versions without notice.
 
 
 Undeploy the Archive
