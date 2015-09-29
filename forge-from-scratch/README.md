@@ -109,7 +109,7 @@ When you are ready to undeploy the application from JBoss EAP:
 3. Choose the `forge-example` project created by this quickstart, right-click, and choose `Remove`. 
 4. Click `OK` when asked if you are sure you want to remove resource from the server. You should see the following message:
 
-        INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS018558: Undeployed "forge-example.war" (runtime-name: "forge-example.war")
+        INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1) WFLYSRV0009: Undeployed "forge-example.war" (runtime-name: "forge-example.war")
 
 
  
