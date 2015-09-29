@@ -102,7 +102,7 @@ You will see the following response:
     Expires: 0
     Cache-Control: no-cache, no-store, must-revalidate
     X-Powered-By: Undertow/1
-    Server: WildFly/10
+    Server: JBoss-EAP/7
     Pragma: no-cache
     Location: http://localhost:8080/jboss-tasks-rs/tasks/1
     Date: Thu, 20 Aug 2015 17:30:24 GMT
@@ -176,7 +176,7 @@ You will see this response:
     Expires: 0
     Cache-Control: no-cache, no-store, must-revalidate
     X-Powered-By: Undertow/1
-    Server: WildFly/10
+    Server: JBoss-EAP/7
     Pragma: no-cache
     Date: Thu, 20 Aug 2015 17:32:39 GMT
     Connection: keep-alive
