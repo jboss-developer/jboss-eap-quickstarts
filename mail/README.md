@@ -35,9 +35,10 @@ In the following instructions, replace `EAP7_HOME` with the actual path to your 
 Configure an SMTP Server on Your Local Machine
 ---------------------------
 
-This quickstart expects that you have a SMTP mail server running on your machine and configured for the default port `localhost:25`. 
-It is beyond the scope of this quickstart to provide these instructions because it is dependent on the operating system and network. 
-Instructions to configure an SMTP server for your operating system can be found by searching the Internet.
+This quickstart expects that you have an SMTP mail server running on your machine and configured for the default port `localhost:25`. 
+To configure an SMTP mail server, consult the documentation for your operating system. It is beyond the scope of this quickstart to provide these instructions.
+
+If you do not configure an SMTP mail server on your local machine, you will see the exception `com.sun.mail.util.MailConnectException:  Couldn't connect to host, port: localhost, 25; timeout -1;` when you access the application and attempt to send an email.
 
 Configure the JBoss EAP Server
 ---------------------------
@@ -127,6 +128,7 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-mail>. 
 
+Note: If you see `Error processing request` in the browser when you access the application and attempt to send email, followed by `javax.servlet.ServletException: com.sun.mail.util.MailConnectException: Couldn't connect to host, port: localhost, 25; timeout -1; nested exception is: java.net.ConnectException: Connction refused`, make sure you followed the instructions above to [Configure an SMTP Server on Your Local Machine](#configure-an-smtp-server-on-your-local-machine).
 
 Undeploy the Archive
 --------------------
