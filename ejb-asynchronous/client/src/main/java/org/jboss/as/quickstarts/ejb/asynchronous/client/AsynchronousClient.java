@@ -76,8 +76,6 @@ public class AsynchronousClient {
         accessBean.fireAndForget(sleepMillis);
         LOGGER.info(String.format("The server log should contain a message at (about) %s, indicating that the call to the asynchronous bean completed.",
             new Date(new Date().getTime() + sleepMillis)));
-        // in AS7.1.1.Final there is a bug that an ERROR will be logged that the result can not be written
-        // it will be solved in a later version
     }
 
     /**
