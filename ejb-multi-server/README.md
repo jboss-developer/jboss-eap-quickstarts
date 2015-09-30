@@ -219,7 +219,7 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 
     The client will output the following information provided by the applications:
         
-        InvokeAll succeed: MainApp[anonymous]@master:app-main  >  [ app1[anonymous]@master:app-oneA > app2[quickuser2]@master:app-twoA ; app2[quickuser2]@master:app-twoA ]
+        InvokeAll succeed: MainApp[anonymous]@master:app-main  >  [ app1[quickuser1]@master:app-oneB > app2[quickuser2]@master:app-twoA ; app2[quickuser2]@master:app-twoA ]
 
     This output shows that the `MainApp` is called with the user `anonymous` at node `master:app-main` and the sub-call is proceeded by the `master:app-oneA` node and `master:app-twoA` node as `quickuser2`. 
     
