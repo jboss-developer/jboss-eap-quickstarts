@@ -69,7 +69,7 @@ Build and Deploy the Quickstart
         mvn clean install wildfly:deploy
 
 4. This deploys `service/target/jboss-cluster-ha-singleton-service.jar` to the running instance of the first server.
-5. Since default socket binding port is `9999` and the second server runs at a port offset of `100`, you must pass port `10090` (9990 + 100) as an argument when you deploy to the second server. Type this command to deploy the archive to the second server. 
+5. Since default socket binding port is `9990` and the second server runs at a port offset of `100`, you must pass port `10090` (9990 + 100) as an argument when you deploy to the second server. Type this command to deploy the archive to the second server. 
 
         mvn wildfly:deploy -Dwildfly.port=10090
     
