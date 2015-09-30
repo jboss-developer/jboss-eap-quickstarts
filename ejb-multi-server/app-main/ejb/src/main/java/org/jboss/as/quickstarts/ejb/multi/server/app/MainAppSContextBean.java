@@ -32,7 +32,7 @@ import org.jboss.logging.Logger;
 
 /**
  * <p>
- * An example how to use the new features 'scoped context' introduced with EJBCLIENT-34 in AS7.2.0 or EAP6.1.<br/>
+ * An example how to use the scoped context in JBoss EAP.<br/>
  * If a server without that feature is used the outbound-connection will be used
  * and the behavior is different.
  * </p>

@@ -26,7 +26,7 @@ import javax.naming.NamingException;
 import java.util.Hashtable;
 
 /**
- * A sample program which acts a remote client for a EJB deployed on AS7 server. This program shows how to lookup stateful and
+ * A sample program which acts a remote client for a EJB deployed on JBoss EAP server. This program shows how to lookup stateful and
  * stateless beans via JNDI and then invoke on them
  *
  * @author Jaikiran Pai
