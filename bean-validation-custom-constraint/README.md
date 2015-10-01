@@ -96,4 +96,8 @@ If you want to debug the source code of any library in the project, run the foll
 
         mvn dependency:sources
 
+You may see the following message when you run the command. It indicates the source is not provided in the third-party `antlr` JAR.
+
+        [INFO] The following files have NOT been resolved:
+        [INFO]    antlr:antlr:jar:sources:2.7.7:provided
 
