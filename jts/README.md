@@ -121,12 +121,10 @@ _NOTE:_ When you have completed testing this quickstart, it is important to [Rem
 
 After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
-1. The orb initializers `transactions` attribute is changed from "spec" to "on" in the  `iiop-openjdk` subsystem to enable JTS. A naming root is also added to the subsystem.
+1. The orb initializers `transactions` attribute is changed from "spec" to "full" in the  `iiop-openjdk` subsystem to enable JTS.
 
         <subsystem xmlns="urn:jboss:domain:iiop-openjdk:1.0">
-            <orb>
-                <initializers security="identity" transactions="full"/>
-            </orb>
+            <initializers transactions="full" security="identity"/>
         </subsystem>
 
 2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
