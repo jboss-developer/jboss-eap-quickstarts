@@ -73,6 +73,18 @@ To add the users, open a command prompt and type the following commands:
 
 If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
+Back Up the JBoss EAP Server Configuration Files
+------------------------------------------------
+
+JBoss EAP server configuration for this quickstart is very complicated and not easily restored by running a JBoss CLI script, so it is important to back up your server configuration files before you begin.
+
+1. If it is running, stop the JBoss EAP server.
+2. Backup the following files, replacing EAP7_HOME with the path to your JBoss EAP installation: 
+
+        EAP7_HOME/domain/configuration/domain.xml
+        EAP7_HOME/domain/configuration/host.xml        
+3. After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
+
 
 Configure the JBoss EAP Server
 ---------------------------
@@ -83,13 +95,7 @@ You configure the domain server by running JBoss CLI commands. For your convenie
 
 2. Be sure you add the required users as specified above under [Add the Application Users](#add-the-application-users). 
 
-3. Before you begin, back up your server configuration files.
-    * If it is running, stop the JBoss EAP server.
-    * Backup the following files, replacing EAP7_HOME with the path to your server: 
-
-            EAP7_HOME/domain/configuration/domain.xml
-            EAP7_HOME/domain/configuration/host.xml        
-    * After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
+3. Before you begin, make sure you followed the instructions above under [Back Up the JBoss EAP Server Configuration Files](#back-up-the-jboss-eap-server- configuration-files).
 4.  Start the JBoss EAP server 
     * Open a command prompt and navigate to the root of the EAP directory. 
     * Start the server using the following command:
@@ -305,27 +311,9 @@ Undeploy the Archives
 Remove the Server Domain Configuration
 --------------------
 
-You can remove the domain configuration by manually restoring the back-up copies the configuration files or by running the JBoss CLI Script. 
-
-### Remove the Server Domain Configuration Manually           
 1. If it is running, stop the JBoss EAP server.
 2. Restore the `EAP7_HOME/domain/configuration/domain.xml` and `EAP7_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace EAP7_HOME with the path to your server.
 
-### Remove the Security Domain Configuration by Running the JBoss CLI Script
-
-_Note: This script returns the server to a default configuration and the result may not match the server configuration prior to testing this quickstart. If you were not running with the default configuration before testing this quickstart, you should follow the intructions above to manually restore the configuration to its previous state._
-
-1. Start the JBoss EAP server by typing the following: 
-
-        For Linux:   EAP7_HOME/bin/domain.sh
-        For Windows: EAP7_HOME\bin\domain.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server.
-
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-configuration.cli
-This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
-
-        The batch executed successfully.
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
