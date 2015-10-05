@@ -191,12 +191,12 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 
 When you enter a name and click to "Add" that customer, you will see the following in the application server 1 console:
     
-    INFO  [org.jboss.ejb.client] (http-/127.0.0.1:8080-1) JBoss EJB Client version 1.0.26.Final-redhat-1
+    INFO  [org.jboss.ejb.client] (http-/127.0.0.1:8080-1) JBoss EJB Client version 2.1.2.Final
     WARN  [com.arjuna.ats.jts] (RequestProcessor-5) ARJUNA022261: ServerTopLevelAction detected that the transaction was inactive
 
 You will also see the following in application-server-2 console:
 
-    INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 1.0.26.Final-redhat-1
+    INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 2.1.2.Final
     INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-2 (ActiveMQ-client-global-threads-2003471369)) Received Message: Created invoice for customer named: Tom
 
 The web page will also change and show you the new list of customers.
