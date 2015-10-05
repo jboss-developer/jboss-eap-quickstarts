@@ -231,8 +231,8 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Windows:  EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml  -Djboss.tx.node.id=UNIQUE_NODE_ID_1
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
         For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
@@ -247,8 +247,8 @@ This script removes the JTS configuration from the `jacorb` and `transactions` s
 
 1. Start the JBoss EAP server with the full profile.
 
-        For Linux:  EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml
-        For Windows:  EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml
+        For Linux:  EAP7_HOME_1/bin/standalone.sh -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
+        For Windows:  EAP7_HOME_1\bin\standalone.bat -c standalone-full.xml -Djboss.tx.node.id=UNIQUE_NODE_ID_1
 2. To start the JBoss CLI tool, open a new command prompt, navigate to the EAP7_HOME directory, and type the following:
     
         For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect
