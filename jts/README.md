@@ -151,7 +151,7 @@ Application server 1 must be now configured to use the PostgreSQL database creat
 
 1. Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
 2. Follow the instructions to [Add the PostgreSQL Module to the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#add-the-postgresql-module-to-the-red-hat-jboss-enterprise-application-platform-server) to the server 1 install only.
-3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#configure-the-postgresql-driver-in-the-red-hat-jboss-enterprise-application-platform-server) for the server 1 configuration.
+3. Follow the instructions to [Configure the PostgreSQL Driver in the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#configure-the-postgresql-driver-in-the-red-hat-jboss-enterprise-application-platform-server) for the server 1 configuration. Be sure to pass the `-Djboss.tx.node.id=UNIQUE_NODE_ID_1` on the command line when you start the first server to configure PostgreSQL.
 
 
 Start the JBoss EAP Servers
