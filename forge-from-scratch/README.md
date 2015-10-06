@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 8** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 9** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
 
 Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA, EJB, CDI, JSF** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 
@@ -23,7 +23,7 @@ System requirements
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 8 or greater. This version of JBoss Developer Studio embeds Maven 3.2.1, so you do not need to install it separately.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio
@@ -47,7 +47,7 @@ Forge is available in JBoss Developer Studio. To run this example, you must use 
     * The script issues this command: `$ project-new --named forge-example --topLevelPackage org.example;`
     * You next see the console message: `***SUCCESS*** Project named 'forge-example' has been created.`
     * This is followed by a dialog saying `User Operation is waiting for "Importing Forge project" to complete.`.
-    * After a number of `***SUCCESS***` messages, you see `[INFO] BUILD SUCCESS` near the end of the console output.
+    * After a number of `***SUCCESS***` messages, you see `***SUCCESS*** Build Success` near the end of the console output.
 
 
 ### What Did This Create?
@@ -61,7 +61,7 @@ This quickstart created a native Java EE 7 application.
 ### Deploy the Generated Application
 
 1. If you have not yet done so, add the JBoss EAP 7 runtime server to Red Hat JBoss Developer Studio. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md).
-2. Right-click on the project name and choose `Run As` --> `Run on Server`. If you have more than one server, choose the JBoss EAP 7 Runtime server.
+2. Right-click on the project name and choose `Run As` --> `Run on Server`. If you have more than one server, choose the JBoss EAP 7 Runtime server. Then click `Finish`.
 3. Upon successful deployment, a **Welcome to Forge Window** opens with the application running at the following URL: <http://localhost:8080/forge-example/>
     
 ### Server Log: Expected warnings and errors
