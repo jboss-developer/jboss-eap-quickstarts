@@ -155,7 +155,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
    * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.socket.binding.port-offset=100" and click `OK`.
    * Still in the `Overview` page for `EAP7-Server2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
 
-5. To deploy the cluster-ha-singleton service to `EAP7-Server, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server1` and click `Finish`. Note the messages in the `EAP7-Server1` server console indicate it is the singleton provider of the service.
+5. To deploy the cluster-ha-singleton service to `EAP7-Server1`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server1` and click `Finish`. Note the messages in the `EAP7-Server1` server console indicate it is the singleton provider of the service.
    
         WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
         WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
