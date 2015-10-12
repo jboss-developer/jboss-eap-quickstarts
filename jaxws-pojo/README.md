@@ -50,18 +50,22 @@ Build and Deploy the Quickstart
 Access the application 
 ---------------------
 
-You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-jaxws-pojo-endpoint/JSEBean01?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-jaxws-pojo-endpoint/JSEBean?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 Run the Client
 --------------
 1. Make sure the service deployed properly.
-2. Open a command prompt and navigate to the root directory of this quickstart.
+2. Open a command prompt and navigate into the client directory of this quickstart.
+
+        cd client/
+
 3. Type this command to run the client.
 
-        java -jar client/target/jboss-jaxws-pojo-client.jar   org.jboss.quickstarts.ws.client.Client
+        mvn exec:java
+     
 4. You should see the following response.
 
-        JSEBean01 pojo: pojoClient calling
+        JSEBean pojo: pojoClient calling
 
 
 Undeploy the Archive
