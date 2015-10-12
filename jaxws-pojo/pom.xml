@@ -127,7 +127,6 @@
             <dependency>
                <groupId>org.jboss.bom</groupId>
                <artifactId>jboss-javaee7-eap-with-tools</artifactId>
-               <artifactId>jboss-javaee-7.0-eap</artifactId>
                <version>${version.jboss.bom.eap}</version>
                <type>pom</type>
                <scope>import</scope>
