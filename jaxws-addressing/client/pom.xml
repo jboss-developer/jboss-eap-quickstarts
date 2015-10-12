@@ -62,7 +62,7 @@
            <artifactId>exec-maven-plugin</artifactId>
            <version>${version.exec.plugin}</version>
            <configuration>
-             <mainClass>org.jboss.quickstarts.ws.jaxws.samples.wsa.AddressingTestCase</mainClass>
+             <mainClass>org.jboss.quickstarts.ws.jaxws.samples.wsa.AddressingClient</mainClass>
            </configuration>
          </plugin>
       </plugins>

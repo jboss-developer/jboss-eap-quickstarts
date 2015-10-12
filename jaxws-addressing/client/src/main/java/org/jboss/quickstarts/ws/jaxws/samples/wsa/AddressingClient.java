@@ -25,7 +25,7 @@ import javax.xml.ws.soap.AddressingFeature;
  *
  * @author rsearls@redhat.com
  */
-public final class AddressingTestCase
+public final class AddressingClient
 {
     private static final String serviceURL =
         "http://localhost:8080/jboss-jaxws-addressing/AddressingService";
