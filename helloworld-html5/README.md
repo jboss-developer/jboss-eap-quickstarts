@@ -3,14 +3,14 @@ helloworld-html5: HTML5 and REST Hello World Example
 Author: Jay Balunas, Burr Sutter, Douglas Campos, Bruno Olivera  
 Level: Beginner  
 Technologies: CDI, JAX-RS, HTML5  
-Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.1* and *JAX-RS 2.0* using the HTML5 architecture and RESTful services on the backend.  
+Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 2.0* using the HTML5 architecture and RESTful services on the backend.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------
 
-The `helloworld-html5` quickstart demonstrates the use of *CDI 1.1* and *JAX-RS 2.0* in Red Hat JBoss Enterprise Application Platform 7 or later using the HTML5 + REST architecture.
+The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 2.0* in Red Hat JBoss Enterprise Application Platform 7 or later using the HTML5 + REST architecture.
 
 The application is basically a smart, HTML5+CSS3+JavaScript front-end using RESTful services on the backend.
 
@@ -63,8 +63,8 @@ The application will be running at the following URL <http://localhost:8080/jbos
 
 You can also test the REST endpoint as follows. Feel free to replace `YOUR_NAME` with a name of your choosing.
 
-* The *XML* content can be tested by accessing the following URL: <http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME> 
-* The *JSON* content can be tested by accessing this URL: <http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME>
+* The *XML* content can be tested by accessing the following URL using HTTP POST: <http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME> 
+* The *JSON* content can be tested by accessing this URL using HTTP POST: <http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME>
 
 
 Undeploy the Archive
