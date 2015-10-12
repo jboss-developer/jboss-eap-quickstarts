@@ -39,14 +39,13 @@
     <repositories>
      <repository>
        <id>jboss-product-builds</id>
-       <url>http://repository.jboss.org/nexus/content/groups/public/ </url>
+       <url>http://repository.jboss.org/nexus/content/groups/public/</url>
      </repository>
 
    </repositories>
 
     <properties>
      <version.exec-plugin>1.2.1</version.exec-plugin>
-     <version.jboss.jbossxb>2.0.3.GA</version.jboss.jbossxb>
    </properties>
 
     <dependencies>
