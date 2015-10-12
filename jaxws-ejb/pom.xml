@@ -136,18 +136,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- required for client to resolve org/jboss/ws/core/jaxws/spi/ProviderImpl -->
-            <dependency>
-                <groupId>org.jboss.ws.native</groupId>
-                <artifactId>jbossws-native-core</artifactId>
-                <version>4.2.1.Final</version>
-            </dependency>
-            <!-- required for ProviderImpl to resolve org.jboss.logging.Logger -->
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging-spi</artifactId>
-                <version>2.1.2.GA</version>
-            </dependency>
             <dependency>
                 <groupId>org.jboss.ejb3</groupId>
                 <artifactId>jboss-ejb3-ext-api</artifactId>
