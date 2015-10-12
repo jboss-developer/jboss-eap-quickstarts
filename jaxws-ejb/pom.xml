@@ -106,6 +106,8 @@
         <version.jboss-ejb3-ext-api>2.1.0</version.jboss-ejb3-ext-api>
         <version.istack.commons.runtime>2.21</version.istack.commons.runtime>
         <version.jboss-ejb-api_3.2_spec>1.0.0.Final</version.jboss-ejb-api_3.2_spec>
+        <version.jboss.jbossxb>2.0.3.GA</version.jboss.jbossxb>
+
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -131,22 +133,10 @@
             any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <artifactId>jboss-javaee-7.0-eap</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!-- required for client to resolve org/jboss/ws/core/jaxws/spi/ProviderImpl -->
-            <dependency>
-                <groupId>org.jboss.ws.native</groupId>
-                <artifactId>jbossws-native-core</artifactId>
-                <version>4.2.1.Final</version>
-            </dependency>
-            <!-- required for ProviderImpl to resolve org.jboss.logging.Logger -->
-            <dependency>
-                <groupId>org.jboss.logging</groupId>
-                <artifactId>jboss-logging-spi</artifactId>
-                <version>2.1.2.GA</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.ejb3</groupId>

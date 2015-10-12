@@ -50,7 +50,7 @@ Build and Deploy the Quickstart
 Access the application 
 ---------------------
 
-You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-jaxws-ejb-endpoint/EJB3Bean01?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+You can check that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-jaxws-ejb-endpoint/EJB3Bean?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 Run the Client
 --------------
@@ -64,7 +64,7 @@ Run the Client
         mvn exec:java    
 4. You should see the following output in the client console.
    
-        EJB3Bean01 returning: ejbClient calling
+        EJB3Bean returning: ejbClient calling
 
 Undeploy the Archive
 --------------------
