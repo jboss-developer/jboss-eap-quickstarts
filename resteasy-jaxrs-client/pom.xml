@@ -99,7 +99,7 @@
         <!-- JBoss dependency versions -->
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-8</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.3.3</version.org.apache.httpcomponents>
@@ -121,7 +121,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <artifactId>jboss-javaee7-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <scope>import</scope>
                 <type>pom</type>

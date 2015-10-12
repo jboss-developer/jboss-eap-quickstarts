@@ -104,7 +104,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify
             tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-8</version.jboss.bom.eap>
         <version.resteasy>3.0.10.Final</version.resteasy>
 
         <!-- other plug-in versions -->
@@ -126,12 +126,12 @@
             <!-- JBoss distributes a complete set of Java EE APIs including a Bill
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
                 of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-javaee-7.0-eap-with-tools stack (you can
+                of artifacts. Here we use the jboss-javaee7-eap-with-tools stack (you can
                 read this as the JBoss stack of the Java EE APIs, with some extras tools
                 for your project, such as Arquillian for testing) a -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <artifactId>jboss-javaee7-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>

@@ -99,7 +99,7 @@
 
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.0.0-build-7</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-8</version.jboss.bom.eap>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -124,7 +124,7 @@
                  use this stack with any version of JBoss EAP that implements Java EE. -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-7.0-eap-with-tools</artifactId>
+                <artifactId>jboss-javaee7-eap-with-tools</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -132,7 +132,7 @@
 
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee-7.0-eap-with-spring4</artifactId>
+                <artifactId>jboss-javaee7-eap-with-spring4</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
