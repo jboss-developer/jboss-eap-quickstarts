@@ -28,9 +28,9 @@ import javax.jws.soap.SOAPBinding;
  * Generated source version: 3.0.2
  *
  */
-@WebService(targetNamespace = "http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/", name = "JSEBean01")
+@WebService(targetNamespace = "http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/", name = "JSEBean")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public interface JSEBean01 {
+public interface JSEBean {
 
     @WebResult(name = "return", targetNamespace = "http://jsr181pojo.samples.jaxws.ws.quickstarts.jboss.org/", partName = "return")
     @WebMethod

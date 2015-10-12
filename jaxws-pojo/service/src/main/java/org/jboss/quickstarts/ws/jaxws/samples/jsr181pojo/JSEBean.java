@@ -26,9 +26,9 @@ import javax.jws.soap.SOAPBinding;
  */
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public class JSEBean01 {
+public class JSEBean {
     @WebMethod
     public String echo(String input) {
-        return "JSEBean01 pojo: " + input;
+        return "JSEBean pojo: " + input;
     }
 }
