@@ -33,6 +33,7 @@ import java.io.File;
 import java.net.URL;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.graphene.Graphene.guardNoRequest;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -103,6 +104,16 @@ public class HelloworldHTML5Test {
         guardAjax(button).click();
 
         assertEquals("Entered name does not match.", "Hello " + NAME + "!", message.getText());
+    }
+
+    @Test
+    public void sayHelloEmptyFieldTest() {
+        browser.get(contextPath.toString());
+        input.clear();
+
+        guardNoRequest(button).click();
+
+        assertEquals("Can't say hello if name is not provided.", "A name is required!", message.getText());
     }
 
 }
