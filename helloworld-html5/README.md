@@ -61,10 +61,43 @@ Access the application
 
 The application will be running at the following URL <http://localhost:8080/jboss-helloworld-html5/>.
 
-You can also test the REST endpoint as follows. Feel free to replace `YOUR_NAME` with a name of your choosing.
+You can also test the REST endpoint by sending an HTTP *POST* request to the URLs below. Feel free to replace `YOUR_NAME` with a name of your choosing.
 
-* The *XML* content can be tested by accessing the following URL using HTTP POST: <http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME> 
-* The *JSON* content can be tested by accessing this URL using HTTP POST: <http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME>
+* The *XML* content can be tested by sending an HTTP *POST* to the following URL: <http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME> 
+
+    To issue the *POST* command using cURL, type the following command in terminal:
+
+        curl -i -X POST http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME
+
+    You will see the following response:
+
+        HTTP/1.1 200 OK
+        Connection: keep-alive
+        X-Powered-By: Undertow/1
+        Server: JBoss-EAP/7
+        Content-Type: application/xml
+        Content-Length: 44
+        Date: Tue, 13 Oct 2015 18:40:04 GMT
+
+        <xml><result>Hello YOUR_NAME!</result></xml>
+
+* The *JSON* content can be tested by sending an HTTP *POST* to the following URL: <http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME>
+
+    To issue the *POST* command using cURL, type the following command in terminal:
+
+        curl -i -X POST http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME
+
+    You will see the following response:
+
+        HTTP/1.1 200 OK
+        Connection: keep-alive
+        X-Powered-By: Undertow/1
+        Server: JBoss-EAP/7
+        Content-Type: application/json
+        Content-Length: 29
+        Date: Tue, 13 Oct 2015 06:32:20 GMT
+        
+        {"result":"Hello YOUR_NAME!"}
 
 
 Undeploy the Archive
