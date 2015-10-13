@@ -201,6 +201,8 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
+For this quickstart, follow the special instructions to build [Quickstarts Containing an EAR](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#quickstarts-containing-an-ear)
+
 1. Right-click on the `jboss-kitchensink-ml-ear-ear` subproject, and choose `Run As` --> `Run on Server`.
 2. Choose the server and click `Finish`. 
 3. This starts the server, deploys the application, and opens a browser window that accesses the running application at <http://localhost:8080/jboss-kitchensink-ml-ear-web>.
