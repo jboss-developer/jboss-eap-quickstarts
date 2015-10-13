@@ -99,6 +99,21 @@ You can also test the REST endpoint by sending an HTTP *POST* request to the URL
         
         {"result":"Hello YOUR_NAME!"}
 
+To issue the *POST* command using cURL, type the following command in terminal:
+
+    curl -i -X POST http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME
+
+You will see the following response:
+
+    HTTP/1.1 200 OK
+    Connection: keep-alive
+    X-Powered-By: Undertow/1
+    Server: JBoss-EAP/7
+    Content-Type: application/json
+    Content-Length: 29
+    Date: Tue, 13 Oct 2015 06:32:20 GMT
+    
+    {"result":"Hello YOUR_NAME!"}
 
 Undeploy the Archive
 --------------------
