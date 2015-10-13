@@ -97,7 +97,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0-build-8</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
 
         <!-- WildFly Maven plug-in to deploy your WAR to a local JBoss EAP container -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
@@ -120,11 +120,11 @@
             <!-- JBoss distributes a complete set of Java EE APIs including a Bill
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
                 of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-javaee7-eap stack (you can
+                of artifacts. Here we use the jboss-eap-javaee7 stack (you can
                 read this as the JBoss stack of the Java EE APIs and related components.  -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee7-eap</artifactId>
+                <artifactId>jboss-eap-javaee7</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>

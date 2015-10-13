@@ -102,7 +102,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-build-8</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
 
         <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
 
@@ -119,10 +119,10 @@
             <!-- JBoss distributes a complete set of Java EE APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                 a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-javaee7-eap stack  -->
+                versions of artifacts. Here we use the jboss-eap-javaee7 stack  -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-javaee7-eap</artifactId>
+                <artifactId>jboss-eap-javaee7</artifactId>
                 <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
