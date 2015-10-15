@@ -17,7 +17,6 @@
 package org.jboss.as.quickstarts.client;
 
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
