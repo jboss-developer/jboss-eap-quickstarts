@@ -118,7 +118,7 @@ This quickstart consists of multiple projects and requires installation of the "
 2. Install the JBoss Tools Maven Packaging Configurator
    * If the "JBoss Central" page is not showing, open it by choosing `Help` --> `JBoss Central`.
    * Click the `Software/Install` tab at the bottom of the `JBoss Central`.
-   * Select the "JBoss Tools Maven Packaging Configurator" and click `Update/Install`.
+   * Select the "JBoss Tools Maven Packaging Configurator" and click `Install/Update`.
 3. Right click on the parent `jboss-helloworld-mbean` parent project and choose `Maven` --> `Update Project...`. Select all projects and click `OK`.
 4. Right-click on the `helloworld-mbean-helloworld-mbean-service` project and choose `Run As` --> `Run on Server`. 
 5. Right-click on the `helloworld-mbean-helloworld-mbean-webapp` project and choose `Run As` --> `Run on Server`. 
