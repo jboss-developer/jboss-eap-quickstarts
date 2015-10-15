@@ -220,12 +220,14 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
-1. Configure and start the JBoss EAP server Red Hat JBoss Developer Studio:
+1. Be sure to [Add an Application User](#add-an-application-user) as described above.
+2. Configure and start the JBoss EAP server Red Hat JBoss Developer Studio:
    * Define a server runtime environment that uses the `standalone-full.xml` configuration file.
    * Start the server defined in the previous step.
-2. Outside of JBoss Developer Studio, configure the JMS `test` queue by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. 
-3. In JBoss Developer Studio, right-click and choose `Run As` --> `Java Application`.  In the `Select Java Application` window, choose `HellowWorldJMSClient - org.jboss.as.quickstarts.jms` and click `OK`. The client output displays in the `Console` window.
+3. Outside of JBoss Developer Studio, configure the JMS `test` queue by running the JBoss CLI commands as described above under [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). 
+4. In JBoss Developer Studio, right-click and choose `Run As` --> `Java Application`.  In the `Select Java Application` window, choose `HellowWorldJMSClient - org.jboss.as.quickstarts.jms` and click `OK`. The client output displays in the `Console` window.
 The output messages appear in the `Console` window.
+5. Be sure to [Remove the JMS Configuration](#remove-the-jms-configuration) when you have completed testing this quickstart.
 
 Debug the Application
 ------------------------------------

@@ -510,6 +510,7 @@ This quickstart requires that you add users, configure the JBoss EAP server, and
 4. To access the application, right-click and choose `Run As` --> `Maven Build`.
 5. Enter "ejb-security-interceptors" for the `Name`, enter "exec:exec" for the `Goals:`, and click `Run`.
 6. Review the output in the console window.
+7. Be sure to [Remove the Security Domain Configuration](#remove-the-security-domain-configuration) when you have completed testing this quickstart.
 
 
 Debug the Application

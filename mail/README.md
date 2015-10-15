@@ -170,6 +170,13 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
+_NOTE:_ 
+
+* Be sure to [Configure an SMTP Server on Your Local Machine](#configure-an-smtp-server-on-your-local-machine).
+* Be sure to configure the JBoss EAP custom mail configuration as described above under [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
+* To deploy the server project, right-click on the `jboss-mail` project and choose `Run As` --> `Run on Server`.  A browser window appears that accesses the running application.
+* Be sure to [Remove the Mail Configuration](#remove-the-mail-configuration) when you have completed testing this quickstart.
+
 
 Debug the Application
 ------------------------------------
