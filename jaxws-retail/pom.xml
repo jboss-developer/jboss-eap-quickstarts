@@ -67,6 +67,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>jboss-public-repository</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -90,6 +100,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+        <pluginRepository>
+            <id>jboss-public-repository</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
     </pluginRepositories>
 
     <properties>
@@ -104,10 +124,10 @@
       <version.exec.plugin>1.2.1</version.exec.plugin>
       <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
       <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
-      <version.maven-jaxws-tools-plugin>1.1.2.Final</version.maven-jaxws-tools-plugin>
+      <version.jaxws-tools-maven-plugin>1.2.0.Final</version.jaxws-tools-maven-plugin>
       <version.war.plugin>2.1.1</version.war.plugin>
       <version.jboss-ejb-api>1.0.2.Final</version.jboss-ejb-api>
-      <version.jbossws-cxf-client>4.2.3.Final</version.jbossws-cxf-client>
+      <version.jbossws-cxf-client>5.1.0.Final</version.jbossws-cxf-client>
    </properties>
 
     <modules>
@@ -128,7 +148,7 @@
          any version of JBoss EAP that implements Java EE. -->
          <dependency>
             <groupId>org.jboss.bom</groupId>
-            <artifactId>jboss-eap-javaee7-with-tools</artifactId>
+            <artifactId>jboss-javaee7-eap</artifactId>
             <version>${version.jboss.bom.eap}</version>
             <type>pom</type>
             <scope>import</scope>

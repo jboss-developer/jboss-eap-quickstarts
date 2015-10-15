@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `jaxws-retail` quickstart demonstrates the use of *JAX-WS* in Red Hat JBoss Enterprise Application Platform as a simple profile management application.
+The `jaxws-retail` quickstart demonstrates the use of *JAX-WS* in Red Hat JBoss Enterprise Application Platform as a simple profile management application. It also demonstrates usage of wsconsume to generate classes from WSDL file.
 
 System requirements
 -------------------
@@ -19,8 +19,6 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
-To build this sample with Java SDK 1.8, file jaxws-retail/jaxp.properties must be installed
-in ${JDK-8-PATH}/jre/lib/jaxp.properties.  (see http://docs.oracle.com/javase/7/docs/api/javax/xml/XMLConstants.html#ACCESS_EXTERNAL_SCHEMA)
 
 Use of EAP7_HOME
 ---------------
