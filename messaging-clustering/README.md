@@ -144,7 +144,7 @@ After you have successfully configured the server, you must make a copy of this 
 
 #### Start the JBoss EAP Standalone Servers with the Full HA Profile
 
-When you start the servers, you must pass the cluster on the command line to avoid the warning "AMQ222186: unable to authorise cluster control".
+When you start the servers, you must pass the cluster password on the command line to avoid the warning "AMQ222186: unable to authorise cluster control".
 
 If you are using Linux:
 
