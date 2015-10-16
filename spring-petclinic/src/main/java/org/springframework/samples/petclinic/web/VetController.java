@@ -35,12 +35,13 @@ public class VetController {
 
     private final ClinicService clinicService;
 
+
     @Autowired
     public VetController(ClinicService clinicService) {
         this.clinicService = clinicService;
     }
 
-    @RequestMapping(value = { "/vets.xml", "/vets.html" })
+    @RequestMapping(value = {"/vets.xml", "/vets.html"})
     public String showVetList(Map<String, Object> model) {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects
         // so it is simpler for Object-Xml mapping
@@ -51,7 +52,8 @@ public class VetController {
     }
 
     @RequestMapping("/vets.json")
-    public @ResponseBody
+    public
+    @ResponseBody
     Vets showResourcesVetList() {
         // Here we are returning an object of type 'Vets' rather than a collection of Vet objects
         // so it is simpler for JSon/Object mapping
@@ -59,5 +61,6 @@ public class VetController {
         vets.getVetList().addAll(this.clinicService.findVets());
         return vets;
     }
+
 
 }

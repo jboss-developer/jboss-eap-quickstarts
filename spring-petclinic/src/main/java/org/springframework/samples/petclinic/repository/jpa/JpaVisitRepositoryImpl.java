@@ -42,15 +42,16 @@ public class JpaVisitRepositoryImpl implements VisitRepository {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     public void save(Visit visit) {
         if (visit.getId() == null) {
             this.em.persist(visit);
-        }
-        else {
+        } else {
             this.em.merge(visit);
         }
     }
+
 
     @Override
     @SuppressWarnings("unchecked")

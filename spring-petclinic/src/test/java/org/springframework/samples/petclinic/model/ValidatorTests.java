@@ -13,11 +13,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /**
- *
  * @author Michael Isvy
- * Simple test to make sure that Bean Validation is working
- * (useful when upgrading to a new version of Hibernate Validator/ Bean Validation)
- *
+ *         Simple test to make sure that Bean Validation is working
+ *         (useful when upgrading to a new version of Hibernate Validator/ Bean Validation)
  */
 public class ValidatorTests {
 

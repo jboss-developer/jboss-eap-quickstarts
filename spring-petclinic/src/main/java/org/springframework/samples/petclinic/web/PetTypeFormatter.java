@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.web;
 
+
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Locale;
@@ -39,6 +40,7 @@ import org.springframework.samples.petclinic.service.ClinicService;
 public class PetTypeFormatter implements Formatter<PetType> {
 
     private final ClinicService clinicService;
+
 
     @Autowired
     public PetTypeFormatter(ClinicService clinicService) {

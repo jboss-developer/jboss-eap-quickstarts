@@ -54,6 +54,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
             .usingGeneratedKeyColumns("id");
     }
 
+
     @Override
     public void save(Visit visit) throws DataAccessException {
         if (visit.isNew()) {
@@ -64,6 +65,7 @@ public class JdbcVisitRepositoryImpl implements VisitRepository {
             throw new UnsupportedOperationException("Visit update not supported");
         }
     }
+
 
     /**
      * Creates a {@link MapSqlParameterSource} based on data values from the supplied {@link Visit} instance.

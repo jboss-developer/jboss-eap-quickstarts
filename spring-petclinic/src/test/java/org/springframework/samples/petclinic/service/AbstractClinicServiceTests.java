@@ -69,6 +69,8 @@ public abstract class AbstractClinicServiceTests {
         Owner owner = this.clinicService.findOwnerById(1);
         assertThat(owner.getLastName()).startsWith("Franklin");
         assertThat(owner.getPets().size()).isEqualTo(1);
+        assertThat(owner.getPets().get(0).getType()).isNotNull();
+        assertThat(owner.getPets().get(0).getType().getName()).isEqualTo("cat");
     }
 
     @Test
@@ -186,5 +188,6 @@ public abstract class AbstractClinicServiceTests {
         assertThat(pet7.getVisits().size()).isEqualTo(found + 1);
         assertThat(visit.getId()).isNotNull();
     }
+
 
 }

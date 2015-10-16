@@ -43,6 +43,7 @@ public class VisitController {
 
     private final ClinicService clinicService;
 
+
     @Autowired
     public VisitController(ClinicService clinicService) {
         this.clinicService = clinicService;
@@ -54,11 +55,12 @@ public class VisitController {
     }
 
     /**
-     *  Called before each and every @RequestMapping annotated method.
-     *  2 goals:
-     *  - Make sure we always have fresh data
-     *  - Since we do not use the session scope, make sure that Pet object always has an id
-     *    (Even though id is not part of the form fields)
+     * Called before each and every @RequestMapping annotated method.
+     * 2 goals:
+     * - Make sure we always have fresh data
+     * - Since we do not use the session scope, make sure that Pet object always has an id
+     * (Even though id is not part of the form fields)
+     *
      * @param petId
      * @return Pet
      */
