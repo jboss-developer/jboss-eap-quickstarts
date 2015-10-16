@@ -58,6 +58,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
 
     private VisitRepository visitRepository;
 
+
     @Autowired
     public JdbcPetRepositoryImpl(DataSource dataSource, OwnerRepository ownerRepository, VisitRepository visitRepository) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);

@@ -29,8 +29,8 @@
 <div class="container">
     <jsp:include page="../fragments/bodyHeader.jsp"/>
     <h2>Owners</h2>
-    
-    <datatables:table id="owners" data="${selections}" row="owner" theme="bootstrap2" 
+
+    <datatables:table id="owners" data="${selections}" row="owner" theme="bootstrap2"
                       cssClass="table table-striped" pageable="false" info="false" export="pdf">
         <datatables:column title="Name" cssStyle="width: 150px;" display="html">
             <spring:url value="/owners/{ownerId}.html" var="ownerUrl">
@@ -49,9 +49,9 @@
                 <c:out value="${pet.name}"/>
             </c:forEach>
         </datatables:column>
-        <datatables:export type="pdf" cssClass="btn" cssStyle="height: 25px;" />
+        <datatables:export type="pdf" cssClass="btn" cssStyle="height: 25px;"/>
     </datatables:table>
-    
+
     <jsp:include page="../fragments/footer.jsp"/>
 
 </div>

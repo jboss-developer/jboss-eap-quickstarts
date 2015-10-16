@@ -31,7 +31,8 @@
 
     <h2>Veterinarians</h2>
 
-    <datatables:table id="vets" data="${vets.vetList}" row="vet" theme="bootstrap2" cssClass="table table-striped" pageable="false" info="false">
+    <datatables:table id="vets" data="${vets.vetList}" row="vet" theme="bootstrap2" cssClass="table table-striped"
+                      pageable="false" info="false">
         <datatables:column title="Name">
             <c:out value="${vet.firstName} ${vet.lastName}"></c:out>
         </datatables:column>
@@ -42,7 +43,7 @@
             <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
         </datatables:column>
     </datatables:table>
-    
+
     <table class="table-buttons">
         <tr>
             <td>

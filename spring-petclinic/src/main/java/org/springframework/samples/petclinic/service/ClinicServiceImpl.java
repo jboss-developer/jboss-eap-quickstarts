@@ -78,11 +78,13 @@ public class ClinicServiceImpl implements ClinicService {
         ownerRepository.save(owner);
     }
 
+
     @Override
     @Transactional
     public void saveVisit(Visit visit) throws DataAccessException {
         visitRepository.save(visit);
     }
+
 
     @Override
     @Transactional(readOnly = true)
@@ -102,5 +104,6 @@ public class ClinicServiceImpl implements ClinicService {
     public Collection<Vet> findVets() throws DataAccessException {
         return vetRepository.findAll();
     }
+
 
 }

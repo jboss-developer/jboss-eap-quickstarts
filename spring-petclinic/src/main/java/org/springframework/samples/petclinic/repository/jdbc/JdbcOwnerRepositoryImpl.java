@@ -35,6 +35,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
+import org.springframework.samples.petclinic.util.EntityUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -65,6 +66,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     }
 
+
     /**
      * Loads {@link Owner Owners} from the data store by last name, returning all owners whose last name <i>starts</i> with
      * the given name; also loads the {@link Pet Pets} and {@link Visit Visits} for the corresponding owners, if not
@@ -78,7 +80,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
             params,
             BeanPropertyRowMapper.newInstance(Owner.class)
-            );
+        );
         loadOwnersPetsAndVisits(owners);
         return owners;
     }
@@ -97,7 +99,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
                 "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE id= :id",
                 params,
                 BeanPropertyRowMapper.newInstance(Owner.class)
-                );
+            );
         } catch (EmptyResultDataAccessException ex) {
             throw new ObjectRetrievalFailureException(Owner.class, id);
         }
@@ -108,14 +110,14 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     public void loadPetsAndVisits(final Owner owner) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", owner.getId());
-        final List<JdbcPet> pets =
-            this.namedParameterJdbcTemplate
-                .query(
-                    "SELECT pets.id, name, birth_date, type_id, owner_id, visits.id, visit_date, description, pet_id FROM pets LEFT OUTER JOIN visits ON  pets.id = pet_id WHERE owner_id=:id",
-                    params,
-                    new JdbcPetVisitExtractor()
-                );
+        final List<JdbcPet> pets = this.namedParameterJdbcTemplate.query(
+            "SELECT pets.id, name, birth_date, type_id, owner_id, visits.id as visit_id, visit_date, description, pet_id FROM pets LEFT OUTER JOIN visits ON  pets.id = pet_id WHERE owner_id=:id",
+            params,
+            new JdbcPetVisitExtractor()
+        );
+        Collection<PetType> petTypes = getPetTypes();
         for (JdbcPet pet : pets) {
+            pet.setType(EntityUtils.getById(petTypes, PetType.class, pet.getTypeId()));
             owner.addPet(pet);
         }
     }
@@ -151,5 +153,6 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
             loadPetsAndVisits(owner);
         }
     }
+
 
 }

@@ -145,7 +145,7 @@
         <tomcat.version>7.0.59</tomcat.version>
 
         <!-- Test -->
-        <assertj.version>2.1.0</assertj.version>
+        <assertj.version>2.2.0</assertj.version>
 
         <!-- Dates -->
         <jodatime-hibernate.version>1.3</jodatime-hibernate.version>
@@ -165,7 +165,6 @@
         <version.maven.eclipse>2.9</version.maven.eclipse>
         <version.maven.eclipse.wtp>2.0</version.maven.eclipse.wtp>
         <version.maven.surefire>2.13</version.maven.surefire>
-        <version.tomcat.maven>2.0</version.tomcat.maven>
         <version.war.plugin>2.3</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -224,10 +223,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jasper-el</artifactId>
             <version>${tomcat.version}</version>
@@ -238,23 +233,12 @@
             <artifactId>jboss-jstl-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.taglibs</groupId>
-            <artifactId>taglibs-standard-jstlel</artifactId>
-        </dependency>
-
         <!--  JSon -->
          <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1</version>
-        </dependency>
-
         <!-- SPRING, SPRING, SPRINGITY SPRING -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -307,9 +291,9 @@
         </dependency>
 
         <!-- Database connection pool
-            See here for more details on commons-dbcp versus tomcat-jdbc:
-            http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/
-        -->
+        See here for more details on commons-dbcp versus tomcat-jdbc:
+        http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/
+    -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
@@ -349,6 +333,13 @@
             <artifactId>hsqldb</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- For MySql only -->
+        <!--dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-driver.version}</version>
+        </dependency-->
 
         <!-- HIBERNATE -->
         <dependency>
@@ -420,6 +411,12 @@
             <artifactId>datatables-export-itext</artifactId>
             <version>${dandelion.version}</version>
         </dependency>
+        <!-- temporary fix: below dependency should not be necessary as it is a transitive dependency.
+        For some reason we can't build the app unless it is a first level dependency -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- Maven plugin versions are mentioned in order to guarantee the build reproducibility in the long term -->
@@ -427,8 +424,7 @@
         <defaultGoal>install</defaultGoal>
         <testResources>
             <testResource>
-                <!-- declared explicitly so Spring config files can be placed next to their corresponding JUnit test class
-                    (see example with ValidatorTests) -->
+                <!-- declared explicitly so Spring config files can be placed next to their corresponding JUnit test class  -->
                 <directory>${project.basedir}/src/test/java</directory>
             </testResource>
             <testResource>
@@ -489,16 +485,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>${version.tomcat.maven}</version>
-                <configuration>
-                    <server>tomcat-development-server</server>
-                    <port>9966</port>
-                    <path>/petclinic</path>
                 </configuration>
             </plugin>
             <plugin>
