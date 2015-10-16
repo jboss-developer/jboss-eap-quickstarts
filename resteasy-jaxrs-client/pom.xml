@@ -106,8 +106,7 @@
         <version.commons.logging>1.1.1</version.commons.logging>
 
         <!-- other plug-in versions -->
-        <version.surefire.plugin>2.10</version.surefire.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
+        <version.surefire.plugin>2.16</version.surefire.plugin>
 
         <httpclient.version>4.5</httpclient.version>
         <commons-io.version>2.4</commons-io.version>
@@ -152,8 +151,9 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxrs</artifactId>
+            <artifactId>resteasy-client</artifactId>
         </dependency>
+        
 
         <!-- Now we declare the dependencies needed by the client -->
         <dependency>
