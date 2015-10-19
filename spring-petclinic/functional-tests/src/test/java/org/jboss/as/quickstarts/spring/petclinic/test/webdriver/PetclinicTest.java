@@ -20,8 +20,13 @@ import nu.xom.Node;
 import nu.xom.Nodes;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
-import nu.xom.XPathContext;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -30,6 +35,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Archive;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +50,8 @@ import org.openqa.selenium.support.FindBy;
  */
 @RunWith(Arquillian.class)
 public class PetclinicTest {
+
+    private final CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
     @FindByJQuery("h2:contains('Pets and Visits')")
     WebElement PETS_AND_VISITS;
@@ -145,12 +154,6 @@ public class PetclinicTest {
 
     @FindByJQuery("h2:contains('Something happened...')")
     WebElement ERROR_LABEL;
-
-    @FindByJQuery("a:contains('View as XML')")
-    WebElement VIEW_VETS_AS_XML_LINK;
-
-    @FindByJQuery("a:contains('Subscribe to Atom feed')")
-    WebElement SUBSCRIBE_VETS_TO_ATOM_FEED_LINK;
 
     @Drone
     protected WebDriver driver;
@@ -315,9 +318,7 @@ public class PetclinicTest {
         InputStreamReader is = new InputStreamReader(url.openStream(), "UTF-8");
         checkXml(vets, new Builder().build(is));
 
-        url = new URL(driver.getCurrentUrl().replace("vets.html", "vets.atom"));
-        is = new InputStreamReader(url.openStream(), "UTF-8");
-        checkAtom(vets, new Builder().build(is));
+        checkJson(vets, driver.getCurrentUrl().replace("vets.html", "vets.json"));
     }
 
     @Test
@@ -336,35 +337,40 @@ public class PetclinicTest {
         Assert.assertThat(VETS_TABLE_ROWS.size(), is(equalTo(6)));
     }
 
-    private void checkAtom(List<Vet> vets, Document document) {
-        Assert.assertThat(document.getRootElement().getLocalName(), is(equalTo("feed")));
-        XPathContext atomNs = new XPathContext("a", "http://www.w3.org/2005/Atom");
-        Assert.assertThat(document.query("//a:entry", atomNs).size(), is(equalTo(6)));
-        String queryTemplate = "//a:entry/a:title[contains(text(), '%1$s') and ../a:summary[contains(text(), '[%2$s]')]]/../a:id";
+    private void checkJson(List<Vet> vets, String url) throws ClientProtocolException, IOException {
 
-        for (Vet vet : vets) {
-            String query = "";
-            String specs = "";
-            int numberOfSpecs = 0;
+        HttpResponse response = httpClient.execute(new HttpGet(url));
 
-            if (vet.getSpecialties().length > 0 && !vet.getSpecialties()[0].equals("none")) {
-                StringBuilder specsBuffer = new StringBuilder("");
-                numberOfSpecs = vet.getSpecialties().length;
+        Assert.assertEquals(200, response.getStatusLine().getStatusCode());
 
-                for (int i = 0; i < numberOfSpecs; i++) {
-                    specsBuffer.append(", " + vet.getSpecialties()[i]);
-                }
-                specs = specsBuffer.toString().substring(2);
+        String responseBody = EntityUtils.toString(response.getEntity());
+        JSONArray vetArr = new JSONObject(responseBody).getJSONArray("vetList");
+
+        List<Vet> vetsFromJson = createListOfVetsFromJson(vetArr);
+
+        // TODO more complex check whether the lists of Vets are equal than just checking the size
+        Assert.assertEquals(vets.size(), vetsFromJson.size());
+    }
+
+    private List<Vet> createListOfVetsFromJson(JSONArray vetArr) {
+        List<Vet> vetsFromJson = new ArrayList<>();
+        for (int i = 0; i < vetArr.length(); i++) {
+            JSONObject jsonVet = vetArr.getJSONObject(i);
+            JSONArray specialtiesArr = jsonVet.getJSONArray("specialties");
+
+            String firstName = jsonVet.getString("firstName");
+            String lastName = jsonVet.getString("lastName");
+            String[] specialties = new String[specialtiesArr.length() == 0 ? 1 : specialtiesArr.length()];
+            if (specialtiesArr.length() == 0) {
+                specialtiesArr.put(new JSONObject("{\"name\":none}"));
             }
-
-            query = String.format(queryTemplate, vet.getFirstName() + " " + vet.getLastName(), specs);
-
-            Nodes nodes = document.query(query, atomNs);
-            Assert.assertThat(nodes.size(), is(equalTo(1)));
-            Node vetId = nodes.get(0);
-            Assert.assertThat(vetId.query("../a:title", atomNs).size(), is(equalTo(1)));
-            Assert.assertThat(vetId.query("../a:summary", atomNs).size(), is(equalTo(1)));
+            for (int j = 0; j < specialtiesArr.length(); j++) {
+                specialties[j] = specialtiesArr.getJSONObject(j).getString("name");
+            }
+            vetsFromJson.add(new Vet(firstName, lastName, specialties));
         }
+
+        return vetsFromJson;
     }
 
     private void checkXml(List<Vet> vets, Document document) {
@@ -383,7 +389,7 @@ public class PetclinicTest {
                     specQuery.append(" and ../specialties/name[text()='%" + i + "$s']");
                 }
                 query = String.format(queryTemplate, vet.getFirstName(), vet.getLastName(), specQuery.toString());
-                query = String.format(query, vet.getSpecialties());
+                query = String.format(query, (Object[]) vet.getSpecialties());
 
             } else {
                 query = String.format(queryTemplate, vet.getFirstName(), vet.getLastName(), "");
