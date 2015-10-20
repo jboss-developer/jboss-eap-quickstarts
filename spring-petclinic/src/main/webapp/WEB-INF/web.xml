@@ -131,4 +131,10 @@
     		<mvc:view-controller path="/" view-name="welcome" /> 
     -->
 
+    <!-- Required due to https://issues.jboss.org/browse/UNDERTOW-553 -->
+    <mime-mapping>
+        <extension>xml</extension>
+        <mime-type>application/xml</mime-type>
+    </mime-mapping>
+
 </web-app>
