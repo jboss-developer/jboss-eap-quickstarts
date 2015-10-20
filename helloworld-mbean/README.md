@@ -110,19 +110,14 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 This quickstart consists of multiple projects and requires installation of the "JBoss Tools Maven Packaging Configurator", so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
-1.  When you import the `helloworld-mbean` quickstart into JBoss Developer Studio, you see the following warnings for the `jboss-helloworld-mbean-webapp/src/main/webapp/META-INF/jboss-service.xml` and `/jboss-helloworld-mbean-service/src/main/resources/META-INF/jboss-service.xml` files:
-
-        No grammar constraints (DTD or XML Schema) referenced in the document. 
-    
-   There is a known issue with the schema for the `jboss-service.xml` file that prevents successful validation. To prevent import errors, these files do not specify the schema location (http://www.jboss.org/schema/jbossas/jboss-service_7_0.xsd).
-2. Install the JBoss Tools Maven Packaging Configurator
+1. Install the JBoss Tools Maven Packaging Configurator
    * If the "JBoss Central" page is not showing, open it by choosing `Help` --> `JBoss Central`.
    * Click the `Software/Install` tab at the bottom of the `JBoss Central`.
-   * Select the "JBoss Tools Maven Packaging Configurator" and click `Install/Update`.
-3. Right click on the parent `jboss-helloworld-mbean` parent project and choose `Maven` --> `Update Project...`. Select all projects and click `OK`.
-4. Right-click on the `helloworld-mbean-helloworld-mbean-service` project and choose `Run As` --> `Run on Server`. 
-5. Right-click on the `helloworld-mbean-helloworld-mbean-webapp` project and choose `Run As` --> `Run on Server`. 
-6. [Start JConsole](#start-jconsole) and [Test the MBeans in JConsole](#test-the-mbeans-in-jconsole) as described above.
+   * Scroll down to the `Maven` section, select the "JBoss Tools Maven Packaging Configurator" and click `Install/Update`.
+2. Right click on the parent `jboss-helloworld-mbean` parent project and choose `Maven` --> `Update Project...`. Select all projects and click `OK`.
+3. Right-click on the `helloworld-mbean-helloworld-mbean-service` project and choose `Run As` --> `Run on Server`. 
+4. Right-click on the `helloworld-mbean-helloworld-mbean-webapp` project and choose `Run As` --> `Run on Server`. 
+5. [Start JConsole](#start-jconsole) and [Test the MBeans in JConsole](#test-the-mbeans-in-jconsole) as described above.
 
 Debug the Application
 ------------------------------------
