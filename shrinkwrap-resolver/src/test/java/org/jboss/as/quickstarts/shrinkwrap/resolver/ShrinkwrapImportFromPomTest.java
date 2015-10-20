@@ -46,7 +46,7 @@ public class ShrinkwrapImportFromPomTest {
     @Deployment
     public static Archive<?> createTestArchive() {
 
-        File[] libs = Maven.resolver()
+        File[] libs = Maven.configureResolver()
             // This will load the pom.xml file. For example purpose, the pom file had the arq-wildfly-remote profile
             // activated and default profile deactivated (which was active by default)
             .loadPomFromFile("pom.xml", "arq-wildfly-remote", "!default")

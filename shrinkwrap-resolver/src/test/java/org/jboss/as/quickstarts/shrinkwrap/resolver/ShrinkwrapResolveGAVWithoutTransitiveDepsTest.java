@@ -37,7 +37,6 @@ import org.junit.runner.RunWith;
  * single file
  *
  * @author Rafael Benevides
- *
  */
 @RunWith(Arquillian.class)
 public class ShrinkwrapResolveGAVWithoutTransitiveDepsTest {
@@ -45,7 +44,8 @@ public class ShrinkwrapResolveGAVWithoutTransitiveDepsTest {
     @Deployment
     public static Archive<?> createTestArchive() {
 
-        File lib = Maven.resolver().resolve("org.apache.commons:commons-lang3:3.1").withoutTransitivity().asSingleFile();
+        File lib = Maven.configureResolver().resolve("org.apache.commons:commons-lang3:3.1").withoutTransitivity()
+            .asSingleFile();
 
         return ShrinkWrap.create(WebArchive.class, "test.war")
             .addClasses(MyBean.class)
