@@ -96,28 +96,30 @@ Undeploy the Archive
 Run the Arquillian Functional Tests
 -----------------------------------
 
-This quickstart provides Arquillian functional tests as well. They are located in the functional-tests/ subdirectory under 
+This quickstart provides Arquillian functional tests as well. They are located in the `functional-tests/` subdirectory under 
 the root directory of this quickstart. Functional tests verify that your application behaves correctly from the user's point 
 of view. The tests open a browser instance, simulate clicking around the page as a normal user would do, and then close the browser instance.
 
-To run these tests, you must build the main project as described above.
+NOTE: The arquillian-based functional tests deploy the application, so be sure you have undeployed it before you begin. To run these tests, you must build the main project as described above.
 
 1. Open a command line and navigate to the root directory of this quickstart.
-2. Build the quickstart WAR using the following command:
+2. If the application is still deployed from the previous section, undeploy it now.
+
+        mvn wildfly:undeploy
+3. Build the quickstart WAR using the following command:
 
         mvn clean package
 
-3. Navigate to the functional-tests/ directory in this quickstart.
-4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
+4. Navigate to the functional-tests/ directory in this quickstart.
+5. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
 
         mvn clean verify -Parq-wildfly-remote
 
-5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the 
-server for you, type the following command:
+6. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
 
         mvn clean verify -Parq-wildfly-managed
 
-_Note:_ The spring-petclinic quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
+_Note:_ The `spring-petclinic` quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
