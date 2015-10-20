@@ -13,7 +13,7 @@ What is it?
 
 This quickstart demonstrates the use of ShrinkWrap Resolver in Red Hat JBoss Enterprise Application Platform.
 
-With the advent of Maven and other build systems, typically thirdparty libraries and our own dependent modules are obtained from a backing software repository. In this case we supply a series of coordinates which uniquely identifies an artifact in the repository, and resolve the target files from there.
+With the advent of Maven and other build systems, typically third party libraries and our own dependent modules are obtained from a backing software repository. In this case we supply a series of coordinates which uniquely identifies an artifact in the repository, and resolve the target files from there.
 
 That is precisely the aim of the ShrinkWrap Resolver project; it is a Java API to obtain artifacts from a repository system. 
 
@@ -30,7 +30,7 @@ The `shrinkwrap-resolver` quickstart demonstrates various use cases for ShrinkWr
   
 * ShrinkwrapResolveGAPCVCustomRepoWithoutCentralTest
   - resolve an artifact via G:A:P:C:V without transitive dependencies 
-  - resolve an artifact with classifer
+  - resolve an artifact with classifier
   - disabling Maven Central
   - loading settings.xml from file (with custom repository)
   - return resolution results as a java.io.File array
@@ -66,7 +66,7 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: If you plan to use a custom settings file, add the Maven settings command line argument and pass an additional argument to allow ShrinkWrap Resolver to function properly:_
 
-    mvn clean test -Parq-wildfly-remote -s /path/to/custom/settings.xml -Dorg.apache.maven.user-settings=/path/to/custom/settings.xml
+    mvn clean test -Parq-wildfly-remote -s /path/to/custom/settings.xml
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
