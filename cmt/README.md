@@ -24,8 +24,6 @@ After users complete this quickstart, they are invited to run through the follow
 
 _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 
-_Note: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the [Administration and Configuration Guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) for Red Hat JBoss Enterprise Application Platform._
-
 
 ### What are container managed transactions?
 
@@ -103,8 +101,6 @@ Server Log: Expected warnings and errors
 
 _Note:_ You will see the following warnings in the server log. You can ignore these warnings.
 
-    WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-
     HHH000431: Unable to determine H2 database version, certain features may not work
 
 Undeploy the Archive
@@ -122,6 +118,10 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 _NOTE:_ Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
+
+You will see the following warning when you import this quickstart into JBoss Developer Studio. This is because the schema is not yet published in a public location. You can igore this warning.
+
+        No grammar constraints (DTD or XML Schema) referenced in the document.
 
 
 Debug the Application
