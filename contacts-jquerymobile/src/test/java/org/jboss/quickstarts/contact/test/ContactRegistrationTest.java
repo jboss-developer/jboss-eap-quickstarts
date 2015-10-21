@@ -19,21 +19,29 @@ package org.jboss.quickstarts.contact.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.quickstarts.contact.Contact;
 import org.jboss.quickstarts.contact.ContactRESTService;
 import org.jboss.quickstarts.contact.ContactRepository;
 import org.jboss.quickstarts.contact.ContactService;
 import org.jboss.quickstarts.contact.ContactValidator;
+import org.jboss.quickstarts.contact.JaxRsActivator;
+import org.jboss.quickstarts.util.JSONPRequestFilter;
+import org.jboss.quickstarts.util.JacksonConfig;
 import org.jboss.quickstarts.util.Resources;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -41,8 +49,12 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 // JAX-RS 2.0 import statement
-//import javax.ws.rs.client.*;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -55,23 +67,29 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ContactRegistrationTest {
 
+    private static final String REST_ROOT = "rest/contacts";
+
     @Deployment
     public static Archive<?> createTestArchive() {
         //        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
-        //                "org.hibernate.javax.persistence:hibernate-jpa-2.0-api"
+        //                "org.hibernate.javax.persistence:hibernate-jpa-2.1-api"
         //        ).withTransitivity().asFile();
 
         Archive<?> archive = ShrinkWrap
             .create(WebArchive.class, "test.war")
             .addClasses(Contact.class,
                 ContactRESTService.class,
+                JaxRsActivator.class,
                 ContactRepository.class,
                 ContactValidator.class,
                 ContactService.class,
+                JacksonConfig.class,
+                JSONPRequestFilter.class,
                 Resources.class)
             //            .addAsLibraries(libs)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource("arquillian-ds.xml")
+            .addAsWebInfResource("jboss-web.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return archive;
@@ -83,14 +101,13 @@ public class ContactRegistrationTest {
     @Inject
     Logger log;
 
-    // The URI is needed for the JAX-RS 2.0 tests.
-    //    private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-jquerymobile/rest/contact").port(8080).build();
-
-    // JAX-RS 2.0 Client API
-    //    private static Client client = ClientBuilder.newClient();
-
     //Set millis 498484800000 from 1985-10-10T12:00:00.000Z
     private Date date = new Date(498484800000L);
+
+    @BeforeClass
+    public static void setRestEasyAsDefaultClient() {
+        System.setProperty(ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY, "org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder");
+    }
 
     @Test
     @InSequence(1)
@@ -98,7 +115,7 @@ public class ContactRegistrationTest {
         Contact contact = createContactInstance("Jack", "Doe", "jack@mailinator.com", "2125551234", date);
         Response response = contactRESTService.createContact(contact);
 
-        assertEquals("Unexpected response status", 200, response.getStatus());
+        assertEquals("Unexpected response status", 201, response.getStatus());
         log.info(" New contact was persisted and returned status " + response.getStatus());
     }
 
@@ -135,50 +152,65 @@ public class ContactRegistrationTest {
         log.info("Duplicate contact register attempt failed with return code " + response.getStatus());
     }
 
-    // Uncomment when you have access to JAX-RS 2.0
-    //    @Test
-    //    @InSequence(4)
-    //    public void shouldNotCreateANullContact() throws JAXBException {
-    //        //POSTs a null Contact
-    //        Response response = client.target(uri).request().post(Entity.entity(null, MediaType.APPLICATION_JSON));
-    //        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
-    //    }
-    //
-    //    @Test
-    //    @InSequence(5)
-    //    public void shouldNotFindTheContactID() throws JAXBException {
-    //        // GETs a Contact with an unknown ID
-    //        Response response = client.target(uri).path("unknownID").request().get();
-    //        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
-    //    }
-    //
-    //    @Test
-    //    @InSequence(6)
-    //    public void shouldCreateAndDeleteAContact() throws JAXBException {
-    //
-    //        Contact contact = createContactInstance("Jason", "Smith", "jason@mailinator.com", "2125551234", date);
-    //
-    //        // POSTs a Contact
-    //        Response response = client.target(uri).request().post(Entity.entity(contact, MediaType.APPLICATION_JSON));
-    //
-    //        assertEquals(Response.Status.CREATED, response.getStatusInfo());
-    //        URI contactURI = response.getLocation();
-    //
-    //        // With the location, GETs the Contact
-    //        response = client.target(contactURI).request().get();
-    //        contact = response.readEntity(Contact.class);
-    //        assertEquals(Response.Status.OK, response.getStatusInfo());
-    //        assertEquals("Jason", contact.getFirstName());
-    //
-    //        // GETs the Contact ID and DELETEs it
-    //        String contactID = contactURI.toString().split("/")[6];
-    //        response = client.target(uri).path(contactID).request().delete();
-    //        assertEquals(Response.Status.NO_CONTENT, response.getStatusInfo());
-    //
-    //        // GETs the Contact and checks if it has been deleted
-    //        response = client.target(bookURI).request().get();
-    //        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
-    //    }
+    @Test
+    @RunAsClient
+    @InSequence(4)
+    public void shouldNotCreateANullContact(@ArquillianResource URL contextPath) throws JAXBException, URISyntaxException {
+        //POSTs a null Contact
+        Client client = ClientBuilder.newClient();
+        URI uri = UriBuilder.fromUri(contextPath.toURI()).path(REST_ROOT).port(8080).build();
+        Response response = client.target(uri).request().post(Entity.entity("{}", MediaType.APPLICATION_JSON));
+        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
+        client.close();
+    }
+
+    @Test
+    @RunAsClient
+    @InSequence(5)
+    public void shouldNotFindTheContactID(@ArquillianResource URL contextPath) throws JAXBException {
+        // GETs a Contact with an non-existent ID 0000
+        Client client = ClientBuilder.newClient();
+        URI uri = UriBuilder.fromUri(contextPath + REST_ROOT).port(8080).build();
+        Response response = client.target(uri).path("00000").request().get();
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+        client.close();
+    }
+
+    @Test
+    @RunAsClient
+    @InSequence(6)
+    public void shouldCreateAndDeleteAContact(@ArquillianResource URL contextPath) throws JAXBException {
+
+        Contact contact = createContactInstance("Jason", "Smith", "jason@mailinator.com", "2125551234", date);
+
+        // POSTs a Contact
+        Client client = ClientBuilder.newClient();
+        URI uri = UriBuilder.fromUri(contextPath + REST_ROOT).port(8080).build();
+        Response response = client.target(uri).request().post(Entity.entity(contact, MediaType.APPLICATION_JSON));
+
+        assertEquals(Response.Status.CREATED, response.getStatusInfo());
+        URI contactURI = response.getLocation();
+
+        // With the location, GETs the Contact
+        client.close();
+        client = ClientBuilder.newClient();
+        response = client.target(contactURI).request().get();
+        contact = response.readEntity(Contact.class);
+        assertEquals(Response.Status.OK, response.getStatusInfo());
+        assertEquals("Jason", contact.getFirstName());
+
+        // GETs the Contact ID and DELETEs it
+        String contactID = contactURI.toString().split("/")[6];
+        response = client.target(uri).path(contactID).request().delete();
+        assertEquals(Response.Status.NO_CONTENT, response.getStatusInfo());
+
+        // GETs the Contact and checks if it has been deleted
+        client.close();
+        client = ClientBuilder.newClient();
+        response = client.target(uri).path(contactID).request().get();
+        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
+        client.close();
+    }
 
     private Contact createContactInstance(String firstName, String lastName, String email, String phone, Date birthDate) {
         Contact contact = new Contact();
