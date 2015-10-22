@@ -498,14 +498,11 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
-_NOTE:_ Be sure to configure the security domain by running the JBoss CLI commands as described in the section above entitled *Configure the JBoss EAP Server*. Stop the server at the end of that step.
 
 This quickstart requires additional configuration and deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
-This quickstart requires that you add users, configure the JBoss EAP server, and access the deployed application from a Java program using the Maven `exec` goal, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
-
 1. Be sure to [Add the Application Users](#add-the-application-users) as described above.
-2. Follow the steps above to [Configure the JBoss EAP Server](#configure-the-jboss-eap-server).
+2. Follow the steps above to [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
 3. To deploy the application to the JBoss EAP server, right-click and choose `Run As` --> `Run on Server`.
 4. To access the application, right-click and choose `Run As` --> `Maven Build`.
 5. Enter "ejb-security-interceptors" for the `Name`, enter "exec:exec" for the `Goals:`, and click `Run`.
