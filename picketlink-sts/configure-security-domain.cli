@@ -1,4 +1,4 @@
-# Connect to controller 
+# Connect to controller
 connect
 # Turn on batch mode
 batch
@@ -7,7 +7,7 @@ batch
 /subsystem=security/security-domain=picketlink-sts/authentication=classic:add( \
     login-modules=[ \
         { \
-            "code" => "UsersRoles ", \
+            "code" => "UsersRoles", \
             "flag" => "required", \
             "module-options" => [ \
                 "usersProperties"=>"users.properties", \
