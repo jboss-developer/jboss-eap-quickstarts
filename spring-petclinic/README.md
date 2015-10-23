@@ -119,7 +119,19 @@ NOTE: The arquillian-based functional tests deploy the application, so be sure y
 
         mvn clean verify -Parq-wildfly-managed
 
-_Note:_ The `spring-petclinic` quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
+7. The `spring-petclinic` quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. 
+
+8. Review the server log. You will see an exception for each test configuration run similar to the following in the server log.  This is intentional to demonstrate how exceptions are handled within application. This the same exception you can test by clicking on the `Error` menu item in the upper right corner in the deployed application. The application shows a nice error page in the browser instead of the exception. 
+
+        WARN  [warn] (default task-15) Handler execution resulted in exception: java.lang.RuntimeException: Expected: controller used to showcase what happens when an exception is thrown
+	        at org.springframework.samples.petclinic.web.CrashController.triggerException(CrashController.java:35)
+	        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	        at java.lang.reflect.Method.invoke(Method.java:497)
+	        at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+          (remainder of StackTrace removed for readability)
+
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
