@@ -160,6 +160,11 @@
             <artifactId>picketlink-federation</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
@@ -174,7 +179,7 @@
               <artifactId>maven-war-plugin</artifactId>
               <version>${version.war.plugin}</version>
               <configuration>
-                <packagingExcludes>WEB-INF/classes/org/jboss/**</packagingExcludes>
+                <packagingExcludes>WEB-INF/classes/org/jboss/**,WEB-INF/classes/log4j.xml</packagingExcludes>
               </configuration>
             </plugin>
 
