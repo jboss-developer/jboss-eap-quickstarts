@@ -18,7 +18,7 @@
 <cheatsheet title="HTML5 + Mobile + JAX-RS: Kitchensink quickstart">
   <intro>
     <description>
-      This quickstart shows off HTML5 based desktop/mobile web application development with Java EE 7 on Red Hat JBoss Enterprise Application Platform 7 or later. This project uses HTML5, jQuery Mobile, JAX-RS 2.0, CDI 1.1, EJB 3.2, JPA 2.1 and Bean Validation 1.1. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
+      This quickstart shows off HTML5 based desktop/mobile web application development with Java EE 7 on Red Hat JBoss Enterprise Application Platform 7 or later. This project uses HTML5, jQuery Mobile, JAX-RS 2.0, CDI 1.2, EJB 3.2, JPA 2.1 and Bean Validation 1.1. It includes a persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
       <br/><br/>
       <b>HTML5</b>
       <br/><br/>
@@ -148,7 +148,7 @@
           skip="true">
           <command
         required="false"
-        serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.html,fromLine=236,toLine=268,editorID=org.jboss.tools.jst.jsp.jspeditor.HTMLTextEditor)"/>
+        serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/index.html,fromLine=192,toLine=226,editorID=org.jboss.tools.jst.jsp.jspeditor.HTMLTextEditor)"/>
     </subitem>
     <subitem
           label="Forms can be added to pages by clicking the Form component in the jQuery Mobile palette. The rest of the form can be constructed using other form components available in the palette."
@@ -554,7 +554,7 @@
      <description>
        Before you proceed, ensure that you have setup and configured a JBoss EAP 7 server.
        <br/><br/>
-       Right-click the project and select <b>Run As</b> &gt; <b>Run On Server</b> or click on the &quot;Click to Perform&quot; link below.
+       Right-click the project and select <b>Run As</b> &gt; <b>Run On Server</b>. <!-- or click on the &quot;Click to Perform&quot; link below -->
     </description>
     <!-- the runOnServer command is not implemented yet
     <command
