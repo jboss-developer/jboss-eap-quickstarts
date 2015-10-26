@@ -1,7 +1,7 @@
 kitchensink-html5-mobile: More Complex Example of HTML5, Mobile and JAX-RS 
 =========================================================================================================
 Author: Jay Balunas  
-Level: Beginner   
+Level: Beginner  
 Technologies: CDI, HTML5, REST  
 Summary: The `kitchensink-html5-mobile` quickstart is based on `kitchensink`, but uses HTML5 and jQuery Mobile, making it suitable for mobile and tablet computers.  
 Target Product: JBoss EAP  
@@ -12,9 +12,9 @@ What is it?
 
 The `kitchensink-html5-mobile` quickstart is based on the `kitchensink` quickstart and demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST in Red Hat JBoss Enterprise Application Platform.
 
-This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with the application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
+This application is built using a HTML5 + REST approach. This uses a pure HTML client that interacts with the application server via restful end-points (JAX-RS). This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.
 
-What is a modern web application without mobile web support? This application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile  version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance  improvements needed to get you started with mobile web development on JBoss.
+What is a modern web application without mobile web support? This application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance improvements needed to get you started with mobile web development on JBoss.
 
 System requirements
 -------------------
@@ -25,10 +25,9 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors will vary slightly (ex. validations) based on browser support, especially IE 9.
 
-Mobile web support is limited to Android and iOS devices.  It should run on HP, and Black Berry devices as well.  Windows Phone, and others will be supported as  jQuery Mobile announces support.
+Mobile web support is limited to Android and iOS devices. It should run on HP, and Black Berry devices as well. Windows Phone, and others will be supported as jQuery Mobile announces support.
  
 With the prerequisites out of the way, you're ready to build and deploy.
-
 
 Start the JBoss EAP Server
 -----------------------
@@ -46,7 +45,6 @@ Start the JBoss EAP Server
         For Linux:   EAP7_HOME/bin/standalone.sh -b 0.0.0.0
         For Windows: EAP7_HOME\bin\standalone.bat -b 0.0.0.0
 
-
 Build and Deploy the Quickstart
 -------------------------------
 
@@ -58,12 +56,10 @@ Build and Deploy the Quickstart
 
 4. This deploys `target/jboss-kitchensink-html5-mobile.war` to the running instance of the server.
 
-
 Access the application
 ----------------------
 
 Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-kitchensink-html5-mobile/>.
-
 
 Undeploy the Archive
 --------------------
@@ -73,7 +69,6 @@ Undeploy the Archive
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn wildfly:undeploy
-
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
@@ -87,7 +82,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 Minification
 -----------------
 
-By default, the project uses the [wro4j](http://code.google.com/p/wro4j/) plugin, which provides the ability to concatenate, validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.
+By default, the project uses the [wro4j](https://github.com/wro4j/wro4j) plugin, which provides the ability to concatenate, validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.
 
 With just a few quick changes to the project, you can link to the minified versions of your JavaScript and CSS files.
 
@@ -109,7 +104,7 @@ OR
 Run the Arquillian tests
 -------------------------------------
 
-By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires the use of a container. You can activate this test by selecting one of the container configuration provided  for JBoss.
+By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires the use of a container. You can activate this test by selecting one of the container configuration provided for JBoss.
 
 To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:
 
@@ -126,8 +121,7 @@ Executing QUnit test cases is quite easy. Simply load the following HTML file in
 
 You can also display the QUnit tests using the Eclipse built-in browser.
 
-For more information on QUnit tests see <http://docs.jquery.com/QUnit>
-
+For more information on QUnit tests see <http://qunitjs.com/>
 
 Import the Project into an IDE
 -------------------------------------
