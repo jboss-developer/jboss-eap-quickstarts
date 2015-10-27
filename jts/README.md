@@ -269,17 +269,20 @@ This script removes the JTS configuration from the `jacorb` and `transactions` s
 2. If you backed up the EAP7_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.
 3. If you did not make a backup copy, open the file EAP7_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:
 
-    * Find the orb subsystem and change the configuration back to:
+    * Find the `orb` subsystem and change the configuration back to its original state.
 
             <subsystem xmlns="urn:jboss:domain:iiop-openjdk:1.0">
-                <orb>
-                    <initializers security="identity" transactions="spec"/>
-                </orb>
+                <initializers transactions="spec" security="identity"/>
             </subsystem>
-    * Find the transaction subsystem and remove the `<jts/>` element:
 
-            <subsystem xmlns="urn:jboss:domain:transactions:1.5">
-                <!-- REMOVE node-identifier ATTRIBUTE FROM core-environment ELEMENT -->
-                <!-- LEAVE EXISTING CONFIG AND REMOVE THE </jts> -->
+    * Find the `transaction` subsystem and remove the `node-identifier` attribute from the `core-environment` element. Also remove the `<jts/>` element.
+
+            <subsystem xmlns="urn:jboss:domain:transactions:3.0">
+                <core-environment>
+                    <process-id>
+                        <uuid/>
+                    </process-id>
+                </core-environment>
+                <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
             </subsystem>
 
