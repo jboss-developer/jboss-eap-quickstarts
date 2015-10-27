@@ -164,7 +164,7 @@ Test the application
 Server Log: Expected warnings and errors
 -----------------------------------
 
-_Note:_ You will see the following warnings in the server log. You can ignore these warnings. The `IJ000407: No lazy enlistment available for JTACrashRecQuickstart` warning appears because the `use-ccm` (cache connection manager) is set to "false" in the `jta-crash-rec-quickstart-ds.xml` file. 
+_Note:_ You will see the following warnings in the server log. You can ignore these warnings. 
 
     WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
     HHH000431: Unable to determine H2 database version, certain features may not work
