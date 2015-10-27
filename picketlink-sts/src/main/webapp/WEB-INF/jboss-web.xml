@@ -20,6 +20,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.jboss.org/schema/jbossas
     http://www.jboss.org/schema/jbossas/jboss-web_7_2.xsd">
-  <context-root>/picketlink-sts</context-root>
+  <context-root>jboss-picketlink-sts</context-root>
   <security-domain>picketlink-sts</security-domain>
 </jboss-web>

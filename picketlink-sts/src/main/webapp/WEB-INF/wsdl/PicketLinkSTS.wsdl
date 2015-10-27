@@ -45,7 +45,7 @@
   </wsdl:binding>
   <wsdl:service name="PicketLinkSTS">
     <wsdl:port name="PicketLinkSTSPort" binding="tns:STSBinding">
-      <soap12:address location="http://localhost:8080/picketlink-sts/PicketLinkSTS"/>
+      <soap12:address location="http://localhost:8080/jboss-picketlink-sts/PicketLinkSTS"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

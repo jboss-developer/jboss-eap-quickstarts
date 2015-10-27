@@ -217,8 +217,21 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
-* Be sure to configure the security domain by running the JBoss CLI commands as described above under [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
-* Be sure to [Undeploy and Remove the Security Domain Configuration](#undeploy-and-remove-the-security-domain-configuration) when you have completed testing this quickstart.
+1. Be sure to configure the security domain by running the JBoss CLI commands as described above under [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
+2. To deploy the server project, right-click on the `jboss-picketlink-sts` project and choose `Run As` --> `Run on Server`. 
+3. You are presented with a server message `PicketLinkSTSRealm` and challenged to enter valid authentication credentials. Enter the following information and then click `OK`.
+   
+            UserName: JBoss
+            Password: JBoss
+   JBoss Developer Studio then displays the welcome file.
+4. Follow these steps to test the service.
+
+      * Right-click on the `jboss-picketlink-sts` project and choose `Run As` --> `Maven Build`.
+      * Enter "picketlink-sts" for the `Name`.
+      * Enter "exec:java" for the `Goals:`.
+      * Click `Run`.
+      * Review the output in the console window.
+5. Be sure to [Undeploy and Remove the Security Domain Configuration](#undeploy-and-remove-the-security-domain-configuration) when you have completed testing this quickstart.
 
 Debug the Application
 ------------------------------------
