@@ -265,10 +265,10 @@ public class PetclinicTest {
         guardHttp(ADD_NEW_PET_LINK).click();
 
         waitGui().until().element(ADD_PET_BUTTON).is().visible();
-        NEW_PET_FORM.get(0).clear();
-        NEW_PET_FORM.get(0).sendKeys("Dean");
         NEW_PET_FORM.get(1).clear();
-        NEW_PET_FORM.get(1).sendKeys("2013/09/11");
+        NEW_PET_FORM.get(1).sendKeys("Dean");
+        NEW_PET_FORM.get(2).clear();
+        NEW_PET_FORM.get(2).sendKeys("2013/09/11");
         guardHttp(ADD_PET_BUTTON).click();
 
         waitGui().until().element(IS_REQUIRED_ERROR).is().visible();
