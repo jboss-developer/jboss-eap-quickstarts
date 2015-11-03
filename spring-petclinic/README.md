@@ -82,6 +82,10 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-spring-petclinic/>.
 
+_Note:_ You see the following warning in the server log when you access the application. This example does not provide a `dandelion.properties` file because it does not require any changes to the dandelion default configuration. You can ignore this warning.
+
+      WARN  [com.github.dandelion.core.config.StandardConfigurationLoader] (default task-1) No file "dandelion.properties" was found in "dandelion/dandelion.properties" (classpath). The default configuration will be used.
+
 
 Undeploy the Archive
 --------------------
