@@ -504,8 +504,8 @@ This quickstart requires additional configuration and deploys and runs different
 1. Be sure to [Add the Application Users](#add-the-application-users) as described above.
 2. Follow the steps above to [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
 3. To deploy the application to the JBoss EAP server, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Run on Server`.
-4. To access the application, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Maven Build`.
-5. Enter "ejb-security-interceptors" for the `Name`, enter "exec:exec" for the `Goals:`, and click `Run`.
+4. To access the application, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Java Application`. 
+5. Choose "RemoteClient - org.jboss.as.quickstarts.ejb_security_interceptors" and click `OK`.
 6. Review the output in the console window.
 7. Be sure to [Remove the Security Domain Configuration](#remove-the-security-domain-configuration) when you have completed testing this quickstart.
 
