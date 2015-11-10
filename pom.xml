@@ -241,6 +241,8 @@
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>
                 <module>temperature-converter</module>
+                <module>websocket-client</module>
+                <module>websocket-endpoint</module>
                 <module>websocket-hello</module>
                 <module>xml-dom4j</module>
                 <module>xml-jaxp</module>
