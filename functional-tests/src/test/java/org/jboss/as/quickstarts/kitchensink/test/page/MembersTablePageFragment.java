@@ -17,7 +17,6 @@
 package org.jboss.as.quickstarts.kitchensink.test.page;
 
 import org.jboss.arquillian.graphene.angular.findby.FindByNg;
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.as.quickstarts.kitchensink.test.Member;
 import org.openqa.selenium.WebElement;

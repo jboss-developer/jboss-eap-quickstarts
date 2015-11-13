@@ -20,7 +20,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -54,7 +55,7 @@ public class RESTTest {
 
     private static final String API_PATH = "rest/members";
 
-    private final DefaultHttpClient httpClient = new DefaultHttpClient();
+    private final CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
     /**
      * Injects URL on which application is running.
