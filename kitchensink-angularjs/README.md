@@ -10,7 +10,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-This is your project! It is a sample, deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 6 with Red Hat JBoss Enterprise Application Platform 6.1 or later. 
+The `kitchensink-angularjs` quickstart is a deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 7 with Red Hat JBoss Enterprise Application Platform. 
 
 This project is setup to allow you to create a compliant Java EE 7 application using CDI 1.2, EJB 3.2, JPA 2.1 and Bean Validation 1.1. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
@@ -38,7 +38,7 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn clean package jboss-as:deploy
+        mvn clean package wildfly:deploy
 
 4. This will deploy `target/jboss-kitchensink-angularjs.war` to the running instance of the server.
  
@@ -56,7 +56,7 @@ Undeploy the Archive
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        mvn jboss-as:undeploy
+        mvn wildfly:undeploy
 
 
 Run the Arquillian Tests 
@@ -68,7 +68,7 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Parq-jbossas-remote 
+        mvn clean test -Parq-wildfly-remote 
 
 Run the Arquillian Functional Tests
 -----------------------------------
@@ -83,14 +83,14 @@ To run these tests, you must build the main project as described above.
 
         mvn clean package
 
-3. Navigate to the functional-tests/ directory in this quickstart.
+3. Navigate to the `functional-tests/` directory in this quickstart.
 4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
 
-        mvn clean verify -Parq-jbossas-remote
+        mvn clean verify -Parq-wildfly-remote
 
 5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type fhe following command:
 
-        mvn clean verify -Parq-jbossas-managed
+        mvn clean verify -Parq-wildfly-managed
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
