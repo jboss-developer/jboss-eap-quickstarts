@@ -210,6 +210,7 @@
                 <module>jaxws-pojo</module>
                 <module>jaxws-retail</module>
                 <module>kitchensink</module>
+                <module>kitchensink-angularjs</module>
                 <module>kitchensink-ear</module>
                 <module>kitchensink-html5-mobile</module>
                 <module>kitchensink-jsp</module>
