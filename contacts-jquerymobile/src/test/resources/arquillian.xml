@@ -28,7 +28,7 @@
 <!--       <property name="deploymentExportPath">target/</property>  -->
 <!--    </engine> -->
 
-   <!-- Example configuration for a remote Red Hat JBoss Enterprise Application Platform or AS 7 instance -->
+   <!-- Example configuration for a remote Red Hat JBoss Enterprise Application Platform instance -->
    <container qualifier="jboss" default="true">
         <!-- By default, arquillian will use the JBOSS_HOME environment variable.  Alternatively, the configuration below can be uncommented. -->
         <!--<configuration> -->
