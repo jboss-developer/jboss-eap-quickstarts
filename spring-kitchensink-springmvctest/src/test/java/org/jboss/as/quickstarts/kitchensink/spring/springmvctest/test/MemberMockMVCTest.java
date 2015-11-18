@@ -43,7 +43,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:test-context.xml",
-    "classpath:/META-INF/spring/applicationContext.xml" })
+        "classpath:/META-INF/spring/applicationContext.xml" })
 public class MemberMockMVCTest {
 
     @Autowired

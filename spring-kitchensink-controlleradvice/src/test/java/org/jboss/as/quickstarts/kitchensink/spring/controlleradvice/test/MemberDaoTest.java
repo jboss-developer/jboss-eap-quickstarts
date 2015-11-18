@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:test-context.xml",
-    "classpath:/META-INF/spring/applicationContext.xml" })
+        "classpath:/META-INF/spring/applicationContext.xml" })
 @Transactional
 @Rollback
 public class MemberDaoTest {
