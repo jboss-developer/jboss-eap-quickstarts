@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: shrinkwrap-resolver</name>
-    <description>A starter Java EE webapp project for use on JBoss EAP, generated from the jboss-javaee7-webapp archetype</description>
+    <description>A ShrinkWrap Resolver quickstart for use on JBoss EAP</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
@@ -102,11 +102,11 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
 
-        <version.org.apache.commons.commons-lang3>3.1</version.org.apache.commons.commons-lang3>
+        <version.org.apache.commons.commons-lang3>3.4</version.org.apache.commons.commons-lang3>
 
         <!-- other plugin versions -->
-        <version.surefire.plugin>2.10</version.surefire.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
+        <version.surefire.plugin>2.19</version.surefire.plugin>
+        <version.war.plugin>2.6</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>

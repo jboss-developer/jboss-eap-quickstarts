@@ -22,8 +22,8 @@
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-spring-petclinic-test-webdriver</artifactId>
     <version>7.0.0-SNAPSHOT</version>
-    <name>JBoss EAP Quickstarts: Spring Petclinic Demo ftest via WebDriver with Arquillian</name>
-    <description>This project tests a starter Java EE webapp project for use in JBoss EAP by WebDriver</description>
+    <name>JBoss EAP Quickstarts: Spring Petclinic ftest via WebDriver with Arquillian</name>
+    <description>This project tests a Spring Petclinic for use in JBoss EAP by WebDriver</description>
 
     <url>http://www.jboss.org/products/eap</url>
     <licenses>
@@ -113,6 +113,9 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+
+        <!-- json version -->
+        <version.org.json>20150729</version.org.json>
     </properties>
 
     <dependencyManagement>
@@ -172,7 +175,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20141113</version>
+            <version>${version.org.json}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

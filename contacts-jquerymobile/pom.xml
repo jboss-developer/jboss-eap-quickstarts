@@ -108,7 +108,7 @@
         <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
 
         <!-- other plug-in versions -->
-        <version.surefire.plugin>2.18.1</version.surefire.plugin>
+        <version.surefire.plugin>2.19</version.surefire.plugin>
         <version.war.plugin>2.6</version.war.plugin>
 
         <!-- maven-compiler-plugin -->

@@ -21,8 +21,8 @@
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-kitchensink-angularjs-test-webdriver</artifactId>
     <version>7.0.0-SNAPSHOT</version>
-    <name>JBoss EAP Quickstarts: Kitchensink test via WebDriver with Arquillian</name>
-    <description>This project tests a starter Java EE webapp project for use on JBoss EAP by WebDriver</description>
+    <name>JBoss EAP Quickstarts: Kitchensink AngularJS test via WebDriver with Arquillian</name>
+    <description>This project tests a Kitchensink AngularJS for use on JBoss EAP by WebDriver</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
@@ -112,6 +112,11 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+
+        <!-- json version -->
+        <version.org.json>20150729</version.org.json>
+
+        <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
     </properties>
 
     <build>
@@ -166,7 +171,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-angularjs-graphene-impl</artifactId>
-            <version>1.2.0.Beta1</version>
+            <version>${version.arquillian.angularjs.graphene}</version>
             <scope>test</scope>
         </dependency>
 
@@ -191,7 +196,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20141113</version>
+            <version>${version.org.json}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
