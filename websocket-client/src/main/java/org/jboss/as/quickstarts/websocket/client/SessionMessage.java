@@ -26,38 +26,38 @@ import java.io.Serializable;
 
 public class SessionMessage implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  private String sessionId;
-  private String text;
+    private String sessionId;
+    private String text;
 
-  public SessionMessage() {
+    public SessionMessage() {
 
-  }
+    }
 
-  public SessionMessage(String sessionId, String text) {
-    this.sessionId = sessionId;
-    this.text = text;
-  }
+    public SessionMessage(String sessionId, String text) {
+        this.sessionId = sessionId;
+        this.text = text;
+    }
 
-  public String getSessionId() {
-    return sessionId;
-  }
+    public String getSessionId() {
+        return sessionId;
+    }
 
-  public void setSessionId(String sessionId) {
-    this.sessionId = sessionId;
-  }
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 
-  public String getText() {
-    return text;
-  }
+    public String getText() {
+        return text;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 
-  public String toString() {
-    return format("%s:%s", sessionId, text);
-  }
-  
+    public String toString() {
+        return format("%s:%s", sessionId, text);
+    }
+
 }

@@ -20,10 +20,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
- * Block when disconnected.
- * Do not block when connected.
- * Release blocks upon connection established.
- * Toggle between connected and disconnected.
+ * Block when disconnected. Do not block when connected. Release blocks upon connection established. Toggle between connected
+ * and disconnected.
  * 
  * Based on org.infinispan.util.concurrent.ReclosableLatch
  * 
@@ -32,91 +30,91 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 public class ConnectionGate {
 
-  private static final class ReclosableLatch extends AbstractQueuedSynchronizer {
+    private static final class ReclosableLatch extends AbstractQueuedSynchronizer {
 
-    private static final long serialVersionUID = 1;
+        private static final long serialVersionUID = 1;
 
-    // the following states are used in the AQS.
-    private static final int OPEN_STATE = 0, CLOSED_STATE = 1;
+        // the following states are used in the AQS.
+        private static final int OPEN_STATE = 0, CLOSED_STATE = 1;
 
-    public ReclosableLatch() {
-      setState(CLOSED_STATE);
+        public ReclosableLatch() {
+            setState(CLOSED_STATE);
+        }
+
+        public ReclosableLatch(boolean defaultOpen) {
+            setState(defaultOpen ? OPEN_STATE : CLOSED_STATE);
+        }
+
+        @Override
+        public final int tryAcquireShared(int ignored) {
+            // return 1 if we allow the requestor to proceed, -1 if we want the requestor to block.
+            return getState() == OPEN_STATE ? 1 : -1;
+        }
+
+        @Override
+        public final boolean tryReleaseShared(int state) {
+            // used as a mechanism to set the state of the Sync.
+            setState(state);
+            return true;
+        }
+
+        public final void open() {
+            // do not use setState() directly since this won't notify parked threads.
+            releaseShared(OPEN_STATE);
+        }
+
+        public final void close() {
+            // do not use setState() directly since this won't notify parked threads.
+            releaseShared(CLOSED_STATE);
+        }
+
+        public boolean isOpened() {
+            return getState() == OPEN_STATE;
+        }
+
+        public final void await() throws InterruptedException {
+            acquireSharedInterruptibly(1); // the 1 is a dummy value that is not used.
+        }
+
+        public final boolean await(long time, TimeUnit unit) throws InterruptedException {
+            return tryAcquireSharedNanos(1, unit.toNanos(time)); // the 1 is a dummy value that is not used.
+        }
+
+        @Override
+        public String toString() {
+            int s = getState();
+            String q = hasQueuedThreads() ? "non" : "";
+            return "ReclosableLatch [State = " + s + ", " + q + "empty queue]";
+        }
     }
 
-    public ReclosableLatch(boolean defaultOpen) {
-      setState(defaultOpen ? OPEN_STATE : CLOSED_STATE);
+    private final ReclosableLatch latch;
+
+    public ConnectionGate() {
+        latch = new ReclosableLatch();
     }
 
-    @Override
-    public final int tryAcquireShared(int ignored) {
-      // return 1 if we allow the requestor to proceed, -1 if we want the requestor to block.
-      return getState() == OPEN_STATE ? 1 : -1;
+    public ConnectionGate(boolean initiallyConnected) {
+        latch = new ReclosableLatch(initiallyConnected);
     }
 
-    @Override
-    public final boolean tryReleaseShared(int state) {
-      // used as a mechanism to set the state of the Sync.
-      setState(state);
-      return true;
+    public void connected() {
+        latch.open();
     }
 
-    public final void open() {
-      // do not use setState() directly since this won't notify parked threads.
-      releaseShared(OPEN_STATE);
+    public void disconnected() {
+        latch.close();
     }
 
-    public final void close() {
-      // do not use setState() directly since this won't notify parked threads.
-      releaseShared(CLOSED_STATE);
+    public void waitForConnection() throws InterruptedException {
+        latch.await();
     }
 
-    public boolean isOpened() {
-      return getState() == OPEN_STATE;
+    public boolean waitForConnection(long time, TimeUnit unit) throws InterruptedException {
+        return latch.await(time, unit);
     }
 
-    public final void await() throws InterruptedException {
-      acquireSharedInterruptibly(1); // the 1 is a dummy value that is not used.
+    public boolean isConnected() {
+        return latch.isOpened();
     }
-
-    public final boolean await(long time, TimeUnit unit) throws InterruptedException {
-      return tryAcquireSharedNanos(1, unit.toNanos(time)); // the 1 is a dummy value that is not used.
-    }
-
-    @Override
-    public String toString() {
-      int s = getState();
-      String q = hasQueuedThreads() ? "non" : "";
-      return "ReclosableLatch [State = " + s + ", " + q + "empty queue]";
-    }
-  }
-  
-  private final ReclosableLatch latch;
-  
-  public ConnectionGate() {
-    latch = new ReclosableLatch();
-  }
-  
-  public ConnectionGate(boolean initiallyConnected) {
-    latch = new ReclosableLatch(initiallyConnected);
-  }
-
-  public void connected() {
-    latch.open();
-  }
-  
-  public void disconnected() {
-    latch.close();
-  }
-  
-  public void waitForConnection() throws InterruptedException {
-    latch.await();
-  }
-  
-  public boolean waitForConnection(long time, TimeUnit unit) throws InterruptedException {
-    return latch.await(time, unit);
-  }
-  
-  public boolean isConnected() {
-    return latch.isOpened();
-  }
 }

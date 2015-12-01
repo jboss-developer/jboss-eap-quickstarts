@@ -30,24 +30,24 @@ import javax.websocket.Session;
 @ApplicationScoped
 public class SessionManager implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  private ConcurrentHashMap<String, Session> sessions = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Session> sessions = new ConcurrentHashMap<>();
 
-  public void open(Session session) {
-    sessions.put(session.getId(), session);
-  }
-  
-  public Session get(String id) {
-    return sessions.get(id);
-  }
-  
-  public void close(String id) {
-    sessions.remove(id);
-  }
-  
-  public Collection<Session> getAll() {
-    return sessions.values();
-  }
+    public void open(Session session) {
+        sessions.put(session.getId(), session);
+    }
+
+    public Session get(String id) {
+        return sessions.get(id);
+    }
+
+    public void close(String id) {
+        sessions.remove(id);
+    }
+
+    public Collection<Session> getAll() {
+        return sessions.values();
+    }
 
 }
