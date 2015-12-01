@@ -58,7 +58,7 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn package wildfly:deploy
-4. This will deploy `target/wildfly-websocket-client.war` to the running instance of the server.
+4. This will deploy `target/jboss-websocket-client.war` to the running instance of the server.
  
 
 
