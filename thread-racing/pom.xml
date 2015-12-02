@@ -17,15 +17,13 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.wildfly.quickstarts</groupId>
-    <artifactId>wildfly-thread-racing</artifactId>
-    <version>10.0.0-SNAPSHOT</version>
+    <groupId>org.jboss.quickstarts.eap</groupId>
+    <artifactId>jboss-thread-racing</artifactId>
+    <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>WildFly Quickstarts: thread-racing</name>
-    <description>A web app that triggers a thread race to complete Java EE 7 related tasks.</description>
+    <name>JBoss EAP Quickstart: thread-racing</name>
+    <description>A web application that triggers a thread race to complete Java EE 7 related tasks.</description>
 
-    <url>http://wildfly.org</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -33,6 +31,63 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
         </license>
     </licenses>
+
+    <!-- Activate JBoss Product Maven repository.
+
+        NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
+        and is only done here to make it easier to use the quickstarts.
+
+        For more information about how to configure Maven for your application,
+        see the section entitled 'Use the Maven Repository'
+        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
+
+        https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/
+    -->
+    <repositories>
+        <repository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-developer-staging-repository</id>
+            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>redhat-ga-repository</id>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following message: -->
@@ -44,11 +99,11 @@
 
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom>10.0.0.CR4</version.jboss.bom>
+        <!-- Define the version of the JBoss BOMs we want to import to specify
+            tested stacks. -->
+        <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
-        <version.compiler.plugin>3.1</version.compiler.plugin>
         <version.war.plugin>2.5</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
@@ -61,69 +116,67 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of JBoss' Java EE 7 APIs we want to use -->
-            <!-- JBoss distributes a complete set of Java EE 7 APIs including
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-                a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-javaee-7.0 stack (you can
-                read this as the JBoss stack of the Java EE 7 APIs). You can actually
-                use this stack with any version of WildFly that implements Java EE 7, not
-                just WildFly 10! -->
+            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
+                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+                of artifacts. We use this here so that we always get the correct versions
+                of artifacts. Here we use the jboss-eap-javaee7-with-tools stack (you can
+                read this as the JBoss stack of the Java EE APIs, with some extras tools
+                for your project, such as Arquillian for testing)  -->
             <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-javaee7</artifactId>
-                <version>${version.jboss.bom}</version>
-                <scope>import</scope>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-javaee7</artifactId>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
 
-        <!-- Import the JPA 2.1 API, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the JPA 2.1 API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Batch API, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the Batch API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.batch</groupId>
             <artifactId>jboss-batch-api_1.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the EE Concurrency API, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the EE Concurrency API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.enterprise.concurrent</groupId>
             <artifactId>jboss-concurrency-api_1.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JMS 2.0 API, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the JMS 2.0 API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.jms</groupId>
             <artifactId>jboss-jms-api_2.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Web Sockets API, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the Web Sockets API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.websocket</groupId>
             <artifactId>jboss-websocket-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JSON API, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the JSON API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.json</groupId>
             <artifactId>jboss-json-api_1.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JAX-RS API and Resteasy, we use provided scope as the API is included in JBoss WildFly. -->
+        <!-- Import the JAX-RS API and Resteasy, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
              <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
@@ -148,7 +201,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included in JBoss WildFly -->
+        <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
@@ -156,14 +209,14 @@
         </dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
-            as the API is included in JBoss WildFly -->
+            as the API is included in JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-       <!-- Import the EJB API, we use provided scope as the API is included in JBoss WildFly. -->
+       <!-- Import the EJB API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
@@ -205,15 +258,6 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.8 compatibility and activates annotation processors. -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>
