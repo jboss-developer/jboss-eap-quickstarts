@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Web Socket, CDI Events, JSON, SSL  
 Summary: Demonstrates use of a Java (not Javascript) WebSocket client, WebSocket configuration, programmatic binding, and secure WebSocket.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/quickstart/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
