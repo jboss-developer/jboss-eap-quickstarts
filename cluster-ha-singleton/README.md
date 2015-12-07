@@ -138,7 +138,6 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
             Configuration base directory: (This should already point to your server configuration directory)
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
-   * In the `Server` tab, double-click on `EAP7-Server1` to open it. 
 4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * For the `Server name`, enter "EAP7-Server2" and click `Next`.
