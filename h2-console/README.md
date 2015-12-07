@@ -47,6 +47,9 @@ Deploy the H2 Console
 
 Deploy the console by copying the `h2console.war` located in the root directory of this quickstart to the `EAP7_HOME/standalone/deployments` directory. 
 
+_Note:_ You will see the following warning in the server log. You can igore this warning.
+
+    WFLYSRV0019: Deployment "deployment.h2console.war" is using an unsupported module ("com.h2database.h2:main") which may be changed or removed in future versions without notice.
 
 Access the H2 Console 
 ---------------------
@@ -69,6 +72,7 @@ Take a look at the data added by the `greeter` application. Run the following SQ
         select * from users;
 
 You should see the two users seeded by the `greeter` quickstart, plus any users you added when testing that application.
+
 
 Undeploy the Archive
 --------------------
