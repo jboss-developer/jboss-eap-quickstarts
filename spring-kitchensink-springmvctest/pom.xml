@@ -303,6 +303,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Add JTA API for tests -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
