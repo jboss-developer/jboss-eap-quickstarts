@@ -62,16 +62,6 @@
     -->
     <repositories>
         <repository>
-            <id>redhat-earlyaccess-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
             <id>jboss-developer-staging-repository</id>
             <url>http://jboss-developer.github.io/temp-maven-repo/</url>
             <releases>
@@ -94,16 +84,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>redhat-earlyaccess-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
         <pluginRepository>
             <id>jboss-developer-staging-repository</id>
             <url>http://jboss-developer.github.io/temp-maven-repo/</url>
