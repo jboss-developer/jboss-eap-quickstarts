@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-spring-greeter</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.Beta1</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: spring-greeter</name>
     <description>JBoss EAP Quickstart: Spring Greeter</description>
@@ -98,7 +98,7 @@
 
         <!-- WildFly plug-in for deployment -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.Beta1</version.jboss.bom.eap>
 
         <version.surefire.plugin>2.19</version.surefire.plugin>
 
