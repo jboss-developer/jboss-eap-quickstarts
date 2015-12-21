@@ -66,6 +66,7 @@ public class Frontend extends Endpoint {
         ServerEndpointConfig config = ServerEndpointConfig.Builder
             .create(Frontend.class, WEBSOCKET_PATH)
             .configurator(new ServerEndpointConfig.Configurator() {
+                @SuppressWarnings("unchecked")
                 @Override
                 public <T> T getEndpointInstance(final Class<T> endpointClass) throws InstantiationException {
                     if (endpointClass.isAssignableFrom(Frontend.class))

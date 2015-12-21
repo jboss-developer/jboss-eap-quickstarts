@@ -67,6 +67,21 @@ Access the application
 
 Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-websocket-client/>
 
+You are presented with the `WebSocket Echo Replay` page confirming the connection to the remote WebSocket *Echo* server.
+
+    Connecting to ws://localhost:8080/jboss-websocket-client/relay
+    RECV: Opened frontend session FRONTEND_SESSION_ID 
+
+Type a message in the text input field at the bottom of the page and click `Send`. The message is processed and the form displays the relayed results. The message "This is a test" was used in the following example.
+
+    SEND: This is a test
+    RECV: BROADCAST: Connecting to backend wss://echo.websocket.org
+    RECV: BROADCAST: Opened backend session BACKEND_SESSION_ID
+    RECV: Sending message from frontend session FRONTEND_SESSION_ID 
+    RECV: Received message from backend session BACKEND_SESSION_ID
+    RECV: This is a test 
+
+
 
 Undeploy the Archive
 --------------------
