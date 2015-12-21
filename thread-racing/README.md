@@ -22,11 +22,13 @@ The race itself consists of multiple stages, each demonstrating the usage of a s
  * JMS 2.0
  * JSON 1.0
 
-
 WebSockets 1.0 is one of the most relevant new technologies introduced by Java EE 7. Instead of being used in a race stage, a WebSockets 1.0 ServerEndpoint provides the remote application interface.
 A new race is run when a client establishes a session. That session is then used to update the client in real time, with respect to the race progress and results. The `src/main/java/org/jboss/as/quickstarts/threadracing/WebSocketRace.java` file is the WebSocket server endpoint class and is a good entry point when studying how the application code works.
 
 JPA 2.1 is also present in the application code. Specifically it is used to store race results in the default data source instance, which is also new to Java EE. Further details are included in the `src/main/java/org/jboss/as/quickstarts/threadracing/results/RaceResults.java` class.
+
+_Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
+
 
 System requirements
 -------------------
@@ -69,7 +71,15 @@ Access the application
 
 The application will be running at the following URL <http://localhost:8080/jboss-thread-racing/>. 
 
-To start a race press the `Insert Coin` button.
+To start a race press the `Insert Coin` button. The page displays the names of the threads as they join the race. It then tracks the progress of each thread through the Batch, EE Concurrency, JAX-R, JMS, and JSON stages of the race. Finally, it displays the official race results and championship standings.
+
+
+Server Log: Expected warnings and errors
+-----------------------------------
+
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
+
+    HHH000431: Unable to determine H2 database version, certain features may not work
 
 
 Undeploy the Archive
