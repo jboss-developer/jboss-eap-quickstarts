@@ -544,7 +544,7 @@
             skip="true">
     <command
            required="false"
-           serialization="org.eclipse.ui.browser.openBrowser(url=https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/)"/>
+           serialization="org.eclipse.ui.browser.openBrowser(url=https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/)"/>
   </subitem>
   </item>
 
