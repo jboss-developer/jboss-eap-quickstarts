@@ -50,7 +50,7 @@ Build and Deploy the Quickstart
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
-        mvn package wildfly:deploy
+        mvn clean package wildfly:deploy
 4. This will deploy `target/jboss-websocket-endpoint.war` to the running instance of the server.
  
 
