@@ -63,8 +63,8 @@
             </snapshots>
         </repository>
         <repository>
-            <id>redhat-ga-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <id>jboss-enterprise-maven-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -86,8 +86,8 @@
             </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>redhat-ga-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <id>jboss-enterprise-maven-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -279,7 +279,7 @@
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>
             </modules>
-        </profile>
+        </profile>re
         <profile>
             <!-- All the quickstarts that require the "standalone-full" profile
                 to be in use -->
