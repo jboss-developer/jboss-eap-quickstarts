@@ -62,7 +62,7 @@
             </snapshots>
         </repository>
         <repository>
-            <id>redhat-ga-repository</id>
+            <id>jboss-enterprise-maven-repository</id>
             <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
@@ -85,7 +85,7 @@
             </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>redhat-ga-repository</id>
+            <id>jboss-enterprise-maven-repository</id>
             <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
