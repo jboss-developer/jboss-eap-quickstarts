@@ -279,7 +279,7 @@
                 <module>resteasy-jaxrs-client</module>
                 <module>jts</module>
             </modules>
-        </profile>re
+        </profile>
         <profile>
             <!-- All the quickstarts that require the "standalone-full" profile
                 to be in use -->
