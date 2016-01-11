@@ -70,7 +70,7 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
 
 The `<annotation-property-replacement>` attribute is set to true in the `ee` subsystem :
 
-        <subsystem xmlns="urn:jboss:domain:ee:3.0">
+        <subsystem xmlns="urn:jboss:domain:ee:4.0">
             ...
             <annotation-property-replacement>true</annotation-property-replacement>
             ...
