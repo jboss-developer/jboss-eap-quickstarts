@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="shrinkwrapresolver-demonstrates-usage-of-shrinkwrap-resolver" class="anchor" href="#shrinkwrapresolver-demonstrates-usage-of-shrinkwrap-resolver"><span class="anchor-icon"></span></a>shrinkwrap-resolver: Demonstrates Usage of Shrinkwrap Resolver</h1>
+
+<p>Author: Rafael Benevides<br/>
+Level: Intermediate<br/>
+Technologies: CDI, Arquillian, Shrinkwrap<br/>
+Summary: The <code>shrinkwrap-resolver</code> quickstart demonstrates three common use cases for ShrinkWrap Resolver in Red Hat JBoss Enterprise Application Platform.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>This quickstart demonstrates the use of ShrinkWrap Resolver in Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>With the advent of Maven and other build systems, typically third party libraries and our own dependent modules are obtained from a backing software repository. In this case we supply a series of coordinates which uniquely identifies an artifact in the repository, and resolve the target files from there.</p>
+
+<p>That is precisely the aim of the ShrinkWrap Resolver project; it is a Java API to obtain artifacts from a repository system. </p>
+
+<p>The <code>shrinkwrap-resolver</code> quickstart demonstrates various use cases for ShrinkWrap Resolver. This Quickstart has 3 Test Classes that demonstrates the following Shrinkwrap use cases:</p>
+
+<ul>
+<li><p>ShrinkwrapResolveGAVWithoutTransitiveDepsTest</p>
+
+<ul>
+<li>resolve an artifact via G:A:V without transitive dependencies</li>
+<li>return resolution result as single java.io.File</li>
+</ul></li>
+<li><p>ShrinkwrapImportFromPomTest</p>
+
+<ul>
+<li>loading pom.xml from file activating and deactivating profiles</li>
+<li>importing dependencies of specified scope into list of artifacts to be resolved</li>
+<li>return resolution results as a java.io.File array</li>
+</ul></li>
+<li><p>ShrinkwrapResolveGAPCVCustomRepoWithoutCentralTest</p>
+
+<ul>
+<li>resolve an artifact via G:A:P:C:V without transitive dependencies </li>
+<li>resolve an artifact with classifier</li>
+<li>disabling Maven Central</li>
+<li>loading settings.xml from file (with custom repository)</li>
+<li>return resolution results as a java.io.File array</li>
+</ul></li>
+</ul>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the default profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-arquillian-tests-" class="anchor" href="#run-the-arquillian-tests-"><span class="anchor-icon"></span></a>Run the Arquillian Tests </h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. </p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">remote</span>
+</pre></div></li>
+</ol>
+
+<p><em>NOTE: If you plan to use a custom settings file, add the Maven settings command line argument and pass an additional argument to allow ShrinkWrap Resolver to function properly:</em></p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">remote</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">custom</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">xml</span>
+</pre></div>
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p>You must first set the active Maven profile in project properties to be either &lsquo;arq-wildfly-managed&rsquo; for running on managed server or &lsquo;arq-wildfly-remote&rsquo; for running on remote server. Then, to run the tests, right click on the project or individual classes and select Run As &ndash;> JUnit Test in the context menu.</p>
+
+<h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
+
+<h3><a id="maven" class="anchor" href="#maven"><span class="anchor-icon"></span></a>Maven</h3>
+
+<hr/>
+
+<h2><a id="-t-e-s-t-s" class="anchor" href="#-t-e-s-t-s"><span class="anchor-icon"></span></a> T E S T S</h2>
+
+<p>Running org.jboss.as.quickstarts.shrinkwrap.resolver.ShrinkwrapImportFromPomTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.633 sec
+Running org.jboss.as.quickstarts.shrinkwrap.resolver.ShrinkwrapResolveGAPCVCustomRepoWithoutCentralTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.439 sec
+Running org.jboss.as.quickstarts.shrinkwrap.resolver.ShrinkwrapResolveGAVWithoutTransitiveDepsTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.016 sec</p>
+
+<p>Results :</p>
+
+<p>Tests run: 3, Failures: 0, Errors: 0, Skipped: 0</p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+<span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>

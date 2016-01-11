@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="mail-email-example-using-cdi-and-jsf" class="anchor" href="#mail-email-example-using-cdi-and-jsf"><span class="anchor-icon"></span></a>mail: E-Mail Example using CDI and JSF</h1>
+
+<p>Author: Joel Tosi<br/>
+Level: Beginner<br/>
+Technologies: JavaMail, CDI, JSF<br/>
+Summary: The <code>mail</code> quickstart demonstrates how to send email using CDI and JSF and the default Mail provider that ships with JBoss EAP.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>mail</code> quickstart demonstrates sending email with the use of <em>CDI</em> (Contexts and Dependency Injection) and <em>JSF</em> (JavaServer Faces) in Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>The mail provider is configured in the <code>mail</code> subsystem of the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> configuration file if you are running a standalone server or in the <code>EAP7_HOME/domain/configuration/domain.xml</code> configuration file if you are running in a managed domain. </p>
+
+<p>You can use the default mail provider that comes out of the box with JBoss EAP. It uses your local mail relay and the default SMTP port of 25. However, this quickstart demonstrates how to define and use a custom mail provider.</p>
+
+<p>This example is a web application that takes <code>To</code>, <code>From</code>, <code>Subject</code>, and <code>Message Body</code> input and sends mail to that address. The front end is a JSF page with a simple POJO backing, leveraging CDI for resource injection.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="configure-an-smtp-server-on-your-local-machine" class="anchor" href="#configure-an-smtp-server-on-your-local-machine"><span class="anchor-icon"></span></a>Configure an SMTP Server on Your Local Machine</h2>
+
+<p>This quickstart expects that you have an SMTP mail server running on your machine and configured for the default port <code>localhost:25</code>. 
+To configure an SMTP mail server, consult the documentation for your operating system. It is beyond the scope of this quickstart to provide these instructions.</p>
+
+<p>If you do not configure an SMTP mail server on your local machine, you will see the exception <code>com.sun.mail.util.MailConnectException:  Couldn&#39;t connect to host, port: localhost, 25; timeout -1;</code> when you access the application and attempt to send an email.</p>
+
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
+
+<p>You configure the custom mail session in JBoss EAP by running Management CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-mail-session.cli</code> script provided in the root directory of this quickstart. </p>
+
+<ol>
+<li>Before you begin, back up your server configuration file
+
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul></li>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">batl</span>
+</pre></div></li>
+<li><p>Review the <code>configure-mail-session.cli</code> file in the root of this quickstart directory. This script creates custom outbound socket binding port for SMTP, POP3, and IMAP. It then creates the custom &ldquo;MyOtherMail&rdquo; mail session and configures it to use the custom outbound socket binding ports. </p></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">mail</span><span class="o">-</span><span class="n">session</span><span class="p">.</span><span class="n">cli</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">mail</span><span class="o">-</span><span class="n">session</span><span class="p">.</span><span class="n">cli</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<span class="n">process</span><span class="o">-</span><span class="n">state</span><span class="o">:</span> <span class="n">reload</span><span class="o">-</span><span class="n">required</span> 
+</pre></div>
+<p>}</p></li>
+<li><p>Stop the JBoss EAP server.</p></li>
+</ol>
+
+<h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
+
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+
+<p>The following <code>outbound-socket-binding</code> groups are added to the &ldquo;standard-sockets&rdquo; <code>&lt;socket-binding-group&gt;</code> element.</p>
+<div class="highlight"><pre>  <span class="nt">&lt;socket</span><span class="err">-binding-group</span> <span class="na">name=</span><span class="s">&quot;standard-sockets&quot;</span> <span class="na">default-interface=</span><span class="s">&quot;public&quot;</span> <span class="na">port-offset=</span><span class="s">&quot;</span><span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">binding</span><span class="o">.</span><span class="n">port</span><span class="o">-</span><span class="n">offset</span><span class="p">:</span><span class="mi">0</span><span class="cp">}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;/outbound-socket-binding&gt;</span>
+    <span class="nt">&lt;outbound</span><span class="err">-socket-binding</span> <span class="na">name=</span><span class="s">&quot;my-smtp-binding&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;remote</span><span class="err">-destination</span> <span class="na">host=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;25&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/outbound-socket-binding&gt;</span>
+    <span class="nt">&lt;outbound</span><span class="err">-socket-binding</span> <span class="na">name=</span><span class="s">&quot;my-pop3-binding&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;remote</span><span class="err">-destination</span> <span class="na">host=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;110&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/outbound-socket-binding&gt;</span>
+    <span class="nt">&lt;outbound</span><span class="err">-socket-binding</span> <span class="na">name=</span><span class="s">&quot;my-imap-binding&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;remote</span><span class="err">-destination</span> <span class="na">host=</span><span class="s">&quot;localhost&quot;</span> <span class="na">port=</span><span class="s">&quot;143&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/outbound-socket-binding&gt;</span>
+ <span class="nt">&lt;/socket-binding-group&gt;</span>
+</pre></div>
+<p>The &ldquo;MyOtherMail&rdquo; mail session is added to the <code>mail</code> subsystem and configured to use the custom outbound socket binding ports.</p>
+<div class="highlight"><pre>  <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:mail:2.0&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;mail-session</span> <span class="na">name=</span><span class="s">&quot;default&quot;</span> <span class="na">jndi-name=</span><span class="s">&quot;java:jboss/mail/Default&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;smtp-server</span> <span class="na">outbound-socket-binding-ref=</span><span class="s">&quot;mail-smtp&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;/mail-session&gt;</span>
+     <span class="nt">&lt;mail-session</span> <span class="na">name=</span><span class="s">&quot;MyOtherMail&quot;</span> <span class="na">jndi-name=</span><span class="s">&quot;java:jboss/mail/MyOtherMail&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;smtp-server</span> <span class="na">password=</span><span class="s">&quot;pass&quot;</span> <span class="na">username=</span><span class="s">&quot;nobody&quot;</span> <span class="na">tls=</span><span class="s">&quot;true&quot;</span> <span class="na">outbound-socket-binding-ref=</span><span class="s">&quot;my-smtp-binding&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;pop3-server</span> <span class="na">outbound-socket-binding-ref=</span><span class="s">&quot;my-pop3-binding&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;imap-server</span> <span class="na">password=</span><span class="s">&quot;pass&quot;</span> <span class="na">username=</span><span class="s">&quot;nobody&quot;</span> <span class="na">outbound-socket-binding-ref=</span><span class="s">&quot;my-imap-binding&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;/mail-session&gt;</span>
+  <span class="nt">&lt;/subsystem&gt;</span>
+</pre></div>
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-mail.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-mail">http://localhost:8080/jboss-mail</a>. </p>
+
+<p>Note: If you see <code>Error processing request</code> in the browser when you access the application and attempt to send email, followed by <code>javax.servlet.ServletException: com.sun.mail.util.MailConnectException: Couldn&#39;t connect to host, port: localhost, 25; timeout -1; nested exception is: java.net.ConnectException: Connction refused</code>, make sure you followed the instructions above to <a href="#configure-an-smtp-server-on-your-local-machine">Configure an SMTP Server on Your Local Machine</a>.</p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="remove-the-mail-configuration" class="anchor" href="#remove-the-mail-configuration"><span class="anchor-icon"></span></a>Remove the Mail Configuration</h2>
+
+<p>You can remove the mail configuration by running the  <code>remove-mail-session.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. </p>
+
+<h3><a id="remove-the-custom-mail-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-custom-mail-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Custom Mail Configuration by Running the JBoss CLI Script</h3>
+
+<ol>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>  <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span>  <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">mail</span><span class="o">-</span><span class="n">session</span><span class="p">.</span><span class="n">cli</span> 
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">mail</span><span class="o">-</span><span class="n">session</span><span class="p">.</span><span class="n">cli</span> 
+</pre></div>
+<p>This script removes the custom &ldquo;MyOtherMail&rdquo; session from the <code>mail</code> subsystem in the server configuration. file You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
+<span class="n">process</span><span class="o">-</span><span class="n">state</span><span class="o">:</span> <span class="n">reload</span><span class="o">-</span><span class="n">required</span> 
+</pre></div></li>
+</ol>
+
+<h3><a id="remove-the-custom-mail-configuration-manually" class="anchor" href="#remove-the-custom-mail-configuration-manually"><span class="anchor-icon"></span></a>Remove the Custom Mail Configuration Manually</h3>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone-full.xml</code> file with the back-up copy of the file.</li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p><em>NOTE:</em> </p>
+
+<ul>
+<li>Be sure to <a href="#configure-an-smtp-server-on-your-local-machine">Configure an SMTP Server on Your Local Machine</a>.</li>
+<li>Be sure to configure the JBoss EAP custom mail configuration as described above under <a href="#configure-the-jboss-eap-server">Configure the JBoss EAP Server</a>. Stop the server at the end of that step.</li>
+<li>To deploy the server project, right-click on the <code>jboss-mail</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>.  A browser window appears that accesses the running application.</li>
+<li>Be sure to <a href="#remove-the-mail-configuration">Remove the Mail Configuration</a> when you have completed testing this quickstart.</li>
+</ul>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div></body></html>

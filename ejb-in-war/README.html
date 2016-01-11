@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="ejbinwar-deployment-of-a-war-containing-an-ejb" class="anchor" href="#ejbinwar-deployment-of-a-war-containing-an-ejb"><span class="anchor-icon"></span></a>ejb-in-war: Deployment of a WAR Containing an EJB</h1>
+
+<p>Author: Paul Robinson<br/>
+Level: Intermediate<br/>
+Technologies: EJB, JSF, WAR<br/>
+Summary: The <code>ejb-in-war</code> quickstart demonstrates how to package an <em>EJB</em> bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>ejb-in-war</code> quickstart demonstrates the deployment of an <em>EJB</em> bean bundled in a WAR archive for deployment to Red Hat JBoss Enterprise Application Platform. The project also includes a set of Arquillian tests for the managed bean and EJB.</p>
+
+<p>The example follows the common &ldquo;Hello World&rdquo; pattern. These are the steps that occur:</p>
+
+<ol>
+<li>A JSF page asks the user for their name.</li>
+<li>On clicking submit, the name is sent to a managed bean named <code>Greeter</code>.</li>
+<li>On setting the name, the <code>Greeter</code> invokes the <code>GreeterEJB</code>, which was injected into the managed bean. Notice the field annotated with <code>@EJB</code>.</li>
+<li>The response from invoking the <code>GreeterEJB</code> is stored in a field <code>message</code> of the managed bean.</li>
+<li>The managed bean is annotated as <code>@SessionScoped</code>, so the same managed bean instance is used for the entire session. This ensures that the message is available when the page reloads and is displayed to the user.</li>
+</ol>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-ejb-in-war.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL <a href="http://localhost:8080/jboss-ejb-in-war">http://localhost:8080/jboss-ejb-in-war</a>.</p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-arquillian-tests-" class="anchor" href="#run-the-arquillian-tests-"><span class="anchor-icon"></span></a>Run the Arquillian Tests </h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. </p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">remote</span> 
+</pre></div></li>
+</ol>
+
+<h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
+
+<p>JUnit will present you test report summary:</p>
+<div class="highlight"><pre><span class="n">Tests</span> <span class="n">run</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Failures</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Errors</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Skipped</span><span class="o">:</span> <span class="mi">0</span>
+</pre></div>
+<p>If you are interested in more details, check <code>target/surefire-reports</code> directory. 
+You can check console output to verify that Arquillian has really used the real application server. 
+Search for lines similar to the following ones in the server output log:</p>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">deployment</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="n">WFLYSRV0027</span><span class="o">:</span> <span class="n">Starting</span> <span class="n">deployment</span> <span class="n">of</span> <span class="s">&quot;test.war&quot;</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="s">&quot;test.war&quot;</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">]</span> <span class="p">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="kr">thread</span> <span class="o">-</span> <span class="mi">29</span><span class="p">)</span> <span class="n">WFLYSRV0010</span><span class="o">:</span> <span class="n">Deployed</span> <span class="s">&quot;test.war&quot;</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span> <span class="o">:</span> <span class="s">&quot;test.war&quot;</span><span class="p">)</span>
+<span class="p">...</span>
+ <span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">deployment</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="n">WFLYSRV0028</span><span class="o">:</span> <span class="n">Stopped</span> <span class="n">deployment</span> <span class="n">test</span><span class="p">.</span><span class="n">war</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="n">test</span><span class="p">.</span><span class="n">war</span><span class="p">)</span> <span class="n">in</span> <span class="mi">12</span><span class="n">ms</span>
+<span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">]</span> <span class="p">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="kr">thread</span> <span class="o">-</span> <span class="mi">30</span><span class="p">)</span> <span class="n">WFLYSRV0009</span><span class="o">:</span> <span class="n">Undeployed</span> <span class="s">&quot;test.war&quot;</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="s">&quot;test.war&quot;</span><span class="p">)</span>
+</pre></div>
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div></body></html>

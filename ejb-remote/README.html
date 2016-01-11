@@ -1,0 +1,183 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="ejbremote-remote-ejb-client-example" class="anchor" href="#ejbremote-remote-ejb-client-example"><span class="anchor-icon"></span></a>ejb-remote: Remote EJB Client Example</h1>
+
+<p>Author: Jaikiran Pai, Mike Musgrove<br/>
+Level: Intermediate<br/>
+Technologies: EJB, JNDI<br/>
+Summary: The <code>ejb-remote</code> quickstart uses <em>EJB</em> and <em>JNDI</em> to demonstrate how to access an EJB, deployed to JBoss EAP, from a remote Java client application.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>ejb-remote</code> quickstart shows how to access an EJB from a remote Java client application. It demonstrates the use of <em>EJB</em> and <em>JNDI</em> in Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>There are two components to this example: </p>
+
+<ol>
+<li><p>A server side component:</p>
+
+<p>The server component is comprised of a stateful EJB and a stateless EJB. It provides both an EJB JAR that is deployed to the server and a JAR file containing the remote business interfaces required by the remote client application.</p></li>
+<li><p>A remote client application that accesses the server component. </p>
+
+<p>The remote client application depends on the remote business interfaces from the server component. This application looks up the stateless and stateful beans via JNDI and invokes a number of methods on them.</p></li>
+</ol>
+
+<p>Each component is defined in its own standalone Maven module. The quickstart provides a top level Maven module to simplify the packaging of the artifacts.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p>Since this quickstart builds two separate components, you can not use the standard <em>Build and Deploy</em> commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.</p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server. See the instructions in the previous section.</li>
+<li>Open a command prompt and navigate to the ejb-remote quickstart directory</li>
+<li><p>Build and install the server side component:</p>
+
+<ul>
+<li><p>Navigate to the server-side subdirectory:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">server</span><span class="o">-</span><span class="n">side</span>
+</pre></div></li>
+<li><p>Build the EJB and client interfaces JARs and install them in your local Maven repository.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span>        
+</pre></div></li>
+<li><p>Deploy the EJB JAR to your server. This Maven goal will deploy <code>server-side/target/jboss-ejb-remote-server-side.jar</code>. You can check the JBoss EAP server console to see information messages regarding the deployment.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+</ul></li>
+<li><p>Build and run the client application</p>
+
+<ul>
+<li><p>Navigate to the client subdirectory:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="p">..</span><span class="o">/</span><span class="n">client</span>
+</pre></div></li>
+<li><p>Compile the client code</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">compile</span>
+</pre></div></li>
+<li><p>Execute the client application within Maven</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">exec</span><span class="o">:</span><span class="n">exec</span>
+</pre></div></li>
+</ul></li>
+</ol>
+
+<h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
+
+<p>When the client application runs, it performs the following steps:</p>
+
+<ol>
+<li>Obtains a stateless session bean instance.</li>
+<li>Sends method invocations to the stateless bean to add two numbers, and then displays the result.</li>
+<li>Sends a second invocation to the stateless bean subtract two numbers, and then displays the result.</li>
+<li>Obtains a stateful session bean instance.</li>
+<li>Sends several method invocations to the stateful bean to increment a field in the bean, displaying the result each time.</li>
+<li>Sends several method invocations to the stateful bean to decrement a field in the bean, displaying the result each time.</li>
+</ol>
+
+<p>The output in the terminal window  will look like the following:</p>
+<div class="highlight"><pre>  <span class="n">Obtained</span> <span class="n">a</span> <span class="n">remote</span> <span class="n">stateless</span> <span class="n">calculator</span> <span class="k">for</span> <span class="n">invocation</span>
+  <span class="n">Adding</span> <span class="mi">204</span> <span class="n">and</span> <span class="mi">340</span> <span class="n">via</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">stateless</span> <span class="n">calculator</span> <span class="n">deployed</span> <span class="n">on</span> <span class="n">the</span> <span class="n">server</span>
+  <span class="n">Remote</span> <span class="n">calculator</span> <span class="n">returned</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">544</span>
+  <span class="n">Subtracting</span> <span class="mi">2332</span> <span class="n">from</span> <span class="mi">3434</span> <span class="n">via</span> <span class="n">the</span> <span class="n">remote</span> <span class="n">stateless</span> <span class="n">calculator</span> <span class="n">deployed</span> <span class="n">on</span> <span class="n">the</span> <span class="n">server</span>
+  <span class="n">Remote</span> <span class="n">calculator</span> <span class="n">returned</span> <span class="n">difference</span> <span class="o">=</span> <span class="mi">1102</span>
+  <span class="n">Obtained</span> <span class="n">a</span> <span class="n">remote</span> <span class="n">stateful</span> <span class="n">counter</span> <span class="k">for</span> <span class="n">invocation</span>
+  <span class="n">Counter</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">incremented</span> <span class="mi">5</span> <span class="n">times</span>
+  <span class="n">Incrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">increment</span> <span class="n">is</span> <span class="mi">1</span>
+  <span class="n">Incrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">increment</span> <span class="n">is</span> <span class="mi">2</span>
+  <span class="n">Incrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">increment</span> <span class="n">is</span> <span class="mi">3</span>
+  <span class="n">Incrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">increment</span> <span class="n">is</span> <span class="mi">4</span>
+  <span class="n">Incrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">increment</span> <span class="n">is</span> <span class="mi">5</span>
+  <span class="n">Counter</span> <span class="n">will</span> <span class="n">now</span> <span class="n">be</span> <span class="n">decremented</span> <span class="mi">5</span> <span class="n">times</span>
+  <span class="n">Decrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">decrement</span> <span class="n">is</span> <span class="mi">4</span>
+  <span class="n">Decrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">decrement</span> <span class="n">is</span> <span class="mi">3</span>
+  <span class="n">Decrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">decrement</span> <span class="n">is</span> <span class="mi">2</span>
+  <span class="n">Decrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">decrement</span> <span class="n">is</span> <span class="mi">1</span>
+  <span class="n">Decrementing</span> <span class="n">counter</span>
+  <span class="n">Count</span> <span class="n">after</span> <span class="n">decrement</span> <span class="n">is</span> <span class="mi">0</span>
+</pre></div>
+<p>Logging statements have been removed from this output here to make it clearer.</p>
+
+<h2><a id="build-and-run-the-quickstart-as-an-executable-jar" class="anchor" href="#build-and-run-the-quickstart-as-an-executable-jar"><span class="anchor-icon"></span></a>Build and Run The Quickstart as an Executable JAR</h2>
+
+<p>The remote client application can also be built as a standalone executable JAR with all of its dependencies.</p>
+
+<ol>
+<li><p>Open a command prompt and navigate to the ejb-remote/client quickstart directory</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">client</span>
+</pre></div></li>
+<li><p>Type the following in the command line:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">assembly</span><span class="o">:</span><span class="n">assembly</span>
+</pre></div></li>
+<li><p>You can then run the executable JAR using the <code>java -jar</code> command. You will see the same console output as above.</p>
+<div class="highlight"><pre><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">target</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">ejb</span><span class="o">-</span><span class="n">remote</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">jar</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">dependencies</span><span class="p">.</span><span class="n">jar</span> 
+</pre></div></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<p>To undeploy the server side component from the JBoss EAP server:</p>
+
+<ol>
+<li><p>Navigate to the server-side subdirectory:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="p">..</span><span class="o">/</span><span class="n">server</span><span class="o">-</span><span class="n">side</span>
+</pre></div></li>
+<li><p>Type the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p>This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ol>
+<li><p>Install the required Maven artifacts and deploy the server side of the quickstart project.</p>
+
+<ul>
+<li>Right-click on the <code>jboss-ejb-remote-server-side</code> project and choose <code>Run As</code> &ndash;> <code>Maven Install</code>.</li>
+<li>Right-click on the <code>jboss-ejb-remote-server-side</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>.</li>
+</ul></li>
+<li><p>Build and run the client side of the quickstart project.</p>
+
+<ul>
+<li>Right-click on the <code>jboss-ejb-remote-client</code> project and choose <code>Run As</code> &ndash;> <code>Java Application</code>. </li>
+<li>In the <code>Select Java Application</code> window, choose <code>RemoteEJBClient - org.jboss.as.quickstarts.ejb.remote.client</code> and click <code>OK</code>.</li>
+<li>The client output displays in the <code>Console</code> window.</li>
+</ul></li>
+</ol>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div></body></html>

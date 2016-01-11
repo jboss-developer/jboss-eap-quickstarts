@@ -1,0 +1,152 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="springpetclinic-petclinic-example-using-spring-4x-" class="anchor" href="#springpetclinic-petclinic-example-using-spring-4x-"><span class="anchor-icon"></span></a>spring-petclinic: PetClinic Example using Spring 4.x  </h1>
+
+<p>Author: Ken Krebs, Juergen Hoeller, Rob Harrop, Costin Leau, Sam Brannen, Scott Andrews<br/>
+Level: Advanced<br/>
+Technologies: JPA, Junit, JMX, Spring MVC Annotations, AOP, Spring Data, JSP, webjars, Dandellion<br/>
+Summary: The <code>spring-petclinic</code> quickstart shows how to run the Spring PetClinic Application in JBoss EAP using the JBoss EAP BOMs.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it-" class="anchor" href="#what-is-it-"><span class="anchor-icon"></span></a>What is it?  </h2>
+
+<p>The <code>spring-petclinic</code> quickstart shows how to run the <a href="http://github.com/spring-projects/spring-petclinic">Spring PetClinic</a> Application 
+in Red Hat JBoss Enterprise Application Platform with the use of Red Hat JBoss EAP BOMs (<em>for the best compatibility</em>). One of the major 
+changes is the use of the <code>webapp/WEB-INF/jboss-deployment-structure.xml</code> file. This file specifies which modules 
+to include or exclude when building the application. In this case, we exclude Hibernate libraries since the application 
+uses Spring Data JPA. Additionally, this is only required when using the spring-data-jpa profile, see <code>resources/spring/business-config.xml</code>.</p>
+
+<p>For detailed explanation of the changes made to adapt the Quickstart to Red Hat JBoss Enterprise Application Platform see: <a href="CHANGES.md">CHANGES.md</a></p>
+
+<p>PetClinic features alternative DAO implementations and application configurations for JDBC, JPA, and Spring Data JPA, with 
+HSQLDB and MySQL as target databases. The default PetClinic configuration is JPA on HSQLDB.  </p>
+
+<ul>
+<li>The <code>src/main/resources/spring/business-config.xml</code> pulls in <code>src/main/resources/spring/data-access.properties</code> to set 
+the JDBC-related settings for the JPA EntityManager definition. 
+
+<ul>
+<li>A simple comment change in <code>data-access.properties</code> switches between the data access strategies. </li>
+</ul></li>
+<li>In <code>webapp/WEB_INF/web.xml</code> the <code>&lt;param-name&gt;spring.profiles.active&lt;/param-name&gt;</code> using <code>&lt;param-value&gt;jpa&lt;/param-value&gt;</code> 
+(<em>as the default</em>) refers to the bean to be used in <code>src/main/resources/spring/business-config.xml</code>. 
+
+<ul>
+<li>Setting the <code>&lt;param-value&gt;</code> to <code>jdbc</code>, <code>jpa</code>, or <code>spring-data-jpa</code> is all that is needed to change the DAO implementation.</li>
+</ul></li>
+</ul>
+
+<p>All versions of PetClinic also demonstrate JMX support via the use of <code>&lt;context:mbean-export/&gt;</code> in <code>resources/spring/tools-config.xml</code> 
+for exporting MBeans. The <code>CallMonitoringAspect.java</code> is exposed using Spring&rsquo;s <code>@ManagedResource</code> and <code>@ManagedOperation</code>
+annotations and with <code>@Around</code> annotation we add monitoring around all <code>org.springframework.stereotype.Repository *</code> functions. 
+You can start up the JDK&rsquo;s JConsole to manage the exported bean.</p>
+
+<p>The use of <code>@Cacheable</code> is also demonstrated in <code>ClinicServiceImpl.java</code> by caching the results of the method <code>findVets</code>.
+The cacheManager in configured in <code>tools-config.xml</code> and <code>ehcache.xml</code> specifies the <code>vets</code> cache properties.</p>
+
+<p>The default transaction manager for JDBC is DataSourceTransactionManager and for JPA and Spring Data JPA, JpaTransactionManager.
+Those local strategies allow for working with any locally defined DataSource. These are defined in the <code>business-config.xml</code></p>
+
+<p><em>Note that the sample configurations for JDBC, JPA, and Spring Data JPA configure a DataSource from the Apachce Tomcat JDBC Pool project for connection pooling. See <code>datasource-config.xml</code>.</em></p>
+
+<h2><a id="system-requirements-" class="anchor" href="#system-requirements-"><span class="anchor-icon"></span></a>System requirements  </h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-eap-server-" class="anchor" href="#start-the-jboss-eap-server-"><span class="anchor-icon"></span></a>Start the JBoss EAP Server  </h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the default profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>spring-petclinic/target/jboss-spring-petclinic.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<p>If you don&rsquo;t have maven configured you can manually copy <code>spring-petclinic/target/jboss-spring-petclinic.war</code> to EAP7_HOME/standalone/deployments.</p>
+
+<p>For MySQL, you&rsquo;ll need to use the corresponding schema and SQL scripts in the &ldquo;db/mysql&rdquo; subdirectory.</p>
+
+<p>In you intend to use a local DataSource, the JDBC settings can be adapted in &ldquo;src/main/resources/spring/datasource-config.xml&rdquo;. 
+To use a JTA DataSource, you need to set up corresponding DataSources in your Java EE container.</p>
+
+<h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the application</h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-spring-petclinic/">http://localhost:8080/jboss-spring-petclinic/</a>.</p>
+
+<p><em>Note:</em> You see the following warning in the server log when you access the application. This example does not provide a <code>dandelion.properties</code> file because it does not require any changes to the dandelion default configuration. You can ignore this warning.</p>
+<div class="highlight"><pre><span class="n">WARN</span>  <span class="p">[</span><span class="n">com</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">dandelion</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">StandardConfigurationLoader</span><span class="p">]</span> <span class="p">(</span><span class="k">default</span> <span class="n">task</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">No</span> <span class="n">file</span> <span class="s">&quot;dandelion.properties&quot;</span> <span class="n">was</span> <span class="n">found</span> <span class="n">in</span> <span class="s">&quot;dandelion/dandelion.properties&quot;</span> <span class="p">(</span><span class="n">classpath</span><span class="p">).</span> <span class="n">The</span> <span class="k">default</span> <span class="n">configuration</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span><span class="p">.</span>
+</pre></div>
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-arquillian-functional-tests" class="anchor" href="#run-the-arquillian-functional-tests"><span class="anchor-icon"></span></a>Run the Arquillian Functional Tests</h2>
+
+<p>This quickstart provides Arquillian functional tests as well. They are located in the <code>functional-tests/</code> subdirectory under 
+the root directory of this quickstart. Functional tests verify that your application behaves correctly from the user&rsquo;s point 
+of view. The tests open a browser instance, simulate clicking around the page as a normal user would do, and then close the browser instance.</p>
+
+<p>NOTE: The arquillian-based functional tests deploy the application, so be sure you have undeployed it before you begin. To run these tests, you must build the main project as described above.</p>
+
+<ol>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>If the application is still deployed from the previous section, undeploy it now.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+<li><p>Build the quickstart WAR using the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span>
+</pre></div></li>
+<li><p>Navigate to the functional-tests/ directory in this quickstart.</p></li>
+<li><p>If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">verify</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">remote</span>
+</pre></div></li>
+<li><p>If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">verify</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">managed</span>
+</pre></div></li>
+<li><p>The <code>spring-petclinic</code> quickstart contains three configurations: JDBC, JPA, and Spring Data JPA. You should see the tests run 3 times, one for each configuration. </p></li>
+<li><p>Review the server log. You will see an exception for each test configuration run similar to the following in the server log.  This is intentional to demonstrate how exceptions are handled within application. This the same exception you can test by clicking on the <code>Error</code> menu item in the upper right corner in the deployed application. The application shows a nice error page in the browser instead of the exception. </p>
+<div class="highlight"><pre><span class="n">WARN</span>  <span class="p">[</span><span class="n">warn</span><span class="p">]</span> <span class="p">(</span><span class="k">default</span> <span class="n">task</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span> <span class="n">Handler</span> <span class="n">execution</span> <span class="n">resulted</span> <span class="n">in</span> <span class="n">exception</span><span class="o">:</span> <span class="n">java</span><span class="p">.</span><span class="n">lang</span><span class="p">.</span><span class="n">RuntimeException</span><span class="o">:</span> <span class="n">Expected</span><span class="o">:</span> <span class="n">controller</span> <span class="n">used</span> <span class="n">to</span> <span class="n">showcase</span> <span class="n">what</span> <span class="n">happens</span> <span class="n">when</span> <span class="n">an</span> <span class="n">exception</span> <span class="n">is</span> <span class="n">thrown</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="n">springframework</span><span class="p">.</span><span class="n">samples</span><span class="p">.</span><span class="n">petclinic</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">CrashController</span><span class="p">.</span><span class="n">triggerException</span><span class="p">(</span><span class="n">CrashController</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="mi">35</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="p">.</span><span class="n">reflect</span><span class="p">.</span><span class="n">NativeMethodAccessorImpl</span><span class="p">.</span><span class="n">invoke0</span><span class="p">(</span><span class="n">Native</span> <span class="n">Method</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="p">.</span><span class="n">reflect</span><span class="p">.</span><span class="n">NativeMethodAccessorImpl</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">NativeMethodAccessorImpl</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="mi">62</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="p">.</span><span class="n">reflect</span><span class="p">.</span><span class="n">DelegatingMethodAccessorImpl</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">DelegatingMethodAccessorImpl</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="mi">43</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="n">lang</span><span class="p">.</span><span class="n">reflect</span><span class="p">.</span><span class="n">Method</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">Method</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="mi">497</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="n">springframework</span><span class="p">.</span><span class="n">web</span><span class="p">.</span><span class="n">method</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">InvocableHandlerMethod</span><span class="p">.</span><span class="n">doInvoke</span><span class="p">(</span><span class="n">InvocableHandlerMethod</span><span class="p">.</span><span class="n">java</span><span class="o">:</span><span class="mi">221</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">remainder</span> <span class="n">of</span> <span class="n">StackTrace</span> <span class="n">removed</span> <span class="k">for</span> <span class="n">readability</span><span class="p">)</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>Note: Eclipse/JBDS may generate a persistence.xml file in the src/main/resources/META-INF/ directory. In order to avoid 
+errors delete this file.</p>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following 
+commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>

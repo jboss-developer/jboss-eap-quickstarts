@@ -1,0 +1,125 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="helloworldmbean-helloworld-using-mbean-and-cdi-component" class="anchor" href="#helloworldmbean-helloworld-using-mbean-and-cdi-component"><span class="anchor-icon"></span></a>helloworld-mbean: Helloworld Using MBean and CDI component</h1>
+
+<p>Author: Lagarde Jeremie<br/>
+Level: Intermediate<br/>
+Technologies: CDI, JMX, MBean<br/>
+Summary: The <code>helloworld-mbean</code> quickstart demonstrates the use of <em>CDI</em> and <em>MBean</em> in JBoss EAP and includes JConsole instructions and Arquillian tests.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>helloworld-mbean</code> quickstart demonstrates the use of <em>CDI</em> and <em>MBean</em> in Red Hat JBoss Enterprise Application Platform. The project also includes a set of Arquillian tests for MBeans.</p>
+
+<p>The example is composed of the following MBeans:</p>
+
+<ol>
+<li><p><code>AnnotatedComponentHelloWorld</code>: This MBean is a managed bean with &lsquo;@MXBean&rsquo; annotation.</p></li>
+<li><p><code>MXComponentHelloWorld</code>:  This MBean is a managed bean with &lsquo;MXBean&rsquo; interface.</p></li>
+<li><p><code>MXPojoHelloWorld</code>:  This MBean is a pojo using MXBean interface and declared in the <code>jboss-service.xml</code> file.</p></li>
+<li><p><code>SarMXPojoHelloWorld</code>:  This MBean is a pojo using MXBean interface and declared in jboss-service.xml in SAR packaging.</p></li>
+</ol>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command propmt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>helloworld-mbean-webapp\target\jboss-helloworld-mbean-helloworld-mbean-webapp.war</code> and <code>helloworld-mbean-service\target\jboss-helloworld-mbean-helloworld-mbean-service.sar</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-and-test-the-mbeans" class="anchor" href="#access-and-test-the-mbeans"><span class="anchor-icon"></span></a>Access and Test the MBeans</h2>
+
+<p>This quickstart differs from the other quickstarts in that it uses &lsquo;JConsole&rsquo; to access and test the quickstart rather than access an URL in the browser. If you do access <a href="http://localhost:8080/jboss-helloworld-mbean-helloworld-mbean-webapp/">http://localhost:8080/jboss-helloworld-mbean-helloworld-mbean-webapp/</a>, you will see a screen shot image of the JConsole application,</p>
+
+<p>The following sections describe how to use &lsquo;JConsole&rsquo; to inspect and test the MBeans. </p>
+
+<h2><a id="start-jconsole" class="anchor" href="#start-jconsole"><span class="anchor-icon"></span></a>Start JConsole</h2>
+
+<p>To connect to the JBoss EAP server using JConsole, open a command prompt and type the following command :</p>
+<div class="highlight"><pre>    <span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">JDK_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jconsole</span>
+    <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">JDK_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jconsole</span><span class="p">.</span><span class="n">exe</span>
+</pre></div>
+<p>Select the local <code>org.jboss.modules.Main</code> process and click <code>Connect</code>.</p>
+
+<p><img src="helloworld-mbean-webapp/src/main/webapp/jconsole_connection.png" alt="MBeans in JConsole Connection"/></p>
+
+<p>A dialog displays with the warning &ldquo;Secure connection failed. Retry insecurely?&rdquo;. Click <code>Insecure</code> to continue.</p>
+
+<h2><a id="test-the-mbeans-in-jconsole" class="anchor" href="#test-the-mbeans-in-jconsole"><span class="anchor-icon"></span></a>Test the MBeans in JConsole</h2>
+
+<p>You can use JConsole to inspect and use the MBeans :
+<img src="helloworld-mbean-webapp/src/main/webapp/jconsole.png" alt="MBeans in JConsole"/></p>
+
+<ol>
+<li>Click on the MBeans tab.</li>
+<li>Expand <code>quickstarts</code> in the left column of the console.</li>
+<li>Under <code>quickstarts</code>, you see the 4 MBeans: <code>AnnotatedComponentHelloWorld</code>, <code>MXComponentHelloWorld</code>, <code>MXPojoHelloWorld</code>, and <code>SarMXPojoHelloWorld</code></li>
+<li>Expand each MBean and choose: <code>Operations</code> &ndash;> <code>sayHello</code>.</li>
+<li>Type your name in the (p0 String ) input text box and click the <code>sayHello</code> button.
+
+<ul>
+<li>For the <code>AnnotatedComponentHelloWorld</code> and <code>MXComponentHelloWorld</code> examples, you will see a popup Window displaying <code>Hello &lt;your name&gt;!</code>.</li>
+<li>For the <code>MXPojoHelloWorld</code> and <code>SarMXPojoHelloWorld</code> examples, you will see a popup Window displaying <code>Welcome &lt;your name&gt;!</code>.</li>
+</ul></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p>This quickstart consists of multiple projects and requires installation of the &ldquo;JBoss Tools Maven Packaging Configurator&rdquo;, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ol>
+<li>Install the JBoss Tools Maven Packaging Configurator
+
+<ul>
+<li>If the &ldquo;JBoss Central&rdquo; page is not showing, open it by choosing <code>Help</code> &ndash;> <code>JBoss Central</code>.</li>
+<li>Click the <code>Software/Update</code> tab at the bottom of the <code>JBoss Central</code>.</li>
+<li>Scroll down to the <code>Maven</code> section, select the &ldquo;JBoss Tools Maven Packaging Configurator&rdquo; and click <code>Install/Update</code>.</li>
+</ul></li>
+<li>Right click on the parent <code>jboss-helloworld-mbean</code> parent project and choose <code>Maven</code> &ndash;> <code>Update Project...</code>. Select all projects and click <code>OK</code>.</li>
+<li>Right-click on the <code>helloworld-mbean-helloworld-mbean-service</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. </li>
+<li>Right-click on the <code>helloworld-mbean-helloworld-mbean-webapp</code> project and choose <code>Run As</code> &ndash;> <code>Run on Server</code>. </li>
+<li><a href="#start-jconsole">Start JConsole</a> and <a href="#test-the-mbeans-in-jconsole">Test the MBeans in JConsole</a> as described above.</li>
+</ol>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div></body></html>

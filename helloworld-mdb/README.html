@@ -1,0 +1,100 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="helloworldmdb-helloworld-using-an-mdb-messagedriven-bean" class="anchor" href="#helloworldmdb-helloworld-using-an-mdb-messagedriven-bean"><span class="anchor-icon"></span></a>helloworld-mdb: Helloworld Using an MDB (Message-Driven Bean)</h1>
+
+<p>Author: Serge Pagop, Andy Taylor, Jeff Mesnil<br/>
+Level: Intermediate<br/>
+Technologies: JMS, EJB, MDB<br/>
+Summary: The <code>helloworld-mdb</code> quickstart uses <em>JMS</em> and <em>EJB Message-Driven Bean</em> (MDB) to create and deploy JMS topic and queue resources in JBoss EAP.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>helloworld-mdb</code> quickstart demonstrates the use of <em>JMS</em> and <em>EJB Message-Driven Bean</em> in Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>This project creates two JMS resources:</p>
+
+<ul>
+<li>A queue named <code>HELLOWORLDMDBQueue</code> bound in JNDI as <code>java:/queue/HELLOWORLDMDBQueue</code></li>
+<li>A topic named <code>HELLOWORLDMDBTopic</code> bound in JNDI as <code>java:/topic/HELLOWORLDMDBTopic</code></li>
+</ul>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server-with-the-full-profile" class="anchor" href="#start-the-jboss-eap-server-with-the-full-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Server with the Full Profile</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the full profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span> <span class="o">-</span><span class="n">c</span> <span class="n">standalone</span><span class="o">-</span><span class="n">full</span><span class="p">.</span><span class="n">xml</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">install</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-helloworld-mdb.war</code> to the running instance of the server. Look at the JBoss EAP console or Server log and you should see log messages corresponding to the deployment of the message-driven beans and the JMS destinations:</p>
+<div class="highlight"><pre><span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">wildfly</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">messaging</span><span class="o">-</span><span class="n">activemq</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span> <span class="n">WFLYMSGAMQ0002</span><span class="o">:</span> <span class="n">Bound</span> <span class="n">messaging</span> <span class="n">object</span> <span class="n">to</span> <span class="n">jndi</span> <span class="n">name</span> <span class="n">java</span><span class="o">:/</span><span class="n">queue</span><span class="o">/</span><span class="n">HELLOWORLDMDBQueue</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">wildfly</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">messaging</span><span class="o">-</span><span class="n">activemq</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="n">WFLYMSGAMQ0002</span><span class="o">:</span> <span class="n">Bound</span> <span class="n">messaging</span> <span class="n">object</span> <span class="n">to</span> <span class="n">jndi</span> <span class="n">name</span> <span class="n">java</span><span class="o">:/</span><span class="n">topic</span><span class="o">/</span><span class="n">HELLOWORLDMDBTopic</span>
+<span class="p">....</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">activemq</span><span class="p">.</span><span class="n">artemis</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">server</span><span class="p">]</span> <span class="p">(</span><span class="n">ServerService</span> <span class="n">Thread</span> <span class="n">Pool</span> <span class="o">--</span> <span class="mi">67</span><span class="p">)</span> <span class="n">AMQ221003</span><span class="o">:</span> <span class="n">trying</span> <span class="n">to</span> <span class="n">deploy</span> <span class="n">queue</span> <span class="n">jms</span><span class="p">.</span><span class="n">queue</span><span class="p">.</span><span class="n">HelloWorldMDBQueue</span>
+<span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">activemq</span><span class="p">.</span><span class="n">artemis</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">server</span><span class="p">]</span> <span class="p">(</span><span class="n">ServerService</span> <span class="n">Thread</span> <span class="n">Pool</span> <span class="o">--</span> <span class="mi">12</span><span class="p">)</span> <span class="n">AMQ221003</span><span class="o">:</span> <span class="n">trying</span> <span class="n">to</span> <span class="n">deploy</span> <span class="n">queue</span> <span class="n">jms</span><span class="p">.</span><span class="n">topic</span><span class="p">.</span><span class="n">HelloWorldMDBTopic</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">ejb3</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span> <span class="n">WFLYEJB0042</span><span class="o">:</span> <span class="n">Started</span> <span class="n">message</span> <span class="n">driven</span> <span class="n">bean</span> <span class="err">&#39;</span><span class="n">HelloWorldQueueMDB</span><span class="err">&#39;</span> <span class="n">with</span> <span class="err">&#39;</span><span class="n">activemq</span><span class="o">-</span><span class="n">ra</span><span class="p">.</span><span class="n">rar</span><span class="err">&#39;</span> <span class="n">resource</span> <span class="n">adapter</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">ejb3</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="n">WFLYEJB0042</span><span class="o">:</span> <span class="n">Started</span> <span class="n">message</span> <span class="n">driven</span> <span class="n">bean</span> <span class="err">&#39;</span><span class="n">HelloWorldQTopicMDB</span><span class="err">&#39;</span> <span class="n">with</span> <span class="err">&#39;</span><span class="n">activemq</span><span class="o">-</span><span class="n">ra</span><span class="p">.</span><span class="n">rar</span><span class="err">&#39;</span> <span class="n">resource</span> <span class="n">adapter</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-helloworld-mdb/">http://localhost:8080/jboss-helloworld-mdb/</a> and will send some messages to the queue.</p>
+
+<p>To send messages to the topic, use the following URL: <a href="http://localhost:8080/jboss-helloworld-mdb/HelloWorldMDBServletClient?topic">http://localhost:8080/jboss-helloworld-mdb/HelloWorldMDBServletClient?topic</a></p>
+
+<h2><a id="investigate-the-server-console-output" class="anchor" href="#investigate-the-server-console-output"><span class="anchor-icon"></span></a>Investigate the Server Console Output</h2>
+
+<p>Look at the JBoss EAP console or Server log and you should see log messages like the following:</p>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">mdb</span><span class="p">.</span><span class="n">HelloWorldQueueMDB</span><span class="p">]</span> <span class="p">(</span><span class="n">Thread</span><span class="o">-</span><span class="mi">9</span> <span class="p">(</span><span class="n">ActiveMQ</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">global</span><span class="o">-</span><span class="n">threads</span><span class="o">-</span><span class="mi">1189700957</span><span class="p">))</span> <span class="n">Received</span> <span class="n">Message</span> <span class="n">from</span> <span class="n">queue</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">message</span> <span class="mi">5</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">mdb</span><span class="p">.</span><span class="n">HelloWorldQueueMDB</span><span class="p">]</span> <span class="p">(</span><span class="n">Thread</span><span class="o">-</span><span class="mi">6</span> <span class="p">(</span><span class="n">ActiveMQ</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">global</span><span class="o">-</span><span class="n">threads</span><span class="o">-</span><span class="mi">1189700957</span><span class="p">))</span> <span class="n">Received</span> <span class="n">Message</span> <span class="n">from</span> <span class="n">queue</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">message</span> <span class="mi">1</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">mdb</span><span class="p">.</span><span class="n">HelloWorldQueueMDB</span><span class="p">]</span> <span class="p">(</span><span class="n">Thread</span><span class="o">-</span><span class="mi">7</span> <span class="p">(</span><span class="n">ActiveMQ</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">global</span><span class="o">-</span><span class="n">threads</span><span class="o">-</span><span class="mi">1189700957</span><span class="p">))</span> <span class="n">Received</span> <span class="n">Message</span> <span class="n">from</span> <span class="n">queue</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">message</span> <span class="mi">4</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">mdb</span><span class="p">.</span><span class="n">HelloWorldQueueMDB</span><span class="p">]</span> <span class="p">(</span><span class="n">Thread</span><span class="o">-</span><span class="mi">5</span> <span class="p">(</span><span class="n">ActiveMQ</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">global</span><span class="o">-</span><span class="n">threads</span><span class="o">-</span><span class="mi">1189700957</span><span class="p">))</span> <span class="n">Received</span> <span class="n">Message</span> <span class="n">from</span> <span class="n">queue</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">message</span> <span class="mi">2</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstarts</span><span class="p">.</span><span class="n">mdb</span><span class="p">.</span><span class="n">HelloWorldQueueMDB</span><span class="p">]</span> <span class="p">(</span><span class="n">Thread</span><span class="o">-</span><span class="mi">4</span> <span class="p">(</span><span class="n">ActiveMQ</span><span class="o">-</span><span class="n">client</span><span class="o">-</span><span class="n">global</span><span class="o">-</span><span class="n">threads</span><span class="o">-</span><span class="mi">1189700957</span><span class="p">))</span> <span class="n">Received</span> <span class="n">Message</span> <span class="n">from</span> <span class="n">queue</span><span class="o">:</span> <span class="n">This</span> <span class="n">is</span> <span class="n">message</span> <span class="mi">3</span>
+</pre></div>
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p><em>NOTE:</em> Within JBoss Developer Studio, be sure to define a server runtime environment that uses the <code>standalone-full.xml</code> configuration file.</p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div>
+<!-- Build and Deploy the Quickstart to OpenShift - Coming soon! -->
+</body></html>

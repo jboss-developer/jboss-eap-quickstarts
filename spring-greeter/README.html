@@ -1,0 +1,122 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="springgreeter-greeter-example-using-spring-4x" class="anchor" href="#springgreeter-greeter-example-using-spring-4x"><span class="anchor-icon"></span></a>spring-greeter: Greeter Example using Spring 4.x</h1>
+
+<p>Author: Marius Bogoevici<br/>
+Level: Beginner<br/>
+Technologies: Spring MVC, JSP, JPA<br/>
+Summary: The <code>spring-greeter</code> quickstart is based on the <code>greeter</code> quickstart, but differs in that it uses Spring MVC for Mapping GET and POST requests.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-this" class="anchor" href="#what-is-this"><span class="anchor-icon"></span></a>What is this?</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform (JBoss EAP) 7 or later.</p>
+
+<p>The <code>spring-greeter</code> quickstart is based on the <code>greeter</code> quickstart, but differs in that it uses Spring MVC for Mapping GET and POST requests:</p>
+
+<ul>
+<li><code>&lt;mvc:annotation-driven\&gt;</code> configured in <code>src/main/webapp/WEB-INF/spring-mvc-context.xml</code> tells Spring to look for 
+<code>@RequestMapping</code> in our controllers.</li>
+<li>Spring then routes the HTTP requests to the correct methods in <code>CreateController.java</code> and <code>GreetController</code></li>
+</ul>
+
+<p>Spring&rsquo;s XML configurations are used to get hold of the database and entity manager (via jndi) to perform transactional operations:</p>
+
+<ul>
+<li><code>&lt;tx:jta-transaction-manager/&gt;</code> and <code>&lt;tx:annotation-driven/&gt;</code> are configured in <code>/src/main/webapp/WEB-INF/spring-business-context.xml</code></li>
+<li>Methods in UserDaoImpl are marked as <code>@Transactional</code>, which Spring, using aspect oriented programming, surrounds with 
+boilerplate code to make the methods transactional</li>
+</ul>
+
+<p>When you deploy this example, two users are automatically created for you: emuster and jdoe. This data is located in the 
+<code>src/main/resources/init-db.sql</code> file.</p>
+
+<p>To test this example:</p>
+
+<ol>
+<li>Enter a name in the username field and click on Greet!.</li>
+<li>If you enter a username that is not in the database, you get a message No such user exists!.</li>
+<li>If you enter a valid username, you get a message &ldquo;Hello, &rdquo; followed by the user&rsquo;s first and last name.</li>
+<li>To create a new user, click the Add a new user link. Enter the username, first name, and last name and then click Add User. 
+The user is added and a message displays the new user id number.</li>
+<li>Click on the Greet a user! link to return to the Greet! page.</li>
+</ol>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the default profile:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:
+    mvn clean package wildfly:deploy</p></li>
+<li><p>This will deploy target/spring-greeter.war to the running instance of the server.</p></li>
+</ol>
+
+<p>If you don&rsquo;t have maven configured you can manually copy target/spring-greeter.war to EAP7_HOME/standalone/deployments.</p>
+
+<h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the application</h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-spring-greeter">http://localhost:8080/jboss-spring-greeter</a></p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">wildfly</span><span class="o">:</span><span class="n">undeploy</span>
+</pre></div></li>
+</ol>
+
+<p>Or you can manually remove the application by removing spring-greeter.war from EAP7_HOME/standalone/deployments</p>
+
+<h2><a id="run-the-arquillian-functional-tests" class="anchor" href="#run-the-arquillian-functional-tests"><span class="anchor-icon"></span></a>Run the Arquillian Functional Tests</h2>
+
+<p>This quickstart provides Arquillian functional tests as well. They are located in the functional-tests/ subdirectory under 
+the root directory of this quickstart. Functional tests verify that your application behaves correctly from the user&rsquo;s point 
+of view. The tests open a browser instance, simulate clicking around the page as a normal user would do, and then close the browser instance.</p>
+
+<p>To run these tests, you must build the main project as described above.</p>
+
+<ol>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Build the quickstart WAR using the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">package</span>
+</pre></div></li>
+<li><p>Navigate to the functional-tests/ directory in this quickstart.</p></li>
+<li><p>If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">verify</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">remote</span>
+</pre></div></li>
+<li><p>If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the 
+server for you, type the following command:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">verify</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">managed</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following 
+commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">resolve</span> <span class="o">-</span><span class="n">Dclassifier</span><span class="o">=</span><span class="n">javadoc</span>
+</pre></div></body></html>

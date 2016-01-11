@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="cdiportableextension-cdi-portable-extension-" class="anchor" href="#cdiportableextension-cdi-portable-extension-"><span class="anchor-icon"></span></a>cdi-portable-extension: CDI Portable Extension </h1>
+
+<p>Author: Jason Porter<br/>
+Level: Intermediate<br/>
+Technologies: CDI<br/>
+Summary: The <code>cdi-portable-extension</code> quickstart demonstrates a simple CDI Portable Extension that uses SPI classes to inject beans with data from an XML file.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>cdi-portable-extension</code> quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
+to complete that task in an application deployed to Red Hat JBoss Enterprise Application Platform. 
+This particular extension explores the ProcessInjectionTarget and 
+InjectionTarget SPI classes of CDI, to demonstrate a possible way to seed data into beans.</p>
+
+<p>A Portable Extension is an extension to Java EE 6 and above, which is tailored to a specific
+use case and will run on any Java EE 6 or later implementation. Portable extensions can implement 
+features not yet supported by the specifications, such as type-safe messages or external configuration of beans.</p>
+
+<p>The project contains very simple domain model classes, an extension class, the service registration file
+for that extension and an Arquillian test to verify the extension is working correctly.</p>
+
+<p>It does not contain any user interface, the tests must be run to verify everything is working
+correctly.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span>   <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">standalone</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">standalone</span><span class="p">.</span><span class="n">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-arquillian-tests" class="anchor" href="#run-the-arquillian-tests"><span class="anchor-icon"></span></a>Run the Arquillian Tests</h2>
+
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container.</p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">clean</span> <span class="n">test</span> <span class="o">-</span><span class="n">Parq</span><span class="o">-</span><span class="n">wildfly</span><span class="o">-</span><span class="n">remote</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
+
+<p>Maven prints summary of the 2 performed tests to the console.</p>
+<div class="highlight"><pre><span class="o">-------------------------------------------------------</span>
+ <span class="n">T</span> <span class="n">E</span> <span class="n">S</span> <span class="n">T</span> <span class="n">S</span>
+<span class="o">-------------------------------------------------------</span>
+<span class="n">Running</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">test</span><span class="p">.</span><span class="n">CreatureExtensionTest</span>
+<span class="n">Tests</span> <span class="n">run</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Failures</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Errors</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Skipped</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Time</span> <span class="n">elapsed</span><span class="o">:</span> <span class="mf">2.87</span> <span class="n">sec</span>
+
+<span class="n">Results</span> <span class="o">:</span>
+
+<span class="n">Tests</span> <span class="n">run</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Failures</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Errors</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Skipped</span><span class="o">:</span> <span class="mi">0</span>
+</pre></div>
+<h3><a id="server-log" class="anchor" href="#server-log"><span class="anchor-icon"></span></a>Server log</h3>
+
+<p>There are two logging statements done when the tests are run:</p>
+
+<h4><a id="example" class="anchor" href="#example"><span class="anchor-icon"></span></a>Example</h4>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">deployment</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="n">WFLYSRV0027</span><span class="o">:</span> <span class="n">Starting</span> <span class="n">deployment</span> <span class="n">of</span> <span class="s">&quot;test.war&quot;</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="s">&quot;test.war&quot;</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">CreatureExtension</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Monster</span>
+<span class="p">[</span><span class="n">timestamp</span><span class="p">]</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">CreatureExtension</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">NonPlayerCharacter</span>
+<span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">]</span> <span class="p">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="kr">thread</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span> <span class="n">WFLYSRV0010</span><span class="o">:</span> <span class="n">Deployed</span> <span class="s">&quot;test.war&quot;</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span> <span class="o">:</span> <span class="s">&quot;test.war&quot;</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="p">[</span><span class="n">timestamp</span><span class="p">]</span> <span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">.</span><span class="n">deployment</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span> <span class="n">WFLYSRV0028</span><span class="o">:</span> <span class="n">Stopped</span> <span class="n">deployment</span> <span class="n">test</span><span class="p">.</span><span class="n">war</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="n">test</span><span class="p">.</span><span class="n">war</span><span class="p">)</span> <span class="n">in</span> <span class="mi">27</span><span class="n">ms</span>
+<span class="p">...</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">server</span><span class="p">]</span> <span class="p">(</span><span class="n">management</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="kr">thread</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span> <span class="n">WFLYSRV0009</span><span class="o">:</span> <span class="n">Undeployed</span> <span class="s">&quot;test.war&quot;</span> <span class="p">(</span><span class="n">runtime</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="s">&quot;test.war&quot;</span><span class="p">)</span>
+</pre></div>
+<p>The two statements to look for are these:</p>
+<div class="highlight"><pre><span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">CreatureExtension</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Monster</span>
+<span class="n">INFO</span>  <span class="p">[</span><span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">CreatureExtension</span><span class="p">]</span> <span class="p">(</span><span class="n">MSC</span> <span class="n">service</span> <span class="kr">thread</span> <span class="mi">1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="n">Setting</span> <span class="n">up</span> <span class="n">injection</span> <span class="n">target</span> <span class="k">for</span> <span class="n">class</span> <span class="n">org</span><span class="p">.</span><span class="n">jboss</span><span class="p">.</span><span class="n">as</span><span class="p">.</span><span class="n">quickstart</span><span class="p">.</span><span class="n">cdi</span><span class="p">.</span><span class="n">extension</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">NonPlayerCharacter</span>
+</pre></div>
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a></p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre>    <span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div></body></html>
