@@ -12,14 +12,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The <code>helloworld-mdb-propertysubstitution</code> quickstart demonstrates the use of <em>JMS</em> and <em>EJB Message-Driven Bean</em> in Red Hat JBoss Enterprise Application Platform. </p>
 
-<p>It is based on the <a href="../helloworld-mdb/README.html">helloworld-mdb</a> quickstart, but has been enhanced to enable property substitution using 
-the <code>@Resource</code> and <code>@ActivationConfigProperty</code> annotations.</p>
+<p>It is based on the <a href="../helloworld-mdb/README.html">helloworld-mdb</a> quickstart, but has been enhanced to enable property substitution using the <code>@Resource</code> and <code>@ActivationConfigProperty</code> annotations.</p>
 
 <p>This project creates two JMS resources:</p>
 
 <ul>
-<li>A queue named <code>MDBPropertySubQueue</code> bound in JNDI as <code>java:/queue/MDBPROPERTYSUBQueue</code></li>
-<li>A topic named <code>MDBPropertySubTopic</code> bound in JNDI as <code>java:/topic/MDBPROPERTYSUBTopic</code></li>
+<li>A queue named <code>HELLOWORLDMDBQueue</code> bound in JNDI as <code>java:/${property.helloworldmdb.queue}</code></li>
+<li>A topic named <code>HELLOWORLDMDBTopic</code> bound in JNDI as <code>java:/${property.helloworldmdb.topic}</code></li>
 </ul>
 
 <h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
