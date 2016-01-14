@@ -24,7 +24,7 @@
 
 <html lang="en">
 
-<jsp:include page="../fragments/staticFiles.jsp"/>
+<jsp:include page="/WEB-INF/jsp/fragments/staticFiles.jsp"/>
 <body>
 
 <script>
@@ -33,7 +33,7 @@
     });
 </script>
 <div class="container">
-    <jsp:include page="../fragments/bodyHeader.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/bodyHeader.jsp"/>
 
     <h2>
         <c:if test="${pet['new']}">New </c:if>
@@ -66,7 +66,7 @@
     </form:form>
     <c:if test="${!pet['new']}">
     </c:if>
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 </div>
 </body>
 

@@ -24,11 +24,11 @@
 <html lang="en">
 
 
-<jsp:include page="../fragments/staticFiles.jsp"/>
+<jsp:include page="/WEB-INF/jsp/fragments/staticFiles.jsp"/>
 
 <body>
 <div class="container">
-    <jsp:include page="../fragments/bodyHeader.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/bodyHeader.jsp"/>
 
     <h2>Veterinarians</h2>
 
@@ -56,7 +56,7 @@
         </tr>
     </table>
 
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 </div>
 </body>
 
