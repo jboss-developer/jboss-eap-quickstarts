@@ -71,7 +71,7 @@ Access the application
 
 The application will be running at the following URL <http://localhost:8080/jboss-thread-racing/>. 
 
-To start a race press the `Insert Coin` button. The page displays the names of the threads as they join the race. It then tracks the progress of each thread through the Batch, EE Concurrency, JAX-R, JMS, and JSON stages of the race. Finally, it displays the official race results and championship standings.
+To start a race press the `Insert Coin` button. The page displays the names of the threads as they join the race. It then tracks the progress of each thread through the Batch, EE Concurrency, JAX-RS, JMS, and JSON stages of the race. Finally, it displays the official race results and championship standings.
 
 
 Server Log: Expected warnings and errors
