@@ -3,7 +3,7 @@ jaxrs-client: JAX-RS Client API example
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: JAX-RS  
-Summary:The `jaxrs-client` quickstart demonstrates JAX-RS Client API, which interacts with a JAX-RS Web service that runs on JBoss EAP.  
+Summary: The `jaxrs-client` quickstart demonstrates JAX-RS Client API, which interacts with a JAX-RS Web service that runs on JBoss EAP.  
 Target Product: EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
