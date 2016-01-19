@@ -3,7 +3,7 @@ managed-executor-service: Managed Executor Service example
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: EE Concurrency Utilities, JAX-RS, JAX-RS Client API  
-Summary:The `managed-executor-service` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution.  
+Summary: The `managed-executor-service` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution.  
 Target Product: EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
