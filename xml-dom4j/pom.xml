@@ -84,7 +84,7 @@
         <version.jboss.spec.javaee.7.0>1.0.3.Final-redhat-1</version.jboss.spec.javaee.7.0>
 
         <!-- Other dependency versions -->
-        <version.dom4j>1.6</version.dom4j>
+        <version.dom4j>1.6.1</version.dom4j>
 
         <!-- other plug-in versions -->
         <version.war.plugin>2.1.1</version.war.plugin>
