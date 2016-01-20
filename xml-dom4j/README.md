@@ -79,10 +79,5 @@ If you want to debug the source code of any library in the project, run the foll
 
         mvn dependency:sources
 
-You may see the following message when you run the command. It indicates the source is not provided in the third-party `dom4j` JAR.
-
-        [INFO] The following files have NOT been resolved:
-        [INFO]    dom4j:dom4j:jar:sources:1.6:compile
-
 
 
