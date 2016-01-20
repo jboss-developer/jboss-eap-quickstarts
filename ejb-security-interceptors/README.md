@@ -230,7 +230,7 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
         </outbound-connections>
 5. If you chose to run the script to suppress system exceptions, you should see the following configuration in the `ejb3` subsystem.
 
-      <log-system-exceptions value="false"/>
+        <log-system-exceptions value="false"/>
 
 
 Start the JBoss EAP Server 
