@@ -24,11 +24,11 @@
 
 <html lang="en">
 
-<jsp:include page="../fragments/staticFiles.jsp"/>
+<jsp:include page="/WEB-INF/jsp/fragments/staticFiles.jsp"/>
 
 <body>
 <div class="container">
-    <jsp:include page="../fragments/bodyHeader.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/bodyHeader.jsp"/>
     <h2>Owners</h2>
 
     <datatables:table id="owners" data="${selections}" row="owner" theme="bootstrap2"
@@ -53,7 +53,7 @@
         <datatables:export type="pdf" cssClass="btn" cssStyle="height: 25px;"/>
     </datatables:table>
 
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 
 </div>
 </body>

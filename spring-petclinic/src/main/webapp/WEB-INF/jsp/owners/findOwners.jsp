@@ -23,11 +23,11 @@
 
 <html lang="en">
 
-<jsp:include page="../fragments/staticFiles.jsp"/>
+<jsp:include page="/WEB-INF/jsp/fragments/staticFiles.jsp"/>
 
 <body>
 <div class="container">
-    <jsp:include page="../fragments/bodyHeader.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/bodyHeader.jsp"/>
 
     <h2>Find Owners</h2>
 
@@ -49,7 +49,7 @@
     <br/>
     <a href='<spring:url value="/owners/new" htmlEscape="true"/>'>Add Owner</a>
 
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 
 </div>
 </body>

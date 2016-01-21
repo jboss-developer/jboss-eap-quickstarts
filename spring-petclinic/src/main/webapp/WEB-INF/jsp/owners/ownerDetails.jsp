@@ -24,11 +24,11 @@
 
 <html lang="en">
 
-<jsp:include page="../fragments/staticFiles.jsp"/>
+<jsp:include page="/WEB-INF/jsp/fragments/staticFiles.jsp"/>
 
 <body>
 <div class="container">
-    <jsp:include page="../fragments/bodyHeader.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/bodyHeader.jsp"/>
 
     <h2>Owner Information</h2>
 
@@ -114,7 +114,7 @@
         </table>
     </c:forEach>
 
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 
 </div>
 
