@@ -142,7 +142,7 @@ validate and minify JavaScript and CSS files. These minified files, as well as t
 
 With just a few quick changes to the project, you can link to the minified versions of your JavaScript and CSS files.
 
-First, in the <project-root>/src/main/webapp/index.html file, search for references to minification and comment or 
+First, in the &lt;project-root&gt;/src/main/webapp/index.html file, search for references to minification and comment or 
 uncomment the appropriate lines.
 
 Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. 
