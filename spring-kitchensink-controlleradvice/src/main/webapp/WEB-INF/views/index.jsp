@@ -133,8 +133,7 @@
     </div>
     <div id="footer">
         <p>
-            This project was generated from a Maven archetype from
-            JBoss.<br/>
+            This JBoss EAP quickstart project was generated from a Maven archetype.<br/>
         </p>
     </div>
 </div>
