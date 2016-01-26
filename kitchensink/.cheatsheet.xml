@@ -311,7 +311,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/kitchensink/util/Resources.java,fromLine=52)"/>
     </subitem>
     <subitem
-            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform."
+            label="If you want to define your own datasource, take a look at the Configuration Guide for Red Hat JBoss Enterprise Application Platform."
             skip="true">
     <command
            required="false"

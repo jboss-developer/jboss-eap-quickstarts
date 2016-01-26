@@ -540,7 +540,7 @@
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/java/org/jboss/as/quickstarts/html5_mobile/util/Resources.java,fromLine=44,toLine=47)"/>
   </subitem>
   <subitem
-            label="If you want to define your own datasource, take a look at the Administration and Configuration Guide for Red Hat JBoss Enterprise Application Platform 7"
+            label="If you want to define your own datasource, take a look at the Configuration Guide for Red Hat JBoss Enterprise Application Platform"
             skip="true">
     <command
            required="false"
