@@ -17,7 +17,7 @@
 package org.jboss.as.quickstarts.tasksrs.model;
 
 // JSON: uncomment to include json support (note json is not part of the JAX-RS standard)
-//import org.codehaus.jackson.annotate.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

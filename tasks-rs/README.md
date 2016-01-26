@@ -199,7 +199,7 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
 
 1. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.
 
-        // import org.codehaus.jackson.annotate.JsonIgnore;
+        // import com.fasterxml.jackson.annotation.JsonIgnore;
 
         // @JsonIgnore
 
@@ -210,12 +210,12 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
     * Add comments to these lines:
 
           @Produces({ "application/xml" })
-3. Open pom.xml and remove the comments from the dependency with artifactId `resteasy-jackson-provider`
+3. Open pom.xml and remove the comments from the dependency with artifactId `resteasy-jackson2-provider`
 
         <!--
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
+            <artifactId>resteasy-jackson2-provider</artifactId>
             <scope>provided</scope>
         </dependency>
         -->
