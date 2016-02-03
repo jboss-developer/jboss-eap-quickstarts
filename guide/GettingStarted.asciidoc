@@ -55,7 +55,7 @@ server. We use this throughout the quickstarts.
 == Installing and starting the JBoss EAP server on Linux, Unix or Mac OS X
 [[GettingStarted-on_linux]]
 
-First, let's verify that verify that both Java and Maven are correctly 
+First, let's verify that both Java and Maven are correctly 
 installed. In a console, type:
 
     java -version
@@ -64,7 +64,7 @@ You should see a version string (at least `1.7.0`) printed. If not, contact your
 
     mvn --version
 
-You should see a version string (at lest `3.0.0`) printed. If not, contact the Maven community for assistance. 
+You should see a version string (at least `3.0.0`) printed. If not, contact the Maven community for assistance. 
 
 Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap.7.x.x` (where `7.x.x` matches the version you downloaded): 
 
@@ -111,7 +111,7 @@ You should see a version string (at least `1.7.0`) printed. If not, contact your
 
     mvn --version
 
-You should see a version string (at lest `3.0.0`) printed. If not, contact the Maven community for assistance. 
+You should see a version string (at least `3.0.0`) printed. If not, contact the Maven community for assistance. 
 
 Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap-7.x.x` (where `7.x.x` matches the version you downloaded). Unzip JBoss EAP using your tool of choice. 
 
