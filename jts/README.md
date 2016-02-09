@@ -191,13 +191,13 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 
 When you enter a name and click to "Add" that customer, you will see the following in the application server 1 console:
     
-    INFO  [org.jboss.ejb.client] (http-/127.0.0.1:8080-1) JBoss EJB Client version 2.1.2.Final
-    WARN  [com.arjuna.ats.jts] (RequestProcessor-5) ARJUNA022261: ServerTopLevelAction detected that the transaction was inactive
+    INFO  [org.hibernate.hql.internal.QueryTranslatorFactoryInitiator] (default task-2) HHH000397: Using ASTQueryTranslatorFactory
+    INFO  [org.jboss.ejb.client] (default task-4) JBoss EJB Client version 2.1.4.Final-redhat-1
 
 You will also see the following in application-server-2 console:
 
-    INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 2.1.2.Final
-    INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-2 (ActiveMQ-client-global-threads-2003471369)) Received Message: Created invoice for customer named: Tom
+    INFO  [org.jboss.ejb.client] (p: default-threadpool; w: Idle) JBoss EJB Client version 2.1.4.Final-redhat-1
+    INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-97 (ActiveMQ-client-global-threads-6840624)) Received Message: Created invoice for customer named: Tom
 
 The web page will also change and show you the new list of customers.
 
@@ -208,7 +208,6 @@ Server Log: Expected warnings and errors
 _Note:_ You will see the following warnings in the server log. You can ignore these warnings. 
 
     WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-    ARJUNA022261: ServerTopLevelAction detected that the transaction was inactive
 
 Undeploy the Archive
 --------------------
@@ -237,7 +236,7 @@ You can modify the server configuration by running the `remove-jts-transactions.
 
         For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=remove-jts-transactions.cli 
         For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=remove-jts-transactions.cli 
-This script removes the JTS configuration from the `jacorb` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
+This script removes the JTS configuration from the `iiop-openjdk` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
         {"outcome" => "success"}
