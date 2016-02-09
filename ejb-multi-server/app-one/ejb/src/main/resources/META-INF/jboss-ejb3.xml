@@ -26,7 +26,6 @@
       <!-- mark all EJB's of the application as clustered (without using the jboss specific @Clustered annotation for each class) -->
         <c:clustering>
             <ejb-name>*</ejb-name>
-            <c:clustered>true</c:clustered>
         </c:clustering>
     </assembly-descriptor>
 </jboss:ejb-jar>
