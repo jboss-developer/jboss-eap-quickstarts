@@ -106,24 +106,22 @@ _Note:_ This quickstart README file use the following replaceable values. When y
 4. Access the application at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>
     * When you enter a name and click to "add" that customer, you will see the following in the application server 1 console:
 
-            09:58:40,443 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 2.1.2.Final
-            09:58:40,628 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Rule.execute called for Fail 2PC after prepare_0
-            09:58:40,632 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) HelperManager.install for helper class org.jboss.byteman.rule.helper.Helper
-            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) calling activated() for helper class org.jboss.byteman.rule.helper.Helper
-            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Default helper activated
-            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) calling installed(Fail 2PC after prepare) for helper classorg.jboss.byteman.rule.helper.Helper
-            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Installed rule using default helper : Fail 2PC after prepare
-            09:58:40,633 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) Fail 2PC after prepare execute
-            09:58:40,634 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) rule.debug{Fail 2PC after prepare} : Prepare completed
-            09:58:40,634 INFO  [stdout] (http-localhost.localdomain/127.0.0.1:8080-6) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
+            INFO  [org.jboss.ejb.client] (default task-2) JBoss EJB Client version 2.1.4.Final-redhat-1
+            INFO  [stdout] (default task-2) Rule.execute called for Fail 2PC after prepare_0
+            INFO  [stdout] (default task-2) HelperManager.install for helper class org.jboss.byteman.rule.helper.Helper
+            INFO  [stdout] (default task-2) calling activated() for helper class org.jboss.byteman.rule.helper.Helper
+            INFO  [stdout] (default task-2) Default helper activated
+            INFO  [stdout] (default task-2) calling installed(Fail 2PC after prepare) for helper classorg.jboss.byteman.rule.helper.Helper
+            INFO  [stdout] (default task-2) Installed rule using default helper : Fail 2PC after prepare
+            INFO  [stdout] (default task-2) Fail 2PC after prepare execute
+            INFO  [stdout] (default task-2) rule.debug{Fail 2PC after prepare} : Prepare completed
+            INFO  [stdout] (default task-2) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
     * NOTE: Until you restart JBoss EAP server 1, you will see several error messages in JBoss EAP server 2. These are to be expected:
 
-            15:46:55,044 INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 2.1.2.Final
-            15:49:06,579 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
-            15:51:19,103 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
-            15:51:19,120 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $3
-            15:53:31,638 WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022167: Got TRANSIENT from ORB for tx 0:ffffc0a8013c:-2eb1158b:4f280ce3:1a, unable determine status, will retry later
-            15:53:31,644 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $3
+            INFO  [org.jboss.ejb.client] (p: default-threadpool; w: Idle) JBoss EJB Client version 2.1.4.Final-redhat-1
+            WARNING [javax.enterprise.resource.corba._DEFAULT_.rpc.transport] (Periodic Recovery) "IOP00410201: (COMM_FAILURE) Connection failure: socketType: IIOP_CLEAR_TEXT; hostname: 127.0.0.1; port: 3528": org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
+            WARNING [javax.enterprise.resource.corba._DEFAULT_.rpc.transport] (Periodic Recovery) "IOP00410201: (COMM_FAILURE) Connection failure: socketType: IIOP_CLEAR_TEXT; hostname: 127.0.0.1; port: 3529": org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
+            WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022170: RecoveredServerTransaction: caught unexpected exception: org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
 
 5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store for this server by typing the following in the terminal for server 1. Be sure to replace `EAP7_HOME_1` with the path to the first server.
 
@@ -185,51 +183,26 @@ _Note:_ This quickstart README file use the following replaceable values. When y
 
             INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 2.1.2.Final
             INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:ActiveMQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
+
     * NOTE: You will also get several stack traces in JBoss EAP server 1 console during recovery, these are to be expected as not all resources are available at all stages of recovery.
 
-            WARN  [com.arjuna.ats.jts] (Thread-84) ARJUNA022223: ExtendedResourceRecord.topLevelCommit caught exception: org.omg.CORBA.OBJECT_NOT_EXIST: Server-side Exception: unknown oid
-                at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [:1.6.0_22]
-                at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) [:1.6.0_22]
-                at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) [:1.6.0_22]
-                at java.lang.reflect.Constructor.newInstance(Constructor.java:532) [:1.6.0_22]
-                at org.jacorb.orb.SystemExceptionHelper.read(SystemExceptionHelper.java:223) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.jacorb.orb.ReplyReceiver.getReply(ReplyReceiver.java:319) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.jacorb.orb.Delegate.invoke_internal(Delegate.java:1090) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.jacorb.orb.Delegate.invoke(Delegate.java:957) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.omg.CORBA.portable.ObjectImpl._invoke(ObjectImpl.java:80) [jacorb-2.3.1.jbossorg-1.jar:]
-                at com.arjuna.ArjunaOTS._ArjunaSubtranAwareResourceStub.commit(_ArjunaSubtranAwareResourceStub.java:252) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.resources.ExtendedResourceRecord.topLevelCommit(ExtendedResourceRecord.java:502) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2753) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2669) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Commit(BasicAction.java:1804) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.RecoveredTransaction.replayPhase2(RecoveredTransaction.java:197) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.TransactionCache.replayPhase2(TransactionCache.java:233) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.CachedRecoveredTransaction.replayPhase2(CachedRecoveredTransaction.java:173) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.RecoveredTransactionReplayer.run(RecoveredTransactionReplayer.java:118) [jbossjts-4.16.1.Final.jar:]
-
-            WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022223: ExtendedResourceRecord.topLevelCommit caught exception: org.omg.CORBA.OBJECT_NOT_EXIST: Server-side Exception: unknown oid
-                at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [:1.6.0_22]
-                at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) [:1.6.0_22]
-                at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) [:1.6.0_22]
-                at java.lang.reflect.Constructor.newInstance(Constructor.java:532) [:1.6.0_22]
-                at org.jacorb.orb.SystemExceptionHelper.read(SystemExceptionHelper.java:223) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.jacorb.orb.ReplyReceiver.getReply(ReplyReceiver.java:319) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.jacorb.orb.Delegate.invoke_internal(Delegate.java:1090) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.jacorb.orb.Delegate.invoke(Delegate.java:957) [jacorb-2.3.1.jbossorg-1.jar:]
-                at org.omg.CORBA.portable.ObjectImpl._invoke(ObjectImpl.java:80) [jacorb-2.3.1.jbossorg-1.jar:]
-                at com.arjuna.ArjunaOTS._ArjunaSubtranAwareResourceStub.commit(_ArjunaSubtranAwareResourceStub.java:252) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.resources.ExtendedResourceRecord.topLevelCommit(ExtendedResourceRecord.java:502) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2753) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2669) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Commit(BasicAction.java:1804) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.RecoveredTransaction.replayPhase2(RecoveredTransaction.java:197) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.TransactionCache.replayPhase2(TransactionCache.java:233) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.CachedRecoveredTransaction.replayPhase2(CachedRecoveredTransaction.java:173) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.TransactionRecoveryModule.recoverTransaction(TransactionRecoveryModule.java:217) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.TransactionRecoveryModule.periodicWorkSecondPass(TransactionRecoveryModule.java:161) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.jts.recovery.transactions.TopLevelTransactionRecoveryModule.periodicWorkSecondPass(TopLevelTransactionRecoveryModule.java:81) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [jbossjts-4.16.1.Final.jar:]
-                at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-4.16.1.Final.jar:]
+            WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022223: ExtendedResourceRecord.topLevelCommit caught exception: org.omg.CORBA.OBJECT_NOT_EXIST: ----------BEGIN server-side stack trace----------
+            org.omg.CORBA.OBJECT_NOT_EXIST:   vmcid: SUN  minor code: 1004  completed: No
+	            at com.sun.corba.se.impl.logging.POASystemException.nullServant(POASystemException.java:2040)
+	            at com.sun.corba.se.impl.logging.POASystemException.nullServant(POASystemException.java:2062)
+	            at com.sun.corba.se.impl.oa.poa.POAPolicyMediatorImpl_R_AOM.internalGetServant(POAPolicyMediatorImpl_R_AOM.java:68)
+	            at com.sun.corba.se.impl.oa.poa.POAPolicyMediatorBase.getInvocationServant(POAPolicyMediatorBase.java:121)
+	            at com.sun.corba.se.impl.oa.poa.POAImpl.getInvocationServant(POAImpl.java:1634)
+	            at com.sun.corba.se.impl.protocol.CorbaServerRequestDispatcherImpl.getServant(CorbaServerRequestDispatcherImpl.java:326)
+	            at com.sun.corba.se.impl.protocol.CorbaServerRequestDispatcherImpl.getServantWithPI(CorbaServerRequestDispatcherImpl.java:360)
+	            at com.sun.corba.se.impl.protocol.CorbaServerRequestDispatcherImpl.dispatch(CorbaServerRequestDispatcherImpl.java:202)
+	            at com.sun.corba.se.impl.protocol.CorbaMessageMediatorImpl.handleRequestRequest(CorbaMessageMediatorImpl.java:1700)
+	            at com.sun.corba.se.impl.protocol.SharedCDRClientRequestDispatcherImpl.marshalingComplete(SharedCDRClientRequestDispatcherImpl.java:180)
+	            at com.sun.corba.se.impl.protocol.CorbaClientDelegateImpl.invoke(CorbaClientDelegateImpl.java:148)
+	            at org.omg.CORBA.portable.ObjectImpl._invoke(ObjectImpl.java:475)
+	            at com.arjuna.ArjunaOTS._ArjunaSubtranAwareResourceStub.commit(_ArjunaSubtranAwareResourceStub.java:124)
+	            at com.arjuna.ats.internal.jts.resources.ExtendedResourceRecord.topLevelCommit(ExtendedResourceRecord.java:502)
+              ...
     * The easiest way to check when JBoss EAP server 1 is recovered is to look in the object store and check that all the records are now cleaned up. The records that should be cleared are the ones in the defaultStore/CosTransactions/XAResourceRecord and defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple. 
     * Records will remain in defaultStore/Recovery/FactoryContact and defaultStore/RecoveryCoordinator for server 1 and that is to be expected. Run:
 
