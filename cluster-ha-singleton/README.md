@@ -68,7 +68,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This deploys `service/target/jboss-cluster-ha-singleton-service.jar` to the running instance of the first server.
+4. This deploys `service/target/jboss-cluster-ha-singleton-service.jar` to the running instance of the first server. 
 5. Since default socket binding port is `9990` and the second server runs at a port offset of `100`, you must pass port `10090` (9990 + 100) as an argument when you deploy to the second server. Type this command to deploy the archive to the second server. 
 
         mvn wildfly:deploy -Dwildfly.port=10090
@@ -92,6 +92,13 @@ Build and Deploy the Quickstart
 
         WFLYSRV0010: Deployed "jboss-cluster-ha-singleton-service.jar" (runtime-name : "jboss-cluster-ha-singleton-service.jar")
 
+   NOTE: You will see the following warnings in both server logs when you deploy the application. You can ignore them.
+  
+        WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the send buffer of socket ManagedDatagramSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+        WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the receive buffer of socket ManagedDatagramSocketBinding was set to 20MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+        WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+        WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+
 8. The timer started on the server instance will log a message every 10 seconds. If you stop the `EAP7_HOME_1` server, you see messages in the `EAP7_HOME_2` server console indicating it is now the singleton provider.
 
         WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
@@ -99,7 +106,6 @@ Build and Deploy the Quickstart
         INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (Incoming-2,ee,localhost) ISPN000094: Received new cluster view for channel server: [localhost|2] (1) [localhost]
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
-
 
 9. In the example, the `EAP7_HOME_1` instance used as master, if it is available. If it has failed or shutdown, any other service instance will be used.
 
@@ -163,7 +169,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 3) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
 
-6. To deploy the cluster-ha-singleton service to `EAP7-Server2`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server2` and click `Finish`. Note that `EAP7-Server1` is still the singleton provider of the service. This messagee is in the `EAP7-Server2` console.
+6. To deploy the cluster-ha-singleton service to `EAP7-Server2`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server2` and click `Finish`. Note that `EAP7-Server1` is still the singleton provider of the service. This message is in the `EAP7-Server2` console.
    
         WFLYSRV0060: Http management interface listening on http://127.0.0.1:10090/management   
 
