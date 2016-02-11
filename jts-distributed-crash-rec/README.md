@@ -116,12 +116,6 @@ _Note:_ This quickstart README file use the following replaceable values. When y
             INFO  [stdout] (default task-2) Fail 2PC after prepare execute
             INFO  [stdout] (default task-2) rule.debug{Fail 2PC after prepare} : Prepare completed
             INFO  [stdout] (default task-2) rule.debug{Fail 2PC after prepare} : !!!killing JVM!!!
-    * NOTE: Until you restart JBoss EAP server 1, you will see several error messages in JBoss EAP server 2. These are to be expected:
-
-            INFO  [org.jboss.ejb.client] (p: default-threadpool; w: Idle) JBoss EJB Client version 2.1.4.Final-redhat-1
-            WARNING [javax.enterprise.resource.corba._DEFAULT_.rpc.transport] (Periodic Recovery) "IOP00410201: (COMM_FAILURE) Connection failure: socketType: IIOP_CLEAR_TEXT; hostname: 127.0.0.1; port: 3528": org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
-            WARNING [javax.enterprise.resource.corba._DEFAULT_.rpc.transport] (Periodic Recovery) "IOP00410201: (COMM_FAILURE) Connection failure: socketType: IIOP_CLEAR_TEXT; hostname: 127.0.0.1; port: 3529": org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
-            WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022170: RecoveredServerTransaction: caught unexpected exception: org.omg.CORBA.COMM_FAILURE:   vmcid: SUN  minor code: 201  completed: No
 
 5. At this point, Byteman halts or crashes server 1. You should be able to view the contents of the object store for this server by typing the following in the terminal for server 1. Be sure to replace `EAP7_HOME_1` with the path to the first server.
 
