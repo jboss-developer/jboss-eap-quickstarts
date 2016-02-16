@@ -92,7 +92,7 @@
             <groupId>org.wildfly</groupId>
             <artifactId>wildfly-ejb-client-bom</artifactId>
             <type>pom</type>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
