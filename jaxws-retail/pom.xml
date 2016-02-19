@@ -86,7 +86,6 @@
       <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
       <version.jaxws-tools-maven-plugin>1.2.0.Final</version.jaxws-tools-maven-plugin>
       <version.war.plugin>2.1.1</version.war.plugin>
-      <version.jbossws-cxf-client>5.1.0.Beta1</version.jbossws-cxf-client>
    </properties>
 
     <modules>
@@ -111,17 +110,6 @@
             <version>${version.jboss.bom.eap}</version>
             <type>pom</type>
             <scope>import</scope>
-         </dependency>
-         <dependency>
-           <groupId>org.jboss.ws.cxf</groupId>
-           <artifactId>jbossws-cxf-client</artifactId>
-           <version>${version.jbossws-cxf-client}</version>
-           <exclusions>
-             <exclusion>
-               <groupId>org.jboss.com.sun.httpserver</groupId>
-               <artifactId>httpserver</artifactId>
-             </exclusion>
-           </exclusions>
          </dependency>
       </dependencies>
    </dependencyManagement>
