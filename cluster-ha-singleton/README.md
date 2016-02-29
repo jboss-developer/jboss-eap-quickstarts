@@ -134,6 +134,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
 2. Follow the instructions above to [Clone the EAP7_HOME Directory](#clone-the-eaphome-directory).
 3. Configure the first server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
+   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `JBoss Enterprise Application Platform 7.0 (Experimental)`.
    * For the `Server name`, enter "EAP7-Server1" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
@@ -146,6 +147,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
 4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
+   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `JBoss Enterprise Application Platform 7.0 (Experimental)`.
    * For the `Server name`, enter "EAP7-Server2" and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
