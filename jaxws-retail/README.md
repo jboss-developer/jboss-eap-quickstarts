@@ -90,3 +90,8 @@ If you want to debug the source code of any library in the project, run the foll
 
     mvn dependency:sources
 
+_Note:_ You will see the following informational messages. This is because the source files for this JAR are not available in the Maven repository.
+
+    [INFO] The following files have NOT been resolved:
+    [INFO]    asm:asm:jar:sources:3.3.1:provided
+
