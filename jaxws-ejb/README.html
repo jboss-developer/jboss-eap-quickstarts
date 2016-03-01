@@ -80,4 +80,10 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div>
+<p><em>Note:</em> You will see the following informational messages. This is because the source files for these JARs are not available in the Maven repository. The <code>jboss-jaxws-ejb-service</code> source files are available in the <code>jaxws-ejb</code> project.</p>
+<div class="highlight"><pre><span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x"> The following files have NOT been resolved:</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    xerces:xercesImpl:jar:sources:2.9.1:compile</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    com.wutka:dtdparser:jar:sources:1.21:compile</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    org.jboss.quickstarts.eap:jboss-jaxws-ejb-service:jar:sources:7.0.0.GA:compile</span>
 </pre></div></body></html>

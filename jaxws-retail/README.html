@@ -80,4 +80,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
 <div class="highlight"><pre><span class="n">mvn</span> <span class="n">dependency</span><span class="o">:</span><span class="n">sources</span>
+</pre></div>
+<p><em>Note:</em> You will see the following informational messages. This is because the source files for this JAR are not available in the Maven repository.</p>
+<div class="highlight"><pre><span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x"> The following files have NOT been resolved:</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    asm:asm:jar:sources:3.3.1:provided</span>
 </pre></div></body></html>
