@@ -180,6 +180,11 @@ You configure the domain server by running JBoss CLI commands. For your convenie
             "result" => "FAILED",
             "response-headers" => {"process-state" => "reload-required"}
 
+_NOTE:_ You may see the following warning multiple times in the server log when you run this script. You can ignore the warnings.
+
+        WFLYHC0011: Ignoring <permgen> for jvm 'SUN' type jvm: null
+    
+
 _NOTE:  Depending on your machine configuration, you may see "Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread" exceptions in the server log when you run this script. If you do, you must increase the ulimit open files and max user processes settings. Instructions to do this are located here: <http://ithubinfo.blogspot.com/2013/07/how-to-increase-ulimit-open-file-and.html>. After you update the ulimit settings, be sure to reboot and start with a fresh instance of the server._
 
 
