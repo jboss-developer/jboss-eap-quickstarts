@@ -177,7 +177,7 @@ You configure the domain server by running JBoss CLI commands. For your convenie
         }
         {
             "outcome" => "success",
-            "result" => "FAILED",
+            "result" => "Starting",
             "response-headers" => {"process-state" => "reload-required"}
 
 _NOTE:_ You may see the following warning multiple times in the server log when you run this script. You can ignore the warnings.
@@ -210,7 +210,7 @@ Build and Deploy the Quickstart
      This will deploy the app-*.ear files to different server-groups of the running domain. You should see the following result when you run the script:
 
         The batch executed successfully
-        {"outcome" => "success"}
+        process-state: reload-required 
 
  
 _NOTE: If ERRORs appear in the server.log when installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
@@ -257,8 +257,8 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
-        
-          InvokeAll succeed: MainAppSContext[anonymous]@master:app-main  >  [ {app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser2]@master:app-oneA, app1[quickuser2]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser2]@master:app-oneA, app1[quickuser2]@master:app-oneA} >  appTwo loop(7 time A-B expected){app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB} ]
+
+          InvokeAll succeed: MainAppSContext[anonymous]@master:app-main  >  [ {app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA} >  appTwo loop(4 time A-B expected){app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB} ]
          
     The resulting output in detail:
     * The client calls the `MainAppSContext` bean on the `app-main` server on host master with no application security.
