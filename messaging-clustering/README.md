@@ -200,6 +200,11 @@ _Note:_ You will see the following warnings in the server logs. You can ignore t
         WARNING [org.jgroups.protocols.UDP] (Thread-0 (ActiveMQ-server-ActiveMQServerImpl::serverUUID=c79278db-56e6-11e5-af50-69dd76236ee8-1573164340)) JGRP000015: the send buffer of socket MulticastSocket was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
         WARNING [org.jgroups.protocols.UDP] (Thread-0 (ActiveMQ-server-ActiveMQServerImpl::serverUUID=c79278db-56e6-11e5-af50-69dd76236ee8-1573164340)) JGRP000015: the receive buffer of socket MulticastSocket was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
 
+_NOTE:_ After the server has been running for a period of time, you may see the following warnings in the server log, which are followed by a stacktrace. You can ignore these warnings.
+
+        WARN  [org.infinispan.topology.ClusterTopologyManagerImpl] (transport-thread--p15-t6) ISPN000197: Error updating cluster member list: org.infinispan.util.concurrent.TimeoutException: Replication timeout for <application-name>
+
+
 Undeploy the Archive
 --------------------
 
