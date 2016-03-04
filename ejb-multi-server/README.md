@@ -215,7 +215,7 @@ Build and Deploy the Quickstart
  
 _NOTE: If ERRORs appear in the server.log when installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
 
-NOTE:_ After the server has been running for a period of time, you may see the following warnings in the server log, which are followed by a stacktrace. You can ignore these warnings.
+_NOTE:_ After the server has been running for a period of time, you may see the following warnings in the server log, which are followed by a stacktrace. You can ignore these warnings as this is is a known issue and is harmless. See [JBEAP-794](https://issues.jboss.org/browse/JBEAP-794) for more information.
 
         WARN  [org.infinispan.topology.ClusterTopologyManagerImpl] (transport-thread--p15-t6) ISPN000197: Error updating cluster member list: org.infinispan.util.concurrent.TimeoutException: Replication timeout for <application-name>
 
