@@ -67,7 +67,7 @@ In the following instructions, replace `EAP7_HOME` with the actual path to your 
 Test the Application
 -----------------------------------
 
-_Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
+_Note:_ This quickstart README file uses the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
 
     `EAP7_HOME` denotes the path to the original JBoss EAP installation. 
     `EAP7_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.

@@ -69,11 +69,15 @@ This quickstart requires the configuration of two servers. The first server must
 Configure the PostgreSQL Database for Use with this Quickstart
 --------------------------------------------------
 
-This quickstart requires the PostgreSQL database. Instructions to install and configure PostgreSQL can be found here: [Download and Install PostgreSQL](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#download-and-install-postgresql)
+This quickstart requires the PostgreSQL database. 
+
+Instructions to install and configure PostgreSQL can be found here: [Download and Install PostgreSQL](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#download-and-install-postgresql)
 
 _Note_: For the purpose of this quickstart, replace the word `QUICKSTART_DATABASE_NAME` with `jts-quickstart-database` in the PostgreSQL instructions.
 
-Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
+Be sure to [Create a Database User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#create-a-database-user) for the PostgeSQL database.
+
+When you have completed these steps, be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
 
 Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss EAP server.
 
@@ -110,8 +114,11 @@ You configure JTS transactions by running JBoss CLI commands. For your convenien
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-jts-transactions.cli
  You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {"outcome" => "success"}
+        process-state: restart-required 
+        {
+        "outcome" => "success",
+        "result" => undefined
+        }
 5. Stop the JBoss EAP server.
 
 _NOTE:_ When you have completed testing this quickstart, it is important to [Remove the JTS Configuration from the JBoss EAP Server](#remove-the-jts-configuration-from-the-jboss-eap-server).

@@ -63,11 +63,15 @@ following ways:</p>
 
 <h2><a id="configure-the-postgresql-database-for-use-with-this-quickstart" class="anchor" href="#configure-the-postgresql-database-for-use-with-this-quickstart"><span class="anchor-icon"></span></a>Configure the PostgreSQL Database for Use with this Quickstart</h2>
 
-<p>This quickstart requires the PostgreSQL database. Instructions to install and configure PostgreSQL can be found here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#download-and-install-postgresql">Download and Install PostgreSQL</a></p>
+<p>This quickstart requires the PostgreSQL database. </p>
+
+<p>Instructions to install and configure PostgreSQL can be found here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#download-and-install-postgresql">Download and Install PostgreSQL</a></p>
 
 <p><em>Note</em>: For the purpose of this quickstart, replace the word <code>QUICKSTART_DATABASE_NAME</code> with <code>jts-quickstart-database</code> in the PostgreSQL instructions.</p>
 
-<p>Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</p>
+<p>Be sure to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#create-a-database-user">Create a Database User</a> for the PostgeSQL database.</p>
+
+<p>When you have completed these steps, be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</p>
 
 <p>Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss EAP server.</p>
 
@@ -107,8 +111,11 @@ following ways:</p>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">configure</span><span class="o">-</span><span class="n">jts</span><span class="o">-</span><span class="n">transactions</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
-<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span class="n">process</span><span class="o">-</span><span class="n">state</span><span class="o">:</span> <span class="n">restart</span><span class="o">-</span><span class="n">required</span> 
+<span class="p">{</span>
+<span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+<span class="s">&quot;result&quot;</span> <span class="o">=&gt;</span> <span class="n">undefined</span>
+<span class="p">}</span>
 </pre></div></li>
 <li><p>Stop the JBoss EAP server.</p></li>
 </ol>
