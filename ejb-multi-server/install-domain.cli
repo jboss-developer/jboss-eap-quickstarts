@@ -53,10 +53,6 @@ batch
 /host=master/core-service=management/security-realm=ejb-security-realm-2:add()
 /host=master/core-service=management/security-realm=ejb-security-realm-2/server-identity=secret:add(value=cXVpY2srMTIz)
 
-# Adjust the default JVM configuration to minimum
-/host=master/jvm=default:write-attribute(name=permgen-size, value=64m)
-/host=master/jvm=default:write-attribute(name=max-permgen-size, value=128m)
-
 # Add the main-server group and the server, which handle the standalone client requests
 /server-group=quickstart-ejb-multi-main-server:add(profile=full,socket-binding-group=full-sockets)
 /server-group=quickstart-ejb-multi-main-server/jvm=default:add()

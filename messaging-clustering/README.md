@@ -94,10 +94,6 @@ You configure the server by running the install-domain.cli script provided in th
         
    You should see "outcome" => "success" for all of the commands.
 3. Restart the server in domain mode as described above.
-
-_NOTE:_ You may see the following warning in the server log when you run this script. You can ignore the warning.
-
-        WFLYHC0011: Ignoring <permgen> for jvm 'SUN' type jvm: null
     
 ### Configure the Server and Deploy the Quickstart to a Standalone Server
 
