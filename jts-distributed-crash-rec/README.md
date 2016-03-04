@@ -69,10 +69,10 @@ Test the Application
 
 _Note:_ This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.
 
-  * `EAP7_HOME` denotes the path to the original JBoss EAP installation. 
-  * `EAP7_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
-  * `EAP7_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
- 
+    `EAP7_HOME` denotes the path to the original JBoss EAP installation. 
+    `EAP7_HOME_1` denotes the path to the modified JBoss EAP server 1 configuration.
+    `EAP7_HOME_2` denotes the path to the modified JBoss EAP server 2 configuration.
+
 
 1. If you have not yet done so, configure the two application servers and deploy the `jts` quickstart. Follow the instructions in the [jts README](../jts/README.md) file.
 
@@ -142,7 +142,7 @@ _Note:_ This quickstart README file use the following replaceable values. When y
                             `-- ArjunaTransactionImple
                                 `-- 0_ffffc0a8013c_38e104bd_4f280cdb_19
 
-   View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP7_HOME_2` with the path to the second server.
+    View the contents of the object store for the second server by typing the following in the terminal for server 2. Be sure to replace `EAP7_HOME_2` with the path to the second server.
    
          tree EAP7_HOME_2/standalone/data/tx-object-store
 
@@ -177,7 +177,6 @@ _Note:_ This quickstart README file use the following replaceable values. When y
 
             INFO  [org.jboss.ejb.client] (RequestProcessor-10) JBoss EJB Client version 2.1.2.Final
             INFO  [class org.jboss.as.quickstarts.cmt.jts.mdb.HelloWorldMDB] (Thread-3 (group:ActiveMQ-client-global-threads-649946595)) Received Message: Created invoice for customer named: Tom
-
     * NOTE: You will also get several stack traces in JBoss EAP server 1 console during recovery, these are to be expected as not all resources are available at all stages of recovery.
 
             WARN  [com.arjuna.ats.jts] (Periodic Recovery) ARJUNA022223: ExtendedResourceRecord.topLevelCommit caught exception: org.omg.CORBA.OBJECT_NOT_EXIST: ----------BEGIN server-side stack trace----------
