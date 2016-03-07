@@ -231,7 +231,8 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
       * Enter "exec:java" for the `Goals:`.
       * Click `Run`.
       * Review the output in the console window.
-5. Be sure to [Undeploy and Remove the Security Domain Configuration](#undeploy-and-remove-the-security-domain-configuration) when you have completed testing this quickstart.
+
+_NOTE:_ Be sure to [Undeploy and Remove the Security Domain Configuration](#undeploy-and-remove-the-security-domain-configuration) when you have completed testing this quickstart.
 
 Debug the Application
 ------------------------------------
