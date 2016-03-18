@@ -104,12 +104,6 @@ public class RegistrationFormPageFragment {
     private WebElement today;
 
     public void register(Member member, boolean fillDate) {
-        nameField.clear();
-        nameField.sendKeys(member.getName());
-        emailField.clear();
-        emailField.sendKeys(member.getEmail());
-        phoneField.clear();
-        phoneField.sendKeys(member.getPhoneNumber());
         if (fillDate) {
             registrationForm.click();
             javascript.executeScript("document.getElementById('datepicker').focus()");
@@ -118,6 +112,14 @@ public class RegistrationFormPageFragment {
             today.click();
             javascript.executeScript("document.getElementById('datepicker').blur()");
         }
+        nameField.click();
+        nameField.clear();
+        nameField.sendKeys(member.getName());
+        emailField.clear();
+        emailField.sendKeys(member.getEmail());
+        phoneField.clear();
+        phoneField.sendKeys(member.getPhoneNumber());
+
         guardHttp(registerButton).click();
     }
 
