@@ -49,6 +49,16 @@ Forge is available in JBoss Developer Studio. To run this example, you must use 
     * This is followed by a dialog saying `User Operation is waiting for "Importing Forge project" to complete.`.
     * After a number of `***SUCCESS***` messages, you see `***SUCCESS*** Build Success` near the end of the console output.
 
+    _Note:_ After you run the `run generate.fsh` command, you will see the following warnings for the generated files. You can ignore these warnings.
+
+          The serializable class Address does not declare a static final serialVersionUID field of type long
+          The serializable class Customer does not declare a static final serialVersionUID field of type long
+          The serializable class Item does not declare a static final serialVersionUID field of type long
+          The serializable class ProductOrder does not declare a static final serialVersionUID field of type long
+          The serializable class Profile does not declare a static final serialVersionUID field of type long
+          The serializable class ZipCode does not declare a static final serialVersionUID field of type long
+          location references to "/faces/error.xhtml" that does not exist in web content
+
 
 ### What Did This Create?
 
