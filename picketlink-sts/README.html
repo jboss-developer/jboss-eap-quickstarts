@@ -180,8 +180,13 @@ SAML assertion for user:UserA successfully obtained!
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">undeploy</span><span class="o">-</span><span class="n">and</span><span class="o">-</span><span class="n">remove</span><span class="o">-</span><span class="n">security</span><span class="o">-</span><span class="n">domain</span><span class="p">.</span><span class="n">cli</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span>
-<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;response-headers&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s">&quot;operation-requires-reload&quot;</span> <span class="o">=&gt;</span> <span class="nb">true</span><span class="p">,</span>
+        <span class="s">&quot;process-state&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;reload-required&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div></li>
 </ol>
 
