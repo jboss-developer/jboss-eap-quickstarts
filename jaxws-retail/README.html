@@ -43,6 +43,18 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>This will deploy <code>service/target/jboss-jaxws-retail-service.war</code> to the running instance of the server.</p></li>
 </ol>
 
+<p><em>Note:</em> You will see the following errors and warnings in the server log. These messages come from the <code>jaxws-tools-maven-plugin</code> plugin that generates source files based on the WSDL. You can ignore these warnings.</p>
+<div class="highlight"><pre><span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x"> Could not find log4j.xml configuration, logging to console.</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x"> </span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x"> TODO! Cheek SOAP 1.2 extension</span>
+<span class="cp">[</span><span class="nx">ERROR</span><span class="cp">]</span><span class="x"> log4j:WARN No appenders could be found for logger (org.apache.cxf.common.logging.LogUtils).</span>
+<span class="cp">[</span><span class="nx">ERROR</span><span class="cp">]</span><span class="x"> log4j:WARN Please initialize the log4j system properly.</span>
+<span class="cp">[</span><span class="nx">ERROR</span><span class="cp">]</span><span class="x"> log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.</span>
+</pre></div>
+<p><em>Note:</em> You may also see the following errors if your Linux environment defines a BASH_FUNC_scl() function. You can ignore these errors.</p>
+<div class="highlight"><pre><span class="cp">[</span><span class="nx">ERROR</span><span class="cp">]</span> <span class="err">/bin/sh: scl: line 1: syntax error: unexpected end of file</span>
+<span class="cp">[</span><span class="nx">ERROR</span><span class="cp">]</span> <span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">sh</span><span class="o">:</span> <span class="nx">error</span> <span class="nx">importing</span> <span class="kd">function</span> <span class="nx">definition</span> <span class="k">for</span> <span class="err">`</span><span class="nx">BASH_FUNC_scl</span><span class="err">&#39;</span>
+</pre></div>
 <h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
 
 <p>You can check that the Web Service is running and deployed correctly by accessing the following URL: <a href="http://localhost:8080/jboss-jaxws-retail/ProfileMgmtService/ProfileMgmt?wsdl">http://localhost:8080/jboss-jaxws-retail/ProfileMgmtService/ProfileMgmt?wsdl</a>. This URL will display the deployed WSDL endpoint for the Web Service.</p>

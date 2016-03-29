@@ -47,6 +47,21 @@ Build and Deploy the Quickstart
 
 4. This will deploy `service/target/jboss-jaxws-retail-service.war` to the running instance of the server.
 
+_Note:_ You will see the following errors and warnings in the server log. These messages come from the `jaxws-tools-maven-plugin` plugin that generates source files based on the WSDL. You can ignore these warnings.
+
+    [INFO] Could not find log4j.xml configuration, logging to console.
+    [INFO] 
+    [INFO] TODO! Cheek SOAP 1.2 extension
+    [ERROR] log4j:WARN No appenders could be found for logger (org.apache.cxf.common.logging.LogUtils).
+    [ERROR] log4j:WARN Please initialize the log4j system properly.
+    [ERROR] log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+
+_Note:_ You may also see the following errors if your Linux environment defines a BASH_FUNC_scl() function. You can ignore these errors.
+
+    [ERROR] /bin/sh: scl: line 1: syntax error: unexpected end of file
+    [ERROR] /bin/sh: error importing function definition for `BASH_FUNC_scl'
+
+
 Access the application 
 ---------------------
 
