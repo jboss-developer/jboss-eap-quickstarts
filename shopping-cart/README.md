@@ -61,7 +61,11 @@ Follow the steps below to suppress system exception logging.
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-system-exception.cli
    You should see the following result when you run the script:
 
-        {"outcome" => "success"}
+        The batch executed successfully.
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 5. Stop the JBoss EAP server.
 
 
@@ -172,7 +176,10 @@ You can restore the system exception configuration by running the `restore-syste
    This script restores the  the `log-system-exceptions` attribute value to `true`. You should see the following result when you run the script:
 
         The batch executed successfully.
-        {"outcome" => "success"}
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 
 
 ### Restore the Server Configuration Manually

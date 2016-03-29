@@ -76,7 +76,10 @@ You can configure the security domain by running JBoss CLI commands. For your co
 You should see the following result when you run the script:
 
         The batch executed successfully.
-        {"outcome" => "success"}
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 5. Stop the JBoss EAP server.
 
 
@@ -183,7 +186,10 @@ You can remove the security domain configuration by running the  `remove-securit
 This script removes the `servlet-security-quickstart` security domain from the `security` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
-        {"outcome" => "success"}
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 
 
 ### Remove the Security Domain Configuration Manually

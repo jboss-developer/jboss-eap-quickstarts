@@ -481,7 +481,10 @@ You can remove the security domain configuration by running the  `remove-securit
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
-        {"outcome" => "success"}
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 3. If you chose to run the script to suppress system exceptions, run the following command, replacing EAP7_HOME with the path to your server:
 
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-system-exception.cli 
