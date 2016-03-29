@@ -161,7 +161,10 @@ You can remove the server configuration by running the  `disable-mdb-property-su
 This script removes the system properties and sets the `<annotation-property-replacement>` value to `false` in the `ee` subsystem of the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully.
-        {"outcome" => "success"}
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 
 
 ### Restore the Configuration Manually

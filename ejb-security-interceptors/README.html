@@ -487,7 +487,10 @@ For an example of how to use the add-user utility, see the instructions located 
 </pre></div>
 <p>This script removes the <code>test</code> queue from the <code>messaging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
 <div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
-<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+<span class="p">{</span>
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;result&quot;</span> <span class="o">=&gt;</span> <span class="n">undefined</span>
+<span class="p">}</span>
 </pre></div></li>
 <li><p>If you chose to run the script to suppress system exceptions, run the following command, replacing EAP7_HOME with the path to your server:</p>
 <div class="highlight"><pre><span class="n">For</span> <span class="n">Linux</span><span class="o">:</span> <span class="n">EAP7_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">restore</span><span class="o">-</span><span class="n">system</span><span class="o">-</span><span class="n">exception</span><span class="p">.</span><span class="n">cli</span> 
