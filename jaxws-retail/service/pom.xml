@@ -46,7 +46,6 @@
       <dependency>
          <groupId>org.jboss.ws.cxf</groupId>
          <artifactId>jbossws-cxf-client</artifactId>
-         <version>5.1.1.Final</version>
          <scope>provided</scope>
       </dependency>
    </dependencies>
