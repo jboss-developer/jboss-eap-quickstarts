@@ -53,13 +53,9 @@ _Note: This example is not suitable for production use. You must change the appl
 Where to Find Additional Information
 -------------------
 
-* You can find more examples in the [PicketLink project documentation](http://docs.jboss.org/picketlink/2/2.5.2.Final/reference/html/ch10.html#sid-819345). 
+* For more information about PicketLink STS, see [Security Token Service (STS)](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/developing-web-services-applications/#about_sts) in _Developing Web Services Applications_.
 
 * Additional PicketLink quickstarts can be found here: [PicketLink Quickstarts](https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts).
-
-* For more information about PicketLink STS, see the [PicketLink Security Token Server Documentation](https://docs.jboss.org/author/display/PLINK/Security+Token+Server+%28STS%29).
-
-* For more information about PicketLink see the [PicketLink Reference Documentation](http://docs.jboss.org/picketlink/2/2.5.2.Final/reference/html/).
 
 
 System requirements
