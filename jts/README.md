@@ -245,9 +245,12 @@ You can modify the server configuration by running the `remove-jts-transactions.
         For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=remove-jts-transactions.cli 
 This script removes the JTS configuration from the `iiop-openjdk` and `transactions` subsystems in the server configuration. You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {"outcome" => "success"}
-
+        The batch executed successfully
+        process-state: restart-required 
+        {
+            "outcome" => "success",
+            "result" => undefined
+        }
 
 ### Remove the JTS Server Configuration using the JBoss CLI Tool
 
@@ -266,9 +269,32 @@ This script removes the JTS configuration from the `iiop-openjdk` and `transacti
         /subsystem=transactions/:undefine-attribute(name=node-identifier)
  You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {"outcome" => "success"}
-      
+        {
+            "outcome" => "success",
+            "response-headers" => {
+                "operation-requires-reload" => true,
+                "process-state" => "restart-required"
+            }
+        }
+
+        {
+
+            "outcome" => "success",
+            "response-headers" => {
+                "operation-requires-restart" => true,
+                "process-state" => "restart-required"
+            }
+        }
+
+        {
+            "outcome" => "success",
+            "response-headers" => {
+                "operation-requires-reload" => true,
+                "process-state" => "restart-required"
+            }
+        }
+
+
 ### Remove the JTS Server Configuration Manually
 
 1. Stop the server.

@@ -233,8 +233,12 @@ following ways:</p>
 <span class="n">For</span> <span class="n">Windows</span><span class="o">:</span> <span class="n">EAP7_HOME_1</span><span class="err">\</span><span class="n">bin</span><span class="err">\</span><span class="n">jboss</span><span class="o">-</span><span class="n">cli</span><span class="p">.</span><span class="n">bat</span> <span class="o">--</span><span class="n">connect</span> <span class="o">--</span><span class="n">file</span><span class="o">=</span><span class="n">remove</span><span class="o">-</span><span class="n">jts</span><span class="o">-</span><span class="n">transactions</span><span class="p">.</span><span class="n">cli</span> 
 </pre></div>
 <p>This script removes the JTS configuration from the <code>iiop-openjdk</code> and <code>transactions</code> subsystems in the server configuration. You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
-<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span>
+<span class="n">process</span><span class="o">-</span><span class="n">state</span><span class="o">:</span> <span class="n">restart</span><span class="o">-</span><span class="n">required</span> 
+<span class="p">{</span>
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;result&quot;</span> <span class="o">=&gt;</span> <span class="n">undefined</span>
+<span class="p">}</span>
 </pre></div></li>
 </ol>
 
@@ -255,8 +259,30 @@ following ways:</p>
 <span class="o">/</span><span class="n">subsystem</span><span class="o">=</span><span class="n">transactions</span><span class="o">/:</span><span class="n">undefine</span><span class="o">-</span><span class="n">attribute</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">node</span><span class="o">-</span><span class="n">identifier</span><span class="p">)</span>
 </pre></div>
 <p>You should see the following result when you run the script:</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">batch</span> <span class="n">executed</span> <span class="n">successfully</span><span class="p">.</span>
-<span class="p">{</span><span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;response-headers&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s">&quot;operation-requires-reload&quot;</span> <span class="o">=&gt;</span> <span class="nb">true</span><span class="p">,</span>
+        <span class="s">&quot;process-state&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;restart-required&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;response-headers&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s">&quot;operation-requires-restart&quot;</span> <span class="o">=&gt;</span> <span class="nb">true</span><span class="p">,</span>
+        <span class="s">&quot;process-state&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;restart-required&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="s">&quot;outcome&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;success&quot;</span><span class="p">,</span>
+    <span class="s">&quot;response-headers&quot;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="s">&quot;operation-requires-reload&quot;</span> <span class="o">=&gt;</span> <span class="nb">true</span><span class="p">,</span>
+        <span class="s">&quot;process-state&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;restart-required&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div></li>
 </ol>
 
