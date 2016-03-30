@@ -104,7 +104,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify
             tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-build-11</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
         <version.resteasy>3.0.10.Final</version.resteasy>
 
         <!-- other plug-in versions -->
