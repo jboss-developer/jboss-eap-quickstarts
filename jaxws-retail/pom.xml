@@ -103,9 +103,14 @@
       <maven.compiler.source>1.8</maven.compiler.source>
       <version.exec.plugin>1.2.1</version.exec.plugin>
       <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-      <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
+      <version.jboss.bom.eap>7.0.0-build-11</version.jboss.bom.eap>
       <version.jaxws-tools-maven-plugin>1.2.0.Final</version.jaxws-tools-maven-plugin>
       <version.war.plugin>2.1.1</version.war.plugin>
+      <!-- Note: this cannot be upgraded to 5.1.0.Final or later because of 
+        a transitive dependency on forked glassfish jars that are only available 
+        in the jboss.org Maven repository (not in Maven centra). If a future release 
+        of jbossws-cxf-client becomes available which does not rely on these jars 
+        then this can be upgraded -->
       <version.jbossws-cxf-client>5.1.0.Beta1</version.jbossws-cxf-client>
    </properties>
 
