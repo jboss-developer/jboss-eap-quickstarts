@@ -72,12 +72,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Define the version of the JBoss Java EE APIs we want to import.
-            Any dependencies from org.jboss.spec will have their version defined by this
-            BOM -->
-        <!-- Define the version of the JBoss Java EE APIs and Tools we want
-            to import. -->
-        <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
 
         <!-- EAP component version management BOM -->
         <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
