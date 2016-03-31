@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-acr-plugin</artifactId>
-                <version>1.0</version>
+                <version>3.0.0</version>
                 <extensions>true</extensions>
             </plugin>
             <plugin>
