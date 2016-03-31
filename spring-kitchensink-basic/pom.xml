@@ -79,7 +79,7 @@
 
         <!-- JBoss dependency versions -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.0.0-build-9</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.source>1.8</maven.compiler.source>
