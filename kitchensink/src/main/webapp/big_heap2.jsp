@@ -10,7 +10,7 @@ Time : <%=new java.util.Date()%>&nbsp<hr><p>
 
 <%
 try{
-	Thread.sleep(200*1000);
+	Thread.sleep(120*1000);
 }catch(Exception e){}
 
 
