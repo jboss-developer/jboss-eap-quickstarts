@@ -120,7 +120,7 @@ Undeploy the Archive
         mvn wildfly:undeploy
         mvn wildfly:undeploy [-Dwildfly.hostname=OTHERHOST] -Dwildfly.port=10090
 
-_NOTE:_ You may see the following error in the server log when you undeploy the application. You can ignore this error. It is a known limitation of the graceful shutdown mechanism. Graceful shutdown only applies to server shutdown/suspend, but if the server is still running and only the application is being undeployed, the graceful shutdown mechanisms will not kick in.
+_NOTE:_ You may see the following error in the server log when you undeploy the application. You can ignore this error. For performance reasons, the server does not wait for tasks to complete when an application is undeployed,
 
     ERROR [org.jboss.as.ejb3.invocation] (MSC service thread 1-7) WFLYEJB0034: EJB Invocation failed on component SchedulerBean for method public abstract void org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.Scheduler.stop(): org.jboss.as.ejb3.component.EJBComponentUnavailableException: WFLYEJB0421: Invocation cannot proceed as component is shutting down
 
