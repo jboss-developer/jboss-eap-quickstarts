@@ -95,6 +95,13 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
+You may see the following warnings for the `index.jsp` file when you import this quickstart into JBoss Developer Studio.
+
+        The tag handler class for "c:forEach" (org.apache.taglibs.standard.tag.rt.core.ForEachTag) was not found on the Java Build Path
+        The tag handler class for "c:out" (org.apache.taglibs.standard.tag.rt.core.OutTag) was not found on the Java Build Path
+
+You can ignore this warning as it does not impact building or deploying the quickstart in JBoss Developer Studio. It appears to be an Eclipse Web Tools Platform (WTP) issue because the code in the `index.jsp` file does not even use the JSTL core library and the warnings point to comments in the file. See [JBEAP-22175](https://issues.jboss.org/browse/JBEAP-22175) for the latest updates on this issue.
+
 
 Debug the Application
 ------------------------------------
