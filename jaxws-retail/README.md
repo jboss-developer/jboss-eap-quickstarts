@@ -73,14 +73,13 @@ Run the Client
 
 2. Open a command prompt and navigate into the client directory of this quickstart.
 
-     cd client/
+        cd client/
 3. Type this command to run the client.
 
-     mvn exec:java
-     
+        mvn exec:java
 4. You should see the following output in the client console.
    
-     Jay Boss's discount is 10.00
+        Jay Boss's discount is 10.00
 
 
 Undeploy the Archive
