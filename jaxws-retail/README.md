@@ -107,5 +107,7 @@ If you want to debug the source code of any library in the project, run the foll
 _Note:_ You will see the following informational messages. This is because the source files for this JAR are not available in the Maven repository.
 
     [INFO] The following files have NOT been resolved:
+    [INFO]    org.apache.ant:ant-launcher:jar:sources:1.7.0:provided
+    [INFO]    com.sun:tools:jar:sources:1.6:system
     [INFO]    asm:asm:jar:sources:3.3.1:provided
 
