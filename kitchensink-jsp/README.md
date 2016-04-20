@@ -100,7 +100,7 @@ You may see the following warnings for the `index.jsp` file when you import this
         The tag handler class for "c:forEach" (org.apache.taglibs.standard.tag.rt.core.ForEachTag) was not found on the Java Build Path
         The tag handler class for "c:out" (org.apache.taglibs.standard.tag.rt.core.OutTag) was not found on the Java Build Path
 
-You can ignore this warning as it does not impact building or deploying the quickstart in JBoss Developer Studio. See [JBEAP-22175](https://issues.jboss.org/browse/JBEAP-22175) for the latest updates on this issue.
+You can ignore this warning as it does not impact building or deploying the quickstart in JBoss Developer Studio. See [JBIDE-22175](https://issues.jboss.org/browse/JBIDE-22175) for the latest updates on this issue.
 
 
 Debug the Application
