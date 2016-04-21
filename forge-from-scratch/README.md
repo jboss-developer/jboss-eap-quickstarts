@@ -29,7 +29,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red H
 Run the Quickstart in Red Hat JBoss Developer Studio
 --------------------------------------------
 
-Forge is available in JBoss Developer Studio. To run this example, you must use JBoss Developer Studio 8 or greater.
+Forge is available in JBoss Developer Studio. To run this example, you must use JBoss Developer Studio 9 or greater.
 
 ### Generate and Build the Application
 
