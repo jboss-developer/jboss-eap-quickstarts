@@ -182,7 +182,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 * Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
 * Be sure to [Restore the JBoss EAP Server Configuration](#restore-the-jboss-eap-server-configuration) when you have completed testing this quickstart.
 
-You will see the following warning when you import this quickstart into JBoss Developer Studio. This is because the schema is not yet published in a public location. You can igore this warning.
+You may see the following warning when you import this quickstart into JBoss Developer Studio 9.0 or earlier. You can ignore this warning.
 
         No grammar constraints (DTD or XML Schema) referenced in the document.
 
