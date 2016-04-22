@@ -31,6 +31,11 @@ Run the Quickstart in Red Hat JBoss Developer Studio
 
 Forge is available in JBoss Developer Studio. To run this example, you must use JBoss Developer Studio 9 or greater.
 
+_Important:_ There are 2 Forge scripts provided for this quickstart. This is because the Forge syntax changed in Forge 3.0.
+
+* If you are using JBoss Developer Studio 9.0, which bundles Forge 2.19.2.Final, use the `generate_jbds_9_0.fsh` file in the instructons below.
+* If you are using JBoss Developer Studio 9.1, which bundles Forge 3.0.1.Final, use the default `generate.fsh` file in the instructons below.
+
 ### Generate and Build the Application
 
 1. Start JBoss Developer Studio.
@@ -39,9 +44,13 @@ Forge is available in JBoss Developer Studio. To run this example, you must use 
 4. In the Forge Console Window, navigate to the root directory of this quickstart.
 
         $ cd QUICKSTART_HOME/forge-from-scratch/
-5. Notice there is a file in this directory named `generate.fsh`. Run this file from the Forge console using the `run` command:
+5. Notice there are 2 files with the `.fsh` extension in this directory. One is named `generate.fsh` and the other is named `generate_jbds_9_0.fsh`.
+    * If you are using JBoss Developer Studio 9.1, run the `generate.fsh` file from the Forge console using the `run` command:
 
         $ run generate.fsh
+    * If you are using JBoss Developer Studio 9.0, run the `generate_jbds_9_0.fsh` file from the Forge console using the `run` command:
+
+        $ run generate_jbds_9_0.fsh
 
 6. At this point, Forge creates the new project and builds it. 
     * The script issues this command: `$ project-new --named forge-example --topLevelPackage org.example;`
