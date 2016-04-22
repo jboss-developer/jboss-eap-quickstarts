@@ -47,7 +47,7 @@ Deploy the H2 Console
 
 Deploy the console by copying the `h2console.war` located in the root directory of this quickstart to the `EAP7_HOME/standalone/deployments` directory. 
 
-_Note:_ You will see the following warning in the server log. You can igore this warning.
+_Note:_ You will see the following warning in the server log. You can ignore this warning.
 
     WFLYSRV0019: Deployment "deployment.h2console.war" is using an unsupported module ("com.h2database.h2:main") which may be changed or removed in future versions without notice.
 
