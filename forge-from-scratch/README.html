@@ -10,7 +10,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
 
-<p>The <code>forge-from-scratch</code> quickstart demonstrates how to create a fully <strong>Java EE compliant</strong> project using <strong>JBoss Forge</strong> and <strong>Red Hat JBoss Developer Studio 9</strong> or later and deploy it to <strong>Red Hat JBoss Enterprise Application Platform 7</strong> or later. </p>
+<p>The <code>forge-from-scratch</code> quickstart demonstrates how to create a fully <strong>Java EE compliant</strong> project using <strong>JBoss Forge</strong> and <strong>Red Hat JBoss Developer Studio 9.1</strong> or later and deploy it to <strong>Red Hat JBoss Enterprise Application Platform 7</strong> or later. </p>
 
 <p>Once generated, the sample project will be a standard Maven 3, Java Web project with <strong>JPA, EJB, CDI, JSF</strong> with complete <strong>JAX-RS</strong> endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.</p>
 
@@ -22,18 +22,11 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
 
-<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.</p>
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9.1 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.</p>
 
 <h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio</h2>
 
-<p>Forge is available in JBoss Developer Studio. To run this example, you must use JBoss Developer Studio 9 or greater.</p>
-
-<p><em>Important:</em> There are 2 Forge scripts provided for this quickstart. This is because the Forge syntax changed in Forge 3.0.</p>
-
-<ul>
-<li>If you are using JBoss Developer Studio 9.0, which bundles Forge 2.19.2.Final, use the <code>generate_jbds_9_0.fsh</code> file in the instructons below.</li>
-<li>If you are using JBoss Developer Studio 9.1, which bundles Forge 3.0.1.Final, use the default <code>generate.fsh</code> file in the instructons below.</li>
-</ul>
+<p>JBoss Developer Studio 9.1 ships with Forge 3.0.1.Final. Because the Forge syntax changed in Forge 3.0, the <code>generate.fsh</code> script that ships with this quickstart was updated to use the new syntax and no longer works with previous releases of JBoss Developer Studio. For this reason, you must  use JBoss Developer Studio 9.1 or greater to run this example.</p>
 
 <h3><a id="generate-and-build-the-application" class="anchor" href="#generate-and-build-the-application"><span class="anchor-icon"></span></a>Generate and Build the Application</h3>
 
@@ -44,20 +37,13 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li><p>In the Forge Console Window, navigate to the root directory of this quickstart.</p>
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>QUICKSTART_HOME/forge-from-scratch/
 </pre></div></li>
-<li><p>Notice there are 2 files with the <code>.fsh</code> extension in this directory. One is named <code>generate.fsh</code> and the other is named <code>generate_jbds_9_0.fsh</code>.</p>
-
-<ul>
-<li><p>If you are using JBoss Developer Studio 9.1, run the <code>generate.fsh</code> file from the Forge console using the <code>run</code> command:</p>
-
-<p>$ run generate.fsh</p></li>
-<li><p>If you are using JBoss Developer Studio 9.0, run the <code>generate_jbds_9_0.fsh</code> file from the Forge console using the <code>run</code> command:</p>
-
-<p>$ run generate_jbds_9_0.fsh</p></li>
-</ul></li>
+<li><p>Notice there is a file in this directory named <code>generate.fsh</code>. Run this file from the Forge console using the <code>run</code> command:</p>
+<div class="highlight"><pre><span class="nv">$ </span>run generate.fsh
+</pre></div></li>
 <li><p>At this point, Forge creates the new project and builds it. </p>
 
 <ul>
-<li>The script issues this command: <code>$ project-new --named forge-example --topLevelPackage org.example;</code></li>
+<li>The script issues this command: <code>$ project-new --named forge-example --top-level-package org.example;</code></li>
 <li>You next see the console message: <code>***SUCCESS*** Project named &#39;forge-example&#39; has been created.</code></li>
 <li>This is followed by a dialog saying <code>User Operation is waiting for &quot;Importing Forge project&quot; to complete.</code>.</li>
 <li>After a number of <code>***SUCCESS***</code> messages, you see <code>***SUCCESS*** Build Success</code> near the end of the console output.</li>
