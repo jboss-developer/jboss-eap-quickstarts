@@ -25,7 +25,7 @@ package org.jboss.as.quickstarts.html5rest;
 public class HelloService {
 
     String createHelloMessage(String name) {
-        return "Hello : 10 " + name + "!";
+        return "Hello : " + name + "!";
     }
 
 }
