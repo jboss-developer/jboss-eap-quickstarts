@@ -221,8 +221,11 @@ Build and Deploy the Quickstart
         [Server:app-oneA] WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
         [Server:app-oneA] WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
    
+_NOTE:_  You may see the following error when you deploy this quickstart using the `deploy-domain.cli` file. This is a known issue that occurs randomly. You can track the current state of the issue at [JBEAP-4398](https://issues.jboss.org/browse/JBEAP-4398) and in the _Release Notes_ for JBoss EAP.
+
+        ERROR [org.jboss.msc.service.fail] (ServerService Thread Pool -- 66) MSC000001: Failed to start service jboss.clustering.registry.ejb.client-mappings: org.jboss.msc.service.StartException in service jboss.clustering.registry.ejb.client-mappings: org.infinispan.commons.CacheException: javax.transaction.HeuristicRollbackException      
      
-_NOTE: If ERRORs appear in the server.log when installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly._
+_NOTE:_ If other ERRORs appear in the `server.log` when installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly.
 
 _NOTE:_ After the server has been running for a period of time, you may see the following warnings in the server log, which are followed by a stacktrace. You can ignore these warnings as this is is a known issue and is harmless. See [JBEAP-794](https://issues.jboss.org/browse/JBEAP-794) for more information.
 
