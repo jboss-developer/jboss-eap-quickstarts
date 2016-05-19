@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-resteasy-jaxrs-client</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <name>JBoss EAP Quickstart: resteasy-jaxrs-client</name>
     <description>resteasy-jaxrs-client: Demonstrates the use an external JAX-RS RestEasy client</description>
     <url>http://www.jboss.org/products/eap</url>
@@ -79,7 +79,7 @@
         <!-- JBoss dependency versions -->
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.3.3</version.org.apache.httpcomponents>

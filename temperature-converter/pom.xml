@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-temperature-converter</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: temperature-converter</name>
     <description>JBoss EAP Quickstart: Temperature Converter. Given Celsius return Fahrenheit; Given Fahrenheit return Celsius</description>

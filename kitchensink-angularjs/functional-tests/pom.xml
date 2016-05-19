@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-kitchensink-angularjs-test-webdriver</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <name>JBoss EAP Quickstarts: Kitchensink AngularJS test via WebDriver with Arquillian</name>
     <description>This project tests a Kitchensink AngularJS for use on JBoss EAP by WebDriver</description>
     <url>http://www.jboss.org/products/eap</url>
@@ -84,7 +84,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.19</version.surefire.plugin>

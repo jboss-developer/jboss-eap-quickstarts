@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-managed-executor-service</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: jboss-managed-executor-service</name>
     <description>A starter Java EE webapp project for use on JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
@@ -84,7 +84,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify
             tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
         <version.resteasy>3.0.10.Final</version.resteasy>
 
         <!-- other plug-in versions -->

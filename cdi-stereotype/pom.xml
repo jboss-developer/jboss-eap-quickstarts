@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-cdi-stereotype</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-stereotype</name>
     <description>JBoss EAP Quickstart: CDI-Stereotype</description>
@@ -84,7 +84,7 @@
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- Define the version of the JBoss Java EE APIs and Tools we want to import. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
