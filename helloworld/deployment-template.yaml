@@ -1,0 +1,131 @@
+kind: Template
+apiVersion: v1
+parameters:
+- name: APP_NAME
+  displayName: "Application name"
+  description: "Name of your application"
+  required: true
+- name: IMAGE_STREAM_TAG
+  displayName: "ImageStream Tag"
+  description: "ImageStream Tag. e.g. 'APP_NAME:latest'"
+  required: true
+- name: IMAGE_STREAM_NAMESPACE
+  displayName: "ImageStream Namespace"
+  description: "Namespace where source ImageStream resides."
+  value: ""
+- name: HORNETQ_QUEUES
+  description: "Queue names"
+- name: HORNETQ_TOPICS
+  description: "Topic names"
+- name: HORNETQ_CLUSTER_PASSWORD
+  description: "HornetQ cluster admin password"
+  generate: expression
+  from: "[a-zA-Z0-9]{8}"
+  required: true
+- name: JGROUPS_CLUSTER_PASSWORD
+  description: "JGroups cluster password"
+  generate: expression
+  from: "[a-zA-Z0-9]{8}"
+  required: true
+
+objects:
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: "${APP_NAME}"
+    labels:
+      application: "${APP_NAME}"
+    annotations: 
+      description: "The web server's http port."
+  spec:
+    ports:
+    - port: 8080
+      targetPort: 8080
+    selector:
+      deploymentConfig: "${APP_NAME}"
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: "${APP_NAME}"
+    labels:
+      application: "${APP_NAME}"
+    annotations: 
+      description: "Route for application's http service."
+  spec:
+    to:
+      kind: Service
+      name: "${APP_NAME}"
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: "${APP_NAME}"
+    labels:
+      application: "${APP_NAME}"
+  spec:
+    strategy: 
+      type: Recreate
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: false
+        containerNames:
+        - "${APP_NAME}"
+        from:
+          kind: ImageStreamTag
+          name: "${IMAGE_STREAM_TAG}"
+          namespace: "${IMAGE_STREAM_NAMESPACE}"
+        lastTriggeredImage: ""
+    replicas: 1
+    selector:
+      deploymentConfig: "${APP_NAME}"
+    template:
+      metadata:
+        name: "${APP_NAME}"
+        labels:
+          application: "${APP_NAME}"
+          deploymentConfig: "${APP_NAME}"
+      spec:
+        terminationGracePeriodSeconds: 60
+        containers:
+        - name: "${APP_NAME}"
+          image: ' '
+          imagePullPolicy: Always
+          livenessProbe:
+            exec:
+              command:
+              - "/bin/bash"
+              - "-c"
+              - "/opt/eap/bin/livenessProbe.sh"
+          readinessProbe:
+            exec:
+              command:
+              - "/bin/bash"
+              - "-c"
+              - "/opt/eap/bin/livenessProbe.sh"
+          ports:
+          - name: jolokia
+            containerPort: 8778
+            protocol: TCP
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+          - name: ping
+            containerPort: 8888
+            protocol: TCP
+          env:
+          - name: OPENSHIFT_KUBE_PING_LABELS
+            value: "application=${APP_NAME}"
+          - name: OPENSHIFT_KUBE_PING_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: HORNETQ_CLUSTER_PASSWORD
+            value: "${HORNETQ_CLUSTER_PASSWORD}"
+          - name: HORNETQ_QUEUES
+            value: "${HORNETQ_QUEUES}"
+          - name: HORNETQ_TOPICS
+            value: "${HORNETQ_TOPICS}"
+          - name: JGROUPS_CLUSTER_PASSWORD
+            value: "${JGROUPS_CLUSTER_PASSWORD}"
+  
