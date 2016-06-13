@@ -14,5 +14,5 @@ batch
 run-batch
 
 # Reload the server
-:reload
+reload
 

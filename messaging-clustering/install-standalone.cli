@@ -18,5 +18,5 @@ deploy ../helloworld-mdb/target/jboss-helloworld-mdb.war
 run-batch
 
 # Reload the server
-:reload
+reload
 

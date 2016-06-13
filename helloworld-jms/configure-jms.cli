@@ -10,6 +10,6 @@ jms-queue add --queue-address=testQueue --entries=queue/test,java:jboss/exported
 run-batch
 
 # Reload the server configuration
-:reload
+reload
 
 

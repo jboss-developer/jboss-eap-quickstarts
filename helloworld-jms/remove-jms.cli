@@ -10,6 +10,6 @@ jms-queue remove --queue-address=testQueue
 run-batch
 
 # Reload the server configuration
-:reload
+reload
 
 
