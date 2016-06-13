@@ -27,7 +27,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +48,7 @@ public class MXPojoHelloWorldTest {
      */
     @Deployment
     public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(JavaArchive.class, "myservice.sar")
+        return ShrinkWrap.create(WebArchive.class, "myservice.war")
             .addClasses(MXPojoHelloWorld.class).addClasses(IHelloWorldMXBean.class)
             .addAsManifestResource("META-INF/jboss-service.xml", "jboss-service.xml");
     }

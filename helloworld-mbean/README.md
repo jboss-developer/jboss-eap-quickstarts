@@ -104,6 +104,18 @@ Undeploy the Archive
         mvn wildfly:undeploy
 
 
+Run the Arquillian Tests 
+-------------------------
+
+This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
+
+1. Make sure you have started the JBoss EAP server as described above.
+2. Open a command prompt and navigate to the root directory of this quickstart.
+3. Type the following command to run the test goal with the following profile activated:
+
+        mvn clean test -Parq-wildfly-remote 
+
+
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
