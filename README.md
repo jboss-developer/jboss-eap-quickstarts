@@ -1,6 +1,7 @@
 Red Hat JBoss Enterprise Application Platform (JBoss EAP) Quickstarts
 ====================
-Summary: The quickstarts demonstrate Java EE 7 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.  
+Summary: The quickstarts demonstrate Java EE 7 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
+
 
 Introduction
 ------------
@@ -59,7 +60,7 @@ The applications these projects produce are designed to be run on Red Hat JBoss 
 
 All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
-To run these quickstarts with the provided build scripts, you need the the JBoss EAP distribution ZIP. For information on how to install and run JBoss, see the [Red Hat JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/) _Getting Started Guide_ located on the Customer Portal.
+To run these quickstarts with the provided build scripts, you need the JBoss EAP distribution ZIP. For information on how to install and run JBoss, see the [Red Hat JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/) _Getting Started Guide_ located on the Customer Portal.
 
 You can also use [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
 
@@ -72,7 +73,7 @@ The root folder of each individual quickstart contains a README file with specif
 * [Start the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.md#start-the-jboss-eap-server)
 * [Build and deploy the quickstarts](#build-and-deploy-the-quickstarts)
 
-           
+
 ### Build and Deploy the Quickstarts
 
 See the README file in each individual quickstart folder for specific details and information on how to run and access the example. 
