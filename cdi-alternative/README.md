@@ -10,16 +10,18 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code in Red Hat JBoss Enterprise Application Platform. Instead, you choose the bean implementation during development by injecting a qualifier. Then at deployment time, rather than modify the source code, you choose the alternative.
+The `cdi-alternative` quickstart demonstrates how to create beans that can be implemented for different purposes in Red Hat JBoss Enterprise Application Platform without changing the Java source code. Instead, you define the default and alternative (`@Alternative`) bean implementations during the development phase. Then at deployment time, rather than modifying the source code, you can choose to deploy the default or alternative beans by modifying the `<alternatives>` element in the `beans.xml` file.
 
-Alternatives are commonly used for purposes like the following:
+Alternatives can be used to customize deployments for specific situations, to handle client-side business logic that is determined at runtime, and to create dummy beans to be used for test purposes. 
 
-1. To handle client-specific business logic that is determined at runtime.
-2. To specify beans that are valid for a particular deployment scenario, for example, when country-specific sales tax laws require country-specific sales tax business logic.
-3. To create dummy or mock versions of beans to be used for testing.
+This quickstart demonstrates how to deploy an example with alternative sales tax rates. It defines the following classes, interfaces, and `WEB-INF/beans.xml` files:
 
-Any java class which has a no-args constructor and is in an archive with a beans.xml is available for lookup and injection. 
-For EL resolution, it must contain @Named
+* `Demo`: This class extends `HttpServlet` and handles the incoming servlet request. It gets the tax rate and returns it to the page.
+* `Tax`: This interface defines the `getRate()` method to get the tax rate.
+* `TaxImpl_1`: This is the default class that returns the "Tax_1" rate.
+* `TaxImpl_2`: This is an alternative class that returns the "Tax_2" rate. Note the `@Alternative` annotation in the class.
+* `beans.xml`: This file specifies the `TaxImpl_2` alternative should be used by the quickstart. To use the default `TaxImpl_1` class, delete or comment out the `<alternatives>` element and redeploy the quickstart.
+* `result.jsp`: The JSP page that displays the tax rate.
 
 
 System requirements
@@ -55,7 +57,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
         
-4. This will deploy `target/jboss-cdi-alternative.war` to the running instance of the server.
+4. This deploys `target/jboss-cdi-alternative.war` to the running instance of the server.
 
 
 Access the application
@@ -65,8 +67,8 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 
 You can specify alternative versions of the bean in the WEB-INF/beans.xml file by doing one of the following:
 
-1. You can remove the `<alternatives>` tag
-2. You can change the class name.
+1. You can remove the `<alternatives>` tag so that it defaults to use `TaxImpl_1`.
+2. You can create another alternative bean class and use that class name as an alternative.
 
 In this quickstart, in order to switch back to the default implementation, 
 comment the `<alternatives>` block in the WEB-INF/beans.xml file and redeploy the quickstart.
