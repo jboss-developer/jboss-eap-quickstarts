@@ -10,20 +10,29 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `cdi-portable-extension` quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
-to complete that task in an application deployed to Red Hat JBoss Enterprise Application Platform. 
-This particular extension explores the ProcessInjectionTarget and 
-InjectionTarget SPI classes of CDI, to demonstrate a possible way to seed data into beans.
+The `cdi-portable-extension` quickstart demonstrates how to use some of the SPI classes to create a simple CDI portable extension in an application deployed to Red Hat JBoss Enterprise Application Platform. 
 
-A Portable Extension is an extension to Java EE 6 and above, which is tailored to a specific
-use case and will run on any Java EE 6 or later implementation. Portable extensions can implement 
-features not yet supported by the specifications, such as type-safe messages or external configuration of beans.
+CDI exposes a set of SPIs to allow development of portable extensions to CDI. A portable extension is an extension to Java EE 6 and above that is tailored to a specific use case and runs on any Java EE 6 or later implementation. Portable extensions can implement features not yet supported by the specifications, such as type-safe messages or external configuration of beans. 
+
+This particular extension explores the `ProcessInjectionTarget` and `InjectionTarget` SPI classes of CDI to demonstrate one possible way to seed data into beans. It uses the `ProcessInjectionTarget` to create and add state to beans using XML. It is similar to the Seam XML configuration idea from Seam 3, but is much more simplistic. 
 
 The project contains very simple domain model classes, an extension class, the service registration file
 for that extension and an Arquillian test to verify the extension is working correctly.
 
-It does not contain any user interface, the tests must be run to verify everything is working
-correctly.
+* `CreatureExtension`: Class that implements `Extension`. This is the first step in creating a portable extension. It is not a bean since it is instantiated by the container during the initialization process, before any beans or contexts exist. However, it can be injected into other beans once the initialization process is complete.
+* `XmlBackedWrappedInjectionTarget`: Wrapper class for the standard {@link InjectionTarget} to add the field values from the XML file.
+* `CreatureType`: An enum in the `model` package. It defines the two types of creatures, `MONSTER` and `NPC`.
+* `Creature`: The interface in the `model` package. Defines the name and type of creature.
+* `Monster`: Class in the `model` package that implments creature with a type `MONSTER`.
+* `NonPlayerCharacter`: Class in the `model` package that implements creature with a type `NPC`.
+* `META-INF/creatures.xml`: The XML in this file seeds the bean with data.
+* `META-INF/creatures.xsd`: The schema for the XML that seeds the bean with data.
+
+On application start, there will be one instance of `monster` with a name of "Cat", hitpoints of "10" and an initiative of "25". There will also be one instance of `npc` with name of "Drunkard" and location of "Drunken Duck Tavern". There's no instantiation code for the object outside of the CDI extension.
+
+_Note:_ This quickstart does not contain any user interface. Instead, you run tests and check server log messages to verify everything is working correctly.
+
+
 
 System requirements
 -------------------
