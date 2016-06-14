@@ -16,26 +16,29 @@ The JSF front-end client allows you to create both credit and debit operation ev
 
 To test this quickstart, enter an amount, choose either a Credit or Debit operation, and then click on *Pay* to create the event.
 
-A Session scoped (@SessionScoped) payment event handler catches the operation and produces (@Produces) a named list of all operations performed during this session.  The event is logged in the JBoss EAP server log and the event list is displayed in a table at the bottom of the form.
+A Session scoped (`@SessionScoped`) payment event handler catches the operation and produces (`@Produces`) a named list of all operations performed during this session. The event is logged in the JBoss EAP server log and the event list is displayed in a table at the bottom of the form.
  
-The payment-cdi-event quickstart defines the following classes:
+The `payment-cdi-event` quickstart defines the following classes and interfaces:
  
- *   PaymentBean: 
-     *   A session scoped bean that stores the payment form information: 
-         *   payment amount
-         *   operation type: debit or credit
-     *   It contains the following utilities methods:
-         *   public String pay(): Process the operation when the user clicks on submit. We have only one JSP page, so the method does not return anything and the flow of control doesn't change.
-         *   public void reset(): Clear the payment form data.
- *   PaymentEvent: We have only one Event. It handles both credit and debit operations. Qualifiers help us to make the difference at injection point.
- *   PaymentTypeEnum:  A typesafe enum is used to represent the operation payment type. It contains utility methods to convert between String and Enum.
- *   The qualifiers package contains the Credit and Debit classes. The annotation determines the operation of injecting Event.
- *   The handler package containss Interfaces and implementations of PaymentEvent Observers.
-     *   ICreditEventObserver: Interface to listen to CREDIT Event Only (@Observes @Credit).
-     *   IDebitEventObserver: Interface to listen to DEBIT Event (@Observes @Debit).
- *   PaymentHandler: 
-     *   The concrete implementation of the payment handler, it implements both IcreditEventObserver and IDebitEventObserver.
-     *   The payment handler exposes the list of events caught during a session ( @Named  name=payments).
+* The `beans` package contains the `PaymentBean` bean class: 
+   * This is a session scoped bean that stores the payment form information: 
+       * payment amount
+       * operation type: debit or credit
+   * It contains the following utility methods:
+       * `private void init()`: This is a PostConstruct {`@PostConstruct`) method that performs initialization before the class is put into service. It resets the `amount` to `$0` and the `paymentOption` to the default type of debit. 
+       * `public String pay()`: This method processes the operation when the user clicks on submit. We have only one JSF page, so the method does not return anything and the flow of control doesn't change.
+       * `public void reset()`: Reset calls the `init()` method reinitialize the form values.
+* The `events` package contains the `PaymentEvent` class and the enum `PaymentTypeEnum`. 
+  * `PaymentEvent`: We have only one event that handles both credit and debit operations. Qualifiers help us to make the difference at injection point.
+  * `PaymentTypeEnum`:  A typesafe enum is used to represent the operation payment type. It contains utility methods to convert between `String` and `Enum`.
+* The `qualifiers` package contains the `Credit` and `Debit` interfaces. The annotation determines the operation of the injecting `Event`.
+* The `handler` package contains interfaces and implementations of `PaymentEvent` observers.
+  * `ICreditEventObserver`: Interface to listen to `CREDIT` event only (`@Observes` `@Credit`).
+  * `IDebitEventObserver`: Interface to listen to `DEBIT` event (`@Observes` `@Debit`).
+  * `PaymentHandler`: The concrete implementation of the payment handler. 
+    * It implements both `ICreditEventObserver` and `IDebitEventObserver`.
+    * The payment handler exposes the list of events caught during a session (`@Named`  `name=payments`).
+* The `resources` package contains the `Resources` class that produces the logger for the application.
  
 
 System requirements
