@@ -52,7 +52,7 @@ public class TaskResource {
     private TaskDao taskDao;
 
     @POST
-    @Path("tasks/{title}")
+    @Path("tasks/title/{title}")
     public Response createTask(@Context UriInfo info, @Context SecurityContext context,
         @PathParam("title") @DefaultValue("task") String taskTitle) {
 
@@ -63,7 +63,7 @@ public class TaskResource {
 
         // Construct the URI for the newly created resource and put in into the Location header of the response
         // (assumes that there is only one occurrence of the task title in the request)
-        String rawPath = info.getAbsolutePath().getRawPath().replace(task.getTitle(), task.getId().toString());
+        String rawPath = info.getAbsolutePath().getRawPath().replace("title/" + task.getTitle(), "id/" + task.getId().toString());
         UriBuilder uriBuilder = info.getAbsolutePathBuilder().replacePath(rawPath);
         URI uri = uriBuilder.build();
 
@@ -71,7 +71,7 @@ public class TaskResource {
     }
 
     @DELETE
-    @Path("tasks/{id}")
+    @Path("tasks/id/{id}")
     public void deleteTaskById(@Context SecurityContext context, @PathParam("id") Long id) {
         Task task = getTaskById(context, id);
 
@@ -79,7 +79,7 @@ public class TaskResource {
     }
 
     @GET
-    @Path("tasks/{id}")
+    @Path("tasks/id/{id}")
     // JSON: include "application/json" in the @Produces annotation to include json support
     //@Produces({ "application/xml", "application/json" })
         @Produces({ "application/xml" })
@@ -91,7 +91,7 @@ public class TaskResource {
     }
 
     @GET
-    @Path("tasks/{title}")
+    @Path("tasks/title/{title}")
     // JSON: include "application/json" in the @Produces annotation to include json support
     //@Produces({ "application/xml", "application/json" })
         @Produces({ "application/xml" })
@@ -101,7 +101,7 @@ public class TaskResource {
     }
 
     @GET
-    @Path("tasks")
+    @Path("tasks/title")
     // JSON: include "application/json" in the @Produces annotation to include json support
     //@Produces({ "application/xml", "application/json" })
         @Produces({ "application/xml" })
