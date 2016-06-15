@@ -140,11 +140,22 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
         mvn clean test -Parq-wildfly-remote 
 
+You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
+
+
+Investigate the Console Output
+----------------------------
+
 <!-- Contributor: The quickstart README should show what to expect from the the tests. -->
 
-* Copy and paste output from the JUnit tests to show what to expect in the console from the tests.
+* If applicable, copy and paste output from the JUnit tests to show what to expect in the console from the tests.
 
-* Copy and paste log messages output by the application to show what to expect in the server log when running the tests.
+Investigate the Server Log
+----------------------------
+
+<!-- Contributor: The quickstart README should show what to expect from the the tests. -->
+
+* If applicable, copy and paste log messages output by the application to show what to expect in the server log when running the tests.
 
 
 

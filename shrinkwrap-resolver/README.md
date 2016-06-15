@@ -68,6 +68,8 @@ _NOTE: If you plan to use a custom settings file, add the Maven settings command
 
     mvn clean test -Parq-wildfly-remote -s /path/to/custom/settings.xml
 
+You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
+
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
