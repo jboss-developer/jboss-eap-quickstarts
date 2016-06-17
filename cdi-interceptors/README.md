@@ -15,7 +15,7 @@ Interceptors can be applied to any business methods or beans, simply by adding a
 This example demonstrates 2 interceptors: `AuditInterceptor` and `LoggingInterceptor`
 
 The quickstart defines the `@Audit` and `@Logging` interceptor binding types. The `AuditInterceptor` and `LoggingInterceptor` classes are annotated with the binding type annotation and contain a method annotated `@AroundInvoke`. If the interceptor is enabled, this method will be called when the intercepted methods are invoked. In the `ItemServiceBean` bean, notice the `create()`and `getList()` methods are annotated with the `@Audit` and `@Logging` binding types. This means the `aroundInvoke()` method in the `AuditInterceptor` and `LoggingInterceptor` classes will be called when the `ItemServiceBean` bean's `create()` and `getList()` methods are called, but only if that interceptor is enabled.
-To enable an interceptor, you must add the interceptor class to the WEB-INF/beans.xml descriptor file.
+To enable an interceptor, you must add the interceptor class to the `WEB-INF/beans.xml` descriptor file.
 
 _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
   
@@ -62,13 +62,13 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-cdi-interceptors>.
 
-You can now comment out classes in the WEB-INF/beans.xml file to disable one or both of the interceptors and view the results.
+You can now comment out classes in the `WEB-INF/beans.xml` file to disable one or both of the interceptors and view the results.
 
 * Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.AuditInterceptor</class>` and you will no longer see the audit history on the browser page.
 * Comment the `<class>org.jboss.as.quickstarts.cdi.interceptor.LoggingInterceptor</class>` and you will no longer see the log messages in the server log.
 
 In this quickstart, in order to switch back to the default implementation, 
-comment the `interceptors` block in the WEB-INF/beans.xml file and redeploy the quickstart.
+comment the `interceptors` block in the `WEB-INF/beans.xml` file and redeploy the quickstart.
 
 
 Server Log: Expected warnings and errors

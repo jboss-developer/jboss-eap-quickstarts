@@ -64,7 +64,7 @@ Build and Deploy the Quickstart
 
 4. This will deploy target/spring-greeter.war to the running instance of the server.
 
-If you don't have maven configured you can manually copy target/spring-greeter.war to EAP7_HOME/standalone/deployments.
+If you do not have maven configured you can manually copy target/spring-greeter.war to EAP7_HOME/standalone/deployments.
 
 Access the application
 ----------------------

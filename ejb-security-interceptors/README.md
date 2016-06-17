@@ -34,7 +34,7 @@ The first method can be called by all users that are created in this quickstart.
 
         [Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
 
-The next two methods are annotated to require that the calling user is authorized for roles 'RoleOne' and 'RoleTwo' respectively.
+The next two methods are annotated to require that the calling user is authorized for roles `RoleOne` and `RoleTwo` respectively.
 
 ### IntermediateEJB
 
@@ -44,14 +44,14 @@ The `IntermediateEJB` contains a single method. Its purpose is to make use of a 
 
 Finally there is the `RemoteClient` stand-alone client. The client makes calls using the identity of the established connection and also makes calls switching the identity to the different users.
 
-In the real world, remote calls between servers in the servers-to-server scenario would truly be remote and separate. For the purpose of this quickstart, we make use of a loopback connection to the same server so we don't need two servers just to run the test.
+In the real world, remote calls between servers in the servers-to-server scenario would truly be remote and separate. For the purpose of this quickstart, we make use of a loopback connection to the same server so we do not need two servers just to run the test.
 
 Note on EJB client interceptors
 -----------------------
 
-JBoss EAP allows client side interceptors for EJB invocations. Such interceptors are expected to implement the `org.jboss.ejb.client.EJBClientInterceptor` interface. User applications can then plug in such interceptors in the 'EJBClientContext' either programatically or through the ServiceLoader mechanism.
+JBoss EAP allows client side interceptors for EJB invocations. Such interceptors are expected to implement the `org.jboss.ejb.client.EJBClientInterceptor` interface. User applications can then plug in such interceptors in the `EJBClientContext` either programatically or through the ServiceLoader mechanism.
 
-- The programmatic way involves calling the `org.jboss.ejb.client.EJBClientContext.registerInterceptor(int order, EJBClientInterceptor interceptor)` API and passing the 'order' and the 'interceptor' instance. The 'order' is used to decide where exactly in the client interceptor chain, this 'interceptor' is going to be placed.
+- The programmatic way involves calling the `org.jboss.ejb.client.EJBClientContext.registerInterceptor(int order, EJBClientInterceptor interceptor)` API and passing the `order` and the `interceptor` instance. The `order` is used to decide where exactly in the client interceptor chain, this `interceptor` is going to be placed.
 - The ServiceLoader mechanism is an alternate approach which involves creating a `META-INF/services/org.jboss.ejb.client.EJBClientInterceptor` file and placing/packaging it in the classpath of the client application. The rules for such a file are dictated by the [Java ServiceLoader Mechanism](http://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html). This file is expected to contain in each separate line the fully qualified class name of the EJB client interceptor implementation, which is expected to be available in the classpath. EJB client interceptors added via the ServiceLoader mechanism are added to the end of the client interceptor chain, in the order they were found in the classpath.
 
 This quickstart uses the ServiceLoader mechanism for registering the EJB client interceptor and places the `META-INF/services/org.jboss.ejb.client.EJBClientInterceptor` in the classpath, with the following content:
@@ -112,7 +112,7 @@ To add the users, open a command prompt and type the following commands:
 
 The first user establishes the actual connection to the server. The subsequent two users demonstrate how to switch identities on demand. The final user can access everything but can not participate in identity switching.
 
-Note that within the quickstart, we do not make use of the passwords for any of the 'App' users. The passwords specified for those users are only suggested values that meet password minimum requirements.
+Note that within the quickstart, we do not make use of the passwords for any of the `App` users. The passwords specified for those users are only suggested values that meet password minimum requirements.
 
 If you prefer, you can use the add-user utility interactively. 
 For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
@@ -508,7 +508,7 @@ This quickstart requires additional configuration and deploys and runs different
 2. Follow the steps above to [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
 3. To deploy the application to the JBoss EAP server, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Run on Server`.
 4. To access the application, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Java Application`. 
-5. Choose "RemoteClient - org.jboss.as.quickstarts.ejb_security_interceptors" and click `OK`.
+5. Choose `RemoteClient - org.jboss.as.quickstarts.ejb_security_interceptors` and click `OK`.
 6. Review the output in the console window.
 7. Be sure to [Remove the Security Domain Configuration](#remove-the-security-domain-configuration) when you have completed testing this quickstart.
 

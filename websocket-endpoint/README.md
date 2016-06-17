@@ -60,11 +60,11 @@ Access the application
 
 Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-websocket-endpoint/>
 
-You're presented with a simple form that shows a bidding with the status `NOT_STARTED`. 
+You are presented with a simple form that shows a bidding with the status `NOT_STARTED`. 
 
-Click on `Do a bid!` button. That will start the bidding and trigger the 1 minute countdown timer. You can also notice that every Bid will be listed under the "List of bids" section.
+Click on `Do a bid!` button. That will start the bidding and trigger the 1 minute countdown timer. You can also notice that every Bid will be listed under the `List of bids` section.
 
-You should open the application URL in other browsers or tabs. You will notice that every change on the bidding is automatically update in all opened browser or tabs. The item will be SOLD once that it reaches the "Buy now price". At the countdown timeout, the bidding will be EXPIRED. You can click on `Buy it now` button to immediately buy the item.
+You should open the application URL in other browsers or tabs. You will notice that every change on the bidding is automatically update in all opened browser or tabs. The item will be SOLD once that it reaches the `Buy now price`. At the countdown timeout, the bidding will be EXPIRED. You can click on `Buy it now` button to immediately buy the item.
 
 You can restart the bidding if you click on `Reset bidding` button.
 

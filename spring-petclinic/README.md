@@ -69,11 +69,11 @@ Build and Deploy the Quickstart
 
 4. This will deploy `spring-petclinic/target/jboss-spring-petclinic.war` to the running instance of the server.
 
-If you don't have maven configured you can manually copy `spring-petclinic/target/jboss-spring-petclinic.war` to EAP7_HOME/standalone/deployments.
+If you do not have maven configured you can manually copy `spring-petclinic/target/jboss-spring-petclinic.war` to EAP7_HOME/standalone/deployments.
 
-For MySQL, you'll need to use the corresponding schema and SQL scripts in the "db/mysql" subdirectory.
+For MySQL, you need to use the corresponding schema and SQL scripts in the `db/mysql` subdirectory.
 
-In you intend to use a local DataSource, the JDBC settings can be adapted in "src/main/resources/spring/datasource-config.xml". 
+In you intend to use a local DataSource, the JDBC settings can be adapted in `src/main/resources/spring/datasource-config.xml`. 
 To use a JTA DataSource, you need to set up corresponding DataSources in your Java EE container.
 
  

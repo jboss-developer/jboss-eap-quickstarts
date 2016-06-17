@@ -32,7 +32,7 @@ the ability to:
 * **Delete** a contact.
 
 **Validation** is an important part of an application. Typically in an HTML5 app you can let the built-in HTML5 form validation
-do the work for you. However in a mobile app it doesn't work, the mobile browsers just don't support it at this time. 
+do the work for you. However in a mobile app it does not work, the mobile browsers just do not support it at this time. 
 In order to validate the forms we added a plugin, jquery.validate. We provide both client-side and server-side validation 
 through this plugin. Over AJAX, if there is an error, the error is returned and displayed in the form. You can see an 
 example of this in the Edit form if you enter an email that is already in use. The application will attempt to insert the error message into a 
@@ -52,7 +52,7 @@ will vary slightly (ex. validations) based on browser support, especially IE 9.
 Mobile web support is limited to Android and iOS devices. It should run on HP, and Black Berry devices as well. 
 Windows Phone, and others will be supported as jQuery Mobile announces support.
  
-With the prerequisites out of the way, you're ready to build and deploy.
+With the prerequisites out of the way, you are ready to build and deploy.
 
 Start the JBoss EAP Server
 -----------------------
@@ -63,7 +63,7 @@ Start the JBoss EAP Server
         For Linux:   EAP7_HOME/bin/standalone.sh
         For Windows: EAP7_HOME\bin\standalone.bat
 
-   Note: Adding "-b 0.0.0.0" to the above commands will allow external clients (phones, tablets, desktops, etc...) connect through your local network.
+   Note: Adding `-b 0.0.0.0` to the above commands will allow external clients, such as phones, tablets, and desktops, connect through your local network.
 
    For example
 
@@ -146,7 +146,7 @@ First, in the `<project-root>/src/main/webapp/index.html` file, search for refer
 uncomment the appropriate lines.
 
 Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. 
-The plug-in is in a profile with an id of "minify" so you will want to specify that profile in your maven build.
+The plug-in is in a profile with an id of `minify` so you will want to specify that profile in your maven build.
 
 NOTE: By default there are turn off tests so you must use the arquillian test profile to run tests when minifying.
 For example:
@@ -189,7 +189,7 @@ For more information on QUnit tests see http://qunitjs.com/
 Run the Arquillian Functional Tests
 -----------------------------------
 
-This quickstart provides Arquillian functional tests. They are located under the directory "functional-tests". Functional tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
+This quickstart provides Arquillian functional tests. They are located under the directory `functional-tests`. Functional tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
 
 To run these tests, you must build the main project as described above.
 

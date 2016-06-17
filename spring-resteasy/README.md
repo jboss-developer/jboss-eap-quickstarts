@@ -56,7 +56,7 @@ That will provide links to the following URLs that demonstrate various path and 
 * [jboss-spring-resteasy/matrixParam;param=matrix](http://localhost:8080/jboss-spring-resteasy/matrixParam;param=matrix)
 * [jboss-spring-resteasy/uriParam/789](http://localhost:8080/jboss-spring-resteasy/uriParam/789)
 
-And the same set as above but using the 'locating' path.
+And the same set as above but using the `locating` path.
 
 * [jboss-spring-resteasy/locating/hello?name=yourname](http://localhost:8080/jboss-spring-resteasy/locating/hello?name=yourname)
 * [jboss-spring-resteasy/locating/basic](http://localhost:8080/jboss-spring-resteasy/locating/basic)

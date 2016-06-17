@@ -19,7 +19,7 @@ The `jta-crash-rec` quickstart demonstrates how to code distributed or XA (eXten
 
 This quickstart shows how to atomically update multiple resources within one transaction. It updates a relational database table using JPA and sends a message using JMS. This type of paired updates to two different resources are called XA transactions and are defined by the Java EE JTA specification JSR-907. JTA transactions are not distributed across multiple application servers. 
 
-The relational database table in this example contains two columns that represent a "key" / "value" pair. The application presents an HTML form containing two input text boxes and allows you to create, update, delete or list these pairs. When you add or update a "key" / "value" pair, the quickstart starts a transaction, updates the database table, produces a JMS message containing the update, and then commits the transaction. If all goes well, eventually the consumer gets the message and generates a database update, setting the "value" corresponding to the "key" to something that indicates it was changed by the message consumer.
+The relational database table in this example contains two columns that represent a `key` / `value` pair. The application presents an HTML form containing two input text boxes and allows you to create, update, delete or list these pairs. When you add or update a `key` / `value` pair, the quickstart starts a transaction, updates the database table, produces a JMS message containing the update, and then commits the transaction. If all goes well, eventually the consumer gets the message and generates a database update, setting the `value` corresponding to the `key` to something that indicates it was changed by the message consumer.
 
 In this example, you halt the JBoss EAP server in the middle of an XA transaction after the database modification has been committed, but before the JMS producer is committed. You can verify that the transaction was started, then restart the JBoss EAP server to complete the transaction. You then verify that everything is in a consistent state.
 
@@ -91,9 +91,9 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 Test the application
 -------------------------
 
-1. When you access the application, you will find a web page containing two html input boxes for adding "key" / "value" pairs to a database. Instructions for using the application are shown at the top of the application web page.
+1. When you access the application, you will find a web page containing two html input boxes for adding `key` / `value` pairs to a database. Instructions for using the application are shown at the top of the application web page.
 
-2. When you add a new "key" / "value" pair, the change is committed to the database and a JMS message sent. The message consumer then updates the newly inserted row by appending the text *"updated via JMS"* to the value. Since the consumer updates the row asynchronously, you may need to click _Refresh Table_ to see the text added to the "key" / "value" pair you previously entered.
+2. When you add a new `key` / `value` pair, the change is committed to the database and a JMS message sent. The message consumer then updates the newly inserted row by appending the text `updated via JMS` to the value. Since the consumer updates the row asynchronously, you may need to click _Refresh Table_ to see the text added to the `key` / `value` pair you previously entered.
 
 3. When an _XA transaction_ is committed, the application server completes the transaction in two phases.
     * In phase 1 each of the resources, in this example the database and the JMS message producer, are asked to prepare to commit any changes made during the transaction. 
@@ -115,7 +115,7 @@ Test the application
     
 5. Once you complete step 4, you are ready to create a _recovery record_. Go to the application URL <http://localhost:8080/jboss-jta-crash-rec/XA> and insert another row into the database. At this point, Byteman halts the application server. 
 
-6. If you want to verify the database insert was committed but that message delivery is still pending, you can use an SQL client such as the H2 database console tool. Issue a query to show that the value is present but does not contain the message added by the consumer (*" updated via JMS"*). Here is how you can do it using H2:
+6. If you want to verify the database insert was committed but that message delivery is still pending, you can use an SQL client such as the H2 database console tool. Issue a query to show that the value is present but does not contain the message added by the consumer (`updated via JMS`). Here is how you can do it using H2:
     * Start the H2 console by typing:
 
 
@@ -143,13 +143,16 @@ Test the application
 7. To observe XA recovery
     * Stop the H2 console and exit the command prompt to close the database connections. Otherwise, you may see messages like the following when you start your server: 
 
-            `Database may be already in use: "Locked by another process"`
+            Database may be already in use: "Locked by another process"
     * [Disable the Byteman script](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#disable-the-byteman-script) by restoring the backup server configuration file.
     * [Start the JBoss EAP server](#start-the-jboss-eap-server) as instructed above.
     * Load the web interface to the application 
     * By the time the JBoss EAP server is ready, the transaction should have recovered.
-    * A message is printed on the JBoss EAP server console when the consumer has completed the update. Look for a line that reads 'JTA Crash Record Quickstart: key value pair updated via JMS'.
-    * Check that the row you inserted in step 4 now contains the text *"updated via JMS"*, showing that the JMS message was recovered successfully. Use the application URL to perform this check.
+    * A message is printed on the JBoss EAP server console when the consumer has completed the update. Look for a line that reads:
+    
+            JTA Crash Record Quickstart: key value pair updated via JMS
+            
+    * Check that the row you inserted in step 4 now contains the text `updated via JMS`, showing that the JMS message was recovered successfully. Use the application URL to perform this check.
     * You will most likely see the following messages in the the server log. 
     
             WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016037: Could not find new XAResource to use for recovering non-serializable XAResource XAResourceRecord < resource:null, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:1040a11d:534ede43:1c, node_name=1, branch_uid=0:ffff7f000001:1040a11d:534ede43:20, subordinatenodename=null, eis_name=java:jboss/datasources/JTACrashRecQuickstartDS >, heuristic: TwoPhaseOutcome.FINISH_OK, product: H2/1.3.168-redhat-2 (2012-07-13), jndiName: java:jboss/datasources/JTACrashRecQuickstartDS com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@788f0ec1 >

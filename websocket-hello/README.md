@@ -63,9 +63,11 @@ Access the application
 The application will be running at the following URL: <http://localhost:8080/jboss-websocket-hello>. 
 
 1. Click on the `Open Connection` button to create the WebSocket connection and display current status of `Open`.
-2. Type a name and click `Say Hello` to create and send the 'Say hello to `<NAME>`' message. The message appears in the server log and a response is sent to the client.
+2. Type a name and click `Say Hello` to create and send the `Say hello to <NAME>` message. The message appears in the server log and a response is sent to the client.
 3. Click on the `Close Connection` button to close the WebSocket connection and display the current status of `Closed`.
-4. If you attempt to send another message after closing the connection, the following message appears on the page: "WebSocket connection is not established. Please click the Open Connection button".
+4. If you attempt to send another message after closing the connection, the following message appears on the page: 
+
+        WebSocket connection is not established. Please click the Open Connection button.
 
 
 Undeploy the Archive

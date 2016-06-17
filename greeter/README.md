@@ -18,7 +18,7 @@ To test this example:
 
 1. Enter a name in the `username` field and click on `Greet!`.
 2. If you enter a username that is not in the database, you get a message `No such user exists!`.
-3. If you enter a valid username, you get a message "Hello, " followed by the user's first and last name.
+3. If you enter a valid username, you get a message `Hello, ` followed by the user's first and last name.
 4. To create a new user, click the `Add a new user` link. Enter the username, first name, and last name and then click `Add User`. The user is added and a message displays the new user id number.
 5. Click on the `Greet a user!` link to return to the `Greet!` page.
 

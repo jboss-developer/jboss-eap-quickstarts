@@ -64,7 +64,7 @@ Access the running application in a browser at the following URLs:
 * <http://localhost:8080/jboss-inter-app-appA>
 * <http://localhost:8080/jboss-inter-app-appB>
 
-You are presented with a form that allows you to set the value on the bean in the other application, as well as display of the value on this application's bean. Enter a new value and press "Update and Send!" to update the value on the other application. Do the same on the other application, and hit the button again on the first application. You should see the values shared between the applications.
+You are presented with a form that allows you to set the value on the bean in the other application, as well as display of the value on this application's bean. Enter a new value and press `Update and Send!` to update the value on the other application. Do the same on the other application, and hit the button again on the first application. You should see the values shared between the applications.
 
 
 Undeploy the Archive

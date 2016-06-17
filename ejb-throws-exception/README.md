@@ -13,7 +13,7 @@ The `ejb-throws-exception` quickstart extends the [ejb-in-ear](../ejb-in-ear/REA
 
 The example is composed of three Maven projects, each with a shared parent. The projects are as follows:
 
-1. `ejb`: This project contains the EJB code and can be built independently to produce the JAR archive.  The EJB has a single method `sayHello` which will take in a String `name` and return "Hello <name>" if the `name` is not null or an empty String.  If the `name` is null or an empty String, then it will throw a custom Exception (`GreeterException`) back to the client.
+1. `ejb`: This project contains the EJB code and can be built independently to produce the JAR archive.  The EJB has a single method `sayHello` which will take in a String `name` and return `Hello <name>` if the `name` is not null or an empty String.  If the `name` is null or an empty String, then it will throw a custom Exception (`GreeterException`) back to the client.
 
 2. `web`: This project contains the JSF pages and the CDI managed bean.  The CDI Managed Bean (GreeterBean) will be bound to the JSF page (index.xhtml) and will invoke the GreeterEJB and display the response back from the EJB.  The GreeterBean catches the custom Exception (GreeterException) thrown by GreeterEJB and displays the Exception message in the response text on the JSF page.
 
@@ -24,7 +24,7 @@ The example is composed of three Maven projects, each with a shared parent. The 
 The root `pom.xml` builds each of the subprojects in the above order and deploys the EAR archive to the server.
 
 
-The example follows the common "Hello World" pattern. These are the steps that occur:
+The example follows the common `Hello World` pattern. These are the steps that occur:
 
 1. A JSF page (http://localhost:8080/jboss-ejb-throws-exception-web/) asks for the user name.
 2. On clicking `Say Hello`, the value of the `Name` input text is sent to a managed bean named `GreeterBean`.

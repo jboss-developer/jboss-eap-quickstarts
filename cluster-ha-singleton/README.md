@@ -139,7 +139,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
 3. Configure the first server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `JBoss Enterprise Application Platform 7.0 (Experimental)`.
-   * For the `Server name`, enter "EAP7-Server1" and click `Next`.
+   * For the `Server name`, enter `EAP7-Server1` and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
    
@@ -152,7 +152,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
 4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `JBoss Enterprise Application Platform 7.0 (Experimental)`.
-   * For the `Server name`, enter "EAP7-Server2" and click `Next`.
+   * For the `Server name`, enter `EAP7-Server2` and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
    
@@ -163,8 +163,8 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
             Configuration file: (Browse and choose the `standalone-ha.xml` file)
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
    * In the `Server` tab, double-click on `EAP7-Server2` to open the `Overview` page. 
-   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste "-Djboss.socket.binding.port-offset=100" and click `OK`.
-   * Still in the `Overview` page for `EAP7-Server2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter "100". Save the changes using the menu `File --> Save`
+   * Click `Open launch configuration` and at the end of the `VM Arguments`, paste `-Djboss.socket.binding.port-offset=100` and click `OK`.
+   * Still in the `Overview` page for `EAP7-Server2`, under `Server Ports`, uncheck the `Detect from Local Runtime` next to `Port Offset` and enter `100`. Save the changes using the menu `File --> Save`
 
 5. To deploy the cluster-ha-singleton service to `EAP7-Server1`, right-click on the `jboss-cluster-ha-singleton-service` project, choose `Run As` --> `Run on Server`, choose `EAP7-Server1` and click `Finish`. Note the messages in the `EAP7-Server1` server console indicate it is the singleton provider of the service.
    

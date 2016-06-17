@@ -26,7 +26,7 @@ As an overview, the sequence of events to expect:
 3. Open a web browser and attempt to invoice two customers as with the `jts` quickstart.
 4. JBoss EAP server 1 will run through a two-phase commit (2PC), preparing the resources in JBoss EAP server 1 and JBoss EAP server 2. JBoss EAP server 1 will then crash before it can call commit.
 5. The user is invited to inspect the content of the transaction objectstore.
-6. JBoss EAP server 1 should be restarted. It will then recover the "invoices" delivered to the MDBs, just as it does in the _jts_ quickstart
+6. JBoss EAP server 1 should be restarted. It will then recover the "invoices" delivered to the MDBs, just as it does in the `jts` quickstart.
 
 
 System requirements

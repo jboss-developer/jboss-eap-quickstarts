@@ -81,14 +81,14 @@ This landing page provides details and links to test the quickstart features. Yo
 1.  `http://localhost:8080/jboss-logging-tools/rest/greetings/'name'` 
     * Example:  <http://localhost:8080/jboss-logging-tools/rest/greetings/Harold>
     * Demonstrates simple use of localized messages (with parameter) and logging.
-    * It returns the localized "hello `name`" string where `name` is the last component of the URL.
-    * It also logs the localized "Hello message sent" in the server log.
+    * It returns the localized `hello NAME` string where `NAME` is the last component of the URL.
+    * It also logs the localized `Hello message sent` in the server log.
 
 2. `http://localhost:8080/jboss-logging-tools/rest/greetings/'locale'/'name'`
     * Example: <http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold>
     * Demonstrates how to obtain a message bundle for a specified locale and how to throw a localized exceptions. Note that the localized exception is a wrapper around `WebApplicationException`.
-    * Returns a localized "hello `name`" string where `name` is the last component of the URL and the locale used is the one supplied in the `locale` URL.
-    * Logs a localized "Hello message sent in `locale`" message using the JVM locale for the translation.
+    * Returns a localized `hello NAME` string where `NAME` is the last component of the URL and the locale used is the one supplied in the `locale` URL.
+    * Logs a localized `Hello message sent in LOCALE` message using the JVM locale for the translation.
     * If the supplied locale is invalid (in this case if it contains more than 3 components, eg. fr-FR-POSIX-FOO), it throws a `WebApplicationException` (404) using a localizable sub-class of `WebApplicationException`.
    
       Note that `WebApplicationException` cannot be directly localized by JBoss Logging Tools using the `@Message` annotation due to the message parameter being ignored by the `WebApplicationException` constructors. Cases like this can be worked around by creating a subclass with a constructor that does deal with the message parameter.

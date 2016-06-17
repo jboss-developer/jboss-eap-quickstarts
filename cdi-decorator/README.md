@@ -9,13 +9,21 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 
 What is it?
 -----------
-The `cdi-decorator` quickstart demonstrates the use of CDI Decorator in Red Hat JBoss Enterprise Application Platform.
+The `cdi-decorator` quickstart demonstrates the use of CDI decorators in Red Hat JBoss Enterprise Application Platform. 
+A decorator implements one or more bean types and intercepts business method invocations of beans which implement those bean types. 
+These bean types are called decorated types. 
 
-It represents a common decorator design pattern. We take a class and we wrap decorator class around it. 
+Decorators are similar to interceptors, but because they directly implement operations with business semantics, they are able to implement business logic and, conversely, unable to implement the cross-cutting concerns for which interceptors are optimized.
+
+Decorators may be associated with any managed bean that is not itself an interceptor or decorator or with any EJB session bean. 
+A decorator instance is a dependent object of the object it decorates.
+
+This example represents a common decorator design pattern. We take a class and we wrap decorator class around it. 
 When we call the class, we always pass through the surrounding decorator class before we reach the inner class. 
-In this example, the decorator class simply changes the staff bonus from '100' to '200' and the staff position from 'Java Developer' to 'Team Lead'. It then logs a message to the server console.
+In this example, the decorator class simply changes the staff bonus from `100` to `200` and the staff position from `Java Developer` to `Team Lead`. 
+It then logs a message to the server console.
 
-By default, all decorators are disabled, so application will run without using decorator. We need to enable our decorator in the 'beans.xml' descriptor to make it work.
+By default, all decorators are disabled, so the application will run without using decorator. We need to enable our decorator in the `WEB-INF/beans.xml` descriptor to make it work.
 
 
 System requirements
@@ -59,16 +67,17 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-cdi-decorator>.
 
-You can specify decorator of the bean in the WEB-INF/beans.xml file by doing one of the following:
+You can specify decorator of the bean in the `WEB-INF/beans.xml` file by doing one of the following:
 
 1. You can add a decorators tag and specify a decorator class.
 2. You can specify a different decorator class name in the decorators tag.
 
-For this example, uncomment the `<decorators>` tag in the WEB-INF/beans.xml file and redeploy the application. 
-When you access the application, you will see changed information from web-browser and following in the server log: `CDI decorator method was called!`
+For this example, uncomment the `<decorators>` tag in the `WEB-INF/beans.xml` file and redeploy the application. 
+When you access the application, you will see changed information from web-browser and following in the server log: 
 
-In order to switch back to the default implementation, 
-comment the 'decorators' block in the WEB-INF/beans.xml file and redeploy the quickstart.
+    CDI decorator method was called!
+
+In order to switch back to the default implementation, comment the `decorators` block in the `WEB-INF/beans.xml` file and redeploy the quickstart.
 
 Undeploy the Archive
 --------------------

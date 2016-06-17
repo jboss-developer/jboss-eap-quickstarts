@@ -282,7 +282,7 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
     * The `MainAppSContext` bean in `app-main` calls the `AppOne` bean in `app-one` using the scoped-context and establishes the clustered view.
         * It initially connects using `quickuser1`
         * The clustered view is created using `quickuser2`. This takes some time, but once it takes effect, all calls are load-balanced.
-    * The calls to the 'AppTwo' bean in `app-two` are made using two different scoped-context settings and both are used alternately 7 times. This means the servers `app-twoA` and `app-twoB` are called alternately seven times each.
+    * The calls to the `AppTwo` bean in `app-two` are made using two different scoped-context settings and both are used alternately 7 times. This means the servers `app-twoA` and `app-twoB` are called alternately seven times each.
 
 5. If it is necessary to invoke the client with a different JBoss EAP version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP7_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
@@ -292,7 +292,7 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 _NOTE:_
  
 * _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
-* _A JBoss EAP will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
+* _A JBoss EAP will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set `default-missing-method-permissions-deny-access = false` for the `ejb3` subsystem within the domain profile `ha` and `default` to allow the method invocation. See the `install-domain.cli` script._
 
 
 Access the JSF application inside the main-application
@@ -312,7 +312,7 @@ _NOTE :_
 Access the Servlet application deployed as a WAR inside a minimal server
 ---------------------
 
-An example how to access EJB's from a separate instance which only contains a web application.
+An example how to access EJBs from a separate instance which only contains a web application.
 
 1. Make sure that the deployments are successful as described above.
 2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/jboss-ejb-multi-server-app-web/>

@@ -115,7 +115,7 @@ This is what happens when the command is issued:
 * The `-X` flag tells cURL which HTTP method to use. The HTTP *POST* is used to create resources.
 * The `Location` header of the response contains the URI of the resource representing the newly created task.
 
-The final argument to cURL determines the title of the task. Note that this approach is perhaps not very restful but it simplifies this quickstart. A better approach would be to *POST* to "http://localhost:8080/jboss-tasks-rs/tasks/title" passing the task title in the body of the request.
+The final argument to cURL determines the title of the task. Note that this approach is perhaps not very restful but it simplifies this quickstart. A better approach would be to *POST* to `http://localhost:8080/jboss-tasks-rs/tasks/title` passing the task title in the body of the request.
 
 
 ### Display the XML Representation of a Task
@@ -191,7 +191,7 @@ You will see a response with an empty collection:
 Modify this Quickstart to Support JSON Representations of Tasks
 -----------------------------------------------------------------
 
-JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with "// JSON:":
+JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with `// JSON:`:
 
 1. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.
 
@@ -199,7 +199,7 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
 
         // @JsonIgnore
 
-2. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with "// JSON:".
+2. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with `// JSON:`.
     * Remove comments from these lines:
 
           //@Produces({ "application/xml", "application/json" })

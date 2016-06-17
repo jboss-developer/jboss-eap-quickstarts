@@ -143,7 +143,7 @@ This quickstart is more complex than the others. It requires that you configure 
 2. If you have not already done so, you must configure a new JBoss EAP server to use the XTS configuration.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
    * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `JBoss Enterprise Application Platform 7.0 (Experimental)`.
-   * For the `Server name`, enter "JBoss EAP XTS Configuration" and click `Next`.
+   * For the `Server name`, enter `JBoss EAP XTS Configuration` and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Finish`.
    
@@ -153,7 +153,7 @@ This quickstart is more complex than the others. It requires that you configure 
             Configuration base directory: (This should already point to your server configuration directory)
             Configuration file: ../../docs/examples/configs/standalone-xts.xml
 3. Start the new `JBoss EAP XTS Configuration` server. 
-4. Right-click on the `jboss-wsba-participant-completion-simple` project, choose `Run As` --> `Maven build`, enter "clean test -Parq-wildfly-remote" for the `Goals:`, and click `Run` to run the Arquillian tests. The test results appear in the console.
+4. Right-click on the `jboss-wsba-participant-completion-simple` project, choose `Run As` --> `Maven build`, enter `clean test -Parq-wildfly-remote` for the `Goals:`, and click `Run` to run the Arquillian tests. The test results appear in the console.
 
 
 Debug the Application

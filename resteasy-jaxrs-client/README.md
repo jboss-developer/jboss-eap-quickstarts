@@ -28,7 +28,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven
 Prerequisites
 -----------
 
-IMPORTANT: This quickstart depends on the deployment of the 'helloworld-rs' quickstart for its test. Before running this quickstart, see the [helloworld-rs](../helloworld-rs/README.md)  README file for details on how to deploy it.
+IMPORTANT: This quickstart depends on the deployment of the `helloworld-rs` quickstart for its test. Before running this quickstart, see the [helloworld-rs](../helloworld-rs/README.md)  README file for details on how to deploy it.
 
 You can verify the deployment of the [helloworld-rs](../helloworld-rs/README.md) quickstart by accessing the following content:
 

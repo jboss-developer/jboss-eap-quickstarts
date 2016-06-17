@@ -85,7 +85,7 @@ You configure the server by running the install-domain.cli script provided in th
     * Restarts the servers.
     
     _NOTE: If your `helloworld-mdb` quickstart is not located at the same level in the file structure as this quickstart, you
-    must modify its path in this script. Find the 'NOTE:' in the file for instructions._
+    must modify its path in this script. Find the `NOTE:` in the file for instructions._
 
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
@@ -121,7 +121,7 @@ Since both application servers must be configured in the same way, you must conf
     * Reloads the server configuration
     
     _NOTE: If your `helloworld-mdb` quickstart is not located at the same level in the file structure as this quickstart, you
-    must modify its path in this script. Find the 'NOTE:' in the file for instructions._
+    must modify its path in this script. Find the `NOTE:` in the file for instructions._
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
         For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=install-standalone.cli

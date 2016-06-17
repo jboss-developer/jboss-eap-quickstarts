@@ -11,7 +11,7 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `app-client` quickstart demonstrates how to use the JBoss EAP client container to start the client 'Main' program and provide Dependency Injections (DI) for client applications in Red Hat JBoss Enterprise Application Platform. It also shows you how to use Maven to package the application according to the JavaEE specification.
+The `app-client` quickstart demonstrates how to use the JBoss EAP client container to start the client `Main` program and provide Dependency Injections (DI) for client applications in Red Hat JBoss Enterprise Application Platform. It also shows you how to use Maven to package the application according to the JavaEE specification.
 
 
 This example consists of the following Maven projects, each with a shared parent:
@@ -112,7 +112,7 @@ This example shows how to invoke an EJB from a remote standalone application on 
 Access the Remote Client Application from a different machine
 ---------------------
 
-This example shows how to invoke an EJB from a remote standalone Java EE application on a different machine. In this case, the client needs to define a properties file to define properties to connect and authenticate to the server. The properties file is passed on the command line using the "--ejb-client-properties" argument.
+This example shows how to invoke an EJB from a remote standalone Java EE application on a different machine. In this case, the client needs to define a properties file to define properties to connect and authenticate to the server. The properties file is passed on the command line using the `--ejb-client-properties` argument.
 
 ### Configure Machine_1 (Remote Server Machine)
 

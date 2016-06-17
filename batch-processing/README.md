@@ -66,7 +66,7 @@ Access the application
 
 Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-batch-processing/>
 
-You're presented with a simple form that allows you to generate sample files to be imported. 
+You are presented with a simple form that allows you to generate sample files to be imported. 
 
 ### Usage 1: Import the file without any errors ###
 
@@ -142,7 +142,7 @@ Analyze the logs and check that the job started from the last checkpoint.
 
 Check the `Generate a duplicate record` checkbox and click on `Generate a new file ans start import job` button. If you click on `Update jobs list` button, you will see that the job failed with the following Exit Status: `Error : org.hibernate.exception.ConstraintViolationException: could not execute statement`. This was caused because we tried to insert a duplicate record at the Database.
 
-This time we won't fix the file. Just click on `Restart` button again. If you  click on `Update jobs list` button, you will see that the job was marked as `ABANDONED` this time because it was restarted once. Notice that there's a new parameter: `restartedOnce=true`. This behavior was implemented at `JobListener` for demonstration purpose to avoid that a `FAILED` job that was already restarted once, to be restarted twice. 
+This time we will not fix the file. Just click on `Restart` button again. If you  click on `Update jobs list` button, you will see that the job was marked as `ABANDONED` this time because it was restarted once. Notice that there is a new parameter: `restartedOnce=true`. This behavior was implemented at `JobListener` for demonstration purpose to avoid that a `FAILED` job that was already restarted once, to be restarted twice. 
 
 Server Log: Expected warnings and errors
 -----------------------------------

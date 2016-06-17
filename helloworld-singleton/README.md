@@ -53,11 +53,11 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-helloworld-singleton>.
 
-This example demonstrates a singleton session bean that maintains state information for 2 variables: "Increment A" and "Increment B". 
+This example demonstrates a singleton session bean that maintains state information for 2 variables: `Increment A` and `Increment B`. 
 
 A counter is incremented when you click on the link to the variable name. If you close and restart your browser, or if you have multiple browsers, you can see that the counter always increments the last value. These values are maintained until you restart the server. 
 
-To test the singleton bean, click on either "Increment A" or "Increment B". The result page will give you the current value of the variable.
+To test the singleton bean, click on either `Increment A` or `Increment B`. The result page will give you the current value of the variable.
 
 
 Undeploy the Archive

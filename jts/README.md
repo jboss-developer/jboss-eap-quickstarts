@@ -24,8 +24,7 @@ ACID is a set of 4 properties that guarantee the resources are processed in the 
 
 The example uses Java Transaction Service (JTS) to propagate a transaction context across two Container-Managed Transaction (CMT) EJBs that, although deployed in separate servers, participate in the same transaction. In this example, one server processes the Customer and Account data and the other server processes the Invoice data.
 
-The code base is essentially the same as the [cmt](../cmt/README.md) quickstart, however in this case the <code>InvoiceManager</code>
-has been separated to a different deployment archive to demonstrate the usage of JTS. You can see the changes in the 
+The code base is essentially the same as the [cmt](../cmt/README.md) quickstart, however in this case the `InvoiceManager` has been separated to a different deployment archive to demonstrate the usage of JTS. You can see the changes in the 
 following ways:
 
 1. `cmt/src/main/java/org/jboss/as/quickstarts/cmt/ejb/InvoiceManagerEJB.java` has been moved to `application-component-2/src/main/java/org/jboss/as/quickstarts/cmt/jts/ejb/InvoiceManagerEJB`
@@ -37,7 +36,7 @@ You will see that the `CustomerManagerEJB` uses the EJB home for the remote EJB,
 
 A simple MDB has been provided that prints out the messages sent but this is not a transactional MDB and is purely provided for debugging purposes.
 
-Also, while the _cmt_ quickstart uses the Java EE container default datasource, which is not distributed, this quickstart instead uses an external PostgreSQL database.
+Also, while the `cmt` quickstart uses the Java EE container default datasource, which is not distributed, this quickstart instead uses an external PostgreSQL database.
 
 After  you complete this quickstart, you are invited to run through the [jts-distributed-crash-rec](../jts-distributed-crash-rec/README.md) quickstart. The crash recovery quickstart builds upon this quickstart by demonstrating the fault tolerance of Red Hat JBoss Enterprise Application Platform.
 
@@ -61,7 +60,7 @@ In the following instructions, replace `EAP7_HOME` with the actual path to your 
 Prerequisites
 ------------------
 
-Developers should be familiar with the concepts introduced in the _cmt_ quickstart.
+Developers should be familiar with the concepts introduced in the `cmt` quickstart.
 
 This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL are below.
 
@@ -77,7 +76,7 @@ _Note_: For the purpose of this quickstart, replace the word `QUICKSTART_DATABAS
 
 Be sure to [Create a Database User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#create-a-database-user) for the PostgeSQL database.
 
-When you have completed these steps, be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions "Start the database server" for your operating system every time you reboot your machine.
+When you have completed these steps, be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions to start the database server for your operating system every time you reboot your machine.
 
 Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss EAP server.
 
@@ -85,7 +84,7 @@ Wait until later in these instructions to add the PostgreSQL module and driver c
 Configure the JBoss EAP Servers
 ---------------------------
 
-For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as "-Djboss.socket.binding.port-offset=100". 
+For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as `-Djboss.socket.binding.port-offset=100`. 
 
 Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. 
 
@@ -128,7 +127,7 @@ _NOTE:_ When you have completed testing this quickstart, it is important to [Rem
 
 After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone-full.xml` file and review the changes.
 
-1. The orb initializers `transactions` attribute is changed from "spec" to "full" in the  `iiop-openjdk` subsystem to enable JTS.
+1. The orb initializers `transactions` attribute is changed from `spec` to `full` in the  `iiop-openjdk` subsystem to enable JTS.
 
         <subsystem xmlns="urn:jboss:domain:iiop-openjdk:1.0">
             <initializers transactions="full" security="identity"/>
@@ -196,7 +195,7 @@ Access the application
 
 The application will be running at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>.
 
-When you enter a name and click to "Add" that customer, you will see the following in the application server 1 console:
+When you enter a name and click to `Add` that customer, you will see the following in the application server 1 console:
     
     INFO  [org.hibernate.hql.internal.QueryTranslatorFactoryInitiator] (default task-2) HHH000397: Using ASTQueryTranslatorFactory
     INFO  [org.jboss.ejb.client] (default task-4) JBoss EJB Client version 2.1.4.Final-redhat-1

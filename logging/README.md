@@ -202,7 +202,7 @@ The following XML was added to the `logging` subsystem.
 Test the New Logging Configuration
 -------------------------
 
-1. If your server is not started (i.e. you didn't use one of the CLI routes), then [Start the JBoss EAP server](#start-the-jboss-eap-server).
+1. If your server is not started, then [Start the JBoss EAP server](#start-the-jboss-eap-server).
 2. [Build and deploy the quickstart](#build-and-deploy-the-quickstart).
 3. [Access the application](#access-the-application).
 

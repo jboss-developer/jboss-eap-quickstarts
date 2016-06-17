@@ -13,7 +13,7 @@ What is it?
 The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS) to Red Hat JBoss Enterprise Application Platform.
 
 WS-Trust extends the WS-Security specification to allow the issuance, renewal, and validation of security tokens. 
-Many WS-Trust functions center around the use of a "Security Token Service", or STS. 
+Many WS-Trust functions center around the use of a Security Token Service, or STS. 
 The STS is contacted to obtain security tokens that are used to create messages to talk to the services. 
 The primary use of the STS is to acquire SAML tokens used to talk to the service.
 The STS also plays an important role when you need to propagate credentials between different layers, for example, the web and service layer.
@@ -26,7 +26,7 @@ _Note:_ This quickstart is not a fully functional application. It is a JAX-WS En
 How to use this quickstart
 -----------------------------
 
-This quickstart is preconfigured to use the "picketlink-sts" security domain. By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:
+This quickstart is preconfigured to use the `picketlink-sts` security domain. By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:
 
         Users: src/main/resources/users.properties
         Roles: src/main/resources/roles.properties
@@ -45,7 +45,7 @@ From a JAX-WS perspective, you can use any tool you want to start using the STS.
             </soap:Body>
         </soap:Envelope>
 
-There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled "Access the Application".
+There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled [Access the Application](#access-the-application).
 
 _Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards._
 
@@ -149,7 +149,7 @@ _Note:_ When you deploy the quickstart, you will see the following warnings in t
         WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.jboss-picketlink-sts.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
 
 
-Access the Application 
+Access the Application
 ---------------------
 
 You can test the service as follows:
@@ -228,8 +228,8 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 4. Follow these steps to test the service.
 
       * Right-click on the `jboss-picketlink-sts` project and choose `Run As` --> `Maven Build`.
-      * Enter "picketlink-sts" for the `Name`.
-      * Enter "exec:java" for the `Goals:`.
+      * Enter `picketlink-sts` for the `Name`.
+      * Enter `exec:java` for the `Goals:`.
       * Click `Run`.
       * Review the output in the console window.
 

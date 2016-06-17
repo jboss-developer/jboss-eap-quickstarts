@@ -26,7 +26,7 @@ The `payment-cdi-event` quickstart defines the following classes and interfaces:
        * operation type: debit or credit
    * It contains the following utility methods:
        * `private void init()`: This is a PostConstruct {`@PostConstruct`) method that performs initialization before the class is put into service. It resets the `amount` to `$0` and the `paymentOption` to the default type of debit. 
-       * `public String pay()`: This method processes the operation when the user clicks on submit. We have only one JSF page, so the method does not return anything and the flow of control doesn't change.
+       * `public String pay()`: This method processes the operation when the user clicks on submit. We have only one JSF page, so the method does not return anything and the flow of control does not change.
        * `public void reset()`: Reset calls the `init()` method reinitialize the form values.
 * The `events` package contains the `PaymentEvent` class and the enum `PaymentTypeEnum`. 
   * `PaymentEvent`: We have only one event that handles both credit and debit operations. Qualifiers help us to make the difference at injection point.

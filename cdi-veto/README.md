@@ -10,21 +10,13 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `cdi-veto` quickstart demonstrates a simple CDI Portable Extension and some of the SPI classes used
-to complete that task in an application deployed to Red Hat JBoss Enterprise Application Platform. 
-This particular extension explores the ProcessInjectionTarget and
-InjectionTarget SPI classes of CDI to demonstrate removing a bean from CDI's knowledge and
-correctly injecting JPA entities in your application.
+The `cdi-veto` quickstart demonstrates a simple CDI portable extension and some of the SPI classes used to complete that task in an application deployed to Red Hat JBoss Enterprise Application Platform. This particular extension explores the `ProcessInjectionTarget` and `InjectionTarget` SPI classes of CDI to demonstrate removing a bean from CDI's knowledge and correctly injecting JPA entities in your application. 
 
-A Portable Extension is an extension to Java EE 6 and above, which is tailored to a specific
-use case and will run on any Java EE 6 or later implementation. Portable extensions can implement 
-features not yet supported by the specifications, such as type-safe messages or external configuration of beans.
+A portable extension is an extension to Java EE 6 and above, which is tailored to a specific use case and will run on any Java EE 6 or later implementation. Portable extensions can implement features not yet supported by the specifications, such as type-safe messages or external configuration of beans.
 
-The project contains very simple domain model classes, an extension class, the service provider configuration file,
-and an Arquillian test to verify the extension is working correctly.
+The project contains very simple domain model classes, an extension class, the service provider configuration file, and an Arquillian test to verify the extension is working correctly.
 
-This quickstart does not contain any user interface. The tests must be run to verify everything is working
-correctly.
+This quickstart does not contain any user interface. The tests must be run to verify everything is working correctly.
 
 _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
   
@@ -87,12 +79,12 @@ Maven prints summary of the 4 performed tests to the console.
 
     Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 
-In the server log you'll see a few lines similar to 
+In the server log you see a few lines similar to 
 
              INFO  [VetoExtension] (MSC service thread 1-8) Vetoed class class org.jboss.as.quickstart.cdi.veto.model.Car
              INFO  [CarManager] (http--127.0.0.1-8080-2) Returning new instance of Car
 
-That will let you know the extension is working. To really see what's going on and understand this example, please read the source and the tests.
+That will let you know the extension is working. To really see what is going on and understand this example, please read the source and the tests.
 
 
 Server Log: Expected warnings and errors

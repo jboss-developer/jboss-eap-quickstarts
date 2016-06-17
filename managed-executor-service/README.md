@@ -67,7 +67,7 @@ This quickstart provides tests that shows how the asynchronous tasks are execute
 Run tests from JBDS
 -----------------------
 
-To be able to run the tests from JBDS, first set the active Maven profile in project properties to be either 'rest-client'.
+To run the tests in JBoss Developer Studio, first set the active Maven profile in the project properties to `rest-test`.
 
 To run the tests, right click on the project or individual classes and select Run As --> JUnit Test in the context menu.
 

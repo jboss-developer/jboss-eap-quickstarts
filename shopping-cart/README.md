@@ -19,7 +19,7 @@ The `shopping-cart` application consists of the following:
     This standalone Java EE module is a JAR containing EJBs. It is responsible for managing the shopping cart.
 2. A Java client:
 
-    This simple Java client is launched using a "main" method. The remote client looks up a reference to the server module's API, via JNDI. It then uses this API to perform the operations the customer requests.
+    This simple Java client is launched using a `main` method. The remote client looks up a reference to the server module's API, via JNDI. It then uses this API to perform the operations the customer requests.
 
 
 System requirements
@@ -39,7 +39,7 @@ In the following instructions, replace `EAP7_HOME` with the actual path to your 
 Configure the JBoss EAP Server
 ---------------------------
 
-This example quickstart purposely throws a `NoSuchEJBException` exception when the shopping cart is empty. This is the expected result because method is annotated with `@Remove`. This means the next invocation after the shopping cart checkout fails because the container has destroyed the instance and it is no longer available. If you don't run this script, you see the following ERROR in the server log, followed by the stacktrace
+This example quickstart purposely throws a `NoSuchEJBException` exception when the shopping cart is empty. This is the expected result because method is annotated with `@Remove`. This means the next invocation after the shopping cart checkout fails because the container has destroyed the instance and it is no longer available. If you do not run this script, you see the following ERROR in the server log, followed by the stacktrace
   
     ERROR [org.jboss.as.ejb3.invocation] (EJB default - 7) WFLYEJB0034: EJB Invocation failed on component ShoppingCartBean for method public abstract java.util.Map org.jboss.as.quickstarts.sfsb.ShoppingCart.getCartContents(): javax.ejb.NoSuchEJBException: WFLYEJB0168: Could not find EJB with id UnknownSessionID [5168576665505352655054705267485457555457535250485552546568575254]
 
@@ -131,7 +131,7 @@ Investigate the Console Output
 
 You should see the following: 
 
-1. The client sends a remote method invocation to the stateful session bean to buy two "32 GB USB 2.0 Flash Drive" and one "Wireless Ergonomic Keyboard and Mouse".
+1. The client sends a remote method invocation to the stateful session bean to buy two `32 GB USB 2.0 Flash Drive` and one `Wireless Ergonomic Keyboard and Mouse`.
 2. The client sends a remote method invocation to get the contents of the cart and prints it to the console.
 3. The client sends a remote method invocation to invoke checkout. Note the `checkout()` method in the server `ShoppingCartBean` has the `@Remove` annotation. This means the container will destroy shopping cart after the call and it will no longer be available. 
 4. The client calls `getCartContents()` to make sure the shopping cart was removed after checkout. This results in a `javax.ejb.NoSuchEJBException` trace in the server, proving the cart was removed.

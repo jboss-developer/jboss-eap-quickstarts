@@ -53,7 +53,7 @@ You configure the custom mail session in JBoss EAP by running Management CLI com
 
         For Linux:  EAP7_HOME/bin/standalone.sh
         For Windows:  EAP7_HOME\bin\standalone.batl
-3. Review the `configure-mail-session.cli` file in the root of this quickstart directory. This script creates custom outbound socket binding port for SMTP, POP3, and IMAP. It then creates the custom "MyOtherMail" mail session and configures it to use the custom outbound socket binding ports. 
+3. Review the `configure-mail-session.cli` file in the root of this quickstart directory. This script creates custom outbound socket binding port for SMTP, POP3, and IMAP. It then creates the custom `MyOtherMail` mail session and configures it to use the custom outbound socket binding ports. 
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
@@ -72,7 +72,7 @@ Review the Modified Server Configuration
 
 After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
-The following `outbound-socket-binding` groups are added to the "standard-sockets" `<socket-binding-group>` element.
+The following `outbound-socket-binding` groups are added to the `standard-sockets` `<socket-binding-group>` element.
 
       <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         ...
@@ -88,7 +88,7 @@ The following `outbound-socket-binding` groups are added to the "standard-socket
         </outbound-socket-binding>
      </socket-binding-group>
 
-The "MyOtherMail" mail session is added to the `mail` subsystem and configured to use the custom outbound socket binding ports.
+The `MyOtherMail` mail session is added to the `mail` subsystem and configured to use the custom outbound socket binding ports.
 
       <subsystem xmlns="urn:jboss:domain:mail:2.0">
          <mail-session name="default" jndi-name="java:jboss/mail/Default">
@@ -155,7 +155,7 @@ You can remove the mail configuration by running the  `remove-mail-session.cli` 
 
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-mail-session.cli 
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-mail-session.cli 
-   This script removes the custom "MyOtherMail" session from the `mail` subsystem in the server configuration. file You should see the following result when you run the script:
+   This script removes the custom `MyOtherMail` session from the `mail` subsystem in the server configuration. file You should see the following result when you run the script:
 
         The batch executed successfully.
         process-state: reload-required 

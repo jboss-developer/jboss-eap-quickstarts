@@ -28,7 +28,7 @@ for that extension and an Arquillian test to verify the extension is working cor
 * `META-INF/creatures.xml`: The XML in this file seeds the bean with data.
 * `META-INF/creatures.xsd`: The schema for the XML that seeds the bean with data.
 
-On application start, there will be one instance of `monster` with a name of "Cat", hitpoints of "10" and an initiative of "25". There will also be one instance of `npc` with name of "Drunkard" and location of "Drunken Duck Tavern". There's no instantiation code for the object outside of the CDI extension.
+On application start, there will be one instance of `monster` with a name of `Cat`, hitpoints of `10` and an initiative of `25`. There will also be one instance of `npc` with name of `Drunkard` and location of `Drunken Duck Tavern`. There is no instantiation code for the object outside of the CDI extension.
 
 _Note:_ This quickstart does not contain any user interface. Instead, you run tests and check server log messages to verify everything is working correctly.
 

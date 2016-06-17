@@ -27,7 +27,7 @@ An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are 
 
 Mobile web support is limited to Android and iOS devices. It should run on HP, and Black Berry devices as well. Windows Phone, and others will be supported as jQuery Mobile announces support.
  
-With the prerequisites out of the way, you're ready to build and deploy.
+With the prerequisites out of the way, you are ready to build and deploy.
 
 Start the JBoss EAP Server
 -----------------------
@@ -38,7 +38,7 @@ Start the JBoss EAP Server
         For Linux:   EAP7_HOME/bin/standalone.sh
         For Windows: EAP7_HOME\bin\standalone.bat
 
-   Note: Adding "-b 0.0.0.0" to the above commands will allow external clients (phones, tablets, desktops, etc...) connect through your local network.
+   Note: Adding `-b 0.0.0.0` to the above commands will allow external clients, such as phones, tablets, and desktops, connect through your local network.
 
    For example
 
@@ -88,7 +88,7 @@ With just a few quick changes to the project, you can link to the minified versi
 
 First, in the `<project-root>/src/main/webapp/index.html` file, search for references to minification and comment or uncomment the appropriate lines.
 
-Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. The plugin is in a profile with an id of "minify" so you will want to specify that profile in your maven build.
+Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. The plugin is in a profile with an id of `minify` so you will want to specify that profile in your maven build.
 
 NOTE: By default there are turn off tests so you must use the arquillian test profile to run tests when minifying.
 For example:

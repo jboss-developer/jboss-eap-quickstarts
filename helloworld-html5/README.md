@@ -15,7 +15,7 @@ The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 
 The application is basically a smart, HTML5+CSS3+JavaScript front-end using RESTful services on the backend.
 
  * HelloWorld.java - establishes the RESTful endpoints using JAX-RS
- * Web.xml - maps RESTful endpoints to "/hello"
+ * Web.xml - maps RESTful endpoints to `/hello`
  * index.html - is a jQuery augmented plain old HTML5 web page
 
 The example can be deployed using Maven from the command line or from Eclipse using JBoss Tools.
@@ -29,7 +29,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ is required.
 
-With the prerequisites out of the way, you're ready to build and deploy.
+With the prerequisites out of the way, you are ready to build and deploy.
 
 
 Start the JBoss EAP Server

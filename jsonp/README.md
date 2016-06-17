@@ -50,7 +50,7 @@ Access the application
 
 Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-jsonp/>
 
-You're presented with a simple form that is pre-filled with personal data. You can change those values if you prefer. 
+You are presented with a simple form that is pre-filled with personal data. You can change those values if you prefer. 
 
 Click on `Generate JSON String from Personal Data` button. The textarea below the button presents a JSON string representing the data and values from the completed form.
 
