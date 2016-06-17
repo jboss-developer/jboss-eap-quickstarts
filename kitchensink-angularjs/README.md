@@ -3,7 +3,7 @@ kitchensink-angularjs: Demonstrates AngularJS with JAX-RS
 Author: Pete Muir  
 Level: Intermediate  
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV  
-Summary: The `kitchensink-angularjs` quickstart demonstrates a Java EE 7 application using AngularJS with JAX-RS, CDI, EJB, JPA and Bean Validation.  
+Summary: The `kitchensink-angularjs` quickstart demonstrates a Java EE 7 application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 

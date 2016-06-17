@@ -3,7 +3,7 @@ kitchensink: Assortment of technologies including Arquillian
 Author: Pete Muir  
 Level: Intermediate  
 Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV  
-Summary: The `kitchensink` quickstart demonstrates a Java EE 7 web-enabled database application using JSF, CDI, EJB, JPA and Bean Validation.  
+Summary: The `kitchensink` quickstart demonstrates a Java EE 7 web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
@@ -12,7 +12,7 @@ What is it?
 
 The `kitchensink` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing with Java EE 7 on Red Hat JBoss Enterprise Application Platform. 
 
-It demonstrates how to create a compliant Java EE 7 application using JSF, CDI, JAX-RS, EJB, JPA and Bean Validation 1.0. It also includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
+It demonstrates how to create a compliant Java EE 7 application using JSF, CDI, JAX-RS, EJB, JPA, and Bean Validation. It also includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
 _Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!_
 

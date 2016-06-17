@@ -12,7 +12,7 @@ What is it?
 
 The `contact-jquerymobile` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
 mobile web applications with Java EE 7 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 7 
-application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA and Bean Validation 1.0. It includes a 
+application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA, and Bean Validation. It includes a 
 persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
 
 This application is built using a HTML5 + REST approach. This uses a pure HTML client that interacts with with the 

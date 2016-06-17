@@ -3,14 +3,14 @@ bean-validation: Bean Validation Tested Using Arquillian
 Author: Karel Piwko  
 Level: Beginner  
 Technologies: CDI, JPA, BV  
-Summary: The `bean-validation` quickstart provides Arquillian tests to demonstrate how to use CDI, JPA and Bean Validation 1.0.  
+Summary: The `bean-validation` quickstart provides Arquillian tests to demonstrate how to use CDI, JPA, and Bean Validation.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `bean-validation` quickstart demonstrates how to use CDI, JPA and Bean Validation 1.0 in Red Hat JBoss Enterprise Application Platform. It includes a persistence unit and some sample persistence code to introduce you to database access in enterprise Java. 
+The `bean-validation` quickstart demonstrates how to use CDI, JPA, and Bean Validation in Red Hat JBoss Enterprise Application Platform. It includes a persistence unit and some sample persistence code to introduce you to database access in enterprise Java. 
 
 This quickstart does not contain a user interface layer. The purpose of this project is to show you how to test bean validation with Arquillian. If you want to see an example of how to test bean validation with a user interface, look at the [kitchensink](../kitchensink/README.md) example.
 
