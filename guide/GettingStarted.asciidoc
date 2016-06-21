@@ -88,7 +88,7 @@ That's it, JBoss EAP is installed and running! Visit http://localhost:8080/ to c
 ========================================================================
 You can find the server log for standalone instances in 
 `jboss-eap-7.x.x/standalone/log/server.log`. The JBoss EAP
-link:https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/[Product Documentation] covers more on how to configure logging. 
+link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Product Documentation] covers more on how to configure logging. 
 ========================================================================
 
 
@@ -98,7 +98,7 @@ link:https://access.redhat.com/documentation/en/jboss-enterprise-application-pla
 [TIP]
 ========================================================================
 See the _Getting Started Guide_ in the 
-link:https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/[Product Documentation] 
+link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Product Documentation] 
 for JBos EAP for more complete instructions to get started with JBoss EAP, 
 the quickstarts, and JBoss Developer Studio.
 ========================================================================
@@ -131,7 +131,7 @@ That's it, JBoss EAP is installed and running! Visit http://localhost:8080/ to c
 ========================================================================
 You can find the server log for standalone instances in 
 `jboss-eap/standalone/log/server.log`. The JBoss EAP
-link:https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/[Product Documentation] covers more on configuring logging.
+link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Product Documentation] covers more on configuring logging.
 ========================================================================
 
 
@@ -218,7 +218,7 @@ It will take a short time to import the projects, as Maven needs to download the
 
 == Managing JBoss EAP
 
-Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss EAP. Detailed information can be found in the JBoss EAP link:https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/[Product Documentation].
+Here we will quickly outline how you can access both the command line interface and the web management interface for managing JBoss EAP. Detailed information can be found in the JBoss EAP link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Product Documentation].
 
 When the server is running, the web management interface can be accessed at http://localhost:9990/console. You can use the web management interface to create datasources, manage deployments and configure the server. 
 

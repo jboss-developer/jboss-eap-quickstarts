@@ -39,7 +39,7 @@
         For more information about how to configure Maven for your application,
         see the section entitled 'Use the Maven Repository'
         in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
-        https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/
+        https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
     -->
     <repositories>
         <repository>

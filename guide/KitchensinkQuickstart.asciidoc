@@ -98,7 +98,7 @@ Next, let's take a look at the JSF view the user sees. As usual, we use a templa
             <p>Learn more about Red Hat JBoss Enterprise Application Platform.</p>
             <ul>
                 <li>
-                    <a href="https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/">
+                    <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/">
                         Documentation
                     </a>
                 </li>
@@ -418,7 +418,7 @@ public class Resources {
 <2> We expose a JDK logger for injection. In order to save a bit more boiler plate, we automatically set the logger category as the class name!
 <3> We expose the `FacesContext` via a producer method, which allows it to be injected. If we were adding tests, we could also then mock it out.
 
-If you want to define your own datasource, take a look at the link:https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/[Product Documentation] for Red Hat JBoss Enterprise Application Platform or the link:https://docs.jboss.org/author/display/WFLY10/Getting+Started+Guide[Getting Started Guide].
+If you want to define your own datasource, take a look at the link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Product Documentation] for Red Hat JBoss Enterprise Application Platform or the link:https://docs.jboss.org/author/display/WFLY10/Getting+Started+Guide[Getting Started Guide].
 
 Of course, we need to allow JSF to interact with the services. The `MemberController` class is responsible for this:
 

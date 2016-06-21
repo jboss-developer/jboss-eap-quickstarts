@@ -76,7 +76,7 @@ Red Hat JBoss Enterprise Application Platform ships with a sample datasource
 `java:jboss/datasources/ExampleDS`. This data source is backed by h2, 
 an in-memory database. Whilst this datasource is great for quickstarts, 
 you will want to use a different datasource in your application. 
-The link:https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/[Configuration Guide for Red Hat JBoss Enterprise Application Platform] 
+The link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Configuration Guide for Red Hat JBoss Enterprise Application Platform] 
 tells you how to create a new datasource. 
 ========================================================================
 

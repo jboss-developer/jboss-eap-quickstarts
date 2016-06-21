@@ -14,7 +14,7 @@ The `log4j` quickstart is a simple JSF application that shows how to use contain
 
 Applications must often depend on third-party libraries. By default, Java EE packages allow you to include dependencies in a deployable unit which can lead to uncontrolled growth of the deployable unit. This can be avoided by the use of container defined modules. A module is nothing more than a container managed binary dependency which is shared by all deployed applications.
 
-This example is very simple. It declares dependency on the Apache Log4j module which allows it to use a custom logging framework. This is achieved with a simple addition to the xml file: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`. This file and modular class loading are described in more detail in the [Red Hat JBoss Enterprise Application Platform](https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/) documentation.
+This example is very simple. It declares dependency on the Apache Log4j module which allows it to use a custom logging framework. This is achieved with a simple addition to the xml file: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`. This file and modular class loading are described in more detail in the [Red Hat JBoss Enterprise Application Platform](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/) documentation.
 
 
 System requirements
