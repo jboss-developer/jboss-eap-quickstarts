@@ -105,7 +105,7 @@
         <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
-        <version.war.plugin>2.1.1</version.war.plugin>
+        <version.war.plugin>2.6</version.war.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
 
         <!-- maven-compiler-plugin -->

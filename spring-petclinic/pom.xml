@@ -145,7 +145,7 @@
         <version.maven.eclipse>2.9</version.maven.eclipse>
         <version.maven.eclipse.wtp>2.0</version.maven.eclipse.wtp>
         <version.maven.surefire>2.13</version.maven.surefire>
-        <version.war.plugin>2.3</version.war.plugin>
+        <version.war.plugin>2.6</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.source>1.8</maven.compiler.source>

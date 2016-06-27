@@ -107,7 +107,7 @@
 
         <!-- other plug-in versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
+        <version.war.plugin>2.6</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>

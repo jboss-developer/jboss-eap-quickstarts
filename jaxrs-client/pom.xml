@@ -108,7 +108,7 @@
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.16</version.surefire.plugin>
-        <version.war.plugin>2.5</version.war.plugin>
+        <version.war.plugin>2.6</version.war.plugin>
 
         <!-- Apache versions -->
         <httpclient.version>4.5</httpclient.version>
