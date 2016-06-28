@@ -22,7 +22,7 @@
     <artifactId>jboss-helloworld-html5-test-webdriver</artifactId>
     <version>7.0.0-SNAPSHOT</version>
     <name>JBoss EAP Quickstart: Hello World test via WebDriver with Arquillian</name>
-    <description>This project tests a Hello World for use on JBoss EAP by WebDriver</description>
+    <description>This project tests a Hello World using HTML5 and REST, for use on JBoss EAP by WebDriver</description>
 
     <url>http://www.jboss.org/products/eap</url>
     <licenses>

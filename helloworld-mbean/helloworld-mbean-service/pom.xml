@@ -26,6 +26,7 @@
     <artifactId>jboss-helloworld-mbean-helloworld-mbean-service</artifactId>
     <packaging>jboss-sar</packaging>
     <name>JBoss EAP Quickstart: helloworld-mbean - helloworld-mbean-service</name>
+    <description>This project demonstrates a simple Hello World MBean application; this is the service POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

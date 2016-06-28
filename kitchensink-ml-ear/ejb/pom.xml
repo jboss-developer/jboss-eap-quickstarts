@@ -26,6 +26,7 @@
     <artifactId>jboss-kitchensink-ml-ear-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: kitchensink-ml-ear - ejb</name>
+    <description>This project demonstrates how to create a localized version of the kitchensink EAR; this is the EJB POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

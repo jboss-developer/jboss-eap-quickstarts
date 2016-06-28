@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: wsat-simple</name>
-    <description>JBoss EAP Quickstart: Simple WS-AT Web service</description>
+    <description>This project demonstrates a WS-AT enabled JAX-WS Web service bundled in a WAR archive</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

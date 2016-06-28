@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-security-interceptors</name>
-    <description>JBoss EAP Quickstart: EJB Security Interceptors</description>
+    <description>This project demonstrates EJB Security Interceptors</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

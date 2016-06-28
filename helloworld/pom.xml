@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld</name>
-    <description>JBoss EAP Quickstart: Helloworld</description>
+    <description>A simple Hello World project</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

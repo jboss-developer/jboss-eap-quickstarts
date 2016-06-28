@@ -26,6 +26,7 @@
     <artifactId>jboss-ejb-asynchronous-client</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: ejb-asynchronous - client</name>
+    <description>This project demonstrates asynchronous method invocations on an EJB; this is the Client POM file</description>
 
     <licenses>
         <license>

@@ -26,9 +26,9 @@
     <artifactId>jboss-app-client-ear</artifactId>
     <packaging>ear</packaging>
     <name>JBoss EAP Quickstart: app-client - ear</name>
-    <description>Create the deployable application archive
-     Include the EJB and client application together with the necessary API libraries
-    </description>
+    <description>This project demonstrates how to package and use an EE application client. 
+      This is the EAR POM file, which creates the deployable application archive by 
+     including the EJB and client application together with the necessary API libraries.</description>
 
     <licenses>
         <license>

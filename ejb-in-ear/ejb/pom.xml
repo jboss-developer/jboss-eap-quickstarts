@@ -30,7 +30,7 @@
     </parent>
     <artifactId>jboss-ejb-in-ear-ejb</artifactId>
     <name>JBoss EAP Quickstart: ejb-in-ear - ejb</name>
-    <description>JBoss EAP Quickstart: EJB and War in an EAR - EJB</description>
+    <description>This project demonstrates how to package an EJB and WAR in an EAR; this is the EJB POM file</description>
 
     <licenses>
         <license>

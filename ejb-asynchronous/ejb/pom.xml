@@ -26,7 +26,7 @@
     <artifactId>jboss-ejb-asynchronous-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: ejb-asynchronous - ejb</name>
-    <description>jboss-ejb-asynchronous: The application jar with an asynchronous EJB and a second EJB to demonstrate how an EJB can be used asynchronous</description>
+    <description>This project demonstrates asynchronous method invocations on an EJB; this is the EJB POM file</description>
 
     <licenses>
         <license>

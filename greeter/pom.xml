@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: greeter</name>
-    <description>JBoss EAP Quickstart: Greeter</description>
+    <description>A simple greeter project that demonstrates CDI, JPA, JTA, EJB and JSF</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

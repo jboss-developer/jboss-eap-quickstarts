@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld-ws</name>
-    <description>JBoss EAP Quickstart: Hello World JAX-WS Web service</description>
+    <description>This project demonstrates a Hello World JAX-WS web service</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

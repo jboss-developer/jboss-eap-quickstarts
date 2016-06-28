@@ -26,9 +26,8 @@
     <artifactId>jboss-ejb-multi-server-app-main</artifactId>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-main</name>
-    <description>ejb-multi-server: Main application for the scenario
-     The project builds the EJB and WEB component of the main application
-     and pack it as a deployable EAR archive. </description>
+    <description>A project that demonstrates multiple applications deployed on different servers. 
+        This project builds the EJB and WEB component of the main application and packs it as a deployable EAR archive.</description>
 
     <licenses>
         <license>

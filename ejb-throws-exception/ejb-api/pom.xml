@@ -26,6 +26,7 @@
     <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: ejb-throws-exception - ejb-api</name>
+    <description>This project demonstrates how to throw an exception in an EJB and catch it in the web layer; this is the EJB API POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

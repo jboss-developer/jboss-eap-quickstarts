@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: wsba-participant-completion-simple</name>
-    <description>JBoss EAP Quickstart: Simple WS-BA with Participant Driven Completion</description>
+    <description>This project demonstrates WS-BA with Participant Driven Completion</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: bean-validation-custom-constraint</name>
-    <description>An example that demonstrates Arquillian Bean Validation Custom Constraints </description>
+    <description>This project demonstrates Bean Validation Custom Constraints</description>
 
     <licenses>
         <license>

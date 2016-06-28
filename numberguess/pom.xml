@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: numberguess</name>
-    <description>JBoss EAP Quickstart: Numberguess</description>
+    <description>The numberguess project demonstrates the use of CDI and JSF in JBoss EAP</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

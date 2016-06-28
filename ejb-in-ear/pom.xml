@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-in-ear</name>
-    <description>JBoss EAP Quickstart: EJB and War in an Root pom</description>
+    <description>This project demonstrates how to package an EJB and WAR in an EAR; this is the top level POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

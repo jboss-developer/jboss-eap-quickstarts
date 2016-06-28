@@ -26,6 +26,7 @@
     <artifactId>jboss-kitchensink-ear-web</artifactId>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: kitchensink-ear - web</name>
+    <description>This kitchensink project demonstrates how to use JSF, CDI, JAX-RS, EJB, JPA, and Bean Validation in an application packaged as an EAR; this is the web POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

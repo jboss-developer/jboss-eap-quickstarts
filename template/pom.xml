@@ -23,7 +23,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss PRODUCT_TYPE Quickstart: QUICKSTART_NAME-OPTIONAL_SUBFOLDER_NAME</name>
-    <description>QUICKSTART_NAME: A short description of this quickstart</description>
+    <description>A short description of this quickstart</description>
 
     <url>http://www.jboss.org/products/eap</url>
     <licenses>

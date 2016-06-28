@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-stereotype</name>
-    <description>JBoss EAP Quickstart: CDI-Stereotype</description>
+    <description>This project demonstrates CDI Stereotype</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cmt</name>
-    <description>CMT: Using transactions managed by the container</description>
+    <description>This project demonstrates how to use transactions managed by the container</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

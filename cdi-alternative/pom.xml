@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-alternative</name>
-    <description>JBoss EAP Quickstart: CDI Alternative</description>
+    <description>This project demonstrates how to use CDI Alternative</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

@@ -22,6 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-remote</name>
+    <description>This project demonstrates how to access an EJB from a remote client</description>
 
     <licenses>
         <license>

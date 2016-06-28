@@ -27,6 +27,7 @@
     <artifactId>jboss-app-client-client-simple</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: app-client - client-simple</name>
+    <description>This project demonstrates how to package and use an EE application client; this is the client POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

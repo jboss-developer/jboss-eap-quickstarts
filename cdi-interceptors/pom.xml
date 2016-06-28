@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-interceptors</name>
-    <description>JBoss EAP Quickstart: CDI-Interceptors</description>
+    <description>This project demonstrates how to use CDI Interceptors</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

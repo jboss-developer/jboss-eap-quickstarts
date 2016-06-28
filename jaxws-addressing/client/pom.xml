@@ -26,6 +26,7 @@
     <artifactId>jboss-jaxws-addressing-client</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: jaxws-addressing - client</name>
+    <description>This project is a working example of a JAX-WS web service addressing endpoint; this is the client POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

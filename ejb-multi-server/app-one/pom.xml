@@ -26,7 +26,7 @@
     <artifactId>jboss-ejb-multi-server-app-one</artifactId>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-one</name>
-    <description>ejb-multi-server: Application one for the scenario</description>
+    <description>A project that demonstrates multiple applications deployed on different servers. This is the app-one POM file</description>
 
     <licenses>
         <license>

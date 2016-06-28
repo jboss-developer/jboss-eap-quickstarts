@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: bean-validation</name>
-    <description>An Arquillian Bean Validation test example</description>
+    <description>This project demonstrates Bean Validation</description>
 
     <licenses>
         <license>

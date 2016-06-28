@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: helloworld-jms</name>
-    <description>helloworld-jms: Helloworld JMS external producer/consumer client</description>
+    <description>A Helloworld JMS external producer/consumer client</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

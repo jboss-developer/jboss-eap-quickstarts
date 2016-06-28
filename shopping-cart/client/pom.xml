@@ -26,6 +26,7 @@
     <artifactId>jboss-shopping-cart-client</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: shopping-cart - client</name>
+    <description>This project demonstrates a shopping cart that uses a Stateful Session Bean; this is the client POM file</description>
 
     <licenses>
         <license>

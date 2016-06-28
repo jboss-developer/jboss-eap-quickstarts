@@ -26,9 +26,9 @@
     <artifactId>jboss-ejb-multi-server-app-web</artifactId>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-web</name>
-    <description>A simple web application, which contains a simple Servlet,
-    to demonstrate how a plain web application can use a EJB application
-    deployed on a different server.</description>
+    <description>A project that demonstrates multiple applications deployed on different servers. 
+        This is web application project, which contains a simple servlet to demonstrate 
+        how a plain web application can use an EJB application deployed on a different server.</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

@@ -22,9 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: jaxws-ejb</name>
-    <description>jaxws-ejb: Working example of the web service discussed in section,
-        "About JAX-WS Web Service Endpoints" of the "JBoss Development Application Platform Development Guide".
-    </description>
+    <description>This project is a working example of a JAX-WS web service EJB endpoint</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

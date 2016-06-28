@@ -178,8 +178,8 @@
                 <module>bmt</module>
                 <module>cdi-alternative</module>
                 <module>cdi-decorator</module>
-                <module>cdi-interceptors</module>
                 <module>cdi-injection</module>
+                <module>cdi-interceptors</module>
                 <module>cdi-portable-extension</module>
                 <module>cdi-stereotype</module>
                 <module>cdi-veto</module>
@@ -188,11 +188,11 @@
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
                 <module>ejb-in-war</module>
+                <module>ejb-multi-server</module>
                 <module>ejb-security</module>
                 <module>ejb-security-interceptors</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
-                <module>ejb-multi-server</module>
                 <module>greeter</module>
                 <module>helloworld</module>
                 <module>helloworld-html5</module>
@@ -209,6 +209,7 @@
                 <module>jaxws-ejb</module>
                 <module>jaxws-pojo</module>
                 <module>jaxws-retail</module>
+                <module>jsonp</module>
                 <module>kitchensink</module>
                 <module>kitchensink-angularjs</module>
                 <module>kitchensink-ear</module>
@@ -229,14 +230,14 @@
                 <module>servlet-security</module>
                 <module>shopping-cart</module>
                 <module>shrinkwrap-resolver</module>
-                <module>spring-resteasy</module>
-                <module>spring-petclinic</module>
-                <module>spring-kitchensink-springmvctest</module>
-                <module>spring-kitchensink-matrixvariables</module>
-                <module>spring-kitchensink-controlleradvice</module>
-                <module>spring-kitchensink-basic</module>
-                <module>spring-kitchensink-asyncrequestmapping</module>
                 <module>spring-greeter</module>
+                <module>spring-kitchensink-asyncrequestmapping</module>
+                <module>spring-kitchensink-basic</module>
+                <module>spring-kitchensink-controlleradvice</module>
+                <module>spring-kitchensink-matrixvariables</module>
+                <module>spring-kitchensink-springmvctest</module>
+                <module>spring-petclinic</module>
+                <module>spring-resteasy</module>
                 <module>tasks</module>
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>
@@ -325,6 +326,7 @@
                 <module>forge-from-scratch</module>
                 <module>h2-console</module>
                 <module>jts-distributed-crash-rec</module>
+                <module>messaging-clustering</module>
             </modules>
         </profile>
     </profiles>

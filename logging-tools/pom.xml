@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: logging-tools</name>
-    <description>JBoss EAP Quickstart: Demonstration of jboss-logging-tools using JAX-RS</description>
+    <description>This project demonstrates JBoss EAP Logging Tools using JAX-RS</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

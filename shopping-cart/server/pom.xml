@@ -26,6 +26,7 @@
     <artifactId>jboss-shopping-cart-server</artifactId>
     <packaging>ejb</packaging>
     <name>JBoss EAP Quickstart: shopping-cart - server</name>
+    <description>This project demonstrates a shopping cart that uses a Stateful Session Bean; this is the server POM file</description>
 
     <licenses>
         <license>

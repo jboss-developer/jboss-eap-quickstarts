@@ -22,7 +22,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: tasks-rs</name>
-    <description>JBoss EAP Quickstart: Tasks JSF JAX-RS</description>
+    <description>This project demonstrates how to implement a JAX-RS service that uses JPA persistence to manage tasks</description>
 
     <licenses>
         <license>

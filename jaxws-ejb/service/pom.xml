@@ -26,6 +26,7 @@
     <artifactId>jboss-jaxws-ejb-service</artifactId>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: jaxws-ejb - service</name>
+    <description>This project is a working example of a JAX-WS web service EJB endpoint; this is the service POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

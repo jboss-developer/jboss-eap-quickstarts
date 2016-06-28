@@ -38,7 +38,7 @@
     <version>7.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: spring-petclinic</name>
-    <description>JBoss EAP Quickstart: PetClinic</description>
+    <description>The Spring PetClinic project file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>

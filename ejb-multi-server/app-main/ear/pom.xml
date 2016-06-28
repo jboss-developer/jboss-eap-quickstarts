@@ -26,10 +26,8 @@
     <artifactId>jboss-ejb-multi-server-app-main-ear</artifactId>
     <packaging>ear</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server - app-main - ear</name>
-    <description>Create the deployable main-app archive
-     Include the EJB and WEB application together with the necessary API libraries
-     of the sub applications app-one and app-two.
-    </description>
+    <description>A project that demonstrates multiple applications deployed on different servers. This is the main application EAR project.
+       Includes the EJB and web application together with the necessary API libraries of the sub applications app-one and app-two.</description>
 
     <licenses>
         <license>

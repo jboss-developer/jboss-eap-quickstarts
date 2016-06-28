@@ -26,6 +26,7 @@
     <artifactId>jboss-ejb-throws-exception-ear</artifactId>
     <packaging>ear</packaging>
     <name>JBoss EAP Quickstart: ejb-throws-exception - ear</name>
+    <description>This project demonstrates how to throw an exception in an EJB and catch it in the web layer; this it the EAR POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
