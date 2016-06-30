@@ -49,9 +49,9 @@ public class ShrinkwrapResolveGAPCVCustomRepoWithoutCentralTest {
 
         String[] deps = {
             // GroupId, ArtifactId and Version
-            "org.apache.commons:commons-lang3:3.1",
+            "org.apache.commons:commons-lang3:3.4",
             // GroupId, ArtifactId, Packaging, Classifier and Version can also be used when necessary
-            "org.apache.commons:commons-lang3:jar:sources:3.1"
+            // "org.apache.commons:commons-lang3:jar:sources:3.4"
         };
 
         File[] libs = Maven.configureResolver()
