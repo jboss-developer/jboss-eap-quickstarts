@@ -91,14 +91,9 @@
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following
-            message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
-            resources, i.e. build is platform dependent! -->
+            message: [WARNING] Using platform encoding (UTF-8 actually) to copy 
+            filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- JBoss dependency versions -->
-
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
@@ -211,13 +206,6 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${version.surefire.plugin}</version>
                 </plugin>
-                <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
-                <!-- To use, run: mvn package wildfly:deploy -->
-                <plugin>
-                    <groupId>org.wildfly.plugins</groupId>
-                    <artifactId>wildfly-maven-plugin</artifactId>
-                    <version>${version.wildfly.maven.plugin}</version>
-                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -250,12 +238,6 @@
                         <configuration>
                             <skip>true</skip>
                         </configuration>
-                    </plugin>
-                    <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
-                    <!-- To use,  run: mvn package wildfly:deploy -->
-                    <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
