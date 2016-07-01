@@ -35,7 +35,7 @@
         </license>
     </licenses>
 
-    <!-- Activate JBoss Product Maven repository.
+    <!-- Activate the JBoss Enterprise Maven Repository.
 
         NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
         and is only done here to make it easier to use the quickstarts.
