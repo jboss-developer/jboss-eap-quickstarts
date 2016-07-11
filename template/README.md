@@ -5,7 +5,7 @@ Level: [one of the following: Beginner, Intermediate, or Advanced]
 Technologies: (list technologies used here)  
 Summary: (A brief description of the quickstart to appear in the table and in Google search SEO results. Try to limit the description to 155 characters )  
 Prerequisites: (list any quickstarts that must be deployed prior to running this one)  
-Target Product: (JBoss EAP, JBoss Mobile, JBoss Data Grid, etc)  _Official names are here: https://mojo.redhat.com/docs/DOC-962110_
+Target Product: (JBoss EAP, JBoss Mobile, JBoss Data Grid, etc)  _Official names are here: https://mojo.redhat.com/docs/DOC-962110_  
 Source: (The URL for the repository that is the source of record for this quickstart)  
 
 
