@@ -52,7 +52,7 @@ You configure the custom mail session in JBoss EAP by running Management CLI com
 2. Start the JBoss EAP server by typing the following: 
 
         For Linux:  EAP7_HOME/bin/standalone.sh
-        For Windows:  EAP7_HOME\bin\standalone.batl
+        For Windows:  EAP7_HOME\bin\standalone.bat
 3. Review the `configure-mail-session.cli` file in the root of this quickstart directory. This script creates custom outbound socket binding port for SMTP, POP3, and IMAP. It then creates the custom `MyOtherMail` mail session and configures it to use the custom outbound socket binding ports. 
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
@@ -63,7 +63,7 @@ You configure the custom mail session in JBoss EAP by running Management CLI com
 
         The batch executed successfully.
         process-state: reload-required 
-}
+
 5. Stop the JBoss EAP server.
 
 
