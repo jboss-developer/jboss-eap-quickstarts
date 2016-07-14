@@ -102,7 +102,6 @@
         <version.exec.plugin>1.2.1</version.exec.plugin>
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
-        <version.maven-jar-plugin>2.5</version.maven-jar-plugin>
         <version.war.plugin>2.6</version.war.plugin>
    </properties>
 

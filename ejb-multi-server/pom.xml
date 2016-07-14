@@ -105,9 +105,6 @@
         <!-- WildFly Maven plug-in to deploy your WAR to a local JBoss EAP container -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- other versions -->
-        <version.jboss.ejb.client>2.0.3.Final</version.jboss.ejb.client>
-
         <!-- other plug-in versions -->
         <version.compiler.plugin>3.1</version.compiler.plugin>
 

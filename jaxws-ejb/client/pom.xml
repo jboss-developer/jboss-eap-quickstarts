@@ -45,10 +45,6 @@
 
    </repositories>
 
-    <properties>
-     <version.exec-plugin>1.2.1</version.exec-plugin>
-   </properties>
-
     <dependencies>
 
       <dependency>

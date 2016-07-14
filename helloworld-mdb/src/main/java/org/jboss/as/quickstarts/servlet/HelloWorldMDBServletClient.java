@@ -49,7 +49,9 @@ import javax.servlet.http.HttpServletResponse;
             interfaceName = "javax.jms.Topic",
             destinationName = "HelloWorldMDBTopic"
         )
-    })
+    }
+)
+
 /**
  * <p>
  * A simple servlet 3 as client that sends several messages to a queue or a topic.
