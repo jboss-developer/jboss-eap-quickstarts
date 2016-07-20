@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-spring-petclinic-test-webdriver</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.1.0-SNAPSHOT</version>
     <name>JBoss EAP Quickstarts: Spring Petclinic ftest via WebDriver with Arquillian</name>
     <description>This project tests a Spring Petclinic for use in JBoss EAP by WebDriver</description>
 

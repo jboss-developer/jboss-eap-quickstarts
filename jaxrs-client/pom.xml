@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-jaxrs-client</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name> JBoss EAP Quickstart: jaxrs-client</name>
     <description>A JAX-RS Client API project</description>

@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-kitchensink-angularjs-test-webdriver</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.1.0-SNAPSHOT</version>
     <name>JBoss EAP Quickstarts: Kitchensink AngularJS test via WebDriver with Arquillian</name>
     <description>This project tests a Kitchensink AngularJS for use on JBoss EAP by WebDriver</description>
     <url>http://www.jboss.org/products/eap</url>

@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.as.quickstarts.eap</groupId>
     <artifactId>jboss-spring-kitchensink-controlleradvice-test-webdriver</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.1.0-SNAPSHOT</version>
     <name>JBoss EAP Quickstarts: Spring Kitchensink ControllerAdvice test via WebDriver with Arquillian</name>
     <description>This project demonstrates a Spring Kitchensink ControllerAdvice for use on JBoss EAP by WebDriver</description>
 

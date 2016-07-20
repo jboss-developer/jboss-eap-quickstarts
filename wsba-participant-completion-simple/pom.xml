@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-wsba-participant-completion-simple</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: wsba-participant-completion-simple</name>
     <description>This project demonstrates WS-BA with Participant Driven Completion</description>
