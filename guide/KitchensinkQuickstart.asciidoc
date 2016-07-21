@@ -707,7 +707,7 @@ $ > mvn clean test -Parq-wildfly-managed
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building JBoss EAP Quickstart: kitchensink 7.0.0-SNAPSHOT
+[INFO] Building JBoss EAP Quickstart: kitchensink 7.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
 [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ jboss-kitchensink ---
@@ -739,7 +739,7 @@ Running org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest
 Jul 28, 2015 9:34:50 AM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
 WARNING: Bundles path is deprecated and no longer used.
 Jul 28, 2015 9:34:50 AM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
-INFO: Starting container with: [/home/sgilda/JDKs/jdk1.8.0_45/bin/java, -D[Standalone], -Xms64m, -Xmx512m, -Djava.net.preferIPv4Stack=true, -Djava.awt.headless=true, -Djboss.modules.system.pkgs=org.jboss.byteman, -ea, -Djboss.home.dir=/home/sgilda/tools/jboss-eap-7.0, -Dorg.jboss.boot.log.file=/home/sgilda/tools/jboss-eap-7.0/standalone/log/server.log, -Dlogging.configuration=file:/home/sgilda/tools/jboss-eap-7.0/standalone/configuration/logging.properties, -jar, /home/sgilda/tools/jboss-eap-7.0/jboss-modules.jar, -mp, /home/sgilda/tools/jboss-eap-7.0/modules, org.jboss.as.standalone, -Djboss.home.dir=/home/sgilda/tools/jboss-eap-7.0, -Djboss.server.base.dir=/home/sgilda/tools/jboss-eap-7.0/standalone, -Djboss.server.log.dir=/home/sgilda/tools/jboss-eap-7.0/standalone/log, -Djboss.server.config.dir=/home/sgilda/tools/jboss-eap-7.0/standalone/configuration]
+INFO: Starting container with: [/home/username/JDKs/jdk1.8.0_45/bin/java, -D[Standalone], -Xms64m, -Xmx512m, -Djava.net.preferIPv4Stack=true, -Djava.awt.headless=true, -Djboss.modules.system.pkgs=org.jboss.byteman, -ea, -Djboss.home.dir=/home/username/tools/jboss-eap-7.1, -Dorg.jboss.boot.log.file=/home/username/tools/jboss-eap-7.1/standalone/log/server.log, -Dlogging.configuration=file:/home/username/tools/jboss-eap-7.1/standalone/configuration/logging.properties, -jar, /home/username/tools/jboss-eap-7.1/jboss-modules.jar, -mp, /home/username/tools/jboss-eap-7.1/modules, org.jboss.as.standalone, -Djboss.home.dir=/home/username/tools/jboss-eap-7.1, -Djboss.server.base.dir=/home/username/tools/jboss-eap-7.1/standalone, -Djboss.server.log.dir=/home/username/tools/jboss-eap-7.1/standalone/log, -Djboss.server.config.dir=/home/username/tools/jboss-eap-7.1/standalone/configuration]
 Jul 28, 2015 9:34:50 AM org.xnio.Xnio <clinit>
 INFO: XNIO version 3.3.1.Final
 Jul 28, 2015 9:34:50 AM org.xnio.nio.NioXnio <clinit>
@@ -769,12 +769,12 @@ INFO: JBoss Remoting version 4.0.9.Final
 09:34:52,314 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
 09:34:52,316 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0003: Undertow 1.3.0.Beta3 starting
 09:34:52,318 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0003: Undertow 1.3.0.Beta3 starting
-09:34:52,447 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0014: Creating file handler for path '/home/sgilda/tools/jboss-eap-7.0/welcome-content' with options [directory-listing: 'false', follow-symlink: 'false', case-sensitive: 'true', safe-symlink-paths: '[]']
+09:34:52,447 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0014: Creating file handler for path '/home/username/tools/jboss-eap-7.1/welcome-content' with options [directory-listing: 'false', follow-symlink: 'false', case-sensitive: 'true', safe-symlink-paths: '[]']
 09:34:52,461 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0012: Started server default-server.
 09:34:52,465 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0018: Host default-host starting
 09:34:52,546 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0006: Undertow HTTP listener default listening on /127.0.0.1:8080
 09:34:52,662 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) WFLYJCA0001: Bound data source [java:jboss/datasources/ExampleDS]
-09:34:52,744 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-6) WFLYDS0013: Started FileSystemDeploymentService for directory /home/sgilda/tools/jboss-eap-7.0/standalone/deployments
+09:34:52,744 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-6) WFLYDS0013: Started FileSystemDeploymentService for directory /home/username/tools/jboss-eap-7.1/standalone/deployments
 09:34:52,747 ERROR [org.jboss.as.domain.http.api.undertow] (MSC service thread 1-7) WFLYDMHTTP0003: Unable to load console module for slot main, disabling console
 09:34:52,749 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "jboss-contacts-jquerymobile.war" (runtime-name: "jboss-contacts-jquerymobile.war")
 09:34:52,890 INFO  [org.jboss.ws.common.management] (MSC service thread 1-4) JBWS022052: Starting JBoss Web Services - Stack CXF Server 5.0.0.Final
@@ -823,7 +823,7 @@ INFO: JBoss Remoting version 4.0.9.Final
 09:34:55,801 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
 09:34:55,801 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
 09:34:55,801 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Core 2.0.0.Alpha9 "Kenny" started in 5429ms - Started 336 of 508 services (225 services are lazy, passive or on-demand)
-09:34:56,254 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0001: Content added at location /home/sgilda/tools/jboss-eap-7.0/standalone/data/content/79/129c6b171476bb5106a4218846a11a5071b6fc/content
+09:34:56,254 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0001: Content added at location /home/username/tools/jboss-eap-7.1/standalone/data/content/79/129c6b171476bb5106a4218846a11a5071b6fc/content
 09:34:56,258 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
 09:34:56,420 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) WFLYJPA0002: Read persistence.xml for primary
 09:34:56,422 WARN  [org.jboss.as.connector] (MSC service thread 1-4) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
@@ -865,7 +865,7 @@ WARN: The protocol 'http-remoting-jmx' is deprecated, instead you should use 're
 09:34:57,324 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) WFLYWELD0010: Stopping weld service for deployment test.war
 09:34:57,338 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0010: Unbound data source [java:jboss/datasources/KitchensinkQuickstartTestDS]
 09:34:57,350 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 47ms
-09:34:57,398 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0002: Content removed from location /home/sgilda/tools/jboss-eap-7.0/standalone/data/content/79/129c6b171476bb5106a4218846a11a5071b6fc/content
+09:34:57,398 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0002: Content removed from location /home/username/tools/jboss-eap-7.1/standalone/data/content/79/129c6b171476bb5106a4218846a11a5071b6fc/content
 09:34:57,399 INFO  [org.jboss.as.server] (management-handler-thread - 4) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.535 sec
 09:34:57,406 INFO  [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0211: Suspending server
@@ -908,7 +908,7 @@ $ > mvn clean test -Parq-wildfly-remote
 [INFO] Scanning for projects...
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building JBoss EAP Quickstart: kitchensink 7.0.0-SNAPSHOT
+[INFO] Building JBoss EAP Quickstart: kitchensink 7.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
 [INFO] 
 [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ jboss-kitchensink ---
