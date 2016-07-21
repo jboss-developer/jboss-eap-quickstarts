@@ -96,7 +96,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.1.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
