@@ -1,0 +1,133 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="forgefromscratch-shows-how-forge-can-generate-an-application" class="anchor" href="#forgefromscratch-shows-how-forge-can-generate-an-application"><span class="anchor-icon"></span></a>forge-from-scratch: Shows How Forge Can Generate an Application</h1>
+
+<p>Author: Lincoln Baxter, Matej Briskar<br/>
+Level: Intermediate<br/>
+Technologies: Forge<br/>
+Summary: The <code>forge-from-scratch</code> quickstart demonstrates how <em>JBoss Forge</em> can generate a Java EE (JPA, EJB, JAX-RS, JSF) web-enabled database application.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>forge-from-scratch</code> quickstart demonstrates how to create a fully <strong>Java EE compliant</strong> project using <strong>JBoss Forge</strong> and <strong>Red Hat JBoss Developer Studio 9.1</strong> or later and deploy it to <strong>Red Hat JBoss Enterprise Application Platform 7</strong> or later. </p>
+
+<p>Once generated, the sample project will be a standard Maven 3, Java Web project with <strong>JPA, EJB, CDI, JSF</strong> with complete <strong>JAX-RS</strong> endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.</p>
+
+<p>But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.</p>
+
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!</em></p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9.1 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.</p>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio</h2>
+
+<p>JBoss Developer Studio 9.1 ships with Forge 3.0.1.Final. Because the Forge syntax changed in Forge 3.0, the <code>generate.fsh</code> script that ships with this quickstart was updated to use the new syntax and no longer works with previous releases of JBoss Developer Studio. For this reason, you must  use JBoss Developer Studio 9.1 or greater to run this example.</p>
+
+<h3><a id="generate-and-build-the-application" class="anchor" href="#generate-and-build-the-application"><span class="anchor-icon"></span></a>Generate and Build the Application</h3>
+
+<ol>
+<li>Start JBoss Developer Studio.</li>
+<li>Open the <code>Forge Console</code> Window. To open it, navigate to menu item <em>Window -&gt; Show View -&gt; Other</em>. Locate <em>Forge -&gt; Forge Console</em> and click <em>OK</em>. </li>
+<li>Click the <em>Start</em> button (green triangle) in top right corner of the Forge Console to start the default Forge runtime.</li>
+<li><p>In the Forge Console Window, navigate to the root directory of this quickstart.</p>
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>QUICKSTART_HOME/forge-from-scratch/
+</pre></div></li>
+<li><p>Notice there is a file in this directory named <code>generate.fsh</code>. Run this file from the Forge console using the <code>run</code> command:</p>
+<div class="highlight"><pre><span class="nv">$ </span>run generate.fsh
+</pre></div></li>
+<li><p>At this point, Forge creates the new project and builds it. </p>
+
+<ul>
+<li>The script issues this command: <code>$ project-new --named forge-example --top-level-package org.example;</code></li>
+<li>You next see the console message: <code>***SUCCESS*** Project named &#39;forge-example&#39; has been created.</code></li>
+<li>This is followed by a dialog saying <code>User Operation is waiting for &quot;Importing Forge project&quot; to complete.</code>.</li>
+<li>After a number of <code>***SUCCESS***</code> messages, you see <code>***SUCCESS*** Build Success</code> near the end of the console output.</li>
+</ul>
+
+<p><em>Note:</em> After you run the <code>run generate.fsh</code> command, you will see the following warnings for the generated files. You can ignore these warnings.</p>
+<div class="highlight"><pre><span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">serializable</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="vg">Address</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">declare</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">static</span><span class="w"> </span><span class="vg">final</span><span class="w"> </span><span class="vg">serialVersionUID</span><span class="w"> </span><span class="vg">field</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">type</span><span class="w"> </span><span class="vg">long</span>
+<span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">serializable</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="vg">Customer</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">declare</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">static</span><span class="w"> </span><span class="vg">final</span><span class="w"> </span><span class="vg">serialVersionUID</span><span class="w"> </span><span class="vg">field</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">type</span><span class="w"> </span><span class="vg">long</span>
+<span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">serializable</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="vg">Item</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">declare</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">static</span><span class="w"> </span><span class="vg">final</span><span class="w"> </span><span class="vg">serialVersionUID</span><span class="w"> </span><span class="vg">field</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">type</span><span class="w"> </span><span class="vg">long</span>
+<span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">serializable</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="vg">ProductOrder</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">declare</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">static</span><span class="w"> </span><span class="vg">final</span><span class="w"> </span><span class="vg">serialVersionUID</span><span class="w"> </span><span class="vg">field</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">type</span><span class="w"> </span><span class="vg">long</span>
+<span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">serializable</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="vg">Profile</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">declare</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">static</span><span class="w"> </span><span class="vg">final</span><span class="w"> </span><span class="vg">serialVersionUID</span><span class="w"> </span><span class="vg">field</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">type</span><span class="w"> </span><span class="vg">long</span>
+<span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">serializable</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="vg">ZipCode</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">declare</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">static</span><span class="w"> </span><span class="vg">final</span><span class="w"> </span><span class="vg">serialVersionUID</span><span class="w"> </span><span class="vg">field</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">type</span><span class="w"> </span><span class="vg">long</span>
+<span class="w">  </span><span class="vg">location</span><span class="w"> </span><span class="vg">references</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="s2">&quot;/faces/error.xhtml&quot;</span><span class="w"> </span><span class="vg">that</span><span class="w"> </span><span class="vg">does</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">exist</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">web</span><span class="w"> </span><span class="vg">content</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="what-did-this-create" class="anchor" href="#what-did-this-create"><span class="anchor-icon"></span></a>What Did This Create?</h3>
+
+<p>This quickstart created a native Java EE 7 application. </p>
+
+<ul>
+<li>After the command completes, look in your <code>QUICKSTART_HOME/forge-from-scratch/</code> folder. You see a folder with the name <code>forge-example</code>. </li>
+<li>This project also appears in the <code>Project Explorer</code> view in JBoss Developer Studio. </li>
+<li>Browse through this project to see the code that was generated as a result of this command. </li>
+</ul>
+
+<h3><a id="deploy-the-generated-application" class="anchor" href="#deploy-the-generated-application"><span class="anchor-icon"></span></a>Deploy the Generated Application</h3>
+
+<ol>
+<li>If you have not yet done so, add the JBoss EAP 7 runtime server to Red Hat JBoss Developer Studio. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</li>
+<li>Right-click on the project name and choose <code>Run As</code> &ndash;&gt; <code>Run on Server</code>. If you have more than one server, choose the JBoss EAP 7 Runtime server. Then click <code>Finish</code>.</li>
+<li>Upon successful deployment, a <strong>Welcome to Forge Window</strong> opens with the application running at the following URL: <a href="http://localhost:8080/forge-example/">http://localhost:8080/forge-example/</a></li>
+</ol>
+
+<h3><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h3>
+
+<p><em>Note:</em> You will see the following warnings in the server log. You can ignore these warnings.</p>
+<div class="highlight"><pre><span class="n">HHH000059</span><span class="o">:</span> <span class="n">Defining</span> <span class="n">hibernate</span><span class="o">.</span><span class="na">transaction</span><span class="o">.</span><span class="na">flush_before_completion</span><span class="o">=</span><span class="kc">true</span> <span class="n">ignored</span> <span class="k">in</span> <span class="n">HEM</span>
+<span class="n">HHH000431</span><span class="o">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">determine</span> <span class="n">H2</span> <span class="n">database</span> <span class="n">version</span><span class="o">,</span> <span class="n">certain</span> <span class="n">features</span> <span class="n">may</span> <span class="n">not</span> <span class="n">work</span>
+</pre></div>
+<h3><a id="access-the-running-application" class="anchor" href="#access-the-running-application"><span class="anchor-icon"></span></a>Access the Running Application</h3>
+
+<p>The application appears in a &lsquo;Welcome to Forge&rsquo; Window and displays the following:</p>
+<div class="highlight"><pre><span class="vg">Welcome</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">Forge</span>
+
+<span class="vg">Your</span><span class="w"> </span><span class="vg">application</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">running</span><span class="o">.</span><span class="w"> </span>
+</pre></div>
+<p>The following entities are displayed on the lower left side of the page:</p>
+
+<ul>
+<li>Address</li>
+<li>Customer</li>
+<li>Item</li>
+<li>Product Order</li>
+<li>Profile</li>
+<li>Zip Code</li>
+</ul>
+
+<p>When you click on an entity, you are provided with a form that allows you to:</p>
+
+<ul>
+<li>Search for an existing entity</li>
+<li>Create a new entity</li>
+<li>Edit or delete an existing entity</li>
+</ul>
+
+<p>The running application also provides links to find more information about the Forge. </p>
+
+<h2><a id="undeploy-the-application" class="anchor" href="#undeploy-the-application"><span class="anchor-icon"></span></a>Undeploy the Application</h2>
+
+<p>When you are ready to undeploy the application from JBoss EAP:</p>
+
+<ol>
+<li>Go to the Red Hat JBoss Developer Studio <code>Servers</code> window.</li>
+<li>Expand the JBoss EAP Server to see the list of deployed applications.</li>
+<li>Choose the <code>forge-example</code> project created by this quickstart, right-click, and choose <code>Remove</code>. </li>
+<li><p>Click <code>OK</code> when asked if you are sure you want to remove resource from the server. You should see the following message:</p>
+<div class="highlight"><pre><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">server</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">DeploymentScanner</span><span class="o">-</span><span class="vg">threads</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">1</span><span class="p">)</span><span class="w"> </span><span class="nl">WFLYSRV0009:</span><span class="w"> </span><span class="vg">Undeployed</span><span class="w"> </span><span class="s2">&quot;forge-example.war&quot;</span><span class="w"> </span><span class="p">(</span><span class="vg">runtime</span><span class="o">-</span><span class="nl">name:</span><span class="w"> </span><span class="s2">&quot;forge-example.war&quot;</span><span class="p">)</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="next-steps" class="anchor" href="#next-steps"><span class="anchor-icon"></span></a>Next Steps</h2>
+
+<p>Open <code>generate.fsh</code> and take a look inside! There is not much magic happening here. All of the commands used to generate this project are clearly listed just as if they were typed by your own hands.</p>
+
+<p>Play around with creating more entities, relationships, UI, and generating JAX-RS endpoints,all with just a few simple commands.</p>
+</body></html>

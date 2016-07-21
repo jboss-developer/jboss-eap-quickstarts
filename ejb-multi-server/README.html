@@ -1,0 +1,375 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="ejbmultiserver-ejb-communication-across-servers" class="anchor" href="#ejbmultiserver-ejb-communication-across-servers"><span class="anchor-icon"></span></a>ejb-multi-server: EJB Communication Across Servers</h1>
+
+<p>Author: Wolf-Dieter Fink<br/>
+Level: Advanced<br/>
+Technologies: EJB, EAR<br/>
+Summary: The <code>ejb-multi-server</code> quickstart shows how to communicate between multiple applications deployed to different servers using an EJB to log the invocation.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>ejb-multi-server</code> quickstart demonstrates communication between applications deployed to different Red Hat JBoss Enterprise Application Platform servers. Each application is deployed as an EAR and contains a simple EJB bean. The only function of each bean is to log the invocation.</p>
+
+<p>This example consists of the following Maven projects, each with a shared parent:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>Sub-project</strong></th>
+<th style="text-align: left"><strong>Description</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>app-main</code></td>
+<td style="text-align: left">An application that can be called by the <code>client</code>. It can also call the different sub-applications.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>app-one</code> and <code>app-two</code></td>
+<td style="text-align: left">These are simple applications that contain an EJB sub-project to build the <code>ejb.jar</code> file and an EAR sub-project to build the <code>app.ear</code> file. Each application contains only one EJB that logs a statement on a method call and returns the <code>jboss.node.name</code> and credentials.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>app-web</code></td>
+<td style="text-align: left">A simple WAR application. It consists of one Servlet that demonstrates how to invoke EJBs on a different server.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>client</code></td>
+<td style="text-align: left">This project builds the standalone client and executes it.</td>
+</tr>
+</tbody></table>
+
+<p>The root <code>pom.xml</code> builds each of the subprojects in an appropriate order.</p>
+
+<p>The server configuration is done using CLI batch scripts located in the root of the quickstart folder.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="start-with-a-clean-jboss-eap-install" class="anchor" href="#start-with-a-clean-jboss-eap-install"><span class="anchor-icon"></span></a>Start with a Clean JBoss EAP Install</h2>
+
+<p>It is important to start with a clean version of JBoss EAP before testing this quickstart. Be sure to unzip or install a fresh JBoss EAP instance. </p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="add-the-application-users" class="anchor" href="#add-the-application-users"><span class="anchor-icon"></span></a>Add the Application Users</h2>
+
+<p>The following users must be added to the <code>ApplicationRealm</code> to run this quickstart. Be sure to use the names and passwords specified in the table as they are required to run this example.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>UserName</strong></th>
+<th style="text-align: left"><strong>Realm</strong></th>
+<th style="text-align: left"><strong>Password</strong></th>
+<th style="text-align: left"><strong>Roles</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">quickuser</td>
+<td style="text-align: left">ApplicationRealm</td>
+<td style="text-align: left">quick-123</td>
+<td style="text-align: left"><em>leave blank for none</em></td>
+</tr>
+<tr>
+<td style="text-align: left">quickuser1</td>
+<td style="text-align: left">ApplicationRealm</td>
+<td style="text-align: left">quick123+</td>
+<td style="text-align: left"><em>leave blank for none</em></td>
+</tr>
+<tr>
+<td style="text-align: left">quickuser2</td>
+<td style="text-align: left">ApplicationRealm</td>
+<td style="text-align: left">quick+123</td>
+<td style="text-align: left"><em>leave blank for none</em></td>
+</tr>
+</tbody></table>
+
+<p>To add the users, open a command prompt and type the following commands:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span>
+<span class="w">        </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick</span><span class="il">-123</span>
+<span class="w">        </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser1</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick123</span><span class="o">+</span>
+<span class="w">        </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser2</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick</span><span class="o">+</span><span class="il">123</span>
+
+<span class="w">    </span><span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span>
+<span class="w">        </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick</span><span class="il">-123</span>
+<span class="w">        </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser1</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick123</span><span class="o">+</span>
+<span class="w">        </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser2</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick</span><span class="o">+</span><span class="il">123</span>
+</pre></div>
+<p>If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see the instructions located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+
+<h2><a id="back-up-the-jboss-eap-server-configuration-files" class="anchor" href="#back-up-the-jboss-eap-server-configuration-files"><span class="anchor-icon"></span></a>Back Up the JBoss EAP Server Configuration Files</h2>
+
+<p>JBoss EAP server configuration for this quickstart is very complicated and not easily restored by running a JBoss CLI script, so it is important to back up your server configuration files before you begin.</p>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li><p>Backup the following files, replacing EAP7_HOME with the path to your JBoss EAP installation: </p>
+<div class="highlight"><pre><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">domain</span><span class="o">/</span><span class="vg">configuration</span><span class="o">/</span><span class="vg">domain</span><span class="o">.</span><span class="vg">xml</span>
+<span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">domain</span><span class="o">/</span><span class="vg">configuration</span><span class="o">/</span><span class="vg">host</span><span class="o">.</span><span class="vg">xml</span><span class="w">        </span>
+</pre></div></li>
+<li><p>After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.</p></li>
+</ol>
+
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
+
+<p>You configure the domain server by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>install-domain.cli</code> script provided in the root directory of this quickstart. </p>
+
+<ol>
+<li><p>Start with a fresh instance of the JBoss EAP as noted above under <a href="#start-with-a-clean-jboss-eap-install">Start with a Clean JBoss EAP Install</a>.</p></li>
+<li><p>Be sure you add the required users as specified above under <a href="#add-the-application-users">Add the Application Users</a>. </p></li>
+<li><p>Before you begin, make sure you followed the instructions above under <a href="#back-up-the-jboss-eap-server-%20configuration-files">Back Up the JBoss EAP Server Configuration Files</a>.</p></li>
+<li><p>Start the JBoss EAP server </p>
+
+<ul>
+<li>Open a command prompt and navigate to the root of the EAP directory. </li>
+<li><p>Start the server using the following command:</p>
+<div class="highlight"><pre><span class="vg">bin</span><span class="o">/</span><span class="vg">domain</span><span class="o">.</span><span class="vg">sh</span><span class="w">    </span>
+</pre></div></li>
+</ul></li>
+<li><p>Review the <code>install-domain.cli</code> file in the root of this quickstart directory. This script configures and starts multiple servers needed to run this quickstart. </p></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">install</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">install</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STOPPED&quot;</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STOPPED&quot;</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;server-groups&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;server-groups&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;server-groups&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;server-groups&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;server-groups&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+<span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span>
+<span class="vg">process</span><span class="o">-</span><span class="nl">state:</span><span class="w"> </span><span class="vg">reload</span><span class="o">-</span><span class="vg">required</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;server-groups&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STARTING&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STARTING&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STARTING&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STARTING&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;STARTING&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;Starting&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span><span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<p><em>NOTE:  Depending on your machine configuration, you may see &ldquo;Exception in thread &quot;main&rdquo; java.lang.OutOfMemoryError: unable to create new native thread&quot; exceptions in the server log when you run this script. If you do, you must increase the ulimit open files and max user processes settings. Instructions to do this are located here: <a href="http://ithubinfo.blogspot.com/2013/07/how-to-increase-ulimit-open-file-and.html">http://ithubinfo.blogspot.com/2013/07/how-to-increase-ulimit-open-file-and.html</a>. After you update the ulimit settings, be sure to reboot and start with a fresh instance of the server.</em></p>
+
+<h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
+
+<p>There are too many additions to the configuration files to list here. Feel free to compare the <code>domain.xml</code> and <code>host.xml</code> to the backup copies to see the changes made to configure the server to run this quickstart.</p>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started and configured the JBoss EAP server successfully   as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build the artifacts:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">install</span>
+</pre></div></li>
+</ol>
+
+<p>You should see <code>BUILD SUCCESS</code> at the end of the build <code>SUCCESS</code> messages for each component.</p>
+
+<ol>
+<li><p>In the same command prompt, deploy the applications using the provided CLI batch script by typing the following command:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">deploy</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">deploy</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+</pre></div>
+<p>This will deploy the app-*.ear files to different server-groups of the running domain. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span>
+<span class="vg">process</span><span class="o">-</span><span class="nl">state:</span><span class="w"> </span><span class="vg">reload</span><span class="o">-</span><span class="vg">required</span><span class="w"> </span>
+</pre></div>
+<p>You may see the following warnings in the server log. You can ignore these warnings.</p>
+<div class="highlight"><pre><span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneB</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-1) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneB</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-1) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 20MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneB</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-1) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneB</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-1) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneA</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-6) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneA</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-6) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 20MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneA</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-6) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)</span>
+<span class="cp">[</span><span class="nx">Server</span><span class="p">:</span><span class="nx">app</span><span class="na">-oneA</span><span class="cp">]</span><span class="x"> WARN  </span><span class="cp">[</span><span class="nx">org.jgroups.protocols.UDP</span><span class="cp">]</span><span class="x"> (MSC service thread 1-6) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)</span>
+</pre></div>
+<p>You may see the following error when you deploy this quickstart using the <code>deploy-domain.cli</code> file. </p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">failed</span><span class="w"> </span><span class="vg">with</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">following</span><span class="w"> </span><span class="vg">error</span><span class="w"> </span><span class="p">(</span><span class="vg">you</span><span class="w"> </span><span class="vg">are</span><span class="w"> </span><span class="vg">remaining</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">editing</span><span class="w"> </span><span class="vg">mode</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">have</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">chance</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">correct</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">error</span><span class="p">)</span>
+</pre></div>
+<p>When this failure occurs, the server log shows the error <code>MSC000001: Failed to start service jboss.clustering.registry.ejb.client-mappings</code>. This is a known issue that occurs randomly. You can track the current state of the issue at <a href="https://issues.jboss.org/browse/JBEAP-4398">JBEAP-4398</a> and in the <em>Release Notes</em> for JBoss EAP.</p>
+
+<p>After the server has been running for a period of time, you may see the following warnings in the server log, which are followed by a stacktrace. You can ignore these warnings as this is is a known issue and is harmless. See <a href="https://issues.jboss.org/browse/JBEAP-794">JBEAP-794</a> for more information.</p>
+<div class="highlight"><pre><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">infinispan</span><span class="o">.</span><span class="vg">topology</span><span class="o">.</span><span class="vg">ClusterTopologyManagerImpl</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">transport</span><span class="o">-</span><span class="vg">thread</span><span class="o">--</span><span class="vg">p15</span><span class="o">-</span><span class="vg">t6</span><span class="p">)</span><span class="w"> </span><span class="nl">ISPN000197:</span><span class="w"> </span><span class="vg">Error</span><span class="w"> </span><span class="vg">updating</span><span class="w"> </span><span class="vg">cluster</span><span class="w"> </span><span class="vg">member</span><span class="w"> </span><span class="nl">list:</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">infinispan</span><span class="o">.</span><span class="vg">util</span><span class="o">.</span><span class="vg">concurrent</span><span class="o">.</span><span class="nl">TimeoutException:</span><span class="w"> </span><span class="vg">Replication</span><span class="w"> </span><span class="vg">timeout</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">application</span><span class="o">-</span><span class="vg">name</span><span class="o">&gt;</span>
+</pre></div></li>
+</ol>
+
+<p><em>NOTE:</em> If other ERRORs appear in the <code>server.log</code> when installing or deploying the quickstart, please stop the domain and restart it. This should ensure further steps run correctly.</p>
+
+<h2><a id="access-the-remote-client-application" class="anchor" href="#access-the-remote-client-application"><span class="anchor-icon"></span></a>Access the Remote Client Application</h2>
+
+<p>This example shows how to invoke an EJB from a remote standalone application. 
+It also demonstrates how to invoke an EJB from a client using a scoped-context rather than a properties file containing the parameters required by the InitialContext. </p>
+
+<ol>
+<li>Make sure that the deployments are successful as described above.</li>
+<li>Navigate to the quickstart <code>client/</code> subdirectory.</li>
+<li><p>Type this command to run the application:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">exec:</span><span class="vg">java</span>
+</pre></div>
+<p>The client will output the following information provided by the applications:</p>
+<div class="highlight"><pre><span class="vg">InvokeAll</span><span class="w"> </span><span class="nl">succeed:</span><span class="w"> </span><span class="vg">MainApp</span><span class="p">[</span><span class="vg">anonymous</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">main</span><span class="w">  </span><span class="o">&gt;</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneB</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoA</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoA</span><span class="w"> </span><span class="p">]</span>
+</pre></div>
+<p>This output shows that the <code>MainApp</code> is called with the user <code>anonymous</code> at node <code>master:app-main</code> and the sub-call is proceeded by the <code>master:app-oneA</code> node and <code>master:app-twoA</code> node as <code>quickuser2</code>. </p>
+
+<p>Review the server log files to see the bean invocations on the servers.</p></li>
+<li><p>To invoke the bean that uses the <code>scoped-client-context</code>, you must pass a property. Type the following command</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">exec:</span><span class="vg">java</span><span class="w"> </span><span class="o">-</span><span class="vg">DUseScopedContext</span><span class="o">=</span><span class="vg">true</span>
+</pre></div>
+<p>The invocation of <code>appTwo</code> throws a  <code>java.lang.reflect.InvocationTargetException</code> since the secured method is called and there is no Role for the user defined.  You get a <code>BUILD FAILURE</code> and the client outputs the following information:</p>
+<div class="highlight"><pre><span class="k">[ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:1.2.1:java (default-cli) on project jboss-ejb-multi-server-client: An exception occured while executing the Java class. null: InvocationTargetException: WFLYEJB0364: Invocation on method: public abstract java.lang.String org.jboss.as.quickstarts.ejb.multi.server.app.AppTwo.invokeSecured(java.lang.String) of bean: AppTwoBean is not allowed -&gt; [Help 1]</span>
+</pre></div>
+<p>Update the user <code>quickuser1</code> and <code>quickuser2</code> and give them one of the Roles <code>AppTwo</code> or <code>Intern</code>.
+To update the roles, open a command prompt and type the following commands:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span>
+<span class="w">      </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser1</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick123</span><span class="o">+</span><span class="w"> </span><span class="o">-</span><span class="vg">g</span><span class="w"> </span><span class="vg">Intern</span>
+<span class="w">      </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser2</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick</span><span class="o">+</span><span class="il">123</span><span class="w"> </span><span class="o">-</span><span class="vg">g</span><span class="w"> </span><span class="vg">AppTwo</span>
+
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span>
+<span class="w">      </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser1</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick123</span><span class="o">+</span><span class="w"> </span><span class="o">-</span><span class="vg">g</span><span class="w"> </span><span class="vg">Intern</span>
+<span class="w">      </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">quickuser2</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span><span class="w"> </span><span class="vg">quick</span><span class="o">+</span><span class="il">123</span><span class="w"> </span><span class="o">-</span><span class="vg">g</span><span class="w"> </span><span class="vg">AppTwo</span>
+</pre></div>
+<p>If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
+After that the invocation will be successful. The log output of the <code>appTwo</code> servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:</p>
+<div class="highlight"><pre><span class="w">  </span><span class="vg">InvokeAll</span><span class="w"> </span><span class="nl">succeed:</span><span class="w"> </span><span class="vg">MainAppSContext</span><span class="p">[</span><span class="vg">anonymous</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">main</span><span class="w">  </span><span class="o">&gt;</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneA</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneB</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneB</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneA</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneB</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneA</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneA</span><span class="p">,</span><span class="w"> </span><span class="vg">app1</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">oneA</span><span class="p">}</span><span class="w"> </span><span class="o">&gt;</span><span class="w">  </span><span class="vg">appTwo</span><span class="w"> </span><span class="vg">loop</span><span class="p">(</span><span class="il">4</span><span class="w"> </span><span class="vg">time</span><span class="w"> </span><span class="vg">A</span><span class="o">-</span><span class="vg">B</span><span class="w"> </span><span class="vg">expected</span><span class="p">){</span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoA</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoB</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoA</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoB</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoA</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoB</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser1</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoA</span><span class="p">,</span><span class="w"> </span><span class="vg">app2</span><span class="p">[</span><span class="vg">quickuser2</span><span class="p">]</span><span class="err">@</span><span class="nl">master:</span><span class="vg">app</span><span class="o">-</span><span class="vg">twoB</span><span class="p">}</span><span class="w"> </span><span class="p">]</span>
+</pre></div>
+<p>The resulting output in detail:</p>
+
+<ul>
+<li>The client calls the <code>MainAppSContext</code> bean on the <code>app-main</code> server on host master with no application security.</li>
+<li>The <code>MainAppSContext</code> bean in <code>app-main</code> calls the <code>AppOne</code> bean in <code>app-one</code> using the scoped-context and establishes the clustered view.
+
+<ul>
+<li>It initially connects using <code>quickuser1</code></li>
+<li>The clustered view is created using <code>quickuser2</code>. This takes some time, but once it takes effect, all calls are load-balanced.</li>
+</ul></li>
+<li>The calls to the <code>AppTwo</code> bean in <code>app-two</code> are made using two different scoped-context settings and both are used alternately 7 times. This means the servers <code>app-twoA</code> and <code>app-twoB</code> are called alternately seven times each.</li>
+</ul></li>
+<li><p>If it is necessary to invoke the client with a different JBoss EAP version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP7_HOME with your current installation path. The output should be similar to the previous mvn executions.</p>
+<div class="highlight"><pre><span class="vg">java</span><span class="w"> </span><span class="o">-</span><span class="vg">cp</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">client</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">client</span><span class="o">.</span><span class="nl">jar:</span><span class="vg">app</span><span class="o">-</span><span class="vg">main</span><span class="o">/</span><span class="vg">ejb</span><span class="o">/</span><span class="vg">target</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">ejb</span><span class="o">-</span><span class="vg">multi</span><span class="o">-</span><span class="vg">server</span><span class="o">-</span><span class="vg">app</span><span class="o">-</span><span class="vg">main</span><span class="o">-</span><span class="vg">ejb</span><span class="o">-</span><span class="vg">client</span><span class="o">.</span><span class="nl">jar:</span><span class="vg">app</span><span class="o">-</span><span class="vg">two</span><span class="o">/</span><span class="vg">ejb</span><span class="o">/</span><span class="vg">target</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">ejb</span><span class="o">-</span><span class="vg">multi</span><span class="o">-</span><span class="vg">server</span><span class="o">-</span><span class="vg">app</span><span class="o">-</span><span class="vg">two</span><span class="o">-</span><span class="vg">ejb</span><span class="o">-</span><span class="vg">client</span><span class="o">.</span><span class="nl">jar:</span><span class="vg">client</span><span class="o">/</span><span class="vg">target</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">ejb</span><span class="o">-</span><span class="vg">multi</span><span class="o">-</span><span class="vg">server</span><span class="o">-</span><span class="vg">client</span><span class="o">.</span><span class="vg">jar</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">ejb</span><span class="o">.</span><span class="vg">multi</span><span class="o">.</span><span class="vg">server</span><span class="o">.</span><span class="vg">Client</span>
+</pre></div></li>
+</ol>
+
+<p><em>NOTE:</em></p>
+
+<ul>
+<li><em>If exec is called multiple times, the invocation for <code>app1</code> might use <code>app-oneA</code> and <code>app-oneB</code> node due to cluster loadbalancing.</em></li>
+<li><em>A JBoss EAP will deny the invocation of unsecured methods of <code>appOne</code>/<code>appTwo</code> since security is enabled but the method does not include @Roles. You need to set <code>default-missing-method-permissions-deny-access = false</code> for the <code>ejb3</code> subsystem within the domain profile <code>ha</code> and <code>default</code> to allow the method invocation. See the <code>install-domain.cli</code> script.</em></li>
+</ul>
+
+<h2><a id="access-the-jsf-application-inside-the-mainapplication" class="anchor" href="#access-the-jsf-application-inside-the-mainapplication"><span class="anchor-icon"></span></a>Access the JSF application inside the main-application</h2>
+
+<p>The JSF example shows different annotations to inject the EJB. Also how to handle the annotation if different beans implement the same interface and therefore the container is not able to decide which bean needs to be injected without additional informations.</p>
+
+<ol>
+<li>Make sure that the deployments are successful as described above.</li>
+<li>Use a browser to access the JSF application at the following URL: <a href="http://localhost:8080/jboss-ejb-multi-server-app-main-web/">http://localhost:8080/jboss-ejb-multi-server-app-main-web/</a></li>
+<li>Insert a message in the Text input and invoke the different methods. The result is shown in the browser.</li>
+<li>See server logfiles and find your given message logged as INFO.</li>
+</ol>
+
+<p><em>NOTE :</em></p>
+
+<ul>
+<li><em>If you try to invoke <code>MainAppSContext</code> you need to update the user <code>quickuser1</code> and <code>quickuser2</code> and give them one of the Roles <code>AppTwo</code> or <code>Intern</code>.</em></li>
+</ul>
+
+<h2><a id="access-the-servlet-application-deployed-as-a-war-inside-a-minimal-server" class="anchor" href="#access-the-servlet-application-deployed-as-a-war-inside-a-minimal-server"><span class="anchor-icon"></span></a>Access the Servlet application deployed as a WAR inside a minimal server</h2>
+
+<p>An example how to access EJBs from a separate instance which only contains a web application.</p>
+
+<ol>
+<li>Make sure that the deployments are successful as described above.</li>
+<li>Use a browser to access the Servlet at the following URL: <a href="http://localhost:8380/jboss-ejb-multi-server-app-web/">http://localhost:8380/jboss-ejb-multi-server-app-web/</a></li>
+<li>The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful</li>
+</ol>
+
+<h2><a id="undeploy-the-archives" class="anchor" href="#undeploy-the-archives"><span class="anchor-icon"></span></a>Undeploy the Archives</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">undeploy</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">undeploy</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="remove-the-server-domain-configuration" class="anchor" href="#remove-the-server-domain-configuration"><span class="anchor-icon"></span></a>Remove the Server Domain Configuration</h2>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Restore the <code>EAP7_HOME/domain/configuration/domain.xml</code> and <code>EAP7_HOME/domain/configuration/host.xml</code> files with the back-up copies of the files. Be sure to replace EAP7_HOME with the path to your server.</li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>EJB Client (ejb-client) currently has limited support in the Eclipse Web Tools Platform (WTP). For that reason, this quickstart is not supported in Red Hat JBoss Developer Studio.</p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">sources</span>
+</pre></div></body></html>

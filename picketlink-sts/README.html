@@ -1,0 +1,230 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="picketlinksts-picketlink-federation-wstrust-security-token-service" class="anchor" href="#picketlinksts-picketlink-federation-wstrust-security-token-service"><span class="anchor-icon"></span></a>picketlink-sts: PicketLink Federation: WS-Trust Security Token Service</h1>
+
+<p>Author: Peter Skopek<br/>
+Level: Advanced<br/>
+Technologies: WS-Trust, SAML<br/>
+Summary: The <code>picketlink-sts</code> quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>picketlink-sts</code> quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS) to Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>WS-Trust extends the WS-Security specification to allow the issuance, renewal, and validation of security tokens. 
+Many WS-Trust functions center around the use of a Security Token Service, or STS. 
+The STS is contacted to obtain security tokens that are used to create messages to talk to the services. 
+The primary use of the STS is to acquire SAML tokens used to talk to the service.
+The STS also plays an important role when you need to propagate credentials between different layers, for example, the web and service layer.</p>
+
+<p>PicketLink also supports different token providers, which means you can provide your own custom security tokens.</p>
+
+<p><em>Note:</em> This quickstart is not a fully functional application. It is a JAX-WS Endpoint based on PicketLink&rsquo;s WS-Trust implementation, which by default, allows you to issue, renew and validate SAML assertions. It is a service intended to be called by other applications. </p>
+
+<h2><a id="how-to-use-this-quickstart" class="anchor" href="#how-to-use-this-quickstart"><span class="anchor-icon"></span></a>How to use this quickstart</h2>
+
+<p>This quickstart is preconfigured to use the <code>picketlink-sts</code> security domain. By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="nl">Users:</span><span class="w"> </span><span class="vg">src</span><span class="o">/</span><span class="vg">main</span><span class="o">/</span><span class="vg">resources</span><span class="o">/</span><span class="vg">users</span><span class="o">.</span><span class="vg">properties</span>
+<span class="w">    </span><span class="nl">Roles:</span><span class="w"> </span><span class="vg">src</span><span class="o">/</span><span class="vg">main</span><span class="o">/</span><span class="vg">resources</span><span class="o">/</span><span class="vg">roles</span><span class="o">.</span><span class="vg">properties</span>
+</pre></div>
+<p>You can view the WSDL for the STS at the following URL: <a href="http://localhost:8080/picketlink-sts?wsdl">http://localhost:8080/picketlink-sts?wsdl</a>.</p>
+
+<p>From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope asking the STS to issue a SAML v2.0 Assertion:</p>
+<div class="highlight"><pre>    <span class="nt">&lt;soap:Envelope</span> <span class="na">xmlns:soap=</span><span class="s">&quot;http://www.w3.org/2003/05/soap-envelope&quot;</span> <span class="na">xmlns:urn=</span><span class="s">&quot;urn:picketlink:identity-federation:sts&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;soap:Header/&gt;</span>
+        <span class="nt">&lt;soap:Body&gt;</span>
+            <span class="nt">&lt;wst:RequestSecurityToken</span> <span class="na">xmlns:wst=</span><span class="s">&quot;http://docs.oasis-open.org/ws-sx/ws-trust/200512&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;wst:TokenType&gt;</span>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0<span class="nt">&lt;/wst:TokenType&gt;</span>
+                <span class="nt">&lt;wst:RequestType&gt;</span>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue<span class="nt">&lt;/wst:RequestType&gt;</span>
+            <span class="nt">&lt;/wst:RequestSecurityToken&gt;</span>
+        <span class="nt">&lt;/soap:Body&gt;</span>
+    <span class="nt">&lt;/soap:Envelope&gt;</span>
+</pre></div>
+<p>There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the <code>mvn exec:java</code> command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled <a href="#access-the-application">Access the Application</a>.</p>
+
+<p><em>Note: This example is not suitable for production use. You must change the application security to comply with your organization&rsquo;s standards.</em></p>
+
+<h2><a id="where-to-find-additional-information" class="anchor" href="#where-to-find-additional-information"><span class="anchor-icon"></span></a>Where to Find Additional Information</h2>
+
+<ul>
+<li><p>For more information about PicketLink STS, see <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/developing-web-services-applications/#about_sts">Security Token Service (STS)</a> in <em>Developing Web Services Applications</em>.</p></li>
+<li><p>Additional PicketLink quickstarts can be found here: <a href="https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts">PicketLink Quickstarts</a>.</p></li>
+</ul>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later.</p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
+
+<p>You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-security-domain.cli</code> script provided in the root directory of this quickstart. </p>
+
+<ol>
+<li><p>Before you begin, back up your server configuration file</p>
+
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul></li>
+<li><p>Start the JBoss EAP server by typing the following:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+<li><p>Review the <code>configure-security-domain.cli</code> file in the root of this quickstart directory. This script adds the <code>picketlink-sts</code> security domain to the <code>security</code> subsystem in the server configuration and configures authentication access.</p></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">security</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">security</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+</pre></div></li>
+</ol>
+
+<p>If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="o">--</span><span class="vg">controller</span><span class="o">=</span><span class="nl">HOST_NAME:</span><span class="vg">PORT_NUMBER</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span>
+<span class="w">    </span><span class="p">{</span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">}</span>
+</pre></div>
+<p>The batch file also restarts the server.
+5. Stop the JBoss EAP server.</p>
+
+<h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
+
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+
+<p>The following <code>picketlink-sts</code> security-domain was added to the <code>security</code> subsystem.</p>
+<div class="highlight"><pre>    <span class="nt">&lt;security-domain</span> <span class="na">name=</span><span class="s">&quot;picketlink-sts&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;authentication&gt;</span>
+            <span class="nt">&lt;login-module</span> <span class="na">code=</span><span class="s">&quot;UsersRoles &quot;</span> <span class="na">flag=</span><span class="s">&quot;required&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;usersProperties&quot;</span> <span class="na">value=</span><span class="s">&quot;users.properties&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;module-option</span> <span class="na">name=</span><span class="s">&quot;rolesProperties&quot;</span> <span class="na">value=</span><span class="s">&quot;roles.properties&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/login-module&gt;</span>
+        <span class="nt">&lt;/authentication&gt;</span>
+    <span class="nt">&lt;/security-domain&gt;</span>
+</pre></div>
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<p>If you do not have a running server:</p>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span>
+</pre></div></li>
+<li><p>This deploys <code>target/jboss-picketlink-sts.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<p><em>Note:</em> When you deploy the quickstart, you will see the following warnings in the server log. These warnings are expected.</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">dependency</span><span class="o">.</span><span class="vg">deprecated</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">MSC</span><span class="w"> </span><span class="vg">service</span><span class="w"> </span><span class="vg">thread</span><span class="w"> </span><span class="il">1-5</span><span class="p">)</span><span class="w"> </span><span class="nl">WFLYSRV0221:</span><span class="w"> </span><span class="vg">Deployment</span><span class="w"> </span><span class="s2">&quot;deployment.jboss-picketlink-sts.war&quot;</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">using</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">deprecated</span><span class="w"> </span><span class="vg">module</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;org.picketlink:main&quot;</span><span class="p">)</span><span class="w"> </span><span class="vg">which</span><span class="w"> </span><span class="vg">may</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">removed</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">future</span><span class="w"> </span><span class="vg">versions</span><span class="w"> </span><span class="vg">without</span><span class="w"> </span><span class="vg">notice</span><span class="o">.</span>
+<span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">dependency</span><span class="o">.</span><span class="vg">deprecated</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">MSC</span><span class="w"> </span><span class="vg">service</span><span class="w"> </span><span class="vg">thread</span><span class="w"> </span><span class="il">1-5</span><span class="p">)</span><span class="w"> </span><span class="nl">WFLYSRV0221:</span><span class="w"> </span><span class="vg">Deployment</span><span class="w"> </span><span class="s2">&quot;deployment.jboss-picketlink-sts.war&quot;</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">using</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">deprecated</span><span class="w"> </span><span class="vg">module</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;org.picketlink:main&quot;</span><span class="p">)</span><span class="w"> </span><span class="vg">which</span><span class="w"> </span><span class="vg">may</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">removed</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">future</span><span class="w"> </span><span class="vg">versions</span><span class="w"> </span><span class="vg">without</span><span class="w"> </span><span class="vg">notice</span><span class="o">.</span>
+</pre></div>
+<h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the Application</h2>
+
+<p>You can test the service as follows:</p>
+
+<ol>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">exec:</span><span class="vg">java</span>
+</pre></div></li>
+<li><p>You should see a <code>&lt;saml:Assertion</code> assertion from PicketLink STS along with a <code>BUILD SUCCESS</code> printed to the console. </p>
+<div class="highlight"><pre>Invoking token service to get SAML assertion for user:UserA with password:PassA
+SAML assertion for user:UserA successfully obtained!
+<span class="nt">&lt;saml:Assertion</span> <span class="na">xmlns:saml=</span><span class="s">&quot;urn:oasis:names:tc:SAML:2.0:assertion&quot;</span> <span class="na">ID=</span><span class="s">&quot;ID_79157aa6-38ab-4e5e-a562-78bade9ffb82&quot;</span> <span class="na">IssueInstant=</span><span class="s">&quot;2013-11-18T18:19:35.955Z&quot;</span> <span class="na">Version=</span><span class="s">&quot;2.0&quot;</span><span class="nt">&gt;&lt;saml:Issuer&gt;</span>PicketLinkSTS<span class="nt">&lt;/saml:Issuer&gt;&lt;dsig:Signature</span> <span class="na">xmlns:dsig=</span><span class="s">&quot;http://www.w3.org/2000/09/xmldsig#&quot;</span><span class="nt">&gt;&lt;dsig:SignedInfo&gt;&lt;dsig:CanonicalizationMethod</span> <span class="na">Algorithm=</span><span class="s">&quot;http://www.w3.org/2001/10/xml-exc-c14n#WithComments&quot;</span><span class="nt">/&gt;&lt;dsig:SignatureMethod</span> <span class="na">Algorithm=</span><span class="s">&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;</span><span class="nt">/&gt;&lt;dsig:Reference</span> <span class="na">URI=</span><span class="s">&quot;#ID_79157aa6-38ab-4e5e-a562-78bade9ffb82&quot;</span><span class="nt">&gt;&lt;dsig:Transforms&gt;&lt;dsig:Transform</span> <span class="na">Algorithm=</span><span class="s">&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;</span><span class="nt">/&gt;&lt;dsig:Transform</span> <span class="na">Algorithm=</span><span class="s">&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;</span><span class="nt">/&gt;&lt;/dsig:Transforms&gt;&lt;dsig:DigestMethod</span> <span class="na">Algorithm=</span><span class="s">&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;</span><span class="nt">/&gt;&lt;dsig:DigestValue&gt;</span>7LaVacKTsP6wnuNlsQ6KASNDgdE=<span class="nt">&lt;/dsig:DigestValue&gt;&lt;/dsig:Reference&gt;&lt;/dsig:SignedInfo&gt;&lt;dsig:SignatureValue&gt;</span>jiyC63KG65d019PY7ThZzyojiU6iJMAr9N39uqrPr3HBGPfW7JjwFH9tahsFKjgoQQH7ToRLKZJKvm12TmDured+s+5VyI+Py6TsDiaQCRnNSeARvYdXFwNCA1D8Sx0xDkXKWpgB3YZenBV6U0IZtmAa5CxXFKmdqxEzHweAPq0=<span class="nt">&lt;/dsig:SignatureValue&gt;&lt;dsig:KeyInfo&gt;&lt;dsig:KeyValue&gt;&lt;dsig:RSAKeyValue&gt;&lt;dsig:Modulus&gt;</span>suGIyhVTbFvDwZdx8Av62zmP+aGOlsBN8WUE3eEEcDtOIZgO78SImMQGwB2C0eIVMhiLRzVPqoW1dCPAveTm653zHOmubaps1fY0lLJDSZbTbhjeYhoQmmaBro/tDpVw5lKJns2qVnMuRK19ju2dxpKwlYGGtrP5VQv00dfNPbs=<span class="nt">&lt;/dsig:Modulus&gt;&lt;dsig:Exponent&gt;</span>AQAB<span class="nt">&lt;/dsig:Exponent&gt;&lt;/dsig:RSAKeyValue&gt;&lt;/dsig:KeyValue&gt;&lt;/dsig:KeyInfo&gt;&lt;/dsig:Signature&gt;&lt;saml:Subject&gt;&lt;saml:NameID</span> <span class="na">NameQualifier=</span><span class="s">&quot;urn:picketlink:identity-federation&quot;</span><span class="nt">&gt;</span>UserA<span class="nt">&lt;/saml:NameID&gt;&lt;saml:SubjectConfirmation</span> <span class="na">Method=</span><span class="s">&quot;urn:oasis:names:tc:SAML:2.0:cm:bearer&quot;</span><span class="nt">/&gt;&lt;/saml:Subject&gt;&lt;saml:Conditions</span> <span class="na">NotBefore=</span><span class="s">&quot;2013-11-18T18:19:35.955Z&quot;</span> <span class="na">NotOnOrAfter=</span><span class="s">&quot;2013-11-18T20:19:35.955Z&quot;</span><span class="nt">/&gt;&lt;saml:AuthnStatement</span> <span class="na">AuthnInstant=</span><span class="s">&quot;2013-11-18T18:19:35.955Z&quot;</span><span class="nt">&gt;&lt;saml:AuthnContext&gt;&lt;saml:AuthnContextClassRef&gt;</span>urn:oasis:names:tc:SAML:2.0:cm:bearer<span class="nt">&lt;/saml:AuthnContextClassRef&gt;&lt;/saml:AuthnContext&gt;&lt;/saml:AuthnStatement&gt;&lt;/saml:Assertion&gt;</span>
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.404s
+[INFO] Finished at: Mon Nov 18 13:19:36 EST 2013
+[INFO] Final Memory: 7M/146M
+[INFO] ------------------------------------------------------------------------
+</pre></div></li>
+</ol>
+
+<p><em>Note:</em>: You also see the following warnings in the server log. These warnings are expected because the quickstart does not provide a configuration that persists tokens. </p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">picketlink</span><span class="o">.</span><span class="vg">common</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="il">8080-4</span><span class="p">)</span><span class="w"> </span><span class="vg">Loading</span><span class="w"> </span><span class="vg">STS</span><span class="w"> </span><span class="vg">configuration</span>
+<span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">picketlink</span><span class="o">.</span><span class="vg">common</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="il">8080-4</span><span class="p">)</span><span class="w"> </span><span class="vg">Security</span><span class="w"> </span><span class="vg">Token</span><span class="w"> </span><span class="vg">registry</span><span class="w"> </span><span class="vg">option</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="nl">specified:</span><span class="w"> </span><span class="vg">Issued</span><span class="w"> </span><span class="vg">Tokens</span><span class="w"> </span><span class="vg">will</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">persisted!</span>
+<span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">picketlink</span><span class="o">.</span><span class="vg">common</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="il">8080-4</span><span class="p">)</span><span class="w"> </span><span class="vg">Security</span><span class="w"> </span><span class="vg">Token</span><span class="w"> </span><span class="vg">registry</span><span class="w"> </span><span class="vg">option</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="nl">specified:</span><span class="w"> </span><span class="vg">Issued</span><span class="w"> </span><span class="vg">Tokens</span><span class="w"> </span><span class="vg">will</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">persisted!</span>
+<span class="w">    </span><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">picketlink</span><span class="o">.</span><span class="vg">common</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="il">8080-4</span><span class="p">)</span><span class="w"> </span><span class="vg">picketlink</span><span class="o">-</span><span class="vg">sts</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="vg">configuration</span><span class="w"> </span><span class="vg">file</span><span class="w"> </span><span class="vg">loaded</span>
+<span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">picketlink</span><span class="o">.</span><span class="vg">common</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">http</span><span class="o">-/</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="il">8080-4</span><span class="p">)</span><span class="w"> </span><span class="vg">Lifetime</span><span class="w"> </span><span class="vg">has</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">been</span><span class="w"> </span><span class="vg">specified</span><span class="o">.</span><span class="w"> </span><span class="vg">Using</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">default</span><span class="w"> </span><span class="vg">timeout</span><span class="w"> </span><span class="vg">value</span><span class="o">.</span>
+</pre></div>
+<h2><a id="undeploy-and-remove-the-security-domain-configuration" class="anchor" href="#undeploy-and-remove-the-security-domain-configuration"><span class="anchor-icon"></span></a>Undeploy and Remove the Security Domain Configuration</h2>
+
+<h3><a id="undeploy-and-remove-the-security-domain-using-the-jboss-cli" class="anchor" href="#undeploy-and-remove-the-security-domain-using-the-jboss-cli"><span class="anchor-icon"></span></a>Undeploy and Remove the Security Domain Using the JBoss CLI</h3>
+
+<p>You can undeploy the quickstart and remove the security domain configuration in one easy step using the <code>undeploy-and-remove-security-domain.cli</code> script located in the root directory of this quickstart.</p>
+
+<ol>
+<li>Open a new command prompt, navigate to the root directory of this quickstart.</li>
+<li><p>Run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">undeploy</span><span class="o">-</span><span class="vg">and</span><span class="o">-</span><span class="vg">remove</span><span class="o">-</span><span class="vg">security</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">undeploy</span><span class="o">-</span><span class="vg">and</span><span class="o">-</span><span class="vg">remove</span><span class="o">-</span><span class="vg">security</span><span class="o">-</span><span class="vg">domain</span><span class="o">.</span><span class="vg">cli</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;operation-requires-reload&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">true</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;reload-required&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="undeploy-the-quickstart-and-remove-the-security-domain-manually" class="anchor" href="#undeploy-the-quickstart-and-remove-the-security-domain-manually"><span class="anchor-icon"></span></a>Undeploy the quickstart and Remove the Security Domain Manually</h3>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">undeploy</span>
+</pre></div></li>
+<li><p>Stop the JBoss EAP server.</p></li>
+<li><p>Replace the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</p></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<ol>
+<li>Be sure to configure the security domain by running the JBoss CLI commands as described above under <a href="#configure-the-jboss-eap-server">Configure the JBoss EAP Server</a>. Stop the server at the end of that step.</li>
+<li>To deploy the server project, right-click on the <code>jboss-picketlink-sts</code> project and choose <code>Run As</code> &ndash;&gt; <code>Run on Server</code>. </li>
+<li><p>You are presented with a server message <code>PicketLinkSTSRealm</code> and challenged to enter valid authentication credentials. Enter the following information and then click <code>OK</code>.</p>
+<div class="highlight"><pre><span class="w">    </span><span class="nl">UserName:</span><span class="w"> </span><span class="vg">JBoss</span>
+<span class="w">    </span><span class="nl">Password:</span><span class="w"> </span><span class="vg">JBoss</span>
+</pre></div>
+<p>JBoss Developer Studio then displays the welcome file.</p></li>
+<li><p>Follow these steps to test the service.</p></li>
+</ol>
+<div class="highlight"><pre><span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="vg">Right</span><span class="o">-</span><span class="vg">click</span><span class="w"> </span><span class="vg">on</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="err">`</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">picketlink</span><span class="o">-</span><span class="vg">sts</span><span class="err">`</span><span class="w"> </span><span class="vg">project</span><span class="w"> </span><span class="vg">and</span><span class="w"> </span><span class="vg">choose</span><span class="w"> </span><span class="err">`</span><span class="vg">Run</span><span class="w"> </span><span class="vg">As</span><span class="err">`</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="err">`</span><span class="vg">Maven</span><span class="w"> </span><span class="vg">Build</span><span class="err">`</span><span class="o">.</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="vg">Enter</span><span class="w"> </span><span class="err">`</span><span class="vg">picketlink</span><span class="o">-</span><span class="vg">sts</span><span class="err">`</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="err">`</span><span class="vg">Name</span><span class="err">`</span><span class="o">.</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="vg">Enter</span><span class="w"> </span><span class="err">`</span><span class="nl">exec:</span><span class="vg">java</span><span class="err">`</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="err">`</span><span class="nl">Goals:</span><span class="err">`</span><span class="o">.</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="vg">Click</span><span class="w"> </span><span class="err">`</span><span class="vg">Run</span><span class="err">`</span><span class="o">.</span>
+<span class="w">  </span><span class="o">*</span><span class="w"> </span><span class="vg">Review</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">output</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">console</span><span class="w"> </span><span class="vg">window</span><span class="o">.</span>
+</pre></div>
+<p><em>NOTE:</em> Be sure to <a href="#undeploy-and-remove-the-security-domain-configuration">Undeploy and Remove the Security Domain Configuration</a> when you have completed testing this quickstart.</p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre><span class="w">  </span><span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">sources</span>
+</pre></div></body></html>

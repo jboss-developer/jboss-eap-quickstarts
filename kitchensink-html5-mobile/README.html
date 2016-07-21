@@ -1,0 +1,126 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="kitchensinkhtml5mobile-more-complex-example-of-html5-mobile-and-jaxrs-" class="anchor" href="#kitchensinkhtml5mobile-more-complex-example-of-html5-mobile-and-jaxrs-"><span class="anchor-icon"></span></a>kitchensink-html5-mobile: More Complex Example of HTML5, Mobile and JAX-RS </h1>
+
+<p>Author: Jay Balunas<br/>
+Level: Beginner<br/>
+Technologies: CDI, HTML5, REST<br/>
+Summary: The <code>kitchensink-html5-mobile</code> quickstart is based on <code>kitchensink</code>, but uses HTML5 and jQuery Mobile, making it suitable for mobile and tablet computers.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts">https://github.com/jboss-developer/jboss-eap-quickstarts</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>kitchensink-html5-mobile</code> quickstart is based on the <code>kitchensink</code> quickstart and demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST in Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>This application is built using a HTML5 + REST approach. This uses a pure HTML client that interacts with the application server via restful end-points (JAX-RS). This application also uses some of the latest HTML5 features and advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses QUnit to show you how to unit test your JavaScript.</p>
+
+<p>What is a modern web application without mobile web support? This application also integrates jQuery mobile and basic client side device detection to give you both a desktop and mobile version of the interface. Both support the same features, including form validation, member registration, etc. However the mobile version adds in mobile layout, touch, and performance improvements needed to get you started with mobile web development on JBoss.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<p>An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors will vary slightly (ex. validations) based on browser support, especially IE 9.</p>
+
+<p>Mobile web support is limited to Android and iOS devices. It should run on HP, and Black Berry devices as well. Windows Phone, and others will be supported as jQuery Mobile announces support.</p>
+
+<p>With the prerequisites out of the way, you are ready to build and deploy.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the default profile:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+</ol>
+
+<p>Note: Adding <code>-b 0.0.0.0</code> to the above commands will allow external clients, such as phones, tablets, and desktops, connect through your local network.</p>
+
+<p>For example</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">b</span><span class="w"> </span><span class="mf">0.0.0.0</span>
+<span class="w">    </span><span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">b</span><span class="w"> </span><span class="mf">0.0.0.0</span>
+</pre></div>
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span>
+</pre></div></li>
+<li><p>This deploys <code>target/jboss-kitchensink-html5-mobile.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application" class="anchor" href="#access-the-application"><span class="anchor-icon"></span></a>Access the application</h2>
+
+<p>Access the running client application in a browser at the following URL: <a href="http://localhost:8080/jboss-kitchensink-html5-mobile/">http://localhost:8080/jboss-kitchensink-html5-mobile/</a>.</p>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<!-- Build and Deploy the Quickstart to OpenShift - Coming soon! -->
+
+<h2><a id="minification" class="anchor" href="#minification"><span class="anchor-icon"></span></a>Minification</h2>
+
+<p>By default, the project uses the <a href="https://github.com/wro4j/wro4j">wro4j</a> plugin, which provides the ability to concatenate, validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.</p>
+
+<p>With just a few quick changes to the project, you can link to the minified versions of your JavaScript and CSS files.</p>
+
+<p>First, in the <code>&lt;project-root&gt;/src/main/webapp/index.html</code> file, search for references to minification and comment or uncomment the appropriate lines.</p>
+
+<p>Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. The plugin is in a profile with an id of <code>minify</code> so you will want to specify that profile in your maven build.</p>
+
+<p>NOTE: By default there are turn off tests so you must use the arquillian test profile to run tests when minifying.
+For example:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="vg">No</span><span class="w"> </span><span class="vg">Tests</span>
+<span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span><span class="w"> </span><span class="o">-</span><span class="vg">Pminify</span>
+</pre></div>
+<p>OR</p>
+<div class="highlight"><pre><span class="err">#</span><span class="vg">With</span><span class="w"> </span><span class="vg">Tests</span>
+<span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span><span class="w"> </span><span class="o">-</span><span class="vg">Pminify</span><span class="p">,</span><span class="vg">arq</span><span class="o">-</span><span class="vg">wildfly</span><span class="o">-</span><span class="vg">remote</span>
+</pre></div>
+<h2><a id="run-the-arquillian-tests" class="anchor" href="#run-the-arquillian-tests"><span class="anchor-icon"></span></a>Run the Arquillian tests</h2>
+
+<p>By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires the use of a container. You can activate this test by selecting one of the container configuration provided for JBoss.</p>
+
+<p>To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">test</span><span class="w"> </span><span class="o">-</span><span class="vg">Parq</span><span class="o">-</span><span class="vg">wildfly</span><span class="o">-</span><span class="vg">remote</span>
+</pre></div>
+<h2><a id="run-the-qunit-tests" class="anchor" href="#run-the-qunit-tests"><span class="anchor-icon"></span></a>Run the QUnit tests</h2>
+
+<p>QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of an HTML5 application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. </p>
+
+<p>Executing QUnit test cases is quite easy. Simply load the following HTML file in the browser you want to test.</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">QUICKSTART_HOME</span><span class="o">/</span><span class="vg">kitchensink</span><span class="o">-</span><span class="vg">html5</span><span class="o">-</span><span class="vg">mobile</span><span class="o">/</span><span class="vg">src</span><span class="o">/</span><span class="vg">test</span><span class="o">/</span><span class="vg">qunit</span><span class="o">/</span><span class="vg">index</span><span class="o">.</span><span class="vg">html</span>
+</pre></div>
+<p>You can also display the QUnit tests using the Eclipse built-in browser.</p>
+
+<p>For more information on QUnit tests see <a href="http://qunitjs.com/">http://qunitjs.com/</a></p>
+
+<h2><a id="import-the-project-into-an-ide" class="anchor" href="#import-the-project-into-an-ide"><span class="anchor-icon"></span></a>Import the Project into an IDE</h2>
+
+<p>If you created the project using the Maven archetype wizard in your IDE (Eclipse, NetBeans or IntelliJ IDEA), then there is nothing to do. You should already have an IDE project.</p>
+
+<p>If you created the project from the command line using archetype:generate, then you need to import the project into your IDE. If you are using NetBeans 6.8 or IntelliJ IDEA 9, then all you have to do is open the project as an existing project. Both of these IDEs recognize Maven projects natively.</p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to be able to debug into the source code or look at the Javadocs of any library in the project, you can run either of the following two commands to pull them into your local repository. The IDE should then detect them.</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">sources</span>
+<span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">resolve</span><span class="w"> </span><span class="o">-</span><span class="vg">Dclassifier</span><span class="o">=</span><span class="vg">javadoc</span>
+</pre></div></body></html>

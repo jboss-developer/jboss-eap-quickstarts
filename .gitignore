@@ -2,6 +2,7 @@
 atlassian-ide-plugin.xml
 bin
 CONTRIBUTING.html
+RELEASE_PROCEDURE.html
 helloworld-gwt/src/main/gwt-unitCache
 helloworld-gwt/src/main/webapp/HelloWorldApp
 helloworld-gwt/src/main/webapp/WEB-INF/deploy
@@ -10,8 +11,6 @@ helloworld-errai/src/main/webapp/HelloWorldApp
 helloworld-errai/src/main/webapp/WEB-INF/deploy
 MANIFEST.MF
 out
-README.html
-RELEASE_PROCEDURE.html
 target
 .classpath
 .clover

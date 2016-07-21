@@ -1,0 +1,241 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="helloworldjms-helloworld-jms-example" class="anchor" href="#helloworldjms-helloworld-jms-example"><span class="anchor-icon"></span></a>helloworld-jms: Helloworld JMS Example</h1>
+
+<p>Author: Weston Price<br/>
+Level: Intermediate<br/>
+Technologies: JMS<br/>
+Summary: The <code>helloworld-jms</code> quickstart demonstrates the use of external JMS clients with JBoss EAP.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>helloworld-jms</code> quickstart demonstrates the use of external JMS clients with Red Hat JBoss Enterprise Application Platform.</p>
+
+<p>It contains the following:</p>
+
+<ol>
+<li><p>A message producer that sends messages to a JMS destination deployed to a JBoss EAP server.</p></li>
+<li><p>A message consumer that receives message from a JMS destination deployed to a JBoss EAP server. </p></li>
+</ol>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="add-an-application-user" class="anchor" href="#add-an-application-user"><span class="anchor-icon"></span></a>Add an Application User</h2>
+
+<p>This quickstart uses secured management interfaces and requires that you create the following application user to access the running application. </p>
+
+<table><thead>
+<tr>
+<th style="text-align: left"><strong>UserName</strong></th>
+<th style="text-align: left"><strong>Realm</strong></th>
+<th style="text-align: left"><strong>Password</strong></th>
+<th style="text-align: left"><strong>Roles</strong></th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">quickstartUser</td>
+<td style="text-align: left">ApplicationRealm</td>
+<td style="text-align: left">quickstartPwd1!</td>
+<td style="text-align: left">guest</td>
+</tr>
+</tbody></table>
+
+<p>To add the application user, open a command prompt and type the following command:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="c1">&#39;quickstartUser&#39; -p &#39;quickstartPwd1!&#39; -g &#39;guest&#39;</span>
+<span class="w">    </span><span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">add</span><span class="o">-</span><span class="vg">user</span><span class="o">.</span><span class="vg">bat</span><span class="w">  </span><span class="o">-</span><span class="vg">a</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="c1">&#39;quickstartUser&#39; -p &#39;quickstartPwd1!&#39; -g &#39;guest&#39;</span>
+</pre></div>
+<p>If you prefer, you can use the add-user utility interactively. 
+For an example of how to use the add-user utility, see the instructions located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
+
+<p>You configure the JMS <code>test</code> queue by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-jms.cli</code> script provided in the root directory of this quickstart. </p>
+
+<ol>
+<li>Before you begin, back up your server configuration file
+
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone-full.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul></li>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+</pre></div></li>
+<li><p>Review the <code>configure-jms.cli</code> file in the root of this quickstart directory. This script adds the <code>test</code> queue to the <code>messaging</code> subsystem in the server configuration file.</p></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">jms</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">jms</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span><span class="o">.</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+</pre></div></li>
+<li><p>Stop the JBoss EAP server.</p></li>
+</ol>
+
+<h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
+
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone-full.xml</code> file and review the changes.</p>
+
+<p>The following <code>testQueue</code> jms-queue was configured in the default server configuration of the  <code>messaging-activemq</code> subsystem.</p>
+<div class="highlight"><pre><span class="w">  </span><span class="o">&lt;</span><span class="vg">jms</span><span class="o">-</span><span class="vg">queue</span><span class="w"> </span><span class="vg">name</span><span class="o">=</span><span class="s2">&quot;testQueue&quot;</span><span class="w"> </span><span class="vg">entries</span><span class="o">=</span><span class="s2">&quot;queue/test java:jboss/exported/jms/queue/test&quot;</span><span class="o">/&gt;</span>
+</pre></div>
+<h2><a id="start-the-jboss-eap-server-with-the-full-profile" class="anchor" href="#start-the-jboss-eap-server-with-the-full-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Server with the Full Profile</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the full profile:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-execute-the-quickstart" class="anchor" href="#build-and-execute-the-quickstart"><span class="anchor-icon"></span></a>Build and Execute the Quickstart</h2>
+
+<p>To run the quickstart from the command line:</p>
+
+<ol>
+<li><p>Make sure you have started the JBoss EAP server. See the instructions in the previous section.</p></li>
+<li><p>Open a command prompt and navigate to the root of the helloworld-jms quickstart directory:</p>
+<div class="highlight"><pre><span class="vg">cd</span><span class="w"> </span><span class="vg">PATH_TO_QUICKSTARTS</span><span class="o">/</span><span class="vg">helloworld</span><span class="o">-</span><span class="vg">jms</span>
+</pre></div></li>
+<li><p>Type the following command to compile and execute the quickstart:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">compile</span><span class="w"> </span><span class="nl">exec:</span><span class="vg">java</span>
+</pre></div></li>
+</ol>
+
+<p><em>NOTE: If you execute this command multiple times, you may see the following warning and exception, followed by a stacktrace. This is caused by a bug in Artemis that has been fixed, but not yet released. For details, see <a href="https://issues.apache.org/jira/browse/ARTEMIS-158">https://issues.apache.org/jira/browse/ARTEMIS-158</a>. You can ignore this warning.</em></p>
+<div class="highlight"><pre><span class="nv">WARN</span><span class="s-Atom">:</span> <span class="nv">AMQ212007</span><span class="s-Atom">:</span> <span class="s-Atom">connector</span><span class="p">.</span><span class="s-Atom">create</span> <span class="s-Atom">or</span> <span class="s-Atom">connectorFactory</span><span class="p">.</span><span class="s-Atom">createConnector</span> <span class="s-Atom">should</span> <span class="s-Atom">never</span> <span class="s-Atom">throw</span> <span class="s-Atom">an</span> <span class="s-Atom">exception</span><span class="p">,</span> <span class="s-Atom">implementation</span> <span class="o">is</span> <span class="s-Atom">badly</span> <span class="s-Atom">behaved</span><span class="p">,</span> <span class="s-Atom">but</span> <span class="s-Atom">we</span> <span class="s-Atom">will</span> <span class="s-Atom">deal</span> <span class="s-Atom">with</span> <span class="s-Atom">it</span> <span class="s-Atom">anyway</span><span class="p">.</span>
+<span class="s-Atom">java</span><span class="p">.</span><span class="s-Atom">lang</span><span class="p">.</span><span class="nv">IllegalArgumentException</span><span class="s-Atom">:</span> <span class="s-Atom">port</span> <span class="s-Atom">out</span> <span class="s-Atom">of</span> <span class="nn">range</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+<h2><a id="investigate-the-console-output" class="anchor" href="#investigate-the-console-output"><span class="anchor-icon"></span></a>Investigate the Console Output</h2>
+
+<p>If the Maven command is successful, with the default configuration you will see output similar to this:</p>
+<div class="highlight"><pre><span class="vg">timestamp</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">jms</span><span class="o">.</span><span class="vg">HelloWorldJMSClient</span><span class="w"> </span><span class="vg">main</span>
+<span class="nl">INFO:</span><span class="w"> </span><span class="vg">Attempting</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">acquire</span><span class="w"> </span><span class="vg">connection</span><span class="w"> </span><span class="vg">factory</span><span class="w"> </span><span class="s2">&quot;jms/RemoteConnectionFactory&quot;</span>
+<span class="nl">SLF4J:</span><span class="w"> </span><span class="vg">Failed</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">load</span><span class="w"> </span><span class="vg">class</span><span class="w"> </span><span class="s2">&quot;org.slf4j.impl.StaticLoggerBinder&quot;</span><span class="o">.</span>
+<span class="nl">SLF4J:</span><span class="w"> </span><span class="vg">Defaulting</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">no</span><span class="o">-</span><span class="vg">operation</span><span class="w"> </span><span class="p">(</span><span class="vg">NOP</span><span class="p">)</span><span class="w"> </span><span class="vg">logger</span><span class="w"> </span><span class="vg">implementation</span>
+<span class="nl">SLF4J:</span><span class="w"> </span><span class="vg">See</span><span class="w"> </span><span class="nl">http:</span><span class="o">//</span><span class="vg">www</span><span class="o">.</span><span class="vg">slf4j</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">codes</span><span class="o">.</span><span class="vg">html#StaticLoggerBinder</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">further</span><span class="w"> </span><span class="vg">details</span><span class="o">.</span>
+<span class="vg">timestamp</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">jms</span><span class="o">.</span><span class="vg">HelloWorldJMSClient</span><span class="w"> </span><span class="vg">main</span>
+<span class="nl">INFO:</span><span class="w"> </span><span class="vg">Found</span><span class="w"> </span><span class="vg">connection</span><span class="w"> </span><span class="vg">factory</span><span class="w"> </span><span class="s2">&quot;jms/RemoteConnectionFactory&quot;</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">JNDI</span>
+<span class="vg">timestamp</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">jms</span><span class="o">.</span><span class="vg">HelloWorldJMSClient</span><span class="w"> </span><span class="vg">main</span>
+<span class="nl">INFO:</span><span class="w"> </span><span class="vg">Attempting</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">acquire</span><span class="w"> </span><span class="vg">destination</span><span class="w"> </span><span class="s2">&quot;jms/queue/test&quot;</span>
+<span class="vg">timestamp</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">jms</span><span class="o">.</span><span class="vg">HelloWorldJMSClient</span><span class="w"> </span><span class="vg">main</span>
+<span class="nl">INFO:</span><span class="w"> </span><span class="vg">Found</span><span class="w"> </span><span class="vg">destination</span><span class="w"> </span><span class="s2">&quot;jms/queue/test&quot;</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">JNDI</span>
+<span class="vg">timestamp</span><span class="w"> </span><span class="vg">AM</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">jms</span><span class="o">.</span><span class="vg">HelloWorldJMSClient</span><span class="w"> </span><span class="vg">main</span>
+<span class="nl">INFO:</span><span class="w"> </span><span class="vg">Sending</span><span class="w"> </span><span class="il">1</span><span class="w"> </span><span class="vg">messages</span><span class="w"> </span><span class="vg">with</span><span class="w"> </span><span class="nl">content:</span><span class="w"> </span><span class="vg">Hello</span><span class="p">,</span><span class="w"> </span><span class="vg">World!</span>
+<span class="vg">timestamp</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">jms</span><span class="o">.</span><span class="vg">HelloWorldJMSClient</span><span class="w"> </span><span class="vg">main</span>
+<span class="nl">INFO:</span><span class="w"> </span><span class="vg">Received</span><span class="w"> </span><span class="vg">message</span><span class="w"> </span><span class="vg">with</span><span class="w"> </span><span class="vg">content</span><span class="w"> </span><span class="vg">Hello</span><span class="p">,</span><span class="w"> </span><span class="vg">World!</span>
+</pre></div>
+<h2><a id="optional-properties" class="anchor" href="#optional-properties"><span class="anchor-icon"></span></a>Optional Properties</h2>
+
+<p>The example provides for a certain amount of customization for the <code>mvn:exec</code> plug-in using the system properties.</p>
+
+<ul>
+<li><p><code>username</code></p>
+
+<p>This username is used for both the JMS connection and the JNDI look-up.  Instructions to set up the quickstart application user can be found here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+
+<p>Default: <code>quickstartUser</code></p></li>
+<li><p><code>password</code></p>
+
+<p>This password is used for both the JMS connection and the JNDI look-up.  Instructions to set up the quickstart application user can be found here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a></p>
+
+<p>Default: <code>quickstartPwd1!</code></p></li>
+<li><p><code>connection.factory</code></p>
+
+<p>The name of the JMS ConnectionFactory you want to use.</p>
+
+<p>Default: <code>jms/RemoteConnectionFactory</code></p></li>
+<li><p><code>destination</code></p>
+
+<p>The name of the JMS Destination you want to use.</p>
+
+<p>Default: <code>jms/queue/test</code></p></li>
+<li><p><code>message.count</code></p>
+
+<p>The number of JMS messages you want to produce and consume.</p>
+
+<p>Default: <code>1</code></p></li>
+<li><p><code>message.content</code></p>
+
+<p>The content of the JMS TextMessage.</p>
+
+<p>Default: <code>&quot;Hello, World!&quot;</code></p></li>
+<li><p><code>java.naming.provider.url</code></p>
+
+<p>This property allows configuration of the JNDI directory used to lookup the JMS destination. This is useful when the client resides on another host. </p>
+
+<p>Default: <code>&quot;localhost&quot;</code></p></li>
+</ul>
+
+<h2><a id="remove-the-jms-configuration" class="anchor" href="#remove-the-jms-configuration"><span class="anchor-icon"></span></a>Remove the JMS Configuration</h2>
+
+<p>You can remove the JMS configuration by running the  <code>remove-jms.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. </p>
+
+<h3><a id="remove-the-jms-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-jms-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the JMS Configuration by Running the JBoss CLI Script</h3>
+
+<ol>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+</pre></div></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">remove</span><span class="o">-</span><span class="vg">jms</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">remove</span><span class="o">-</span><span class="vg">jms</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+</pre></div>
+<p>This script removes the <code>test</code> queue from the <code>messaging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span><span class="o">.</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="remove-the-jms-configuration-manually" class="anchor" href="#remove-the-jms-configuration-manually"><span class="anchor-icon"></span></a>Remove the JMS Configuration Manually</h3>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone-full.xml</code> file with the back-up copy of the file.</li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p>This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+
+<ol>
+<li>Be sure to <a href="#add-an-application-user">Add an Application User</a> as described above.</li>
+<li>Configure and start the JBoss EAP server in Red Hat JBoss Developer Studio:
+
+<ul>
+<li>Define a server runtime environment that uses the <code>standalone-full.xml</code> configuration file.</li>
+<li>Start the server defined in the previous step.</li>
+</ul></li>
+<li>Outside of JBoss Developer Studio, configure the JMS <code>test</code> queue by running the JBoss CLI commands as described above under <a href="#configure-the-jboss-eap-server">Configure the JBoss EAP Server</a>. </li>
+<li>In JBoss Developer Studio, right-click on the <code>jboss-helloworld-jms</code> project and choose <code>Run As</code> &ndash;&gt; <code>Java Application</code>.  In the <code>Select Java Application</code> window, choose <code>HellowWorldJMSClient - org.jboss.as.quickstarts.jms</code> and click <code>OK</code>. The client output displays in the <code>Console</code> window.
+The output messages appear in the <code>Console</code> window.</li>
+<li>Be sure to <a href="#remove-the-jms-configuration">Remove the JMS Configuration</a> when you have completed testing this quickstart.</li>
+</ol>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">sources</span>
+</pre></div></body></html>

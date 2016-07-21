@@ -1,0 +1,311 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="jts-java-transaction-service-distributed-ejb-transactions" class="anchor" href="#jts-java-transaction-service-distributed-ejb-transactions"><span class="anchor-icon"></span></a>jts: Java Transaction Service - Distributed EJB Transactions</h1>
+
+<p>Author: Tom Jenkinson<br/>
+Level: Intermediate<br/>
+Technologies: JTS, EJB, JMS<br/>
+Summary: The <code>jts</code> quickstart shows how to use JTS to perform distributed transactions across multiple containers, fulfilling the properties of an ACID transaction.<br/>
+Prerequisites: cmt<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>jts</code> quickstart demonstrates how to perform distributed transactions across multiple containers in an application deployed to Red Hat JBoss Enterprise Application Platform. A distributed transaction is a set of operations performed by two or more nodes, participating in an activity coordinated as a single entity of work, and fulfilling the properties of an ACID transaction. </p>
+
+<p>ACID is a set of 4 properties that guarantee the resources are processed in the following manner:</p>
+
+<ul>
+<li>Atomic - if any part of the transaction fails, all resources remain unchanged. </li>
+<li>Consistent - the state will be consistent across resources after a commit</li>
+<li>Isolated - the execution of the transaction for each resource is isolated from each others</li>
+<li>Durable - the data will persist after the transaction is committed</li>
+</ul>
+
+<p>The example uses Java Transaction Service (JTS) to propagate a transaction context across two Container-Managed Transaction (CMT) EJBs that, although deployed in separate servers, participate in the same transaction. In this example, one server processes the Customer and Account data and the other server processes the Invoice data.</p>
+
+<p>The code base is essentially the same as the <a href="../cmt/README.html">cmt</a> quickstart, however in this case the <code>InvoiceManager</code> has been separated to a different deployment archive to demonstrate the usage of JTS. You can see the changes in the 
+following ways:</p>
+
+<ol>
+<li><code>cmt/src/main/java/org/jboss/as/quickstarts/cmt/ejb/InvoiceManagerEJB.java</code> has been moved to <code>application-component-2/src/main/java/org/jboss/as/quickstarts/cmt/jts/ejb/InvoiceManagerEJB</code></li>
+<li><code>cmt/src/main/java/org/jboss/as/quickstarts/cmt/ejb/CustomerManagerEJB.java</code> has been moved to <code>jts/application-component-1/src/main/java/org/jboss/as/quickstarts/cmt/jts/ejb/CustomerManagerEJB.java</code></li>
+</ol>
+
+<p>The changes to <code>CustomerManagerEJB</code> are purely to accommodate the fact that <code>InvoiceManager</code> is now distributed.</p>
+
+<p>You will see that the <code>CustomerManagerEJB</code> uses the EJB home for the remote EJB, this is expected to connect to remote EJBs. The example expects the EJBs to be deployed onto the same physical machine. This is not a restriction of JTS and the example can easily be converted to run on separate machines by editing the hostname value for the <code>InvoiceManagerEJB</code> in <code>org.jboss.as.quickstarts.cmt.jts.ejb.CustomerManagerEJB</code>.</p>
+
+<p>A simple MDB has been provided that prints out the messages sent but this is not a transactional MDB and is purely provided for debugging purposes.</p>
+
+<p>Also, while the <code>cmt</code> quickstart uses the Java EE container default datasource, which is not distributed, this quickstart instead uses an external PostgreSQL database.</p>
+
+<p>After  you complete this quickstart, you are invited to run through the <a href="../jts-distributed-crash-rec/README.html">jts-distributed-crash-rec</a> quickstart. The crash recovery quickstart builds upon this quickstart by demonstrating the fault tolerance of Red Hat JBoss Enterprise Application Platform.</p>
+
+<p><em>Note: This quickstart uses a <code>*-ds.xml</code> datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/">Configuration Guide</a> for Red Hat JBoss Enterprise Application Platform.</em></p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="prerequisites" class="anchor" href="#prerequisites"><span class="anchor-icon"></span></a>Prerequisites</h2>
+
+<p>Developers should be familiar with the concepts introduced in the <code>cmt</code> quickstart.</p>
+
+<p>This quickstart requires the configuration of two servers. The first server must be configured to use the PostgreSQL database. Instructions to install and configure PostgreSQL are below.</p>
+
+<h2><a id="configure-the-postgresql-database-for-use-with-this-quickstart" class="anchor" href="#configure-the-postgresql-database-for-use-with-this-quickstart"><span class="anchor-icon"></span></a>Configure the PostgreSQL Database for Use with this Quickstart</h2>
+
+<p>This quickstart requires the PostgreSQL database. </p>
+
+<p>Instructions to install and configure PostgreSQL can be found here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#download-and-install-postgresql">Download and Install PostgreSQL</a></p>
+
+<p><em>Note</em>: For the purpose of this quickstart, replace the word <code>QUICKSTART_DATABASE_NAME</code> with <code>jts-quickstart-database</code> in the PostgreSQL instructions.</p>
+
+<p>Be sure to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#create-a-database-user">Create a Database User</a> for the PostgeSQL database.</p>
+
+<p>When you have completed these steps, be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions to start the database server for your operating system every time you reboot your machine.</p>
+
+<p>Wait until later in these instructions to add the PostgreSQL module and driver configuration to the first JBoss EAP server.</p>
+
+<h2><a id="configure-the-jboss-eap-servers" class="anchor" href="#configure-the-jboss-eap-servers"><span class="anchor-icon"></span></a>Configure the JBoss EAP Servers</h2>
+
+<p>For this example, you will need two instances of the application server, with a subtle startup configuration difference. Application server 2 must be started up with a port offset parameter provided to the startup script as <code>-Djboss.socket.binding.port-offset=100</code>. </p>
+
+<p>Since both application servers must be configured in the same way, you must configure the first server and then clone it. After you clone the second server, the first server must be configured for PostgreSQL. </p>
+
+<p><em>Note:</em> This quickstart README file use the following replaceable values. When you encounter these values in a README file, be sure to replace them with the actual path to the correct JBoss EAP server.</p>
+
+<ul>
+<li><code>EAP7_HOME</code> denotes the path to the original JBoss EAP installation. </li>
+<li><code>EAP7_HOME_1</code> denotes the path to the modified JBoss EAP server 1 configuration.</li>
+<li><code>EAP7_HOME_2</code> denotes the path to the modified JBoss EAP server 2 configuration.</li>
+</ul>
+
+<h3><a id="configure-the-first-server" class="anchor" href="#configure-the-first-server"><span class="anchor-icon"></span></a>Configure the First Server</h3>
+
+<p>You configure JTS transactions by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-jts-transactions.cli</code> script provided in the root directory of this quickstart. </p>
+
+<ol>
+<li>Before you begin, back up your server configuration file
+
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone-full.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul></li>
+<li><p>Start the JBoss EAP server with the full profile, passing a unique node ID by typing the following command. Be sure to replace <code>UNIQUE_NODE_ID_1</code> with a node identifier that is unique to both servers.</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w">  </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+</pre></div></li>
+<li><p>Review the <code>configure-jts-transactions.cli</code> file in the root of this quickstart directory. This script configures the server to use jts transaction processing.</p></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">jts</span><span class="o">-</span><span class="vg">transactions</span><span class="o">.</span><span class="vg">cli</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">jts</span><span class="o">-</span><span class="vg">transactions</span><span class="o">.</span><span class="vg">cli</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">process</span><span class="o">-</span><span class="nl">state:</span><span class="w"> </span><span class="vg">restart</span><span class="o">-</span><span class="vg">required</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+</pre></div></li>
+<li><p>Stop the JBoss EAP server.</p></li>
+</ol>
+
+<p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-eap-server">Remove the JTS Configuration from the JBoss EAP Server</a>.</p>
+
+<h3><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h3>
+
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone-full.xml</code> file and review the changes.</p>
+
+<ol>
+<li><p>The orb initializers <code>transactions</code> attribute is changed from <code>spec</code> to <code>full</code> in the  <code>iiop-openjdk</code> subsystem to enable JTS.</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:iiop-openjdk:1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;initializers</span> <span class="na">transactions=</span><span class="s">&quot;full&quot;</span> <span class="na">security=</span><span class="s">&quot;identity&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></li>
+<li><p>An empty <code>&lt;jts/&gt;</code> element is added to the the end of the <code>transactions</code> subsystem to enable JTS.</p>
+<div class="highlight"><pre><span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:3.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;core</span><span class="err">-environment</span> <span class="na">node-identifier=</span><span class="s">&quot;</span><span class="cp">${</span><span class="n">jboss</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="cp">}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;process</span><span class="err">-id</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;uuid/&gt;</span>
+        <span class="nt">&lt;/process-id&gt;</span>
+    <span class="nt">&lt;/core-environment&gt;</span>
+    <span class="nt">&lt;recovery</span><span class="err">-environment</span> <span class="na">socket-binding=</span><span class="s">&quot;txn-recovery-environment&quot;</span> <span class="na">status-socket-binding=</span><span class="s">&quot;txn-status-manager&quot;/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;jts/&gt;</span>
+<span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></li>
+</ol>
+
+<p><em>NOTE:</em> When you have completed testing this quickstart, it is important to <a href="#remove-the-jts-configuration-from-the-jboss-eap-server">Remove the JTS Configuration from the JBoss EAP Server</a>.</p>
+
+<h3><a id="clone-the-eap7home-directory" class="anchor" href="#clone-the-eap7home-directory"><span class="anchor-icon"></span></a>Clone the EAP7_HOME Directory</h3>
+
+<p>Make a copy of this JBoss EAP directory structure to use for the second server.</p>
+
+<h3><a id="configure-server1-to-use-postgresql" class="anchor" href="#configure-server1-to-use-postgresql"><span class="anchor-icon"></span></a>Configure Server1 to use PostgreSQL</h3>
+
+<p>Application server 1 must be now configured to use the PostgreSQL database created previously in the <a href="#configure-the-postgresql-database-for-use-with-this-quickstart">Configure the PostgreSQL Database for Use with this Quickstart</a> section. </p>
+
+<ol>
+<li>Be sure to start the PostgreSQL database. Unless you have set up the database to automatically start as a service, you must repeat the instructions &ldquo;Start the database server&rdquo; for your operating system every time you reboot your machine.</li>
+<li>Follow the instructions to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#add-the-postgresql-module-to-the-red-hat-jboss-enterprise-application-platform-server">Add the PostgreSQL Module to the JBoss EAP Server</a> to the server 1 install only.</li>
+<li>Follow the instructions to <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_EAP7.md#configure-the-postgresql-driver-in-the-red-hat-jboss-enterprise-application-platform-server">Configure the PostgreSQL Driver in the JBoss EAP Server</a> for the server 1 configuration. Be sure to pass the <code>-Djboss.tx.node.id=UNIQUE_NODE_ID_1</code> on the command line when you start the first server to configure PostgreSQL.</li>
+</ol>
+
+<h2><a id="start-the-jboss-eap-servers" class="anchor" href="#start-the-jboss-eap-servers"><span class="anchor-icon"></span></a>Start the JBoss EAP Servers</h2>
+
+<p>Start the the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace <code>UNIQUE_NODE_ID</code> with a node identifier that is unique to both servers.</p>
+
+<p>If you are using Linux:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">Server</span><span class="w"> </span><span class="il">1</span><span class="o">:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+<span class="w">    </span><span class="vg">Server</span><span class="w"> </span><span class="il">2</span><span class="o">:</span><span class="w"> </span><span class="vg">EAP7_HOME_2</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_2</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">socket</span><span class="o">.</span><span class="vg">binding</span><span class="o">.</span><span class="vg">port</span><span class="o">-</span><span class="vg">offset</span><span class="o">=</span><span class="il">100</span>
+</pre></div>
+<p>If you are using Windows</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">Server</span><span class="w"> </span><span class="il">1</span><span class="o">:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+<span class="w">    </span><span class="vg">Server</span><span class="w"> </span><span class="il">2</span><span class="o">:</span><span class="w"> </span><span class="vg">EAP7_HOME_2</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_2</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">socket</span><span class="o">.</span><span class="vg">binding</span><span class="o">.</span><span class="vg">port</span><span class="o">-</span><span class="vg">offset</span><span class="o">=</span><span class="il">100</span>
+</pre></div>
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<p>Since this quickstart builds two separate components, you can not use the standard <em>Build and Deploy</em> commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.</p>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server with the PostgreSQL driver</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>application-component-1/target/jboss-jts-application-component-1.war</code> and <code>application-component-2/target/jboss-jts-application-component-2.jar</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-jts-application-component-1/">http://localhost:8080/jboss-jts-application-component-1/</a>.</p>
+
+<p>When you enter a name and click to <code>Add</code> that customer, you will see the following in the application server 1 console:</p>
+<div class="highlight"><pre><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">hibernate</span><span class="o">.</span><span class="vg">hql</span><span class="o">.</span><span class="vg">internal</span><span class="o">.</span><span class="vg">QueryTranslatorFactoryInitiator</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-2</span><span class="p">)</span><span class="w"> </span><span class="nl">HHH000397:</span><span class="w"> </span><span class="vg">Using</span><span class="w"> </span><span class="vg">ASTQueryTranslatorFactory</span>
+<span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">ejb</span><span class="o">.</span><span class="vg">client</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-4</span><span class="p">)</span><span class="w"> </span><span class="vg">JBoss</span><span class="w"> </span><span class="vg">EJB</span><span class="w"> </span><span class="vg">Client</span><span class="w"> </span><span class="vg">version</span><span class="w"> </span><span class="mf">2.1.4</span><span class="o">.</span><span class="vg">Final</span><span class="o">-</span><span class="vg">redhat</span><span class="il">-1</span>
+</pre></div>
+<p>You will also see the following in application-server-2 console:</p>
+<div class="highlight"><pre><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">ejb</span><span class="o">.</span><span class="vg">client</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nl">p:</span><span class="w"> </span><span class="vg">default</span><span class="o">-</span><span class="vg">threadpool</span><span class="p">;</span><span class="w"> </span><span class="nl">w:</span><span class="w"> </span><span class="vg">Idle</span><span class="p">)</span><span class="w"> </span><span class="vg">JBoss</span><span class="w"> </span><span class="vg">EJB</span><span class="w"> </span><span class="vg">Client</span><span class="w"> </span><span class="vg">version</span><span class="w"> </span><span class="mf">2.1.4</span><span class="o">.</span><span class="vg">Final</span><span class="o">-</span><span class="vg">redhat</span><span class="il">-1</span>
+<span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">class</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">cmt</span><span class="o">.</span><span class="vg">jts</span><span class="o">.</span><span class="vg">mdb</span><span class="o">.</span><span class="vg">HelloWorldMDB</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">Thread</span><span class="il">-97</span><span class="w"> </span><span class="p">(</span><span class="vg">ActiveMQ</span><span class="o">-</span><span class="vg">client</span><span class="o">-</span><span class="vg">global</span><span class="o">-</span><span class="vg">threads</span><span class="il">-6840624</span><span class="p">))</span><span class="w"> </span><span class="vg">Received</span><span class="w"> </span><span class="nl">Message:</span><span class="w"> </span><span class="vg">Created</span><span class="w"> </span><span class="vg">invoice</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">customer</span><span class="w"> </span><span class="nl">named:</span><span class="w"> </span><span class="vg">Tom</span>
+</pre></div>
+<p>The web page will also change and show you the new list of customers.</p>
+
+<h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
+
+<p><em>Note:</em> You will see the following warnings in the server log. You can ignore these warnings. </p>
+<div class="highlight"><pre><span class="nl">WFLYJCA0091:</span><span class="w"> </span><span class="o">-</span><span class="vg">ds</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="vg">file</span><span class="w"> </span><span class="vg">deployments</span><span class="w"> </span><span class="vg">are</span><span class="w"> </span><span class="vg">deprecated</span><span class="o">.</span><span class="w"> </span><span class="vg">Support</span><span class="w"> </span><span class="vg">may</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">removed</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">future</span><span class="w"> </span><span class="vg">version</span><span class="o">.</span>
+</pre></div>
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">package</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="remove-the-jts-configuration-from-the-jboss-eap-server" class="anchor" href="#remove-the-jts-configuration-from-the-jboss-eap-server"><span class="anchor-icon"></span></a>Remove the JTS Configuration from the JBoss EAP Server</h2>
+
+<p>You must remove the JTS server configuration you did during setup because it interferes with the JTA quickstarts. </p>
+
+<p>You can modify the server configuration by running the <code>remove-jts-transactions.cli</code> script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file.</p>
+
+<h3><a id="remove-the-jts-server-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-jts-server-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the JTS Server Configuration by Running the JBoss CLI Script</h3>
+
+<ol>
+<li><p>Start the JBoss EAP server with the full profile.</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME_1</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w">  </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME_1</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w">  </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+</pre></div></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">remove</span><span class="o">-</span><span class="vg">jts</span><span class="o">-</span><span class="vg">transactions</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">remove</span><span class="o">-</span><span class="vg">jts</span><span class="o">-</span><span class="vg">transactions</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+</pre></div>
+<p>This script removes the JTS configuration from the <code>iiop-openjdk</code> and <code>transactions</code> subsystems in the server configuration. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span>
+<span class="vg">process</span><span class="o">-</span><span class="nl">state:</span><span class="w"> </span><span class="vg">restart</span><span class="o">-</span><span class="vg">required</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">undefined</span>
+<span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="remove-the-jts-server-configuration-using-the-jboss-cli-tool" class="anchor" href="#remove-the-jts-server-configuration-using-the-jboss-cli-tool"><span class="anchor-icon"></span></a>Remove the JTS Server Configuration using the JBoss CLI Tool</h3>
+
+<ol>
+<li><p>Start the JBoss EAP server with the full profile.</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME_1</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME_1</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span><span class="o">-</span><span class="vg">Djboss</span><span class="o">.</span><span class="vg">tx</span><span class="o">.</span><span class="vg">node</span><span class="o">.</span><span class="vg">id</span><span class="o">=</span><span class="vg">UNIQUE_NODE_ID_1</span>
+</pre></div></li>
+<li><p>To start the JBoss CLI tool, open a new command prompt, navigate to the EAP7_HOME directory, and type the following:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span>
+</pre></div></li>
+<li><p>At the prompt, type the following:</p>
+<div class="highlight"><pre><span class="o">/</span><span class="vg">subsystem</span><span class="o">=</span><span class="vg">iiop</span><span class="o">-</span><span class="vg">openjdk</span><span class="o">/:</span><span class="vg">write</span><span class="o">-</span><span class="vg">attribute</span><span class="p">(</span><span class="vg">name</span><span class="o">=</span><span class="vg">transactions</span><span class="p">,</span><span class="vg">value</span><span class="o">=</span><span class="vg">spec</span><span class="p">)</span>
+<span class="o">/</span><span class="vg">subsystem</span><span class="o">=</span><span class="vg">transactions</span><span class="o">/:</span><span class="vg">undefine</span><span class="o">-</span><span class="vg">attribute</span><span class="p">(</span><span class="vg">name</span><span class="o">=</span><span class="vg">jts</span><span class="p">)</span>
+<span class="o">/</span><span class="vg">subsystem</span><span class="o">=</span><span class="vg">transactions</span><span class="o">/:</span><span class="vg">undefine</span><span class="o">-</span><span class="vg">attribute</span><span class="p">(</span><span class="vg">name</span><span class="o">=</span><span class="vg">node</span><span class="o">-</span><span class="vg">identifier</span><span class="p">)</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;operation-requires-reload&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">true</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;restart-required&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;operation-requires-restart&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">true</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;restart-required&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;response-headers&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;operation-requires-reload&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">true</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;process-state&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;restart-required&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="remove-the-jts-server-configuration-manually" class="anchor" href="#remove-the-jts-server-configuration-manually"><span class="anchor-icon"></span></a>Remove the JTS Server Configuration Manually</h3>
+
+<ol>
+<li>Stop the server.</li>
+<li>If you backed up the EAP7_HOME/standalone/configuration/standalone-full.xml,simply replace the edited configuration file with the backup copy.</li>
+<li>If you did not make a backup copy, open the file EAP7_HOME/standalone/configuration/standalone-full.xml and disable JTS as follows:</li>
+</ol>
+<div class="highlight"><pre>* Find the `orb` subsystem and change the configuration back to its original state.
+
+        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:iiop-openjdk:1.0&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;initializers</span> <span class="na">transactions=</span><span class="s">&quot;spec&quot;</span> <span class="na">security=</span><span class="s">&quot;identity&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subsystem&gt;</span>
+
+* Find the `transaction` subsystem and remove the `node-identifier` attribute from the `core-environment` element. Also remove the `<span class="nt">&lt;jts/&gt;</span>` element.
+
+        <span class="nt">&lt;subsystem</span> <span class="na">xmlns=</span><span class="s">&quot;urn:jboss:domain:transactions:3.0&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;core-environment&gt;</span>
+                <span class="nt">&lt;process-id&gt;</span>
+                    <span class="nt">&lt;uuid/&gt;</span>
+                <span class="nt">&lt;/process-id&gt;</span>
+            <span class="nt">&lt;/core-environment&gt;</span>
+            <span class="nt">&lt;recovery-environment</span> <span class="na">socket-binding=</span><span class="s">&quot;txn-recovery-environment&quot;</span> <span class="na">status-socket-binding=</span><span class="s">&quot;txn-status-manager&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subsystem&gt;</span>
+</pre></div></body></html>

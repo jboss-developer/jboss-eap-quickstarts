@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="springresteasy-example-using-resteasy-spring-integration" class="anchor" href="#springresteasy-example-using-resteasy-spring-integration"><span class="anchor-icon"></span></a>spring-resteasy: Example Using Resteasy Spring Integration</h1>
+
+<p>Author: Weinan Li <a href="mailto:l.weinan@gmail.com">l.weinan@gmail.com</a>, Paul Gier <a href="mailto:pgier@redhat.com">pgier@redhat.com</a><br/>
+Level: Beginner<br/>
+Technologies: Resteasy, Spring<br/>
+Summary: The <code>spring-resteasy</code> quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>spring-resteasy</code> quickstart demonstrates how to package and deploy a web application, which includes resteasy-spring integration, in 
+Red Hat JBoss Enterprise Application Platform.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command line and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the full profile:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">package</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span>
+</pre></div></li>
+<li><p>This deploys the <code>target/jboss-spring-resteasy.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL:  <a href="http://localhost:8080/jboss-spring-resteasy/">http://localhost:8080/jboss-spring-resteasy/</a>. </p>
+
+<p>That will provide links to the following URLs that demonstrate various path and parameter configurations.</p>
+
+<ul>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/hello?name=yourname">jboss-spring-resteasy/hello?name=yourname</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/basic">jboss-spring-resteasy/basic</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/queryParam?param=query">jboss-spring-resteasy/queryParam?param=query</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/matrixParam;param=matrix">jboss-spring-resteasy/matrixParam;param=matrix</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/uriParam/789">jboss-spring-resteasy/uriParam/789</a></li>
+</ul>
+
+<p>And the same set as above but using the <code>locating</code> path.</p>
+
+<ul>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/locating/hello?name=yourname">jboss-spring-resteasy/locating/hello?name=yourname</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/locating/basic">jboss-spring-resteasy/locating/basic</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/locating/queryParam?param=query">jboss-spring-resteasy/locating/queryParam?param=query</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/locating/matrixParam;param=matrix">jboss-spring-resteasy/locating/matrixParam;param=matrix</a></li>
+<li><a href="http://localhost:8080/jboss-spring-resteasy/locating/uriParam/789">jboss-spring-resteasy/locating/uriParam/789</a></li>
+</ul>
+
+<h2><a id="run-the-tests" class="anchor" href="#run-the-tests"><span class="anchor-icon"></span></a>Run the Tests</h2>
+
+<ol>
+<li>Make sure you have <strong>started</strong> the JBoss EAP server as described above and <strong>deployed</strong> the quickstart.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type the following command to run the test goal with the following profile activated:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="o">-</span><span class="vg">Prest</span><span class="o">-</span><span class="vg">test</span>
+</pre></div></li>
+<li><p>You should see the following output:</p>
+<div class="highlight"><pre><span class="o">-------------------------------------------------------</span>
+<span class="w"> </span><span class="vg">T</span><span class="w"> </span><span class="vg">E</span><span class="w"> </span><span class="vg">S</span><span class="w"> </span><span class="vg">T</span><span class="w"> </span><span class="vg">S</span>
+<span class="o">-------------------------------------------------------</span>
+<span class="vg">Running</span><span class="w"> </span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">resteasyspring</span><span class="o">.</span><span class="vg">test</span><span class="o">.</span><span class="vg">ResteasySpringTest</span>
+<span class="vg">Tests</span><span class="w"> </span><span class="nl">run:</span><span class="w"> </span><span class="il">2</span><span class="p">,</span><span class="w"> </span><span class="nl">Failures:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span><span class="w"> </span><span class="nl">Errors:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span><span class="w"> </span><span class="nl">Skipped:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span><span class="w"> </span><span class="vg">Time</span><span class="w"> </span><span class="nl">elapsed:</span><span class="w"> </span><span class="mf">0.211</span><span class="w"> </span><span class="vg">sec</span>
+
+<span class="vg">Results</span><span class="w"> </span><span class="o">:</span>
+
+<span class="vg">Tests</span><span class="w"> </span><span class="nl">run:</span><span class="w"> </span><span class="il">2</span><span class="p">,</span><span class="w"> </span><span class="nl">Failures:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span><span class="w"> </span><span class="nl">Errors:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span><span class="w"> </span><span class="nl">Skipped:</span><span class="w"> </span><span class="il">0</span>
+
+<span class="p">[</span><span class="vg">INFO</span><span class="p">]</span><span class="w"> </span><span class="o">------------------------------------------------------------------------</span>
+<span class="p">[</span><span class="vg">INFO</span><span class="p">]</span><span class="w"> </span><span class="vg">BUILD</span><span class="w"> </span><span class="vg">SUCCESS</span>
+<span class="p">[</span><span class="vg">INFO</span><span class="p">]</span><span class="w"> </span><span class="o">------------------------------------------------------------------------</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">undeploy</span>
+</pre></div></li>
+</ol>
+</body></html>

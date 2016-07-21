@@ -1,0 +1,122 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="cmt-container-managed-transactions-cmt-" class="anchor" href="#cmt-container-managed-transactions-cmt-"><span class="anchor-icon"></span></a>cmt: Container Managed Transactions (CMT) </h1>
+
+<p>Author: Tom Jenkinson<br/>
+Level: Intermediate<br/>
+Technologies: EJB, CMT, JMS<br/>
+Summary: The <code>cmt</code> quickstart demonstrates Container-Managed Transactions (CMT), showing how to use transactions managed by the container.<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>cmt</code> quickstart demonstrates using transactions managed by the container in Red Hat JBoss Enterprise Application Platform. It is a fairly typical scenario of updating a database and sending a JMS message in the same transaction. A simple MDB is provided that prints out the message sent but this is not a transactional MDB and is purely provided for debugging purposes.</p>
+
+<p>Aspects touched upon in the code:</p>
+
+<ol>
+<li>XA transaction control using the container managed transaction annotations</li>
+<li>XA access to the standard default datasource using the JPA API</li>
+<li>XA access to a JMS queue</li>
+</ol>
+
+<p>After users complete this quickstart, they are invited to run through the following quickstarts:</p>
+
+<ol>
+<li><a href="../jts/README.html">jts</a> - The JTS quickstart builds upon this quickstart by distributing the CustomerManager and InvoiceManager</li>
+<li><a href="../jts-distributed-crash-rec/README.html">jts-distributed-crash-rec</a> - The crash recovery quickstart builds upon the <a href="../jts/README.html">jts</a> quickstart by demonstrating the fault tolerance of JBoss EAP.</li>
+</ol>
+
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!</em></p>
+
+<h3><a id="what-are-container-managed-transactions" class="anchor" href="#what-are-container-managed-transactions"><span class="anchor-icon"></span></a>What are container managed transactions?</h3>
+
+<p>Prior to EJB, getting the right incantation to ensure sound transactional operation of the business logic was a highly specialised skill. Although this still holds true to a great extent, EJB has provided a series of improvements to allow simplified transaction demarcation notation that is therefore easier to read and test. </p>
+
+<p>With CMT, the EJB container sets the boundaries of a transaction. This differs from BMT (bean managed transactions) where the developer is responsible for initiating and completing a transaction via the methods begin, commit, rollback on a <code>javax.transaction.UserTransaction</code>.</p>
+
+<h3><a id="what-makes-this-an-example-of-container-managed-transactions" class="anchor" href="#what-makes-this-an-example-of-container-managed-transactions"><span class="anchor-icon"></span></a>What makes this an example of container managed transactions?</h3>
+
+<p>Take a look at <code>org.jboss.as.quickstarts.cmt.ejb.CustomerManagerEJB</code>. You can see that this stateless session bean has been marked up with the @javax.ejb.TransactionAttribute annotation.</p>
+
+<p>The available options for this annotation are as follows:</p>
+
+<ul>
+<li>Required - As demonstrated in the quickstart. If a transaction does not already exist, this will initiate a transaction and complete it for you, otherwise the business logic will be integrated into the existing transaction</li>
+<li>RequiresNew - If there is already a transaction running, it will be suspended, the work performed within a new transaction which is completed at exit of the method and then the original transaction resumed. </li>
+<li>Mandatory - If there is no transaction running, calling a business method with this annotation will result in an error</li>
+<li>NotSupported - If there is a transaction running, it will be suspended and no transaction will be initiated for this business method</li>
+<li>Supports - This will run the method within a transaction if a transaction exists, alternatively, if there is no transaction running, the method will not be executed within the scope of a transaction </li>
+<li>Never - If the client has a transaction running and does not suspend it but calls a method annotated with Never then an EJB exception will be raised.</li>
+</ul>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server-with-the-full-profile" class="anchor" href="#start-the-jboss-eap-server-with-the-full-profile"><span class="anchor-icon"></span></a>Start the JBoss EAP Server with the Full Profile</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the server with the full profile:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">-</span><span class="vg">c</span><span class="w"> </span><span class="vg">standalone</span><span class="o">-</span><span class="vg">full</span><span class="o">.</span><span class="vg">xml</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span>
+</pre></div></li>
+<li><p>This will deploy <code>target/jboss-cmt.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application will be running at the following URL: <a href="http://localhost:8080/jboss-cmt/">http://localhost:8080/jboss-cmt/</a>.</p>
+
+<p>You will be presented with a simple form for adding customers to a database.</p>
+
+<p>After a user is successfully added to the database, a message is produced containing the details of the user. An example MDB will dequeue this message and print the following contents:</p>
+<div class="highlight"><pre><span class="vg">Received</span><span class="w"> </span><span class="nl">Message:</span><span class="w"> </span><span class="vg">Created</span><span class="w"> </span><span class="vg">invoice</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">customer</span><span class="w"> </span><span class="nl">named:</span><span class="w">  </span><span class="vg">Jack</span>
+</pre></div>
+<p>When the same customer name is given, a duplicate warning is given and no JMS-message is send to cause the above message.</p>
+
+<p>The customer name should match: letter &amp; &rsquo;-&rsquo;, otherwise an error is given. This is to show that a &lsquo;LogMessage&rsquo; entity is still stored in the database thanks to the <code>@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)</code>
+that the method logCreateCustomer in the EJB LogMessageManagerEJB is decorated with. </p>
+
+<h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
+
+<p><em>Note:</em> You will see the following warnings in the server log. You can ignore these warnings.</p>
+<div class="highlight"><pre><span class="n">HHH000431</span><span class="o">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">determine</span> <span class="n">H2</span> <span class="n">database</span> <span class="n">version</span><span class="o">,</span> <span class="n">certain</span> <span class="n">features</span> <span class="n">may</span> <span class="n">not</span> <span class="n">work</span>
+</pre></div>
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<p><em>NOTE:</em> Within JBoss Developer Studio, be sure to define a server runtime environment that uses the <code>standalone-full.xml</code> configuration file.</p>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">sources</span>
+</pre></div></body></html>

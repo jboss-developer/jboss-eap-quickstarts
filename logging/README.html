@@ -1,0 +1,288 @@
+<!DOCTYPE html><html><head><title>README</title><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link><link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link></head><body>
+<h1><a id="logging-example-that-sets-up-different-logging-levels" class="anchor" href="#logging-example-that-sets-up-different-logging-levels"><span class="anchor-icon"></span></a>logging: Example That Sets Up Different Logging Levels</h1>
+
+<p>Author: Joel Tosi<br/>
+Level: Intermediate<br/>
+Technologies: Logging<br/>
+Summary: The <code>logging</code> quickstart demonstrates how to configure different logging levels in JBoss EAP. It also includes an asynchronous logging example.<br/>
+Prerequisites: None<br/>
+Target Product: JBoss EAP<br/>
+Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>  </p>
+
+<h2><a id="what-is-it" class="anchor" href="#what-is-it"><span class="anchor-icon"></span></a>What is it?</h2>
+
+<p>The <code>logging</code> quickstart demonstrates how to set up and log different levels of information in Red Hat JBoss Enterprise Application Platform. An example of asynchronous logging is also included in the configuration examples.</p>
+
+<p>This quickstart contains just one class file and one JSP file. When you access the application, it fires off the logging information.</p>
+
+<p>To better visualize how the logging configuration works, you first deploy and access the application before configuring the logs and view the resulting log files. Then you configure the logs, redeploy and access the application, and look at the log files again to see the differences.</p>
+
+<h2><a id="system-requirements" class="anchor" href="#system-requirements"><span class="anchor-icon"></span></a>System requirements</h2>
+
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. </p>
+
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7</a> to make sure you are configured correctly for testing the quickstarts.</p>
+
+<h2><a id="use-of-eap7home" class="anchor" href="#use-of-eap7home"><span class="anchor-icon"></span></a>Use of EAP7_HOME</h2>
+
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+
+<h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
+
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li><p>The following shows the command line to start the JBoss EAP server with the default profile:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">   </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="build-and-deploy-the-quickstart" class="anchor" href="#build-and-deploy-the-quickstart"><span class="anchor-icon"></span></a>Build and Deploy the Quickstart</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>Type this command to build and deploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="vg">clean</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">deploy</span>
+</pre></div></li>
+<li><p>This deploys <code>target/jboss-logging.war</code> to the running instance of the server.</p></li>
+</ol>
+
+<h2><a id="access-the-application-" class="anchor" href="#access-the-application-"><span class="anchor-icon"></span></a>Access the application </h2>
+
+<p>The application is running at the following URL: <a href="http://localhost:8080/jboss-logging/">http://localhost:8080/jboss-logging/</a>.</p>
+
+<p>You will see the following message in the server console:</p>
+<div class="highlight"><pre><span class="w">    </span><span class="vg">FATAL</span><span class="w"> </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">A</span><span class="w"> </span><span class="vg">FATAL</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="kr">ERROR</span><span class="w"> </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">AN</span><span class="w"> </span><span class="kr">ERROR</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">A</span><span class="w"> </span><span class="vg">WARNING</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">AN</span><span class="w"> </span><span class="vg">INFO</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="kr">ERROR</span><span class="w"> </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">AN</span><span class="w"> </span><span class="kr">ERROR</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="vg">FATAL</span><span class="w"> </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">A</span><span class="w"> </span><span class="vg">FATAL</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="vg">INFO</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">AN</span><span class="w"> </span><span class="vg">INFO</span><span class="w"> </span><span class="vg">MESSAGE</span>
+<span class="w">    </span><span class="vg">WARN</span><span class="w">  </span><span class="p">[</span><span class="vg">org</span><span class="o">.</span><span class="vg">jboss</span><span class="o">.</span><span class="vg">as</span><span class="o">.</span><span class="vg">quickstarts</span><span class="o">.</span><span class="vg">logging</span><span class="o">.</span><span class="vg">LoggingExample</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="vg">default</span><span class="w"> </span><span class="vg">task</span><span class="il">-1</span><span class="p">)</span><span class="w"> </span><span class="vg">THIS</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="vg">A</span><span class="w"> </span><span class="vg">WARNING</span><span class="w"> </span><span class="vg">MESSAGE</span>
+</pre></div>
+<h2><a id="check-the-server-logs" class="anchor" href="#check-the-server-logs"><span class="anchor-icon"></span></a>Check the Server Logs</h2>
+
+<p>The log files are located in the <code>EAP7_HOME/standalone/log</code> log directory. At this point you should see the following log files.</p>
+<div class="highlight"><pre><span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="err">`</span><span class="vg">server</span><span class="o">.</span><span class="vg">log</span><span class="err">`</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">This</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">standard</span><span class="w"> </span><span class="vg">log</span><span class="w"> </span><span class="vg">produced</span><span class="w"> </span><span class="vg">by</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">application</span><span class="w"> </span><span class="vg">server</span><span class="o">.</span><span class="w"> </span><span class="vg">By</span><span class="w"> </span><span class="vg">default</span><span class="p">,</span><span class="w"> </span><span class="vg">it</span><span class="w"> </span><span class="vg">contains</span><span class="w"> </span><span class="vg">all</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">server</span><span class="w"> </span><span class="vg">log</span><span class="w"> </span><span class="vg">messages</span><span class="p">,</span><span class="w"> </span><span class="vg">including</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">server</span><span class="w"> </span><span class="vg">startup</span><span class="w"> </span><span class="vg">messages</span><span class="o">.</span><span class="w"> </span>
+<span class="w">    </span><span class="o">*</span><span class="w"> </span><span class="err">`</span><span class="vg">gc</span><span class="o">.</span><span class="vg">log</span><span class="mf">.0</span><span class="o">.</span><span class="vg">current</span><span class="err">`</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">This</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">garbage</span><span class="w"> </span><span class="vg">collection</span><span class="w"> </span><span class="vg">log</span><span class="o">.</span><span class="w"> </span><span class="vg">It</span><span class="w"> </span><span class="vg">contains</span><span class="w"> </span><span class="vg">garbage</span><span class="w"> </span><span class="vg">collection</span><span class="w"> </span><span class="vg">activity</span><span class="w"> </span><span class="vg">and</span><span class="w"> </span><span class="vg">can</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">used</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">diagnostic</span><span class="w"> </span><span class="vg">purposes</span><span class="o">.</span><span class="w"> </span><span class="vg">This</span><span class="w"> </span><span class="vg">log</span><span class="w"> </span><span class="vg">can</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">ignored</span><span class="w"> </span><span class="vg">as</span><span class="w"> </span><span class="vg">it</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">used</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">quickstart</span><span class="o">.</span>
+</pre></div>
+<h2><a id="configure-the-jboss-eap-server" class="anchor" href="#configure-the-jboss-eap-server"><span class="anchor-icon"></span></a>Configure the JBoss EAP Server</h2>
+
+<p>You configure server logging by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-logging.cli</code> script provided in the root directory of this quickstart.</p>
+
+<ol>
+<li><p>Before you begin, back up your server configuration file</p>
+
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul></li>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+<li><p>Review the <code>configure-logging.cli</code> file in the root of this quickstart directory. This script configures the logging subsytem in the server configuration file. It configures the periodic rotating file handlers and the async handlers, creates the logger for our quickstart class and sets the level to TRACE, and assigns the async handlers for our quickstart class. </p></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">logging</span><span class="o">.</span><span class="vg">cli</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">configure</span><span class="o">-</span><span class="vg">logging</span><span class="o">.</span><span class="vg">cli</span>
+</pre></div>
+<p>You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="review-the-modified-server-configuration" class="anchor" href="#review-the-modified-server-configuration"><span class="anchor-icon"></span></a>Review the Modified Server Configuration</h2>
+
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+
+<p>The following XML was added to the <code>logging</code> subsystem.</p>
+<div class="highlight"><pre>    <span class="nt">&lt;async-handler</span> <span class="na">name=</span><span class="s">&quot;TRACE_QS_ASYNC&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;TRACE&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;queue-length</span> <span class="na">value=</span><span class="s">&quot;1024&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;overflow-action</span> <span class="na">value=</span><span class="s">&quot;block&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;subhandlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_TRACE&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subhandlers&gt;</span>
+    <span class="nt">&lt;/async-handler&gt;</span>
+    <span class="nt">&lt;async-handler</span> <span class="na">name=</span><span class="s">&quot;DEBUG_QS_ASYNC&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;DEBUG&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;queue-length</span> <span class="na">value=</span><span class="s">&quot;1024&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;overflow-action</span> <span class="na">value=</span><span class="s">&quot;block&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;subhandlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_DEBUG&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subhandlers&gt;</span>
+    <span class="nt">&lt;/async-handler&gt;</span>
+    <span class="nt">&lt;async-handler</span> <span class="na">name=</span><span class="s">&quot;INFO_QS_ASYNC&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;INFO&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;queue-length</span> <span class="na">value=</span><span class="s">&quot;1024&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;overflow-action</span> <span class="na">value=</span><span class="s">&quot;block&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;subhandlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_INFO&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subhandlers&gt;</span>
+    <span class="nt">&lt;/async-handler&gt;</span>
+    <span class="nt">&lt;async-handler</span> <span class="na">name=</span><span class="s">&quot;WARN_QS_ASYNC&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;WARN&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;queue-length</span> <span class="na">value=</span><span class="s">&quot;1024&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;overflow-action</span> <span class="na">value=</span><span class="s">&quot;block&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;subhandlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_WARN&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subhandlers&gt;</span>
+    <span class="nt">&lt;/async-handler&gt;</span>
+    <span class="nt">&lt;async-handler</span> <span class="na">name=</span><span class="s">&quot;ERROR_QS_ASYNC&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;ERROR&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;queue-length</span> <span class="na">value=</span><span class="s">&quot;1024&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;overflow-action</span> <span class="na">value=</span><span class="s">&quot;block&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;subhandlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_ERROR&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subhandlers&gt;</span>
+    <span class="nt">&lt;/async-handler&gt;</span>
+    <span class="nt">&lt;async-handler</span> <span class="na">name=</span><span class="s">&quot;FATAL_QS_ASYNC&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;FATAL&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;queue-length</span> <span class="na">value=</span><span class="s">&quot;1024&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;overflow-action</span> <span class="na">value=</span><span class="s">&quot;block&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;subhandlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_FATAL&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/subhandlers&gt;</span>
+    <span class="nt">&lt;/async-handler&gt;</span>
+    ...
+    <span class="nt">&lt;periodic-rotating-file-handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_TRACE&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file</span> <span class="na">relative-to=</span><span class="s">&quot;jboss.server.log.dir&quot;</span> <span class="na">path=</span><span class="s">&quot;quickstart.trace.log&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;suffix</span> <span class="na">value=</span><span class="s">&quot;.yyyy.MM.dd&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/periodic-rotating-file-handler&gt;</span>
+    <span class="nt">&lt;periodic-rotating-file-handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_DEBUG&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file</span> <span class="na">relative-to=</span><span class="s">&quot;jboss.server.log.dir&quot;</span> <span class="na">path=</span><span class="s">&quot;quickstart.debug.log&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;suffix</span> <span class="na">value=</span><span class="s">&quot;.yyyy.MM.dd&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/periodic-rotating-file-handler&gt;</span>
+    <span class="nt">&lt;periodic-rotating-file-handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_INFO&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file</span> <span class="na">relative-to=</span><span class="s">&quot;jboss.server.log.dir&quot;</span> <span class="na">path=</span><span class="s">&quot;quickstart.info.log&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;suffix</span> <span class="na">value=</span><span class="s">&quot;.yyyy.MM.dd&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/periodic-rotating-file-handler&gt;</span>
+    <span class="nt">&lt;periodic-rotating-file-handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_WARN&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file</span> <span class="na">relative-to=</span><span class="s">&quot;jboss.server.log.dir&quot;</span> <span class="na">path=</span><span class="s">&quot;quickstart.warn.log&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;suffix</span> <span class="na">value=</span><span class="s">&quot;.yyyy.MM.dd&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/periodic-rotating-file-handler&gt;</span>
+    <span class="nt">&lt;periodic-rotating-file-handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_ERROR&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file</span> <span class="na">relative-to=</span><span class="s">&quot;jboss.server.log.dir&quot;</span> <span class="na">path=</span><span class="s">&quot;quickstart.error.log&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;suffix</span> <span class="na">value=</span><span class="s">&quot;.yyyy.MM.dd&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/periodic-rotating-file-handler&gt;</span>
+    <span class="nt">&lt;periodic-rotating-file-handler</span> <span class="na">name=</span><span class="s">&quot;FILE_QS_FATAL&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;file</span> <span class="na">relative-to=</span><span class="s">&quot;jboss.server.log.dir&quot;</span> <span class="na">path=</span><span class="s">&quot;quickstart.fatal.log&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;suffix</span> <span class="na">value=</span><span class="s">&quot;.yyyy.MM.dd&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/periodic-rotating-file-handler&gt;</span>
+    ...
+    <span class="nt">&lt;logger</span> <span class="na">category=</span><span class="s">&quot;org.jboss.as.quickstarts.logging&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;level</span> <span class="na">name=</span><span class="s">&quot;TRACE&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;handlers&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;TRACE_QS_ASYNC&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;DEBUG_QS_ASYNC&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;INFO_QS_ASYNC&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;WARN_QS_ASYNC&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;ERROR_QS_ASYNC&quot;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;handler</span> <span class="na">name=</span><span class="s">&quot;FATAL_QS_ASYNC&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/handlers&gt;</span>
+    <span class="nt">&lt;/logger&gt;</span>
+</pre></div>
+<h2><a id="test-the-new-logging-configuration" class="anchor" href="#test-the-new-logging-configuration"><span class="anchor-icon"></span></a>Test the New Logging Configuration</h2>
+
+<ol>
+<li>If your server is not started, then <a href="#start-the-jboss-eap-server">Start the JBoss EAP server</a>.</li>
+<li><a href="#build-and-deploy-the-quickstart">Build and deploy the quickstart</a>.</li>
+<li><a href="#access-the-application">Access the application</a>.</li>
+</ol>
+
+<h2><a id="recheck-the-server-logs" class="anchor" href="#recheck-the-server-logs"><span class="anchor-icon"></span></a>Recheck the Server Logs</h2>
+
+<p>The log files are located in the <code>EAP7_HOME/standalone/log</code> log directory. You should now see 8 log files.</p>
+
+<ul>
+<li><p>The following logs are the standard log files produced by the application server:</p>
+
+<ul>
+<li><code>server.log</code> - The standard log produced by the application server.</li>
+<li><code>gc.log.0.current</code> - The garbage collection log can be ignored as it is not used in this quickstart.</li>
+</ul></li>
+<li><p>The following logs are produced by the quickstart. They are listed below in hierarchical order from the largest file containing the most messages to the smallest file containing the least messages. </p>
+
+<ul>
+<li><code>quickstart.trace.log</code></li>
+<li><code>quickstart.debug.log</code></li>
+<li><code>quickstart.info.log</code></li>
+<li><code>quickstart.warn.log</code></li>
+<li><code>quickstart.error.log</code></li>
+<li><code>quickstart.fatal.log</code></li>
+</ul></li>
+</ul>
+
+<p>The following describes what happens when you access this quickstart:</p>
+
+<ol>
+<li>The application class file fires off logs of the various types (INFO, DEBUG, TRACE, WARN, ERROR, FATAL).  Each log message goes to a different file, as defined in the <code>standalone.xml</code> file.  Also notice in the <code>standalone.xml</code> that the application package defines its own log level.</li>
+<li>The class file demonstrates the usage of <em>log guards</em>.  <em>Log guards</em> are a development best practice.  Simply put, instead of just writing out logs, we wrap the log writes in a check for that log level being enabled. While this may seem like overhead, that boolean check is more efficient than relying on the underlying framework to do the check at write time.</li>
+<li>Finally, the class file logs various levels, each to its own file as configured in <code>standalone.xml</code>.  Note that log levels are hierarchical.  When set, all log levels above the specified level are logged as well.</li>
+<li><p>Common uses of the 6 log levels are outlined below. You should use the level that makes the most sense in your environment.</p>
+<div class="highlight"><pre><span class="vg">FATAL</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">Used</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">track</span><span class="w"> </span><span class="vg">critical</span><span class="w"> </span><span class="vg">system</span><span class="w"> </span><span class="vg">failures</span><span class="o">.</span><span class="w">  </span><span class="vg">When</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">log</span><span class="w"> </span><span class="vg">message</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">written</span><span class="p">,</span><span class="w"> </span><span class="vg">it</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">writing</span><span class="w"> </span><span class="vg">application</span><span class="w"> </span><span class="vg">error</span><span class="w"> </span><span class="vg">that</span><span class="w"> </span><span class="vg">has</span><span class="w"> </span><span class="vg">caused</span><span class="w"> </span><span class="vg">service</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">cease</span><span class="o">.</span><span class="w">  </span><span class="vg">This</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">most</span><span class="w"> </span><span class="vg">narrow</span><span class="w"> </span><span class="vg">logging</span><span class="o">.</span><span class="w">  </span>
+<span class="kr">ERROR</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">Used</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">track</span><span class="w"> </span><span class="vg">application</span><span class="w"> </span><span class="vg">errors</span><span class="w"> </span><span class="vg">that</span><span class="w"> </span><span class="vg">may</span><span class="w"> </span><span class="vg">cause</span><span class="w"> </span><span class="vg">one</span><span class="w"> </span><span class="vg">request</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">fail</span><span class="w"> </span><span class="p">(</span><span class="vg">not</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">service</span><span class="w"> </span><span class="vg">ceasement</span><span class="p">)</span><span class="o">.</span>
+<span class="vg">WARN</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">This</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">setting</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">used</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">most</span><span class="w"> </span><span class="vg">production</span><span class="w"> </span><span class="vg">environments</span><span class="o">.</span><span class="w">  </span><span class="vg">At</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">level</span><span class="p">,</span><span class="w"> </span><span class="vg">all</span><span class="w"> </span><span class="o">*</span><span class="vg">WARN</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="kr">ERROR</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="vg">and</span><span class="w"> </span><span class="o">*</span><span class="vg">FATAL</span><span class="o">*</span><span class="w"> </span><span class="vg">messages</span><span class="w"> </span><span class="vg">are</span><span class="w"> </span><span class="vg">written</span><span class="o">.</span><span class="w">  </span><span class="vg">Use</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">level</span><span class="w"> </span><span class="vg">message</span><span class="w">  </span><span class="vg">as</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">predictive</span><span class="w"> </span><span class="vg">measure</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">possible</span><span class="w"> </span><span class="vg">forthcoming</span><span class="w"> </span><span class="vg">issues</span><span class="o">.</span><span class="w">  </span>
+<span class="vg">INFO</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">Usually</span><span class="w"> </span><span class="vg">only</span><span class="w"> </span><span class="vg">used</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">development</span><span class="w"> </span><span class="vg">environment</span><span class="o">.</span><span class="w">  </span><span class="vg">This</span><span class="w"> </span><span class="vg">provides</span><span class="w"> </span><span class="vg">any</span><span class="w"> </span><span class="vg">information</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">state</span><span class="w"> </span><span class="vg">transition</span><span class="p">,</span><span class="w"> </span><span class="vg">object</span><span class="w"> </span><span class="vg">values</span><span class="p">,</span><span class="w"> </span><span class="vg">etc</span>
+<span class="vg">DEBUG</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">Turned</span><span class="w"> </span><span class="vg">on</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">any</span><span class="w"> </span><span class="vg">environment</span><span class="w"> </span><span class="vg">when</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">problem</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">occuring</span><span class="o">.</span><span class="w">  </span><span class="vg">The</span><span class="w"> </span><span class="vg">information</span><span class="w"> </span><span class="vg">captured</span><span class="w"> </span><span class="vg">may</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">throughput</span><span class="p">,</span><span class="w"> </span><span class="vg">communication</span><span class="p">,</span><span class="w"> </span><span class="vg">object</span><span class="w"> </span><span class="vg">values</span><span class="p">,</span><span class="w"> </span><span class="vg">etc</span><span class="o">.</span>
+<span class="vg">TRACE</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">Turned</span><span class="w"> </span><span class="vg">on</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">any</span><span class="w"> </span><span class="vg">environment</span><span class="w"> </span><span class="vg">where</span><span class="w"> </span><span class="vg">you</span><span class="w"> </span><span class="vg">are</span><span class="w"> </span><span class="vg">trying</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">follow</span><span class="w"> </span><span class="vg">an</span><span class="w"> </span><span class="vg">execution</span><span class="w"> </span><span class="vg">path</span><span class="p">,</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">optimization</span><span class="w"> </span><span class="vg">or</span><span class="w"> </span><span class="vg">debugging</span><span class="o">.</span><span class="w">  </span><span class="vg">This</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">most</span><span class="w"> </span><span class="vg">broad</span><span class="w"> </span><span class="vg">logging</span><span class="w"> </span><span class="vg">level</span><span class="w"> </span><span class="vg">and</span><span class="w"> </span><span class="vg">all</span><span class="w"> </span><span class="vg">messages</span><span class="w"> </span><span class="vg">are</span><span class="w"> </span><span class="vg">written</span><span class="o">.</span>
+</pre></div></li>
+<li><p>To view log file differences for different logging levels, change the level for the &ldquo;org.jboss.as.quickstarts.logging&rdquo; logger 
+from TRACE to DEBUG, INFO, WARN, ERROR, or FATAL, then access the application.</p></li>
+</ol>
+
+<h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
+
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li><p>When you are finished testing, type this command to undeploy the archive:</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">wildfly:</span><span class="vg">undeploy</span>
+</pre></div></li>
+</ol>
+
+<h2><a id="remove-the-logging-configuration" class="anchor" href="#remove-the-logging-configuration"><span class="anchor-icon"></span></a>Remove the Logging Configuration</h2>
+
+<p>You can remove the logging configuration by running the  <code>remove-logging.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. </p>
+
+<h3><a id="remove-the-logging-configuration-by-running-the-jboss-cli-script" class="anchor" href="#remove-the-logging-configuration-by-running-the-jboss-cli-script"><span class="anchor-icon"></span></a>Remove the Logging Configuration by Running the JBoss CLI Script</h3>
+
+<ol>
+<li><p>Start the JBoss EAP server by typing the following: </p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w">  </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">bat</span>
+</pre></div></li>
+<li><p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<div class="highlight"><pre><span class="vg">For</span><span class="w"> </span><span class="nl">Linux:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">remove</span><span class="o">-</span><span class="vg">logging</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+<span class="vg">For</span><span class="w"> </span><span class="nl">Windows:</span><span class="w"> </span><span class="vg">EAP7_HOME</span><span class="o">\</span><span class="vg">bin</span><span class="o">\</span><span class="vg">jboss</span><span class="o">-</span><span class="vg">cli</span><span class="o">.</span><span class="vg">bat</span><span class="w"> </span><span class="o">--</span><span class="vg">connect</span><span class="w"> </span><span class="o">--</span><span class="vg">file</span><span class="o">=</span><span class="vg">remove</span><span class="o">-</span><span class="vg">logging</span><span class="o">.</span><span class="vg">cli</span><span class="w"> </span>
+</pre></div>
+<p>This script removes the log and file handlers from the <code>logging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
+<div class="highlight"><pre><span class="vg">The</span><span class="w"> </span><span class="vg">batch</span><span class="w"> </span><span class="vg">executed</span><span class="w"> </span><span class="vg">successfully</span><span class="o">.</span>
+<span class="p">{</span><span class="s2">&quot;outcome&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">}</span>
+</pre></div></li>
+</ol>
+
+<h3><a id="remove-the-logging-configuration-manually" class="anchor" href="#remove-the-logging-configuration-manually"><span class="anchor-icon"></span></a>Remove the Logging Configuration Manually</h3>
+
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
+</ol>
+
+<h2><a id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" class="anchor" href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse"><span class="anchor-icon"></span></a>Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
+
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a> </p>
+
+<ul>
+<li>Be sure to configure JBoss EAP server logging as described above under <a href="#configure-the-jboss-eap-server">Configure the JBoss EAP Server</a>. Stop the server at the end of that step.</li>
+<li>Be sure to <a href="#remove-the-logging-configuration">Remove the Logging Configuration</a> when you have completed testing this quickstart.</li>
+</ul>
+
+<h2><a id="debug-the-application" class="anchor" href="#debug-the-application"><span class="anchor-icon"></span></a>Debug the Application</h2>
+
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<div class="highlight"><pre><span class="vg">mvn</span><span class="w"> </span><span class="nl">dependency:</span><span class="vg">sources</span>
+</pre></div></body></html>
