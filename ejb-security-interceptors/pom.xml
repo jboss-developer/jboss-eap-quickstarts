@@ -92,9 +92,8 @@
 
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following
-            message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
-            resources, i.e. build is platform dependent! -->
+            message: [WARNING] Using platform encoding (UTF-8 actually) to copy 
+            filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- EAP component version management BOM -->
@@ -159,8 +158,7 @@
     </dependencies>
 
     <build>
-          <!-- Set the name of the jar, used as the context root when the app is
-              deployed -->
+        <!-- Set the name of the WAR, used as the context root when the app is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
 
@@ -174,7 +172,7 @@
             <generateClient>true</generateClient>
           </configuration>
         </plugin>
-                <!-- Add the maven exec plug-in to allow us to run a java program via maven -->
+            <!-- Add the Maven exec plug-in to allow us to run a Java program via Maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>

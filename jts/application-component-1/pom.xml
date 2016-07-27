@@ -83,8 +83,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the
-            name given to the generated WAR, and hence the context root) -->
+        <!-- Set the name of the WAR, used as the context root when the app is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
