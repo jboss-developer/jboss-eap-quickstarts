@@ -152,9 +152,9 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Bean Validation Implementation -->
-        <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss EAP -->
+        <!-- Bean Validation Implementation 
+             Provides portable constraints such as @Email 
+             Hibernate Validator is shipped in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -194,8 +194,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the name
-            given to the generated WAR, and hence the context root) -->
+        <!-- Set the name of the WAR, used as the context root when the app is deployed -->
         <finalName>${project.artifactId}</finalName>
 
         <!-- Define plug-in versions required for Deployment and Testing Tools -->

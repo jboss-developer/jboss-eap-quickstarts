@@ -65,8 +65,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the
-            name given to the generated WAR, and hence the context root) -->
+        <!-- Set the name of the archive -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <!-- The WildFly plug-in deploys your WAR to a local JBoss EAP container -->

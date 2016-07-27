@@ -123,7 +123,7 @@
                 of artifacts. We use this here so that we always get the correct versions
                 of artifacts. Here we use the jboss-eap-javaee7-with-tools stack (you can
                 read this as the JBoss stack of the Java EE APIs, with some extras tools
-                for your project, such as Arquillian for testing) a -->
+                for your project, such as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-javaee7-with-tools</artifactId>
@@ -208,9 +208,9 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Bean Validation Implementation -->
-        <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss EAP -->
+        <!-- Bean Validation Implementation 
+             Provides portable constraints such as @Email 
+             Hibernate Validator is shipped in JBoss EAP -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -299,8 +299,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the name
-            given to the generated WAR, and hence the context root) -->
+        <!-- Set the name of the WAR, used as the context root when the app is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>

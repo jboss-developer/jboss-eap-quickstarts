@@ -57,7 +57,7 @@
     </dependencies>
 
     <build>
-        <!-- Set the name of the deployment -->
+        <!-- Set the name of the deployment archive -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <!-- WildFly plug-in to deploy the application -->

@@ -47,7 +47,7 @@
     </dependencies>
 
     <build>
-        <!-- define the name for the deployable archive instead of using the default name with the version -->
+        <!-- Set the name for the deployable archive instead of using the default name with the version -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
 
