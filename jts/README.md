@@ -133,7 +133,7 @@ After stopping the server, open the `EAP7_HOME/standalone/configuration/standalo
             <initializers transactions="full" security="identity"/>
         </subsystem>
 
-2. An empty `<jts/>` element is added to the the end of the `transactions` subsystem to enable JTS.
+2. An empty `<jts/>` element is added to the end of the `transactions` subsystem to enable JTS.
       
         <subsystem xmlns="urn:jboss:domain:transactions:3.0">
             <core-environment node-identifier="${jboss.tx.node.id}">
@@ -163,7 +163,7 @@ Application server 1 must be now configured to use the PostgreSQL database creat
 Start the JBoss EAP Servers
 -------------------------
 
-Start the the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
+Start the two JBoss EAP servers with the full profile, passing a unique node ID by typing the following command. You must pass a socket binding port offset on the command to start the second server. Be sure to replace `UNIQUE_NODE_ID` with a node identifier that is unique to both servers.
 
 If you are using Linux:
 

@@ -39,7 +39,7 @@ The service activates a scheduled timer, which is started only once in the clust
 
 <p><em>Note: You must start the server using the HA profile or the singleton service will not start correctly.</em></p>
 
-<p>Start the the two JBoss EAP servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. </p>
+<p>Start the two JBoss EAP servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. </p>
 
 <p>If you are using Linux:</p>
 <div class="highlight"><pre><span class="w">    </span><span class="vg">Server</span><span class="w"> </span><span class="il">1</span><span class="o">:</span><span class="w"> </span><span class="vg">EAP7_HOME_1</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">standalone</span><span class="o">.</span><span class="vg">sh</span><span class="w"> </span><span class="o">--</span><span class="vg">server</span><span class="o">-</span><span class="vg">config</span><span class="o">=</span><span class="vg">standalone</span><span class="o">-</span><span class="vg">ha</span><span class="o">.</span><span class="vg">xml</span><span class="w"> </span>

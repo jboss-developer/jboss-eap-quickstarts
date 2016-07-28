@@ -9513,7 +9513,7 @@ $.widget( "mobile.flipswitch", $.extend({
 
 			this._proxy = false;
 			//this stops dragging of the handle and brings the active track to the front
-			//this makes clicks on the track go the the last handle used
+			//this makes clicks on the track go the last handle used
 			this.element.find( "input" ).trigger( "vmouseup" );
 			this._sliderFirst.css( "z-index", first ? 1 : "" );
 		},
@@ -11170,7 +11170,7 @@ $.widget( "mobile.popup", {
 			url = $.mobile.path.parseLocation().hash + hashkey;
 		}
 
-		// swallow the the initial navigation event, and bind for the next
+		// swallow the initial navigation event, and bind for the next
 		this.window.one( "beforenavigate", function( theEvent ) {
 			theEvent.preventDefault();
 			self._open( options );

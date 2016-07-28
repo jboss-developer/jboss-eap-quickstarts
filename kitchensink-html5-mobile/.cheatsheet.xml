@@ -271,7 +271,7 @@
       serialization="org.jboss.tools.project.examples.cheatsheet.openFileInEditor(path=/${currentProject}/src/main/webapp/js/app.js,fromLine=28,toLine=47)"/>
     </subitem>
     <subitem
-          label="The &quot;registerMember&quot; function invokes the the REST API located at &quot;/rest/members&quot; with the JSON representation of the values in the registration form. Any existing error messages are removed."
+          label="The &quot;registerMember&quot; function invokes the REST API located at &quot;/rest/members&quot; with the JSON representation of the values in the registration form. Any existing error messages are removed."
           skip="true">
       <command
       required="false"

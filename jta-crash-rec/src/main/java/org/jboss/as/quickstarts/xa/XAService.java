@@ -141,7 +141,7 @@ public class XAService {
             KVPair pair = entityManager.find(KVPair.class, key);
 
             if (pair == null) {
-                // insert a new entry into the the key/value table
+                // insert a new entry into the key/value table
                 entityManager.persist(new KVPair(key, value));
             } else {
                 // there is already a value for this key - update it with the new value

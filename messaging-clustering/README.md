@@ -255,7 +255,7 @@ _Note: This script returns the server to a default configuration and the result 
 
         The batch executed successfully.
         
-   _Note: If the `:stop-server` command does not complete before the the next commands are issued, you may see an error similar to the following:
+   _Note: If the `:stop-server` command does not complete before the next commands are issued, you may see an error similar to the following:
    
          {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-1" => "JBAS010977: Server (quickstart-messagingcluster-node1) still running"}}
    Simply wait a few seconds and run the command a second time.
