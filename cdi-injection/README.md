@@ -12,7 +12,7 @@ What is it?
 
 The `cdi-injection` quickstart demonstrates the use of *CDI Injection and Qualifiers* in Red Hat JBoss Enterprise Application Platform, with JSF as the front-end client.
 
-Any Java class which has a no-args constructor and is in an archive with a `WEB-INF/beans.xml` is available for lookup and injection. For EL resolution, it must contain `@Named`.
+Any Java class which has a no-argument constructor and is in an archive with a `WEB-INF/beans.xml` is available for lookup and injection. For EL resolution, it must be annotated `@Named`.
 
 System requirements
 -------------------
