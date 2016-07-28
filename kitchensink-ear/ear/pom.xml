@@ -81,8 +81,8 @@
                     <fileNameMapping>no-version</fileNameMapping>
                 </configuration>
             </plugin>
-            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container -->
-            <!-- Due to Maven's lack of intelligence with EARs we need to configure
+            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container. 
+                Due to Maven's lack of intelligence with EARs we need to configure
                 the WildFly Maven plug-in to skip deployment for all modules. We then enable
                 it specifically in the ear module. -->
             <plugin>
@@ -98,10 +98,10 @@
 
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. 
+                 Use this profile for any OpenShift specific customization your app will need. 
+                 By default that is to put the resulting archive into the 'deployments' folder.
+                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <plugins>

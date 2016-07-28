@@ -115,7 +115,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
-
     <dependencyManagement>
         <dependencies>
             <!-- JBoss distributes a complete set of Java EE APIs including a Bill
@@ -157,7 +156,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!--  Provides access to UserTransaction, we use provided scope as the API is included in
             JBoss EAP -->
         <dependency>
@@ -165,8 +163,6 @@
             <artifactId>jboss-transaction-api_1.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-
-
 
         <!-- Import the CDI API, we use provided scope as the API is included in
             JBoss EAP -->
@@ -256,9 +252,8 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Optional, but highly recommended -->
-        <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA)
-            JPA from JUnit/TestNG -->
+        <!-- Optional, but highly recommended, Arquillian allows you to test enterprise code 
+             such as EJBs and Transactional(JTA) JPA from JUnit/TestNG -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -316,9 +311,9 @@
     <profiles>
         <profile>
             <!-- The default profile skips all tests, though you can tune it to run
-                just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including Arquillian
-                tests that execute in the specified container -->
+                just unit tests based on a custom pattern. 
+                Separate profiles are provided for running all tests, including Arquillian
+                tests that execute in the specified container. -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -337,8 +332,8 @@
         </profile>
 
         <profile>
-            <!-- An optional testing profile that executes JAX-RS Client API tests  -->
-            <!-- Run with: mvn clean test -Prest-test -->
+            <!-- An optional testing profile that executes JAX-RS Client API tests  
+                 Run with: mvn clean test -Prest-test -->
             <id>rest-test</id>
             <build>
                 <plugins>

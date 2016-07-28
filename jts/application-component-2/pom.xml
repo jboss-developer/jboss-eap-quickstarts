@@ -68,8 +68,8 @@
         <!-- Set the name of the archive -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- The WildFly plug-in deploys your WAR to a local JBoss EAP container -->
-            <!-- To use, run: mvn package wildfly:deploy -->
+            <!-- The WildFly plug-in deploys your WAR to a local JBoss EAP container.
+                 To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

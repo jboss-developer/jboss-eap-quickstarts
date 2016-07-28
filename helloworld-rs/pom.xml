@@ -112,9 +112,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import.
-                Any dependencies from org.jboss.spec will have their version defined by this
-                BOM -->
             <!-- JBoss distributes a complete set of Java EE APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                 a collection) of artifacts. We use this here so that we always get the correct
@@ -180,10 +177,10 @@
 
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. 
+                 Use this profile for any OpenShift specific customization your app will need. 
+                 By default that is to put the resulting archive into the 'deployments' folder.
+                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <plugins>

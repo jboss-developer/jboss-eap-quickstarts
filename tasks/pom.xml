@@ -181,8 +181,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <!-- Java EE doesn't require web.xml, Maven needs to
-                        catch up! -->
+                    <!-- Java EE doesn't require web.xml, Maven needs to catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
@@ -191,9 +190,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
             </plugin>
-            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP
-                container -->
-            <!-- As this project has tests only, so we disable the WildFly plug-in,
+            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container.
+                As this project has tests only, so we disable the WildFly plug-in,
                 this allows us to continue to use the standard deployment commands
                 without error. -->
             <plugin>
@@ -209,10 +207,10 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune
-                it to run just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including
-                Arquillian tests that execute in the specified container -->
+            <!-- The default profile skips all tests, though you can tune it 
+                 to run just unit tests based on a custom pattern.
+                 Separate profiles are provided for running all tests, including 
+                 Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -231,11 +229,9 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                in your JBoss EAP instance -->
-            <!-- This profile will start a new JBoss EAP instance, and execute
-                the test, shutting it down when done -->
-            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
+                 This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done. 
+                 Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
@@ -247,9 +243,8 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                in a remote JBoss EAP instance -->
-            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
+           <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
+                Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>
