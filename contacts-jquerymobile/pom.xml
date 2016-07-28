@@ -96,10 +96,7 @@
             filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- You can reference property in pom.xml or filtered resources (must enable third-party plug-in if using Maven < 2.1) -->
-
         <!-- JBoss dependency versions -->
-
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
@@ -254,8 +251,8 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Optional, but highly recommended -->
-        <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) JPA from JUnit/TestNG -->
+        <!-- Optional, but highly recommended, Arquillian allows you to test enterprise code 
+             such as EJBs and Transactional(JTA) JPA from JUnit/TestNG -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -273,8 +270,8 @@
         <!-- Set the name of the WAR, used as the context root when the app is deployed -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- This skips all tests, though you can tune it to run just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including Arquillian tests that execute in the specified container -->
+            <!-- This skips all tests, though you can tune it to run just unit tests based on a custom pattern.
+                 Separate profiles are provided for running all tests, including Arquillian tests that execute in the specified container -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire.plugin}</version>
@@ -290,8 +287,8 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
-            <!-- To use, run: mvn package wildfly:deploy -->
+            <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container.
+                 To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
@@ -302,10 +299,10 @@
 
     <profiles>
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. 
+                 Use this profile for any OpenShift specific customization your app will need. 
+                 By default that is to put the resulting archive into the 'deployments' folder.
+                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <plugins>
@@ -321,8 +318,8 @@
             </build>
         </profile>
         <profile>
-            <!-- Use this profile to use the wro4j plug-in for validation, concatenation and -->
-            <!-- minification of JavaScript and CSS files during the build -->
+            <!-- Use this profile to use the wro4j plug-in for validation, concatenation and 
+                minification of JavaScript and CSS files during the build -->
             <id>minify</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -353,9 +350,9 @@
             </build>
         </profile>
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance -->
-            <!-- This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done -->
-            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
+                 This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done. 
+                 Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
@@ -378,8 +375,8 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance -->
-            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
+           <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
+                Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>

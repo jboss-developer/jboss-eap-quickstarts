@@ -113,10 +113,10 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it
-                to run just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including
-                Arquillian tests that execute in the specified container -->
+            <!-- The default profile skips all tests, though you can tune it 
+                 to run just unit tests based on a custom pattern.
+                 Separate profiles are provided for running all tests, including 
+                 Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -135,11 +135,9 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                in your JBoss EAP instance -->
-            <!-- This profile will start a new JBoss EAP instance, and execute
-                the test, shutting it down when done -->
-            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
+                 This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done. 
+                 Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
@@ -151,9 +149,8 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                in a remote JBoss EAP instance -->
-            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
+           <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
+                Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>

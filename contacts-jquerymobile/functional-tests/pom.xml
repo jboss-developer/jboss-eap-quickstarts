@@ -128,7 +128,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Arquillian dependency -->
             <!-- Define the version of the JBoss Java EE APIs we want to import.
                  Any dependencies from org.jboss.spec will have their version defined by this BOM
 

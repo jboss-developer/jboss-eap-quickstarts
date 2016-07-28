@@ -250,8 +250,8 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- WildFly plug-in to deploy the WAR -->
-            <!-- To use, run: mvn package wildfly:deploy -->
+            <!-- WildFly plug-in to deploy the WAR.
+                 To use, run: mvn package wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
@@ -262,10 +262,10 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it to run
-                just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including Arquillian
-                tests that execute in the specified container -->
+            <!-- The default profile skips all tests, though you can tune it 
+                 to run just unit tests based on a custom pattern.
+                 Separate profiles are provided for running all tests, including 
+                 Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -284,13 +284,10 @@
         </profile>
 
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when
-                invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app
-                will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments'
-                folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. 
+                 Use this profile for any OpenShift specific customization your app will need. 
+                 By default that is to put the resulting archive into the 'deployments' folder.
+                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>
             <build>
                 <plugins>

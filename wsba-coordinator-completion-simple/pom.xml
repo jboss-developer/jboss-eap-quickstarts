@@ -113,15 +113,12 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs and Tools we
-                want to import. -->
-
             <!-- JBoss distributes a complete set of Java EE APIs including
                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
                 a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. -->
+                versions of artifacts. 
 
-            <!-- This BOM provides the jboss-javaee-7.0 with tools stack
+                 This BOM provides the jboss-javaee-7.0 with tools stack
                 (you can read this as the JBoss stack of the Java EE APIs, with some extras
                 tools for your project, such as Arquillian for testing) -->
             <dependency>
@@ -203,10 +200,10 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune
-                it to run just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including
-                Arquillian tests that execute in the specified container -->
+            <!-- The default profile skips all tests, though you can tune it 
+                 to run just unit tests based on a custom pattern.
+                 Separate profiles are provided for running all tests, including 
+                 Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -224,11 +221,9 @@
             </build>
         </profile>
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests
-                in your JBoss EAP instance -->
-            <!-- This profile will start a new JBoss EAP instance, and execute
-                the test, shutting it down when done -->
-            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
+                 This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done. 
+                 Run with: mvn clean test -Parq-wildfly-managed -->
             <id>arq-wildfly-managed</id>
             <dependencies>
                 <dependency>
@@ -240,10 +235,8 @@
         </profile>
 
         <profile>
-
-            <!-- An optional Arquillian testing profile that executes tests
-                in a remote JBoss EAP instance -->
-            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
+           <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
+                Run with: mvn clean test -Parq-wildfly-remote -->
             <id>arq-wildfly-remote</id>
             <dependencies>
                 <dependency>
