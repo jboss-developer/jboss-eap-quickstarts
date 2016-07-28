@@ -33,7 +33,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <li>It contains the following utility methods:
 
 <ul>
-<li><code>private void init()</code>: This is a PostConstruct {<code>@PostConstruct</code>) method that performs initialization before the class is put into service. It resets the <code>amount</code> to <code>$0</code> and the <code>paymentOption</code> to the default type of debit. </li>
+<li><code>private void init()</code>: This is a PostConstruct (<code>@PostConstruct</code>) method that performs initialization before the class is put into service. It resets the <code>amount</code> to <code>$0</code> and the <code>paymentOption</code> to the default type of debit. </li>
 <li><code>public String pay()</code>: This method processes the operation when the user clicks on submit. We have only one JSF page, so the method does not return anything and the flow of control does not change.</li>
 <li><code>public void reset()</code>: Reset calls the <code>init()</code> method reinitialize the form values.</li>
 </ul></li>
