@@ -146,14 +146,14 @@ You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfl
 Investigate the Console Output
 ----------------------------
 
-<!-- Contributor: The quickstart README should show what to expect from the the tests. -->
+<!-- Contributor: The quickstart README should show what to expect in the console from running the tests. -->
 
 * If applicable, copy and paste output from the JUnit tests to show what to expect in the console from the tests.
 
 Investigate the Server Log
 ----------------------------
 
-<!-- Contributor: The quickstart README should show what to expect from the the tests. -->
+<!-- Contributor: The quickstart README should show what to expect in the server log from running the tests. -->
 
 * If applicable, copy and paste log messages output by the application to show what to expect in the server log when running the tests.
 

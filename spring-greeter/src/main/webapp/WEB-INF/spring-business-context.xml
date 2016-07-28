@@ -27,7 +27,7 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-   <!-- Scan the the domain package for Spring repositories and services -->
+   <!-- Scan the domain package for Spring repositories and services -->
    <context:component-scan base-package="org.jboss.spring.quickstarts.greeter.greeter_spring.domain" />
 
    <!-- Look up the database in JNDI -->

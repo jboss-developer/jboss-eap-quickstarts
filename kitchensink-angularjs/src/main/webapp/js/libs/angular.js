@@ -6750,7 +6750,7 @@ function $TemplateCacheProvider() {
  * </div>
  *
  * If you want to manually control the insertion and removal of the transcluded content in your directive
- * then you must use this transclude function. When you call a transclude function it returns a a jqLite/JQuery
+ * then you must use this transclude function. When you call a transclude function it returns a jqLite/JQuery
  * object that contains the compiled DOM, which is linked to the correct transclusion scope.
  *
  * When you call a transclusion function you can pass in a **clone attach function**. This function accepts
@@ -26097,7 +26097,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  *
  * A different issue with objects or collections is that ngModel won't detect if an object property or
  * a collection item changes. For that reason, `ngOptions` additionally watches the model using
- * `$watchCollection`, when the expression contains a `track by` clause or the the select has the `multiple` attribute.
+ * `$watchCollection`, when the expression contains a `track by` clause or the select has the `multiple` attribute.
  * This allows ngOptions to trigger a re-rendering of the options even if the actual object/collection
  * has not changed identity, but only a property on the object or an item in the collection changes.
  *

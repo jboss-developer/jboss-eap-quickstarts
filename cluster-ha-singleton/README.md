@@ -45,7 +45,7 @@ Start the JBoss EAP Server with a HA profile
 
 _Note: You must start the server using the HA profile or the singleton service will not start correctly._
 
-Start the the two JBoss EAP servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
+Start the two JBoss EAP servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
 
 If you are using Linux:
 
