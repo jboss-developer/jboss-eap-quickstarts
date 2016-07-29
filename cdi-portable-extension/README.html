@@ -21,7 +21,7 @@ for that extension and an Arquillian test to verify the extension is working cor
 
 <ul>
 <li><code>CreatureExtension</code>: Class that implements <code>Extension</code>. This is the first step in creating a portable extension. It is not a bean since it is instantiated by the container during the initialization process, before any beans or contexts exist. However, it can be injected into other beans once the initialization process is complete.</li>
-<li><code>XmlBackedWrappedInjectionTarget</code>: Wrapper class for the standard {@link InjectionTarget} to add the field values from the XML file.</li>
+<li><code>XmlBackedWrappedInjectionTarget</code>: Wrapper class for the standard <code>@link InjectionTarget</code> to add the field values from the XML file.</li>
 <li><code>CreatureType</code>: An enum in the <code>model</code> package. It defines the two types of creatures, <code>MONSTER</code> and <code>NPC</code>.</li>
 <li><code>Creature</code>: The interface in the <code>model</code> package. Defines the name and type of creature.</li>
 <li><code>Monster</code>: Class in the <code>model</code> package that implments creature with a type <code>MONSTER</code>.</li>
@@ -30,7 +30,7 @@ for that extension and an Arquillian test to verify the extension is working cor
 <li><code>META-INF/creatures.xsd</code>: The schema for the XML that seeds the bean with data.</li>
 </ul>
 
-<p>On application start, there will be one instance of <code>monster</code> with a name of <code>Cat</code>, hitpoints of <code>10</code> and an initiative of <code>25</code>. There will also be one instance of <code>npc</code> with name of <code>Drunkard</code> and location of <code>Drunken Duck Tavern</code>. There is no instantiation code for the object outside of the CDI extension.</p>
+<p>On application start, there will be one instance of <code>Monster</code> with a name of <code>Cat</code>, hitpoints of <code>10</code> and an initiative of <code>25</code>. There will also be one instance of <code>NonPlayerCharacter</code> with name of <code>Drunkard</code> and location of <code>Drunken Duck Tavern</code>. There is no instantiation code for the object outside of the CDI extension.</p>
 
 <p><em>Note:</em> This quickstart does not contain any user interface. Instead, you run tests and check server log messages to verify everything is working correctly.</p>
 
