@@ -20,7 +20,7 @@ The project contains very simple domain model classes, an extension class, the s
 for that extension and an Arquillian test to verify the extension is working correctly.
 
 * `CreatureExtension`: Class that implements `Extension`. This is the first step in creating a portable extension. It is not a bean since it is instantiated by the container during the initialization process, before any beans or contexts exist. However, it can be injected into other beans once the initialization process is complete.
-* `XmlBackedWrappedInjectionTarget`: Wrapper class for the standard {@link InjectionTarget} to add the field values from the XML file.
+* `XmlBackedWrappedInjectionTarget`: Wrapper class for the standard `@link InjectionTarget` to add the field values from the XML file.
 * `CreatureType`: An enum in the `model` package. It defines the two types of creatures, `MONSTER` and `NPC`.
 * `Creature`: The interface in the `model` package. Defines the name and type of creature.
 * `Monster`: Class in the `model` package that implments creature with a type `MONSTER`.
@@ -28,7 +28,7 @@ for that extension and an Arquillian test to verify the extension is working cor
 * `META-INF/creatures.xml`: The XML in this file seeds the bean with data.
 * `META-INF/creatures.xsd`: The schema for the XML that seeds the bean with data.
 
-On application start, there will be one instance of `monster` with a name of `Cat`, hitpoints of `10` and an initiative of `25`. There will also be one instance of `npc` with name of `Drunkard` and location of `Drunken Duck Tavern`. There is no instantiation code for the object outside of the CDI extension.
+On application start, there will be one instance of `Monster` with a name of `Cat`, hitpoints of `10` and an initiative of `25`. There will also be one instance of `NonPlayerCharacter` with name of `Drunkard` and location of `Drunken Duck Tavern`. There is no instantiation code for the object outside of the CDI extension.
 
 _Note:_ This quickstart does not contain any user interface. Instead, you run tests and check server log messages to verify everything is working correctly.
 
