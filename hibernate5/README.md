@@ -37,7 +37,7 @@ Add the Correct Dependencies
 
 JBoss EAP provides Hibernate 5 and JPA support. 
 
-If you use Hibernate 5 packaged within Red Hat JBoss EAP, you will need to first import the JPA API.
+If you use Hibernate 5 packaged within JBoss EAP, you will need to first import the JPA API.
 
 This quickstart demonstrates usage of Hibernate Session and Hibernate Validators.
 
