@@ -45,11 +45,9 @@ This quickstart provides Arquillian tests.
 1. Make sure you have started the JBoss EAP server as described above.
 2. Make sure the `helloworld-rs` quickstart has been deployed on the server as noted in the **Prerequisites** section above.
 3. Open a command prompt and navigate to the root directory of this quickstart.
-4. Type the following command to run the test goal with the following profile activated:
+4. Type the following command to run the test goal:
 
         mvn clean test 
-
-You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
 
 
 Investigate the Console Output
