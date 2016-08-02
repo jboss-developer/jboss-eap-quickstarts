@@ -188,26 +188,12 @@ For an example of how to use the add-user utility, see the instructions located 
 </pre></div>
 <h2><a id="modify-this-quickstart-to-support-json-representations-of-tasks" class="anchor" href="#modify-this-quickstart-to-support-json-representations-of-tasks"><span class="anchor-icon"></span></a>Modify this Quickstart to Support JSON Representations of Tasks</h2>
 
-<p>JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with <code>// JSON:</code>:</p>
+<p>JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for comment lines containing <code>JSON:</code>:</p>
 
 <ol>
-<li><p>Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.</p>
-<div class="highlight"><pre><span class="o">//</span> <span class="kn">import</span> <span class="nn">com.fasterxml.jackson.annotation.JsonIgnore</span><span class="p">;</span>
-
-<span class="o">//</span> <span class="nd">@JsonIgnore</span>
-</pre></div></li>
-<li><p>Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the <em>GET</em> methods produce &ldquo;application/json&rdquo; as well as &ldquo;application/xml&rdquo;. Again, look for lines beginning with <code>// JSON:</code>.</p>
-
-<ul>
-<li><p>Remove comments from these lines:</p>
-
-<p>//@Produces({ &ldquo;application/xml&rdquo;, &ldquo;application/json&rdquo; })</p></li>
-<li><p>Add comments to these lines:</p>
-
-<p>@Produces({ &ldquo;application/xml&rdquo; })</p></li>
-</ul></li>
-<li><p>Open pom.xml and remove the comments from the dependency with artifactId <code>resteasy-jackson2-provider</code></p>
-<div class="highlight"><pre><span class="c">&lt;!--</span>
+<li><p>Open the <code>pom.xml</code> file and remove the comments from the dependency with artifactId <code>resteasy-jackson2-provider</code>.</p>
+<div class="highlight"><pre><span class="c">&lt;!-- JSON: uncomment to include json support (note json is not part of the JAX-RS standard) --&gt;</span>
+<span class="c">&lt;!--</span>
 <span class="c">&lt;dependency&gt;</span>
 <span class="c">    &lt;groupId&gt;org.jboss.resteasy&lt;/groupId&gt;</span>
 <span class="c">    &lt;artifactId&gt;resteasy-jackson2-provider&lt;/artifactId&gt;</span>
@@ -215,16 +201,31 @@ For an example of how to use the add-user utility, see the instructions located 
 <span class="c">&lt;/dependency&gt;</span>
 <span class="c">--&gt;</span>
 </pre></div></li>
+<li><p>Open the <code>src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java</code> file and remove the comments from the following two lines.</p>
+<div class="highlight"><pre><span class="o">//</span> <span class="kn">import</span> <span class="nn">com.fasterxml.jackson.annotation.JsonIgnore</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="nd">@JsonIgnore</span>
+</pre></div></li>
+<li><p>Open the <code>src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java</code> file and make sure the <em>GET</em> methods produce &ldquo;application/json&rdquo; as well as &ldquo;application/xml&rdquo;. Again, look for lines beginning with <code>// JSON:</code>.</p>
+
+<ul>
+<li><p>Remove comments from this line:</p>
+<div class="highlight"><pre><span class="c1">//@Produces({ &quot;application/xml&quot;, &quot;application/json&quot; })</span>
+</pre></div></li>
+<li><p>Add comments to this line:</p>
+<div class="highlight"><pre><span class="err">@</span><span class="vg">Produces</span><span class="p">({</span><span class="w"> </span><span class="s2">&quot;application/xml&quot;</span><span class="w"> </span><span class="p">})</span>
+</pre></div></li>
+</ul></li>
 <li><p>Rebuild and redeploy the quickstart.</p></li>
 <li><p><a href="#create-a-task">Create a Task</a> as you did for the XML version of this quickstart.</p></li>
-<li><p>View task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:</p>
+<li><p>View task resources in JSON media type by specifying the correct <em>Accept</em> header. For example, using the cURL tool, type the following command:</p>
 <div class="highlight"><pre><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">H</span><span class="w"> </span><span class="s2">&quot;Accept: application/json&quot;</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="c1">&#39;quickstartUser:quickstartPwd1!&#39; -X GET http://localhost:8080/jboss-tasks-rs/tasks/id/1</span>
+</pre></div>
+<p>You will see the following response:</p>
+<div class="highlight"><pre><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="il">1</span><span class="p">,</span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;task1&quot;</span><span class="p">,</span><span class="s2">&quot;ownerName&quot;</span><span class="o">:</span><span class="s2">&quot;quickstartUser&quot;</span><span class="p">}</span>
 </pre></div></li>
 </ol>
 
-<p>You will see the following response:</p>
-<div class="highlight"><pre><span class="w">  </span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="il">1</span><span class="p">,</span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="s2">&quot;task1&quot;</span><span class="p">,</span><span class="s2">&quot;ownerName&quot;</span><span class="o">:</span><span class="s2">&quot;quickstartUser&quot;</span><span class="p">}</span>
-</pre></div>
 <h2><a id="server-log-expected-warnings-and-errors" class="anchor" href="#server-log-expected-warnings-and-errors"><span class="anchor-icon"></span></a>Server Log: Expected warnings and errors</h2>
 
 <p><em>Note:</em> You will see the following warnings in the server log. You can ignore these warnings.</p>

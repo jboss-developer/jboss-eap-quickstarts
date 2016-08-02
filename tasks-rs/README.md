@@ -191,23 +191,11 @@ You will see a response with an empty collection:
 Modify this Quickstart to Support JSON Representations of Tasks
 -----------------------------------------------------------------
 
-JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for lines beginning with `// JSON:`:
+JSON is not part of the JAX-RS standard but most JAX-RS implementations do support it. This quickstart can be modified to support JSON by uncommenting a few lines. Look for comment lines containing `JSON:`:
 
-1. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java and remove the comments from the following two lines.
+1. Open the `pom.xml` file and remove the comments from the dependency with artifactId `resteasy-jackson2-provider`.
 
-        // import com.fasterxml.jackson.annotation.JsonIgnore;
-
-        // @JsonIgnore
-
-2. Open the file src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with `// JSON:`.
-    * Remove comments from these lines:
-
-          //@Produces({ "application/xml", "application/json" })
-    * Add comments to these lines:
-
-          @Produces({ "application/xml" })
-3. Open pom.xml and remove the comments from the dependency with artifactId `resteasy-jackson2-provider`
-
+        <!-- JSON: uncomment to include json support (note json is not part of the JAX-RS standard) -->
         <!--
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
@@ -216,17 +204,30 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
         </dependency>
         -->
 
+2. Open the `src/main/java/org/jboss/as/quickstarts/tasksrs/model/Task.java` file and remove the comments from the following two lines.
+
+        // import com.fasterxml.jackson.annotation.JsonIgnore;
+
+        // @JsonIgnore
+
+3. Open the `src/main/java/org/jboss/as/quickstarts/tasksrs/service/TaskResource.java` file and make sure the *GET* methods produce "application/json" as well as "application/xml". Again, look for lines beginning with `// JSON:`.
+    * Remove comments from this line:
+
+            //@Produces({ "application/xml", "application/json" })
+    * Add comments to this line:
+
+            @Produces({ "application/xml" })
 4. Rebuild and redeploy the quickstart.
+
 5. [Create a Task](#create-a-task) as you did for the XML version of this quickstart.
 
 
-6. View task resources in JSON media type by specifying the correct Accept header. For example, using the cURL tool, type the following command:
+6. View task resources in JSON media type by specifying the correct *Accept* header. For example, using the cURL tool, type the following command:
 
         curl -H "Accept: application/json" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/id/1
+   You will see the following response:
 
-  You will see the following response:
-
-      {"id":1,"title":"task1","ownerName":"quickstartUser"}
+        {"id":1,"title":"task1","ownerName":"quickstartUser"}
 
 
 Server Log: Expected warnings and errors
