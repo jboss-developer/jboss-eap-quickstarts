@@ -69,7 +69,7 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
+1.0.4.Final-redhat-1
     <properties>
         <!-- Explicitly declaring the source encoding eliminates the following
             message: [WARNING] Using platform encoding (UTF-8 actually) to copy 
@@ -80,7 +80,7 @@
 
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <version.jboss.spec.javaee.7.0>1.0.3.Final-redhat-5</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.0.4.Final-redhat-1</version.jboss.spec.javaee.7.0>
 
         <!-- other plug-in versions -->
         <version.war.plugin>2.6</version.war.plugin>
