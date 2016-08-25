@@ -157,7 +157,20 @@ JGROUPS_ENCRYPT_NAME=secret-key,\
 JGROUPS_ENCRYPT_PASSWORD=password,\
 IMAGE_STREAM_NAMESPACE=sample-project eap70-postgresql-s2i | oc create -f -
 ```
-
+or
+```
+oc new-app --template=eap70-postgresql-s2i -p \
+SOURCE_REPOSITORY_URL=https://github.com/josefkarasek/jboss-eap-quickstarts,\
+SOURCE_REPOSITORY_REF=7.1.x-develop,\
+CONTEXT_DIR=greeter,\
+DB_JNDI=java:jboss/datasources/GreeterQuickstartDS,\
+DB_DATABASE=USERS,\
+HTTPS_NAME=jboss,\
+HTTPS_PASSWORD=mykeystorepass,\
+JGROUPS_ENCRYPT_NAME=secret-key,\
+JGROUPS_ENCRYPT_PASSWORD=password,\
+IMAGE_STREAM_NAMESPACE=sample-project
+```
 Wait for the build to finish:
 ```
 watch oc get pod
