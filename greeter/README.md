@@ -31,7 +31,7 @@ _Note: This quickstart uses a `*-ds.xml` datasource configuration file for conve
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later.
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
@@ -51,7 +51,7 @@ Start the JBoss EAP Server
         For Linux:   EAP7_HOME/bin/standalone.sh
         For Windows: EAP7_HOME\bin\standalone.bat
 
- 
+
 Build and Deploy the Quickstart
 -------------------------
 
@@ -64,10 +64,10 @@ Build and Deploy the Quickstart
 4. This will deploy `target/jboss-greeter.war` to the running instance of the server.
 
 
-Access the application 
+Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-greeter>. 
+The application will be running at the following URL: <http://localhost:8080/jboss-greeter>.
 
 
 Undeploy the Archive
@@ -92,7 +92,7 @@ _Note:_ You will see the following warnings in the server log. You can ignore th
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
 
 
 Debug the Application
@@ -102,4 +102,68 @@ If you want to debug the source code of any library in the project, run the foll
 
         mvn dependency:sources
 
+Run the application in Openshift
+---
+[EAP 7 xPaaS image documentation](https://access.redhat.com/documentation/en/red-hat-xpaas/version-0/red-hat-xpaas-eap-image/)
 
+Download and install the [Container Development Kit](http://developers.redhat.com/products/cdk/download/) via this [installation guide](https://access.redhat.com/documentation/en/red-hat-container-development-kit/2.1/paged/installation-guide/).
+
+After setting up the Openshift environment download the [CLI client tool](https://github.com/openshift/origin/releases/latest) and add it to your PATH envar (e.g copy it to /usr/local/bin). Log in as `openshift-dev` user: ```oc login 10.1.2.2:8443 -u openshift-dev -p devel``` and go to the following project: ```oc project sample-project```. From here install the EAP 7 xPaaS image and eap70-postgresql-s2i template.
+
+#### Install EAP 7 xPaaS image
+
+```
+cat <<EOF | oc create -n sample-project -f -
+---
+  apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: jboss-eap70-openshift
+  spec:
+    dockerImageRepository: registry.access.redhat.com/jboss-eap-7/eap70-openshift
+EOF
+```
+
+#### Install PostgreSQL image
+```
+cat <<EOF | oc create -n sample-project -f -
+---
+  apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: postgresql
+  spec:
+    dockerImageRepository: registry.access.redhat.com/openshift3/postgresql-92-rhel7
+EOF
+```
+
+#### Install eap70-postgresql-s2i template
+```
+oc create -n sample-project -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/secrets/eap7-app-secret.json
+oc create  -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/eap/eap70-postgresql-s2i.json
+```
+
+#### Build and run the application in Openshift
+```
+oc process -v \
+SOURCE_REPOSITORY_URL=https://github.com/josefkarasek/jboss-eap-quickstarts,\
+SOURCE_REPOSITORY_REF=7.1.x-develop,\
+CONTEXT_DIR=greeter,\
+DB_JNDI=java:jboss/datasources/GreeterQuickstartDS,\
+DB_DATABASE=USERS,\
+HTTPS_NAME=jboss,\
+HTTPS_PASSWORD=mykeystorepass,\
+JGROUPS_ENCRYPT_NAME=secret-key,\
+JGROUPS_ENCRYPT_PASSWORD=password,\
+IMAGE_STREAM_NAMESPACE=sample-project eap70-postgresql-s2i | oc create -f -
+```
+
+Wait for the build to finish:
+```
+watch oc get pod
+```
+View build logs
+```
+oc logs <pod_name-build>  # most likely 'eap-app-1-build'
+```
+After the build completes visit the project in web console at `https://10.1.2.2:8443/console`. Because we used self-signed certificate there will be two routes for this application available - http and https. Click at either one of them (in case of https, accept the self-signed certificate as trusted in your browser) and the application will display.
