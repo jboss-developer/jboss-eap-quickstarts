@@ -169,9 +169,9 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it 
+            <!-- The default profile skips all tests, though you can tune it
                  to run just unit tests based on a custom pattern.
-                 Separate profiles are provided for running all tests, including 
+                 Separate profiles are provided for running all tests, including
                  Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
@@ -186,20 +186,13 @@
                             <skip>true</skip>
                         </configuration>
                     </plugin>
-                    <!-- The WildFly plug-in deploys the WAR to a local JBoss EAP container -->
-                    <!-- To use, run: mvn package wildfly:deploy -->
-                    <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
-                        <version>${version.wildfly.maven.plugin}</version>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
-                 This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done. 
+                 This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done.
                  Run with: mvn clean test -Parq-wildfly-managed -->
              <id>arq-wildfly-managed</id>
             <dependencies>
