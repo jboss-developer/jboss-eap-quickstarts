@@ -771,7 +771,7 @@
       What we didn&apos;t tell you about the <b>kitchensink-html5-mobile quickstart</b> is that it is generated from a Maven archetype.
       You can use this archetype to generate your own project.
       <br/><br/>
-      Simply select <b>Help&gt;JBoss Central</b> and click the <b>HTML5 Project</b> wizard.
+      Simply select <b>Help&gt;Red Hat Central</b> and click the <b>HTML5 Project</b> wizard.
       <br/>
       You will get a brand new project with the same functionality as <b>kitchensink-html5-mobile</b>,
       but customized with your details.

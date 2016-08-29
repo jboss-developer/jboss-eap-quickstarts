@@ -685,7 +685,7 @@ We discussed both of these files in detail in The <b>greeter example in depth</b
       What we didn&apos;t tell you about the <b>Kitchensink quickstart</b> is that it is generated from a Maven archetype.
       Using this archetype offers you the perfect opportunity to generate your own project.
       <br/><br/>
-      In order to perform that, you should select <b>Help&gt;JBoss Central</b> and click the <b>Java EE Web Project</b> wizard.
+      In order to perform that, you should select <b>Help&gt;Red Hat Central</b> and click the <b>Java EE Web Project</b> wizard.
       <br/>
       You will get a brand new project with the same functionality as <b>kitchensink</b>,
       but customized with your details.
