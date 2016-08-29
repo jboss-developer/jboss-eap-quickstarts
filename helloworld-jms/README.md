@@ -72,11 +72,7 @@ You configure the JMS `test` queue by running JBoss CLI commands. For your conve
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-jms.cli 
    You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
+        The batch executed successfully
 5. Stop the JBoss EAP server.
 
 
@@ -208,11 +204,7 @@ You can remove the JMS configuration by running the  `remove-jms.cli` script pro
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-jms.cli 
    This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
+        The batch executed successfully
 
 ### Remove the JMS Configuration Manually
 1. If it is running, stop the JBoss EAP server.

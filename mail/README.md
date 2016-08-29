@@ -61,7 +61,7 @@ You configure the custom mail session in JBoss EAP by running Management CLI com
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-mail-session.cli
    You should see the following result when you run the script:
 
-        The batch executed successfully.
+        The batch executed successfully
         process-state: reload-required 
 
 5. Stop the JBoss EAP server.
@@ -157,7 +157,7 @@ You can remove the mail configuration by running the  `remove-mail-session.cli` 
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-mail-session.cli 
    This script removes the custom `MyOtherMail` session from the `mail` subsystem in the server configuration. file You should see the following result when you run the script:
 
-        The batch executed successfully.
+        The batch executed successfully
         process-state: reload-required 
 
 

@@ -143,10 +143,6 @@ You configure the security domain by running JBoss CLI commands. For your conven
    You should see the following result when you run the script:
 
         The batch executed successfully
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
 5. Because this example quickstart demonstrates security, exceptions are thrown when secured EJB access is attempted by an invalid user. If you want to review the security exceptions in the server log, you can skip this step. If you want to suppress these exceptions in the server log, run the following command, replacing EAP7_HOME with the path to your server:
 
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-system-exception.cli
@@ -154,10 +150,6 @@ You configure the security domain by running JBoss CLI commands. For your conven
    You should see the following result when you run the script:
 
         The batch executed successfully
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
 6. Stop the JBoss EAP server.
 
 Review the Modified Server Configuration
@@ -480,15 +472,16 @@ You can remove the security domain configuration by running the  `remove-securit
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
+        The batch executed successfully
+        process-state: reload-required
 3. If you chose to run the script to suppress system exceptions, run the following command, replacing EAP7_HOME with the path to your server:
 
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-system-exception.cli 
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=restore-system-exception.cli 
+
+    You should see the following result when you run the script:
+
+        The batch executed successfully
 
 ### Remove the Security Domain Configuration Manually
 1. If it is running, stop the JBoss EAP server.

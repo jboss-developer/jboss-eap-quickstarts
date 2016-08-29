@@ -56,10 +56,6 @@ You enable MDB property substitution by running JBoss CLI commands. For your con
 You should see the following result when you run the script:
 
         The batch executed successfully
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
 5. Stop the JBoss EAP server.
 
 Review the Modified Server Configuration
@@ -162,12 +158,7 @@ You can remove the server configuration by running the  `disable-mdb-property-su
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=disable-mdb-property-substitution.cli
 This script removes the system properties and sets the `<annotation-property-replacement>` value to `false` in the `ee` subsystem of the server configuration. You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {
-            "outcome" => "success",
-            "result" => undefined
-        }
-
+        The batch executed successfully
 
 ### Restore the Configuration Manually
 1. If it is running, stop the JBoss EAP server.

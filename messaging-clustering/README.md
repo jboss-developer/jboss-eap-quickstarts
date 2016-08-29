@@ -253,7 +253,7 @@ _Note: This script returns the server to a default configuration and the result 
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-domain.cli 
    This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
-        The batch executed successfully.
+        The batch executed successfully
         
    _Note: If the `:stop-server` command does not complete before the next commands are issued, you may see an error similar to the following:
    
@@ -285,7 +285,7 @@ _Note: This script returns the server to a default configuration and the result 
         For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=remove-standalone.cli 
 This script removes the server configuration that was done by the `install-standalone.cli` script. You should see the following result following the script commands:
 
-        The batch executed successfully.
+        The batch executed successfully
 
 ### Delete the Cloned Standalone JBoss EAP Directory
 
