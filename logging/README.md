@@ -270,8 +270,7 @@ You can remove the logging configuration by running the  `remove-logging.cli` sc
         For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-logging.cli 
 This script removes the log and file handlers from the `logging` subsystem in the server configuration. You should see the following result when you run the script:
 
-        The batch executed successfully.
-        {"outcome" => "success"}
+        The batch executed successfully
 
 
 ### Remove the Logging Configuration Manually
