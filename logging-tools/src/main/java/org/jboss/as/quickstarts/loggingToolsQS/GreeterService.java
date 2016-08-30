@@ -40,6 +40,7 @@ import org.jboss.logging.Messages;
 @Path("greetings")
 public class GreeterService {
 
+    @SuppressWarnings("unused")
     private int value;    // used to demonstrate exceptions
 
     // ======================================================================
