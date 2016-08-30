@@ -37,7 +37,7 @@
         <configuration> 
         <!--    <property name="jbossHome">EAP_HOME</property> -->
             <property name="serverConfig">../../docs/examples/configs/standalone-xts.xml</property>
-        </configuration> -->
+        </configuration>
     </container>
 
 </arquillian>
