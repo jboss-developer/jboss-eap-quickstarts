@@ -269,6 +269,7 @@
                         <configuration>
                             <outputDirectory>deployments</outputDirectory>
                             <warName>ROOT</warName>
+                            <packagingExcludes>WEB-INF/kitchensink-quickstart-ds.xml</packagingExcludes>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -155,3 +155,25 @@ If you want to debug the source code of any library in the project, run the foll
     mvn dependency:sources
    
 
+Openshift
+----
+Prerequisities:
+*template: [https](https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/eap/eap70-https-s2i.json)
+*service account: [eap7](https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/secrets/eap7-app-secret.json)
+
+oc new-app --template=eap70-https-s2i -p \
+SOURCE_REPOSITORY_URL=https://github.com/josefkarasek/jboss-eap-quickstarts,\
+SOURCE_REPOSITORY_REF=7.1.x-develop,\
+CONTEXT_DIR=jaxrs-client,\
+HTTPS_NAME=jboss,\
+HTTPS_PASSWORD=mykeystorepass,\
+JGROUPS_ENCRYPT_NAME=secret-key,\
+JGROUPS_ENCRYPT_PASSWORD=password
+
+watch oc get pod
+
+steps to test the app:
+```
+curl <APP_URL>/rest/contacts -X POST -H 'Content-Type: application/json' -d '{"name":"user","phoneNumber":"123","savedBy":"user2"}'
+curl <APP_URL>/rest/contacts -X GET
+```
