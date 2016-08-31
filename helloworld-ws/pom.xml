@@ -312,18 +312,21 @@
                         <configuration>
                             <outputDirectory>deployments</outputDirectory>
                             <warName>${project.artifactId}</warName>
-                            <failOnMissingWebXml>false</failOnMissingWebXml>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.surefire.plugin}</version>
-                        <configuration>
-                            <skip>true</skip>
+                            <webResources>
+                                <resource>
+                                    <directory>${basedir}/src/main/webapp-openshift/WEB-INF</directory>
+                                    <filtering>true</filtering>
+                                    <targetPath>WEB-INF</targetPath>
+                                    <includes>
+                                        <include>jboss-web.xml</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
+
 </project>
