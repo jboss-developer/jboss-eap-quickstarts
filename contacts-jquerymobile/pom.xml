@@ -312,6 +312,7 @@
                         <configuration>
                             <outputDirectory>deployments</outputDirectory>
                             <warName>ROOT</warName>
+                            <packagingExcludes>WEB-INF/contacts-quickstart-ds.xml</packagingExcludes>
                         </configuration>
                     </plugin>
                 </plugins>
