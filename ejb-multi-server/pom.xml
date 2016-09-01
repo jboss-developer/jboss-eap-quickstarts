@@ -111,7 +111,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <exec.plugin.version>1.2.1</exec.plugin.version>
+        <version.exec.plugin>1.2.1</version.exec.plugin>
         <dependency.plugin.version>2.1</dependency.plugin.version>
         <ejb.plugin.version>2.3</ejb.plugin.version>
         <war.plugin.version>2.2</war.plugin.version>
@@ -162,7 +162,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec.plugin.version}</version>
+                <version>${version.exec.plugin}</version>
             </plugin>
         </plugins>
     </build>

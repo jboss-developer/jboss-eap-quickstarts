@@ -22,9 +22,10 @@
       <groupId>org.jboss.quickstarts.eap</groupId>
       <artifactId>jboss-jaxws-addressing</artifactId>
       <version>7.1.0-SNAPSHOT</version>
-   </parent>
+    </parent>
     <artifactId>jboss-jaxws-addressing-service</artifactId>
     <packaging>war</packaging>
+    <name>JBoss EAP Quickstart: jaxws-addressing - service</name>
     <description>This project is a working example of a JAX-WS web service addressing endpoint; this is the service POM file</description>
     <url>http://www.jboss.org/products/eap</url>
 

@@ -4,7 +4,7 @@ Author: Rafael Benevides
 Level: Beginner  
 Technologies: CDI, WebSocket, JSON-P  
 Summary: Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in JBoss EAP.  
-Target Product: EAP  
+Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>   
 
 
