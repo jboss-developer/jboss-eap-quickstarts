@@ -88,7 +88,7 @@
         <!-- other plug-in versions -->
         <version.ear.plugin>2.8</version.ear.plugin>
         <version.ejb.plugin>2.3</version.ejb.plugin>
-        <version.surefire.plugin>2.10</version.surefire.plugin>
+        <version.surefire.plugin>2.19</version.surefire.plugin>
         <version.war.plugin>2.6</version.war.plugin>
 
         <!-- maven-compiler-plugin -->

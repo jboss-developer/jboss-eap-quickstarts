@@ -86,7 +86,7 @@
         <version.jboss.bom.eap>7.1.0-SNAPSHOT</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
-        <version.surefire.plugin>2.16</version.surefire.plugin>
+        <version.surefire.plugin>2.19</version.surefire.plugin>
         <version.war.plugin>2.6</version.war.plugin>
 
         <!-- Apache versions -->

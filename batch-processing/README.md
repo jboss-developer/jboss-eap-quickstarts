@@ -3,9 +3,9 @@ batch-processing: Chunk oriented Batch 1.0 processing
 Author: Rafael Benevides  
 Level: Intermediate  
 Technologies: CDI, Batch 1.0, JSF  
-Summary: Shows how to use chunk oriented batch jobs to import a file to a database.  
-Target Product: EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>   
+Summary: The `batch-processing` quickstart shows how to use chunk oriented batch jobs to import a file to a database.  
+Target Product: JBoss EAP  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 
 What is it?
