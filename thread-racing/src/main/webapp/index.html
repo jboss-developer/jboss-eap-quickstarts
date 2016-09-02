@@ -43,7 +43,8 @@
         } else {
             host = window.location.host;
         }
-        var url = 'ws://' + host + window.location.pathname + 'race';
+        var wsProtocol = window.location.protocol == "https:" ? "wss" : "ws";
+        var url = wsProtocol + '://' + host + window.location.pathname + 'race';
         var ws = new WebSocket(url);
         ws.onmessage = function (message) {
             output.innerHTML += message.data;
