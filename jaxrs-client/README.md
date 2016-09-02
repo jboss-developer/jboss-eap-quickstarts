@@ -19,7 +19,7 @@ This client "calls" many POST, GET, DELETE operations using different ways: sync
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later.
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
@@ -43,14 +43,14 @@ Build and Deploy the Quickstart
 
         mvn package wildfly:deploy
 4. This will deploy `target/jboss-jaxrs-client.war` to the running instance of the server.
- 
+
 
 
 Run the Tests
 -------------------------
 
 
-This quickstart provides tests that shows the REST Client API features. By default, these tests are configured to be skipped as the tests requires that the application to be deployed first. 
+This quickstart provides tests that shows the REST Client API features. By default, these tests are configured to be skipped as the tests requires that the application to be deployed first.
 
 
 1. Make sure you have started the JBoss EAP server as described above.
@@ -121,9 +121,9 @@ Investigate the Console Output
         Dec 29, 2014 3:34:46 PM org.jboss.as.quickstarts.jaxrsclient.test.ContactsRestClientTest cruedTest
         INFO: delete a contact by id
         Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.51 sec - in org.jboss.as.quickstarts.jaxrsclient.test.ContactsRestClientTest
-        
+
         Results :
-        
+
         Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 
 
@@ -140,7 +140,7 @@ Undeploy the Archive
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
 
 To run the tests in JBoss Developer Studio, first set the active Maven profile in the project properties to `rest-client`.
 
@@ -153,5 +153,17 @@ Debug the Application
 If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
 
     mvn dependency:sources
-   
 
+
+Run the Application in OpenShift
+--------------------------------
+
+For instructions on how to build and deploy this quickstart this quickstart to OpenShift, see [Deploy the JBoss EAP 7 Quickstarts to OpenShift](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/DEPLOY_TO_OPENSHIFT_JBOSS_EAP7.md#deploy-the-jboss-eap-7-quickstarts-to-openshift).
+
+When you run the `oc` terminal commands as instructed in the [Deploy the Quickstart to OpenShift](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/DEPLOY_TO_OPENSHIFT_JBOSS_EAP7.md#deploy_the_quickstart_to_openshift) section, be sure to use the command for quickstarts that do not use a data source and replace the following replaceable variable with the correct quickstart value.
+
+| ** Replaceable Variable ** | ** Replacement Value** |
+|:----|:--------|
+| QUICKSTART_NAME | jaxrs-client |
+
+Wait for the build to finish, then follow the instructions to [Access the Running Application](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/DEPLOY_TO_OPENSHIFT_JBOSS_EAP7.md#access-the-running-application).

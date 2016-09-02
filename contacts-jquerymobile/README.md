@@ -10,17 +10,17 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>
 What is it?
 -----------
 
-The `contact-jquerymobile` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
-mobile web applications with Java EE 7 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 7 
-application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA, and Bean Validation. It includes a 
+The `contact-jquerymobile` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based
+mobile web applications with Java EE 7 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 7
+application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA, and Bean Validation. It includes a
 persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
 
-This application is built using a HTML5 + REST approach. This uses a pure HTML client that interacts with with the 
-application server via restful end-points (JAX-RS). This application also uses some of the latest HTML5 features and 
-advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses 
+This application is built using a HTML5 + REST approach. This uses a pure HTML client that interacts with with the
+application server via restful end-points (JAX-RS). This application also uses some of the latest HTML5 features and
+advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses
 QUnit to show you how to unit test your JavaScript.
 
-This application focuses on **CRUD** in a strictly mobile app using only **jQuery Mobile**(no other frameworks). The user will have 
+This application focuses on **CRUD** in a strictly mobile app using only **jQuery Mobile**(no other frameworks). The user will have
 the ability to:
 
 * **Create** a new contact.
@@ -32,11 +32,11 @@ the ability to:
 * **Delete** a contact.
 
 **Validation** is an important part of an application. Typically in an HTML5 app you can let the built-in HTML5 form validation
-do the work for you. However in a mobile app it does not work, the mobile browsers just do not support it at this time. 
-In order to validate the forms we added a plugin, jquery.validate. We provide both client-side and server-side validation 
-through this plugin. Over AJAX, if there is an error, the error is returned and displayed in the form. You can see an 
-example of this in the Edit form if you enter an email that is already in use. The application will attempt to insert the error message into a 
-field if that field exists. If the field does not exist then it display it at the top. In addition, there are 
+do the work for you. However in a mobile app it does not work, the mobile browsers just do not support it at this time.
+In order to validate the forms we added a plugin, jquery.validate. We provide both client-side and server-side validation
+through this plugin. Over AJAX, if there is an error, the error is returned and displayed in the form. You can see an
+example of this in the Edit form if you enter an email that is already in use. The application will attempt to insert the error message into a
+field if that field exists. If the field does not exist then it display it at the top. In addition, there are
 [qunit tests](#run-the-qunit-tests) for every form of validation.
 
 System requirements
@@ -46,12 +46,12 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 
 All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.1.1 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
-An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors 
+An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors
 will vary slightly (ex. validations) based on browser support, especially IE 9.
 
-Mobile web support is limited to Android and iOS devices. It should run on HP, and Black Berry devices as well. 
+Mobile web support is limited to Android and iOS devices. It should run on HP, and Black Berry devices as well.
 Windows Phone, and others will be supported as jQuery Mobile announces support.
- 
+
 With the prerequisites out of the way, you are ready to build and deploy.
 
 Start the JBoss EAP Server
@@ -138,15 +138,15 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 Minification
 ------------
 
-By default, the project uses the [wro4j](http://code.google.com/p/wro4j/) plugin, which provides the ability to concatenate, 
+By default, the project uses the [wro4j](http://code.google.com/p/wro4j/) plugin, which provides the ability to concatenate,
 validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.
 
 With just a few quick changes to the project, you can link to the minified versions of your JavaScript and CSS files.
 
-First, in the `<project-root>/src/main/webapp/index.html` file, search for references to minification and comment or 
+First, in the `<project-root>/src/main/webapp/index.html` file, search for references to minification and comment or
 uncomment the appropriate lines.
 
-Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. 
+Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it.
 The plug-in is in a profile with an id of `minify` so you will want to specify that profile in your maven build.
 
 NOTE: By default there are turn off tests so you must use the arquillian test profile to run tests when minifying.
@@ -159,11 +159,11 @@ OR
 
     #With Tests
     mvn clean package wildfly:deploy -Pminify,arq-wildfly-remote
- 
+
 Run the Arquillian tests
 ------------------------
 
-By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires 
+By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires
 the use of a container. You can activate this test by selecting one of the container configuration provided for JBoss.
 
 To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:
@@ -173,15 +173,15 @@ To run the test in JBoss, first start the container instance. Then, run the test
 Run the QUnit tests
 -------------------
 
-QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of this HTML5 
-application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. Executing 
-QUnit test cases are quite easy. 
+QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of this HTML5
+application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. Executing
+QUnit test cases are quite easy.
 
 Simply load the following HTML in the browser you wish to test.
 
         QUICKSTART_HOME/contacts-jquerymobile/src/test/qunit/index.html
 
-_Note:_ If you use **Chrome**, some date tests fail. These are false failures and are known issues with Chrome. FireFox, Safari, and IE run the tests correctly. 
+_Note:_ If you use **Chrome**, some date tests fail. These are false failures and are known issues with Chrome. FireFox, Safari, and IE run the tests correctly.
 
 You can also display the tests using the Eclipse built-in browser.
 
@@ -213,18 +213,33 @@ _NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP 
 Import the Project into an IDE
 --------------------------------
 
-If you created the project using the Maven archetype wizard in your IDE (Eclipse, NetBeans or IntelliJ IDEA), then there 
+If you created the project using the Maven archetype wizard in your IDE (Eclipse, NetBeans or IntelliJ IDEA), then there
 is nothing to do. You should already have an IDE project.
 
-If you created the project from the command line using archetype:generate, then you need to import the project into your IDE. 
-If you are using NetBeans 6.8 or IntelliJ IDEA 9, then all you have to do is open the project as an existing project. 
+If you created the project from the command line using archetype:generate, then you need to import the project into your IDE.
+If you are using NetBeans 6.8 or IntelliJ IDEA 9, then all you have to do is open the project as an existing project.
 Both of these IDEs recognize Maven projects natively.
 
 Debug the Application
 ---------------------
 
-If you want to be able to debug into the source code or look at the Javadocs of any library in the project, you can run 
+If you want to be able to debug into the source code or look at the Javadocs of any library in the project, you can run
 either of the following two commands to pull them into your local repository. The IDE should then detect them.
 
     mvn dependency:sources
     mvn dependency:resolve -Dclassifier=javadoc
+
+
+Run the Application in OpenShift
+--------------------------------
+
+For instructions on how to build and deploy this quickstart this quickstart to OpenShift, see [Deploy the JBoss EAP 7 Quickstarts to OpenShift](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/DEPLOY_TO_OPENSHIFT_JBOSS_EAP7.md#deploy-the-jboss-eap-7-quickstarts-to-openshift).
+
+When you run the `oc` terminal commands as instructed in the [Deploy the Quickstart to OpenShift](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/DEPLOY_TO_OPENSHIFT_JBOSS_EAP7.md#deploy_the_quickstart_to_openshift) section, be sure to use the command for quickstarts that do not use a data source and replace the following replaceable variable with the correct quickstart value.
+
+| ** Replaceable Variable ** | ** Replacement Value** |
+|:----|:--------|
+| QUICKSTART_NAME | contacts-jquerymobile |
+
+
+Wait for the build to finish, then follow the instructions to [Access the Running Application](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/DEPLOY_TO_OPENSHIFT_JBOSS_EAP7.md#access-the-running-application).
