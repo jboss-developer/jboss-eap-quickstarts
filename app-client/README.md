@@ -57,7 +57,7 @@ To add the users, open a command prompt and type the following commands:
             EAP7_HOME/bin/add-user.sh -a -u quickuser -p quick-123
 
         For Windows:
-            EAP7_HOME\bin\add-user.sh -u admin -p admin-123
+            EAP7_HOME\bin\add-user.bat -u admin -p admin-123
             EAP7_HOME\bin\add-user.bat -a -u quickuser -p quick-123
 
 If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
@@ -93,7 +93,7 @@ This example shows how to invoke an EJB from a remote standalone application on 
 2. Navigate to the root directory of this quickstart and type the following command to run the application. Be sure to replace `EAP7_HOME` with the path to your JBoss EAP installation.
 
         For Linux:   EAP7_HOME/bin/appclient.sh ear/target/jboss-app-client.ear#simpleClient.jar Hello from command line
-        For Windows: EAP7_HOME\bin\appclient.sh ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
+        For Windows: EAP7_HOME\bin\appclient.bat ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
 
 3. Review the result. The client outputs the following information provided by the server application:
 
@@ -146,7 +146,7 @@ This example shows how to invoke an EJB from a remote standalone Java EE applica
 7. Type this command to run the `app-client` application:
 
         For Linux:   EAP7_HOME/bin/appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear/target/jboss-app-client.ear#simpleClient.jar Hello from command line
-        For Windows: EAP7_HOME\bin\appclient.sh --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
+        For Windows: EAP7_HOME\bin\appclient.bat --ejb-client-properties=jboss-ejb-client.properties ear\target\jboss-app-client.ear#simpleClient.jar Hello from command line
 
 8. Review the result. The client outputs the following information, which was provided by the application:
 
