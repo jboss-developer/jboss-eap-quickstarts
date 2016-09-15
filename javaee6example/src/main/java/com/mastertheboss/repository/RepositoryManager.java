@@ -22,7 +22,7 @@ public class RepositoryManager {
 	 
  
 	public List<SimpleProperty>  queryCache(){
-		Query query = em.createQuery("FROM com.mastertheboss.model.SimpleProperty");
+		Query query = em.createQuery("FROM SimpleProperty");
 
 		List <SimpleProperty> list =  query.getResultList();
 		return list;	      
