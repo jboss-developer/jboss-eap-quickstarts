@@ -142,7 +142,7 @@ This quickstart is more complex than the others. It requires that you configure 
 1. Import the quickstart into JBoss Developer Studio. 
 2. If you have not already done so, you must configure a new JBoss EAP server to use the XTS configuration.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
-   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `JBoss Enterprise Application Platform 7.0 (Experimental)`.
+   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `Red Hat JBoss Enterprise Application Platform 7.0`.
    * For the `Server name`, enter `JBoss EAP XTS Configuration` and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Finish`.
