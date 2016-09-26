@@ -103,7 +103,7 @@
         <version.war.plugin>2.6</version.war.plugin>
 
         <!-- Define the version of the JBoss Java EE APIs and Tools we want to import. -->
-        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.1.0.Alpha1-redhat-1</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.19</version.surefire.plugin>
