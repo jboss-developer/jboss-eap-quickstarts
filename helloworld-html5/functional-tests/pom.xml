@@ -99,7 +99,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.1.0.Alpha1-redhat-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.19</version.surefire.plugin>

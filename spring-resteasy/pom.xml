@@ -99,7 +99,7 @@
         <!-- JBoss dependency versions -->
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.1.0.Alpha1-redhat-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.org.apache.httpcomponents>4.5.1</version.org.apache.httpcomponents>

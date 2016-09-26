@@ -98,7 +98,7 @@
 
         <!-- WildFly plug-in for deployment -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.1.0.Alpha1-redhat-1</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
 
         <version.surefire.plugin>2.19</version.surefire.plugin>
 
