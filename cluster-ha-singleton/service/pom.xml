@@ -60,7 +60,7 @@
         <!-- Import JBoss EAP Clustering Singleton, to allow us to create
             a singleton service -->
         <dependency>
-            <groupId>org.wildfly</groupId>
+            <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-clustering-singleton-api</artifactId>
         </dependency>
     </dependencies>
