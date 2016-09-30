@@ -14,6 +14,8 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 
 <p>This quickstart does not contain a user interface layer. The purpose of this project is to show you how to test bean validation with Arquillian. If you want to see an example of how to test bean validation with a user interface, look at the <a href="../kitchensink/README.html">kitchensink</a> example.</p>
 
+<p>This quickstart is a basic example of bean validation and is not localized. Because it is not localized, English messages are hard-coded in the constraint annotations in the <code>Member</code> class to ensure the test violation messages are matched when running the JBoss EAP server using another language. For examples of localized quickstarts, see the <code>kitchensink-ml</code>, <code>kitchensink-ml-ear</code>, and <code>logging-tools</code> quickstarts. </p>
+
 <p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!</em></p>
 
 <p><em>Note: This quickstart uses a <code>*-ds.xml</code> datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/">Configuration Guide</a> for Red Hat JBoss Enterprise Application Platform.</em></p>
