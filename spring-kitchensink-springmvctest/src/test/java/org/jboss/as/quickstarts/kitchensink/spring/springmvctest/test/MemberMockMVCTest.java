@@ -76,7 +76,7 @@ public class MemberMockMVCTest {
     @Test
     public void getAccount() throws Exception {
         this.mockMvc.perform(get("/rest/members/0").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-            .andExpect(content().contentType("application/json"))
+            .andExpect(content().contentTypeCompatibleWith("application/json"))
             .andExpect(jsonPath("$.name").value("John Smith"));
     }
 }
