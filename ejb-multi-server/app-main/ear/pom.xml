@@ -109,7 +109,7 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.wildfly</groupId>
+            <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ejb-client-bom</artifactId>
             <scope>provided</scope>
             <type>pom</type>
