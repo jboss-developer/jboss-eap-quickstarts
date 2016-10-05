@@ -77,7 +77,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0-build-12</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
         <version.jar.plugin>2.2</version.jar.plugin>
