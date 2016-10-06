@@ -73,14 +73,13 @@ Run the Client
 
 2. Open a command prompt and navigate into the client directory of this quickstart.
 
-     cd client/
+        cd client/
 3. Type this command to run the client.
 
-     mvn exec:java
-     
+        mvn exec:java
 4. You should see the following output in the client console.
    
-     Jay Boss's discount is 10.00
+        Jay Boss's discount is 10.00
 
 
 Undeploy the Archive
@@ -108,5 +107,7 @@ If you want to debug the source code of any library in the project, run the foll
 _Note:_ You will see the following informational messages. This is because the source files for this JAR are not available in the Maven repository.
 
     [INFO] The following files have NOT been resolved:
+    [INFO]    org.apache.ant:ant-launcher:jar:sources:1.7.0:provided
+    [INFO]    com.sun:tools:jar:sources:1.6:system
     [INFO]    asm:asm:jar:sources:3.3.1:provided
 

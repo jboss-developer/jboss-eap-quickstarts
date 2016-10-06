@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-websocket-endpoint</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: websocket-endpoint</name>
     <description>Shows how to use a WebSocket Endppoint</description>
@@ -81,7 +81,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify
             tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
  
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.16</version.surefire.plugin>

@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-kitchensink-angularjs</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: kitchensink-angularjs</name>
     <description>A starter Java EE 7 webapp project for use on JBoss EAP 7 using AngularJS for the view</description>
@@ -78,7 +78,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.source>1.8</maven.compiler.source>

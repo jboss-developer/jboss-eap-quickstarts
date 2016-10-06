@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-cdi-interceptors</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: cdi-interceptors</name>
     <description>JBoss EAP Quickstart: CDI-Interceptors</description>
@@ -84,7 +84,7 @@
         <version.war.plugin>2.1.1</version.war.plugin>
 
         <!-- Define the version of the JBoss Java EE APIs and Tools we want to import. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>

@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-helloworld-html5</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: helloworld-html5</name>
     <description>JBoss EAP Quickstart: HTML5 + REST Helloworld</description>
@@ -79,7 +79,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- other plugin versions -->
         <version.war.plugin>2.6</version.war.plugin>

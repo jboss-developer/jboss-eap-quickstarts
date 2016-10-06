@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-contacts-jquerymobile</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: contacts-jquerymobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss.</description>
@@ -82,7 +82,7 @@
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- Other dependency versions -->
         <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>

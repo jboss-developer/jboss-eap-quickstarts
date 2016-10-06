@@ -106,14 +106,16 @@ Build and Deploy the Quickstart
 
 4. This will deploy `target/jboss-helloworld-mdb-propertysubstitution.war` to the running instance of the server. Look at the JBoss EAP console or Server log and you should see log messages corresponding to the deployment of the message-driven beans and the JMS destinations:
 
-        INFO  [org.wildfly.extension.messaging-activemq] (MSC service thread 1-4) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/queue/HELLOWORLDMDBQueue
-        INFO  [org.wildfly.extension.messaging-activemq] (MSC service thread 1-2) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/topic/HELLOWORLDMDBTopic
-        ....
-        INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 67) AMQ221003: trying to deploy queue jms.queue.HelloWorldMDBQueue
+        INFO  [org.wildfly.extension.messaging-activemq] (MSC service thread 1-8) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/${property.helloworldmdb.queue}
+        INFO  [org.wildfly.extension.messaging-activemq] (MSC service thread 1-5) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/${property.helloworldmdb.topic}
         ...
-        INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 12) AMQ221003: trying to deploy queue jms.topic.HelloWorldMDBTopic
-        INFO  [org.jboss.as.ejb3] (MSC service thread 1-7) WFLYEJB0042: Started message driven bean 'HelloWorldQueueMDB' with 'activemq-ra.rar' resource adapter
-        INFO  [org.jboss.as.ejb3] (MSC service thread 1-6) WFLYEJB0042: Started message driven bean 'HelloWorldQTopicMDB' with 'activemq-ra.rar' resource adapter
+        INFO  [org.wildfly.extension.messaging-activemq] (ServerService Thread Pool -- 70) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/queue/HELLOWORLDMDBPropQueue
+        INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 73) AMQ221003: trying to deploy queue jms.topic.HelloWorldMDBTopic
+        INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 72) AMQ221003: trying to deploy queue jms.topic.HELLOWORLDMDBTopic
+        INFO  [org.wildfly.extension.messaging-activemq] (ServerService Thread Pool -- 72) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/topic/HELLOWORLDMDBPropTopic
+        INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 71) AMQ221003: trying to deploy queue jms.queue.HelloWorldMDBQueue
+        INFO  [org.jboss.as.ejb3] (MSC service thread 1-7) WFLYEJB0042: Started message driven bean 'HelloWorldQTopicMDB' with 'activemq-ra.rar' resource adapter
+        INFO  [org.jboss.as.ejb3] (MSC service thread 1-6) WFLYEJB0042: Started message driven bean 'HelloWorldQueueMDB' with 'activemq-ra.rar' resource adapter
 
 
 Access the application 
@@ -180,7 +182,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 * Within JBoss Developer Studio, be sure to define a server runtime environment that uses the `standalone-full.xml` configuration file.
 * Be sure to [Restore the JBoss EAP Server Configuration](#restore-the-jboss-eap-server-configuration) when you have completed testing this quickstart.
 
-You will see the following warning when you import this quickstart into JBoss Developer Studio. This is because the schema is not yet published in a public location. You can igore this warning.
+You may see the following warning when you import this quickstart into JBoss Developer Studio 9.0 or earlier. You can ignore this warning.
 
         No grammar constraints (DTD or XML Schema) referenced in the document.
 

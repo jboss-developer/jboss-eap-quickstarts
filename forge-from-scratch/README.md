@@ -3,14 +3,14 @@ forge-from-scratch: Shows How Forge Can Generate an Application
 Author: Lincoln Baxter, Matej Briskar  
 Level: Intermediate  
 Technologies: Forge  
-Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge 2* can generate a Java EE (JPA, EJB, JAX-RS, JSF) web-enabled database application.   
+Summary: The `forge-from-scratch` quickstart demonstrates how *JBoss Forge* can generate a Java EE (JPA, EJB, JAX-RS, JSF) web-enabled database application.   
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 What is it?
 -----------
 
-The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge 2** and **Red Hat JBoss Developer Studio 9** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge** and **Red Hat JBoss Developer Studio 9.1** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
 
 Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA, EJB, CDI, JSF** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
 
@@ -23,13 +23,13 @@ System requirements
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9.1 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio
 --------------------------------------------
 
-Forge is available in JBoss Developer Studio. To run this example, you must use JBoss Developer Studio 8 or greater.
+JBoss Developer Studio 9.1 ships with Forge 3.0.1.Final. Because the Forge syntax changed in Forge 3.0, the `generate.fsh` script that ships with this quickstart was updated to use the new syntax and no longer works with previous releases of JBoss Developer Studio. For this reason, you must  use JBoss Developer Studio 9.1 or greater to run this example.
 
 ### Generate and Build the Application
 
@@ -44,7 +44,7 @@ Forge is available in JBoss Developer Studio. To run this example, you must use 
         $ run generate.fsh
 
 6. At this point, Forge creates the new project and builds it. 
-    * The script issues this command: `$ project-new --named forge-example --topLevelPackage org.example;`
+    * The script issues this command: `$ project-new --named forge-example --top-level-package org.example;`
     * You next see the console message: `***SUCCESS*** Project named 'forge-example' has been created.`
     * This is followed by a dialog saying `User Operation is waiting for "Importing Forge project" to complete.`.
     * After a number of `***SUCCESS***` messages, you see `***SUCCESS*** Build Success` near the end of the console output.

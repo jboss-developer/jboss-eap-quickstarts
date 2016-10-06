@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-jta-crash-rec</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: jta-crash-rec</name>
     <url>http://www.jboss.org/products/eap</url>
@@ -77,7 +77,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- WildFly Maven plug-in to deploy your WAR to a local JBoss EAP container -->
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>

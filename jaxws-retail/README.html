@@ -64,14 +64,14 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <ol>
 <li><p>Make sure the service deployed properly.</p></li>
 <li><p>Open a command prompt and navigate into the client directory of this quickstart.</p>
-
-<p>cd client/</p></li>
+<div class="highlight"><pre><span class="n">cd</span> <span class="n">client</span><span class="o">/</span>
+</pre></div></li>
 <li><p>Type this command to run the client.</p>
-
-<p>mvn exec:java</p></li>
+<div class="highlight"><pre><span class="n">mvn</span> <span class="n">exec</span><span class="o">:</span><span class="n">java</span>
+</pre></div></li>
 <li><p>You should see the following output in the client console.</p>
-
-<p>Jay Boss&rsquo;s discount is 10.00</p></li>
+<div class="highlight"><pre><span class="n">Jay</span> <span class="n">Boss</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">discount</span> <span class="n">is</span> <span class="mf">10.00</span>
+</pre></div></li>
 </ol>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
@@ -95,5 +95,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 </pre></div>
 <p><em>Note:</em> You will see the following informational messages. This is because the source files for this JAR are not available in the Maven repository.</p>
 <div class="highlight"><pre><span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x"> The following files have NOT been resolved:</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    org.apache.ant:ant-launcher:jar:sources:1.7.0:provided</span>
+<span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    com.sun:tools:jar:sources:1.6:system</span>
 <span class="cp">[</span><span class="nx">INFO</span><span class="cp">]</span><span class="x">    asm:asm:jar:sources:3.3.1:provided</span>
 </pre></div></body></html>

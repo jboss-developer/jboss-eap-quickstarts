@@ -20,7 +20,7 @@
 
     <groupId>org.jboss.quickstarts.eap</groupId>
     <artifactId>jboss-jsonp</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <version>7.0.0.GA</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: jsonp</name>
     <description>A starter Java EE webapp project for use on JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
@@ -83,7 +83,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify
             tested stacks. -->
-        <version.jboss.bom.eap>7.0.0-SNAPSHOT</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
         <!-- other plug-in versions -->
         <version.surefire.plugin>2.16</version.surefire.plugin>

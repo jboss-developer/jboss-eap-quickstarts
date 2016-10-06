@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-ejb-multi-server</artifactId>
-        <version>7.0.0-SNAPSHOT</version>
+        <version>7.0.0.GA</version>
     </parent>
     <artifactId>jboss-ejb-multi-server-app-two</artifactId>
     <packaging>pom</packaging>
