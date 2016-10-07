@@ -140,10 +140,6 @@
         </dependency>
 
         <!-- Now we declare any tools needed -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
 
         <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
