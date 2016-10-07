@@ -132,6 +132,7 @@
                 <artifactId>istack-commons-runtime</artifactId>
                 <version>${version.istack.commons.runtime}</version>
             </dependency>
+            <!-- TODO this is beyond wrong -->
             <dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>jbossxb</artifactId>
