@@ -122,14 +122,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- Manage the version of jboss-common-beans to prevent hibernate from
-                 bringing in an older version -->
-            <dependency>
-                <groupId>org.jboss.common</groupId>
-                <artifactId>jboss-common-beans</artifactId>
-                <version>2.0.0.Final</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -168,12 +160,9 @@
         </dependency>
 
         <!-- Now we declare any tools needed -->
-
-        <!-- Needed for Hibernate Annotations -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Needed for running tests (you may also use TestNG) -->
