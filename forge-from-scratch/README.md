@@ -10,9 +10,9 @@ Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 What is it?
 -----------
 
-The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge** and **Red Hat JBoss Developer Studio 9.1** or later and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
+The `forge-from-scratch` quickstart demonstrates how to create a fully **Java EE compliant** project using **JBoss Forge** and **Red Hat JBoss Developer Studio** and deploy it to **Red Hat JBoss Enterprise Application Platform 7** or later. 
 
-Once generated, the sample project will be a standard Maven 3, Java Web project with **JPA, EJB, CDI, JSF** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to Create, Read, Update, and Delete records.
+The generated example will be a standard Maven, Java Web project with **JPA, EJB, CDI, JSF** with complete **JAX-RS** endpoints for all data Entities. It will also provide views to `Create`, `Read`, `Update`, and `Delete` records.
 
 But that is not all! You can use Forge on your new or existing projects to continue to enhance any application.
 
@@ -23,13 +23,13 @@ System requirements
 
 The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 9.1 or greater. This version of JBoss Developer Studio embeds Maven 3.3.3, so you do not need to install it separately.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red Hat JBoss Developer Studio 10.0 or greater. These versions of JBoss Developer Studio embed Maven 3.3.3, so you do not need to install it separately.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio
 --------------------------------------------
 
-JBoss Developer Studio 9.1 ships with Forge 3.0.1.Final. Because the Forge syntax changed in Forge 3.0, the `generate.fsh` script that ships with this quickstart was updated to use the new syntax and no longer works with previous releases of JBoss Developer Studio. For this reason, you must  use JBoss Developer Studio 9.1 or greater to run this example.
+JBoss Developer Studio 10.0 and 10.1 ship with Forge 3.3.1.Final. Because the Forge syntax changed in Forge 3.0, the `generate.fsh` script that ships with this quickstart was updated to use the new syntax and no longer works with releases prior to JBoss Developer Studio 10.0. For this reason, you must  use JBoss Developer Studio 10.0 or greater to run this example.
 
 ### Generate and Build the Application
 
