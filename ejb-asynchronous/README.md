@@ -98,6 +98,18 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
 
+This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
+
+1. Install the required Maven artifacts and deploy the asynchronous EJB quickstart project.
+   * Right-click on the `jboss-ejb-asynchronous-ejb` project and choose `Run As` --> `Maven Install`.
+   * Right-click on the `jboss-ejb-asynchronous-ejb` project and choose `Run As` --> `Run on Server`.
+
+2. Build and run the client side of the quickstart project.
+   * Right-click on the `jboss-ejb-asynchronous-client` project and choose `Run As` --> `Java Application`. 
+   * In the `Select Java Application` window, choose `AsynchronousClient - org.jboss.as.quickstarts.ejb.asynchronous.client` and click `OK`.
+   * The client output displays in the `Console` window.
+
+
 Debug the Application
 ------------------------------------
 
