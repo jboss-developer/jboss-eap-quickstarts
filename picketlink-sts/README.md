@@ -194,13 +194,8 @@ You can undeploy the quickstart and remove the security domain configuration in 
         For Windows: EAP7_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
    You should see the following result when you run the script:
    
-        {
-            "outcome" => "success",
-            "response-headers" => {
-                "operation-requires-reload" => true,
-                "process-state" => "reload-required"
-            }
-        }
+        The batch executed successfully
+        process-state: reload-required 
 
 ### Undeploy the quickstart and Remove the Security Domain Manually
 
