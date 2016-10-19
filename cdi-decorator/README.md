@@ -76,6 +76,9 @@ For this example, uncomment the `<decorators>` tag in the `WEB-INF/beans.xml` fi
 When you access the application, you will see changed information from web-browser and following in the server log: 
 
     CDI decorator method was called!
+    CDI decorator method was called!
+
+The message appears twice because the decorator is called twice, once to get the staff position and then again to get the staff bonus.
 
 In order to switch back to the default implementation, comment the `decorators` block in the `WEB-INF/beans.xml` file and redeploy the quickstart.
 

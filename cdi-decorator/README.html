@@ -71,7 +71,10 @@ It then logs a message to the server console.</p>
 <p>For this example, uncomment the <code>&lt;decorators&gt;</code> tag in the <code>WEB-INF/beans.xml</code> file and redeploy the application. 
 When you access the application, you will see changed information from web-browser and following in the server log: </p>
 <div class="highlight"><pre><span class="vg">CDI</span><span class="w"> </span><span class="vg">decorator</span><span class="w"> </span><span class="vg">method</span><span class="w"> </span><span class="vg">was</span><span class="w"> </span><span class="vg">called!</span>
+<span class="vg">CDI</span><span class="w"> </span><span class="vg">decorator</span><span class="w"> </span><span class="vg">method</span><span class="w"> </span><span class="vg">was</span><span class="w"> </span><span class="vg">called!</span>
 </pre></div>
+<p>The message appears twice because the decorator is called twice, once to get the staff position and then again to get the staff bonus.</p>
+
 <p>In order to switch back to the default implementation, comment the <code>decorators</code> block in the <code>WEB-INF/beans.xml</code> file and redeploy the quickstart.</p>
 
 <h2><a id="undeploy-the-archive" class="anchor" href="#undeploy-the-archive"><span class="anchor-icon"></span></a>Undeploy the Archive</h2>
