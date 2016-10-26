@@ -66,7 +66,7 @@ This quickstart provides Arquillian tests. By default, these tests are configure
 
 _NOTE: If you plan to use a custom settings file, add the Maven settings command line argument and pass an additional argument to allow ShrinkWrap Resolver to function properly:_
 
-    mvn clean test -Parq-wildfly-remote -s /path/to/custom/settings.xml
+    mvn clean test -Parq-wildfly-remote -s /path/to/custom/settings.xml -Dorg.apache.maven.user-settings=/path/to/custom/settings.xml
 
 You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
 
