@@ -105,8 +105,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   EAP7_HOME/bin/standalone.sh -c standalone-elytron.xml
+        For Windows: EAP7_HOME\bin\standalone.bat -c standalone-elytron.xml
 
 
 Build and Deploy the Quickstart
