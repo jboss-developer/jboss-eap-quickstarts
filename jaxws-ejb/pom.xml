@@ -105,7 +105,6 @@
         <version.jboss-ejb3-ext-api>2.1.0</version.jboss-ejb3-ext-api>
         <version.istack.commons.runtime>2.21</version.istack.commons.runtime>
         <version.jboss-ejb-api_3.2_spec>1.0.0.Final</version.jboss-ejb-api_3.2_spec>
-        <version.jboss.jbossxb>2.0.3.GA</version.jboss.jbossxb>
 
 
         <!-- maven-compiler-plugin -->
@@ -151,18 +150,6 @@
                 <groupId>com.sun.istack</groupId>
                 <artifactId>istack-commons-runtime</artifactId>
                 <version>${version.istack.commons.runtime}</version>
-            </dependency>
-            <!-- TODO this is beyond wrong -->
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jbossxb</artifactId>
-                <version>${version.jboss.jbossxb}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>sun-jaxb</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
         </dependencies>
