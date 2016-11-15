@@ -3,7 +3,7 @@ hibernate5: How to Use Hibernate 5 in an Application
 Author: Madhumita Sadhukhan  
 Level: Intermediate  
 Technologies: Hibernate 5  
-Summary: The `hibernate5` quickstart demonstrates how to use Hibernate ORM 5 over JPA, using Hibernate-Core and Hibernate Bean Validation, and EJB.  
+Summary: The `hibernate5` quickstart demonstrates how to use Hibernate ORM 5 API over JPA, using Hibernate-Core and Hibernate Bean Validation, and EJB.
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
