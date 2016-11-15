@@ -2,7 +2,7 @@ cluster-ha-singleton: A SingletonService Started by a SingletonStartup
 =============================================================================================================
 Author: Wolf-Dieter Fink  
 Level: Advanced  
-Technologies: EJB, HASingleton, JNDI  
+Technologies: EJB, HASingleton, JNDI, Clustering, MSC
 Summary: The `cluster-ha-singleton` quickstart deploys a Service, wrapped with the SingletonService decorator, and used as a cluster-wide singleton service.  
 Target Product: JBoss EAP  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
