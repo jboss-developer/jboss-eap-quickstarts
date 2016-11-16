@@ -103,7 +103,7 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
 
-        <version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.1.0.Beta1</version.jboss.spec.javaee.7.0>
 
         <!-- other plug-in versions -->
         <version.war.plugin>2.6</version.war.plugin>
