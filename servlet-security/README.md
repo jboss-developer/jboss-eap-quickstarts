@@ -65,8 +65,8 @@ You can configure the security domain by running JBoss CLI commands. For your co
 
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP7_HOME/bin/standalone.sh 
-        For Windows:  EAP7_HOME\bin\standalone.bat
+        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-elytron.xml
+        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-elytron.xml
 3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `servlet-security-quickstart` security domain to the `security` subsystem in the server configuration and configures authentication access.
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
@@ -137,11 +137,7 @@ Log in using the username `quickstartUser` and password `quickstartPwd1!`. The b
 
 Now close the browser. Open a new browser and log in with username `guest` and password `guestPwd1!`. The browser will display the following error:
 
-    HTTP Status 403 - Access to the requested resource has been denied
-
-    type Status report
-    message Access to the requested resource has been denied
-    description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
+    Forbidden
 
 
 Server Log: Expected warnings and errors
@@ -173,8 +169,8 @@ You can remove the security domain configuration by running the  `remove-securit
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP7_HOME/bin/standalone.sh
-        For Windows:  EAP7_HOME\bin\standalone.bat
+        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-elytron.xml
+        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-elytron.xml
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
