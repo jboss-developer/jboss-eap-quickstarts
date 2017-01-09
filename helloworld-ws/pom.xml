@@ -272,31 +272,5 @@
             </build>
         </profile>
 
-        <profile>
-           <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance
-                where the application has already been deployed.
-                Run with: mvn clean test -Pjbossas-remote -->
-            <id>jbossas-remote</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.surefire.plugin}</version>
-                        <configuration>
-                            <systemProperties>
-                                <property>
-                                    <name>serverUrl</name>
-                                    <value>${remote.server.url}</value>
-                                </property>
-                            </systemProperties>
-                            <excludes>
-                                <exclude>**/ClientArqTest.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
     </profiles>
 </project>
