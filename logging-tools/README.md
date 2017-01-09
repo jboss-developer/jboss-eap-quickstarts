@@ -38,16 +38,15 @@ To start the JBoss EAP server with a different locale than the system default:
 
 1. Make a backup copy of the `EAP7_HOME/bin/standalone.conf` file.
 2. Edit the file and append commands to set the JVM parameters for the required country and language.
-   Eg. Germany and German, `DE` and `de`.
+   The following example sets the country to Germany (`DE`) and the language to German (`de`).
     
         JAVA_OPTS="$JAVA_OPTS -Duser.country=DE"
         JAVA_OPTS="$JAVA_OPTS -Duser.language=de"
    This can be done as a single line if you prefer:
 
         JAVA_OPTS="$JAVA_OPTS -Duser.country=DE -Duser.language=de"   
-
-   Refer to <http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale>
-      
+   
+   For more information about internationalization and localization, see http://www.oracle.com/technetwork/java/javase/tech/intl-139810.html.
 
 Start the JBoss EAP Server
 -------------------------
