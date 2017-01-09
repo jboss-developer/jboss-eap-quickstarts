@@ -90,8 +90,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <!-- src/main/webapp/index.html is filtered and uses this property value to generate the correct server's web socket url -->
-        <openshift>false</openshift>
     </properties>
 
     <dependencyManagement>
@@ -241,30 +239,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <!-- The 'openshift' profile will be used when invoking Maven in OpenShift. 
-                 Use this profile for any OpenShift specific customization your application will need. 
-                 By default, the archive is created in the 'deployments' folder.
-                 http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-            <id>openshift</id>
-            <properties>
-                <openshift>true</openshift>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>${version.war.plugin}</version>
-                        <configuration>
-                            <outputDirectory>deployments</outputDirectory>
-                            <warName>ROOT</warName>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
