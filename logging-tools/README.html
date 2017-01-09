@@ -33,7 +33,7 @@ Source: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/">http
 <ol>
 <li>Make a backup copy of the <code>EAP7_HOME/bin/standalone.conf</code> file.</li>
 <li><p>Edit the file and append commands to set the JVM parameters for the required country and language.
-Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
+The following example sets the country to Germany (<code>DE</code>) and the language to German (<code>de</code>).</p>
 <div class="highlight"><pre><span class="vg">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;$JAVA_OPTS -Duser.country=DE&quot;</span>
 <span class="vg">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;$JAVA_OPTS -Duser.language=de&quot;</span>
 </pre></div>
@@ -42,7 +42,7 @@ Eg. Germany and German, <code>DE</code> and <code>de</code>.</p>
 </pre></div></li>
 </ol>
 
-<p>Refer to <a href="http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale">http://java.sun.com/javase/technologies/core/basic/intl/faq.jsp#set-default-locale</a></p>
+<p>For more information about internationalization and localization, see <a href="http://www.oracle.com/technetwork/java/javase/tech/intl-139810.html">http://www.oracle.com/technetwork/java/javase/tech/intl-139810.html</a>.</p>
 
 <h2><a id="start-the-jboss-eap-server" class="anchor" href="#start-the-jboss-eap-server"><span class="anchor-icon"></span></a>Start the JBoss EAP Server</h2>
 
