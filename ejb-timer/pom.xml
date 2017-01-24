@@ -75,7 +75,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
         <!-- Define the version of the JBoss Java EE APIs we want to import. -->
-        <version.jboss.spec.javaee.7.0>1.0.4.Final-redhat-6</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.0.4.Final-redhat-7</version.jboss.spec.javaee.7.0>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
