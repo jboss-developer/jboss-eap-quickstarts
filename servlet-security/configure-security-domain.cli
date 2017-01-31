@@ -12,7 +12,7 @@ batch
 /subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=roles)
 
 # Configure the servlet-security-quickstart security domain
-/subsystem=elytron/security-domain=servlet-security-quickstart-sd:add(default-realm=servlet-security-jdbc-realm, realms=[{realm=servlet-security-jdbc-realm, role-decoder=from-roles-attribute}], permission-mapper=login-permission-mapper)
+/subsystem=elytron/security-domain=servlet-security-quickstart-sd:add(default-realm=servlet-security-jdbc-realm, realms=[{realm=servlet-security-jdbc-realm, role-decoder=from-roles-attribute}], permission-mapper=default-permission-mapper)
 
 # Configure the HTTP Authentication Factory
 /subsystem=elytron/http-authentication-factory=servlet-security-quickstart-http-auth:add(http-server-mechanism-factory=global,security-domain=servlet-security-quickstart-sd,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=RealmUsersRoles}]}])
