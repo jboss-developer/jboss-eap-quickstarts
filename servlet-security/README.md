@@ -65,8 +65,8 @@ You can configure the security domain by running JBoss CLI commands. For your co
 
 2. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-elytron.xml
-        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-elytron.xml
+        For Linux:  EAP7_HOME/bin/standalone.sh
+        For Windows:  EAP7_HOME\bin\standalone.bat
 3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `servlet-security-quickstart` security domain to the `security` subsystem in the server configuration and configures authentication access.
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
@@ -105,8 +105,8 @@ Start the JBoss EAP Server
 1. Open a command prompt and navigate to the root of the JBoss EAP directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh -c standalone-elytron.xml
-        For Windows: EAP7_HOME\bin\standalone.bat -c standalone-elytron.xml
+        For Linux:   EAP7_HOME/bin/standalone.sh
+        For Windows: EAP7_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -169,8 +169,8 @@ You can remove the security domain configuration by running the  `remove-securit
 
 1. Start the JBoss EAP server by typing the following: 
 
-        For Linux:  EAP7_HOME/bin/standalone.sh -c standalone-elytron.xml
-        For Windows:  EAP7_HOME\bin\standalone.bat -c standalone-elytron.xml
+        For Linux:  EAP7_HOME/bin/standalone.sh
+        For Windows:  EAP7_HOME\bin\standalone.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
         For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
