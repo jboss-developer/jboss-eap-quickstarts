@@ -33,9 +33,12 @@
         </plugins>
     </reporting>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.quickstarts.eap</groupId>
+    <parent>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-quickstart-parent</artifactId>
+        <version>7.1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>jboss-spring-petclinic</artifactId>
-    <version>7.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: spring-petclinic</name>
     <description>The Spring PetClinic project file</description>
@@ -49,72 +52,9 @@
         </license>
     </licenses>
 
-    <!-- Activate the JBoss Enterprise Maven Repository.
-
-        NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
-        and is only done here to make it easier to use the quickstarts.
-
-        For more information about how to configure Maven for your application,
-        see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
-
-        https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
-    -->
-    <repositories>
-        <repository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
+   
     <properties>
 
-        <!-- JBoss dependency versions -->
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
-
-        <!-- Generic properties -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Spring -->
         <spring-io-platform.version>2.0.2.RELEASE</spring-io-platform.version>
@@ -145,12 +85,6 @@
         <version.maven.assembly>2.4</version.maven.assembly>
         <version.maven.eclipse>2.9</version.maven.eclipse>
         <version.maven.eclipse.wtp>2.0</version.maven.eclipse.wtp>
-        <version.maven.surefire>2.19</version.maven.surefire>
-        <version.war.plugin>2.6</version.war.plugin>
-
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
 
     </properties>
 
@@ -415,7 +349,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${version.maven.surefire}</version>
+                <version>${version.surefire.plugin}</version>
                 <configuration>
                     <includes>
                         <include>**/*Tests.java</include>

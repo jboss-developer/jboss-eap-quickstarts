@@ -15,15 +15,16 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
-      <groupId>org.jboss.quickstarts.eap</groupId>
-      <artifactId>jboss-jaxws-retail</artifactId>
-      <version>7.1.0-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
-   </parent>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-jaxws-retail</artifactId>
+        <version>7.1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
     <artifactId>jboss-jaxws-retail-service</artifactId>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: jaxws-retail - service</name>
@@ -31,77 +32,77 @@
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <distribution>repo</distribution>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      </license>
-   </licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
 
     <dependencies>
-      <dependency>
-         <groupId>org.jboss.spec.javax.ejb</groupId>
-         <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-      </dependency>
-      <!-- used to pull correct dependencies for jaxws-tools-maven-plugin  -->
-      <dependency>
-         <groupId>org.jboss.ws.cxf</groupId>
-         <artifactId>jbossws-cxf-client</artifactId>
-         <scope>provided</scope>
-      </dependency>
-   </dependencies>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+        </dependency>
+        <!-- used to pull correct dependencies for jaxws-tools-maven-plugin  -->
+        <dependency>
+            <groupId>org.jboss.ws.cxf</groupId>
+            <artifactId>jbossws-cxf-client</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <!-- Set the name of the archive -->
-      <finalName>${project.artifactId}</finalName>
-      <sourceDirectory>src/main/java</sourceDirectory>
+        <finalName>${project.artifactId}</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
 
-      <plugins>
-         <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>${version.war.plugin}</version>
-            <configuration>
-               <failOnMissingWebXml>false</failOnMissingWebXml>
-               <attachClasses>true</attachClasses>
-            </configuration>
-         </plugin>
-         <!-- WildFly Maven plug-in to deploy WAR -->
-         <plugin>
-            <groupId>org.wildfly.plugins</groupId>
-            <artifactId>wildfly-maven-plugin</artifactId>
-            <version>${version.wildfly.maven.plugin}</version>
-            <configuration>
-               <skip>false</skip>
-            </configuration>
-         </plugin>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.war.plugin}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <attachClasses>true</attachClasses>
+                </configuration>
+            </plugin>
+            <!-- WildFly Maven plug-in to deploy WAR -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
 
-         <!-- (wsconsume) generate classes from wsdl -->
-         <plugin>
-            <groupId>org.jboss.ws.plugins</groupId>
-            <artifactId>jaxws-tools-maven-plugin</artifactId>
-            <version>${version.jaxws-tools-maven-plugin}</version>
-            <configuration>
-               <wsdls>
-                  <wsdl>${basedir}/src/main/webapp/WEB-INF/wsdl/ProfileMgmtService.wsdl</wsdl>
-               </wsdls>
-               <extension>true</extension>
-               <verbose>true</verbose>
-               <endpointClass/>
-               <!-- some JDK implementations forbid file access for external schema,
-                    see http://docs.oracle.com/javase/8/docs/api/javax/xml/XMLConstants.html#ACCESS_EXTERNAL_SCHEMA -->
-               <argLine>-Djavax.xml.accessExternalSchema=all</argLine>
-               <fork>true</fork>
-               <targetPackage>org.jboss.quickstarts.ws.jaxws.samples.retail.profile</targetPackage>
-            </configuration>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>wsconsume</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
+            <!-- (wsconsume) generate classes from wsdl -->
+            <plugin>
+                <groupId>org.jboss.ws.plugins</groupId>
+                <artifactId>jaxws-tools-maven-plugin</artifactId>
+                <version>${version.jaxws-tools-maven-plugin}</version>
+                <configuration>
+                    <wsdls>
+                        <wsdl>${basedir}/src/main/webapp/WEB-INF/wsdl/ProfileMgmtService.wsdl</wsdl>
+                    </wsdls>
+                    <extension>true</extension>
+                    <verbose>true</verbose>
+                    <endpointClass/>
+                    <!-- some JDK implementations forbid file access for external schema,
+                         see http://docs.oracle.com/javase/8/docs/api/javax/xml/XMLConstants.html#ACCESS_EXTERNAL_SCHEMA -->
+                    <argLine>-Djavax.xml.accessExternalSchema=all</argLine>
+                    <fork>true</fork>
+                    <targetPackage>org.jboss.quickstarts.ws.jaxws.samples.retail.profile</targetPackage>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsconsume</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-      </plugins>
-   </build>
+        </plugins>
+    </build>
 </project>

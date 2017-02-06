@@ -17,9 +17,12 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.quickstarts.eap</groupId>
+    <parent>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-quickstart-parent</artifactId>
+        <version>7.1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>jboss-ejb-multi-server</artifactId>
-    <version>7.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JBoss EAP Quickstart: ejb-multi-server</name>
     <description>A project that demonstrates multiple applications deployed on different servers.
@@ -35,89 +38,6 @@
         </license>
     </licenses>
 
-    <!-- Activate the JBoss Enterprise Maven Repository.
-
-        NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
-        and is only done here to make it easier to use the quickstarts.
-
-        For more information about how to configure Maven for your application,
-        see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
-
-        https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
-    -->
-    <repositories>
-        <repository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following
-            message: [WARNING] Using platform encoding (UTF-8 actually) to copy 
-            filtered resources, i.e. build is platform dependent! -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
-
-        <!-- WildFly Maven plug-in to deploy your WAR to a local JBoss EAP container -->
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-
-        <!-- other plug-in versions -->
-        <version.compiler.plugin>3.1</version.compiler.plugin>
-
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-
-        <version.exec.plugin>1.2.1</version.exec.plugin>
-        <dependency.plugin.version>2.1</dependency.plugin.version>
-        <ejb.plugin.version>2.3</ejb.plugin.version>
-        <war.plugin.version>2.2</war.plugin.version>
-        <ear.plugin.version>2.6</ear.plugin.version>
-    </properties>
-
     <modules>
         <module>app-one</module>
         <module>app-two</module>
@@ -128,18 +48,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
-                of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-eap-javaee7 stack (you can
-                read this as the JBoss stack of the Java EE APIs and related components.  -->
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-javaee7</artifactId>
-                <version>${version.jboss.bom.eap}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>

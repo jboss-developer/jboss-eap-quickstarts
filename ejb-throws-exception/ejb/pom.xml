@@ -91,7 +91,7 @@
                 <version>${version.ejb.plugin}</version>
                 <configuration>
                     <!-- Tell Maven we are using EJB -->
-                    <ejbVersion>${version.ejb}</ejbVersion>
+                    <ejbVersion>3.2</ejbVersion>
                 </configuration>
             </plugin>
         </plugins>

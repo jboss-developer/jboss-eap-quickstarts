@@ -17,9 +17,12 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.quickstarts.eap</groupId>
+    <parent>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-quickstart-parent</artifactId>
+        <version>7.1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>jboss-spring-kitchensink-basic</artifactId>
-    <version>7.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JBoss EAP Quickstart: spring-kitchensink-basic</name>
     <description>Getting Started with Spring 4 on JBoss</description>
@@ -33,117 +36,18 @@
         </license>
     </licenses>
 
-    <!-- Activate the JBoss Enterprise Maven Repository.
-
-        NOTE: Configuring the Maven repository in the pom.xml file is not a recommended procedure
-        and is only done here to make it easier to use the quickstarts.
-
-        For more information about how to configure Maven for your application,
-        see the section entitled 'Use the Maven Repository'
-        in the Development Guide for Red Hat JBoss Enterprise Application Platform located here:
-
-        https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
-    -->
-    <repositories>
-        <repository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following
-            message: [WARNING] Using platform encoding (UTF-8 actually) to copy 
-            filtered resources, i.e. build is platform dependent! -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- JBoss dependency versions -->
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
-
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <version.maven.surefire>2.19</version.maven.surefire>
-        <version.maven.war>2.6</version.maven.war>
-
-        <!-- Third Party Spring dependencies -->
-        <version.h2db>1.4.190</version.h2db>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
-            <!-- Define the version of the JBoss Java EE APIs we want to import.
-                 Any dependencies from org.jboss.spec will have their version defined by this BOM
-
-                 JBoss distributes a complete set of Java EE APIs including
-                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-                 a collection) of artifacts. We use this here so that we always get the correct
-                 versions of artifacts. Here we use the jboss-javaee-7.0 stack (you can
-                 read this as the JBoss stack of the Java EE APIs). You can actually
-                 use this stack with any version of JBoss EAP that implements Java EE. -->
+            <!-- Define the version of the Spring Framework we want to import.
+                 Any dependencies from org.springframework.* will have their version defined by this BOM
+            -->
             <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-javaee7-with-tools</artifactId>
-                <version>${version.jboss.bom.eap}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${version.spring.framework}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-javaee7-with-spring4</artifactId>
-                <version>${version.jboss.bom.eap}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Add H2 dependency for embedded testing database -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${version.h2db}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -279,11 +183,6 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
-            </plugin>
-            <!-- Surefire plug-in before 2.9 version is buggy -->
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${version.maven.surefire}</version>
             </plugin>
         </plugins>
     </build>

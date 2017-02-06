@@ -69,7 +69,7 @@
                 <version>${ear.plugin.version}</version>
                 <configuration>
                     <displayName>SimpleApplicationForApplicationClient</displayName>
-                    <version>6</version>
+                    <version>7</version>
                     <generateApplicationXml>true</generateApplicationXml>
                     <modules>
                         <ejbModule>

@@ -41,7 +41,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 //The @Model stereotype is a convenience mechanism to make this a request-scoped bean that has an
 //EL name
