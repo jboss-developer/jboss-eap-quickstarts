@@ -53,13 +53,17 @@
     -->
     <repositories>
         <repository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <id>jboss-eap-7.1-product-repository</id>
+            <name>JBoss EAP Product Repository</name>
+            <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
+            <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
             </snapshots>
         </repository>
         <repository>
@@ -76,13 +80,17 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>jboss-developer-staging-repository</id>
-            <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+            <id>jboss-eap-7.1-product-repository</id>
+            <name>JBoss EAP Product Repository</name>
+            <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
+            <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
@@ -111,7 +119,7 @@
 
         <version.spring.framework>4.3.6.RELEASE</version.spring.framework>
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.0.0.GA</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.1.0.DR11</version.jboss.bom.eap>
 
         <version.jboss.spec.javaee.7.0>1.1.0.Beta1</version.jboss.spec.javaee.7.0>
 
