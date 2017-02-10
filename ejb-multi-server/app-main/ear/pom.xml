@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-ejb-multi-server-app-main</artifactId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-ejb-multi-server-app-main-ear</artifactId>
@@ -32,10 +32,32 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <dependencies>
+        <!-- add the EJB and WEB project as dependency to include it in the EAR -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <!-- Activate the JBoss Enterprise Maven Repository.
 
@@ -50,86 +72,76 @@
     -->
     <repositories>
         <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
             <id>jboss-developer-staging-repository</id>
             <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
         <repository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+            <id>jboss-enterprise-maven-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
             <id>jboss-developer-staging-repository</id>
             <url>http://jboss-developer.github.io/temp-maven-repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>jboss-enterprise-maven-repository</id>
-            <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+            <id>jboss-enterprise-maven-repository</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
         </pluginRepository>
     </pluginRepositories>
 
-    <dependencies>
-  <!-- add the EJB and WEB project as dependency to include it in the EAR -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
-            <type>ejb</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
-            <type>war</type>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.eap</groupId>
-            <artifactId>wildfly-ejb-client-bom</artifactId>
-            <scope>provided</scope>
-            <type>pom</type>
-        </dependency>
-    </dependencies>
-
     <build>
+        <resources>
+            <resource>
+                <targetPath>META-INF</targetPath>
+                <directory>src/main/resources/META-INF</directory>
+                <!--  add the client configuration containing the remote-connections and cluster definition
+              which is used by the MainApp bean.
+         -->
+                <includes>
+                    <include>jboss-ejb-client.xml</include>
+                </includes>
+            </resource>
+        </resources>
         <!-- define the name for the deployable archive instead of using the default name with the version -->
         <finalName>${project.parent.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>${ear.plugin.version}</version>
+                <version>${version.ear.plugin}</version>
                 <configuration>
                     <displayName>Application Main</displayName>
                     <description>A simple quickstart application to demonstrate the
                         server-server communication</description>
                     <version>6</version>
                     <generateApplicationXml>true</generateApplicationXml>
-          <!-- must start in order to ensure that the reference to MainApp is found in the JsfController -->
+                    <!-- must start in order to ensure that the reference to MainApp is found in the JsfController -->
                     <initializeInOrder>true</initializeInOrder>
                     <modules>
                         <ejbModule>
@@ -142,7 +154,7 @@
                             <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
                             <bundleFileName>jsf.war</bundleFileName>
                         </webModule>
-            <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
+                        <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
                         <ejbClientModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>jboss-ejb-multi-server-app-one-ejb</artifactId>
@@ -160,17 +172,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources/META-INF</directory>
-        <!--  add the client configuration containing the remote-connections and cluster definition
-              which is used by the MainApp bean.
-         -->
-                <includes>
-                    <include>jboss-ejb-client.xml</include>
-                </includes>
-                <targetPath>META-INF</targetPath>
-            </resource>
-        </resources>
     </build>
 </project>

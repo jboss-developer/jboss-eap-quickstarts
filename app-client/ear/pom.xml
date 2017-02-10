@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-app-client</artifactId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-app-client-ear</artifactId>
@@ -33,24 +33,24 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jboss-app-client-client-simple</artifactId>
+            <version>${project.version}</version>
+            <type>app-client</type>
+        </dependency>
         <!-- add the EJB and WEB project as dependency to include it in the EAR -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jboss-app-client-ejb</artifactId>
-            <type>ejb</type>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>${project.groupId}</groupId>
-          <artifactId>jboss-app-client-client-simple</artifactId>
-          <version>${project.version}</version>
-          <type>app-client</type>
+            <type>ejb</type>
         </dependency>
     </dependencies>
 
@@ -66,7 +66,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>${ear.plugin.version}</version>
+                <version>${version.ear.plugin}</version>
                 <configuration>
                     <displayName>SimpleApplicationForApplicationClient</displayName>
                     <version>7</version>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -16,13 +16,13 @@
     limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
-      <groupId>org.jboss.quickstarts.eap</groupId>
-      <artifactId>jboss-jaxws-retail</artifactId>
-      <version>7.1.0.Alpha1-SNAPSHOT</version>
-   </parent>
+        <artifactId>jboss-jaxws-retail</artifactId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <version>7.1.0.Alpha1-SNAPSHOT</version>
+    </parent>
     <artifactId>jboss-jaxws-retail-client</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: jaxws-retail - client</name>
@@ -30,39 +30,35 @@
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <distribution>repo</distribution>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      </license>
-   </licenses>
-
-    <properties>
-     <version.exec.plugin>1.2.1</version.exec.plugin>
-   </properties>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <dependencies>
-      <dependency>
-         <groupId>org.jboss.quickstarts.eap</groupId>
-         <artifactId>jboss-jaxws-retail-service</artifactId>
-         <version>${project.version}</version>
-         <classifier>classes</classifier>
-      </dependency>
-   </dependencies>
+        <dependency>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-jaxws-retail-service</artifactId>
+            <version>${project.version}</version>
+            <classifier>classes</classifier>
+        </dependency>
+    </dependencies>
 
     <build>
-      <finalName>${project.artifactId}</finalName>
-      <plugins>
-         <!-- Allows Client to be run via 'mvn exec:java' -->
-         <plugin>
-           <groupId>org.codehaus.mojo</groupId>
-           <artifactId>exec-maven-plugin</artifactId>
-           <version>${version.exec.plugin}</version>
-           <configuration>
-             <mainClass>org.jboss.quickstarts.ws.client.Client</mainClass>
-           </configuration>
-         </plugin>
-      </plugins>
-   </build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- Allows Client to be run via 'mvn exec:java' -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${version.exec.plugin}</version>
+                <configuration>
+                    <mainClass>org.jboss.quickstarts.ws.client.Client</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

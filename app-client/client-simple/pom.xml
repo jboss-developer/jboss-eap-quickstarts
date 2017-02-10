@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-app-client</artifactId>
+        <groupId>org.jboss.quickstarts.eap</groupId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
-     </parent>
+    </parent>
     <artifactId>jboss-app-client-client-simple</artifactId>
     <packaging>jar</packaging>
     <name>JBoss EAP Quickstart: app-client - client-simple</name>
@@ -33,8 +33,8 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -59,7 +59,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${jar.plugin.version}</version>
+                <version>${version.jar.plugin}</version>
                 <configuration>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
