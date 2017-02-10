@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -31,8 +31,8 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -44,6 +44,20 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- JBoss distributes a complete set of Java EE APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-eap-javaee7-with-tools stack
+                (you can read this as the JBoss stack of the Java EE APIs, with some extras
+                tools for your project, such as Arquillian for testing)  -->
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-javaee7-with-tools</artifactId>
+                <version>${version.jboss.bom.eap}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Define the version of the EJB jar so that we don't need
                 to repeat ourselves in every module -->
@@ -64,20 +78,6 @@
                 <scope>compile</scope>
             </dependency>
 
-            <!-- JBoss distributes a complete set of Java EE APIs including
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-                a collection) of artifacts. We use this here so that we always get the correct
-                versions of artifacts. Here we use the jboss-eap-javaee7-with-tools stack
-                (you can read this as the JBoss stack of the Java EE APIs, with some extras
-                tools for your project, such as Arquillian for testing)  -->
-            <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-javaee7-with-tools</artifactId>
-                <version>${version.jboss.bom.eap}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -85,7 +85,7 @@
         <finalName>${project.artifactId}</finalName>
         <pluginManagement>
             <plugins>
-            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container. 
+                <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container. 
                 Due to Maven's lack of intelligence with EARs we need to configure
                 the WildFly Maven plug-in to skip deployment for all modules. We then enable
                 it specifically in the ear module. -->

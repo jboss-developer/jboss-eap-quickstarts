@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-ejb-multi-server-app-main</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-ejb-multi-server-app-main</artifactId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-ejb-multi-server-app-main-ear</artifactId>
@@ -117,6 +117,8 @@
     </pluginRepositories>
 
     <build>
+        <!-- define the name for the deployable archive instead of using the default name with the version -->
+        <finalName>${project.parent.artifactId}</finalName>
         <resources>
             <resource>
                 <targetPath>META-INF</targetPath>
@@ -129,8 +131,6 @@
                 </includes>
             </resource>
         </resources>
-        <!-- define the name for the deployable archive instead of using the default name with the version -->
-        <finalName>${project.parent.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>

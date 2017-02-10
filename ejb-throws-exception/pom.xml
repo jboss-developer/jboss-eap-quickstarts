@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -31,8 +31,8 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -55,6 +55,14 @@
                 <type>ejb</type>
             </dependency>
 
+            <!-- Define the version of the ejb-api so that we don't need to
+                repeat ourselves in every module -->
+            <dependency>
+                <groupId>org.jboss.quickstarts.eap</groupId>
+                <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Define the version of the WAR so that we don't need to repeat
                 ourselves in every module -->
             <dependency>
@@ -64,21 +72,13 @@
                 <type>war</type>
                 <scope>compile</scope>
             </dependency>
-
-            <!-- Define the version of the ejb-api so that we don't need to
-                repeat ourselves in every module -->
-            <dependency>
-                <groupId>org.jboss.quickstarts.eap</groupId>
-                <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <pluginManagement>
             <plugins>
-            <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container. 
+                <!-- The WildFly plug-in deploys your ear to a local JBoss EAP container. 
                 Due to Maven's lack of intelligence with EARs we need to configure
                 the WildFly Maven plug-in to skip deployment for all modules. We then enable
                 it specifically in the ear module. -->

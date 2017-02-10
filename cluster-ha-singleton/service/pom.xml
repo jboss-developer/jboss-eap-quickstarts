@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -31,25 +31,25 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <!-- As this is deployed as a jar, there is no need to mark dependencies
         as provided, as they won't be packaged anyway -->
     <dependencies>
+        <!-- Import JBoss EAP Clustering Singleton, to allow us to create
+            a singleton service -->
+        <dependency>
+            <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-clustering-singleton-api</artifactId>
+        </dependency>
         <!-- Import MSC, to allow us to write JBoss EAP services -->
         <dependency>
             <groupId>org.jboss.msc</groupId>
             <artifactId>jboss-msc</artifactId>
             <version>1.2.6.Final</version>
-        </dependency>
-        <!-- Import the EJB API, we use provided scope because we aren't
-            to use the version in JBoss EAP -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
         </dependency>
         <!-- Import the JSR-250 API, we use provided scope because we aren't
             to use the version in JBoss EAP -->
@@ -57,11 +57,11 @@
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.2_spec</artifactId>
         </dependency>
-        <!-- Import JBoss EAP Clustering Singleton, to allow us to create
-            a singleton service -->
+        <!-- Import the EJB API, we use provided scope because we aren't
+            to use the version in JBoss EAP -->
         <dependency>
-            <groupId>org.jboss.eap</groupId>
-            <artifactId>wildfly-clustering-singleton-api</artifactId>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
         </dependency>
     </dependencies>
 
@@ -87,8 +87,7 @@
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
                             <Dependencies>org.jboss.msc,
-                                org.wildfly.clustering.singleton
-                            </Dependencies>
+                                org.wildfly.clustering.singleton</Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>

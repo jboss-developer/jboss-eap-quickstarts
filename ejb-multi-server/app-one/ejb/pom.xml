@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-ejb-multi-server-app-one</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-ejb-multi-server-app-one</artifactId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-ejb-multi-server-app-one-ejb</artifactId>
@@ -113,6 +113,7 @@
     </pluginRepositories>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <targetPath>META-INF</targetPath>
@@ -123,7 +124,6 @@
                 </includes>
             </resource>
         </resources>
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <!--  must include ejb-plug-in to change the EJB version from 2.1 to 3.1 -->

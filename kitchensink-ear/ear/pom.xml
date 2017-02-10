@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-kitchensink-ear</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-kitchensink-ear</artifactId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-kitchensink-ear-ear</artifactId>
@@ -32,23 +32,23 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-kitchensink-ear-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
 
         <!-- Depend on the EJB module and WAR so that we can package them -->
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-kitchensink-ear-web</artifactId>
             <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-kitchensink-ear-ejb</artifactId>
-            <type>ejb</type>
         </dependency>
     </dependencies>
 
@@ -67,10 +67,10 @@
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
-                    <!-- Default context root of the web app is /jboss-kitchensink-ear-web.
+                        <!-- Default context root of the web app is /jboss-kitchensink-ear-web.
                         If a custom context root is needed, uncomment the following snippet to
                         register our War as a web module and set the contextRoot property -->
-                    <!--
+                        <!--
                     <webModule>
                         <groupId>org.jboss.quickstarts.eap</groupId>
                         <artifactId>jboss-kitchensink-ear-web</artifactId>

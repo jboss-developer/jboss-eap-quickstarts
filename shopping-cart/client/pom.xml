@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -31,19 +31,12 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <dependencies>
-
-        <!-- We depend on the server side EJBs of this application -->
-        <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-shopping-cart-server</artifactId>
-            <type>ejb</type>
-        </dependency>
 
         <!-- JBoss EJB client stack. We use runtime scope because the EJB
             client API isn't directly used in this example. We just need it in our runtime
@@ -51,8 +44,15 @@
         <dependency>
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ejb-client-bom</artifactId>
-            <scope>runtime</scope>
             <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- We depend on the server side EJBs of this application -->
+        <dependency>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-shopping-cart-server</artifactId>
+            <type>ejb</type>
         </dependency>
 
         <!--  Import the Java EJB API, as we use exceptions from it -->

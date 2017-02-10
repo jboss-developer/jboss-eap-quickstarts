@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -28,15 +28,14 @@
     <name>JBoss EAP Quickstart: app-client</name>
     <description>This project demonstrates how to package and use an EE application client.
      This POM defines common properties to specify the used versions and plug-ins.
-     The subprojects are built in the appropriate sequence.
-    </description>
+     The subprojects are built in the appropriate sequence.</description>
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 

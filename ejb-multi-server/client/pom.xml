@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -31,8 +31,8 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -58,11 +58,15 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-      <!-- Add the maven exec plug-in to allow us to run a java program via maven -->
+            <!-- Add the maven exec plug-in to allow us to run a java program via maven -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${version.exec.plugin}</version>
+                <configuration>
+                    <executable>java</executable>
+                    <mainClass>org.jboss.as.quickstarts.ejb.multi.server.Client</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -70,11 +74,7 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <executable>java</executable>
-                    <mainClass>org.jboss.as.quickstarts.ejb.multi.server.Client</mainClass>
-                </configuration>
             </plugin>
         </plugins>
-     </build>
+    </build>
 </project>

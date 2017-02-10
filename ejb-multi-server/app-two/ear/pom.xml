@@ -19,8 +19,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>jboss-ejb-multi-server-app-two</artifactId>
         <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-ejb-multi-server-app-two</artifactId>
         <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-ejb-multi-server-app-two-ear</artifactId>

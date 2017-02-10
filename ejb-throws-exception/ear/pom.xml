@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -32,19 +32,12 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <distribution>repo</distribution>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
     <dependencies>
-
-        <!-- Depend on the EJB module and WAR so that we can package them -->
-        <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
-            <artifactId>jboss-ejb-throws-exception-web</artifactId>
-            <type>war</type>
-        </dependency>
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-ejb-throws-exception-ejb</artifactId>
@@ -53,6 +46,13 @@
         <dependency>
             <groupId>org.jboss.quickstarts.eap</groupId>
             <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
+        </dependency>
+
+        <!-- Depend on the EJB module and WAR so that we can package them -->
+        <dependency>
+            <groupId>org.jboss.quickstarts.eap</groupId>
+            <artifactId>jboss-ejb-throws-exception-web</artifactId>
+            <type>war</type>
         </dependency>
     </dependencies>
 

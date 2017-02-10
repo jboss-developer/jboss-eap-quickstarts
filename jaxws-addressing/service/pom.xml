@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
@@ -19,9 +19,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-      <groupId>org.jboss.quickstarts.eap</groupId>
-      <artifactId>jboss-jaxws-addressing</artifactId>
-      <version>7.1.0.Alpha1-SNAPSHOT</version>
+        <groupId>org.jboss.quickstarts.eap</groupId>
+        <artifactId>jboss-jaxws-addressing</artifactId>
+        <version>7.1.0.Alpha1-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-jaxws-addressing-service</artifactId>
     <packaging>war</packaging>
@@ -30,17 +30,16 @@
     <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
-      <license>
-         <name>Apache License, Version 2.0</name>
-         <distribution>repo</distribution>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      </license>
-   </licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <build>
-       <!-- Set the name for the deployable archive instead of using the default name with the version -->
-       <finalName>${project.artifactId}</finalName>
-       <sourceDirectory>src/main/java</sourceDirectory>
+        <!-- Set the name for the deployable archive instead of using the default name with the version -->
+        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <plugin>
@@ -58,9 +57,10 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
-                   <skip>false</skip>
+                    <skip>false</skip>
                 </configuration>
             </plugin>
         </plugins>
+        <sourceDirectory>src/main/java</sourceDirectory>
     </build>
 </project>
