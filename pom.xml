@@ -244,10 +244,11 @@
                 </executions>
                 <configuration>
                     <inputDirectory>${basedir}</inputDirectory>
-
+                    <defaultTitle>${project.name}</defaultTitle>
                     <inputEncoding>UTF-8</inputEncoding>
                     <headerHtmlFile>dist/header.html</headerHtmlFile>
                     <footerHtmlFile>dist/footer.html</footerHtmlFile>
+                    <pegdownExtensions>TABLES,TOC,AUTOLINKS,STRIKETHROUGH,ATXHEADERSPACE,FENCED_CODE_BLOCKS</pegdownExtensions>
                     <!--<copyDirectories>css,js</copyDirectories>-->
                 </configuration>
             </plugin>
