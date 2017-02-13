@@ -24,8 +24,7 @@
     <name>JBoss EAP Quickstarts: Spring Kitchensink AsyncRequestMapping test via WebDriver with Arquillian</name>
     <description>This project tests a Spring Kitchensink AsyncRequestMapping for use on JBoss EAP by WebDriver</description>
 
-    <url>http://www.jboss.org/products/eap</url>
-    <licenses>
+        <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <distribution>repo</distribution>

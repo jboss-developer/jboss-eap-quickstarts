@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-cdi-stereotype</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: cdi-stereotype</name>
+    <name>${qs.name.prefix} cdi-stereotype</name>
     <description>This project demonstrates CDI Stereotype</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

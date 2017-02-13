@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-greeter</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: greeter</name>
+    <name>${qs.name.prefix} greeter</name>
     <description>A simple greeter project that demonstrates CDI, JPA, JTA, EJB and JSF</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

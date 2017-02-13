@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-servlet-async</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: servlet-async</name>
+    <name>${qs.name.prefix} servlet-async</name>
     <description>This project demonstrates an asynchronous Servlet</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-ejb-throws-exception</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: ejb-throws-exception</name>
+    <name>${qs.name.prefix} ejb-throws-exception</name>
     <description>This project demonstrates how to throw an exception in an EJB and catch it in the web layer</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

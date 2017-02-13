@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-inter-app</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: inter-app</name>
+    <name>${qs.name.prefix} inter-app</name>
     <description>This project demonstrates inter-application communication between two applications using EJB and CDI</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-payment-cdi-event</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: payment-cdi-event</name>
+    <name>${qs.name.prefix} payment-cdi-event</name>
     <description>A project that demonstrations CDI Events</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-kitchensink-asyncrequestmapping</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-kitchensink-asyncrequestmapping</name>
+    <name>${qs.name.prefix} spring-kitchensink-asyncrequestmapping</name>
     <description>Getting Started with Spring 4 on JBoss - AsyncRequests</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

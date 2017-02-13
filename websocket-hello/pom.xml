@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-websocket-hello</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: websocket-hello</name>
+    <name>${qs.name.prefix} websocket-hello</name>
     <description>This project demonstrates a simple Hello WebSocket application</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

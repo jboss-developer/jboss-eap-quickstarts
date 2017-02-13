@@ -25,9 +25,8 @@
 
     <artifactId>jboss-bmt</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: bmt</name>
+    <name>${qs.name.prefix} bmt</name>
     <description>This project demonstrates how to use Bean Managed Transactions</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

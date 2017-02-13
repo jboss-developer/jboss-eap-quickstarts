@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-kitchensink-html5-mobile</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: kitchensink-html5-mobile</name>
+    <name>${qs.name.prefix} kitchensink-html5-mobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss EAP.</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

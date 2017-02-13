@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-kitchensink-springmvctest</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-kitchensink-springmvctest</name>
+    <name>${qs.name.prefix} spring-kitchensink-springmvctest</name>
     <description>Getting Started with Spring 4 on JBoss - MVC Tests</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

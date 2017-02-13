@@ -28,7 +28,7 @@
     <artifactId>jboss-inter-app-appB</artifactId>
     <packaging>war</packaging>
 
-    <name>JBoss EAP Quickstart: inter-app - appB</name>
+    <name>${qs.name.prefix} inter-app - appB</name>
     <description>This project demonstrates inter-application communication between two applications using EJB and CDI; this is the appB POM file</description>
 
     <licenses>

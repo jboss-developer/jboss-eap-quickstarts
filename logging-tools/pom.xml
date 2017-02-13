@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-logging-tools</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: logging-tools</name>
+    <name>${qs.name.prefix} logging-tools</name>
     <description>This project demonstrates JBoss EAP Logging Tools using JAX-RS</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

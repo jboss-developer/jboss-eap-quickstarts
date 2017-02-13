@@ -24,7 +24,7 @@
     </parent>
     <artifactId>jboss-websocket-endpoint</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: websocket-endpoint</name>
+    <name>${qs.name.prefix} websocket-endpoint</name>
     <description>This project demonstrates how to use a WebSocket Endppoint</description>
 
     <licenses>

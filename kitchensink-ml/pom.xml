@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-kitchensink-ml</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: kitchensink-ml</name>
+    <name>${qs.name.prefix} kitchensink-ml</name>
     <description>A localized starter Java EE web application project for use in JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-ejb-in-war</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: ejb-in-war</name>
+    <name>${qs.name.prefix} ejb-in-war</name>
     <description>This project demonstrates how to package an EJB in a WAR</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

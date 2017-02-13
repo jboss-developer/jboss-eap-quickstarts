@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-jta-crash-rec</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: jta-crash-rec</name>
+    <name>${qs.name.prefix} jta-crash-rec</name>
     <description>This project demonstrates JTA crash recovery</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-helloworld-jms</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss EAP Quickstart: helloworld-jms</name>
+    <name>${qs.name.prefix} helloworld-jms</name>
     <description>A Helloworld JMS external producer/consumer client</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

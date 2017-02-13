@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-wsba-participant-completion-simple</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss EAP Quickstart: wsba-participant-completion-simple</name>
+    <name>${qs.name.prefix} wsba-participant-completion-simple</name>
     <description>This project demonstrates WS-BA with Participant Driven Completion</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

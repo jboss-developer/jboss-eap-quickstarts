@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-helloworld-rs</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: helloworld-rs</name>
+    <name>${qs.name.prefix} helloworld-rs</name>
     <description>A simple Hello World project that uses JAX-RS</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

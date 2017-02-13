@@ -24,11 +24,10 @@
     </parent>
     <artifactId>jboss-managed-executor-service</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: managed-executor-service</name>
+    <name>${qs.name.prefix} managed-executor-service</name>
     <description>A starter Java EE web application project for use on JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
 
-    <url>http://www.jboss.org/products/eap</url>
-    <licenses>
+        <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>

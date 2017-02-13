@@ -24,7 +24,7 @@
     </parent>
     <artifactId>jboss-hibernate5</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: hibernate5</name>
+    <name>${qs.name.prefix} hibernate5</name>
     <description>This project demonstrates how to use Hibernate 5</description>
 
     <licenses>

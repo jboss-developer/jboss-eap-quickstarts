@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-helloworld-mdb-propertysubstitution</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: helloworld-mdb-propertysubstitution</name>
+    <name>${qs.name.prefix} helloworld-mdb-propertysubstitution</name>
     <description>This project demonstrates how to use property substitution in a Message Driven Bean</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

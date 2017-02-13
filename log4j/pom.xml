@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-log4j</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: log4j</name>
+    <name>${qs.name.prefix} log4j</name>
     <description>This project demonstrates logging using Log4j</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

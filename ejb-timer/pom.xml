@@ -24,7 +24,7 @@
     </parent>
     <artifactId>jboss-ejb-timer</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: ejb-timer</name>
+    <name>${qs.name.prefix} ejb-timer</name>
     <description>A sample Java EE project demonstrating how to use EJB timer (@Schedule and @Timeout).</description>
 
     <licenses>

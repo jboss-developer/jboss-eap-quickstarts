@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-kitchensink-ml-ear</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: kitchensink-ml-ear</name>
+    <name>${qs.name.prefix} kitchensink-ml-ear</name>
     <description>This project demonstrates how to create a localized version of the kitchensink EAR</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

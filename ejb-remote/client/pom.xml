@@ -26,9 +26,8 @@
     </parent>
     <artifactId>jboss-ejb-remote-client</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss EAP Quickstart: ejb-remote - client</name>
+    <name>${qs.name.prefix} ejb-remote - client</name>
     <description>This project demonstrates how to access an EJB from a remote client; this is the client POM file</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

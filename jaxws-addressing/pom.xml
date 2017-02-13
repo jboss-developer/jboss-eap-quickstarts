@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-jaxws-addressing</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: jaxws-addressing</name>
+    <name>${qs.name.prefix} jaxws-addressing</name>
     <description>This project is a working example of a JAX-WS web service addressing endpoint</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-wsat-simple</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: wsat-simple</name>
+    <name>${qs.name.prefix} wsat-simple</name>
     <description>This project demonstrates a WS-AT enabled JAX-WS Web service bundled in a WAR archive</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

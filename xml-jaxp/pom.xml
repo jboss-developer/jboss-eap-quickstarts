@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-xml-jaxp</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: xml-jaxp</name>
+    <name>${qs.name.prefix} xml-jaxp</name>
     <description>This project demonstrates XML JAXP</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

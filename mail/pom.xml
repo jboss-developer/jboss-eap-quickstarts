@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-mail</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: mail</name>
+    <name>${qs.name.prefix} mail</name>
     <description>This project demonstrates how to send mail</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

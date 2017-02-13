@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-cdi-interceptors</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: cdi-interceptors</name>
+    <name>${qs.name.prefix} cdi-interceptors</name>
     <description>This project demonstrates how to use CDI Interceptors</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

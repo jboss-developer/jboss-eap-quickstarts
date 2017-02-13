@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-cdi-veto</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: cdi-veto</name>
+    <name>${qs.name.prefix} cdi-veto</name>
     <description>This project demonstrates how to use CDI APIs and SPIs to create a veto portable extension</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -25,9 +25,8 @@
     </parent>
     <artifactId>jboss-cdi-decorator</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: cdi-decorator</name>
+    <name>${qs.name.prefix} cdi-decorator</name>
     <description>This project demonstrates a CDI Decorator</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-ejb-asynchronous</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: ejb-asynchronous</name>
+    <name>${qs.name.prefix} ejb-asynchronous</name>
     <description>This project demonstrates asynchronous method invocations on an EJB</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

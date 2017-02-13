@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-servlet-filterlistener</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: servlet-filterlistener</name>
+    <name>${qs.name.prefix} servlet-filterlistener</name>
     <description>This project demonstrates a Servlet Filter and Listener</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

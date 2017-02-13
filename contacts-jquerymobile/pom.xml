@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-contacts-jquerymobile</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: contacts-jquerymobile</name>
+    <name>${qs.name.prefix} contacts-jquerymobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss EAP</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

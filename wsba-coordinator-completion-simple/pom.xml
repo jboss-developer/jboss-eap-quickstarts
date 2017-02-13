@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-wsba-coordinator-completion-simple</artifactId>
     <packaging>jar</packaging>
-    <name>JBoss EAP Quickstart: wsba-coordinator-completion-simple</name>
+    <name>${qs.name.prefix} wsba-coordinator-completion-simple</name>
     <description>This project demonstrates WS-BA with Coordinator Driven Completion</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

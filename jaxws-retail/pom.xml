@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-jaxws-retail</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: jaxws-retail</name>
+    <name>${qs.name.prefix} jaxws-retail</name>
     <description>This project is a working example of a JAX-WS web service retail endpoint</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-servlet-security</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: servlet-security</name>
+    <name>${qs.name.prefix} servlet-security</name>
     <description>This project demonstrates servlet security in JBoss EAP</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

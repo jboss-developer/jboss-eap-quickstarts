@@ -25,7 +25,7 @@
 
     <artifactId>jboss-bean-validation-custom-constraint</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: bean-validation-custom-constraint</name>
+    <name>${qs.name.prefix} bean-validation-custom-constraint</name>
     <description>This project demonstrates Bean Validation Custom Constraints</description>
 
     <licenses>

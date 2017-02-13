@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-ejb-security</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: ejb-security</name>
+    <name>${qs.name.prefix} ejb-security</name>
     <description>This project demonstrates EJB Security</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-helloworld-singleton</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: helloworld-singleton</name>
+    <name>${qs.name.prefix} helloworld-singleton</name>
     <description>This project demonstrates a Hello World Singleton Session Bean with a JSF client</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

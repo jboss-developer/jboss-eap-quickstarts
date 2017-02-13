@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-kitchensink-matrixvariables</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-kitchensink-matrixvariables</name>
+    <name>${qs.name.prefix} spring-kitchensink-matrixvariables</name>
     <description>Getting Started with Spring 4 on JBoss - Matrix Variables</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

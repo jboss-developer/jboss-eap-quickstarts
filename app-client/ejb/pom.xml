@@ -25,9 +25,8 @@
     </parent>
     <artifactId>jboss-app-client-ejb</artifactId>
     <packaging>ejb</packaging>
-    <name>JBoss EAP Quickstart: app-client - ejb</name>
+    <name>${qs.name.prefix} app-client - ejb</name>
     <description>This project demonstrates how to package and use an EE application client; this is the EJB POM file</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

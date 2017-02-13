@@ -24,7 +24,7 @@
     </parent>
     <artifactId>jboss-thread-racing</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: thread-racing</name>
+    <name>${qs.name.prefix} thread-racing</name>
     <description>A web application that triggers a thread race to complete Java EE 7 related tasks</description>
 
     <licenses>

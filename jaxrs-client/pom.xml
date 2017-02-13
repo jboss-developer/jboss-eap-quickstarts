@@ -25,11 +25,10 @@
     </parent>
     <artifactId>jboss-jaxrs-client</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: jaxrs-client</name>
+    <name>${qs.name.prefix} jaxrs-client</name>
     <description>A JAX-RS Client API project</description>
 
-    <url>http://www.jboss.org/products/eap</url>
-    <licenses>
+        <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-kitchensink-basic</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-kitchensink-basic</name>
+    <name>${qs.name.prefix} spring-kitchensink-basic</name>
     <description>Getting Started with Spring 4 on JBoss</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

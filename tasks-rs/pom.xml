@@ -24,7 +24,7 @@
     </parent>
     <artifactId>jboss-tasks-rs</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: tasks-rs</name>
+    <name>${qs.name.prefix} tasks-rs</name>
     <description>This project demonstrates how to implement a JAX-RS service that uses JPA persistence to manage tasks</description>
 
     <licenses>

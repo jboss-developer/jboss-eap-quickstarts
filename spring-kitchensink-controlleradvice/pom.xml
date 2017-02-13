@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-kitchensink-controlleradvice</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-kitchensink-controlleradvice</name>
+    <name>${qs.name.prefix} spring-kitchensink-controlleradvice</name>
     <description>A project that demonstrates getting started with Spring 4 on JBoss EAP - Controller Advice</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

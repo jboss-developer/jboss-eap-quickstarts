@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-cmt</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: cmt</name>
+    <name>${qs.name.prefix} cmt</name>
     <description>This project demonstrates how to use transactions managed by the container</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

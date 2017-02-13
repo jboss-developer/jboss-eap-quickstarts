@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-temperature-converter</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: temperature-converter</name>
+    <name>${qs.name.prefix} temperature-converter</name>
     <description>This project is a temperature converter. Given Celsius return Fahrenheit; Given Fahrenheit return Celsius</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

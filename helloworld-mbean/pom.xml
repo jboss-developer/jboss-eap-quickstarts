@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-helloworld-mbean</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: helloworld-mbean</name>
+    <name>${qs.name.prefix} helloworld-mbean</name>
     <description>This project demonstrates a simple Hello World MBean application</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

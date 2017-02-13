@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-greeter</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-greeter</name>
+    <name>${qs.name.prefix} spring-greeter</name>
     <description>This project demonstrates the greeter quickstart using Spring</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

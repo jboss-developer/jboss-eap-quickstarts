@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-xml-dom4j</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: xml-dom4j</name>
+    <name>${qs.name.prefix} xml-dom4j</name>
     <description>This project demonstrates XML DOM4J</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-kitchensink-angularjs</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: kitchensink-angularjs</name>
+    <name>${qs.name.prefix} kitchensink-angularjs</name>
     <description>A starter Java EE 7 web application project for use on JBoss EAP using AngularJS for the view</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

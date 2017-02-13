@@ -25,9 +25,8 @@
 
     <artifactId>jboss-batch-processing</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: batch-processing</name>
+    <name>${qs.name.prefix} batch-processing</name>
     <description>Shows how to use a Chunk oriented batch processing</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

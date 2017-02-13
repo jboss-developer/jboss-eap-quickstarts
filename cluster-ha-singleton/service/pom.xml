@@ -25,7 +25,7 @@
     </parent>
     <artifactId>jboss-cluster-ha-singleton-service</artifactId>
     <packaging>ejb</packaging>
-    <name>JBoss EAP Quickstart: cluster-ha-singleton - service</name>
+    <name>${qs.name.prefix} cluster-ha-singleton - service</name>
     <description>A project that demonstrates a SingletonService, deployed in a JAR, started by SingletonStartup, and accessed by an EJB; this is the service POM file</description>
 
     <licenses>

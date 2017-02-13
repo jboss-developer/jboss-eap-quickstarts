@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-tasks</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: tasks</name>
+    <name>${qs.name.prefix} tasks</name>
     <description>This project demonstrates how to use JPA for task management</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

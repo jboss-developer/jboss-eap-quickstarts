@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-picketlink-sts</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: picketlink-sts</name>
+    <name>${qs.name.prefix} picketlink-sts</name>
     <description>This project is an implementation of a WS-Trust Security Token Service.</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

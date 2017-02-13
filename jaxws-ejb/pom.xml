@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-jaxws-ejb</artifactId>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: jaxws-ejb</name>
+    <name>${qs.name.prefix} jaxws-ejb</name>
     <description>This project is a working example of a JAX-WS web service EJB endpoint</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

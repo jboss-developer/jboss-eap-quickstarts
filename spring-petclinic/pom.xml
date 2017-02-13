@@ -23,9 +23,8 @@
     </parent>
     <artifactId>jboss-spring-petclinic</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-petclinic</name>
+    <name>${qs.name.prefix} spring-petclinic</name>
     <description>The Spring PetClinic project file</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

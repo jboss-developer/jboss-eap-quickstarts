@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-shrinkwrap-resolver</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: shrinkwrap-resolver</name>
+    <name>${qs.name.prefix} shrinkwrap-resolver</name>
     <description>This project demonstrates how to use ShrinkWrap Resolve on JBoss EAP</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

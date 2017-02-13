@@ -24,8 +24,7 @@
     <name>JBoss EAP Quickstarts: Spring Kitchensink ControllerAdvice test via WebDriver with Arquillian</name>
     <description>This project demonstrates a Spring Kitchensink ControllerAdvice for use on JBoss EAP by WebDriver</description>
 
-    <url>http://www.jboss.org/products/eap</url>
-    <licenses>
+        <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <distribution>repo</distribution>

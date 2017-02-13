@@ -28,7 +28,7 @@
     <artifactId>jboss-inter-app-shared</artifactId>
     <packaging>ejb</packaging>
 
-    <name>JBoss EAP Quickstart: inter-app - shared</name>
+    <name>${qs.name.prefix} inter-app - shared</name>
     <description>This project demonstrates inter-application communication between two applications using EJB and CDI; this is the shared project POM file</description>
 
     <licenses>

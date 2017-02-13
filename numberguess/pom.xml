@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-numberguess</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: numberguess</name>
+    <name>${qs.name.prefix} numberguess</name>
     <description>The numberguess project demonstrates the use of CDI and JSF in JBoss EAP</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

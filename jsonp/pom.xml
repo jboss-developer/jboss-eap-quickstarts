@@ -24,11 +24,10 @@
     </parent>
     <artifactId>jboss-jsonp</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: jsonp</name>
+    <name>${qs.name.prefix} jsonp</name>
     <description>A starter Java EE webapp project for use on JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
 
-    <url>http://www.jboss.org/products/eap</url>
-    <licenses>
+        <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>

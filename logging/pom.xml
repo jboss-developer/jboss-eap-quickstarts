@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-logging</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: logging</name>
+    <name>${qs.name.prefix} logging</name>
     <description>This project demonstrates logging in JBoss EAP</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-spring-resteasy</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: spring-resteasy</name>
+    <name>${qs.name.prefix} spring-resteasy</name>
     <description>This project demonstrates Spring with a JAX-RS RestEasy client</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

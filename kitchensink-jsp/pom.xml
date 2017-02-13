@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-kitchensink-jsp</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: kitchensink-jsp</name>
+    <name>${qs.name.prefix} kitchensink-jsp</name>
     <description>A kitchensink project with a JSP front end</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

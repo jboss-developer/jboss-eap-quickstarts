@@ -24,9 +24,8 @@
     </parent>
     <artifactId>jboss-cdi-alternative</artifactId>
     <packaging>war</packaging>
-    <name>JBoss EAP Quickstart: cdi-alternative</name>
+    <name>${qs.name.prefix} cdi-alternative</name>
     <description>This project demonstrates how to use CDI Alternative</description>
-    <url>http://www.jboss.org/products/eap</url>
 
     <licenses>
         <license>

@@ -28,7 +28,7 @@
     <artifactId>jboss-quickstart-parent</artifactId>
     <version>7.1.0.Alpha1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JBoss EAP Quickstart: Parent</name>
+    <name>${qs.name.prefix} Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 
@@ -41,8 +41,9 @@
     </licenses>
 
     <properties>
+        <qs.name.prefix>JBoss EAP Quickstart:</qs.name.prefix>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
-        <version.wildfly.maven.plugin>1.2.0.Alpha1</version.wildfly.maven.plugin>
+        <version.wildfly.maven.plugin>1.2.0.Alpha2</version.wildfly.maven.plugin>
 
         <!-- other plug-in versions -->
         <version.com.mycyla.license>3.0</version.com.mycyla.license>
