@@ -230,6 +230,27 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>markdown-page-generator-plugin</artifactId>
+                <version>0.13.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputDirectory>${basedir}</inputDirectory>
+
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <headerHtmlFile>dist/header.html</headerHtmlFile>
+                    <footerHtmlFile>dist/footer.html</footerHtmlFile>
+                    <!--<copyDirectories>css,js</copyDirectories>-->
+                </configuration>
+            </plugin>
             <!-- The WildFly plug-in deploys your apps to a local JBoss EAP container -->
             <!-- Disabling it here means that we don't try to deploy this POM! -->
             <plugin>
