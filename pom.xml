@@ -42,6 +42,7 @@
 
     <properties>
         <qs.name.prefix>JBoss EAP Quickstart:</qs.name.prefix>
+        <root.dir>${session.executionRootDirectory}</root.dir>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>1.2.0.Alpha2</version.wildfly.maven.plugin>
 
@@ -231,23 +232,53 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>markdown-page-generator-plugin</artifactId>
-                <version>0.13.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${version.resources.plugin}</version>
                 <executions>
                     <execution>
-                        <phase>process-sources</phase>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/docs</outputDirectory>
+                            <filters>
+                                <filter>${root.dir}/docs.properties</filter>
+                            </filters>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}</directory>
+                                    <includes>
+                                        <include>*.md</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.vladsch.flexmark</groupId>
+                <artifactId>markdown-page-generator-plugin</artifactId>
+                <version>0.14.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <inputDirectory>${basedir}</inputDirectory>
+                    <inputDirectory>${basedir}/target/docs</inputDirectory>
                     <defaultTitle>${project.name}</defaultTitle>
                     <inputEncoding>UTF-8</inputEncoding>
-                    <headerHtmlFile>dist/header.html</headerHtmlFile>
-                    <footerHtmlFile>dist/footer.html</footerHtmlFile>
+                    <headerHtmlFile>${root.dir}/dist/header.html</headerHtmlFile>
+                    <footerHtmlFile>${root.dir}/dist/footer.html</footerHtmlFile>
                     <pegdownExtensions>TABLES,TOC,AUTOLINKS,STRIKETHROUGH,ATXHEADERSPACE,FENCED_CODE_BLOCKS</pegdownExtensions>
                     <!--<copyDirectories>css,js</copyDirectories>-->
                 </configuration>
