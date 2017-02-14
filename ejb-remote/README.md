@@ -3,14 +3,14 @@ ejb-remote: Remote EJB Client Example
 Author: Jaikiran Pai, Mike Musgrove  
 Level: Intermediate  
 Technologies: EJB, JNDI  
-Summary: The `ejb-remote` quickstart uses *EJB* and *JNDI* to demonstrate how to access an EJB, deployed to JBoss EAP, from a remote Java client application.  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Summary: The `ejb-remote` quickstart uses *EJB* and *JNDI* to demonstrate how to access an EJB, deployed to ${product.name}, from a remote Java client application.  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
-The `ejb-remote` quickstart shows how to access an EJB from a remote Java client application. It demonstrates the use of *EJB* and *JNDI* in Red Hat JBoss Enterprise Application Platform.
+The `ejb-remote` quickstart shows how to access an EJB from a remote Java client application. It demonstrates the use of *EJB* and *JNDI* in ${product.name.full}.
 
 There are two components to this example: 
 
@@ -27,25 +27,25 @@ Each component is defined in its own standalone Maven module. The quickstart pro
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP7_HOME
+Use of ${jboss.home.name}
 ---------------
 
-In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -------------------------
 
-1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+1. Open a command prompt and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -53,7 +53,7 @@ Build and Deploy the Quickstart
 
 Since this quickstart builds two separate components, you can not use the standard *Build and Deploy* commands used by most of the other quickstarts. You must follow these steps to build, deploy, and run this quickstart.
 
-1. Make sure you have started the JBoss EAP server. See the instructions in the previous section.
+1. Make sure you have started the ${product.name} server. See the instructions in the previous section.
 2. Open a command prompt and navigate to the ejb-remote quickstart directory
 3. Build and install the server side component:
     * Navigate to the server-side subdirectory:
@@ -62,7 +62,7 @@ Since this quickstart builds two separate components, you can not use the standa
     * Build the EJB and client interfaces JARs and install them in your local Maven repository.
 
             mvn clean install        
-    * Deploy the EJB JAR to your server. This Maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the JBoss EAP server console to see information messages regarding the deployment.
+    * Deploy the EJB JAR to your server. This Maven goal will deploy `server-side/target/jboss-ejb-remote-server-side.jar`. You can check the ${product.name} server console to see information messages regarding the deployment.
 
             mvn wildfly:deploy
 4. Build and run the client application
@@ -143,7 +143,7 @@ The remote client application can also be built as a standalone executable JAR w
 Undeploy the Archive
 --------------------
 
-To undeploy the server side component from the JBoss EAP server:
+To undeploy the server side component from the ${product.name} server:
 
 1. Navigate to the server-side subdirectory:
 
@@ -156,7 +156,7 @@ To undeploy the server side component from the JBoss EAP server:
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 
 This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.

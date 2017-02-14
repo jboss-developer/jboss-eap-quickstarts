@@ -42,7 +42,7 @@
 
     <properties>
         <qs.name.prefix>JBoss EAP Quickstart:</qs.name.prefix>
-        <root.dir>${session.executionRootDirectory}</root.dir>
+        <root.dir>${project.basedir}</root.dir>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>1.2.0.Alpha2</version.wildfly.maven.plugin>
 
@@ -231,58 +231,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${version.resources.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <!-- here the phase you need -->
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/docs</outputDirectory>
-                            <filters>
-                                <filter>${root.dir}/docs.properties</filter>
-                            </filters>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}</directory>
-                                    <includes>
-                                        <include>*.md</include>
-                                    </includes>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>markdown-page-generator-plugin</artifactId>
-                <version>0.14.0</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <inputDirectory>${basedir}/target/docs</inputDirectory>
-                    <defaultTitle>${project.name}</defaultTitle>
-                    <inputEncoding>UTF-8</inputEncoding>
-                    <headerHtmlFile>${root.dir}/dist/header.html</headerHtmlFile>
-                    <footerHtmlFile>${root.dir}/dist/footer.html</footerHtmlFile>
-                    <pegdownExtensions>TABLES,TOC,AUTOLINKS,STRIKETHROUGH,ATXHEADERSPACE,FENCED_CODE_BLOCKS</pegdownExtensions>
-                    <!--<copyDirectories>css,js</copyDirectories>-->
-                </configuration>
-            </plugin>
             <!-- The WildFly plug-in deploys your apps to a local JBoss EAP container -->
             <!-- Disabling it here means that we don't try to deploy this POM! -->
             <plugin>
@@ -538,6 +486,103 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>root-dir</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/../docs.properties</exists>
+                </file>
+            </activation>
+            <properties>
+                <root.dir>${basedir}/../</root.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>root-dir2</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/../../docs.properties</exists>
+                </file>
+            </activation>
+            <properties>
+                <root.dir>${basedir}/../../</root.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>root-dir3</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/../../../docs.properties</exists>
+                </file>
+            </activation>
+            <properties>
+                <root.dir>${basedir}/../../../</root.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>docs</id>
+            <activation>
+                <property>
+                    <name>docs</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>${version.resources.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <!-- here the phase you need -->
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/docs</outputDirectory>
+                                    <filters>
+                                        <filter>${root.dir}/docs.properties</filter>
+                                    </filters>
+                                    <resources>
+                                        <resource>
+                                            <directory>${basedir}</directory>
+                                            <includes>
+                                                <include>*.md</include>
+                                            </includes>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.vladsch.flexmark</groupId>
+                        <artifactId>markdown-page-generator-plugin</artifactId>
+                        <version>0.14.0</version>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <inputDirectory>${project.build.directory}/docs</inputDirectory>
+                            <defaultTitle>${project.name}</defaultTitle>
+                            <inputEncoding>UTF-8</inputEncoding>
+                            <headerHtmlFile>${root.dir}/dist/header.html</headerHtmlFile>
+                            <footerHtmlFile>${root.dir}/dist/footer.html</footerHtmlFile>
+                            <pegdownExtensions>TABLES,TOC,AUTOLINKS,STRIKETHROUGH,ATXHEADERSPACE,FENCED_CODE_BLOCKS</pegdownExtensions>
+                            <!--<copyDirectories>css,js</copyDirectories>-->
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

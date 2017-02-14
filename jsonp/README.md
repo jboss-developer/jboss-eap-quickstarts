@@ -4,7 +4,7 @@ Author: Rafael Benevides
 Level: Beginner  
 Technologies: CDI, JSF, JSON-P  
 Summary: The `jsonp` quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings.  
-Target Product: JBoss EAP  
+Target Product: ${product.name}  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 
@@ -18,26 +18,26 @@ It shows how to use the JSON-P API to generate, parse, and consume JSON files.
 
 System requirements
 -------------------
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -------------------------
 
-1. Open a command line and navigate to the root of the  JBoss EAP directory.
+1. Open a command line and navigate to the root of the  ${product.name} directory.
 2. The following shows the command line to start the server with the default profile:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
 -------------------------
 
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -62,7 +62,7 @@ Now, click on `Parse JSON String using Stream` button. The textarea below the bu
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -72,7 +72,7 @@ Undeploy the Archive
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 
 Debug the Application

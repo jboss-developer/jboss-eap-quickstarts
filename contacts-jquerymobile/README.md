@@ -4,14 +4,14 @@ Author: Joshua Wilson
 Level: Beginner  
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
 Summary: The `contacts-jquerymobile` quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.  
-Target Product: JBoss EAP  
+Target Product: ${product.name}  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------
 
 The `contact-jquerymobile` quickstart is a deployable Maven 3 project designed to help you get your foot in the door developing HTML5 based 
-mobile web applications with Java EE 7 in Red Hat JBoss Enterprise Application Platform. This project is setup to allow you to create a basic Java EE 7 
+mobile web applications with Java EE 7 in ${product.name.full}. This project is setup to allow you to create a basic Java EE 7 
 application using HTML5, jQuery Mobile, JAX-RS, CDI, EJB, JPA, and Bean Validation. It includes a 
 persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
 
@@ -42,9 +42,9 @@ field if that field exists. If the field does not exist then it display it at th
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later.
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later.
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors 
 will vary slightly (ex. validations) based on browser support, especially IE 9.
@@ -54,26 +54,26 @@ Windows Phone, and others will be supported as jQuery Mobile announces support.
  
 With the prerequisites out of the way, you are ready to build and deploy.
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -----------------------
 
-1. Open a command line and navigate to the root of the JBoss EAP directory.
+1. Open a command line and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server with the default profile:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
    Note: Adding `-b 0.0.0.0` to the above commands will allow external clients, such as phones, tablets, and desktops, connect through your local network.
 
    For example
 
-        For Linux:   EAP7_HOME/bin/standalone.sh -b 0.0.0.0
-        For Windows: EAP7_HOME\bin\standalone.bat -b 0.0.0.0
+        For Linux:   ${jboss.home.name}/bin/standalone.sh -b 0.0.0.0
+        For Windows: ${jboss.home.name}\bin\standalone.bat -b 0.0.0.0
 
 Build and Deploy the Quickstart
 -------------------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -122,7 +122,7 @@ The app is made up of the following pages:
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -131,7 +131,7 @@ Undeploy the Archive
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}).
 
 <!-- Build and Deploy the Quickstart to OpenShift - Coming soon! -->
 
@@ -200,13 +200,13 @@ To run these tests, you must build the main project as described above.
         mvn clean package
 
 3. Navigate to the functional-tests/ directory in this quickstart.
-4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
+4. If you have a running instance of the ${product.name} server, as described above, run the remote tests by typing the following command:
 
         mvn clean verify -Parq-wildfly-remote
 
-5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
+5. If you prefer to run the functional tests using managed instance of the ${product.name} server, meaning the tests will start the server for you, type the following command:
 
-_NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
+_NOTE: For this to work, Arquillian needs to know the location of the ${product.name} server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests) for complete instructions and additional options._
 
         mvn clean verify -Parq-wildfly-managed
 

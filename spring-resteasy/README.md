@@ -4,37 +4,37 @@ Author: Weinan Li <l.weinan@gmail.com>, Paul Gier <pgier@redhat.com>
 Level: Beginner  
 Technologies: Resteasy, Spring  
 Summary: The `spring-resteasy` quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
 The `spring-resteasy` quickstart demonstrates how to package and deploy a web application, which includes resteasy-spring integration, in 
-Red Hat JBoss Enterprise Application Platform.
+${product.name.full}.
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 ----------------------
 
-1. Open a command line and navigate to the root of the JBoss EAP directory.
+1. Open a command line and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server with the full profile:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
 -------------------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -68,7 +68,7 @@ And the same set as above but using the `locating` path.
 Run the Tests
 -------------
 
-1. Make sure you have **started** the JBoss EAP server as described above and **deployed** the quickstart.
+1. Make sure you have **started** the ${product.name} server as described above and **deployed** the quickstart.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
@@ -95,7 +95,7 @@ Run the Tests
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 

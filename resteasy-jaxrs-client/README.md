@@ -5,14 +5,14 @@ Level: Intermediate
 Technologies: JAX-RS, CDI  
 Summary: The `resteasy-jaxrs-client` quickstart demonstrates an external JAX-RS RestEasy client, which interacts with a JAX-RS Web service that uses *CDI* and *JAX-RS*.  
 Prerequisites: helloworld-rs  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
 The `resteasy-jaxrs-client` quickstart demonstrates an external JAX-RS RestEasy client which interacts with a JAX-RS Web service that uses *CDI* and *JAX-RS* 
-in Red Hat JBoss Enterprise Application Platform.
+in ${product.name.full}.
 
 This client "calls" the HelloWorld JAX-RS Web Service that was created in the [helloworld-rs](../helloworld-rs/README.md) quickstart. See the **Prerequisite** section below for details on how to build and deploy the [helloworld-rs](../helloworld-rs/README.md) quickstart.
 
@@ -20,9 +20,9 @@ This client "calls" the HelloWorld JAX-RS Web Service that was created in the [h
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
 Prerequisites
@@ -42,7 +42,7 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. 
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Make sure the `helloworld-rs` quickstart has been deployed on the server as noted in the **Prerequisites** section above.
 3. Open a command prompt and navigate to the root directory of this quickstart.
 4. Type the following command to run the test goal:

@@ -4,13 +4,13 @@ Author: Peter Skopek
 Level: Advanced  
 Technologies: WS-Trust, SAML  
 Summary: The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
  
 What is it?
 -----------
 
-The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS) to Red Hat JBoss Enterprise Application Platform.
+The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS) to ${product.name.full}.
 
 WS-Trust extends the WS-Security specification to allow the issuance, renewal, and validation of security tokens. 
 Many WS-Trust functions center around the use of a Security Token Service, or STS. 
@@ -61,37 +61,37 @@ Where to Find Additional Information
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later.
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later.
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP7_HOME
+Use of ${jboss.home.name}
 ---------------
 
-In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
-Configure the JBoss EAP Server
+Configure the ${product.name} Server
 -------------------------------------------------
 
 You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart. 
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss EAP server.
-    * Backup the file: `EAP7_HOME/standalone/configuration/standalone.xml`
+    * If it is running, stop the ${product.name} server.
+    * Backup the file: `${jboss.home.name}/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 
-2. Start the JBoss EAP server by typing the following:
+2. Start the ${product.name} server by typing the following:
 
-        For Linux:  EAP7_HOME/bin/standalone.sh
-        For Windows:  EAP7_HOME\bin\standalone.bat
+        For Linux:  ${jboss.home.name}/bin/standalone.sh
+        For Windows:  ${jboss.home.name}\bin\standalone.bat
 3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `picketlink-sts` security domain to the `security` subsystem in the server configuration and configures authentication access.
 
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server:
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli 
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli 
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=configure-security-domain.cli 
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=configure-security-domain.cli 
 
    If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:
 
@@ -102,12 +102,12 @@ You configure the security domain by running JBoss CLI commands. For your conven
         {"outcome" => "success"}
 
    The batch file also restarts the server.
-5. Stop the JBoss EAP server.
+5. Stop the ${product.name} server.
    
 Review the Modified Server Configuration
 -----------------------------------
 
-After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone.xml` file and review the changes.
+After stopping the server, open the `${jboss.home.name}/standalone/configuration/standalone.xml` file and review the changes.
 
 The following `picketlink-sts` security-domain was added to the `security` subsystem.
    
@@ -121,22 +121,22 @@ The following `picketlink-sts` security-domain was added to the `security` subsy
             </authentication>
         </security-domain>
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -------------------------
 
 If you do not have a running server:
 
-1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+1. Open a command prompt and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
 -------------------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -188,10 +188,10 @@ Undeploy and Remove the Security Domain Configuration
 You can undeploy the quickstart and remove the security domain configuration in one easy step using the `undeploy-and-remove-security-domain.cli` script located in the root directory of this quickstart.
 
 1. Open a new command prompt, navigate to the root directory of this quickstart.
-2. Run the following command, replacing EAP7_HOME with the path to your server:
+2. Run the following command, replacing ${jboss.home.name} with the path to your server:
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
    You should see the following result when you run the script:
    
         The batch executed successfully
@@ -200,20 +200,20 @@ You can undeploy the quickstart and remove the security domain configuration in 
 ### Undeploy the quickstart and Remove the Security Domain Manually
 
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
         mvn wildfly:undeploy
-4. Stop the JBoss EAP server.
-5. Replace the `EAP7_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+4. Stop the ${product.name} server.
+5. Replace the `${jboss.home.name}/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
-1. Be sure to configure the security domain by running the JBoss CLI commands as described above under [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
+1. Be sure to configure the security domain by running the JBoss CLI commands as described above under [Configure the ${product.name} Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
 2. To deploy the server project, right-click on the `jboss-picketlink-sts` project and choose `Run As` --> `Run on Server`. 
 3. You are presented with a server message `PicketLinkSTSRealm` and challenged to enter valid authentication credentials. Enter the following information and then click `OK`.
    

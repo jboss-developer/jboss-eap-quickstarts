@@ -4,13 +4,13 @@ Author: Jay Balunas, Burr Sutter, Douglas Campos, Bruno Olivera
 Level: Beginner  
 Technologies: CDI, JAX-RS, HTML5  
 Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 2.0* using the HTML5 architecture and RESTful services on the backend.  
-Target Product: JBoss EAP  
+Target Product: ${product.name}  
 Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
 
 What is it?
 -----------
 
-The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 2.0* in Red Hat JBoss Enterprise Application Platform 7 or later using the HTML5 + REST architecture.
+The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 2.0* in ${product.name.full} ${product.version} or later using the HTML5 + REST architecture.
 
 The application is basically a smart, HTML5+CSS3+JavaScript front-end using RESTful services on the backend.
 
@@ -23,23 +23,23 @@ The example can be deployed using Maven from the command line or from Eclipse us
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ is required.
 
 With the prerequisites out of the way, you are ready to build and deploy.
 
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -------------------------
 
-1. Open a command line and navigate to the root of the JBoss EAP directory.
+1. Open a command line and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server with the default profile:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
@@ -47,7 +47,7 @@ Build and Deploy the Quickstart
 
 _NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy both the client and service applications:
 
@@ -103,7 +103,7 @@ You can also test the REST endpoint by sending an HTTP *POST* request to the URL
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -123,18 +123,18 @@ To run these tests, you must build the main project as described above.
         mvn clean package
 
 3. Navigate to the functional-tests/ directory in this quickstart.
-4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
+4. If you have a running instance of the ${product.name} server, as described above, run the remote tests by typing the following command:
 
         mvn clean verify -Parq-wildfly-remote
 
-5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type fhe following command:
+5. If you prefer to run the functional tests using managed instance of the ${product.name} server, meaning the tests will start the server for you, type fhe following command:
 
         mvn clean verify -Parq-wildfly-managed
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 
 Debug the Application

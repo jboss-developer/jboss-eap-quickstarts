@@ -4,13 +4,13 @@ Author: Serge Pagop
 Level: Intermediate  
 Technologies: SFSB EJB  
 Summary: The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 7 shopping cart application that uses a stateful session bean (SFSB).   
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
-The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 7 application that uses a stateful session bean (SFSB) in Red Hat JBoss Enterprise Application Platform. The application allows customers to buy, checkout, and view their cart contents. 
+The `shopping-cart` quickstart demonstrates how to deploy and run a simple Java EE 7 application that uses a stateful session bean (SFSB) in ${product.name.full}. The application allows customers to buy, checkout, and view their cart contents. 
 
 The `shopping-cart` application consists of the following:
 
@@ -25,18 +25,18 @@ The `shopping-cart` application consists of the following:
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP7_HOME
+Use of ${jboss.home.name}
 ---------------
 
-In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
-Configure the JBoss EAP Server
+Configure the ${product.name} Server
 ---------------------------
 
 This example quickstart purposely throws a `NoSuchEJBException` exception when the shopping cart is empty. This is the expected result because method is annotated with `@Remove`. This means the next invocation after the shopping cart checkout fails because the container has destroyed the instance and it is no longer available. If you do not run this script, you see the following ERROR in the server log, followed by the stacktrace
@@ -46,49 +46,49 @@ This example quickstart purposely throws a `NoSuchEJBException` exception when t
 Follow the steps below to suppress system exception logging.
 
 1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss EAP server.
-    * Backup the file: `EAP7_HOME/standalone/configuration/standalone.xml`
+    * If it is running, stop the ${product.name} server.
+    * Backup the file: `${jboss.home.name}/standalone/configuration/standalone.xml`
     * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-2. Start the JBoss EAP server by typing the following: 
+2. Start the ${product.name} server by typing the following: 
 
-        For Linux:  EAP7_HOME/bin/standalone.sh
-        For Windows:  EAP7_HOME\bin\standalone.bat
+        For Linux:  ${jboss.home.name}/bin/standalone.sh
+        For Windows:  ${jboss.home.name}\bin\standalone.bat
 3. Review the `configure-system-exception.cli` file in the root of this quickstart directory. This script sets the `log-system-exceptions` attribute to `false` in the `ejb3` subsystem in the server configuration file.
 
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server:
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-system-exception.cli
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-system-exception.cli
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=configure-system-exception.cli
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=configure-system-exception.cli
    You should see the following result when you run the script:
 
         The batch executed successfully
-5. Stop the JBoss EAP server.
+5. Stop the ${product.name} server.
 
 
 Review the Modified Server Configuration
 -----------------------------------
 
-After stopping the server, open the `EAP7_HOME/standalone/configuration/standalone.xml` file and review the changes.
+After stopping the server, open the `${jboss.home.name}/standalone/configuration/standalone.xml` file and review the changes.
 
 You should see the following configuration in the `ejb3` subsystem.
 
       <log-system-exceptions value="false"/>
 
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -------------------------
 
-1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+1. Open a command prompt and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server:
 
-        For Linux:   EAP7_HOME/bin/standalone.sh
-        For Windows: EAP7_HOME\bin\standalone.bat
+        For Linux:   ${jboss.home.name}/bin/standalone.sh
+        For Windows: ${jboss.home.name}\bin\standalone.bat
 
  
 Build and Deploy the Quickstart
 -------------------------
 
-1. Make sure you have started the JBoss EAP server. See the instructions in the previous section.
+1. Make sure you have started the ${product.name} server. See the instructions in the previous section.
 
 2. Open a command prompt and navigate to the `shopping-cart` quickstart directory
 3. To build both the server component and the remote client program, deploy the server module, change into the examples shopping-cart directory and type the following:
@@ -161,28 +161,28 @@ You can restore the system exception configuration by running the `restore-syste
 
 ### Restore the Server Configuration by Running the JBoss CLI Script
 
-1. Start the JBoss EAP server by typing the following: 
+1. Start the ${product.name} server by typing the following: 
 
-        For Linux:  EAP7_HOME/bin/standalone.sh
-        For Windows:  EAP7_HOME\bin\standalone.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+        For Linux:  ${jboss.home.name}/bin/standalone.sh
+        For Windows:  ${jboss.home.name}\bin\standalone.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server:
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-system-exception.cli
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=restore-system-exception.cli
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=restore-system-exception.cli
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=restore-system-exception.cli
    This script restores the  the `log-system-exceptions` attribute value to `true`. You should see the following result when you run the script:
 
         The batch executed successfully
 
 ### Restore the Server Configuration Manually
-1. If it is running, stop the JBoss EAP server.
-2. Replace the `EAP7_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+1. If it is running, stop the ${product.name} server.
+2. Replace the `${jboss.home.name}/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -191,11 +191,11 @@ Undeploy the Archive
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 This quickstart consists of multiple projects, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
-* Be sure to configure JBoss EAP to suppress system exception logging as described above under [Configure the JBoss EAP Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
+* Be sure to configure ${product.name} to suppress system exception logging as described above under [Configure the ${product.name} Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
 * To deploy the server project, right-click on the `jboss-shopping-cart-server` project and choose `Run As` --> `Run on Server`.
 * To run the client, right-click on the `jboss-shopping-cart-client` project and choose `Run As` --> `Java Application`. In the `Select Java Application` window, choose `Client - org.jboss.as.quickstarts.client` and click `OK`. The client output displays in the `Console` window.
 * Be sure to [Restore the Server Configuration](#restore-the-server-configuration) when you have completed testing this quickstart.

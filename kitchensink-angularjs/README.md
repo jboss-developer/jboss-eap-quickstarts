@@ -4,27 +4,27 @@ Author: Pete Muir
 Level: Intermediate  
 Technologies: AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV  
 Summary: The `kitchensink-angularjs` quickstart demonstrates a Java EE 7 application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation.  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
-The `kitchensink-angularjs` quickstart is a deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 7 with Red Hat JBoss Enterprise Application Platform. 
+The `kitchensink-angularjs` quickstart is a deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 7 with ${product.name.full}. 
 
 This project is setup to allow you to create a compliant Java EE 7 application using CDI 1.2, EJB 3.2, JPA 2.1 and Bean Validation 1.1. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java. 
 
 System Requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 --------------------------
 
-1. Open a command line and navigate to the root of the JBoss EAP directory.
+1. Open a command line and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server with the default profile:
 
         For Linux:   EAP_HOME/bin/standalone.sh
@@ -34,7 +34,7 @@ Start the JBoss EAP Server
 Build and Deploy the Quickstart
 -------------------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -52,7 +52,7 @@ The application will be running at the following URL: <http://localhost:8080/jbo
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -64,13 +64,13 @@ Run the Arquillian Tests
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
         mvn clean test -Parq-wildfly-remote 
 
-You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
+You can also let Arquillian manage the ${product.name} server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
 
 
 Run the Arquillian Functional Tests
@@ -87,18 +87,18 @@ To run these tests, you must build the main project as described above.
         mvn clean package
 
 3. Navigate to the `functional-tests/` directory in this quickstart.
-4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
+4. If you have a running instance of the ${product.name} server, as described above, run the remote tests by typing the following command:
 
         mvn clean verify -Parq-wildfly-remote
 
-5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type fhe following command:
+5. If you prefer to run the functional tests using managed instance of the ${product.name} server, meaning the tests will start the server for you, type fhe following command:
 
         mvn clean verify -Parq-wildfly-managed
 
 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 
 Debug the Application

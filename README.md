@@ -1,4 +1,4 @@
-Red Hat JBoss Enterprise Application Platform (JBoss EAP) Quickstarts
+${product.name.full} (${product.name}) Quickstarts
 ====================
 Summary: The quickstarts demonstrate Java EE 7 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
 
@@ -6,7 +6,7 @@ Summary: The quickstarts demonstrate Java EE 7 and a few additional technologies
 Introduction
 ------------
 
-These quickstarts run on Red Hat JBoss Enterprise Application Platform 7 or later. We recommend using the JBoss EAP ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
+These quickstarts run on ${product.name.full} ${product.version} or later. We recommend using the ${product.name} ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment. 
 
 Be sure to read this entire document before you attempt to work with the quickstarts. It contains the following information:
 
@@ -26,10 +26,10 @@ Be sure to read this entire document before you attempt to work with the quickst
 
 * [Contributing Guide](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONTRIBUTING.md#jboss-developer-contributing-guide): This document contains information targeted for developers who want to contribute to JBoss developer projects.
 
-Use of EAP7_HOME and JBOSS_HOME Variables
+Use of ${jboss.home.name} and JBOSS_HOME Variables
 ---------------------------------
 
-The quickstart README files use the *replaceable* value `EAP7_HOME` to denote the path to the JBoss EAP installation. When you encounter this value in a README file, be sure to replace it with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+The quickstart README files use the *replaceable* value `${jboss.home.name}` to denote the path to the ${product.name} installation. When you encounter this value in a README file, be sure to replace it with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Available Quickstarts
@@ -37,7 +37,7 @@ Available Quickstarts
 
 All available quickstarts can be found here: <http://www.jboss.org/developer-materials/#!formats=jbossdeveloper_quickstart>. You can filter by the quickstart name, the product, and the technologies demonstrated by the quickstart. You can also limit the results based on skill level and date published. The resulting page provides a brief description of each matching quickstart, the skill level, and the technologies used. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the `Prerequisites` section of the quickstart README file.
 
-_Note_: Some of these quickstarts use the H2 database included with JBoss EAP. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
+_Note_: Some of these quickstarts use the H2 database included with ${product.name}. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 
 
 [TOC-quickstart]
@@ -56,11 +56,11 @@ We suggest you approach the quickstarts as follows:
 System Requirements
 -------------------
 
-The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The applications these projects produce are designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
-To run these quickstarts with the provided build scripts, you need the JBoss EAP distribution ZIP. For information on how to install and run JBoss, see the [Red Hat JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/) _Getting Started Guide_ located on the Customer Portal.
+To run these quickstarts with the provided build scripts, you need the ${product.name} distribution ZIP. For information on how to install and run JBoss, see the [${product.name.full} Documentation](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/) _Getting Started Guide_ located on the Customer Portal.
 
 You can also use [JBoss Developer Studio or Eclipse](#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) to run the quickstarts. 
 
@@ -70,7 +70,7 @@ Run the Quickstarts
 
 The root folder of each individual quickstart contains a README file with specific details on how to build and run the example. In most cases you do the following:
 
-* [Start the JBoss EAP Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.md#start-the-jboss-eap-server)
+* [Start the ${product.name} Server](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.md#start-the-jboss-eap-server)
 * [Build and deploy the quickstarts](#build-and-deploy-the-quickstarts)
 
 
@@ -92,7 +92,7 @@ In most cases, you can use the following steps to build the application to test 
 
 In most cases, you can use the following steps to build and deploy the application. See the specific quickstart README file for complete details.
 
-1. Make sure you start the JBoss EAP server as described in the quickstart README file.
+1. Make sure you start the ${product.name} server as described in the quickstart README file.
 2. Open a command prompt and navigate to the root directory of the quickstart you want to run.
 3. Use this command to build and deploy the archive:
 
@@ -112,16 +112,11 @@ You can verify the quickstarts build using one command. However, quickstarts tha
 
 To build the quickstarts:
 
-1. Do not start the JBoss EAP server.
+1. Do not start the ${product.name} server.
 2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to build the quickstarts that do not have complex dependencies:
 
             mvn clean install '-Pdefault,!complex-dependencies'
-
-_Note_: If you see a `java.lang.OutOfMemoryError: PermGen space` error when you run this command, increase the memory by typing the following command for your operating system, then try the above command again.
-
-        For Linux:   export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
-        For Windows: SET MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m"
 
 
 ### Undeploy the Deployed Quickstarts with One Command
@@ -131,7 +126,7 @@ To undeploy the quickstarts from the root of the quickstart folder, you must pas
 
 You can undeploy quickstarts using the following procedure:
 
-1. Start the JBoss EAP server.
+1. Start the ${product.name} server.
 2. Open a command prompt and navigate to the root directory of the quickstarts.
 3. Use this command to undeploy any deployed quickstarts:
 
@@ -143,7 +138,7 @@ To undeploy any quickstarts that fail due to complex dependencies, follow the un
 Run the Quickstarts in Red Hat JBoss Developer Studio or Eclipse
 ------------------------------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 
 Optional Components

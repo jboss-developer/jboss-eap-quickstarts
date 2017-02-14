@@ -4,14 +4,14 @@ Author: Wolf-Dieter Fink
 Level: Advanced  
 Technologies: EJB, HASingleton, JNDI, Clustering, MSC
 Summary: The `cluster-ha-singleton` quickstart deploys a Service, wrapped with the SingletonService decorator, and used as a cluster-wide singleton service.  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
 The `cluster-ha-singleton` quickstart demonstrates the deployment of a Service that is wrapped with the 
-SingletonService decorator and used as a cluster-wide singleton service in Red Hat JBoss Enterprise Application Platform.
+SingletonService decorator and used as a cluster-wide singleton service in ${product.name.full}.
 The service activates a scheduled timer, which is started only once in the cluster.
 
 The example is composed of a Maven subproject and a parent project. The projects are as follows:
@@ -23,46 +23,46 @@ The example is composed of a Maven subproject and a parent project. The projects
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP7_HOME
+Use of ${jboss.home.name}
 ---------------
 
-In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
-Clone the EAP7_HOME Directory
+Clone the ${jboss.home.name} Directory
 ----------------------------
 
-While you can run this example starting only one instance of the server, if you want to see the singleton behavior, you must start at least two instances of the server. Make a copy of the JBoss EAP directory structure to use for the second server.
+While you can run this example starting only one instance of the server, if you want to see the singleton behavior, you must start at least two instances of the server. Make a copy of the ${product.name} directory structure to use for the second server.
 
 
-Start the JBoss EAP Server with a HA profile
+Start the ${product.name} Server with a HA profile
 -------------------------
 
 _Note: You must start the server using the HA profile or the singleton service will not start correctly._
 
-Start the two JBoss EAP servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
+Start the two ${product.name} servers with the HA profile by typing the following commands. You must pass a socket binding port offset on the command to start the second server. 
 
 If you are using Linux:
 
-        Server 1: EAP7_HOME_1/bin/standalone.sh --server-config=standalone-ha.xml 
-        Server 2: EAP7_HOME_2/bin/standalone.sh --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
+        Server 1: ${jboss.home.name}_1/bin/standalone.sh --server-config=standalone-ha.xml 
+        Server 2: ${jboss.home.name}_2/bin/standalone.sh --server-config=standalone-ha.xml  -Djboss.socket.binding.port-offset=100
 
 If you are using Windows
 
-        Server 1: EAP7_HOME_1\bin\standalone.bat --server-config=standalone-ha.xml
-        Server 2: EAP7_HOME_2\bin\standalone.bat --server-config=standalone-ha.xml -Djboss.socket.binding.port-offset=100
+        Server 1: ${jboss.home.name}_1\bin\standalone.bat --server-config=standalone-ha.xml
+        Server 2: ${jboss.home.name}_2\bin\standalone.bat --server-config=standalone-ha.xml -Djboss.socket.binding.port-offset=100
 
 _Note: If you want to test with more than two servers, you can start additional servers by specifying a unique port offset for each one._
 
 Build and Deploy the Quickstart
 -------------------------
 
-1. Make sure you have started the JBoss EAP servers as described above.
+1. Make sure you have started the ${product.name} servers as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -99,7 +99,7 @@ Build and Deploy the Quickstart
         WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the send buffer of socket ManagedMulticastSocketBinding was set to 1MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
         WARN  [org.jgroups.protocols.UDP] (MSC service thread 1-6) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
 
-8. The timer started on the server instance will log a message every 10 seconds. If you stop the `EAP7_HOME_1` server, you see messages in the `EAP7_HOME_2` server console indicating it is now the singleton provider.
+8. The timer started on the server instance will log a message every 10 seconds. If you stop the `${jboss.home.name}_1` server, you see messages in the `${jboss.home.name}_2` server console indicating it is now the singleton provider.
 
         WFLYCLSV0003: localhost elected as the singleton provider of the jboss.quickstart.ha.singleton.timer service
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.HATimerService] (MSC service thread 1-5) Start HASingleton timer service 'org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.HATimerService'
@@ -107,13 +107,13 @@ Build and Deploy the Quickstart
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 1) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
         INFO  [class org.jboss.as.quickstarts.cluster.hasingleton.service.ejb.SchedulerBean] (EJB default - 2) HASingletonTimer: Info=HASingleton timer @localhost <timestamp>
 
-9. In the example, the `EAP7_HOME_1` instance used as master, if it is available. If it has failed or shutdown, any other service instance will be used.
+9. In the example, the `${jboss.home.name}_1` instance used as master, if it is available. If it has failed or shutdown, any other service instance will be used.
 
 
 Undeploy the Archive
 --------------------
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type the following commands to undeploy the archives:
 
@@ -128,17 +128,17 @@ _NOTE:_ You may see the following error in the server log when you undeploy the 
 Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts).
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}).
 
-This quickstart is more complex than the others. It requires that you configure and run two instances of the JBoss EAP server, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
+This quickstart is more complex than the others. It requires that you configure and run two instances of the ${product.name} server, so it deploys and runs differently in JBoss Developer Studio than the other quickstarts.
 
-_NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Developer Studio, choose `Window`--> `Preferences` --> `Runtime Environment` and click `Add` to configure the following server instances.
+_NOTE_: If you have not yet configured the ${product.name} ${product.version} runtime in JBoss Developer Studio, choose `Window`--> `Preferences` --> `Runtime Environment` and click `Add` to configure the following server instances.
 
 1. Be sure to import the quickstart into JBoss Developer Studio. 
-2. Follow the instructions above to [Clone the EAP7_HOME Directory](#clone-the-eaphome-directory).
+2. Follow the instructions above to [Clone the ${jboss.home.name} Directory](#clone-the-eaphome-directory).
 3. Configure the first server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
-   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `Red Hat JBoss Enterprise Application Platform 7.0`.
+   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `${product.name.full} ${product.version}.0`.
    * For the `Server name`, enter `EAP7-Server1` and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.
@@ -151,7 +151,7 @@ _NOTE_: If you have not yet configured the JBoss EAP 7 runtime in JBoss Develope
    * In the `Add and Remove` dialog, add the `jboss-cluster-ha-singleton-service` to the `Configured` list and click `Finished`.
 4. Configure the second server instance in JBoss Developer Studio.
    * In the `Server` tab, right-click and choose `New` --> `Server`.
-   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `Red Hat JBoss Enterprise Application Platform 7.0`.
+   * Under `Select the server type:`, expand `Red Hat JBoss Middleware` and choose `${product.name.full} ${product.version}.0`.
    * For the `Server name`, enter `EAP7-Server2` and click `Next`.
    * In the `Create a new Server Adapter` dialog, choose `Create a new runtime (next page)` and click `Next`.
    * In the `JBoss Runtime` dialog, enter the following information and then click `Next`.

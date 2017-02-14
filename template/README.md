@@ -5,7 +5,7 @@ Level: [one of the following: Beginner, Intermediate, or Advanced]
 Technologies: (list technologies used here)  
 Summary: (A brief description of the quickstart to appear in the table and in Google search SEO results. Try to limit the description to 155 characters )  
 Prerequisites: (list any quickstarts that must be deployed prior to running this one)  
-Target Product: (JBoss EAP, JBoss Mobile, JBoss Data Grid, etc)  _Official names are here: https://mojo.redhat.com/docs/DOC-962110_  
+Target Product: (${product.name}, JBoss Mobile, JBoss Data Grid, etc)  _Official names are here: https://mojo.redhat.com/docs/DOC-962110_  
 Source: (The URL for the repository that is the source of record for this quickstart)  
 
 
@@ -21,7 +21,7 @@ What is it?
 
 <!-- Contributor: This is where you provide an overview of what the quickstart demonstrates. Be sure to include the full product name on the first line. For example: -->
 
-The `QUICKSTART_NAME` quickstart demonstrates ... in Red Hat JBoss Enterprise Application Platform.
+The `QUICKSTART_NAME` quickstart demonstrates ... in ${product.name.full}.
  * What are the technologies demonstrated by the quickstart?
  * What does it do when you run it?
 
@@ -35,15 +35,15 @@ System requirements
 
 <!-- Contributor: For example: -->
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP7_HOME
+Use of ${jboss.home.name}
 ---------------
 
-In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Configure Optional Components
@@ -62,16 +62,16 @@ Configure Optional Components
  * This quickstart uses Byteman to help demonstrate crash recovery. Instructions to install and configure Byteman can be found here: [Configure Byteman for Use with the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.md#configure-byteman-for-use-with-the-quickstarts)
 
 
-Start the JBoss EAP Server
+Start the ${product.name} Server
 -------------------------
 
 <!-- Contributor: Does this quickstart require one or more running servers? If so, you must show how to start the server. If you start the server in one of the following 3 ways, you can simply copy the instructions in the README file located in the root folder of the quickstart directory: -->
 
- * Start the JBoss EAP Server
+ * Start the ${product.name} Server
 
- * Start the JBoss EAP Server with the Full Profile
+ * Start the ${product.name} Server with the Full Profile
 
- * Start the JBoss EAP Server with Custom Options. You will need to provide the argument string to pass on the command line, for example: 
+ * Start the ${product.name} Server with Custom Options. You will need to provide the argument string to pass on the command line, for example: 
 
       `--server-config=../../docs/examples/configs/standalone-xts.xml`
 
@@ -83,7 +83,7 @@ Build and Deploy the Quickstart
 
 <!-- Contributor: If the quickstart is built and deployed using the standard Maven commands, copy the following: -->
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build and deploy the archive:
 
@@ -120,7 +120,7 @@ Undeploy the Archive
 
 <!--Contributor: For example: -->
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
@@ -134,13 +134,13 @@ Run the Arquillian Tests (For quickstarts that contain Arquillian tests)
 
 This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
-1. Make sure you have started the JBoss EAP server as described above.
+1. Make sure you have started the ${product.name} server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
         mvn clean test -Parq-wildfly-remote 
 
-You can also let Arquillian manage the JBoss EAP server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
+You can also let Arquillian manage the ${product.name} server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
 
 
 Investigate the Console Output
@@ -164,7 +164,7 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 
 <!-- Contributor: For example: -->
 
-You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts). 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 Debug the Application
 ------------------------------------

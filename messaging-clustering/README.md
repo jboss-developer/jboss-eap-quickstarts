@@ -5,26 +5,26 @@ Level: Intermediate
 Technologies: JMS, MDB  
 Summary: The `messaging-clustering` quickstart does not contain any code and instead uses the `helloworld-mdb` quickstart to demonstrate clustering using ActiveMQ Messaging.  
 Prerequisites: helloworld-mdb  
-Target Product: JBoss EAP  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: ${product.name}  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
 
-The `messaging-clustering` quickstart demonstrates the use of clustering with Apache ActiveMQ and Red Hat JBoss Enterprise Application Platform. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
+The `messaging-clustering` quickstart demonstrates the use of clustering with Apache ActiveMQ and ${product.name.full}. It uses the [helloworld-mdb](../helloworld-mdb/README.md) quickstart for its tests, so there is no code associated with this quickstart. Instructions are provided to run the quickstart on either a standalone server or in a managed domain.
 
 System requirements
 -------------------
 
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7 or later. 
+The application this project produces is designed to be run on ${product.name.full} ${product.version} or later. 
 
-All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
-Use of EAP7_HOME
+Use of ${jboss.home.name}
 ---------------
 
-In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
 
 
 Prerequisites
@@ -47,17 +47,17 @@ You can choose to deploy and run this quickstart in a managed domain or on a sta
 
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP server.
+1. If it is running, stop the ${product.name} server.
 
 2. If you plan to test using a standalone server, backup the file:
 
-        EAP7_HOME/standalone/configuration/standalone-full-ha.xml
+        ${jboss.home.name}/standalone/configuration/standalone-full-ha.xml
 
 
 3. If you plan to test using a managed domain, backup the following files:
 
-        EAP7_HOME/domain/configuration/domain.xml
-        EAP7_HOME/domain/configuration/host.xml
+        ${jboss.home.name}/domain/configuration/domain.xml
+        ${jboss.home.name}/domain/configuration/host.xml
 
 After you have completed testing this quickstart, you can replace these files to restore the server to its original configuration.
 
@@ -67,11 +67,11 @@ After you have completed testing this quickstart, you can replace these files to
 You configure the server by running the install-domain.cli script provided in the root directory of this quickstart.
 
 #### Start the server in domain mode.
-1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+1. Open a command prompt and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server in domain mode:
 
-        For Linux:   EAP7_HOME/bin/domain.sh
-        For Windows: EAP7_HOME\bin\domain.bat
+        For Linux:   ${jboss.home.name}/bin/domain.sh
+        For Windows: ${jboss.home.name}\bin\domain.bat
 
 
 #### Configure the Domain Server and Deploy the Quickstart Using the JBoss CLI
@@ -89,8 +89,8 @@ You configure the server by running the install-domain.cli script provided in th
 
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=install-domain.cli
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=install-domain.cli
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=install-domain.cli
         
    You should see "outcome" => "success" for all of the commands.
 3. Restart the server in domain mode as described above.
@@ -104,11 +104,11 @@ Since both application servers must be configured in the same way, you must conf
 
 #### Start the Server in Standalone Mode using the Full HA Profile.
 
-1. Open a command prompt and navigate to the root of the JBoss EAP directory.
+1. Open a command prompt and navigate to the root of the ${product.name} directory.
 2. The following shows the command line to start the server with the full-ha profile. This profile supports clustering/HA
 
-        For Linux:   EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml
-        For Windows: EAP7_HOME_1\bin\standalone.bat -c standalone-full-ha.xml
+        For Linux:   ${jboss.home.name}_1/bin/standalone.sh -c standalone-full-ha.xml
+        For Windows: ${jboss.home.name}_1\bin\standalone.bat -c standalone-full-ha.xml
 
 
 #### Configure the Standalone Server and Deploy the Quickstart Using the JBoss CLI
@@ -124,36 +124,36 @@ Since both application servers must be configured in the same way, you must conf
     must modify its path in this script. Find the `NOTE:` in the file for instructions._
 2. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to run the script:
 
-        For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=install-standalone.cli
-        For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=install-standalone.cli
+        For Linux: ${jboss.home.name}_1/bin/jboss-cli.sh --connect --file=install-standalone.cli
+        For Windows: ${jboss.home.name}_1\bin\jboss-cli.bat --connect --file=install-standalone.cli
         
    You should see "outcome" => "success" for all of the commands.
 
-#### Clone the JBoss EAP Directory     
+#### Clone the ${product.name} Directory     
 
-After you have successfully configured the server, you must make a copy of this JBoss EAP directory structure to use for the second server.
+After you have successfully configured the server, you must make a copy of this ${product.name} directory structure to use for the second server.
 
 1. Stop the server.
-2. Make a copy of this JBoss EAP directory structure to use for the second server.
+2. Make a copy of this ${product.name} directory structure to use for the second server.
 3. Remove the following directories from the cloned instance:
 
-        EAP7_HOME_2/standalone/data/activemq/bindings
-        EAP7_HOME_2/standalone/data/activemq/journal
-        EAP7_HOME_2/standalone/data/activemq/largemessages
+        ${jboss.home.name}_2/standalone/data/activemq/bindings
+        ${jboss.home.name}_2/standalone/data/activemq/journal
+        ${jboss.home.name}_2/standalone/data/activemq/largemessages
 
-#### Start the JBoss EAP Standalone Servers with the Full HA Profile
+#### Start the ${product.name} Standalone Servers with the Full HA Profile
 
 When you start the servers, you must pass the cluster password on the command line to avoid the warning "AMQ222186: unable to authorise cluster control".
 
 If you are using Linux:
 
-        Server 1: EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
-        Server 2: EAP7_HOME_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password -Djboss.socket.binding.port-offset=100
+        Server 1: ${jboss.home.name}_1/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+        Server 2: ${jboss.home.name}_2/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password -Djboss.socket.binding.port-offset=100
 
 If you are using Windows:
 
-        Server 1: EAP7_HOME_1\bin\standalone.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
-        Server 2: EAP7_HOME_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password -Djboss.socket.binding.port-offset=100
+        Server 1: ${jboss.home.name}_1\bin\standalone.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+        Server 2: ${jboss.home.name}_2\bin\standalone.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password -Djboss.socket.binding.port-offset=100
 
 
 Access the application 
@@ -179,7 +179,7 @@ To send messages to the topic, use the following URL: <http://localhost:8080/jbo
 Investigate the Server Console Output
 -------------------------
 
-Look at the JBoss EAP server console or log and you should see log messages like the following:
+Look at the ${product.name} server console or log and you should see log messages like the following:
 
         [Server:quickstart-messagingcluster-node1] 16:34:41,165 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (ActiveMQ-client-global-threads-1067469862)) Received Message from queue: This is message 1
         [Server:quickstart-messagingcluster-node1] 16:34:41,274 INFO  [class org.jboss.as.quickstarts.mdb.HelloWorldQueueMDB] (Thread-8 (ActiveMQ-client-global-threads-1067469862)) Received Message from queue: This is message 3
@@ -208,20 +208,20 @@ When you are finished testing, use the following instructions to undeploy the qu
 
 ### Undeploy the quickstart in Domain Mode
 
-1. Make sure you have started the JBoss EAP server in domain mode as described above.
+1. Make sure you have started the ${product.name} server in domain mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
 
         
 ### Undeploy the quickstart in Standalone Mode
 
-1. Make sure you have started the JBoss EAP server in standalone mode as described above.
+1. Make sure you have started the ${product.name} server in standalone mode as described above.
 3. Open a command prompt, navigate to the root directory of this quickstart, and run the following command to undeploy the helloworld-mdb quickstart:
 
-        For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
-        For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=undeploy-standalone.cli
+        For Linux: ${jboss.home.name}_1/bin/jboss-cli.sh --connect --file=undeploy-standalone.cli
+        For Windows: ${jboss.home.name}_1\bin\jboss-cli.bat --connect --file=undeploy-standalone.cli
 
 
 
@@ -236,21 +236,21 @@ You can remove the domain configuration by manually restoring the back-up copies
 
 _Note: This method ensures the server is restored to its prior configuration._
 
-1. If it is running, stop the JBoss EAP server.
-2. Restore the `EAP7_HOME/domain/configuration/domain.xml` and `EAP7_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace EAP7_HOME with the path to your server.
+1. If it is running, stop the ${product.name} server.
+2. Restore the `${jboss.home.name}/domain/configuration/domain.xml` and `${jboss.home.name}/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace ${jboss.home.name} with the path to your server.
 
 #### Remove the Domain Server Configuration by Running the JBoss CLI Script
 
 _Note: This script returns the server to a default configuration and the result may not match the server configuration prior to testing this quickstart. If you were not running with the default configuration before testing this quickstart, you should follow the intructions above to manually restore the configuration to its previous state._
 
-1. Start the JBoss EAP server by typing the following: 
+1. Start the ${product.name} server by typing the following: 
 
-        For Linux:   EAP7_HOME/bin/domain.sh
-        For Windows: EAP7_HOME\bin\domain.bat
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server.
+        For Linux:   ${jboss.home.name}/bin/domain.sh
+        For Windows: ${jboss.home.name}\bin\domain.bat
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server.
 
-        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-domain.cli 
-        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-domain.cli 
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=remove-domain.cli 
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=remove-domain.cli 
    This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully
@@ -268,28 +268,28 @@ You can remove the domain configuration by manually restoring the back-up copies
 
 _Note: This method ensures the server is restored to its prior configuration._
 
-1. If they are running, stop both JBoss EAP servers.
-2. Restore the `EAP7_HOME_1/standalone/configuration/standalone-full-ha.xml` file with the back-up copies of the file. Be sure to replace EAP7_HOME_1 with the path to your server.
+1. If they are running, stop both ${product.name} servers.
+2. Restore the `${jboss.home.name}_1/standalone/configuration/standalone-full-ha.xml` file with the back-up copies of the file. Be sure to replace ${jboss.home.name}_1 with the path to your server.
 
 #### Remove the Standalone Configuration by Running the JBoss CLI Script
 
 _Note: This script returns the server to a default configuration and the result may not match the server configuration prior to testing this quickstart. If you were not running with the default configuration before testing this quickstart, you should follow the intructions above to manually restore the configuration to its previous state._
 
-1. Start the JBoss EAP server by typing the following: 
+1. Start the ${product.name} server by typing the following: 
 
-        For Linux:   EAP7_HOME_1/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
-        For Windows: EAP7_HOME_1\bin\domain.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
-2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME_1 with the path to your server.
+        For Linux:   ${jboss.home.name}_1/bin/standalone.sh -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+        For Windows: ${jboss.home.name}_1\bin\domain.bat -c standalone-full-ha.xml -Djboss.messaging.cluster.password=password
+2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name}_1 with the path to your server.
 
-        For Linux: EAP7_HOME_1/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
-        For Windows: EAP7_HOME_1\bin\jboss-cli.bat --connect --file=remove-standalone.cli 
+        For Linux: ${jboss.home.name}_1/bin/jboss-cli.sh --connect --file=remove-standalone.cli 
+        For Windows: ${jboss.home.name}_1\bin\jboss-cli.bat --connect --file=remove-standalone.cli 
 This script removes the server configuration that was done by the `install-standalone.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully
 
-### Delete the Cloned Standalone JBoss EAP Directory
+### Delete the Cloned Standalone ${product.name} Directory
 
-1. If it is running, stop the second instance of the JBoss EAP server.
+1. If it is running, stop the second instance of the ${product.name} server.
 2. Delete the cloned directory.
 
 
