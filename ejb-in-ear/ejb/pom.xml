@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-ejb-in-ear</artifactId>
-        <version>7.1.0.Alpha1-SNAPSHOT</version>
+        <version>7.1.0.Alpha1</version>
     </parent>
     <artifactId>jboss-ejb-in-ear-ejb</artifactId>
     <name>${qs.name.prefix} ejb-in-ear - ejb</name>
