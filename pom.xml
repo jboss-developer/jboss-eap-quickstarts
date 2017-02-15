@@ -87,7 +87,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.5</version>
+                <version>2.5.0.redhat-2</version>
                 <scope>compile</scope>
             </dependency>
             <!-- TODO - remove here only till wildfly-discovery-client 1.0.0.Beta9 is released and used in EAP
