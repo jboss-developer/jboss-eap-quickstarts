@@ -56,7 +56,7 @@
 
         <version.spring.framework>4.3.6.RELEASE</version.spring.framework>
         <!-- EAP component version management BOM -->
-        <version.jboss.bom.eap>7.1.0.DR11</version.jboss.bom.eap>
+        <version.jboss.bom.eap>7.1.0.DR12</version.jboss.bom.eap>
 
         <version.jboss.spec.javaee.7.0>1.1.0.Beta1</version.jboss.spec.javaee.7.0>
 
