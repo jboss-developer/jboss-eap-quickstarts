@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class MemberValidationTest {
+public class MemberValidationIT {
 
     /**
      * Constructs a deployment archive
@@ -65,7 +65,7 @@ public class MemberValidationTest {
             .addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
-    // Get configured validator directly from JBoss EAP environment
+    // Get configured validator directly from Server environment
     @Inject
     Validator validator;
 
