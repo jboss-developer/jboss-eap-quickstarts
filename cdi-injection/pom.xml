@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.jboss.quickstarts.eap</groupId>
         <artifactId>jboss-quickstart-parent</artifactId>
-        <version>7.1.0.Alpha1</version>
+        <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-cdi-injection</artifactId>
     <packaging>war</packaging>
