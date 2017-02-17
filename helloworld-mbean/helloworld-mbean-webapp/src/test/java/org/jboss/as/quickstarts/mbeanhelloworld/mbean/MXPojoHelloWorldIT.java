@@ -16,8 +16,10 @@
  */
 package org.jboss.as.quickstarts.mbeanhelloworld.mbean;
 
+import java.io.File;
 import java.lang.management.ManagementFactory;
 
+import javax.enterprise.inject.spi.Extension;
 import javax.management.Attribute;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServer;
@@ -26,22 +28,25 @@ import javax.management.ObjectName;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.as.quickstarts.mbeanhelloworld.service.HelloService;
+import org.jboss.as.quickstarts.mbeanhelloworld.util.CDIExtension;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Testing component mbean with mxbean interface.
+ * Testing pojo mbean with mxbean interface.
  *
  * @author Jeremie Lagarde
  *
  */
 @RunWith(Arquillian.class)
-public class MXComponentHelloWorldTest {
+public class MXPojoHelloWorldIT {
+
+    private static final String WEBAPP_SRC = "src/main/webapp";
 
     /**
      * Constructs a deployment archive
@@ -50,27 +55,25 @@ public class MXComponentHelloWorldTest {
      */
     @Deployment
     public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(JavaArchive.class, "helloworld.jar")
-            .addClasses(MXComponentHelloWorld.class).addClasses(AbstractComponentMBean.class)
-            .addClass(IHelloWorldMXBean.class)
-            .addClass(HelloService.class)
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+            .addClasses(MXPojoHelloWorld.class, IHelloWorldMXBean.class, HelloService.class, CDIExtension.class)
+            .addAsManifestResource(new File(WEBAPP_SRC, "META-INF/jboss-service.xml"), "jboss-service.xml")
+            .addAsServiceProvider(Extension.class, CDIExtension.class)
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
     @Test
     public void testHello() throws Exception {
         MBeanServer mbeanServer = ManagementFactory.getPlatformMBeanServer();
-        ObjectName objectName = new ObjectName("quickstarts", "type", MXComponentHelloWorld.class.getSimpleName());
+        ObjectName objectName = new ObjectName("quickstarts", "type", MXPojoHelloWorld.class.getSimpleName());
         MBeanInfo mbeanInfo = mbeanServer.getMBeanInfo(objectName);
         Assert.assertNotNull(mbeanInfo);
         Assert.assertEquals(0L, mbeanServer.getAttribute(objectName, "Count"));
-        Assert.assertEquals("Hello", mbeanServer.getAttribute(objectName, "WelcomeMessage"));
-        Assert.assertEquals("Hello jer!",
-            mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
+        Assert.assertEquals("Welcome", mbeanServer.getAttribute(objectName, "WelcomeMessage"));
+        Assert.assertEquals("Welcome jer!", mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
         Assert.assertEquals(1L, mbeanServer.getAttribute(objectName, "Count"));
         mbeanServer.setAttribute(objectName, new Attribute("WelcomeMessage", "Hi"));
-        Assert.assertEquals("Hi jer!",
-            mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
+        Assert.assertEquals("Hi jer!", mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
         Assert.assertEquals(2L, mbeanServer.getAttribute(objectName, "Count"));
     }
 }

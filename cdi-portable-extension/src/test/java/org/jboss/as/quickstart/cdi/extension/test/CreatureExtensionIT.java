@@ -38,7 +38,7 @@ import static org.junit.Assert.assertThat;
  * Verification test.
  */
 @RunWith(Arquillian.class)
-public class CreatureExtensionTest {
+public class CreatureExtensionIT {
     @Deployment
     public static Archive<?> getDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "creature-creation.jar")

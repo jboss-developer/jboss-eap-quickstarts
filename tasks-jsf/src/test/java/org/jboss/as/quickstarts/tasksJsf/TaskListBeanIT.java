@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
  * @author Lukas Fryc
  */
 @RunWith(Arquillian.class)
-public class TaskListBeanTest {
+public class TaskListBeanIT {
 
     public static final String WEBAPP_SRC = "src/main/webapp";
 

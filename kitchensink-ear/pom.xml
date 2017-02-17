@@ -65,23 +65,5 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <!-- The WildFly plug-in deploys your EAR to a local JBoss EAP container -->
-                <!-- Due to Maven's lack of intelligence with EARs we need
-                    to configure the WildFly Maven plug-in to skip deployment for all modules.
-                    We then enable it specifically in the ear module. -->
-                <plugin>
-                    <groupId>org.wildfly.plugins</groupId>
-                    <artifactId>wildfly-maven-plugin</artifactId>
-                    <version>${version.wildfly.maven.plugin}</version>
-                    <inherited>true</inherited>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+
 </project>

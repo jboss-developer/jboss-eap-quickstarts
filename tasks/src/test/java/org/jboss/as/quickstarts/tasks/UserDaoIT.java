@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.tasksJsf;
+package org.jboss.as.quickstarts.tasks;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -26,12 +26,6 @@ import javax.persistence.EntityManager;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.tasksJsf.Resources;
-import org.jboss.as.quickstarts.tasksJsf.Task;
-import org.jboss.as.quickstarts.tasksJsf.TaskDao;
-import org.jboss.as.quickstarts.tasksJsf.User;
-import org.jboss.as.quickstarts.tasksJsf.UserDao;
-import org.jboss.as.quickstarts.tasksJsf.UserDaoImpl;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,19 +36,18 @@ import org.junit.runner.RunWith;
  * @author Oliver Kiss
  */
 @RunWith(Arquillian.class)
-public class UserDaoTest {
+public class UserDaoIT {
 
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return new DefaultDeployment().withPersistence().withImportedData().getArchive()
-            .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, UserDaoImpl.class);
+        return DefaultDeployment.deployment();
     }
 
     @Inject
-    private UserDao userDao;
+    UserDao userDao;
 
     @Inject
-    private EntityManager em;
+    EntityManager em;
 
     @Test
     public void userDao_should_create_user_so_it_could_be_retrieved_from_userDao_by_username() {

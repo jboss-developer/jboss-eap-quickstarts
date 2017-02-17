@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
  * @author Oliver Kiss
  */
 @RunWith(Arquillian.class)
-public class TaskDaoTest {
+public class TaskDaoIT {
 
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {

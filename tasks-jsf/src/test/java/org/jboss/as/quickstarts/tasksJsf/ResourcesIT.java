@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
  * @author Lukas Fryc
  */
 @RunWith(Arquillian.class)
-public class ResourcesTest {
+public class ResourcesIT {
 
     public static final String WEBAPP_SRC = "src/main/webapp";
 

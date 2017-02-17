@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class InterceptorsDisabledTest {
+public class InterceptorsDisabledIT {
 
     @Deployment
     public static Archive<?> createDeployment() {

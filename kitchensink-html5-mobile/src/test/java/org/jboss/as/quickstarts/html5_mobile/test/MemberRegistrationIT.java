@@ -47,7 +47,7 @@ import org.jboss.as.quickstarts.html5_mobile.util.Resources;
  * @author balunasj
  */
 @RunWith(Arquillian.class)
-public class MemberRegistrationTest {
+public class MemberRegistrationIT {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap

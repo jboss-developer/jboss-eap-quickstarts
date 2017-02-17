@@ -39,7 +39,7 @@ import javax.inject.Inject;
  * @author paul.robinson@redhat.com, 2012-01-04
  */
 @RunWith(Arquillian.class)
-public class ClientTest {
+public class ClientIT {
 
     private static final String ManifestMF = "Manifest-Version: 1.0\n"
         + "Dependencies: org.jboss.xts,org.jboss.modules,org.jboss.msc\n";

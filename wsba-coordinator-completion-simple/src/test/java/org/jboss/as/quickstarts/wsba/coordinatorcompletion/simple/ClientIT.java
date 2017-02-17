@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.wsba.participantcompletion.simple;
+package org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple;
 
 import com.arjuna.mw.wst11.UserBusinessActivity;
 import com.arjuna.mw.wst11.UserBusinessActivityFactory;
 import org.junit.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstarts.wsba.participantcompletion.simple.jaxws.SetServiceBA;
+import org.jboss.as.quickstarts.wsba.coordinatorcompletion.simple.jaxws.SetServiceBA;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -32,9 +32,9 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 @RunWith(Arquillian.class)
-public class ClientTest {
+public class ClientIT {
 
-    private static final String ManifestMF = "Manifest-Version: 1.0\n"
+    private static String ManifestMF = "Manifest-Version: 1.0\n"
         + "Dependencies: org.jboss.xts\n";
 
     @Inject
@@ -57,24 +57,30 @@ public class ClientTest {
      */
     @Test
     public void testSuccess() throws Exception {
+
         System.out
-            .println("\n\nStarting 'testSuccess'. This test invokes a WS within a BA. The BA is later closed, which causes the WS call to complete successfully.");
+            .println("\n\nStarting 'testSuccess'. This test invokes a WS twice within a BA. The BA is later closes, which causes these WS calls to complete successfully.");
         System.out.println("[CLIENT] Creating a new Business Activity");
         UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
         try {
-            String value = "1";
+            String value1 = "1";
+            String value2 = "2";
 
             System.out
                 .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA wil be included in this activity)");
             uba.begin();
 
             System.out.println("[CLIENT] invoking addValueToSet(1) on WS");
-            client.addValueToSet(value);
+            client.addValueToSet(value1);
+            System.out.println("[CLIENT] invoking addValueToSet(2) on WS");
+            client.addValueToSet(value2);
 
             System.out.println("[CLIENT] Closing Business Activity (This will cause the BA to complete successfully)");
             uba.close();
 
-            Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value));
+            Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value1));
+            Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value2));
+
         } finally {
             cancelIfActive(uba);
             client.clear();
@@ -90,26 +96,32 @@ public class ClientTest {
      */
     @Test
     public void testCancel() throws Exception {
+
         System.out
-            .println("\n\nStarting 'testCancel'. This test invokes a WS within a BA. The BA is later cancelled, which causes these WS call to be compensated.");
+            .println("\n\nStarting 'testCancel'. This test invokes a WS twice within a BA. The BA is later cancelled, which causes these WS calls to be compensated.");
         System.out.println("[CLIENT] Creating a new Business Activity");
         UserBusinessActivity uba = UserBusinessActivityFactory.userBusinessActivity();
         try {
-            String value = "1";
+            String value1 = "1";
+            String value2 = "2";
 
             System.out
                 .println("[CLIENT] Beginning Business Activity (All calls to Web services that support WS-BA will be included in this activity)");
             uba.begin();
 
             System.out.println("[CLIENT] invoking addValueToSet(1) on WS");
-            client.addValueToSet(value);
+            client.addValueToSet(value1);
+            System.out.println("[CLIENT] invoking addValueToSet(2) on WS");
+            client.addValueToSet(value2);
 
-            Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value));
+            Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value1));
+            Assert.assertTrue("Expected value to be in the set, but it wasn't", client.isInSet(value2));
 
             System.out.println("[CLIENT] Cancelling Business Activity (This will cause the work to be compensated)");
             uba.cancel();
 
-            Assert.assertTrue("Expected value to not be in the set, but it was", !client.isInSet(value));
+            Assert.assertTrue("Expected value to not be in the set, but it was", !client.isInSet(value1));
+            Assert.assertTrue("Expected value to not be in the set, but it was", !client.isInSet(value2));
 
         } finally {
             cancelIfActive(uba);

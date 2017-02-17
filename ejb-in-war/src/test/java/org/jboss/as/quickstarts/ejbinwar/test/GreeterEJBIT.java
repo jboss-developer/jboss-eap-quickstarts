@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
  * @author david@davidsalter.co.uk
  */
 @RunWith(Arquillian.class)
-public class GreeterEJBTest {
+public class GreeterEJBIT {
 
     @Deployment
     public static JavaArchive createDeployment() {

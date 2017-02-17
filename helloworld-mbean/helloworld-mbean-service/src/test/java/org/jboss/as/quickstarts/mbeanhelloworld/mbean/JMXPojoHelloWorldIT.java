@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class MXPojoHelloWorldTest {
+public class JMXPojoHelloWorldIT {
 
     /**
      * Constructs a deployment archive

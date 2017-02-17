@@ -243,7 +243,6 @@
             <layout>default</layout>
         </pluginRepository>
     </pluginRepositories>
-
     <build>
         <plugins>
             <!-- The WildFly plug-in deploys your apps to a local JBoss EAP container -->
@@ -293,6 +292,19 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>${version.ejb.plugin}</version>
+                    <configuration>
+                        <!-- Tell Maven we are using EJB -->
+                        <ejbVersion>3.2</ejbVersion>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <profiles>

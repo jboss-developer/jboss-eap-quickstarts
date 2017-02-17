@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.shrinkwrap.resolver;
+package org.jboss.as.quickstarts.helloworldjsp.test;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.io.File;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -28,41 +28,38 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * This test demonstrates how to use Shrinkwrap-resolver to resolve an artifact via G:A:V without transitive dependencies as a
- * single file
- *
- * @author Rafael Benevides
- */
-@RunWith(Arquillian.class)
-public class ShrinkwrapResolveGAVWithoutTransitiveDepsTest {
+import org.jboss.as.quickstarts.kitchensinkjsp.controller.MemberRegistration;
+import org.jboss.as.quickstarts.kitchensinkjsp.model.Member;
+import org.jboss.as.quickstarts.kitchensinkjsp.util.Resources;
 
+@RunWith(Arquillian.class)
+public class MemberRegistrationIT {
     @Deployment
     public static Archive<?> createTestArchive() {
-
-        File lib = Maven.configureResolver().resolve("org.apache.commons:commons-lang3:3.1").withoutTransitivity()
-            .asSingleFile();
-
         return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(MyBean.class)
+            .addClasses(Member.class, MemberRegistration.class, Resources.class)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .addAsLibraries(lib)
-            // Deploy our test datasource
-            .addAsWebInfResource("test-ds.xml");
+            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addAsWebInfResource("test-ds.xml", "test-ds.xml");
     }
 
     @Inject
-    private MyBean myBean;
+    MemberRegistration memberRegistration;
 
-    // Basic test to demonstrate that the Arquillian is working with the Shrinkwrap resolver use case in this class
+    @Inject
+    Logger log;
+
     @Test
-    public void test() {
-        // toString uses commons-lang that was resolved by Shrinkwrap-resolver
-        assertNotNull(myBean.toString());
+    public void testRegister() throws Exception {
+        Member newMember = memberRegistration.getNewMember();
+        newMember.setName("Jane Doe");
+        newMember.setEmail("jane@mailinator.com");
+        newMember.setPhoneNumber("2125551234");
+        memberRegistration.register();
+        assertNotNull(newMember.getId());
+        log.info(newMember.getName() + " was persisted with id " + newMember.getId());
     }
+
 }

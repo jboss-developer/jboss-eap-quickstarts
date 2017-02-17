@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.tasks;
+package org.jboss.as.quickstarts.tasksrs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +28,7 @@ import javax.persistence.EntityManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
+import org.jboss.as.quickstarts.tasksrs.model.*;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,18 +39,19 @@ import org.junit.runner.RunWith;
  * @author Oliver Kiss
  */
 @RunWith(Arquillian.class)
-public class TaskDaoTest {
+public class TaskDaoIT {
 
     @Deployment
     public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return DefaultDeployment.deployment();
+        return new DefaultDeployment().withPersistence().withImportedData().getArchive()
+            .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, TaskDaoImpl.class);
     }
 
     @Inject
-    EntityManager em;
+    private EntityManager em;
 
     @Inject
-    TaskDao taskDao;
+    private TaskDao taskDao;
 
     private User detachedUser;
 
@@ -69,8 +71,8 @@ public class TaskDaoTest {
         // when
         em.persist(user);
         taskDao.createTask(user, task);
-        List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = :owner", Task.class).setParameter("owner", user)
-            .getResultList();
+        List<Task> userTasks = em.createQuery("SELECT t FROM Task t WHERE t.owner = :owner", Task.class)
+            .setParameter("owner", user).getResultList();
 
         // then
         assertEquals(1, userTasks.size());

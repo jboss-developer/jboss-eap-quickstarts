@@ -35,13 +35,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Testing annotated component mbean.
+ * Testing component mbean with mxbean interface.
  *
  * @author Jeremie Lagarde
  *
  */
 @RunWith(Arquillian.class)
-public class AnnotatedComponentHelloWorldTest {
+public class MXComponentHelloWorldIT {
 
     /**
      * Constructs a deployment archive
@@ -51,8 +51,8 @@ public class AnnotatedComponentHelloWorldTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ShrinkWrap.create(JavaArchive.class, "helloworld.jar")
-            .addClasses(AnnotatedComponentHelloWorld.class).addClasses(AbstractComponentMBean.class)
-            .addClass(IAnnotatedHelloWorldMBean.class)
+            .addClasses(MXComponentHelloWorld.class).addClasses(AbstractComponentMBean.class)
+            .addClass(IHelloWorldMXBean.class)
             .addClass(HelloService.class)
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
@@ -60,15 +60,17 @@ public class AnnotatedComponentHelloWorldTest {
     @Test
     public void testHello() throws Exception {
         MBeanServer mbeanServer = ManagementFactory.getPlatformMBeanServer();
-        ObjectName objectName = new ObjectName("quickstarts", "type", AnnotatedComponentHelloWorld.class.getSimpleName());
+        ObjectName objectName = new ObjectName("quickstarts", "type", MXComponentHelloWorld.class.getSimpleName());
         MBeanInfo mbeanInfo = mbeanServer.getMBeanInfo(objectName);
         Assert.assertNotNull(mbeanInfo);
         Assert.assertEquals(0L, mbeanServer.getAttribute(objectName, "Count"));
         Assert.assertEquals("Hello", mbeanServer.getAttribute(objectName, "WelcomeMessage"));
-        Assert.assertEquals("Hello jer!", mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
+        Assert.assertEquals("Hello jer!",
+            mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
         Assert.assertEquals(1L, mbeanServer.getAttribute(objectName, "Count"));
         mbeanServer.setAttribute(objectName, new Attribute("WelcomeMessage", "Hi"));
-        Assert.assertEquals("Hi jer!", mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
+        Assert.assertEquals("Hi jer!",
+            mbeanServer.invoke(objectName, "sayHello", new Object[] { "jer" }, new String[] { "java.lang.String" }));
         Assert.assertEquals(2L, mbeanServer.getAttribute(objectName, "Count"));
     }
 }

@@ -158,7 +158,7 @@ For example:
 OR
 
     #With Tests
-    mvn clean package wildfly:deploy -Pminify,arq-wildfly-remote
+    mvn clean verify wildfly:deploy -Pminify,arq-wildfly-remote
  
 Run the Arquillian tests
 ------------------------
