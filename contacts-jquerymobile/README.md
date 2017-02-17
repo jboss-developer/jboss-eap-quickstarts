@@ -168,7 +168,7 @@ the use of a container. You can activate this test by selecting one of the conta
 
 To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:
 
-    mvn clean verify -Parq-wildfly-remote
+    mvn clean test -Parq-wildfly-remote
 
 Run the QUnit tests
 -------------------
@@ -217,7 +217,7 @@ If you created the project using the Maven archetype wizard in your IDE (Eclipse
 is nothing to do. You should already have an IDE project.
 
 If you created the project from the command line using archetype:generate, then you need to import the project into your IDE. 
-If you are using NetBeans 6.8+ or IntelliJ IDEA 9+, then all you have to do is open the project as an existing project. 
+If you are using NetBeans 6.8 or IntelliJ IDEA 9, then all you have to do is open the project as an existing project. 
 Both of these IDEs recognize Maven projects natively.
 
 Debug the Application

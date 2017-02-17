@@ -41,10 +41,10 @@ import static org.junit.Assert.assertThat;
  *
  */
 @RunWith(Arquillian.class)
-public class InjectionWithoutVetoExtensionWithManagerIT {
+public class InjectionWithoutVetoExtensionWithManagerTest {
     @Deployment
     public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(WebArchive.class, InjectionWithoutVetoExtensionWithManagerIT.class.getSimpleName() + ".war")
+        return ShrinkWrap.create(WebArchive.class, InjectionWithoutVetoExtensionWithManagerTest.class.getSimpleName() + ".war")
             .addClasses(Car.class, EntityManagerProducer.class, CarManager.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
