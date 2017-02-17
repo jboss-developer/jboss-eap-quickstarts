@@ -154,7 +154,7 @@ batch
 /profile=default-web/subsystem="jca"/archive-validation="archive-validation":add(enabled="true",fail-on-error="true",fail-on-warn="false")
 /profile=default-web/subsystem="jca"/bean-validation="bean-validation":add(enabled="true")
 /profile=default-web/subsystem="jca"/bootstrap-context="default":add(name="default",workmanager="default")
-/profile=default-web/subsystem="jca"/cached-connection-manager="cached-connection-manager":add(install="true")
+/profile=default-web/subsystem="jca"/cached-connection-manager="cached-connection-manager":add()
 /profile=default-web/subsystem="jca"/workmanager="default":add(name="default")
 /profile=default-web/subsystem="jca"/workmanager="default"/long-running-threads="default":add(core-threads="50",keepalive-time={"time" => "10","unit" => "SECONDS"},max-threads="50",queue-length="50")
 /profile=default-web/subsystem="jca"/workmanager="default"/short-running-threads="default":add(core-threads="50",keepalive-time={"time" => "10","unit" => "SECONDS"},max-threads="50",queue-length="50")

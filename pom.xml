@@ -92,6 +92,19 @@
                 <version>2.5</version>
                 <scope>compile</scope>
             </dependency>
+            <!-- TODO - remove here only till ejb-client isn't fix to not require it
+            see https://github.com/jbossas/jboss-ejb-client/pull/212
+            -->
+            <dependency>
+                <groupId>org.jboss.modules</groupId>
+                <artifactId>jboss-modules</artifactId>
+                <version>1.6.0.Beta4</version>
+            </dependency>
+         <!--<dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jboss-ejb-client</artifactId>
+                <version>4.0.0.Beta16-SNAPSHOT</version>
+            </dependency>-->
 
             <dependency>
                 <groupId>commons-logging</groupId>
