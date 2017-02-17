@@ -65,7 +65,7 @@ import org.junit.runner.RunWith;
  * @author Joshua Wilson
  */
 @RunWith(Arquillian.class)
-public class ContactRegistrationTest {
+public class ContactRegistrationIT {
 
     private static final String REST_ROOT = "rest/contacts";
 

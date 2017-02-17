@@ -39,7 +39,7 @@ import org.junit.runner.RunWith;
  * @author lnewson@redhat.com
  */
 @RunWith(Arquillian.class)
-public class ClientArqTest {
+public class ClientArqIT {
     /**
      * The name of the WAR Archive that will be used by Arquillian to deploy the application.
      */

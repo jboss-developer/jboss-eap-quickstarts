@@ -22,7 +22,6 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.as.quickstart.cdi.veto.CarManager;
 import org.jboss.as.quickstart.cdi.veto.EntityManagerProducer;
 import org.jboss.as.quickstart.cdi.veto.VetoExtension;
 import org.jboss.as.quickstart.cdi.veto.model.Car;
@@ -37,19 +36,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Demonstrate Car is now injectable via the producer even though it has been marked as vetoed.
+ * Simple test class to demonstrate the Car class is indeed not available for injection.
  */
 @RunWith(Arquillian.class)
-public class InjectionWithVetoExtensionAndManagerTest {
+public class InjectionWithVetoExtensionWithoutManagerIT {
     @Deployment
     public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(WebArchive.class, InjectionWithVetoExtensionAndManagerTest.class.getSimpleName() + ".war")
-            .addClasses(Car.class, EntityManagerProducer.class, VetoExtension.class, CarManager.class)
+        return ShrinkWrap.create(WebArchive.class, InjectionWithVetoExtensionWithoutManagerIT.class.getSimpleName() + ".war")
+            .addClasses(Car.class, EntityManagerProducer.class, VetoExtension.class)
             .addAsServiceProvider(Extension.class, VetoExtension.class)
             .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -62,27 +59,8 @@ public class InjectionWithVetoExtensionAndManagerTest {
     @Inject
     private Instance<Car> carInstance;
 
-    @Inject
-    private CarManager carManager;
-
-    /*
-        Also check the log for messages from the manager class
-     */
     @Test
-    public void assertCarNotUnsatisfied() {
-        assertThat(carInstance.isUnsatisfied(), is(false));
-        assertThat(carInstance.isAmbiguous(), is(false));
-        assertThat(carInstance.get().getId(), is(nullValue()));
-
-    }
-
-    @Test
-    public void assertSavingANewCarFunctions() {
-        final Car car = carInstance.get();
-        car.setColor("blue");
-        car.setMake("Ford");
-        car.setModel("Mustang");
-        carManager.save(car);
-        assertThat(car.getId(), notNullValue());
+    public void assertCarUnsatisfied() {
+        assertThat(carInstance.isUnsatisfied(), is(true));
     }
 }
