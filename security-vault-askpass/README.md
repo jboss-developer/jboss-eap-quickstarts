@@ -161,14 +161,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package wildfly:deploy
 
-4. This will deploy `target/jboss-security-vault-askpassy.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
-<a id="accesstheapp"></a>
 Access the Application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-security-vault-askpass/AskpassServlet>.
+The application will be running at the following URL <http://localhost:8080/${project.artifactId}/AskpassServlet>.
 
 When you access the application the browser should display the following info:
 

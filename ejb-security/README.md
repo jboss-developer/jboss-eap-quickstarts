@@ -94,13 +94,13 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-ejb-security.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-ejb-security/>.
+The application will be running at the following URL <http://localhost:8080/${project.artifactId}/>.
 
 When you access the application, you are presented with a browser login challenge. 
 

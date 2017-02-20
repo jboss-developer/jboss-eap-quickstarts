@@ -58,14 +58,14 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-4. This will deploy `target/jboss-websocket-client.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
  
 
 
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-websocket-client/>
+Access the running application in a browser at the following URL:  <http://localhost:8080/${project.artifactId}/>
 
 You are presented with the `WebSocket Echo Replay` page confirming the connection to the remote WebSocket *Echo* server.
 

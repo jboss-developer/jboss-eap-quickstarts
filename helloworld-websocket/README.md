@@ -49,7 +49,7 @@ You can now deploy the artifact by executing the following command:
 
 This will deploy both the client and service applications.
 
-The application will be running at the following URL <http://localhost:8080/wildfly-helloworld-websocket/>.
+The application will be running at the following URL <http://localhost:8080/${project.artifactId}/>.
 
 To undeploy run this command:
 

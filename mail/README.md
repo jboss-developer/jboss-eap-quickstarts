@@ -120,13 +120,13 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-mail.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-mail>. 
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}/>. 
 
 Note: If you see `Error processing request` in the browser when you access the application and attempt to send email, followed by `javax.servlet.ServletException: com.sun.mail.util.MailConnectException: Couldn't connect to host, port: localhost, 25; timeout -1; nested exception is: java.net.ConnectException: Connction refused`, make sure you followed the instructions above to [Configure an SMTP Server on Your Local Machine](#configure-an-smtp-server-on-your-local-machine).
 

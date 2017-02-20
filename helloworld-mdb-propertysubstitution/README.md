@@ -100,7 +100,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-helloworld-mdb-propertysubstitution.war` to the running instance of the server. Look at the ${product.name} console or Server log and you should see log messages corresponding to the deployment of the message-driven beans and the JMS destinations:
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server. Look at the ${product.name} console or Server log and you should see log messages corresponding to the deployment of the message-driven beans and the JMS destinations:
 
         INFO  [org.wildfly.extension.messaging-activemq] (MSC service thread 1-8) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/${property.helloworldmdb.queue}
         INFO  [org.wildfly.extension.messaging-activemq] (MSC service thread 1-5) WFLYMSGAMQ0002: Bound messaging object to jndi name java:/${property.helloworldmdb.topic}
@@ -117,9 +117,9 @@ Build and Deploy the Quickstart
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-helloworld-mdb-propertysubstitution/> and will send some messages to the queue.
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}/> and will send some messages to the queue.
 
-To send messages to the topic, use the following URL: <http://localhost:8080/jboss-helloworld-mdb-propertysubstitution/HelloWorldMDBServletClient?topic>
+To send messages to the topic, use the following URL: <http://localhost:8080/${project.artifactId}/HelloWorldMDBServletClient?topic>
 
 Investigate the Server Console Output
 -------------------------

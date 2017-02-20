@@ -67,24 +67,24 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-logging-tools.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-logging-tools/>
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}/>
 
 This landing page provides details and links to test the quickstart features. You can also directly access the following URLs.
 
-1.  `http://localhost:8080/jboss-logging-tools/rest/greetings/'name'` 
-    * Example:  <http://localhost:8080/jboss-logging-tools/rest/greetings/Harold>
+1.  `http://localhost:8080/${project.artifactId}/rest/greetings/'name'` 
+    * Example:  <http://localhost:8080/${project.artifactId}/rest/greetings/Harold>
     * Demonstrates simple use of localized messages (with parameter) and logging.
     * It returns the localized `hello NAME` string where `NAME` is the last component of the URL.
     * It also logs the localized `Hello message sent` in the server log.
 
-2. `http://localhost:8080/jboss-logging-tools/rest/greetings/'locale'/'name'`
-    * Example: <http://localhost:8080/jboss-logging-tools/rest/greetings/fr-FR/Harold>
+2. `http://localhost:8080/${project.artifactId}/rest/greetings/'locale'/'name'`
+    * Example: <http://localhost:8080/${project.artifactId}/rest/greetings/fr-FR/Harold>
     * Demonstrates how to obtain a message bundle for a specified locale and how to throw a localized exceptions. Note that the localized exception is a wrapper around `WebApplicationException`.
     * Returns a localized `hello NAME` string where `NAME` is the last component of the URL and the locale used is the one supplied in the `locale` URL.
     * Logs a localized `Hello message sent in LOCALE` message using the JVM locale for the translation.
@@ -92,16 +92,16 @@ This landing page provides details and links to test the quickstart features. Yo
    
       Note that `WebApplicationException` cannot be directly localized by JBoss Logging Tools using the `@Message` annotation due to the message parameter being ignored by the `WebApplicationException` constructors. Cases like this can be worked around by creating a subclass with a constructor that does deal with the message parameter.
    
-3. <http://localhost:8080/jboss-logging-tools/rest/greetings/crashme>
+3. <http://localhost:8080/${project.artifactId}/rest/greetings/crashme>
     * Demonstrates how to throw a localized exception with another exception specified as the cause.  This is a completely contrived example.
     * Attempts to divide by zero, catches the exception, and throws the localized one.
    
-4. `http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/'targetdate'`
-    * Example: <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/2020-12-25>
+4. `http://localhost:8080/${project.artifactId}/rest/dates/daysuntil/'targetdate'`
+    * Example: <http://localhost:8080/${project.artifactId}/rest/dates/daysuntil/2020-12-25>
     * Demonstrates how to pass parameters through to the constructor of a localized exception, and how to specify an exception as a cause of a log message. 
     * Attempts to turn the `targetdate` URL component into a date object using the format `yyyy-MM-dd`
     * Returns number of days (as an integer) until that date
-    * If the `targetdate` is invalid, for example, <http://localhost:8080/jboss-logging-tools/rest/dates/daysuntil/2015-02-31>:
+    * If the `targetdate` is invalid, for example, <http://localhost:8080/${project.artifactId}/rest/dates/daysuntil/2015-02-31>:
         * Catches the `ParseException`
         * Creates a localized `ParseException` passing values from the caught exception as parameters to its constructor
         * Logs a localized message with the localized exception as the cause
@@ -125,7 +125,7 @@ You may see the following warning when you import this quickstart into JBoss Dev
 
         The import org.jboss.as.quickstarts.loggingToolsQS.exceptions.LocaleInvalidException is never used	
         GreeterExceptionBundle_$bundle.java	
-        /jboss-logging-tools/target/generated-sources/annotations/org/jboss/as/quickstarts/loggingToolsQS/exceptions	line 8	
+        /${project.artifactId}/target/generated-sources/annotations/org/jboss/as/quickstarts/loggingToolsQS/exceptions	line 8	
         Java Problem
 
 

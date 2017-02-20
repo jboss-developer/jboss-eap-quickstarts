@@ -77,12 +77,12 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-3. This will deploy `target/jboss-cmt.war` to the running instance of the server.
+3. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-cmt/>.
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}/>.
 
 You will be presented with a simple form for adding customers to a database.
 

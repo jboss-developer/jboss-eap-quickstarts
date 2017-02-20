@@ -26,7 +26,7 @@
 
     <artifactId>wildfly-helloworld-war-ssl</artifactId>
     <packaging>war</packaging>
-    <name>${qs.name.prefix}: Helloworld-WAR-SSL</name>
+    <name>${qs.name.prefix} Helloworld-WAR-SSL</name>
     <description>Securing helloworld war app with mutual client ssl authentication</description>
     <properties>
         <!-- TODO look into removing this!-->

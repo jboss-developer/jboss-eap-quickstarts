@@ -244,8 +244,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-ejb-security-interceptors.jar` to the running instance of the server.
-
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 Run the client
 ---------------------

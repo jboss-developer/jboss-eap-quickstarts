@@ -31,7 +31,7 @@ Prerequisites
 
 This quickstart depends on the deployment of the `greeter` quickstart. Before running this quickstart, see the [greeter README](../greeter/README.md) file for details on how to deploy it.
 
-You can verify the deployment of the `greeter` quickstart by accessing the following URL: <http://localhost:8080/jboss-greeter> 
+You can verify the deployment of the `greeter` quickstart by accessing the following URL: <http://localhost:8080/${project.artifactId}/> 
 
 When you have completed testing this quickstart, see the [greeter README](../greeter/README.md) file for instructions to undeploy the archive.
 
@@ -54,7 +54,7 @@ _Note:_ You will see the following warning in the server log. You can ignore thi
 Access the H2 Console 
 ---------------------
 
-You can access the console at the following URL:  <http://localhost:8080/h2console>.
+You can access the console at the following URL:  <http://localhost:8080/${project.artifactId}/>.
 
 You need to enter the JDBC URL, and credentials. To access the `test` database that the `greeter` quickstart uses, enter these details:
 

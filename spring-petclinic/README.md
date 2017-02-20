@@ -80,7 +80,7 @@ To use a JTA DataSource, you need to set up corresponding DataSources in your Ja
 Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-spring-petclinic/>.
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}/>.
 
 _Note:_ You see the following warning in the server log when you access the application. This example does not provide a `dandelion.properties` file because it does not require any changes to the dandelion default configuration. You can ignore this warning.
 

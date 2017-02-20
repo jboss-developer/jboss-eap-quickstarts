@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, WebSocket, JSON-P  
 Summary: Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in ${product.name}.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>   
+Source: <${github.repo.url}>   
 
 
 What is it?
@@ -51,14 +51,14 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-4. This will deploy `target/jboss-websocket-endpoint.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
  
 
 
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-websocket-endpoint/>
+Access the running application in a browser at the following URL:  <http://localhost:8080/${project.artifactId}/>
 
 You are presented with a simple form that shows a bidding with the status `NOT_STARTED`. 
 

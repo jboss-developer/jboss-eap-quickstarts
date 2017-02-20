@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JAX-RS, HTML5  
 Summary: The `helloworld-html5` quickstart demonstrates the use of *CDI 1.2* and *JAX-RS 2.0* using the HTML5 architecture and RESTful services on the backend.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
@@ -53,21 +53,21 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package wildfly:deploy
 
-4. This will deploy `target/jboss-helloworld-html5.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-helloworld-html5/>.
+The application will be running at the following URL <http://localhost:8080/${project.artifactId}/>.
 
 You can also test the REST endpoint by sending an HTTP *POST* request to the URLs below. Feel free to replace `YOUR_NAME` with a name of your choosing.
 
-* The *XML* content can be tested by sending an HTTP *POST* to the following URL: <http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME> 
+* The *XML* content can be tested by sending an HTTP *POST* to the following URL: <http://localhost:8080/${project.artifactId}/hello/xml/YOUR_NAME> 
 
     To issue the *POST* command using cURL, type the following command in terminal:
 
-        curl -i -X POST http://localhost:8080/jboss-helloworld-html5/hello/xml/YOUR_NAME
+        curl -i -X POST http://localhost:8080/${project.artifactId}/hello/xml/YOUR_NAME
 
     You will see the following response:
 
@@ -81,11 +81,11 @@ You can also test the REST endpoint by sending an HTTP *POST* request to the URL
 
         <xml><result>Hello YOUR_NAME!</result></xml>
 
-* The *JSON* content can be tested by sending an HTTP *POST* to the following URL: <http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME>
+* The *JSON* content can be tested by sending an HTTP *POST* to the following URL: <http://localhost:8080/${project.artifactId}/hello/json/YOUR_NAME>
 
     To issue the *POST* command using cURL, type the following command in terminal:
 
-        curl -i -X POST http://localhost:8080/jboss-helloworld-html5/hello/json/YOUR_NAME
+        curl -i -X POST http://localhost:8080/${project.artifactId}/hello/json/YOUR_NAME
 
     You will see the following response:
 

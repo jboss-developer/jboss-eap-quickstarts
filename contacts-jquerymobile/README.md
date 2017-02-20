@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
 Summary: The `contacts-jquerymobile` quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
@@ -84,7 +84,7 @@ Build and Deploy the Quickstart
 Access the application
 ----------------------
 
-Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-contacts-jquerymobile/>.
+Access the running client application in a browser at the following URL: <http://localhost:8080/${project.artifactId}/>.
 
 The app is made up of the following pages:
 

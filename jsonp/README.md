@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JSF, JSON-P  
 Summary: The `jsonp` quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
+Source: <${github.repo.url}>  
 
 
 What is it?
@@ -42,13 +42,13 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-4. This will deploy `target/jboss-jsonp` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}` to the running instance of the server.
  
 
 Access the application
 ---------------------
 
-Access the running application in a browser at the following URL:  <http://localhost:8080/jboss-jsonp/>
+Access the running application in a browser at the following URL:  <http://localhost:8080/${project.artifactId}/>
 
 You are presented with a simple form that is pre-filled with personal data. You can change those values if you prefer. 
 

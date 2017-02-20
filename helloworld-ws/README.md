@@ -45,11 +45,11 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-helloworld-ws.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 5. Review the server log to see useful information about the deployed web service endpoint.
 
         JBWS024061: Adding service endpoint metadata: id=org.jboss.as.quickstarts.wshelloworld.HelloWorldServiceImpl
-         address=http://localhost:8080/jboss-helloworld-ws/HelloWorldService
+         address=http://localhost:8080/${project.artifactId}/HelloWorldService
          implementor=org.jboss.as.quickstarts.wshelloworld.HelloWorldServiceImpl
          serviceName={http://www.jboss.org/eap/quickstarts/wshelloworld/HelloWorld}HelloWorldService
          portName={http://www.jboss.org/eap/quickstarts/wshelloworld/HelloWorld}HelloWorld
@@ -61,7 +61,7 @@ Build and Deploy the Quickstart
 Access the application 
 ---------------------
 
-You can verify that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/jboss-helloworld-ws/HelloWorldService?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+You can verify that the Web Service is running and deployed correctly by accessing the following URL: <http://localhost:8080/${project.artifactId}/HelloWorldService?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 
 Undeploy the Archive
@@ -109,7 +109,7 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
-When you deploy this quickstart, you are presented with a window that explains there is no user interface for this quickstart and directs you to click on a link to view the WSDL definition. However, the Eclipse browser does not support the display of WSDL definitions. Instead, open an external browser and access the following URL: <http://localhost:8080/jboss-helloworld-ws/HelloWorldService?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
+When you deploy this quickstart, you are presented with a window that explains there is no user interface for this quickstart and directs you to click on a link to view the WSDL definition. However, the Eclipse browser does not support the display of WSDL definitions. Instead, open an external browser and access the following URL: <http://localhost:8080/${project.artifactId}/HelloWorldService?wsdl>. This URL will display the deployed WSDL endpoint for the Web Service.
 
 Debug the Application
 ------------------------------------

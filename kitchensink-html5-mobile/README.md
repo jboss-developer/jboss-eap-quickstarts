@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, HTML5, REST  
 Summary: The `kitchensink-html5-mobile` quickstart is based on `kitchensink`, but uses HTML5 and jQuery Mobile, making it suitable for mobile and tablet computers.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
+Source: <${github.repo.url}>  
 
 What is it?
 -----------
@@ -59,7 +59,7 @@ Build and Deploy the Quickstart
 Access the application
 ----------------------
 
-Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-kitchensink-html5-mobile/>.
+Access the running client application in a browser at the following URL: <http://localhost:8080/${project.artifactId}/>.
 
 Undeploy the Archive
 --------------------

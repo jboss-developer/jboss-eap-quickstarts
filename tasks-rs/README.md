@@ -75,13 +75,13 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-tasks-rs.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the Application Resources
 ---------------------
 
-Application resources for this quickstart are prefixed with the URL <http://localhost:8080/jboss-tasks-rs/> and can be accessed by an HTTP client.
+Application resources for this quickstart are prefixed with the URL <http://localhost:8080/${project.artifactId}/> and can be accessed by an HTTP client.
 
 * A web browser can be used for methods that accept *GET*.
 * Otherwise, you must use cURL or some other command line tool that supports HTTP *POST* and *DELETE* methods.
@@ -90,11 +90,11 @@ Below you will find instructions to create, display, and delete tasks.
 
 ### Create a Task
 
-To associate a task called `task1` with the user `quickstartUser`, you must authenticate as user `quickstartUser` and send an HTTP *POST* request to the url <http://localhost:8080/jboss-tasks-rs/tasks/title/task1>.
+To associate a task called `task1` with the user `quickstartUser`, you must authenticate as user `quickstartUser` and send an HTTP *POST* request to the url <http://localhost:8080/${project.artifactId}/tasks/title/task1>.
 
 To issue the *POST* command using cURL, type the following command:
 
-    curl -i -u 'quickstartUser:quickstartPwd1!' -H "Content-Length: 0" -X POST http://localhost:8080/jboss-tasks-rs/tasks/title/task1
+    curl -i -u 'quickstartUser:quickstartPwd1!' -H "Content-Length: 0" -X POST http://localhost:8080/${project.artifactId}/tasks/title/task1
 
 You will see the following response:
 
@@ -104,7 +104,7 @@ You will see the following response:
     X-Powered-By: Undertow/1
     Server: JBoss-EAP/7
     Pragma: no-cache
-    Location: http://localhost:8080/jboss-tasks-rs/tasks/id/1
+    Location: http://localhost:8080/${project.artifactId}/tasks/id/1
     Date: Thu, 20 Aug 2015 17:30:24 GMT
 
 This is what happens when the command is issued:
@@ -115,7 +115,7 @@ This is what happens when the command is issued:
 * The `-X` flag tells cURL which HTTP method to use. The HTTP *POST* is used to create resources.
 * The `Location` header of the response contains the URI of the resource representing the newly created task.
 
-The final argument to cURL determines the title of the task. Note that this approach is perhaps not very restful but it simplifies this quickstart. A better approach would be to *POST* to `http://localhost:8080/jboss-tasks-rs/tasks/title` passing the task title in the body of the request.
+The final argument to cURL determines the title of the task. Note that this approach is perhaps not very restful but it simplifies this quickstart. A better approach would be to *POST* to `http://localhost:8080/${project.artifactId}/tasks/title` passing the task title in the body of the request.
 
 
 ### Display the XML Representation of a Task
@@ -124,10 +124,10 @@ To display the XML representation of the newly created resource, issue a *GET* r
 
 1. To issue a *GET* using a browser, open a browser and access the URI. You will be challenged to enter valid authentication credentials.
 
-    <http://localhost:8080/jboss-tasks-rs/tasks/id/1>
+    <http://localhost:8080/${project.artifactId}/tasks/id/1>
 2. To issue a *GET* using cURL, type the following command:
 
-        curl -H "Accept: application/xml" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/id/1
+        curl -H "Accept: application/xml" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/${project.artifactId}/tasks/id/1
 
     The `-H flag tells the server that the client wishes to accept XML content.
 
@@ -145,11 +145,11 @@ To obtain a list of all tasks for user `quickstartUser` in XML format, authentic
 
 1. To issue a *GET* using a browser, open a browser and access the following URL. You will be challenged to enter valid authentication credentials.
 
-    <http://localhost:8080/jboss-tasks-rs/tasks/title>
+    <http://localhost:8080/${project.artifactId}/tasks/title>
 
 2. To list all tasks associated with the user `quickstartUser` using cURL, type:
 
-        curl -H "Accept: application/xml" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/title
+        curl -H "Accept: application/xml" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/${project.artifactId}/tasks/title
 
 Using either of the above *GET* methods, you should see the following XML:
 
@@ -166,7 +166,7 @@ To delete a task, again authenticate as principal `quickstartUser` and send an H
 
 To delete the task with id `1`:
 
-    curl -i -u 'quickstartUser:quickstartPwd1!' -X DELETE http://localhost:8080/jboss-tasks-rs/tasks/id/1
+    curl -i -u 'quickstartUser:quickstartPwd1!' -X DELETE http://localhost:8080/${project.artifactId}/tasks/id/1
 
 You will see this response:
 
@@ -180,7 +180,7 @@ You will see this response:
 
 Now list all tasks associated with user `quickstartUser`:
 
-    curl -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/title
+    curl -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/${project.artifactId}/tasks/title
 
 You will see a response with an empty collection:
 
@@ -224,7 +224,7 @@ JSON is not part of the JAX-RS standard but most JAX-RS implementations do suppo
 
 6. View task resources in JSON media type by specifying the correct *Accept* header. For example, using the cURL tool, type the following command:
 
-        curl -H "Accept: application/json" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/jboss-tasks-rs/tasks/id/1
+        curl -H "Accept: application/json" -u 'quickstartUser:quickstartPwd1!' -X GET http://localhost:8080/${project.artifactId}/tasks/id/1
    You will see the following response:
 
         {"id":1,"title":"task1","ownerName":"quickstartUser"}
@@ -270,9 +270,9 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 Be sure to [Add an Application User](#add-an-application-user) as described above.
 
-_Note:_ When you deploy this quickstart, you see the following error. This is because JBoss Developer Studio automatically attempts to access the URL <http://localhost:8080/jboss-tasks-rs/>, however, all incoming requests are handled by the REST application. You can ignore this error.
+_Note:_ When you deploy this quickstart, you see the following error. This is because JBoss Developer Studio automatically attempts to access the URL <http://localhost:8080/${project.artifactId}/>, however, all incoming requests are handled by the REST application. You can ignore this error.
 
-    JBWEB000065: HTTP Status 404 - RESTEASY001185: Could not find resource for relative : / of full path: http://localhost:8080/jboss-tasks-rs/
+    JBWEB000065: HTTP Status 404 - RESTEASY001185: Could not find resource for relative : / of full path: http://localhost:8080/${project.artifactId}/
 
 
 

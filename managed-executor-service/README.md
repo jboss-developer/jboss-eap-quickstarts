@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: EE Concurrency Utilities, JAX-RS, JAX-RS Client API  
 Summary: The `managed-executor-service` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
+Source: <${github.repo.url}>  
 
 
 What is it?
@@ -47,7 +47,7 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn clean package wildfly:deploy
-4. This will deploy `target/jboss-managed-executor-service.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
  
 
 

@@ -61,13 +61,13 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-greeter.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-greeter>. 
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}/>. 
 
 
 Undeploy the Archive

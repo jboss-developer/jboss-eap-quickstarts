@@ -26,7 +26,7 @@ The root `pom.xml` builds each of the subprojects in the above order and deploys
 
 The example follows the common `Hello World` pattern. These are the steps that occur:
 
-1. A JSF page (http://localhost:8080/jboss-ejb-throws-exception-web/) asks for the user name.
+1. A JSF page (http://localhost:8080/${project.artifactId}/) asks for the user name.
 2. On clicking `Say Hello`, the value of the `Name` input text is sent to a managed bean named `GreeterBean`.
 3. On setting the name, the `Greeter` invokes the `GreeterEJB`, which was injected to the managed bean. Notice the field annotated with `@EJB`.
 4. The EJB responds with `Hello <name>` or throws an Exception if the name is empty or null.
@@ -72,7 +72,7 @@ Build and Deploy the Quickstart
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-ejb-throws-exception-web/>.
+The application will be running at the following URL <http://localhost:8080/${project.artifactId}/>.
 
 Enter a name in the input field `Name` and click the `Say Hello` button to see the response.
 

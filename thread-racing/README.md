@@ -63,13 +63,13 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `target/jboss-thread-racing.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL <http://localhost:8080/jboss-thread-racing/>. 
+The application will be running at the following URL <http://localhost:8080/${project.artifactId}/>. 
 
 To start a race press the `Insert Coin` button. The page displays the names of the threads as they join the race. It then tracks the progress of each thread through the Batch, EE Concurrency, JAX-RS, JMS, and JSON stages of the race. Finally, it displays the official race results and championship standings.
 

@@ -22,6 +22,7 @@
         <artifactId>quickstart-parent</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
+    <!-- TODO fix artifact name to match components -->
     <artifactId>jboss-jts</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} jts</name>

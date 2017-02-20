@@ -131,7 +131,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
 		mvn clean package wildfly:deploy
 
-4. This will deploy `target/wildfly-ejb-security-plus.jar` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.jar` to the running instance of the server.
 
 
 Run the client

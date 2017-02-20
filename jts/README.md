@@ -188,12 +188,12 @@ Since this quickstart builds two separate components, you can not use the standa
 
         mvn clean install wildfly:deploy
 
-4. This will deploy `application-component-1/target/jboss-jts-application-component-1.war` and `application-component-2/target/jboss-jts-application-component-2.jar` to the running instance of the server.
+4. This will deploy `application-component-1/target/${project.artifactId}-1.war` and `application-component-2/target/${project.artifactId}-2.jar` to the running instance of the server.
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/jboss-jts-application-component-1/>.
+The application will be running at the following URL: <http://localhost:8080/${project.artifactId}-1/>.
 
 When you enter a name and click to `Add` that customer, you will see the following in the application server 1 console:
     

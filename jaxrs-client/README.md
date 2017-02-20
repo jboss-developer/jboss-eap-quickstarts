@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JAX-RS  
 Summary: The `jaxrs-client` quickstart demonstrates JAX-RS Client API, which interacts with a JAX-RS Web service that runs on ${product.name}.  
 Target Product: ${product.name}  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts>  
+Source: <${github.repo.url}>  
 
 
 What is it?
@@ -42,7 +42,7 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn package wildfly:deploy
-4. This will deploy `target/jboss-jaxrs-client.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
  
 
 
@@ -57,7 +57,7 @@ This quickstart provides tests that shows the REST Client API features. By defau
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn test -Prest-client
+        mvn verify -Prest-client
 
 
 Investigate the Console Output

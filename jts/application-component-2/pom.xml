@@ -84,7 +84,7 @@
                 <artifactId>maven-ejb-plugin</artifactId>
                 <version>${version.ejb.plugin}</version>
                 <configuration>
-                    <ejbVersion>3.0</ejbVersion>
+                    <ejbVersion>3.2</ejbVersion>
                     <!-- this is false by default -->
                     <generateClient>true</generateClient>
                     <jarName></jarName>

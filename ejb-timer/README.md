@@ -52,7 +52,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-This will deploy `target/jboss-ejb-timer.war` to the running instance of the server.
+This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application

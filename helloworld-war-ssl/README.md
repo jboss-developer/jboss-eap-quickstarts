@@ -62,11 +62,11 @@ First of all we need to set up the Certificate Authority (CA) to issue certifica
         Common Name (eg, your websites domain name) :sample.com
         Email Address :sample@sample.com
 
-8. Export root CA certificate into a keystore
+8. Import root CA certificate into a keystore
   
-        keytool -export -alias server -keystore RootCA.keystore -rfc -file Certificates/RootCA.crt -keypass keypassword -storepass keypassword
+        keytool -import -alias server -keystore RootCA.keystore -rfc -file Certificates/RootCA.crt -keypass keypassword -storepass keypassword
 
-9. Export root CA certificate into a truststore
+9. Import root CA certificate into a truststore
         
         keytool -import -file Certificates/RootCA.crt -keystore RootCA.truststore -keypass keypassword -storepass keypassword
 
@@ -289,14 +289,14 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package wildfly:deploy
 
-4. This will deploy `target/wildfly-helloworld-war-ssl.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 5. In case mutual ssl is configured properly and war app is secured, you will be able to access the application only if the DN of client certificate i.e., `clientCert.p12` is same as the one mentioned in `app-roles.properties` file. It will otherwise result into a `HTTP Status 403` or forbidden error.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: `<https://localhost:8443/wildfly-helloworld-war-ssl>`. 
+The application will be running at the following URL: `<https://localhost:8443/${project.artifactId}>`. 
 
 
 Undeploy the Archive

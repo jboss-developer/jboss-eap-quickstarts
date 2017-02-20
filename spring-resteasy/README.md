@@ -46,23 +46,23 @@ Build and Deploy the Quickstart
 Access the application 
 ---------------------
 
-The application will be running at the following URL:  <http://localhost:8080/jboss-spring-resteasy/>. 
+The application will be running at the following URL:  <http://localhost:8080/${project.artifactId}/>. 
 
 That will provide links to the following URLs that demonstrate various path and parameter configurations.
 
-* [jboss-spring-resteasy/hello?name=yourname](http://localhost:8080/jboss-spring-resteasy/hello?name=yourname)
-* [jboss-spring-resteasy/basic](http://localhost:8080/jboss-spring-resteasy/basic)
-* [jboss-spring-resteasy/queryParam?param=query](http://localhost:8080/jboss-spring-resteasy/queryParam?param=query)
-* [jboss-spring-resteasy/matrixParam;param=matrix](http://localhost:8080/jboss-spring-resteasy/matrixParam;param=matrix)
-* [jboss-spring-resteasy/uriParam/789](http://localhost:8080/jboss-spring-resteasy/uriParam/789)
+* [${project.artifactId}/hello?name=yourname](http://localhost:8080/${project.artifactId}/hello?name=yourname)
+* [${project.artifactId}/basic](http://localhost:8080/${project.artifactId}/basic)
+* [${project.artifactId}/queryParam?param=query](http://localhost:8080/${project.artifactId}/queryParam?param=query)
+* [${project.artifactId}/matrixParam;param=matrix](http://localhost:8080/${project.artifactId}/matrixParam;param=matrix)
+* [${project.artifactId}/uriParam/789](http://localhost:8080/${project.artifactId}/uriParam/789)
 
 And the same set as above but using the `locating` path.
 
-* [jboss-spring-resteasy/locating/hello?name=yourname](http://localhost:8080/jboss-spring-resteasy/locating/hello?name=yourname)
-* [jboss-spring-resteasy/locating/basic](http://localhost:8080/jboss-spring-resteasy/locating/basic)
-* [jboss-spring-resteasy/locating/queryParam?param=query](http://localhost:8080/jboss-spring-resteasy/locating/queryParam?param=query)
-* [jboss-spring-resteasy/locating/matrixParam;param=matrix](http://localhost:8080/jboss-spring-resteasy/locating/matrixParam;param=matrix)
-* [jboss-spring-resteasy/locating/uriParam/789](http://localhost:8080/jboss-spring-resteasy/locating/uriParam/789)
+* [${project.artifactId}/locating/hello?name=yourname](http://localhost:8080/${project.artifactId}/locating/hello?name=yourname)
+* [${project.artifactId}/locating/basic](http://localhost:8080/${project.artifactId}/locating/basic)
+* [${project.artifactId}/locating/queryParam?param=query](http://localhost:8080/${project.artifactId}/locating/queryParam?param=query)
+* [${project.artifactId}/locating/matrixParam;param=matrix](http://localhost:8080/${project.artifactId}/locating/matrixParam;param=matrix)
+* [${project.artifactId}/locating/uriParam/789](http://localhost:8080/${project.artifactId}/locating/uriParam/789)
 
 
 Run the Tests

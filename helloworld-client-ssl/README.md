@@ -256,13 +256,13 @@ _NOTE: The following build command assumes you have configured your Maven user s
 
         mvn clean package wildfly:deploy
 
-4. This will deploy `target/wildfly-helloworld-client-ssl.war` to the running instance of the server.
+4. This will deploy `target/${project.artifactId}.war` to the running instance of the server.
 
 
 Access the application 
 ---------------------
 
-The application will be running at the following URL: `<https://localhost:8443/wildfly-helloworld-client-ssl>`.
+The application will be running at the following URL: `<https://localhost:8443/${project.artifactId}>`.
 
 
 Undeploy the Archive
