@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
+        <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>jboss-kitchensink-ml-ear</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
@@ -38,14 +38,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>org.jboss.eap.quickstarts</groupId>
             <artifactId>jboss-kitchensink-ml-ear-ejb</artifactId>
             <type>ejb</type>
         </dependency>
 
         <!-- Depend on the EJB module and WAR so that we can package them -->
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>org.jboss.eap.quickstarts</groupId>
             <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
             <type>war</type>
         </dependency>
@@ -71,7 +71,7 @@
                         register our War as a web module and set the contextRoot property -->
                         <!--
                         <webModule>
-                            <groupId>org.jboss.quickstarts.eap</groupId>
+                            <groupId>org.jboss.eap.quickstarts</groupId>
                             <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
                             <contextRoot>/jboss-kitchensink-ml-ear</contextRoot>
                         </webModule>

@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
+        <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>jboss-ejb-asynchronous</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
@@ -48,7 +48,7 @@
 
         <!-- Import the client API of the EJB project -->
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>org.jboss.eap.quickstarts</groupId>
             <artifactId>jboss-ejb-asynchronous-ejb</artifactId>
             <type>ejb-client</type>
         </dependency>

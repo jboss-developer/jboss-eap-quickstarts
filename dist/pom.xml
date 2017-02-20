@@ -23,7 +23,7 @@
         <version>22</version>
         <relativePath/>
     </parent>
-    <groupId>org.jboss.quickstarts.eap</groupId>
+    <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>jboss-eap-quickstarts-dist</artifactId>
     <version>7.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>

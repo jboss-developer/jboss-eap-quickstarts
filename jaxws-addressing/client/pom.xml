@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
+        <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>jboss-jaxws-addressing</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
@@ -39,7 +39,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.jboss.quickstarts.eap</groupId>
+            <groupId>org.jboss.eap.quickstarts</groupId>
             <artifactId>jboss-jaxws-addressing-service</artifactId>
             <version>${project.version}</version>
             <classifier>classes</classifier>

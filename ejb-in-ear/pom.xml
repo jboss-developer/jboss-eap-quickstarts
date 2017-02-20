@@ -18,8 +18,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
-        <artifactId>jboss-quickstart-parent</artifactId>
+        <groupId>org.jboss.eap.quickstarts</groupId>
+        <artifactId>quickstart-parent</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
     <artifactId>jboss-ejb-in-ear</artifactId>
@@ -46,7 +46,7 @@
             <!-- Define the version of the EJB jar so that we don't need
                 to repeat ourselves in every module -->
             <dependency>
-                <groupId>org.jboss.quickstarts.eap</groupId>
+                <groupId>org.jboss.eap.quickstarts</groupId>
                 <artifactId>jboss-ejb-in-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
@@ -55,7 +55,7 @@
             <!-- Define the version of the WAR so that we don't need to repeat
                 ourselves in every module -->
             <dependency>
-                <groupId>org.jboss.quickstarts.eap</groupId>
+                <groupId>org.jboss.eap.quickstarts</groupId>
                 <artifactId>jboss-ejb-in-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
