@@ -22,6 +22,7 @@
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>wildfly-helloworld-war-ssl</artifactId>

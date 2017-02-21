@@ -22,19 +22,12 @@
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>jboss-jaxws-addressing</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>jboss-jaxws-addressing-service</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} jaxws-addressing - service</name>
     <description>This project is a working example of a JAX-WS web service addressing endpoint; this is the service POM file</description>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
     <build>
         <!-- Set the name for the deployable archive instead of using the default name with the version -->
@@ -42,10 +35,10 @@
 
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
                     <attachClasses>true</attachClasses>
                 </configuration>
             </plugin>
@@ -60,6 +53,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <sourceDirectory>src/main/java</sourceDirectory>
     </build>
 </project>

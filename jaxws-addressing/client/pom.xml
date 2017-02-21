@@ -22,6 +22,7 @@
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>jboss-jaxws-addressing</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>jboss-jaxws-addressing-client</artifactId>
     <packaging>jar</packaging>
@@ -48,8 +49,6 @@
     </dependencies>
 
     <build>
-
-        <finalName>${project.artifactId}</finalName>
 
         <plugins>
             <!-- Allows AddressingTestCase to be run via 'mvn exec:java' -->

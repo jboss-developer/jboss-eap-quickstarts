@@ -22,7 +22,7 @@
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
         <version>22</version>
-        <relativePath></relativePath>
+        <relativePath />
     </parent>
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
