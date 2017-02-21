@@ -491,6 +491,20 @@
                 <module>messaging-clustering</module>
             </modules>
         </profile>
+        <profile>
+            <id>functional-tests</id>
+            <modules>
+                <module>contacts-jquerymobile/functional-tests</module>
+                <module>helloworld-html5/functional-tests</module>
+                <module>kitchensink-angularjs/functional-tests</module>
+                <module>spring-greeter/functional-tests</module>
+                <module>spring-kitchensink-basic/functional-tests</module>
+                <module>spring-kitchensink-controlleradvice/functional-tests</module>
+                <module>spring-kitchensink-springmvctest/functional-tests</module>
+                <module>spring-kitchensink-matrixvariables/functional-tests</module>
+                <module>spring-petclinic/functional-tests</module>
+            </modules>
+        </profile>
 
         <profile>
             <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
