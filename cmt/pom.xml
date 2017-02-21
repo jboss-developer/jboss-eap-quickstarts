@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-cmt</artifactId>
+    <artifactId>qs-cmt</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cmt</name>
     <description>This project demonstrates how to use transactions managed by the container</description>

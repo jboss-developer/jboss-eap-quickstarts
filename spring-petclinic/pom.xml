@@ -23,7 +23,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-spring-petclinic</artifactId>
+    <artifactId>qs-spring-petclinic</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} spring-petclinic</name>
     <description>The Spring PetClinic project file</description>
@@ -80,9 +80,9 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-javaee7-with-spring4</artifactId>
-                <version>${version.jboss.bom.eap}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${version.spring.framework}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

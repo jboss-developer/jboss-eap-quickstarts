@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-kitchensink-ml-ear</artifactId>
+        <artifactId>qs-kitchensink-ml-ear</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-kitchensink-ml-ear-ear</artifactId>
+    <artifactId>qs-kitchensink-ml-ear-ear</artifactId>
     <packaging>ear</packaging>
     <name>${qs.name.prefix} kitchensink-ml-ear - ear</name>
     <description>This project demonstrates how to create a localized version of the kitchensink EAR; this is the EAR POM file</description>
@@ -39,14 +39,14 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-kitchensink-ml-ear-ejb</artifactId>
+            <artifactId>qs-kitchensink-ml-ear-ejb</artifactId>
             <type>ejb</type>
         </dependency>
 
         <!-- Depend on the EJB module and WAR so that we can package them -->
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
+            <artifactId>qs-kitchensink-ml-ear-web</artifactId>
             <type>war</type>
         </dependency>
     </dependencies>
@@ -72,7 +72,7 @@
                         <!--
                         <webModule>
                             <groupId>org.jboss.eap.quickstarts</groupId>
-                            <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
+                            <artifactId>qs-kitchensink-ml-ear-web</artifactId>
                             <contextRoot>/jboss-kitchensink-ml-ear</contextRoot>
                         </webModule>
                         -->

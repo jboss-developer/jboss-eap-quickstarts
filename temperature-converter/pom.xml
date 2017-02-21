@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-temperature-converter</artifactId>
+    <artifactId>qs-temperature-converter</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} temperature-converter</name>
     <description>This project is a temperature converter. Given Celsius return Fahrenheit; Given Fahrenheit return Celsius</description>

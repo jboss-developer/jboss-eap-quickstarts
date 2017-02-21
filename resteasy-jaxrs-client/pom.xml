@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-resteasy-jaxrs-client</artifactId>
+    <artifactId>qs-resteasy-jaxrs-client</artifactId>
     <name>${qs.name.prefix} resteasy-jaxrs-client</name>
     <description>This project demonstrates the use an external JAX-RS RestEasy client</description>
 
@@ -86,11 +86,11 @@
                             <systemProperties>
                                 <property>
                                     <name>xmlUrl</name>
-                                    <value>http://localhost:8080/jboss-helloworld-rs/rest/xml</value>
+                                    <value>http://localhost:8080/qs-helloworld-rs/rest/xml</value>
                                 </property>
                                 <property>
                                     <name>jsonUrl</name>
-                                    <value>http://localhost:8080/jboss-helloworld-rs/rest/json</value>
+                                    <value>http://localhost:8080/qs-helloworld-rs/rest/json</value>
                                 </property>
                             </systemProperties>
                         </configuration>

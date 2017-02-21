@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-jaxws-ejb</artifactId>
+    <artifactId>qs-jaxws-ejb</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} jaxws-ejb</name>
     <description>This project is a working example of a JAX-WS web service EJB endpoint</description>

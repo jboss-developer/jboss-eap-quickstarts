@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-ejb-throws-exception</artifactId>
+    <artifactId>qs-ejb-throws-exception</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} ejb-throws-exception</name>
     <description>This project demonstrates how to throw an exception in an EJB and catch it in the web layer</description>
@@ -51,7 +51,7 @@
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>jboss-ejb-throws-exception-ejb</artifactId>
+                <artifactId>qs-ejb-throws-exception-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
@@ -60,7 +60,7 @@
                 repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>jboss-ejb-throws-exception-ejb-api</artifactId>
+                <artifactId>qs-ejb-throws-exception-ejb-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -68,7 +68,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>jboss-ejb-throws-exception-web</artifactId>
+                <artifactId>qs-ejb-throws-exception-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

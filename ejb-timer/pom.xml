@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-ejb-timer</artifactId>
+    <artifactId>qs-ejb-timer</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} ejb-timer</name>
     <description>A sample Java EE project demonstrating how to use EJB timer (@Schedule and @Timeout).</description>

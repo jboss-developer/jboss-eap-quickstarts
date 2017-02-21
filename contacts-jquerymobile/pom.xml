@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-contacts-jquerymobile</artifactId>
+    <artifactId>qs-contacts-jquerymobile</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} contacts-jquerymobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss EAP</description>

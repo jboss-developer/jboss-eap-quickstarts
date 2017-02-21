@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-log4j</artifactId>
+    <artifactId>qs-log4j</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} log4j</name>
     <description>This project demonstrates logging using Log4j</description>

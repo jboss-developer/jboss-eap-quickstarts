@@ -44,7 +44,7 @@ Build and Deploy the Quickstart
 
         mvn clean install wildfly:deploy
 
-4. This will create the `jboss-jaxws-addressing-client.jar` and deploy `service/target/jboss-jaxws-addressing-service.war` to the running instance of the server.
+4. This will create the `${project.artifactId}-client.jar` and deploy `service/target/${project.artifactId}-service.war` to the running instance of the server.
 
 Access the application 
 ---------------------

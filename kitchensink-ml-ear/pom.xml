@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-kitchensink-ml-ear</artifactId>
+    <artifactId>qs-kitchensink-ml-ear</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} kitchensink-ml-ear</name>
     <description>This project demonstrates how to create a localized version of the kitchensink EAR</description>
@@ -64,7 +64,7 @@
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>jboss-kitchensink-ml-ear-ejb</artifactId>
+                <artifactId>qs-kitchensink-ml-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
@@ -73,7 +73,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>jboss-kitchensink-ml-ear-web</artifactId>
+                <artifactId>qs-kitchensink-ml-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

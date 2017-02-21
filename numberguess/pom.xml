@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-numberguess</artifactId>
+    <artifactId>qs-numberguess</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} numberguess</name>
     <description>The numberguess project demonstrates the use of CDI and JSF in JBoss EAP</description>

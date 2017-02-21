@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-jaxws-pojo</artifactId>
+        <artifactId>qs-jaxws-pojo</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-jaxws-pojo-client</artifactId>
+    <artifactId>qs-jaxws-pojo-client</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} jaxws-pojo - client</name>
     <description>This project is a working example of a JAX-WS web service endpoint; this is the client POM file</description>
@@ -39,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-jaxws-pojo-service</artifactId>
+            <artifactId>qs-jaxws-pojo-service</artifactId>
             <version>${project.version}</version>
             <classifier>classes</classifier>
         </dependency>

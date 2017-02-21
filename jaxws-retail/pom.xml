@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-jaxws-retail</artifactId>
+    <artifactId>qs-jaxws-retail</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} jaxws-retail</name>
     <description>This project is a working example of a JAX-WS web service retail endpoint</description>

@@ -37,7 +37,7 @@ public class WSTrustClientExample {
         String password = (args.length > 1 ? args[1] : "tomcat");
 
         // Step 1: Create a WS Trust Client
-        WSTrustClient client = new WSTrustClient("PicketLinkSTS", "PicketLinkSTSPort", "http://localhost:8080/jboss-picketlink-sts/PicketLinkSTS",
+        WSTrustClient client = new WSTrustClient("PicketLinkSTS", "PicketLinkSTSPort", "http://localhost:8080/qs-picketlink-sts/PicketLinkSTS",
             new SecurityInfo(userName, password));
         Element assertionElement = null;
         try {

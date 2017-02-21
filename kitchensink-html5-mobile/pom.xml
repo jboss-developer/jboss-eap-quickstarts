@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-kitchensink-html5-mobile</artifactId>
+    <artifactId>qs-kitchensink-html5-mobile</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} kitchensink-html5-mobile</name>
     <description>A Java EE HTML5 mobile web application for use with JBoss EAP.</description>

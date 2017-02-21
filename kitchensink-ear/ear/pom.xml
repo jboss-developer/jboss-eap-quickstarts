@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-kitchensink-ear</artifactId>
+        <artifactId>qs-kitchensink-ear</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-kitchensink-ear-ear</artifactId>
+    <artifactId>qs-kitchensink-ear-ear</artifactId>
     <packaging>ear</packaging>
     <name>${qs.name.prefix} kitchensink-ear - ear</name>
     <description>This kitchensink project demonstrates how to use JSF, CDI, JAX-RS, EJB, JPA, and Bean Validation in an application packaged as an EAR; this is the EAR POM file</description>
@@ -39,14 +39,14 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-kitchensink-ear-ejb</artifactId>
+            <artifactId>qs-kitchensink-ear-ejb</artifactId>
             <type>ejb</type>
         </dependency>
 
         <!-- Depend on the EJB module and WAR so that we can package them -->
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-kitchensink-ear-web</artifactId>
+            <artifactId>qs-kitchensink-ear-web</artifactId>
             <type>war</type>
         </dependency>
     </dependencies>
@@ -72,7 +72,7 @@
                         <!--
                     <webModule>
                         <groupId>org.jboss.eap.quickstarts</groupId>
-                        <artifactId>jboss-kitchensink-ear-web</artifactId>
+                        <artifactId>qs-kitchensink-ear-web</artifactId>
                         <contextRoot>/jboss-kitchensink-ear</contextRoot>
                     </webModule>
                     -->

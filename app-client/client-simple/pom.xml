@@ -21,10 +21,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-app-client</artifactId>
+        <artifactId>qs-app-client</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-app-client-client-simple</artifactId>
+    <artifactId>qs-app-client-client-simple</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} app-client - client-simple</name>
     <description>This project demonstrates how to package and use an EE application client; this is the client POM file</description>
@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-app-client-ejb</artifactId>
+            <artifactId>qs-app-client-ejb</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

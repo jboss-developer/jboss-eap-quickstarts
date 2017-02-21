@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-spring-kitchensink-asyncrequestmapping</artifactId>
+    <artifactId>qs-spring-kitchensink-asyncrequestmapping</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} spring-kitchensink-asyncrequestmapping</name>
     <description>Getting Started with Spring 4 on JBoss - AsyncRequests</description>

@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-greeter</artifactId>
+    <artifactId>qs-greeter</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} greeter</name>
     <description>A simple greeter project that demonstrates CDI, JPA, JTA, EJB and JSF</description>

@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-tasks-rs</artifactId>
+    <artifactId>qs-tasks-rs</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} tasks-rs</name>
     <description>This project demonstrates how to implement a JAX-RS service that uses JPA persistence to manage tasks</description>

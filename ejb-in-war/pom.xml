@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-ejb-in-war</artifactId>
+    <artifactId>qs-ejb-in-war</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} ejb-in-war</name>
     <description>This project demonstrates how to package an EJB in a WAR</description>

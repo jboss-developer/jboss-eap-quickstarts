@@ -25,7 +25,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-security-vault-askpass</artifactId>
+    <artifactId>qs-security-vault-askpass</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} Security Vault Askpass</name>
     <description>Security Vault Askpass</description>

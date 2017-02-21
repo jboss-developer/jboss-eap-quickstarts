@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-websocket-endpoint</artifactId>
+    <artifactId>qs-websocket-endpoint</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} websocket-endpoint</name>
     <description>This project demonstrates how to use a WebSocket Endppoint</description>

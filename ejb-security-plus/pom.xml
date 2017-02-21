@@ -24,7 +24,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
-    <artifactId>jboss-ejb-security-plus</artifactId>
+    <artifactId>qs-ejb-security-plus</artifactId>
     <name>${qs.name.prefix}: ejb-security-plus</name>
     <description>WildFly Quickstarts: EJB Security Plus</description>
     

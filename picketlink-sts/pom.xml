@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-picketlink-sts</artifactId>
+    <artifactId>qs-picketlink-sts</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} picketlink-sts</name>
     <description>This project is an implementation of a WS-Trust Security Token Service.</description>

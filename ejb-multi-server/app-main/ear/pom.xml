@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-ejb-multi-server-app-main</artifactId>
+        <artifactId>qs-ejb-multi-server-app-main</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-ejb-multi-server-app-main-ear</artifactId>
+    <artifactId>qs-ejb-multi-server-app-main-ear</artifactId>
     <packaging>ear</packaging>
     <name>${qs.name.prefix} ejb-multi-server - app-main - ear</name>
     <description>A project that demonstrates multiple applications deployed on different servers. This is the main application EAR project.
@@ -41,13 +41,13 @@
         <!-- add the EJB and WEB project as dependency to include it in the EAR -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
+            <artifactId>qs-ejb-multi-server-app-main-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
+            <artifactId>qs-ejb-multi-server-app-main-web</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
@@ -146,23 +146,23 @@
                     <modules>
                         <ejbModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
+                            <artifactId>qs-ejb-multi-server-app-main-ejb</artifactId>
                             <bundleFileName>ejb.jar</bundleFileName>
                         </ejbModule>
                         <webModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>jboss-ejb-multi-server-app-main-web</artifactId>
+                            <artifactId>qs-ejb-multi-server-app-main-web</artifactId>
                             <bundleFileName>jsf.war</bundleFileName>
                         </webModule>
                         <!-- add the necessary EJB client interfaces of AppOne and AppTwo to the lib directory of the EAR -->
                         <ejbClientModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>jboss-ejb-multi-server-app-one-ejb</artifactId>
+                            <artifactId>qs-ejb-multi-server-app-one-ejb</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbClientModule>
                         <ejbClientModule>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>jboss-ejb-multi-server-app-two-ejb</artifactId>
+                            <artifactId>qs-ejb-multi-server-app-two-ejb</artifactId>
                             <bundleDir>lib</bundleDir>
                         </ejbClientModule>
                     </modules>

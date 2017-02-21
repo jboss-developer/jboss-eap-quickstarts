@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-ejb-multi-server</artifactId>
+        <artifactId>qs-ejb-multi-server</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>jboss-ejb-multi-server-app-web</artifactId>
+    <artifactId>qs-ejb-multi-server-app-web</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} ejb-multi-server - app-web</name>
     <description>A project that demonstrates multiple applications deployed on different servers. 
@@ -44,19 +44,19 @@
      -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-main-ejb</artifactId>
+            <artifactId>qs-ejb-multi-server-app-main-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-one-ejb</artifactId>
+            <artifactId>qs-ejb-multi-server-app-one-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-ejb-multi-server-app-two-ejb</artifactId>
+            <artifactId>qs-ejb-multi-server-app-two-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>

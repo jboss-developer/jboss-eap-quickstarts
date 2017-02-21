@@ -20,12 +20,12 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-inter-app</artifactId>
+        <artifactId>qs-inter-app</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>jboss-inter-app-appA</artifactId>
+    <artifactId>qs-inter-app-appA</artifactId>
     <packaging>war</packaging>
 
     <name>${qs.name.prefix} inter-app - appA</name>
@@ -53,7 +53,7 @@
             the dependency at runtime. -->
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>jboss-inter-app-shared</artifactId>
+            <artifactId>qs-inter-app-shared</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
@@ -84,7 +84,7 @@
                         in the POM, which defines the dependency at compile time. -->
                     <archive>
                         <manifestEntries>
-                            <Dependencies>deployment.jboss-inter-app-shared.jar</Dependencies>
+                            <Dependencies>deployment.qs-inter-app-shared.jar</Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>

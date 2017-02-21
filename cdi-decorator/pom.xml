@@ -25,7 +25,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-cdi-decorator</artifactId>
+    <artifactId>qs-cdi-decorator</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cdi-decorator</name>
     <description>This project demonstrates a CDI Decorator</description>

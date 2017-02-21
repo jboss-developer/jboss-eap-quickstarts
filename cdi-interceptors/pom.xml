@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-cdi-interceptors</artifactId>
+    <artifactId>qs-cdi-interceptors</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cdi-interceptors</name>
     <description>This project demonstrates how to use CDI Interceptors</description>

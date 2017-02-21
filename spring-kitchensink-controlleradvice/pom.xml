@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-spring-kitchensink-controlleradvice</artifactId>
+    <artifactId>qs-spring-kitchensink-controlleradvice</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} spring-kitchensink-controlleradvice</name>
     <description>A project that demonstrates getting started with Spring 4 on JBoss EAP - Controller Advice</description>
