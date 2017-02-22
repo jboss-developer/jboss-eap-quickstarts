@@ -51,17 +51,19 @@ Build and Deploy the Quickstart
  
 
 
-Run the Tests
+Run the Arquillian Tests 
 -------------------------
 
-This quickstart provides tests that shows how the asynchronous tasks are executed. By default, these tests are configured to be skipped as the tests requires that the application to be deployed first. 
-
+This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
 1. Make sure you have started the ${product.name} server as described above.
-2. Open a command prompt and navigate to the root directory of this quickstart.
+2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn clean test -Prest-test
+        mvn clean verify -Parq-wildfly-remote
+
+You can also let Arquillian manage the ${product.name} server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
+
 
 Investigate the Console Output
 ------------------------------
@@ -69,14 +71,20 @@ Investigate the Console Output
     -------------------------------------------------------
      T E S T S
     -------------------------------------------------------
-    Running org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest
-    [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
+    Running org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientIT
+    feb. 22, 2017 4:22:22 PM org.xnio.Xnio <clinit>
+    INFO: XNIO version 3.3.4.Final
+    feb. 22, 2017 4:22:22 PM org.xnio.nio.NioXnio <clinit>
+    INFO: XNIO NIO Implementation Version 3.3.4.Final
+    feb. 22, 2017 4:22:22 PM org.jboss.remoting3.EndpointImpl <clinit>
+    INFO: JBoss Remoting version 4.0.18.Final
+    feb. 22, 2017 4:22:23 PM org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientIT testRestResources
     INFO: creating a new product
-    [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
+    feb. 22, 2017 4:22:23 PM org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientIT testRestResources
     INFO: Product created. Executing a long running task
-    [timestamp] org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest testRestResources
+    feb. 22, 2017 4:22:26 PM org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientIT testRestResources
     INFO: Deleting all products
-    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.202 sec - in org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientTest
+    Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.619 sec - in org.jboss.as.quickstarts.managedexecutorservice.test.ProductsRestClientIT
     
     Results :
     
@@ -141,9 +149,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 To run the tests in Red Hat JBoss Developer Studio:
 
-1. Be sure to deploy the quickstart.
-2. Set the active Maven profile in the project properties to `rest-client`.
-3. Right click on the project or individual classes and select `Run As` --> `JUnit Test` in the context menu.
+You must first set the active Maven profile in project properties to be either `arq-wildfly-managed` for running on managed server or `arq-wildfly-remote` for running on remote server. Then, to run the tests, right click on the project or individual classes and select Run As --> JUnit Test in the context menu.
 
 
 Debug the Application
