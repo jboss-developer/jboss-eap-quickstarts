@@ -107,7 +107,7 @@
         <profile>
             <!-- TODO add arquillian client test, consider adding "psvm" Client-->
             <!-- An optional testing profile that executes JAX-RS Client API tests  -->
-            <!-- Run with: mvn clean test -Prest-client -->
+            <!-- Run with: mvn clean verify -Prest-client -->
             <id>rest-client</id>
             <build>
                 <plugins>
