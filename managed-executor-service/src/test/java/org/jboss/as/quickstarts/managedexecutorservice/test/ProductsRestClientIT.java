@@ -50,8 +50,6 @@ public class ProductsRestClientIT {
     @ArquillianResource
     private URL deploymentUrl;
 
-    /*private HelloWorldService client;*/
-
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         WebArchive war =  ShrinkWrap.create(WebArchive.class, "managed-executor-service.war")

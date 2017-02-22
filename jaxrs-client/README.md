@@ -46,18 +46,18 @@ Build and Deploy the Quickstart
  
 
 
-Run the Tests
+Run the Arquillian Tests 
 -------------------------
 
-
-This quickstart provides tests that shows the REST Client API features. By default, these tests are configured to be skipped as the tests requires that the application to be deployed first. 
-
+This quickstart provides Arquillian tests. By default, these tests are configured to be skipped as Arquillian tests require the use of a container. 
 
 1. Make sure you have started the ${product.name} server as described above.
-2. Open a command prompt and navigate to the root directory of this quickstart.
+2. Open a command line and navigate to the root directory of this quickstart.
 3. Type the following command to run the test goal with the following profile activated:
 
-        mvn verify -Prest-client
+        mvn clean verify -Parq-wildfly-remote
+
+You can also let Arquillian manage the ${product.name} server by using the `arq-wildfly-managed` profile. For more information about how to run the Arquillian tests, see [Run the Arquillian Tests](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.md#run-the-arquillian-tests).
 
 
 Investigate the Console Output
@@ -144,9 +144,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
 To run the tests in Red Hat JBoss Developer Studio:
 
-1. Be sure to deploy the quickstart.
-2. Set the active Maven profile in the project properties to `rest-client`.
-3. Right click on the project or individual classes and select `Run As` --> `JUnit Test` in the context menu.
+You must first set the active Maven profile in project properties to be either `arq-wildfly-managed` for running on managed server or `arq-wildfly-remote` for running on remote server. Then, to run the tests, right click on the project or individual classes and select Run As --> JUnit Test in the context menu.
 
 
 Debug the Application

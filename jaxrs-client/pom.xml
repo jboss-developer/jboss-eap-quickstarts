@@ -99,34 +99,20 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Optional, but highly recommended, Arquillian allows you to test enterprise code
+              such as EJBs and Transactional(JTA) JPA from JUnit/TestNG -->
+         <dependency>
+             <groupId>org.jboss.arquillian.junit</groupId>
+             <artifactId>arquillian-junit-container</artifactId>
+             <scope>test</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.jboss.arquillian.protocol</groupId>
+             <artifactId>arquillian-protocol-servlet</artifactId>
+             <scope>test</scope>
+         </dependency>
+
     </dependencies>
 
-
-    <profiles>
-
-        <profile>
-            <!-- TODO add arquillian client test, consider adding "psvm" Client-->
-            <!-- An optional testing profile that executes JAX-RS Client API tests  -->
-            <!-- Run with: mvn clean verify -Prest-client -->
-            <id>rest-client</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${version.failsafe.plugin}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-    </profiles>
 </project>
