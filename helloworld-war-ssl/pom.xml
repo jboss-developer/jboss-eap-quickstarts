@@ -25,7 +25,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>wildfly-helloworld-war-ssl</artifactId>
+    <artifactId>helloworld-war-ssl</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} Helloworld-WAR-SSL</name>
     <description>Securing helloworld war app with mutual client ssl authentication</description>

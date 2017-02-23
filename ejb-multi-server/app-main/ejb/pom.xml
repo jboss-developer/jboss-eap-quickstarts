@@ -28,14 +28,6 @@
     <name>${qs.name.prefix} ejb-multi-server - app-main - ejb</name>
     <description>A project that demonstrates multiple applications deployed on different servers. This is the main application EJB project.</description>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -50,9 +42,13 @@
             <type>ejb-client</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.eap</groupId>
-            <artifactId>wildfly-ejb-client-bom</artifactId>
-            <type>pom</type>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

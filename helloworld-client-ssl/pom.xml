@@ -25,7 +25,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>wildfly-helloworld-client-ssl</artifactId>
+    <artifactId>helloworld-client-ssl</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} Helloworld Client SSL</name>
     <description>Helloworld Client Mutual SSL Authentication</description>

@@ -144,6 +144,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- TODO remove-->
+        <dependency>
+            <groupId>org.jboss.modules</groupId>
+            <artifactId>jboss-modules</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -183,16 +189,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- WildFly plug-in to deploy ejb -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${version.wildfly.maven.plugin}</version>
-                <configuration>
-                    <filename>${project.build.finalName}.jar</filename>
-                </configuration>
             </plugin>
         </plugins>
     </build>

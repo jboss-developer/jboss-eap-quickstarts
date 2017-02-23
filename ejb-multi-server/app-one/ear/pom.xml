@@ -43,12 +43,6 @@
             <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.eap</groupId>
-            <artifactId>wildfly-ejb-client-bom</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>

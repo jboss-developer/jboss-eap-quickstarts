@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>wildfly-helloworld-websocket</artifactId>
+    <artifactId>helloworld-websocket</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} helloworld-websocket</name>
 

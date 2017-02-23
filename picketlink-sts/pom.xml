@@ -93,12 +93,6 @@
                 </configuration>
             </plugin>
 
-            <!-- WildFly plug-in to deploy the WAR -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${version.wildfly.maven.plugin}</version>
-            </plugin>
 
             <!-- exec maven plug-in to execute client to show how to get security token from PicketLink STS  -->
             <plugin>
