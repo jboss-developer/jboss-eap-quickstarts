@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-tasks-jsf</artifactId>
+    <artifactId>tasks-jsf</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} tasks-jsf</name>
     <description>This project demonstrates how to use JPA persistence to manage tasks with JSF as view layer</description>

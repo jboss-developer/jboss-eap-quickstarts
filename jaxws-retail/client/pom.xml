@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-jaxws-retail</artifactId>
+        <artifactId>jaxws-retail</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-jaxws-retail-client</artifactId>
+    <artifactId>jaxws-retail-client</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} jaxws-retail - client</name>
     <description>This project is a working example of a JAX-WS web service retail endpoint; this is the client POM file</description>
@@ -39,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>qs-jaxws-retail-service</artifactId>
+            <artifactId>jaxws-retail-service</artifactId>
             <version>${project.version}</version>
             <classifier>classes</classifier>
         </dependency>

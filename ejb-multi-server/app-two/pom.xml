@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-multi-server</artifactId>
+        <artifactId>ejb-multi-server</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-ejb-multi-server-app-two</artifactId>
+    <artifactId>ejb-multi-server-app-two</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} ejb-multi-server - app-two</name>
     <description>A project that demonstrates multiple applications deployed on different servers. This is the app-two POM file</description>

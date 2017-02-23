@@ -31,7 +31,7 @@ import org.jboss.as.quickstarts.interapp.shared.Bar;
 public class Imports {
 
     @Produces
-    @EJB(lookup = "java:global/qs-inter-app-appB/BarImpl!org.jboss.as.quickstarts.interapp.shared.Bar")
+    @EJB(lookup = "java:global/inter-app-appB/BarImpl!org.jboss.as.quickstarts.interapp.shared.Bar")
     private Bar bar;
 
     private Imports() {

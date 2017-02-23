@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-jta-crash-rec</artifactId>
+    <artifactId>jta-crash-rec</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} jta-crash-rec</name>
     <description>This project demonstrates JTA crash recovery</description>

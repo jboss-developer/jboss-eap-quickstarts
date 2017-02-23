@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-jaxws-pojo</artifactId>
+    <artifactId>jaxws-pojo</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} jaxws-pojo</name>
     <description>This project is a working example of a JAX-WS web service POJO endpoint</description>

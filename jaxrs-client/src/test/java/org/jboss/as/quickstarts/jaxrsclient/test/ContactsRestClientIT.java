@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
 @RunAsClient
 public class ContactsRestClientIT {
 
-    //private static final String getRequestUrl() = "http://localhost:8080/qs-jaxrs-client/rest/contacts";
+    //private static final String getRequestUrl() = "http://localhost:8080/jaxrs-client/rest/contacts";
     private static final String CONTACT_NAME = "New Contact";
     private static final String CONTACT_PHONE = "+55-61-5555-1234";
 

@@ -47,16 +47,16 @@ public class HelloSpringResource {
     @GET
     @Produces("text/html")
     public Response getDefault() {
-        String msg = "Hello. <br> Please try <a href='http://localhost:8080/qs-spring-resteasy/hello?name=yourname'>qs-spring-resteasy/hello?name=yourname</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/basic'>qs-spring-resteasy/basic</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/queryParam?param=query'>qs-spring-resteasy/queryParam?param=query</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/matrixParam;param=matrix'>qs-spring-resteasy/matrixParam;param=matrix</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/uriParam/789'>qs-spring-resteasy/uriParam/789</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/locating/hello?name=yourname'>qs-spring-resteasy/locating/hello?name=yourname</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/locating/basic'>qs-spring-resteasy/locating/basic</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/locating/queryParam?param=query'>qs-spring-resteasy/locating/queryParam?param=query</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/locating/matrixParam;param=matrix'>qs-spring-resteasy/locating/matrixParam;param=matrix</a>"
-            + "<br> Or try <a href='http://localhost:8080/qs-spring-resteasy/locating/uriParam/789'>qs-spring-resteasy/locating/uriParam/789</a>";
+        String msg = "Hello. <br> Please try <a href='http://localhost:8080/spring-resteasy/hello?name=yourname'>spring-resteasy/hello?name=yourname</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/basic'>spring-resteasy/basic</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/queryParam?param=query'>spring-resteasy/queryParam?param=query</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/matrixParam;param=matrix'>spring-resteasy/matrixParam;param=matrix</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/uriParam/789'>spring-resteasy/uriParam/789</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/locating/hello?name=yourname'>spring-resteasy/locating/hello?name=yourname</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/locating/basic'>spring-resteasy/locating/basic</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/locating/queryParam?param=query'>spring-resteasy/locating/queryParam?param=query</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/locating/matrixParam;param=matrix'>spring-resteasy/locating/matrixParam;param=matrix</a>"
+            + "<br> Or try <a href='http://localhost:8080/spring-resteasy/locating/uriParam/789'>spring-resteasy/locating/uriParam/789</a>";
         System.out.println("getDefault()");
         return Response.ok(msg).build();
     }

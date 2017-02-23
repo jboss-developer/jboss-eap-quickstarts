@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-helloworld-mbean</artifactId>
+    <artifactId>helloworld-mbean</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} helloworld-mbean</name>
     <description>This project demonstrates a simple Hello World MBean application</description>

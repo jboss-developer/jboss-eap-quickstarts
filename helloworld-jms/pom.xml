@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-helloworld-jms</artifactId>
+    <artifactId>helloworld-jms</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} helloworld-jms</name>
     <description>A Helloworld JMS external producer/consumer client</description>

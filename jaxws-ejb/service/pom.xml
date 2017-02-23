@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-jaxws-ejb</artifactId>
+        <artifactId>jaxws-ejb</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-jaxws-ejb-service</artifactId>
+    <artifactId>jaxws-ejb-service</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} jaxws-ejb - service</name>
     <description>This project is a working example of a JAX-WS web service EJB endpoint; this is the service POM file</description>

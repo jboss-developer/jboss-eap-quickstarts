@@ -25,10 +25,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-in-ear</artifactId>
+        <artifactId>ejb-in-ear</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-ejb-in-ear-ear</artifactId>
+    <artifactId>ejb-in-ear-ear</artifactId>
     <packaging>ear</packaging>
     <name>${qs.name.prefix} ejb-in-ear - ear</name>
     <description>This project demonstrates how to package an EJB and WAR in an EAR; this is the EAR POM file</description>
@@ -44,13 +44,13 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>qs-ejb-in-ear-ejb</artifactId>
+            <artifactId>ejb-in-ear-ejb</artifactId>
             <type>ejb</type>
         </dependency>
         <!-- Dependencies on the EJB and Web modules so that they can be found by the EAR plug-in -->
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>qs-ejb-in-ear-web</artifactId>
+            <artifactId>ejb-in-ear-web</artifactId>
             <type>war</type>
         </dependency>
     </dependencies>
@@ -77,7 +77,7 @@
                         register our War as a web module and set the contextRoot property -->
                         <webModule>
                             <groupId>org.jboss.eap.quickstarts</groupId>
-                            <artifactId>qs-ejb-in-ear-web</artifactId>
+                            <artifactId>ejb-in-ear-web</artifactId>
                             <contextRoot>/jboss-ejb-in-ear</contextRoot>
                         </webModule>
                     </modules>

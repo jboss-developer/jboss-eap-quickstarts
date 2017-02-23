@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-wsba-participant-completion-simple</artifactId>
+    <artifactId>wsba-participant-completion-simple</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} wsba-participant-completion-simple</name>
     <description>This project demonstrates WS-BA with Participant Driven Completion</description>

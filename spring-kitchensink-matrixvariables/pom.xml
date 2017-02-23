@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-spring-kitchensink-matrixvariables</artifactId>
+    <artifactId>spring-kitchensink-matrixvariables</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} spring-kitchensink-matrixvariables</name>
     <description>Getting Started with Spring 4 on JBoss - Matrix Variables</description>

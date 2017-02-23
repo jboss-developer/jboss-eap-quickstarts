@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-servlet-async</artifactId>
+    <artifactId>servlet-async</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} servlet-async</name>
     <description>This project demonstrates an asynchronous Servlet</description>

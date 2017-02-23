@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-kitchensink-ear</artifactId>
+    <artifactId>kitchensink-ear</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} kitchensink-ear</name>
     <description>This kitchensink project demonstrates how to use JSF, CDI, JAX-RS, EJB, JPA, and Bean Validation in an application packaged as an EAR</description>
@@ -50,7 +50,7 @@
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>qs-kitchensink-ear-ejb</artifactId>
+                <artifactId>kitchensink-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
@@ -59,7 +59,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>qs-kitchensink-ear-web</artifactId>
+                <artifactId>kitchensink-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

@@ -25,7 +25,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <!-- TODO fix artifact name to match components -->
-    <artifactId>qs-jts</artifactId>
+    <artifactId>jts</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} jts</name>
     <description>A project that demonstrates how to use CMT with JTS</description>
@@ -50,7 +50,7 @@
             <!-- Client stub for the application-component-2 -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>qs-jts-application-component-2</artifactId>
+                <artifactId>jts-application-component-2</artifactId>
                 <version>${project.version}</version>
                 <classifier>client</classifier>
             </dependency>

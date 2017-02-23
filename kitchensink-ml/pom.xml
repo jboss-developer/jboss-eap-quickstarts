@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-kitchensink-ml</artifactId>
+    <artifactId>kitchensink-ml</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} kitchensink-ml</name>
     <description>A localized starter Java EE web application project for use in JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>

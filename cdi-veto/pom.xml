@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-cdi-veto</artifactId>
+    <artifactId>cdi-veto</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cdi-veto</name>
     <description>This project demonstrates how to use CDI APIs and SPIs to create a veto portable extension</description>

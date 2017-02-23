@@ -23,7 +23,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-spring-kitchensink-matrixvariables-test-webdriver</artifactId>
+    <artifactId>spring-kitchensink-matrixvariables-test-webdriver</artifactId>
     <name>${qs.name.prefix} Spring Kitchensink MatrixVariables test via WebDriver with Arquillian</name>
     <description>This project tests a Spring Kitchensink MatrixVariables for use on JBoss EAP by WebDriver</description>
 

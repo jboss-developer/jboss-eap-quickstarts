@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-spring-petclinic-test-webdriver</artifactId>
+    <artifactId>spring-petclinic-test-webdriver</artifactId>
     <name>${qs.name.prefix} Spring Petclinic ftest via WebDriver with Arquillian</name>
     <description>This project tests a Spring Petclinic for use in JBoss EAP by WebDriver</description>
 

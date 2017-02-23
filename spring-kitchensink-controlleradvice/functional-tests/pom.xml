@@ -23,7 +23,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-spring-kitchensink-controlleradvice-test-webdriver</artifactId>
+    <artifactId>spring-kitchensink-controlleradvice-test-webdriver</artifactId>
     <name>${qs.name.prefix} Spring Kitchensink ControllerAdvice test via WebDriver with Arquillian</name>
     <description>This project demonstrates a Spring Kitchensink ControllerAdvice for use on JBoss EAP by WebDriver</description>
 

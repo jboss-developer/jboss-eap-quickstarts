@@ -24,7 +24,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>qs-spring-greeter-test-webdriver</artifactId>
+    <artifactId>spring-greeter-test-webdriver</artifactId>
     <name>${qs.name.prefix} Spring Greeter test via WebDriver with Arquillian</name>
     <description>This project tests a Spring Greeter on JBoss EAP by WebDriver</description>
 

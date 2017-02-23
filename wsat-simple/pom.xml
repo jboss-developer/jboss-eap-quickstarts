@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-wsat-simple</artifactId>
+    <artifactId>wsat-simple</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} wsat-simple</name>
     <description>This project demonstrates a WS-AT enabled JAX-WS Web service bundled in a WAR archive</description>

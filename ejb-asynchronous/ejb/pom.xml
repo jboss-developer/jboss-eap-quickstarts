@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-asynchronous</artifactId>
+        <artifactId>ejb-asynchronous</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-ejb-asynchronous-ejb</artifactId>
+    <artifactId>ejb-asynchronous-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>${qs.name.prefix} ejb-asynchronous - ejb</name>
     <description>This project demonstrates asynchronous method invocations on an EJB; this is the EJB POM file</description>

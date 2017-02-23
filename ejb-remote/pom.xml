@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-ejb-remote</artifactId>
+    <artifactId>ejb-remote</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} ejb-remote</name>
     <description>This project demonstrates how to access an EJB from a remote client</description>

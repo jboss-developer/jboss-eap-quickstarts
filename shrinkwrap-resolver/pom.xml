@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-shrinkwrap-resolver</artifactId>
+    <artifactId>shrinkwrap-resolver</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} shrinkwrap-resolver</name>
     <description>This project demonstrates how to use ShrinkWrap Resolve on JBoss EAP</description>

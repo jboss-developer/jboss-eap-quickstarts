@@ -20,11 +20,11 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-multi-server</artifactId>
+        <artifactId>ejb-multi-server</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-ejb-multi-server-app-main</artifactId>
+    <artifactId>ejb-multi-server-app-main</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} ejb-multi-server - app-main</name>
     <description>A project that demonstrates multiple applications deployed on different servers. 

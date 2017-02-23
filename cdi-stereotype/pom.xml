@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-cdi-stereotype</artifactId>
+    <artifactId>cdi-stereotype</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cdi-stereotype</name>
     <description>This project demonstrates CDI Stereotype</description>

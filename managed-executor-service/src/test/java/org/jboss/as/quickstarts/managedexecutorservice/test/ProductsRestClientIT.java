@@ -43,7 +43,7 @@ import org.junit.runner.RunWith;
 @RunAsClient
 public class ProductsRestClientIT {
 
-    //private static final String REST_TARGET_URL = "http://localhost:8080/qs-managed-executor-service/rest/products";
+    //private static final String REST_TARGET_URL = "http://localhost:8080/managed-executor-service/rest/products";
 
     private Logger log = Logger.getLogger(ProductsRestClientIT.class.getName());
 

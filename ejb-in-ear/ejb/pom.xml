@@ -25,10 +25,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-in-ear</artifactId>
+        <artifactId>ejb-in-ear</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-ejb-in-ear-ejb</artifactId>
+    <artifactId>ejb-in-ear-ejb</artifactId>
     <name>${qs.name.prefix} ejb-in-ear - ejb</name>
     <description>This project demonstrates how to package an EJB and WAR in an EAR; this is the EJB POM file</description>
 

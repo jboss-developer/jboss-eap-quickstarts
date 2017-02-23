@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-jsonp</artifactId>
+    <artifactId>jsonp</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} jsonp</name>
     <description>A starter Java EE webapp project for use on JBoss EAP</description>

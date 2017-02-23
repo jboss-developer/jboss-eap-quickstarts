@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-jaxws-addressing</artifactId>
+    <artifactId>jaxws-addressing</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} jaxws-addressing</name>
     <description>This project is a working example of a JAX-WS web service addressing endpoint</description>
@@ -45,7 +45,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>qs-jaxws-addressing-service</artifactId>
+                <artifactId>jaxws-addressing-service</artifactId>
                 <classifier>classes</classifier>
                 <version>${project.version}</version>
             </dependency>

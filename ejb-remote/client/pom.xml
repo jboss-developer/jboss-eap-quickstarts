@@ -20,11 +20,11 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-remote</artifactId>
+        <artifactId>ejb-remote</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-ejb-remote-client</artifactId>
+    <artifactId>ejb-remote-client</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} ejb-remote - client</name>
     <description>This project demonstrates how to access an EJB from a remote client; this is the client POM file</description>
@@ -50,7 +50,7 @@
         <!-- We depend on the EJB remote business interfaces of this application -->
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>qs-ejb-remote-server-side</artifactId>
+            <artifactId>ejb-remote-server-side</artifactId>
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>

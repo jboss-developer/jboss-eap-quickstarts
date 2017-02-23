@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-thread-racing</artifactId>
+    <artifactId>thread-racing</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} thread-racing</name>
     <description>A web application that triggers a thread race to complete Java EE 7 related tasks</description>

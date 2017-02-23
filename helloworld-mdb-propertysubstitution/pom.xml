@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-helloworld-mdb-propertysubstitution</artifactId>
+    <artifactId>helloworld-mdb-propertysubstitution</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} helloworld-mdb-propertysubstitution</name>
     <description>This project demonstrates how to use property substitution in a Message Driven Bean</description>

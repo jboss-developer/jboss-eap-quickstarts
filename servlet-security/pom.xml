@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-servlet-security</artifactId>
+    <artifactId>servlet-security</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} servlet-security</name>
     <description>This project demonstrates servlet security in JBoss EAP</description>

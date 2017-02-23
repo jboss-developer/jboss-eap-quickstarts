@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-jts</artifactId>
+        <artifactId>jts</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-jts-application-component-2</artifactId>
+    <artifactId>jts-application-component-2</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} jts - application-component-2</name>
     <description>A project that demonstrates how to use CMT with JTS; the application-component-2 POM file</description>

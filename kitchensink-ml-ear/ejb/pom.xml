@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-kitchensink-ml-ear</artifactId>
+        <artifactId>kitchensink-ml-ear</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-kitchensink-ml-ear-ejb</artifactId>
+    <artifactId>kitchensink-ml-ear-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>${qs.name.prefix} kitchensink-ml-ear - ejb</name>
     <description>This project demonstrates how to create a localized version of the kitchensink EAR; this is the EJB POM file</description>

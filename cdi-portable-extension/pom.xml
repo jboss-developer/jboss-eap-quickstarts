@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-cdi-portable-extension</artifactId>
+    <artifactId>cdi-portable-extension</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cdi-portable-extension</name>
     <description>This project demonstrates how to use CDI APIs and SPIs to create a Portable Extension</description>

@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-jaxws-pojo</artifactId>
+        <artifactId>jaxws-pojo</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-jaxws-pojo-service</artifactId>
+    <artifactId>jaxws-pojo-service</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} jaxws-pojo - service</name>
     <description>This project is a working example of a JAX-WS web service endpoint; this is the service POM file</description>

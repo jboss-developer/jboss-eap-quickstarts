@@ -20,10 +20,10 @@
 
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-asynchronous</artifactId>
+        <artifactId>ejb-asynchronous</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
     </parent>
-    <artifactId>qs-ejb-asynchronous-client</artifactId>
+    <artifactId>ejb-asynchronous-client</artifactId>
     <packaging>jar</packaging>
     <name>${qs.name.prefix} ejb-asynchronous - client</name>
     <description>This project demonstrates asynchronous method invocations on an EJB; this is the Client POM file</description>
@@ -49,7 +49,7 @@
         <!-- Import the client API of the EJB project -->
         <dependency>
             <groupId>org.jboss.eap.quickstarts</groupId>
-            <artifactId>qs-ejb-asynchronous-ejb</artifactId>
+            <artifactId>ejb-asynchronous-ejb</artifactId>
             <type>ejb-client</type>
         </dependency>
 

@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-ejb-in-ear</artifactId>
+    <artifactId>ejb-in-ear</artifactId>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} ejb-in-ear</name>
     <description>This project demonstrates how to package an EJB and WAR in an EAR; this is the top level POM file</description>
@@ -49,7 +49,7 @@
                 to repeat ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>qs-ejb-in-ear-ejb</artifactId>
+                <artifactId>ejb-in-ear-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
@@ -58,7 +58,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>org.jboss.eap.quickstarts</groupId>
-                <artifactId>qs-ejb-in-ear-web</artifactId>
+                <artifactId>ejb-in-ear-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

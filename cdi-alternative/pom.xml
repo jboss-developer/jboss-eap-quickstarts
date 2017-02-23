@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-cdi-alternative</artifactId>
+    <artifactId>cdi-alternative</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} cdi-alternative</name>
     <description>This project demonstrates how to use CDI Alternative</description>

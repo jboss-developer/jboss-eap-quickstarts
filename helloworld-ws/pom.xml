@@ -24,7 +24,7 @@
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-helloworld-ws</artifactId>
+    <artifactId>helloworld-ws</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} helloworld-ws</name>
     <description>This project demonstrates a Hello World JAX-WS web service</description>

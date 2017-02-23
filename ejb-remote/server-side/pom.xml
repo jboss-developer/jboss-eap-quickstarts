@@ -19,11 +19,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>qs-ejb-remote</artifactId>
+        <artifactId>ejb-remote</artifactId>
         <version>7.1.0.Alpha2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>qs-ejb-remote-server-side</artifactId>
+    <artifactId>ejb-remote-server-side</artifactId>
     <version>7.1.0.Alpha2-SNAPSHOT</version>
     <packaging>ejb</packaging>
     <name>${qs.name.prefix} ejb-remote - server-side</name>
