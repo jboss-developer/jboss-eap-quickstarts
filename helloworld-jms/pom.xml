@@ -93,11 +93,6 @@
                     </systemProperties>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${version.jar.plugin}</version>
-                <configuration></configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

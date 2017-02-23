@@ -56,12 +56,9 @@ Since this quickstart builds two separate components, you can not use the standa
 1. Make sure you have started the ${product.name} server. See the instructions in the previous section.
 2. Open a command prompt and navigate to the ejb-remote quickstart directory
 3. Build and install the server side component:
-    * Navigate to the server-side subdirectory:
-
-            cd server-side
     * Build the EJB and client interfaces JARs and install them in your local Maven repository.
 
-            mvn clean install        
+            mvn clean install         
     * Deploy the EJB JAR to your server. This Maven goal will deploy `server-side/target/${project.artifactId}-server-side.jar`. You can check the ${product.name} server console to see information messages regarding the deployment.
 
             mvn wildfly:deploy
