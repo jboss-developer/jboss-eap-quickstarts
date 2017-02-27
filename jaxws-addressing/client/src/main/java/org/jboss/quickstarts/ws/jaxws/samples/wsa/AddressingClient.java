@@ -22,25 +22,20 @@ import javax.xml.ws.Service;
 import javax.xml.ws.soap.AddressingFeature;
 
 /**
- *
  * @author rsearls@redhat.com
  */
-public final class AddressingClient
-{
+public final class AddressingClient {
     private static final String serviceURL =
-        "http://localhost:8080/jboss-jaxws-addressing/AddressingService";
+            "http://localhost:8080/jboss-jaxws-addressing/AddressingService";
 
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         // construct proxy
         QName serviceName =
-            new QName("http://www.jboss.org/jbossws/ws-extensions/wsaddressing",
-                "AddressingService");
+                new QName("http://www.jboss.org/jbossws/ws-extensions/wsaddressing",
+                        "AddressingService");
         URL wsdlURL = new URL(serviceURL + "?wsdl");
         Service service = Service.create(wsdlURL, serviceName);
-        org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface proxy =
-            (org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface) service.getPort(org.jboss.quickstarts.ws.jaxws.samples.wsa.ServiceIface.class,
-                new AddressingFeature());
+        ServiceIface proxy = service.getPort(ServiceIface.class, new AddressingFeature());
         // invoke method
         System.out.println(proxy.sayHello());
     }
