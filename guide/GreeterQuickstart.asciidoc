@@ -12,7 +12,7 @@ Switch to the `quickstarts/greeter` directory and instruct Maven to build and de
 
 The quickstart uses a Maven plug-in to deploy the application. The plug-in requires Red Hat JBoss Enterprise Application Platform to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss EAP server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss EAP server on Windows>>).
 
-Or you can start the server using an IDE, like Red Hat JBoss Developer Studio. If you are using JBoss Developer Studio, you can deploy the quickstart by right clicking on the `jboss-greeter` project, and choosing _Run As -> Run On Server_: 
+Or you can start the server using an IDE, like Red Hat JBoss Developer Studio. If you are using JBoss Developer Studio, you can deploy the quickstart by right clicking on the `greeter` project, and choosing _Run As -> Run On Server_: 
 
 image:gfx/Eclipse_Greeter_Deploy_1.png[]
 
@@ -24,7 +24,7 @@ You should see the server start up (unless you already started it in <<GettingSt
 
 image:gfx/Eclipse_Greeter_Deploy_3.png[]
 
-To use the application, visit http://localhost:8080/jboss-greeter/.
+To use the application, visit http://localhost:8080/greeter/.
 
 [[greeter_in_depth]]
 == The greeter quickstart in depth

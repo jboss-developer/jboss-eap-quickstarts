@@ -11,12 +11,11 @@ If you already have any of these pieces of software, there is no need to
 install them again!
 ========================================================================
 
-Java 1.6, to run JBoss EAP and Maven::
+Java 8, to run JBoss EAP and Maven::
   Choose your Java runtime, and follow their installation instructions. For example, you could choose one of:
 
   * link:http://openjdk.java.net/install/[OpenJDK]
-  * link:http://www.oracle.com/technetwork/java/javase/index-137561.html[Oracle Java SE]
-  * link:http://docs.oracle.com/cd/E15289_01/doc.40/e15065/toc.htm[Oracle JRockit]
+  * link:http://www.oracle.com/technetwork/java/javase/index-137561.html[Oracle Java SE]  
 Maven 3, to build and deploy the quickstarts::
   Follow the official Maven installation guide if you don't already have Maven 3 installed. You can check which version of Maven you have installed (if any) by running `mvn --version` . If you see a version newer than 3.0.0, you are ready to go. 
 
@@ -60,11 +59,11 @@ installed. In a console, type:
 
     java -version
 
-You should see a version string (at least `1.7.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
+You should see a version string (at least `1.8.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
 
     mvn --version
 
-You should see a version string (at least `3.0.0`) printed. If not, contact the Maven community for assistance. 
+You should see a version string (at least `3.3.0`) printed. If not, contact the Maven community for assistance. 
 
 Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap.7.x.x` (where `7.x.x` matches the version you downloaded): 
 
@@ -107,11 +106,11 @@ First, let's verify that verify that both Java and Maven are correctly installed
 
     java -version
 
-You should see a version string (at least `1.7.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
+You should see a version string (at least `1.8.0`) printed. If not, contact your provider of Java for assistance. Next, type: 
 
     mvn --version
 
-You should see a version string (at least `3.0.0`) printed. If not, contact the Maven community for assistance. 
+You should see a version string (at least `3.3.0`) printed. If not, contact the Maven community for assistance. 
 
 Next, we need to choose a location for JBoss EAP to live. By default, JBoss EAP will be extracted into `jboss-eap-7.x.x` (where `7.x.x` matches the version you downloaded). Unzip JBoss EAP using your tool of choice. 
 
