@@ -696,12 +696,12 @@ image:gfx/eclipse_arquillian_0.png[]
 
 Now, make sure the server is not running (so that the instance started for running the test does not interfere), and then run the tests from the command line by typing:
 
-    mvn clean verify -Parq-wildfly-managed
+    mvn clean verify -Parq-managed
 
 You should see the server start up, a `test.war` deployed, test executed, and then the results displayed to you on the console: 
 
 ------------------------------------------------------------------------
-$ > mvn clean verify -Parq-wildfly-managed
+$ > mvn clean verify -Parq-managed
 
 
 [INFO] Scanning for projects...
@@ -897,12 +897,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] Final Memory: 27M/266M
 [INFO] ------------------------------------------------------------------------
 
-As you can see, that didn't take too long (approximately 15s), and is great for running in your QA environment, but if you running locally, you might prefer to connect to a running server. To do that, start up Red Hat JBoss Enterprise Application Platform (as described in <<GettingStarted-, Getting Started with Red Hat JBoss Enterprise Application Platform of JBoss EAP>>. Now, run your test, but use the `arq-wildfly-remote` profile:
+As you can see, that didn't take too long (approximately 15s), and is great for running in your QA environment, but if you running locally, you might prefer to connect to a running server. To do that, start up Red Hat JBoss Enterprise Application Platform (as described in <<GettingStarted-, Getting Started with Red Hat JBoss Enterprise Application Platform of JBoss EAP>>. Now, run your test, but use the `arq-remote` profile:
 
-    mvn clean verify -Parq-wildfly-remote
+    mvn clean verify -Parq-remote
 
 ------------------------------------------------------------------------
-$ > mvn clean verify -Parq-wildfly-remote
+$ > mvn clean verify -Parq-remote
 
 
 [INFO] Scanning for projects...
@@ -977,7 +977,7 @@ Now, locate the Maven panel:
 
 image:gfx/eclipse_arquillian_2.png[]
 
-And activate the `arq-wildfly-managed` profile: 
+And activate the `arq-managed` profile:
 
 image:gfx/eclipse_arquillian_3.png[]
 
@@ -991,7 +991,7 @@ image:gfx/eclipse_arquillian_12.png[]
 
 You should see the server start in the Eclipse Console, the test be deployed, and finally the JUnit View pop up with the result (a pass of course!).
 
-We can also run the test in an already running instance of Eclipse. Simply change the active profile to `arq-wildfly-remote`:
+We can also run the test in an already running instance of Eclipse. Simply change the active profile to `arq-remote`:
 
 image:gfx/eclipse_arquillian_11.png[]
 
@@ -1101,8 +1101,8 @@ Now, we need to look at how we select between containers in the `pom.xml`:
         in your JBoss EAP instance -->
     <!-- This profile will start a new JBoss EAP instance, and 
         execute the test, shutting it down when done -->
-    <!-- Run with: mvn clean verify -Parq-wildfly-managed -->
-    <id>arq-wildfly-managed</id>                                     <1>
+    <!-- Run with: mvn clean verify -Parq-managed -->
+    <id>arq-managed</id>                                     <1>
     <dependencies>
         <dependency>
             <groupId>org.wildfly.arquillian</groupId>
@@ -1117,8 +1117,8 @@ Now, we need to look at how we select between containers in the `pom.xml`:
 <profile>
     <!-- An optional Arquillian testing profile that executes 
         tests in a remote JBoss EAP instance -->
-    <!-- Run with: mvn clean verify -Parq-wildfly-remote -->
-    <id>arq-wldfly-remote</id>
+    <!-- Run with: mvn clean verify -Parq-remote -->
+    <id>arq-remote</id>
     <dependencies>
         <dependency>
             <groupId>org.wildfly.arquillian</groupId>
