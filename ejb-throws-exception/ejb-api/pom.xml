@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>ejb-throws-exception</artifactId>
-        <version>7.1.0.Alpha2-SNAPSHOT</version>
+        <version>7.1.0.Alpha</version>
     </parent>
     <artifactId>ejb-throws-exception-ejb-api</artifactId>
     <packaging>jar</packaging>

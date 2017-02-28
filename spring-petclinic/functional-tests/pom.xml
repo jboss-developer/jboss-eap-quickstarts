@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.1.0.Alpha2-SNAPSHOT</version>
+        <version>7.1.0.Alpha</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>spring-petclinic-test-webdriver</artifactId>
@@ -29,7 +29,7 @@
     <description>This project tests a Spring Petclinic for use in JBoss EAP by WebDriver</description>
 
     <properties>
-   
+
         <!-- To disable warning of missing beans.xml file in JBoss Tools -->
         <m2e.cdi.activation>false</m2e.cdi.activation>
 
@@ -69,7 +69,7 @@
             <artifactId>xom</artifactId>
             <version>1.2.5</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>

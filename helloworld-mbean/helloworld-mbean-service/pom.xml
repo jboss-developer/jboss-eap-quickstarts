@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>helloworld-mbean</artifactId>
-        <version>7.1.0.Alpha2-SNAPSHOT</version>
+        <version>7.1.0.Alpha</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>helloworld-mbean-helloworld-mbean-service</artifactId>
