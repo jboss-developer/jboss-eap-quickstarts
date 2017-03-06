@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>22</version>
+        <version>22.0.0.redhat-1</version>
         <relativePath />
     </parent>
     <groupId>org.jboss.eap.quickstarts</groupId>
@@ -60,7 +60,7 @@
         <!-- EAP component version management BOM -->
         <version.server.bom>7.1.0.DR12</version.server.bom>
         
-        <version.jboss.spec.javaee.7.0>1.1.0.Beta1</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.0.4.Final-redhat-7</version.jboss.spec.javaee.7.0>
 
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -70,9 +70,9 @@
 
         <!-- Other dependency versions -->
         <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
-        <httpclient.version>4.5.3</httpclient.version>
+        <httpclient.version>4.5.2.redhat-1</httpclient.version>
         <version.org.apache.commons.commons-lang3>3.5</version.org.apache.commons.commons-lang3>
-        <version.h2db>1.4.193</version.h2db>
+        <version.h2db>1.4.193.redhat-2</version.h2db>
         <version.org.wildfly.checkstyle-config>1.0.5.Final</version.org.wildfly.checkstyle-config>
     </properties>
 
@@ -87,7 +87,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.5</version>
+                <version>2.5.0.redhat-2</version>
                 <scope>compile</scope>
             </dependency>
             <!-- TODO - remove here only till wildfly-discovery-client 1.0.0.Beta9 is released and used in EAP
