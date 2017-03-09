@@ -29,7 +29,7 @@ All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Red H
 Run the Quickstart in Red Hat JBoss Developer Studio
 --------------------------------------------
 
-JBoss Developer Studio 10.0 and 10.1 ship with Forge 3.3.1.Final. Because the Forge syntax changed in Forge 3.0, the `generate.fsh` script that ships with this quickstart was updated to use the new syntax and no longer works with releases prior to JBoss Developer Studio 10.0. For this reason, you must  use JBoss Developer Studio 10.0 or greater to run this example.
+JBoss Developer Studio 10.3 ships with Forge 3.5.1.Final.
 
 ### Generate and Build the Application
 
@@ -46,18 +46,14 @@ JBoss Developer Studio 10.0 and 10.1 ship with Forge 3.3.1.Final. Because the Fo
 6. At this point, Forge creates the new project and builds it. 
     * The script issues this command: `$ project-new --named forge-example --top-level-package org.example;`
     * You next see the console message: `***SUCCESS*** Project named 'forge-example' has been created.`
-    * This is followed by a dialog saying `User Operation is waiting for "Importing Forge project" to complete.`.
-    * After a number of `***SUCCESS***` messages, you see `***SUCCESS*** Build Success` near the end of the console output.
+    * This is followed by a number of commands that set up JPA, create an entity and its fields, set up and generate the scaffold, and set up CDI and REST. Each command should result in a `***SUCCESS***` message.
+    * Finally, the `build` command is executed, which should result in `***SUCCESS*** Build Success` near the end of the console output.
 
-    _Note:_ After you run the `run generate.fsh` command, you will see the following warnings for the generated files. You can ignore these warnings.
+_NOTE:_ After you run the `run generate.fsh` command, you will see the following warnings in the *Problems* window for the generated files. You can ignore these warnings.
 
-          The serializable class Address does not declare a static final serialVersionUID field of type long
-          The serializable class Customer does not declare a static final serialVersionUID field of type long
-          The serializable class Item does not declare a static final serialVersionUID field of type long
-          The serializable class ProductOrder does not declare a static final serialVersionUID field of type long
-          The serializable class Profile does not declare a static final serialVersionUID field of type long
-          The serializable class ZipCode does not declare a static final serialVersionUID field of type long
-          location references to "/faces/error.xhtml" that does not exist in web content
+      Web XML Problem: location references to "/faces/error.xhtml" that does not exist in web content	web.xml	/forge-example/src/main/webapp/WEB-INF	line 17
+      Web XML Problem: location references to "/faces/error.xhtml" that does not exist in web content	web.xml	/forge-example/src/main/webapp/WEB-INF	line 21
+      JPA Problem: No connection specified for project. No database-specific validation will be performed.	forge-example
 
 
 ### What Did This Create?
@@ -78,6 +74,8 @@ This quickstart created a native Java EE 7 application.
 
 _Note:_ You will see the following warnings in the server log. You can ignore these warnings.
 
+    WFLYTX0013: Node identifier property is set to the default value. Please make sure it is unique.
+    WFLYDM0111: Keystore /home/user/eap-7.1/standalone/configuration/application.keystore not found, it will be auto generated on first use with a self signed certificate for host localhost
     HHH000059: Defining hibernate.transaction.flush_before_completion=true ignored in HEM
     HHH000431: Unable to determine H2 database version, certain features may not work
 
