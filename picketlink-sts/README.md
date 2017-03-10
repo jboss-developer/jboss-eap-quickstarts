@@ -141,12 +141,12 @@ Build and Deploy the Quickstart
 3. Type this command to build and deploy the archive:
 
         mvn clean install wildfly:deploy
-4. This deploys `target/jboss-picketlink-sts.war` to the running instance of the server.
+4. This deploys `target/${project.artifactId}.war` to the running instance of the server.
 
 _Note:_ When you deploy the quickstart, you will see the following warnings in the server log. These warnings are expected.
 
-        WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.jboss-picketlink-sts.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
-        WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.jboss-picketlink-sts.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
+        WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.${project.artifactId}.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
+        WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.${project.artifactId}.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
 
 
 Access the Application
@@ -214,7 +214,7 @@ Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a ${product.name} server, and build and deploy a quickstart, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](${use.eclipse.url}). 
 
 1. Be sure to configure the security domain by running the JBoss CLI commands as described above under [Configure the ${product.name} Server](#configure-the-jboss-eap-server). Stop the server at the end of that step.
-2. To deploy the server project, right-click on the `jboss-picketlink-sts` project and choose `Run As` --> `Run on Server`. 
+2. To deploy the server project, right-click on the `${project.artifactId}` project and choose `Run As` --> `Run on Server`. 
 3. You are presented with a server message `PicketLinkSTSRealm` and challenged to enter valid authentication credentials. Enter the following information and then click `OK`.
    
             UserName: JBoss
@@ -222,7 +222,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
    JBoss Developer Studio then displays the welcome file.
 4. Follow these steps to test the service.
 
-      * Right-click on the `jboss-picketlink-sts` project and choose `Run As` --> `Maven Build`.
+      * Right-click on the `${project.artifactId}` project and choose `Run As` --> `Maven Build`.
       * Enter `picketlink-sts` for the `Name`.
       * Enter `exec:java` for the `Goals:`.
       * Click `Run`.
