@@ -87,7 +87,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${version.war.plugin}</version>
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/org/jboss/**,WEB-INF/classes/log4j.xml</packagingExcludes>
                 </configuration>
