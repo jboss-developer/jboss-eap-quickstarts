@@ -96,22 +96,11 @@
             -->
             <dependency>
                 <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-jms-client-bom</artifactId>
-                <version>7.1.0.Alpha1-redhat-SNAPSHOT</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-ejb-client-bom</artifactId>
                 <version>7.1.0.Alpha1-redhat-SNAPSHOT</version>
                 <type>pom</type>
             </dependency>
-            <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-ejb-client</artifactId>
-                <version>4.0.0.Beta19</version>
-            </dependency>
-
+        
             <!-- end TODO -->
 
             <dependency>
