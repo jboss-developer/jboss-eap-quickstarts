@@ -46,7 +46,7 @@
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
-        <version.wildfly.maven.plugin>1.2.0.Alpha2</version.wildfly.maven.plugin>
+        <version.wildfly.maven.plugin>1.2.0.Alpha4</version.wildfly.maven.plugin>
 
         <!-- other plug-in versions -->
         <version.com.mycyla.license>3.0</version.com.mycyla.license>
@@ -90,25 +90,11 @@
                 <version>2.5.0.redhat-2</version>
                 <scope>compile</scope>
             </dependency>
-            <!-- TODO - remove here only till wildfly-discovery-client 1.0.0.Beta9 is released and used in EAP
-            see https://github.com/wildfly/wildfly-discovery/pull/13
-            -->
-            <dependency>
-                <groupId>org.jboss.modules</groupId>
-                <artifactId>jboss-modules</artifactId>
-                <version>1.6.0.Beta4</version>
-                <scope>provided</scope>
-            </dependency>
-            <!--<dependency>
-                <groupId>org.wildfly.discovery</groupId>
-                <artifactId>wildfly-discovery-client</artifactId>
-                <version>1.0.0.Beta9-SNAPSHOT</version>
-            </dependency>-->
-
+     
             <!--
             uncomment if you want to test with latest jms & ejb client 
             -->
-            <!--<dependency>
+            <dependency>
                 <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-jms-client-bom</artifactId>
                 <version>7.1.0.Alpha1-redhat-SNAPSHOT</version>
@@ -123,9 +109,8 @@
             <dependency>
                 <groupId>org.jboss</groupId>
                 <artifactId>jboss-ejb-client</artifactId>
-                <version>4.0.0.Beta16</version>
+                <version>4.0.0.Beta19</version>
             </dependency>
-            -->
 
             <!-- end TODO -->
 
@@ -270,17 +255,6 @@
         <!-- Set the name of the WAR, used as the context root when the app is deployed. -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- The WildFly plug-in deploys your apps to a local JBoss EAP container -->
-            <!-- Disabling it here means that we don't try to deploy this POM! -->
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${version.wildfly.maven.plugin}</version>
-                <inherited>false</inherited>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
