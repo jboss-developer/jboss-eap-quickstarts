@@ -61,10 +61,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>${version.ear.plugin}</version>
                 <configuration>
                     <!-- Tell Maven we are using Java EE -->
-                    <version>${version.javaee}</version>
+                    <version>7</version>
                     <!-- Use Java EE ear libraries as needed. Java EE ear
                         libraries are in easy way to package any libraries needed in the ear, and
                         automatically have any modules (EJB-JARs and WARs) use them -->
