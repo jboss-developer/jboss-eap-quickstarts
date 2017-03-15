@@ -94,12 +94,12 @@
             <!--
             uncomment if you want to test with latest jms & ejb client 
             -->
-            <dependency>
+          <!--  <dependency>
                 <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-ejb-client-bom</artifactId>
                 <version>7.1.0.Alpha1-redhat-SNAPSHOT</version>
                 <type>pom</type>
-            </dependency>
+            </dependency>-->
         
             <!-- end TODO -->
 
