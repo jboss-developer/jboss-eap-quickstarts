@@ -91,18 +91,6 @@
                 <scope>compile</scope>
             </dependency>
      
-            <!--
-            uncomment if you want to test with latest jms & ejb client 
-            -->
-          <!--  <dependency>
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.Alpha1-redhat-SNAPSHOT</version>
-                <type>pom</type>
-            </dependency>-->
-        
-            <!-- end TODO -->
-
             <dependency>
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
