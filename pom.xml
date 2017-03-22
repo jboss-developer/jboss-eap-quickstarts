@@ -423,7 +423,6 @@
                 <module>ejb-in-war</module>
                 <module>ejb-multi-server</module>
                 <module>ejb-security</module>
-                <module>ejb-security-plus</module>
                 <module>ejb-security-interceptors</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
@@ -436,10 +435,6 @@
                 <module>helloworld-mdb-propertysubstitution</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
-                <module>helloworld-ssl</module>
-                <module>helloworld-client-ssl</module>
-                <module>helloworld-war-ssl</module>
-                <module>helloworld-websocket</module>
                 <module>helloworld-ws</module>
                 <module>hibernate5</module>
                 <module>inter-app</module>
@@ -464,7 +459,6 @@
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
                 <module>picketlink-sts</module>
-                <module>security-vault-askpass</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
