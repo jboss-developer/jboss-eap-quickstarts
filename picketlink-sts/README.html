@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head><title> picketlink-sts: PicketLink Federation: WS-Trust Security Token Service</title>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link>
+</head>
+<body><h1><a href="#picketlink-sts-picketlink-federation-ws-trust-security-token-service" id="picketlink-sts-picketlink-federation-ws-trust-security-token-service">picketlink-sts: PicketLink Federation: WS-Trust Security Token Service</a></h1>
+<p>Author: Peter Skopek<br />
+Level: Advanced<br />
+Technologies: WS-Trust, SAML<br />
+Summary: The <code>picketlink-sts</code> quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).<br />
+Target Product: JBoss EAP<br />
+Source: <a href="https://github.com/jbossas/eap-quickstarts/">https://github.com/jbossas/eap-quickstarts/</a></p>
+<h2><a href="#what-is-it" id="what-is-it">What is it?</a></h2>
+<p>The <code>picketlink-sts</code> quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS) to Red Hat JBoss Enterprise Application Platform.</p>
+<p>WS-Trust extends the WS-Security specification to allow the issuance, renewal, and validation of security tokens.<br />
+Many WS-Trust functions center around the use of a Security Token Service, or STS.<br />
+The STS is contacted to obtain security tokens that are used to create messages to talk to the services.<br />
+The primary use of the STS is to acquire SAML tokens used to talk to the service.<br />
+The STS also plays an important role when you need to propagate credentials between different layers, for example, the web and service layer.</p>
+<p>PicketLink also supports different token providers, which means you can provide your own custom security tokens.</p>
+<p><em>Note:</em> This quickstart is not a fully functional application. It is a JAX-WS Endpoint based on PicketLink's WS-Trust implementation, which by default, allows you to issue, renew and validate SAML assertions. It is a service intended to be called by other applications.</p>
+<h2><a href="#how-to-use-this-quickstart" id="how-to-use-this-quickstart">How to Use This Quickstart</a></h2>
+<p>This quickstart is preconfigured to use the <code>picketlink-sts</code> security domain. By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:</p>
+<pre><code>    Users: src/main/resources/users.properties
+    Roles: src/main/resources/roles.properties
+</code></pre>
+<p>You can view the WSDL for the STS at the following URL: <a href="http://localhost:8080/picketlink-sts?wsdl">http://localhost:8080/picketlink-sts?wsdl</a>.</p>
+<p>From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope asking the STS to issue a SAML v2.0 Assertion:</p>
+<pre><code>    &lt;soap:Envelope xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot; xmlns:urn=&quot;urn:picketlink:identity-federation:sts&quot;&gt;
+        &lt;soap:Header/&gt;
+        &lt;soap:Body&gt;
+            &lt;wst:RequestSecurityToken xmlns:wst=&quot;http://docs.oasis-open.org/ws-sx/ws-trust/200512&quot;&gt;
+                &lt;wst:TokenType&gt;http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0&lt;/wst:TokenType&gt;
+                &lt;wst:RequestType&gt;http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue&lt;/wst:RequestType&gt;
+            &lt;/wst:RequestSecurityToken&gt;
+        &lt;/soap:Body&gt;
+    &lt;/soap:Envelope&gt;
+</code></pre>
+<p>There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the <code>mvn exec:java</code> command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled <a href="#access-the-application">Access the Application</a>.</p>
+<p><em>Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards.</em></p>
+<h2><a href="#where-to-find-additional-information" id="where-to-find-additional-information">Where to Find Additional Information</a></h2>
+<ul>
+<li>
+<p>For more information about PicketLink STS, see <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/developing-web-services-applications/#about_sts">Security Token Service (STS)</a> in <em>Developing Web Services Applications</em>.</p>
+</li>
+<li>
+<p>Additional PicketLink quickstarts can be found here: <a href="https://docs.jboss.org/author/display/PLINK/PicketLink+Quickstarts">PicketLink Quickstarts</a>.</p>
+</li>
+</ul>
+<h2><a href="#system-requirements" id="system-requirements">System Requirements</a></h2>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.</p>
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7.1</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<h2><a href="#use-of-eap7-home" id="use-of-eap7-home">Use of EAP7_HOME</a></h2>
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+<h2><a href="#configure-the-server" id="configure-the-server">Configure the Server</a></h2>
+<p>You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-security-domain.cli</code> script provided in the root directory of this quickstart.</p>
+<ol>
+<li>
+<p>Before you begin, back up your server configuration file</p>
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul>
+</li>
+<li>
+<p>Start the JBoss EAP server by typing the following:</p>
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Review the <code>configure-security-domain.cli</code> file in the root of this quickstart directory. This script adds the <code>picketlink-sts</code> security domain to the <code>security</code> subsystem in the server configuration and configures authentication access.</li>
+<li>
+<p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
+</code></pre>
+</li>
+</ol>
+<p>If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:</p>
+<pre><code>    --controller=HOST_NAME:PORT_NUMBER
+</code></pre>
+<p>You should see the following result when you run the script:</p>
+<pre><code>    The batch executed successfully
+    {&quot;outcome&quot; =&gt; &quot;success&quot;}
+</code></pre>
+<p>The batch file also restarts the server.<br />
+5. Stop the JBoss EAP server.</p>
+<h2><a href="#review-the-modified-server-configuration" id="review-the-modified-server-configuration">Review the Modified Server Configuration</a></h2>
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+<p>The following <code>picketlink-sts</code> security-domain was added to the <code>security</code> subsystem.</p>
+<pre><code>    &lt;security-domain name=&quot;picketlink-sts&quot;&gt;
+        &lt;authentication&gt;
+            &lt;login-module code=&quot;UsersRoles &quot; flag=&quot;required&quot;&gt;
+                &lt;module-option name=&quot;usersProperties&quot; value=&quot;users.properties&quot;/&gt;
+                &lt;module-option name=&quot;rolesProperties&quot; value=&quot;roles.properties&quot;/&gt;
+            &lt;/login-module&gt;
+        &lt;/authentication&gt;
+    &lt;/security-domain&gt;
+</code></pre>
+<h2><a href="#start-the-server" id="start-the-server">Start the Server</a></h2>
+<p>If you do not have a running server:</p>
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li>The following shows the command line to start the server:
+<pre><code>For Linux:   EAP7_HOME/bin/standalone.sh
+For Windows: EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+</ol>
+<h2><a href="#build-and-deploy-the-quickstart" id="build-and-deploy-the-quickstart">Build and Deploy the Quickstart</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+<pre><code>mvn clean install wildfly:deploy
+</code></pre>
+</li>
+<li>This deploys <code>target/picketlink-sts.war</code> to the running instance of the server.</li>
+</ol>
+<p><em>Note:</em> When you deploy the quickstart, you will see the following warnings in the server log. These warnings are expected.</p>
+<pre><code>    WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment &quot;deployment.picketlink-sts.war&quot; is using a deprecated module (&quot;org.picketlink:main&quot;) which may be removed in future versions without notice.
+    WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment &quot;deployment.picketlink-sts.war&quot; is using a deprecated module (&quot;org.picketlink:main&quot;) which may be removed in future versions without notice.
+</code></pre>
+<h2><a href="#access-the-application" id="access-the-application">Access the Application</a></h2>
+<p>You can test the service as follows:</p>
+<ol>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type the following command:
+<pre><code>mvn exec:java
+</code></pre>
+</li>
+<li>You should see a <code>&lt;saml:Assertion</code> assertion from PicketLink STS along with a <code>BUILD SUCCESS</code> printed to the console.
+<pre><code>Invoking token service to get SAML assertion for user:UserA with password:PassA
+SAML assertion for user:UserA successfully obtained!
+&lt;saml:Assertion xmlns:saml=&quot;urn:oasis:names:tc:SAML:2.0:assertion&quot; ID=&quot;ID_79157aa6-38ab-4e5e-a562-78bade9ffb82&quot; IssueInstant=&quot;2013-11-18T18:19:35.955Z&quot; Version=&quot;2.0&quot;&gt;&lt;saml:Issuer&gt;PicketLinkSTS&lt;/saml:Issuer&gt;&lt;dsig:Signature xmlns:dsig=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;&lt;dsig:SignedInfo&gt;&lt;dsig:CanonicalizationMethod Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#WithComments&quot;/&gt;&lt;dsig:SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;/&gt;&lt;dsig:Reference URI=&quot;#ID_79157aa6-38ab-4e5e-a562-78bade9ffb82&quot;&gt;&lt;dsig:Transforms&gt;&lt;dsig:Transform Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#enveloped-signature&quot;/&gt;&lt;dsig:Transform Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;/&gt;&lt;/dsig:Transforms&gt;&lt;dsig:DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;/&gt;&lt;dsig:DigestValue&gt;7LaVacKTsP6wnuNlsQ6KASNDgdE=&lt;/dsig:DigestValue&gt;&lt;/dsig:Reference&gt;&lt;/dsig:SignedInfo&gt;&lt;dsig:SignatureValue&gt;jiyC63KG65d019PY7ThZzyojiU6iJMAr9N39uqrPr3HBGPfW7JjwFH9tahsFKjgoQQH7ToRLKZJKvm12TmDured+s+5VyI+Py6TsDiaQCRnNSeARvYdXFwNCA1D8Sx0xDkXKWpgB3YZenBV6U0IZtmAa5CxXFKmdqxEzHweAPq0=&lt;/dsig:SignatureValue&gt;&lt;dsig:KeyInfo&gt;&lt;dsig:KeyValue&gt;&lt;dsig:RSAKeyValue&gt;&lt;dsig:Modulus&gt;suGIyhVTbFvDwZdx8Av62zmP+aGOlsBN8WUE3eEEcDtOIZgO78SImMQGwB2C0eIVMhiLRzVPqoW1dCPAveTm653zHOmubaps1fY0lLJDSZbTbhjeYhoQmmaBro/tDpVw5lKJns2qVnMuRK19ju2dxpKwlYGGtrP5VQv00dfNPbs=&lt;/dsig:Modulus&gt;&lt;dsig:Exponent&gt;AQAB&lt;/dsig:Exponent&gt;&lt;/dsig:RSAKeyValue&gt;&lt;/dsig:KeyValue&gt;&lt;/dsig:KeyInfo&gt;&lt;/dsig:Signature&gt;&lt;saml:Subject&gt;&lt;saml:NameID NameQualifier=&quot;urn:picketlink:identity-federation&quot;&gt;UserA&lt;/saml:NameID&gt;&lt;saml:SubjectConfirmation Method=&quot;urn:oasis:names:tc:SAML:2.0:cm:bearer&quot;/&gt;&lt;/saml:Subject&gt;&lt;saml:Conditions NotBefore=&quot;2013-11-18T18:19:35.955Z&quot; NotOnOrAfter=&quot;2013-11-18T20:19:35.955Z&quot;/&gt;&lt;saml:AuthnStatement AuthnInstant=&quot;2013-11-18T18:19:35.955Z&quot;&gt;&lt;saml:AuthnContext&gt;&lt;saml:AuthnContextClassRef&gt;urn:oasis:names:tc:SAML:2.0:cm:bearer&lt;/saml:AuthnContextClassRef&gt;&lt;/saml:AuthnContext&gt;&lt;/saml:AuthnStatement&gt;&lt;/saml:Assertion&gt;
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.404s
+[INFO] Finished at: Mon Nov 18 13:19:36 EST 2013
+[INFO] Final Memory: 7M/146M
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</li>
+</ol>
+<p><em>Note:</em>: You also see the following warnings in the server log. These warnings are expected because the quickstart does not provide a configuration that persists tokens.</p>
+<pre><code>    INFO  [org.picketlink.common] (http-/127.0.0.1:8080-4) Loading STS configuration
+    WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Security Token registry option not specified: Issued Tokens will not be persisted!
+    WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Security Token registry option not specified: Issued Tokens will not be persisted!
+    INFO  [org.picketlink.common] (http-/127.0.0.1:8080-4) picketlink-sts.xml configuration file loaded
+    WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Lifetime has not been specified. Using the default timeout value.
+</code></pre>
+<h2><a href="#undeploy-and-remove-the-security-domain-configuration" id="undeploy-and-remove-the-security-domain-configuration">Undeploy and Remove the Security Domain Configuration</a></h2>
+<h3><a href="#undeploy-and-remove-the-security-domain-using-the-jboss-cli" id="undeploy-and-remove-the-security-domain-using-the-jboss-cli">Undeploy and Remove the Security Domain Using the JBoss CLI</a></h3>
+<p>You can undeploy the quickstart and remove the security domain configuration in one easy step using the <code>undeploy-and-remove-security-domain.cli</code> script located in the root directory of this quickstart.</p>
+<ol>
+<li>Open a new command prompt, navigate to the root directory of this quickstart.</li>
+<li>Run the following command, replacing EAP7_HOME with the path to your server:
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
+</code></pre>
+</li>
+</ol>
+<p>You should see the following result when you run the script:</p>
+<pre><code>    The batch executed successfully
+    process-state: reload-required
+</code></pre>
+<h3><a href="#undeploy-the-quickstart-and-remove-the-security-domain-manually" id="undeploy-the-quickstart-and-remove-the-security-domain-manually">Undeploy the quickstart and Remove the Security Domain Manually</a></h3>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>When you are finished testing, type this command to undeploy the archive:
+<pre><code>mvn wildfly:undeploy
+</code></pre>
+</li>
+<li>Stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
+</ol>
+<h2><a href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse">Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</a></h2>
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
+<ol>
+<li>Be sure to configure the security domain by running the JBoss CLI commands as described above under <a href="#configure-the-server">Configure the JBoss EAP Server</a>. Stop the server at the end of that step.</li>
+<li>To deploy the server project, right-click on the <code>picketlink-sts</code> project and choose <code>Run As</code> --&gt; <code>Run on Server</code>.</li>
+<li>You are presented with a server message <code>PicketLinkSTSRealm</code> and challenged to enter valid authentication credentials. Enter the following information and then click <code>OK</code>.
+<pre><code>    UserName: JBoss
+    Password: JBoss
+</code></pre>
+</li>
+</ol>
+<p>JBoss Developer Studio then displays the welcome file.<br />
+4. Follow these steps to test the service.</p>
+<ul>
+<li>Right-click on the <code>picketlink-sts</code> project and choose <code>Run As</code> --&gt; <code>Maven Build</code>.
+<ul>
+<li>Enter <code>picketlink-sts</code> for the <code>Name</code>.</li>
+<li>Enter <code>exec:java</code> for the <code>Goals:</code>.</li>
+<li>Click <code>Run</code>.</li>
+<li>Review the output in the console window.</li>
+</ul>
+</li>
+</ul>
+<p><em>NOTE:</em> Be sure to <a href="#undeploy-and-remove-the-security-domain-configuration">Undeploy and Remove the Security Domain Configuration</a> when you have completed testing this quickstart.</p>
+<h2><a href="#debug-the-application" id="debug-the-application">Debug the Application</a></h2>
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<pre><code>  mvn dependency:sources
+</code></pre>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head><title> ejb-security:  Using Java EE Declarative Security to Control Access</title>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link>
+</head>
+<body><h1><a href="#ejb-security-using-java-ee-declarative-security-to-control-access" id="ejb-security-using-java-ee-declarative-security-to-control-access">ejb-security:  Using Java EE Declarative Security to Control Access</a></h1>
+<p>Author: Sherif F. Makary<br />
+Level: Intermediate<br />
+Technologies: EJB, Security<br />
+Summary: The <code>ejb-security</code> quickstart demonstrates the use of Java EE declarative security to control access to Servlets and EJBs in JBoss EAP.<br />
+Target Product: JBoss EAP<br />
+Source: <a href="https://github.com/jbossas/eap-quickstarts/">https://github.com/jbossas/eap-quickstarts/</a></p>
+<h2><a href="#what-is-it" id="what-is-it">What is it?</a></h2>
+<p>The <code>ejb-security</code> quickstart demonstrates the use of Java EE declarative security to control access to Servlets and EJBs in Red Hat JBoss Enterprise Application Platform.</p>
+<p>This quickstart takes the following steps to implement EJB security:</p>
+<ol>
+<li>
+<p>Define the security domain. This can be done either in the <code>security</code> subsytem of the <code>standalone.xml</code> configuration file or in the <code>WEB-INF/jboss-web.xml</code> configuration file. This quickstart uses the <code>other</code> security domain, which is provided by default in the <code>standalone.xml</code> file.</p>
+<pre><code>&lt;security-domain name=&quot;other&quot; cache-type=&quot;default&quot;&gt;
+    &lt;authentication&gt;
+        &lt;login-module code=&quot;Remoting&quot; flag=&quot;optional&quot;&gt;
+            &lt;module-option name=&quot;password-stacking&quot; value=&quot;useFirstPass&quot;/&gt;
+        &lt;/login-module&gt;
+        &lt;login-module code=&quot;RealmDirect&quot; flag=&quot;required&quot;&gt;
+            &lt;module-option name=&quot;password-stacking&quot; value=&quot;useFirstPass&quot;/&gt;
+        &lt;/login-module&gt;
+    &lt;/authentication&gt;
+&lt;/security-domain&gt;
+</code></pre>
+</li>
+<li>
+<p>Add the <code>@SecurityDomain(&quot;other&quot;)</code> security annotation to the EJB declaration to tell the EJB container to apply authorization to this EJB.</p>
+</li>
+<li>Add the <code>@RolesAllowed({ &quot;guest&quot; })</code> annotation to the EJB declaration to authorize access only to users with <code>guest</code> role access rights.</li>
+<li>Add the <code>@RolesAllowed({ &quot;guest&quot; })</code> annotation to the Servlet declaration to authorize access only to users with <code>guest</code> role access rights.</li>
+<li>Add a <code>&lt;login-config&gt;</code> security constraint to the <code>WEB-INF/web.xml</code> file to force the login prompt.</li>
+<li>Add an application user with <code>guest</code> role access rights to the EJB. This quickstart defines a user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> in the <code>guest</code> role. The <code>guest</code> role matches the allowed user role defined in the <code>@RolesAllowed</code> annotation in the EJB.</li>
+<li>Add a second user that has no <code>guest</code> role access rights.</li>
+</ol>
+<h2><a href="#system-requirements" id="system-requirements">System Requirements</a></h2>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.</p>
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7.1</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<h2><a href="#use-of-eap7-home" id="use-of-eap7-home">Use of EAP7_HOME</a></h2>
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+<h2><a href="#add-the-application-users" id="add-the-application-users">Add the Application Users</a></h2>
+<p>Using the add-user utility script, you must add the following users to the <code>ApplicationRealm</code>:</p>
+<table>
+<thead>
+<tr><th align="left"> <strong>UserName</strong> </th><th align="left"> <strong>Realm</strong> </th><th align="left"> <strong>Password</strong> </th><th align="left"> <strong>Roles</strong> </th></tr>
+</thead>
+<tbody>
+<tr><td align="left"> quickstartUser</td><td align="left"> ApplicationRealm </td><td align="left"> quickstartPwd1!</td><td align="left"> guest </td></tr>
+<tr><td align="left"> user1 </td><td align="left"> ApplicationRealm </td><td align="left"> password1! </td><td align="left"> app-user </td></tr>
+</tbody>
+</table>
+<p>The first application user has access rights to the application. The second application user is not authorized to access the application.</p>
+<p>To add the application users, open a command prompt and type the following commands:</p>
+<pre><code>    For Linux:        
+      EAP7_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+      EAP7_HOME/bin/add-user.sh -a -u 'user1' -p 'password1!' -g 'app-user'
+
+    For Windows:
+      EAP7_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+      EAP7_HOME\bin\add-user.bat -a -u 'user1' -p 'password1!' -g 'app-user'
+</code></pre>
+<p>If you prefer, you can use the add-user utility interactively.<br />
+For an example of how to use the add-user utility, see the instructions located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+<h2><a href="#start-the-server" id="start-the-server">Start the Server</a></h2>
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li>The following shows the command line to start the server:
+<pre><code>For Linux:   EAP7_HOME/bin/standalone.sh
+For Windows: EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+</ol>
+<h2><a href="#build-and-deploy-the-quickstart" id="build-and-deploy-the-quickstart">Build and Deploy the Quickstart</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+<pre><code>mvn clean install wildfly:deploy
+</code></pre>
+</li>
+<li>
+<p>This will deploy <code>target/ejb-security.war</code> to the running instance of the server.</p>
+</li>
+</ol>
+<h2><a href="#access-the-application" id="access-the-application">Access the Application</a></h2>
+<p>The application will be running at the following URL <a href="http://localhost:8080/ejb-security/">http://localhost:8080/ejb-security/</a>.</p>
+<p>When you access the application, you are presented with a browser login challenge.</p>
+<ol>
+<li>If you attempt to login with a user name and password combination that has not been added to the server, the login challenge will be redisplayed.</li>
+<li>When you login successfully using <code>quickstartUser</code>/<code>quickstartPwd1!</code>, the browser displays the following security info:
+<pre><code>Successfully called Secured EJB
+
+Principal : quickstartUser
+Remote User : quickstartUser
+Authentication Type : BASIC
+</code></pre>
+</li>
+<li>
+<p>Now close and reopen the brower session and access the application using the <code>user1</code>/<code>password1!</code> credentials. In this case, the Servlet, which only allows the <code>guest</code> role, restricts the access and you get a security exception similar to the following:</p>
+<pre><code>HTTP Status 403 - Access to the requested resource has been denied
+
+type Status report
+message Access to the requested resource has been denied
+description Access to the specified resource (Access to the requested resource has been denied) has been forbidden.
+</code></pre>
+</li>
+<li>
+<p>Next, change the EJB (SecuredEJB.java) to a different role, for example, <code>@RolesAllowed({ &quot;other-role&quot; })</code>. Do not modify the <code>guest</code> role in the Servlet (SecuredEJBServlet.java). Build and redeploy the quickstart, then close and reopen the browser and login using <code>quickstartUser</code>/<code>quickstartPwd1!</code>. This time the Servlet will allow the <code>guest</code> access, but the EJB, which only allows the role <code>other-role</code>, will throw an EJBAccessException:</p>
+<pre><code>HTTP Status 500
+
+message
+description  The server encountered an internal error () that prevented it from fulfilling this request.
+exception
+javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public java.lang.String org.jboss.as.quickstarts.ejb_security.SecuredEJB.getSecurityInfo() of bean: SecuredEJB is not allowed
+</code></pre>
+</li>
+</ol>
+<h2><a href="#undeploy-the-archive" id="undeploy-the-archive">Undeploy the Archive</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>When you are finished testing, type this command to undeploy the archive:
+<pre><code>mvn wildfly:undeploy
+</code></pre>
+</li>
+</ol>
+<h2><a href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse">Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</a></h2>
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
+<ul>
+<li>Be sure to <a href="#add-the-application-users">Add the Application Users</a> as described above.</li>
+<li>To deploy the server project, right-click on the <code>ejb-security</code> project and choose <code>Run As</code> --&gt; <code>Run on Server</code>.</li>
+<li>You are presented with a browser login challenge. Enter the credentials as described above to access and test the running application.</li>
+</ul>
+<h2><a href="#debug-the-application" id="debug-the-application">Debug the Application</a></h2>
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<pre><code>mvn dependency:sources
+</code></pre>
+</body>
+</html>

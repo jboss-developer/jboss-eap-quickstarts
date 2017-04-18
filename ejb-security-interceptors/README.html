@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head><title> ejb-security-interceptors: Use Interceptors to Switch Identities for an EJB Call</title>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link>
+</head>
+<body><h1><a href="#ejb-security-interceptors-use-interceptors-to-switch-identities-for-an-ejb-call" id="ejb-security-interceptors-use-interceptors-to-switch-identities-for-an-ejb-call">ejb-security-interceptors: Use Interceptors to Switch Identities for an EJB Call</a></h1>
+<p>Author: Darran Lofthouse<br />
+Level: Advanced<br />
+Technologies: EJB, Security<br />
+Summary: The <code>ejb-security-interceptors</code> quickstart demonstrates how to use client and server side interceptors to switch the identity for an EJB call.<br />
+Target Product: JBoss EAP<br />
+Source: <a href="https://github.com/jbossas/eap-quickstarts/">https://github.com/jbossas/eap-quickstarts/</a></p>
+<h2><a href="#what-is-it" id="what-is-it">What is it?</a></h2>
+<p>The <code>ejb-security-interceptors</code> quickstart demonstrates how to use client and server side interceptors to switch the identity for an EJB call in Red Hat JBoss Enterprise Application Platform.</p>
+<p>By default, when you make a remote call to an EJB deployed to the application server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. This is true for both client-to-server and server-to-server calls. If you need to use different identities from the same client, you normally need to open multiple connections to the server so that each one is authenticated as a different identity.</p>
+<p>Rather than open multiple client connections, this quickstart offers an alternative solution. The identity used to authenticate the connection is given permission to execute a request as a different user. This is achieved with the addition of the following three components:</p>
+<ol>
+<li>A client side interceptor to pass the requested identity to the remote server.</li>
+<li>A server side interceptor to receive the identity and request that the call switches to that identity.</li>
+<li>A JAAS LoginModule to decide if the user of the connection is allowed to execute requests as the specified identity.</li>
+</ol>
+<p>The quickstart then makes use of two EJBs, <code>SecuredEJB</code> and <code>IntermediateEJB</code>, to verify that the propagation and identity switching is correct and a <code>RemoteClient</code> standalone client.</p>
+<h3><a href="#securedejb" id="securedejb">SecuredEJB</a></h3>
+<p>The <code>SecuredEJB</code> has three methods:</p>
+<pre><code>String getSecurityInformation();
+boolean roleOneMethod();
+boolean roleTwoMethod();
+</code></pre>
+<p>The first method can be called by all users that are created in this quickstart. The purpose of this method is to return a String containing the name of the Principal that called the EJB along with the user's authorized role information, for example:</p>
+<pre><code>    [Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
+</code></pre>
+<p>The next two methods are annotated to require that the calling user is authorized for roles <code>RoleOne</code> and <code>RoleTwo</code> respectively.</p>
+<h3><a href="#intermediateejb" id="intermediateejb">IntermediateEJB</a></h3>
+<p>The <code>IntermediateEJB</code> contains a single method. Its purpose is to make use of a remote connection and invoke each of the methods on the <code>SecuredEJB</code>. A summary is then returned with the outcome of the calls.</p>
+<h3><a href="#remoteclient" id="remoteclient">RemoteClient</a></h3>
+<p>Finally there is the <code>RemoteClient</code> stand-alone client. The client makes calls using the identity of the established connection and also makes calls switching the identity to the different users.</p>
+<p>In the real world, remote calls between servers in the servers-to-server scenario would truly be remote and separate. For the purpose of this quickstart, we make use of a loopback connection to the same server so we do not need two servers just to run the test.</p>
+<h2><a href="#note-on-ejb-client-interceptors" id="note-on-ejb-client-interceptors">Note on EJB client interceptors</a></h2>
+<p>JBoss EAP allows client side interceptors for EJB invocations. Such interceptors are expected to implement the <code>org.jboss.ejb.client.EJBClientInterceptor</code> interface.  Interceptors can be established in many ways, including the following:</p>
+<ul>
+<li>Using the <code>@ClientInterceptors</code> annotation, which exists in the <code>org.jboss.ejb.client.annotations</code> package of the EJB client API.  The annotation accepts a list of classes which implement the <code>EJBClientInterceptor</code> interface and each have a public, no-argument constructor, operating in much the same way as its server-side counterpart <code>@Interceptors</code> annotation in the standard <code>javax.interceptor</code> package.  The classes themselves may optionally be annotated with the <code>@ClientInterceptorPriority</code> annotation, which assigns a numerical priority used in sorting the interceptors for invocation.  The constant integer values on that annotation type represent standard values; if no priority is given, then the value of <code>APPLICATION</code> is chosen.</li>
+<li>Establishing a list of interceptors in the <code>wildfly-client.xml</code> configuration file, which applies to standalone applications.</li>
+<li>Using the <code>ServiceLoader</code>-based mechanism, which is an alternate approach which involves creating a <code>META-INF/services/org.jboss.ejb.client.EJBClientInterceptor</code> file and placing/packaging it in the classpath of the client application. The rules for such a file are dictated by the <a href="http://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">Java ServiceLoader Mechanism</a>. This file is expected to contain on each separate line the fully qualified class name of the EJB client interceptor implementation, which is expected to be available in the classpath. EJB client interceptors follow the same ordering rules as annotated or configured interceptors.</li>
+</ul>
+<p>This quickstart uses the annotation-based approach.</p>
+<h3><a href="#ordering" id="ordering">Ordering</a></h3>
+<p>Interceptors are ordered according to their assigned priority, which is <code>APPLICATION</code> if none is given.  Lower numbers come earlier, and higher numbers come later.  If more than one interceptor have the same priority, they are considered in the following order:</p>
+<ul>
+<li>Method-level annotated interceptors</li>
+<li>Class-level annotated interceptors</li>
+<li>Configuration-declared method interceptors</li>
+<li>Configuration-declared class interceptors</li>
+<li>Configuration-declared global interceptors</li>
+<li><code>ServiceLoader</code>-based interceptors from the class path</li>
+<li>System-installed JBoss interceptors</li>
+</ul>
+<p>If after these rules apply, more than one interceptor are still of equal priority, then they are applied in declaration or encounter order.</p>
+<h2><a href="#system-requirements" id="system-requirements">System Requirements</a></h2>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1.</p>
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7.1</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<h2><a href="#prerequisites" id="prerequisites">Prerequisites</a></h2>
+<p>This quickstart uses the default standalone configuration plus the modifications described here.</p>
+<p>It is recommended that you test this approach in a separate and clean environment before you attempt to port the changes in your own environment.</p>
+<h2><a href="#use-of-eap7-home" id="use-of-eap7-home">Use of EAP7_HOME</a></h2>
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+<h2><a href="#add-the-application-users" id="add-the-application-users">Add the Application Users</a></h2>
+<p>This quickstart uses secured management interfaces and is built around the default <code>ApplicationRealm</code> as configured in the JBoss EAP distribution.  You must create the following application users to access the running application:</p>
+<table>
+<thead>
+<tr><th align="left"> <strong>UserName</strong> </th><th align="left"> <strong>Realm</strong> </th><th align="left"> <strong>Password</strong> </th><th align="left"> <strong>Roles</strong> </th></tr>
+</thead>
+<tbody>
+<tr><td align="left"> ConnectionUser</td><td align="left"> ApplicationRealm </td><td align="left"> ConnectionPassword1!</td><td align="left"> User </td></tr>
+<tr><td align="left"> AppUserOne </td><td align="left"> ApplicationRealm </td><td align="left"> AppPasswordOne1! </td><td align="left"> User, RoleOne </td></tr>
+<tr><td align="left"> AppUserTwo </td><td align="left"> ApplicationRealm </td><td align="left"> AppPasswordTwo1! </td><td align="left"> User, RoleTwo </td></tr>
+<tr><td align="left"> AppUserThree </td><td align="left"> ApplicationRealm </td><td align="left"> AppPasswordThree1! </td><td align="left"> User, RoleOne, RoleTwo </td></tr>
+</tbody>
+</table>
+<p>To add the users, open a command prompt and type the following commands:</p>
+<pre><code>    For Linux:
+      EAP7_HOME/bin/add-user.sh -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+      EAP7_HOME/bin/add-user.sh -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+      EAP7_HOME/bin/add-user.sh -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo'
+      EAP7_HOME/bin/add-user.sh -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+
+    For Windows:
+      EAP7_HOME\bin\add-user.bat -a -u 'ConnectionUser' -p 'ConnectionPassword1!' -g 'User'
+      EAP7_HOME\bin\add-user.bat -a -u 'AppUserOne' -p 'AppPasswordOne1!' -g 'User,RoleOne'
+      EAP7_HOME\bin\add-user.bat -a -u 'AppUserTwo' -p 'AppPasswordTwo1!' -g 'User,RoleTwo'
+      EAP7_HOME\bin\add-user.bat -a -u 'AppUserThree' -p 'AppPasswordThree1!' -g 'User,RoleOne,RoleTwo'
+</code></pre>
+<p>The first user establishes the actual connection to the server. The subsequent two users demonstrate how to switch identities on demand. The final user can access everything but can not participate in identity switching.</p>
+<p>Note that within the quickstart, we do not make use of the passwords for any of the <code>App</code> users. The passwords specified for those users are only suggested values that meet password minimum requirements.</p>
+<p>If you prefer, you can use the add-user utility interactively.<br />
+For an example of how to use the add-user utility, see the instructions located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+<h2><a href="#configure-the-server" id="configure-the-server">Configure the Server</a></h2>
+<p>These steps assume you are running the server in standalone mode and using the default <code>standalone.xml</code> supplied with the distribution.</p>
+<p>You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-security-domain.cli</code> script provided in the root directory of this quickstart.</p>
+<ol>
+<li>
+<p>Before you begin, back up your server configuration file</p>
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul>
+</li>
+<li>
+<p>Start the JBoss EAP server by typing the following:</p>
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Review the <code>configure-security-domain.cli</code> file in the root of this quickstart directory. This script adds the <code>quickstart-domain</code> security domain to the <code>security</code> subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.</li>
+<li>
+<p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
+</code></pre>
+<p>You should see the following result when you run the script:</p>
+<pre><code>The batch executed successfully
+</code></pre>
+</li>
+<li>Because this example quickstart demonstrates security, exceptions are thrown when secured EJB access is attempted by an invalid user. If you want to review the security exceptions in the server log, you can skip this step. If you want to suppress these exceptions in the server log, run the following command, replacing EAP7_HOME with the path to your server:
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-system-exception.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-system-exception.cli
+</code></pre>
+<p>You should see the following result when you run the script:</p>
+<pre><code>The batch executed successfully
+</code></pre>
+</li>
+<li>Stop the JBoss EAP server.</li>
+</ol>
+<h2><a href="#review-the-modified-server-configuration" id="review-the-modified-server-configuration">Review the Modified Server Configuration</a></h2>
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+<ol>
+<li>The following <code>quickstart-domain</code> security-domain was added to the <code>security</code> subsystem.
+<pre><code>&lt;security-domain name=&quot;quickstart-domain&quot; cache-type=&quot;default&quot;&gt;
+    &lt;authentication&gt;
+        &lt;login-module name=&quot;DelegationLoginModule&quot; code=&quot;org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule&quot; flag=&quot;optional&quot;&gt;
+            &lt;module-option name=&quot;password-stacking&quot; value=&quot;useFirstPass&quot;/&gt;
+        &lt;/login-module&gt;
+        &lt;login-module code=&quot;Remoting&quot; flag=&quot;optional&quot;&gt;
+            &lt;module-option name=&quot;password-stacking&quot; value=&quot;useFirstPass&quot;/&gt;
+        &lt;/login-module&gt;
+        &lt;login-module code=&quot;RealmDirect&quot; flag=&quot;required&quot;&gt;
+            &lt;module-option name=&quot;password-stacking&quot; value=&quot;useFirstPass&quot;/&gt;
+        &lt;/login-module&gt;
+    &lt;/authentication&gt;
+&lt;/security-domain&gt;
+</code></pre>
+<p>The EJB side of this quickstart makes use of a new security domain called <code>quickstart-domain</code>, which delegates to the <code>ApplicationRealm</code>. The <code>DelegationLoginModule</code> is used to support identity switching in this quickstart.</p>
+<p>The login module can either be added before or after the existing <code>Remoting</code> login module in the domain, but it MUST be somewhere before the existing <code>RealmDirect</code> login module. If the majority of requests will involve an identity switch, then it is recommended to have this module as the first module in the list. However, if the majority of requests will run as the connection user with occasional switches, it is recommended to place the <code>Remoting</code> login module first and this one second.</p>
+<p>The login module loads the properties file <code>delegation-mapping.properties</code> from the deployment. The location of this properties file can be overridden with the module-option <code>delegationProperties</code>. At runtime, this login module is used to decide if the user of the connection to the server is allowed to execute the request as the specified user.</p>
+<p>There are four ways the key can be specified in the properties file:</p>
+<pre><code>user@realm  - Exact match of user and realm.
+user@*      - Allow a match of user for any realm.
+*@realm     - Match for any user in the realm specified.
+*           - Match for all users in all realms.
+</code></pre>
+<p>When a request is received to switch the user, the identity of the user that opened the connection is used to check the properties file for an entry. The check is performed in the order listed above until the first match is found. Once a match is found, further entries that could match are not read. The value in the properties file can either be a wildcard <code>*</code> or it can be a comma separated list of users. Be aware that in the value/mapping side there is no notion of the realm. For this quickstart we use the following entry:</p>
+<pre><code>ConnectionUser@ApplicationRealm=AppUserOne,AppUserTwo
+</code></pre>
+<p>This means that the ConnectionUser added above can only ask that a request is executed as either AppUserOne or AppUserTwo. It is not allowed to ask to be executed as AppUserThree.</p>
+<p>All users are permitted to execute requests as themselves. In that case, the login module is not called. This is the default behavior that exists without the addition of the interceptors in this quickstart.</p>
+<p>Taking this further, the <code>DelegationLoginModule</code> can be extended to provide custom delegation checks. One thing not currently checked is if the user being switched to actually exists. If the module is extended, the following method can be overridden to provide a custom check.</p>
+<pre><code> protected boolean delegationAcceptable(String requestedUser, OuterUserCredential connectionUser);
+</code></pre>
+<p>For the purpose of the quickstart we just need an outbound connection that loops back to the same server. This will be sufficient to demonstrate the server-to-server capabilities.</p>
+</li>
+<li>The following <code>ejb-outbound-realm</code> security-realm was added to the <code>management</code> security-realms. Note the Base64-encoded password is for the ConnectionUser account created above.
+<pre><code>&lt;security-realm name=&quot;ejb-outbound-realm&quot;&gt;
+    &lt;server-identities&gt;
+        &lt;secret value=&quot;Q29ubmVjdGlvblBhc3N3b3JkMSE=&quot;/&gt;
+    &lt;/server-identities&gt;
+&lt;/security-realm&gt;
+</code></pre>
+</li>
+<li>The following <code>ejb-outbound</code> outbound-socket-binding connection was created within the <code>standard-sockets</code> socket-binding-group:
+<pre><code>&lt;outbound-socket-binding name=&quot;ejb-outbound&quot;&gt;
+    &lt;remote-destination host=&quot;localhost&quot; port=&quot;8080&quot;/&gt;
+&lt;/outbound-socket-binding&gt;
+</code></pre>
+</li>
+<li>The following <code>ejb-outbound-connection</code> remote-outbound-connection was added to the outbound-connections within the <code>remoting</code> subsytem:
+<pre><code>&lt;outbound-connections&gt;
+    &lt;remote-outbound-connection name=&quot;ejb-outbound-connection&quot; outbound-socket-binding-ref=&quot;ejb-outbound&quot; security-realm=&quot;ejb-outbound-realm&quot; username=&quot;ConnectionUser&quot;&gt;
+        &lt;properties&gt;
+            &lt;property name=&quot;SSL_ENABLED&quot; value=&quot;false&quot;/&gt;
+        &lt;/properties&gt;
+    &lt;/remote-outbound-connection&gt;
+&lt;/outbound-connections&gt;
+</code></pre>
+</li>
+<li>If you chose to run the script to suppress system exceptions, you should see the following configuration in the <code>ejb3</code> subsystem.
+<pre><code>&lt;log-system-exceptions value=&quot;false&quot;/&gt;
+</code></pre>
+</li>
+</ol>
+<h2><a href="#start-the-server" id="start-the-server">Start the Server</a></h2>
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li>The following shows the command line to start the server:
+<pre><code>For Linux:   EAP7_HOME/bin/standalone.sh
+For Windows: EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+</ol>
+<h2><a href="#build-and-deploy-the-quickstart" id="build-and-deploy-the-quickstart">Build and Deploy the Quickstart</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+<pre><code>mvn clean install wildfly:deploy
+</code></pre>
+</li>
+<li>
+<p>This will deploy <code>target/ejb-security-interceptors.war</code> to the running instance of the server.</p>
+</li>
+</ol>
+<h2><a href="#run-the-client" id="run-the-client">Run the Client</a></h2>
+<p>Before you run the client, make sure you have already successfully deployed the EJBs to the server in the previous step and that your command prompt is still in the same folder.</p>
+<p>Type this command to execute the client:</p>
+<pre><code>    mvn exec:exec
+</code></pre>
+<h2><a href="#investigate-the-console-output" id="investigate-the-console-output">Investigate the Console Output</a></h2>
+<p>When you run the <code>mvn exec:exec</code> command, you see the following output. Note there may be other log messages interspersed between these.</p>
+<pre><code>-------------------------------------------------
+* * About to perform test as ConnectionUser * *
+
+* Making Direct Calls to the SecuredEJB
+
+* getSecurityInformation()=[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
+* Can call roleOneMethod()=false
+* Can call roleTwoMethod()=false
+
+* Calling the IntermediateEJB to repeat the test server to server
+
+* * IntermediateEJB - Begin Testing * *
+SecuredEJBRemote.getSecurityInformation()=[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
+Can call roleOneMethod=false
+Can call roleTwoMethod=false
+* * IntermediateEJB - End Testing * *
+* * Test Complete * *
+
+-------------------------------------------------
+* * About to perform test as AppUserOne * *
+
+* Making Direct Calls to the SecuredEJB
+
+* getSecurityInformation()=[Principal={AppUserOne}, In role {User}=true, In role {RoleOne}=true, In role {RoleTwo}=false]
+* Can call roleOneMethod()=true
+* Can call roleTwoMethod()=false
+
+* Calling the IntermediateEJB to repeat the test server to server
+
+* * IntermediateEJB - Begin Testing * *
+SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserOne}, In role {User}=true, In role {RoleOne}=true, In role {RoleTwo}=false]
+Can call roleOneMethod=true
+Can call roleTwoMethod=false
+* * IntermediateEJB - End Testing * *
+* * Test Complete * *
+
+-------------------------------------------------
+* * About to perform test as AppUserTwo * *
+
+* Making Direct Calls to the SecuredEJB
+
+* getSecurityInformation()=[Principal={AppUserTwo}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=true]
+* Can call roleOneMethod()=false
+* Can call roleTwoMethod()=true
+
+* Calling the IntermediateEJB to repeat the test server to server
+
+* * IntermediateEJB - Begin Testing * *
+SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserTwo}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=true]
+Can call roleOneMethod=false
+Can call roleTwoMethod=true
+* * IntermediateEJB - End Testing * *
+* * Test Complete * *
+
+-------------------------------------------------
+* * About to perform test as AppUserThree * *
+
+* Making Direct Calls to the SecuredEJB
+
+* * Test Complete * *
+
+-------------------------------------------------
+Call as 'AppUserThree' correctly rejected.
+
+This second round of tests is using the (PicketBox) ClientLoginModule with LoginContext API to set the desired Principal.
+
+-------------------------------------------------
+* * About to perform test as ConnectionUser * *
+
+
+* Making Direct Calls to the SecuredEJB
+
+* getSecurityInformation()=[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
+* Can call roleOneMethod()=false
+* Can call roleTwoMethod()=false
+
+* Calling the IntermediateEJB to repeat the test server to server
+
+* * IntermediateEJB - Begin Testing * *
+SecuredEJBRemote.getSecurityInformation()=[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
+Can call roleOneMethod=false
+Can call roleTwoMethod=false
+* * IntermediateEJB - End Testing * *
+* * Test Complete * *
+
+-------------------------------------------------
+* * About to perform test as AppUserOne * *
+
+* Making Direct Calls to the SecuredEJB
+
+* getSecurityInformation()=[Principal={AppUserOne}, In role {User}=true, In role {RoleOne}=true, In role {RoleTwo}=false]
+* Can call roleOneMethod()=true
+* Can call roleTwoMethod()=false
+
+* Calling the IntermediateEJB to repeat the test server to server
+
+* * IntermediateEJB - Begin Testing * *
+SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserOne}, In role {User}=true, In role {RoleOne}=true, In role {RoleTwo}=false]
+Can call roleOneMethod=true
+Can call roleTwoMethod=false
+* * IntermediateEJB - End Testing * *
+* * Test Complete * *
+
+-------------------------------------------------
+* * About to perform test as AppUserTwo * *
+
+* Making Direct Calls to the SecuredEJB
+
+* getSecurityInformation()=[Principal={AppUserTwo}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=true]
+* Can call roleOneMethod()=false
+* Can call roleTwoMethod()=true
+
+* Calling the IntermediateEJB to repeat the test server to server
+
+* * IntermediateEJB - Begin Testing * *
+SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserTwo}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=true]
+Can call roleOneMethod=false
+Can call roleTwoMethod=true
+* * IntermediateEJB - End Testing * *
+* * Test Complete * *
+
+-------------------------------------------------
+* * About to perform test as AppUserThree * *
+
+* Making Direct Calls to the SecuredEJB
+
+* * Test Complete * *
+
+-------------------------------------------------
+Call as 'AppUserThree' correctly rejected.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+</code></pre>
+<h2><a href="#investigate-the-server-console-output" id="investigate-the-server-console-output">Investigate the Server Console Output</a></h2>
+<p>If you chose not to run the script to suppress system exceptions, you should see the following exceptions in the JBoss EAP server console or log. The exceptions are logged for each of the tests where a request is rejected because the user is not authorized. The stacktraces were removed from this text for readability.</p>
+<pre><code>ERROR [org.jboss.as.ejb3.invocation] (EJB default - 3) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 7) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 6) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 9) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 1) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 6) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 5) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 7) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 9) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract java.lang.String org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.getSecurityInformation(): javax.ejb.EJBAccessException: WFLYSEC0027: Invalid User
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 10) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 5) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 7) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 8) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 3) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 7) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleTwoMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 2) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 5) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.roleOneMethod() of bean: SecuredEJB is not allowed
+...
+ERROR [org.jboss.as.ejb3.invocation] (EJB default - 8) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract java.lang.String org.jboss.as.quickstarts.ejb_security_interceptors.SecuredEJBRemote.getSecurityInformation(): javax.ejb.EJBAccessException: WFLYSEC0027: Invalid User
+</code></pre>
+<h2><a href="#server-log-expected-warnings-and-errors" id="server-log-expected-warnings-and-errors">Server Log: Expected warnings and errors</a></h2>
+<p><em>Note:</em> You will see the following warning appear twice in the server log. You can ignore these warnings.</p>
+<pre><code>WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-7) WFLYSRV0221: Deployment &quot;deployment.jboss-ejb-security-interceptors.jar&quot; is using a deprecated module (&quot;org.jboss.as.core-security-api:main&quot;) which may be removed in future versions without notice.
+</code></pre>
+<h2><a href="#undeploy-the-archive" id="undeploy-the-archive">Undeploy the Archive</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>When you are finished testing, type this command to undeploy the archive:
+<pre><code>mvn wildfly:undeploy
+</code></pre>
+</li>
+</ol>
+<h2><a href="#remove-the-security-domain-configuration" id="remove-the-security-domain-configuration">Remove the Security Domain Configuration</a></h2>
+<p>You can remove the security domain configuration by running the  <code>remove-security-domain.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file.</p>
+<h3><a href="#remove-the-security-domain-configuration-by-running-the-jboss-cli-script" id="remove-the-security-domain-configuration-by-running-the-jboss-cli-script">Remove the Security Domain Configuration by Running the JBoss CLI Script</a></h3>
+<ol>
+<li>Start the JBoss EAP server by typing the following:
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli
+</code></pre>
+<p>This script removes the <code>test</code> queue from the <code>messaging</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
+<pre><code>The batch executed successfully
+process-state: reload-required
+</code></pre>
+</li>
+<li>If you chose to run the script to suppress system exceptions, run the following command, replacing EAP7_HOME with the path to your server:
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-system-exception.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=restore-system-exception.cli
+</code></pre>
+<p>You should see the following result when you run the script:</p>
+<pre><code>The batch executed successfully
+</code></pre>
+</li>
+</ol>
+<h3><a href="#remove-the-security-domain-configuration-manually" id="remove-the-security-domain-configuration-manually">Remove the Security Domain Configuration Manually</a></h3>
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
+</ol>
+<h2><a href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse">Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</a></h2>
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
+<p>This quickstart requires additional configuration and deploys and runs differently in JBoss Developer Studio than the other quickstarts.</p>
+<ol>
+<li>Be sure to <a href="#add-the-application-users">Add the Application Users</a> as described above.</li>
+<li>Follow the steps above to <a href="#configure-the-server">Configure the Server</a>. Stop the server at the end of that step.</li>
+<li>To deploy the application to the JBoss EAP server, right-click on the <code>ejb-security-interceptors</code> project and choose <code>Run As</code> --&gt; <code>Run on Server</code>.</li>
+<li>To access the application, right-click on the <code>ejb-security-interceptors</code> project and choose <code>Run As</code> --&gt; <code>Java Application</code>.</li>
+<li>Choose <code>RemoteClient - org.jboss.as.quickstarts.ejb_security_interceptors</code> and click <code>OK</code>.</li>
+<li>Review the output in the console window.</li>
+<li>Be sure to <a href="#remove-the-security-domain-configuration">Remove the Security Domain Configuration</a> when you have completed testing this quickstart.</li>
+</ol>
+<h2><a href="#debug-the-application" id="debug-the-application">Debug the Application</a></h2>
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<pre><code>    mvn dependency:sources
+</code></pre>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head><title> spring-resteasy: Example Using Resteasy Spring Integration</title>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link>
+</head>
+<body><h1><a href="#spring-resteasy-example-using-resteasy-spring-integration" id="spring-resteasy-example-using-resteasy-spring-integration">spring-resteasy: Example Using Resteasy Spring Integration</a></h1>
+<p>Author: Weinan Li <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#58;&#108;&#x2e;&#119;&#101;&#x69;&#110;&#x61;&#x6e;&#x40;&#x67;&#109;&#x61;&#105;&#108;.&#99;&#x6f;&#x6d;">l&#x2e;&#119;&#101;&#105;&#x6e;&#97;n&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a>, Paul Gier <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#112;&#103;i&#x65;r&#64;&#114;e&#x64;&#x68;&#x61;&#116;&#46;c&#111;&#109;">&#x70;g&#105;&#101;&#114;&#x40;&#114;e&#100;hat&#46;&#x63;&#x6f;&#x6d;</a><br />
+Level: Beginner<br />
+Technologies: Resteasy, Spring<br />
+Summary: The <code>spring-resteasy</code> quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.<br />
+Target Product: JBoss EAP<br />
+Source: <a href="https://github.com/jbossas/eap-quickstarts/">https://github.com/jbossas/eap-quickstarts/</a></p>
+<h2><a href="#what-is-it" id="what-is-it">What is it?</a></h2>
+<p>The <code>spring-resteasy</code> quickstart demonstrates how to package and deploy a web application, which includes resteasy-spring integration, in<br />
+Red Hat JBoss Enterprise Application Platform.</p>
+<h2><a href="#system-requirements" id="system-requirements">System Requirements</a></h2>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.</p>
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7.1</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<h2><a href="#start-the-server" id="start-the-server">Start the Server</a></h2>
+<ol>
+<li>Open a command line and navigate to the root of the JBoss EAP directory.</li>
+<li>The following shows the command line to start the server with the full profile:
+<pre><code>For Linux:   EAP7_HOME/bin/standalone.sh
+For Windows: EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+</ol>
+<h2><a href="#build-and-deploy-the-quickstart" id="build-and-deploy-the-quickstart">Build and Deploy the Quickstart</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+<pre><code>mvn clean package wildfly:deploy
+</code></pre>
+</li>
+<li>
+<p>This deploys the <code>target/spring-resteasy.war</code> to the running instance of the server.</p>
+</li>
+</ol>
+<h2><a href="#access-the-application" id="access-the-application">Access the Application</a></h2>
+<p>The application will be running at the following URL:  <a href="http://localhost:8080/spring-resteasy/">http://localhost:8080/spring-resteasy/</a>.</p>
+<p>That will provide links to the following URLs that demonstrate various path and parameter configurations.</p>
+<ul>
+<li><a href="http://localhost:8080/spring-resteasy/hello?name=yourname">spring-resteasy/hello?name=yourname</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/basic">spring-resteasy/basic</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/queryParam?param=query">spring-resteasy/queryParam?param=query</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/matrixParam;param=matrix">spring-resteasy/matrixParam;param=matrix</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/uriParam/789">spring-resteasy/uriParam/789</a></li>
+</ul>
+<p>And the same set as above but using the <code>locating</code> path.</p>
+<ul>
+<li><a href="http://localhost:8080/spring-resteasy/locating/hello?name=yourname">spring-resteasy/locating/hello?name=yourname</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/locating/basic">spring-resteasy/locating/basic</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/locating/queryParam?param=query">spring-resteasy/locating/queryParam?param=query</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/locating/matrixParam;param=matrix">spring-resteasy/locating/matrixParam;param=matrix</a></li>
+<li><a href="http://localhost:8080/spring-resteasy/locating/uriParam/789">spring-resteasy/locating/uriParam/789</a></li>
+</ul>
+<h2><a href="#run-the-tests" id="run-the-tests">Run the Tests</a></h2>
+<ol>
+<li>Make sure you have <strong>started</strong> the JBoss EAP server as described above and <strong>deployed</strong> the quickstart.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type the following command to run the test goal with the following profile activated:
+<pre><code>mvn install -Prest-test
+</code></pre>
+</li>
+<li>
+<p>You should see the following output:</p>
+<pre><code>-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.jboss.as.quickstarts.resteasyspring.test.ResteasySpringTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.211 sec
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</li>
+</ol>
+<h2><a href="#undeploy-the-archive" id="undeploy-the-archive">Undeploy the Archive</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command line and navigate to the root directory of this quickstart.</li>
+<li>When you are finished testing, type this command to undeploy the archive:
+<pre><code>mvn wildfly:undeploy
+</code></pre>
+</li>
+</ol>
+</body>
+</html>

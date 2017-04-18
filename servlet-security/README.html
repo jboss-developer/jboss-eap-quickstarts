@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head><title> servlet-security:  Using Java EE Declarative Security to Control Servlet Access</title>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link>
+</head>
+<body><h1><a href="#servlet-security-using-java-ee-declarative-security-to-control-servlet-access" id="servlet-security-using-java-ee-declarative-security-to-control-servlet-access">servlet-security:  Using Java EE Declarative Security to Control Servlet Access</a></h1>
+<p>Author: Sherif F. Makary, Pedro Igor<br />
+Level: Intermediate<br />
+Technologies: Servlet, Security<br />
+Summary: The <code>servlet-security</code> quickstart demonstrates the use of Java EE declarative security to control access to Servlets and Security in JBoss EAP.<br />
+Target Product: JBoss EAP<br />
+Source: <a href="https://github.com/jbossas/eap-quickstarts/">https://github.com/jbossas/eap-quickstarts/</a></p>
+<h2><a href="#what-is-it" id="what-is-it">What is it?</a></h2>
+<p>The <code>servlet-security</code> quickstart demonstrates the use of Java EE declarative security to control access to Servlets and Security in Red Hat JBoss Enterprise Application Platform.</p>
+<p>When you deploy this example, two users are automatically created for you: user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> and user <code>guest</code> with password <code>guestPwd1!</code>. This data is located in the <code>src/main/resources/import.sql</code> file.</p>
+<p>This quickstart takes the following steps to implement Servlet security:</p>
+<ol>
+<li>Defines a security domain in the <code>standalone.xml</code> configuration file using the Database JAAS LoginModule.</li>
+<li>Adds an application user with access rights to the application.
+<pre><code>User Name: quickstartUser
+Password: quickstartPwd1!
+Role: quickstarts
+</code></pre>
+</li>
+<li>Adds another user with no access rights to the application.
+<pre><code>User Name: guest
+Password: guestPwd1!
+Role: notauthorized
+</code></pre>
+</li>
+<li>Adds a security domain reference to <code>WEB-INF/jboss-web.xml</code>.</li>
+<li>Adds a security constraint to the <code>WEB-INF/web.xml</code> .</li>
+<li>Adds a security annotation to the EJB declaration.</li>
+</ol>
+<p>Please note the allowed user role <code>quickstarts</code> in the annotation <code>@RolesAllowed</code> is the same as the user role defined in step 2.</p>
+<p><em>Note: This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 7.1. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!</em></p>
+<p><em>Note: This quickstart uses a <code>*-ds.xml</code> datasource configuration file for convenience and ease of database configuration. These files are deprecated in JBoss EAP and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/">Configuration Guide</a> for Red Hat JBoss Enterprise Application Platform.</em></p>
+<h2><a href="#system-requirements" id="system-requirements">System Requirements</a></h2>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.</p>
+<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7.1</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<h2><a href="#use-of-eap7-home" id="use-of-eap7-home">Use of EAP7_HOME</a></h2>
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+<h2><a href="#configure-the-server" id="configure-the-server">Configure the Server</a></h2>
+<p>This quickstart authenticates users using a simple database setup. The datasource configuration is located in the <code>/src/main/webapp/WEB-INF/servlet-security-quickstart-ds.xml</code> file. You must define a security domain using the database JAAS login module.</p>
+<p>You can configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-security-domain.cli</code> script provided in the root directory of this quickstart.</p>
+<ol>
+<li>
+<p>Before you begin, back up your server configuration file</p>
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Backup the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul>
+</li>
+<li>
+<p>Start the JBoss EAP server by typing the following:</p>
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Review the <code>configure-security-domain.cli</code> file in the root of this quickstart directory. This script adds the <code>servlet-security-quickstart</code> security domain to the <code>security</code> subsystem in the server configuration and configures authentication access.</li>
+<li>
+<p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
+</code></pre>
+</li>
+</ol>
+<p>You should see the following result when you run the script:</p>
+<pre><code>    The batch executed successfully
+</code></pre>
+<ol>
+<li>Stop the JBoss EAP server.</li>
+</ol>
+<h2><a href="#review-the-modified-server-configuration" id="review-the-modified-server-configuration">Review the Modified Server Configuration</a></h2>
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+<p>The following <code>servlet-security-quickstart</code> security-domain element was added to the <code>security</code> subsystem.</p>
+<pre><code>  	&lt;security-domain name=&quot;servlet-security-quickstart&quot; cache-type=&quot;default&quot;&gt;
+	      &lt;authentication&gt;
+      	    &lt;login-module code=&quot;Database&quot; flag=&quot;required&quot;&gt;
+        	      &lt;module-option name=&quot;dsJndiName&quot; value=&quot;java:jboss/datasources/ServletSecurityDS&quot;/&gt;
+                &lt;module-option name=&quot;principalsQuery&quot; value=&quot;SELECT PASSWORD FROM USERS WHERE USERNAME = ?&quot;/&gt;
+                &lt;module-option name=&quot;rolesQuery&quot; value=&quot;SELECT R.NAME, 'Roles' FROM USERS_ROLES UR INNER JOIN ROLES R ON R.ID = UR.ROLE_ID INNER JOIN USERS U ON U.ID = UR.USER_ID WHERE U.USERNAME = ?&quot;/&gt;
+            &lt;/login-module&gt;
+        &lt;/authentication&gt;
+    &lt;/security-domain&gt;
+</code></pre>
+<p>Please note that the security domain name <code>servlet-security-quickstart</code> must match the one defined in the <code>/src/main/webapp/WEB-INF/jboss-web.xml</code> file.</p>
+<h2><a href="#start-the-server" id="start-the-server">Start the Server</a></h2>
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li>The following shows the command line to start the server:
+<pre><code>For Linux:   EAP7_HOME/bin/standalone.sh
+For Windows: EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+</ol>
+<h2><a href="#build-and-deploy-the-quickstart" id="build-and-deploy-the-quickstart">Build and Deploy the Quickstart</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+<pre><code>mvn clean install wildfly:deploy
+</code></pre>
+</li>
+<li>
+<p>This will deploy <code>target/servlet-security.war</code> to the running instance of the server.</p>
+</li>
+</ol>
+<h2><a href="#access-the-application" id="access-the-application">Access the Application</a></h2>
+<p>The application will be running at the following URL <a href="http://localhost:8080/servlet-security/">http://localhost:8080/servlet-security/</a>.</p>
+<p>When you access the application, you should get a browser login challenge.</p>
+<p>Log in using the username <code>quickstartUser</code> and password <code>quickstartPwd1!</code>. The browser will display the following security info:</p>
+<pre><code>Successfully called Secured Servlet
+
+Principal : quickstartUser
+Remote User : quickstartUser
+Authentication Type : BASIC
+</code></pre>
+<p>Now close the browser. Open a new browser and log in with username <code>guest</code> and password <code>guestPwd1!</code>. The browser will display the following error:</p>
+<pre><code>Forbidden
+</code></pre>
+<h2><a href="#server-log-expected-warnings-and-errors" id="server-log-expected-warnings-and-errors">Server Log: Expected Warnings and Errors</a></h2>
+<p><em>Note:</em> You will see the following warnings in the server log. You can ignore these warnings.</p>
+<pre><code>WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
+
+HHH000431: Unable to determine H2 database version, certain features may not work
+</code></pre>
+<h2><a href="#undeploy-the-archive" id="undeploy-the-archive">Undeploy the Archive</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>When you are finished testing, type this command to undeploy the archive:
+<pre><code>mvn wildfly:undeploy
+</code></pre>
+</li>
+</ol>
+<h2><a href="#remove-the-security-domain-configuration" id="remove-the-security-domain-configuration">Remove the Security Domain Configuration</a></h2>
+<p>You can remove the security domain configuration by running the  <code>remove-security-domain.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file.</p>
+<h3><a href="#remove-the-security-domain-configuration-by-running-the-jboss-cli-script" id="remove-the-security-domain-configuration-by-running-the-jboss-cli-script">Remove the Security Domain Configuration by Running the JBoss CLI Script</a></h3>
+<ol>
+<li>Start the JBoss EAP server by typing the following:
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=remove-security-domain.cli
+</code></pre>
+</li>
+</ol>
+<p>This script removes the <code>servlet-security-quickstart</code> security domain from the <code>security</code> subsystem in the server configuration. You should see the following result when you run the script:</p>
+<pre><code>    The batch executed successfully
+    process-state: reload-required
+</code></pre>
+<h3><a href="#remove-the-security-domain-configuration-manually" id="remove-the-security-domain-configuration-manually">Remove the Security Domain Configuration Manually</a></h3>
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
+</ol>
+<h2><a href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse">Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</a></h2>
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
+<ul>
+<li>Be sure to configure the security domain by running the JBoss CLI commands as described above under <a href="#configure-the-server">Configure the JBoss EAP Server</a>. Stop the server at the end of that step.</li>
+<li>Be sure to <a href="#remove-the-security-domain-configuration">Remove the Security Domain Configuration</a> when you have completed testing this quickstart.</li>
+</ul>
+<h2><a href="#debug-the-application" id="debug-the-application">Debug the Application</a></h2>
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<pre><code>  mvn dependency:sources
+</code></pre>
+</body>
+</html>
