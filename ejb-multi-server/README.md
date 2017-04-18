@@ -4,13 +4,13 @@ Author: Wolf-Dieter Fink
 Level: Advanced  
 Technologies: EJB, EAR  
 Summary: The `ejb-multi-server` quickstart shows how to communicate between multiple applications deployed to different servers using an EJB to log the invocation.  
-Target Product: ${product.name}  
-Source: <${github.repo.url}>  
+Target Product: JBoss EAP  
+Source: <https://github.com/jbossas/eap-quickstarts/>  
 
 
 ## What is it?
 
-The `ejb-multi-server` quickstart demonstrates communication between applications deployed to different ${product.name.full} servers. Each application is deployed as an EAR and contains a simple EJB bean. The only function of each bean is to log the invocation.
+The `ejb-multi-server` quickstart demonstrates communication between applications deployed to different Red Hat JBoss Enterprise Application Platform servers. Each application is deployed as an EAR and contains a simple EJB bean. The only function of each bean is to log the invocation.
 
 This example consists of the following Maven projects, each with a shared parent:
 
@@ -28,19 +28,19 @@ The server configuration is done using CLI batch scripts located in the root of 
 
 ## System Requirements
 
-The application this project produces is designed to be run on ${product.name.full} ${product.version} or later.
+The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.
 
-All you need to build this project is ${build.requirements}. See [Configure Maven for ${product.name} ${product.version}](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
+All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.2.5 or later. See [Configure Maven for JBoss EAP 7.1](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts) to make sure you are configured correctly for testing the quickstarts.
 
 
 ## Start with a Clean Server Install
 
-It is important to start with a clean version of ${product.name} before testing this quickstart. Be sure to unzip or install a fresh ${product.name} instance.
+It is important to start with a clean version of JBoss EAP before testing this quickstart. Be sure to unzip or install a fresh JBoss EAP instance.
 
 
-## Use of ${jboss.home.name}
+## Use of EAP7_HOME
 
-In the following instructions, replace `${jboss.home.name}` with the actual path to your ${product.name} installation. The installation path is described in detail here: [Use of ${jboss.home.name} and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_${jboss.home.name}.md#use-of-eap_home-and-jboss_home-variables).
+In the following instructions, replace `EAP7_HOME` with the actual path to your JBoss EAP installation. The installation path is described in detail here: [Use of EAP7_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables).
 
 
 ## Add the Application Users
@@ -56,26 +56,26 @@ The following users must be added to the `ApplicationRealm` to run this quicksta
 To add the users, open a command prompt and type the following commands:
 
         For Linux:
-            ${jboss.home.name}/bin/add-user.sh -a -u quickuser -p quick-123
-            ${jboss.home.name}/bin/add-user.sh -a -u quickuser1 -p quick123+
-            ${jboss.home.name}/bin/add-user.sh -a -u quickuser2 -p quick+123
+            EAP7_HOME/bin/add-user.sh -a -u quickuser -p quick-123
+            EAP7_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+
+            EAP7_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123
 
         For Windows:
-            ${jboss.home.name}\bin\add-user.bat -a -u quickuser -p quick-123
-            ${jboss.home.name}\bin\add-user.bat -a -u quickuser1 -p quick123+
-            ${jboss.home.name}\bin\add-user.bat -a -u quickuser2 -p quick+123
+            EAP7_HOME\bin\add-user.bat -a -u quickuser -p quick-123
+            EAP7_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+
+            EAP7_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123
 
 If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
 
 ## Back Up the Server Configuration Files
 
-${product.name} server configuration for this quickstart is very complicated and not easily restored by running a JBoss CLI script, so it is important to back up your server configuration files before you begin.
+JBoss EAP server configuration for this quickstart is very complicated and not easily restored by running a JBoss CLI script, so it is important to back up your server configuration files before you begin.
 
-1. If it is running, stop the ${product.name} server.
-2. Backup the following files, replacing ${jboss.home.name} with the path to your ${product.name} installation:
+1. If it is running, stop the JBoss EAP server.
+2. Backup the following files, replacing EAP7_HOME with the path to your JBoss EAP installation:
 
-        ${jboss.home.name}/domain/configuration/domain.xml
-        ${jboss.home.name}/domain/configuration/host.xml        
+        EAP7_HOME/domain/configuration/domain.xml
+        EAP7_HOME/domain/configuration/host.xml        
 3. After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
 
 
@@ -83,22 +83,22 @@ ${product.name} server configuration for this quickstart is very complicated and
 
 You configure the domain server by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `install-domain.cli` script provided in the root directory of this quickstart.
 
-1. Start with a fresh instance of the ${product.name} as noted above under [Start with a Clean ${product.name} Install](#start-with-a-clean-server-install).
+1. Start with a fresh instance of the JBoss EAP as noted above under [Start with a Clean JBoss EAP Install](#start-with-a-clean-server-install).
 
 2. Be sure you add the required users as specified above under [Add the Application Users](#add-the-application-users).
 
-3. Before you begin, make sure you followed the instructions above under [Back Up the ${product.name} Server Configuration Files](#back-up-the-server-configuration-files).
-4.  Start the ${product.name} server
+3. Before you begin, make sure you followed the instructions above under [Back Up the JBoss EAP Server Configuration Files](#back-up-the-server-configuration-files).
+4.  Start the JBoss EAP server
     * Open a command prompt and navigate to the root of the EAP directory.
     * Start the server using the following command:
 
             bin/domain.sh    
 5. Review the `install-domain.cli` file in the root of this quickstart directory. This script configures and starts multiple servers needed to run this quickstart.
 
-6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server:
+6. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
 
-        For Linux: ${jboss.home.name}/bin/jboss-cli.sh -c --file=install-domain.cli
-        For Windows: ${jboss.home.name}\bin\jboss-cli.bat -c --file=install-domain.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh -c --file=install-domain.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat -c --file=install-domain.cli
      You should see the following result when you run the script:
 
         {
@@ -182,7 +182,7 @@ There are too many additions to the configuration files to list here. Feel free 
 
 ## Build and Deploy the Quickstart
 
-1. Make sure you have started and configured the ${product.name} server successfully   as described above.
+1. Make sure you have started and configured the JBoss EAP server successfully   as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. Type this command to build the artifacts:
 
@@ -192,8 +192,8 @@ There are too many additions to the configuration files to list here. Feel free 
 
 4. In the same command prompt, deploy the applications using the provided CLI batch script by typing the following command:
 
-        For Linux: ${jboss.home.name}/bin/jboss-cli.sh -c --file=deploy-domain.cli
-        For Windows: ${jboss.home.name}\bin\jboss-cli.bat -c --file=deploy-domain.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh -c --file=deploy-domain.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat -c --file=deploy-domain.cli
 
      This will deploy the `app-*.ear` files to different server-groups of the running domain. You should see the following result when you run the script:
 
@@ -250,12 +250,12 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
     To update the roles, open a command prompt and type the following commands:
 
         For Linux:
-              ${jboss.home.name}/bin/add-user.sh -a -u quickuser1 -p quick123+ -g Intern
-              ${jboss.home.name}/bin/add-user.sh -a -u quickuser2 -p quick+123 -g AppTwo
+              EAP7_HOME/bin/add-user.sh -a -u quickuser1 -p quick123+ -g Intern
+              EAP7_HOME/bin/add-user.sh -a -u quickuser2 -p quick+123 -g AppTwo
 
         For Windows:
-              ${jboss.home.name}\bin\add-user.bat -a -u quickuser1 -p quick123+ -g Intern
-              ${jboss.home.name}\bin\add-user.bat -a -u quickuser2 -p quick+123 -g AppTwo
+              EAP7_HOME\bin\add-user.bat -a -u quickuser1 -p quick123+ -g Intern
+              EAP7_HOME\bin\add-user.bat -a -u quickuser2 -p quick+123 -g AppTwo
 
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
@@ -269,15 +269,15 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
         * The clustered view is created using `quickuser2`. This takes some time, but once it takes effect, all calls are load-balanced.
     * The calls to the `AppTwo` bean in `app-two` are made using two different scoped-context settings and both are used alternately 7 times. This means the servers `app-twoA` and `app-twoB` are called alternately seven times each.
 
-5. If it is necessary to invoke the client with a different ${product.name} version the main class can be invoked by using the following command from the root directory of this quickstart. Replace ${jboss.home.name} with your current installation path. The output should be similar to the previous mvn executions.
+5. If it is necessary to invoke the client with a different JBoss EAP version the main class can be invoked by using the following command from the root directory of this quickstart. Replace EAP7_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
-        java -cp ${jboss.home.name}/bin/client/jboss-client.jar:app-main/ejb/target/ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/ejb-multi-server-app-two-ejb-client.jar:client/target/ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
+        java -cp EAP7_HOME/bin/client/jboss-client.jar:app-main/ejb/target/ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/ejb-multi-server-app-two-ejb-client.jar:client/target/ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
 
 
 _NOTE:_
 
 * _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
-* _A ${product.name} will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set `default-missing-method-permissions-deny-access = false` for the `ejb3` subsystem within the domain profile `ha` and `default` to allow the method invocation. See the `install-domain.cli` script._
+* _A JBoss EAP will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set `default-missing-method-permissions-deny-access = false` for the `ejb3` subsystem within the domain profile `ha` and `default` to allow the method invocation. See the `install-domain.cli` script._
 
 
 ## Access the JSF application Inside the Main Application
@@ -304,18 +304,18 @@ An example how to access EJBs from a separate instance which only contains a web
 
 ## Undeploy the Archives
 
-1. Make sure you have started the ${product.name} server as described above.
+1. Make sure you have started the JBoss EAP server as described above.
 2. Open a command prompt and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        For Linux: ${jboss.home.name}/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
-        For Windows: ${jboss.home.name}\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
+        For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=undeploy-domain.cli
 
 
 ## Remove the Server Domain Configuration
 
-1. If it is running, stop the ${product.name} server.
-2. Restore the `${jboss.home.name}/domain/configuration/domain.xml` and `${jboss.home.name}/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace ${jboss.home.name} with the path to your server.
+1. If it is running, stop the JBoss EAP server.
+2. Restore the `EAP7_HOME/domain/configuration/domain.xml` and `EAP7_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace EAP7_HOME with the path to your server.
 
 
 ## Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
