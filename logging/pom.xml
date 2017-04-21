@@ -24,7 +24,7 @@
         <version>7.1.0.Beta1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jboss-logging</artifactId>
+    <artifactId>logging</artifactId>
     <packaging>war</packaging>
     <name>${qs.name.prefix} logging</name>
     <description>This project demonstrates logging in JBoss EAP</description>
