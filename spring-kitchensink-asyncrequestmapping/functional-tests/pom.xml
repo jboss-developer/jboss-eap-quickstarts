@@ -19,9 +19,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>spring-kitchensink-asyncrequestmapping</artifactId>
-        <version>7.1.0.Alpha2-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>quickstart-parent</artifactId>
+        <version>7.1.0.Beta1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>spring-kitchensink-asyncrequestmapping-test-webdriver</artifactId>
     <name>${qs.name.prefix} Spring Kitchensink AsyncRequestMapping test via WebDriver with Arquillian</name>
