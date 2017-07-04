@@ -456,7 +456,7 @@
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
-                <module>hibernate5</module>
+                <module>hibernate</module>
                 <module>inter-app</module>
                 <module>jaxrs-client</module>
                 <module>jaxws-addressing</module>
