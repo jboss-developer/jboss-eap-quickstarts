@@ -478,6 +478,7 @@
                 <module>logging-tools</module>
                 <module>mail</module>
                 <module>managed-executor-service</module>
+                <module>messaging-clustering-singleton</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
                 <module>picketlink-sts</module>
@@ -744,7 +745,7 @@
                     <plugin>
                         <groupId>com.vladsch.flexmark</groupId>
                         <artifactId>markdown-page-generator-plugin</artifactId>
-                        <version>0.19.6</version>
+                        <version>0.22.4</version>
                         <executions>
                             <execution>
                                 <phase>process-resources</phase>
