@@ -702,7 +702,7 @@
                         <executions>
                             <execution>
                                 <id>filter-markdown</id>
-                                <phase>generate-resources</phase>
+                                <phase>process-sources</phase>
                                 <goals>
                                     <goal>copy-resources</goal>
                                 </goals>
@@ -727,7 +727,7 @@
                     <plugin>
                         <groupId>org.wildfly.maven.plugins</groupId>
                         <artifactId>quickstart-documentation-plugin</artifactId>
-                        <version>1.0.0</version>
+                        <version>1.0.1</version>
                         <inherited>false</inherited>
                         <configuration>
                             <rootDirectory>.</rootDirectory>
@@ -735,7 +735,8 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <phase>process-resources</phase>
+                                <id>generate-toc</id>
+                                <phase>generate-resources</phase>
                                 <goals>
                                     <goal>table-of-contents</goal>
                                 </goals>
@@ -748,10 +749,23 @@
                         <version>0.22.4</version>
                         <executions>
                             <execution>
+                                <id>generate-html</id>
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
+                            </execution>
+                            <execution>
+                                <!-- this is special case so we can handle only root README with TOC-->
+                                <id>generate-root-html</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <inputDirectory>${project.basedir}</inputDirectory>
+                                </configuration>
                             </execution>
                         </executions>
                         <configuration>
