@@ -42,6 +42,13 @@ Just run
 
   To render all markdown files to HTML.
 
+To do proper release with zip file &  all markdown files with resolved variables and rendered html files, run
+
+        mvn clean install -Drelease
+
+Which will also result in zip with all quickstarts in dist/target
+
+
 Publishing builds to Maven
 --------------------------
 
