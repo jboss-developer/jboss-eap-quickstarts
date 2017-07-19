@@ -38,7 +38,7 @@ Rendering Markdown
     
 Just run
 
-        mvn process-resources -Pdocs 
+        mvn generate-resources -Pdocs
 
   To render all markdown files to HTML.
 
