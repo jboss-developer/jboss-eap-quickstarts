@@ -457,6 +457,7 @@
                 <module>helloworld-mdb-propertysubstitution</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
+                <module>helloworld-ssl</module>
                 <module>helloworld-ws</module>
                 <module>hibernate</module>
                 <module>inter-app</module>
