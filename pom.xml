@@ -75,6 +75,24 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- TODO remove once we have new bom with elytron-->
+
+            <dependency>
+                <groupId>org.wildfly.security</groupId>
+                <artifactId>wildfly-elytron</artifactId>
+                <version>1.1.0.CR4-redhat-1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wildfly.common</groupId>
+                <artifactId>wildfly-common</artifactId>
+                <version>1.2.0.CR1-redhat-1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- end todo remove-->
+
             <!-- Add H2 dependency for embedded testing database -->
             <dependency>
                 <groupId>com.h2database</groupId>
