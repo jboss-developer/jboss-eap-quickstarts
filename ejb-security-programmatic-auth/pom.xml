@@ -50,10 +50,10 @@
             <artifactId>wildfly-elytron</artifactId>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.wildfly.common</groupId>
             <artifactId>wildfly-common</artifactId>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
