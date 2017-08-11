@@ -103,6 +103,12 @@ This quickstart requires that you first deploy the service, and then run the cli
 
 1. To deploy the service:
 
+    * Right-click on the `jaxws-retail-service` project and choose `Run As` --> `Maven build...`.
+    * Enter `install` in the `Goals` field.
+    * Select the `JRE` tab.
+    * Make sure the Java runtime used is a JDK one.
+    * Click `Run`.
+    * In the `jaxws-retail-service` project, select the `target/generated-sources/wsconsume` folder and choose `Build Path` --> `Use a Source Folder`.
     * Right-click on the `jaxws-retail-service` project and choose `Run As` --> `Run on Server`.
     * Select the JBoss EAP server and click `Finish`.
     * You should see the following message in the `Console` tab:
