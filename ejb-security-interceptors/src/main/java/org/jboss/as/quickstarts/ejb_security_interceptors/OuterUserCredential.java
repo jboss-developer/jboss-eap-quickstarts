@@ -16,16 +16,44 @@
  */
 package org.jboss.as.quickstarts.ejb_security_interceptors;
 
-import javax.ejb.Remote;
+import org.jboss.as.core.security.api.UserPrincipal;
 
 /**
- * The interface to the intermediate EJB used to test EJB to remote EJB calls.
+ * A wrapper around the user for the Connection to act as a Credential.
  *
  * @author <a href="mailto:darran.lofthouse@jboss.com">Darran Lofthouse</a>
  */
-@Remote
-public interface IntermediateEJBRemote {
+public final class OuterUserCredential {
 
-    String makeTestCalls();
+    private final UserPrincipal user;
+
+    OuterUserCredential(final UserPrincipal user) {
+        if (user == null) {
+            throw new IllegalArgumentException("UserPrincipal can not be null.");
+        }
+        this.user = user;
+    }
+
+    String getName() {
+        return user.getName();
+    }
+
+    String getRealm() {
+        return user.getRealm();
+    }
+
+    @Override
+    public int hashCode() {
+        return user.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof OuterUserCredential && equals((OuterUserCredential) other);
+    }
+
+    public boolean equals(OuterUserCredential other) {
+        return this == other || other != null && user.equals(other.user);
+    }
 
 }

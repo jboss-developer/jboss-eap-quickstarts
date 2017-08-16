@@ -30,8 +30,7 @@ class EJBUtil {
 
     static IntermediateEJBRemote lookupIntermediateEJB() throws Exception {
         final Hashtable<String, String> jndiProperties = new Hashtable<>();
-        jndiProperties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-        jndiProperties.put(Context.PROVIDER_URL, "remote+http://localhost:8080");
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
 
         return (IntermediateEJBRemote) context.lookup("ejb:/ejb-security-interceptors/IntermediateEJB!"
@@ -40,9 +39,7 @@ class EJBUtil {
 
     static SecuredEJBRemote lookupSecuredEJB() throws Exception {
         final Hashtable<String, String> jndiProperties = new Hashtable<>();
-        //jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-        jndiProperties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
-        jndiProperties.put(Context.PROVIDER_URL, "remote+http://localhost:8080");
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         final Context context = new InitialContext(jndiProperties);
 
         return (SecuredEJBRemote) context.lookup("ejb:/ejb-security-interceptors/SecuredEJB!"

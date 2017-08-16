@@ -1,4 +1,4 @@
-# Batch script to disable system exception logging in the EJB3 subsystem
+# Batch script to add the JMS configuration to the JBoss EAP server
 
 # Start batching commands
 batch
@@ -10,6 +10,6 @@ batch
 run-batch
 
 # Reload the server configuration
-reload
+:reload
 
 
