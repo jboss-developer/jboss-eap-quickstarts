@@ -58,7 +58,7 @@
 
         <version.spring.framework>4.3.9.RELEASE</version.spring.framework>
         <!-- EAP component version management BOM -->
-        <version.server.bom>7.1.0.ER3</version.server.bom>
+        <version.server.bom>7.1.0.CR1</version.server.bom>
         
         <version.jboss.spec.javaee.7.0>1.1.0.Final-redhat-1</version.jboss.spec.javaee.7.0>
 
@@ -75,16 +75,6 @@
 
     <dependencyManagement>
         <dependencies>
-
-            <!-- TODO remove once we have new bom with elytron CR5+-->
-
-            <dependency>
-                <groupId>org.wildfly.security</groupId>
-                <artifactId>wildfly-elytron</artifactId>
-                <version>1.1.1.Final</version>
-            </dependency>
-        
-            <!-- end todo remove-->
 
             <!-- Add H2 dependency for embedded testing database -->
             <dependency>
