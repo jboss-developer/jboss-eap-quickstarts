@@ -56,7 +56,7 @@
             filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.spring.framework>4.3.9.RELEASE</version.spring.framework>
+        <version.spring.framework>4.3.10.RELEASE</version.spring.framework>
         <!-- EAP component version management BOM -->
         <version.server.bom>7.1.0.CR1</version.server.bom>
         
@@ -69,7 +69,7 @@
         <httpclient.version>4.5.2.redhat-1</httpclient.version>
         <version.org.apache.commons.commons-lang3>3.5</version.org.apache.commons.commons-lang3>
         <version.h2db>1.4.193.redhat-2</version.h2db>
-        <version.org.wildfly.checkstyle-config>1.0.5.Final</version.org.wildfly.checkstyle-config>
+        <version.org.wildfly.checkstyle-config>1.0.6.Final</version.org.wildfly.checkstyle-config>
         <linkXRef>false</linkXRef>
     </properties>
 
