@@ -14,13 +14,13 @@ The `ejb-security-interceptors` quickstart demonstrates how to use client and se
 
 By default, when you make a remote call to an EJB deployed to the application server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. This is true for both client-to-server and server-to-server calls. If you need to use different identities from the same client, you normally need to open multiple connections to the server so that each one is authenticated as a different identity.
 
-Rather than open multiple client connections, this quickstart offers an alternative solution. The identity used to authenticate the connection is given permission to execute a request as a different user. This is achieved with the addition of the following three components: 
+Rather than open multiple client connections, this quickstart offers an alternative solution. The identity used to authenticate the connection is given permission to execute a request as a different user. This is achieved with the addition of the following three components:
 
 1. A client side interceptor to pass the requested identity to the remote server.
 2. A server side interceptor to receive the identity and request that the call switches to that identity.
 3. A JAAS LoginModule to decide if the user of the connection is allowed to execute requests as the specified identity.
- 
-The quickstart then makes use of two EJBs, `SecuredEJB` and `IntermediateEJB`, to verify that the propagation and identity switching is correct and a `RemoteClient` standalone client. 
+
+The quickstart then makes use of two EJBs, `SecuredEJB` and `IntermediateEJB`, to verify that the propagation and identity switching is correct and a `RemoteClient` standalone client.
 
 ### SecuredEJB
 
@@ -113,7 +113,7 @@ For an example of how to use the add-user utility, see the instructions located 
 
 These steps assume you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.
 
-You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart. 
+You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart.
 
 1. Before you begin, back up your server configuration file
     * If it is running, stop the ${product.name} server.
@@ -124,7 +124,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 
         For Linux:  ${jboss.home.name}/bin/standalone.sh
         For Windows:  ${jboss.home.name}\bin\standalone.bat
-3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `quickstart-domain` security domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands. 
+3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `quickstart-domain` security domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.
 
 4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server:
 
@@ -147,7 +147,7 @@ You configure the security domain by running JBoss CLI commands. For your conven
 After stopping the server, open the `${jboss.home.name}/standalone/configuration/standalone.xml` file and review the changes.
 
 1. The following `quickstart-domain` security-domain was added to the `security` subsystem.
-      
+
         <security-domain name="quickstart-domain" cache-type="default">
             <authentication>
                 <login-module name="DelegationLoginModule" code="org.jboss.as.quickstarts.ejb_security_interceptors.DelegationLoginModule" flag="optional">
@@ -166,16 +166,16 @@ After stopping the server, open the `${jboss.home.name}/standalone/configuration
 
     The login module can either be added before or after the existing `Remoting` login module in the domain, but it MUST be somewhere before the existing `RealmDirect` login module. If the majority of requests will involve an identity switch, then it is recommended to have this module as the first module in the list. However, if the majority of requests will run as the connection user with occasional switches, it is recommended to place the `Remoting` login module first and this one second.
 
-    The login module loads the properties file `delegation-mapping.properties` from the deployment. The location of this properties file can be overridden with the module-option `delegationProperties`. At runtime, this login module is used to decide if the user of the connection to the server is allowed to execute the request as the specified user. 
-    
-    There are four ways the key can be specified in the properties file: 
+    The login module loads the properties file `delegation-mapping.properties` from the deployment. The location of this properties file can be overridden with the module-option `delegationProperties`. At runtime, this login module is used to decide if the user of the connection to the server is allowed to execute the request as the specified user.
+
+    There are four ways the key can be specified in the properties file:
 
         user@realm  - Exact match of user and realm.
         user@*      - Allow a match of user for any realm.
         *@realm     - Match for any user in the realm specified.
         *           - Match for all users in all realms.
 
-    When a request is received to switch the user, the identity of the user that opened the connection is used to check the properties file for an entry. The check is performed in the order listed above until the first match is found. Once a match is found, further entries that could match are not read. The value in the properties file can either be a wildcard `*` or it can be a comma separated list of users. Be aware that in the value/mapping side there is no notion of the realm. For this quickstart we use the following entry: 
+    When a request is received to switch the user, the identity of the user that opened the connection is used to check the properties file for an entry. The check is performed in the order listed above until the first match is found. Once a match is found, further entries that could match are not read. The value in the properties file can either be a wildcard "*" or it can be a comma separated list of users. Be aware that in the value/mapping side there is no notion of the realm. For this quickstart we use the following entry:
 
         ConnectionUser@ApplicationRealm=AppUserOne,AppUserTwo
 
@@ -195,12 +195,12 @@ After stopping the server, open the `${jboss.home.name}/standalone/configuration
                 <secret value="Q29ubmVjdGlvblBhc3N3b3JkMSE="/>
             </server-identities>
         </security-realm>
-3. The following `ejb-outbound` outbound-socket-binding connection was created within the `standard-sockets` socket-binding-group: 
+3. The following `ejb-outbound` outbound-socket-binding connection was created within the `standard-sockets` socket-binding-group:
 
         <outbound-socket-binding name="ejb-outbound">
             <remote-destination host="localhost" port="8080"/>
         </outbound-socket-binding>
-4. The following `ejb-outbound-connection` remote-outbound-connection was added to the outbound-connections within the `remoting` subsytem: 
+4. The following `ejb-outbound-connection` remote-outbound-connection was added to the outbound-connections within the `remoting` subsytem:
 
         <outbound-connections>
             <remote-outbound-connection name="ejb-outbound-connection" outbound-socket-binding-ref="ejb-outbound" security-realm="ejb-outbound-realm" username="ConnectionUser">
@@ -253,14 +253,14 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
     * Can call roleOneMethod()=false
     * Can call roleTwoMethod()=false
 
-    * Calling the IntermediateEJB to repeat the test server to server 
+    * Calling the IntermediateEJB to repeat the test server to server
 
-    * * IntermediateEJB - Begin Testing * * 
+    * * IntermediateEJB - Begin Testing * *
     SecuredEJBRemote.getSecurityInformation()=[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
     Can call roleOneMethod=false
     Can call roleTwoMethod=false
-    * * IntermediateEJB - End Testing * * 
-    * * Test Complete * * 
+    * * IntermediateEJB - End Testing * *
+    * * Test Complete * *
 
     -------------------------------------------------
     * * About to perform test as AppUserOne * *
@@ -271,14 +271,14 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
     * Can call roleOneMethod()=true
     * Can call roleTwoMethod()=false
 
-    * Calling the IntermediateEJB to repeat the test server to server 
+    * Calling the IntermediateEJB to repeat the test server to server
 
-    * * IntermediateEJB - Begin Testing * * 
+    * * IntermediateEJB - Begin Testing * *
     SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserOne}, In role {User}=true, In role {RoleOne}=true, In role {RoleTwo}=false]
     Can call roleOneMethod=true
     Can call roleTwoMethod=false
-    * * IntermediateEJB - End Testing * * 
-    * * Test Complete * * 
+    * * IntermediateEJB - End Testing * *
+    * * Test Complete * *
 
     -------------------------------------------------
     * * About to perform test as AppUserTwo * *
@@ -289,21 +289,21 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
     * Can call roleOneMethod()=false
     * Can call roleTwoMethod()=true
 
-    * Calling the IntermediateEJB to repeat the test server to server 
+    * Calling the IntermediateEJB to repeat the test server to server
 
-    * * IntermediateEJB - Begin Testing * * 
+    * * IntermediateEJB - Begin Testing * *
     SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserTwo}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=true]
     Can call roleOneMethod=false
     Can call roleTwoMethod=true
-    * * IntermediateEJB - End Testing * * 
-    * * Test Complete * * 
+    * * IntermediateEJB - End Testing * *
+    * * Test Complete * *
 
     -------------------------------------------------
     * * About to perform test as AppUserThree * *
 
     * Making Direct Calls to the SecuredEJB
 
-    * * Test Complete * * 
+    * * Test Complete * *
 
     -------------------------------------------------
     Call as 'AppUserThree' correctly rejected.
@@ -320,14 +320,14 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
     * Can call roleOneMethod()=false
     * Can call roleTwoMethod()=false
 
-    * Calling the IntermediateEJB to repeat the test server to server 
+    * Calling the IntermediateEJB to repeat the test server to server
 
-    * * IntermediateEJB - Begin Testing * * 
+    * * IntermediateEJB - Begin Testing * *
     SecuredEJBRemote.getSecurityInformation()=[Principal={ConnectionUser}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=false]
     Can call roleOneMethod=false
     Can call roleTwoMethod=false
-    * * IntermediateEJB - End Testing * * 
-    * * Test Complete * * 
+    * * IntermediateEJB - End Testing * *
+    * * Test Complete * *
 
     -------------------------------------------------
     * * About to perform test as AppUserOne * *
@@ -338,14 +338,14 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
     * Can call roleOneMethod()=true
     * Can call roleTwoMethod()=false
 
-    * Calling the IntermediateEJB to repeat the test server to server 
+    * Calling the IntermediateEJB to repeat the test server to server
 
-    * * IntermediateEJB - Begin Testing * * 
+    * * IntermediateEJB - Begin Testing * *
     SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserOne}, In role {User}=true, In role {RoleOne}=true, In role {RoleTwo}=false]
     Can call roleOneMethod=true
     Can call roleTwoMethod=false
-    * * IntermediateEJB - End Testing * * 
-    * * Test Complete * * 
+    * * IntermediateEJB - End Testing * *
+    * * Test Complete * *
 
     -------------------------------------------------
     * * About to perform test as AppUserTwo * *
@@ -356,21 +356,21 @@ When you run the `mvn exec:exec` command, you see the following output. Note the
     * Can call roleOneMethod()=false
     * Can call roleTwoMethod()=true
 
-    * Calling the IntermediateEJB to repeat the test server to server 
+    * Calling the IntermediateEJB to repeat the test server to server
 
-    * * IntermediateEJB - Begin Testing * * 
+    * * IntermediateEJB - Begin Testing * *
     SecuredEJBRemote.getSecurityInformation()=[Principal={AppUserTwo}, In role {User}=true, In role {RoleOne}=false, In role {RoleTwo}=true]
     Can call roleOneMethod=false
     Can call roleTwoMethod=true
-    * * IntermediateEJB - End Testing * * 
-    * * Test Complete * * 
+    * * IntermediateEJB - End Testing * *
+    * * Test Complete * *
 
     -------------------------------------------------
     * * About to perform test as AppUserThree * *
 
     * Making Direct Calls to the SecuredEJB
 
-    * * Test Complete * * 
+    * * Test Complete * *
 
     -------------------------------------------------
     Call as 'AppUserThree' correctly rejected.
@@ -433,7 +433,7 @@ _Note:_ You will see the following warning appear twice in the server log. You c
 
 ## Restore the Original Server Configuration
 
-You can remove the security domain configuration by running the  `remove-security-domain.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file. 
+You can remove the security domain configuration by running the  `remove-security-domain.cli` script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file.
 
 ### Restore the Original Server Configuration by Running the JBoss CLI Script
 
@@ -441,8 +441,8 @@ You can remove the security domain configuration by running the  `remove-securit
         For Windows:  ${jboss.home.name}\bin\standalone.bat
 2. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing ${jboss.home.name} with the path to your server:
 
-        For Linux: ${jboss.home.name}/bin/jboss-cli.sh  --connect --file=remove-security-domain.cli 
-        For Windows: ${jboss.home.name}\bin\jboss-cli.bat  --connect --file=remove-security-domain.cli 
+        For Linux: ${jboss.home.name}/bin/jboss-cli.sh  --connect --file=remove-security-domain.cli
+        For Windows: ${jboss.home.name}\bin\jboss-cli.bat  --connect --file=remove-security-domain.cli
     This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         The batch executed successfully
@@ -470,11 +470,12 @@ This quickstart requires additional configuration and deploys and runs different
 
 1. Be sure to [Add the Application Users](#add-the-application-users) as described above.
 2. Follow the steps above to [Configure the Server](#configure-the-server). Stop the server at the end of that step.
-3. To deploy the application to the ${product.name} server, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Run on Server`.
-4. To access the application, right-click on the `ejb-security-interceptors` project and choose `Run As` --> `Java Application`.
+3. To deploy the application to the ${product.name} server, right-click on the `${project.artifactId}` project and choose `Run As` --> `Run on Server`.
+4. To access the application, right-click on the `${project.artifactId}` project and choose `Run As` --> `Java Application`.
 5. Choose `RemoteClient - org.jboss.as.quickstarts.ejb_security_interceptors` and click `OK`.
 6. Review the output in the console window.
-7. Be sure to [Restore the Original Server Configuration](#restore-the-original-server-configuration) when you have completed testing this quickstart.
+7. To undeploy the project, right-click on the `${project.artifactId}` project and choose `Run As` --> `Maven build`. Enter `wildfly:undeploy` for the `Goals` and click `Run`.
+8. Be sure to [Restore the Original Server Configuration](#restore-the-original-server-configuration) when you have completed testing this quickstart.
 
 ## Debug the Application
 
