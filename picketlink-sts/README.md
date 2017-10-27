@@ -209,7 +209,7 @@ You can also start the server and deploy the quickstarts or run the Arquillian t
 
             UserName: JBoss
             Password: JBoss
-   JBoss Developer Studio then displays the welcome file.
+     JBoss Developer Studio then displays the welcome file.
 4. Follow these steps to test the service.
 
       * Right-click on the `${project.artifactId}` project and choose `Run As` --> `Maven Build`.
