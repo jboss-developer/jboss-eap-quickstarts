@@ -480,7 +480,6 @@
                 <module>kitchensink-jsp</module>
                 <module>kitchensink-ml</module>
                 <module>kitchensink-ml-ear</module>
-                <module>log4j</module>
                 <module>logging</module>
                 <module>logging-tools</module>
                 <module>mail</module>

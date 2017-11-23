@@ -40,11 +40,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
             <scope>provided</scope>
@@ -88,7 +83,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <packagingExcludes>WEB-INF/classes/org/jboss/**,WEB-INF/classes/log4j.xml</packagingExcludes>
+                    <packagingExcludes>WEB-INF/classes/org/jboss/**</packagingExcludes>
                 </configuration>
             </plugin>
 
