@@ -500,7 +500,6 @@
                 <module>websocket-client</module>
                 <module>websocket-endpoint</module>
                 <module>websocket-hello</module>
-                <module>xml-dom4j</module>
                 <module>xml-jaxp</module>
             </modules>
         </profile>
