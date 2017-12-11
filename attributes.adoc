@@ -1,0 +1,8 @@
+:productName: JBoss EAP
+:productNameFull: Red Hat JBoss Enterprise Application Platform
+:jbossHomeName: EAP_HOME
+:productVersion: 7.1
+:buildRequirements: Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later
+:githubRepoUrl: https://github.com/jbossas/eap-quickstarts/
+:useEclipseUrl: https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts
+:jbdsEapServerName: Red Hat JBoss Enterprise Application Platform 7.x
