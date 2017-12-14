@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, JNDI  
 Summary: The `ejb-remote` quickstart uses *EJB* and *JNDI* to demonstrate how to access an EJB, deployed to JBoss EAP, from a remote Java client application.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

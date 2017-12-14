@@ -6,7 +6,7 @@ Technologies: Logging
 Summary: The `logging` quickstart demonstrates how to configure different logging levels in JBoss EAP. It also includes an asynchronous logging example.  
 Prerequisites: None  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

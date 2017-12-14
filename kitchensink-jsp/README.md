@@ -4,7 +4,7 @@ Level: Intermediate
 Technologies: JSP, JSTL, CDI, JPA, EJB, JAX-RS, BV  
 Summary: The `kitchensink-jsp` quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

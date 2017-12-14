@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JPA, BV  
 Summary: The `bean-validation-custom-constraint` quickstart demonstrates how to use the Bean Validation API to define custom constraints and validators.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it
 

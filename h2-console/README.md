@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: H2  
 Summary: The `h2-console` quickstart demonstrates how to use the H2 Console that is bundled with and built specifically for JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

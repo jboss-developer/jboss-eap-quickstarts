@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, Servlet, JSP  
 Summary: The `cdi-alternative` quickstart demonstrates how to create a bean that can be implemented for different purposes without changing the source code.   
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

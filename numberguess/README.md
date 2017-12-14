@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JSF  
 Summary: The `numberguess` quickstart demonstrates the use of *CDI*  (Contexts and Dependency Injection) and *JSF* (JavaServer Faces) in JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

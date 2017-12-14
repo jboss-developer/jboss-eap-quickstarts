@@ -6,7 +6,7 @@ Technologies: JSF, JPA
 Summary: The `tasks-jsf` quickstart demonstrates how to use JPA persistence with JSF as the view layer.  
 Prerequisites: tasks  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

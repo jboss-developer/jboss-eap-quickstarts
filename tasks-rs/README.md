@@ -6,7 +6,7 @@ Technologies: JPA, JAX-RS
 Summary: The `tasks-rs` quickstart demonstrates how to implement a JAX-RS service that uses JPA persistence.  
 Prerequisites: tasks  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

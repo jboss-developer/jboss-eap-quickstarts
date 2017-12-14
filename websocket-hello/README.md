@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: WebSocket, CDI, JSF  
 Summary: The `websocket-hello` quickstart demonstrates how to create a simple WebSocket application.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit  
 Summary: The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA and Spring 4.x.   
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

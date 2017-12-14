@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JSF, JSON-P  
 Summary: The `jsonp` quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 ## What is it?

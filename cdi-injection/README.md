@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JSF  
 Summary: The `cdi-injection` quickstart demonstrates the use of *CDI Injection and Qualifiers* in JBoss EAP with a JSF front-end client.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: CDI, JSF, JPA, EJB, JTA  
 Summary: The `greeter` quickstart demonstrates the use of *CDI*, *JPA*, *JTA*, *EJB* and *JSF* in JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

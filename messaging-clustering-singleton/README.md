@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: JMS, MDB, Clustering  
 Summary: The `messaging-clustering-singleton` quickstart uses a JMS topic and a queue to demonstrate clustering using JBoss EAP messaging with MDB singleton configuration where only one node in the cluster will be active.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

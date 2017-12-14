@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, Batch 1.0, JSF  
 Summary: The `batch-processing` quickstart shows how to use chunk oriented batch jobs to import a file to a database.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 ## What is it?

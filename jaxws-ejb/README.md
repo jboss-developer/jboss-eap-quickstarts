@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JAX-WS  
 Summary: The `jaxws-ejb` quickstart is a working example of the web service endpoint created from an EJB.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

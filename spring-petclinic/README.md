@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: JPA, Junit, JMX, Spring MVC Annotations, AOP, Spring Data, JSP, webjars, Dandellion  
 Summary: The `spring-petclinic` quickstart shows how to run the Spring PetClinic Application in JBoss EAP using the JBoss EAP BOMs.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?  
 

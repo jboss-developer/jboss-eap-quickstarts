@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, JMX, MBean  
 Summary: The `helloworld-mbean` quickstart demonstrates the use of *CDI* and *MBean* in JBoss EAP and includes JConsole instructions and Arquillian tests.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

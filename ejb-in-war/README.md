@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, JSF, WAR  
 Summary: The `ejb-in-war` quickstart demonstrates how to package an *EJB* bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JAXP, SAX, DOM, Servlet  
 Summary: The `xml-jaxp` quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP and validate and parse it using DOM or SAX.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

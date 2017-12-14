@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, Security  
 Summary: The `ejb-security-programmatic-auth` quickstart demonstrates how to programmatically setup different identities when invoking a remote secured EJB.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

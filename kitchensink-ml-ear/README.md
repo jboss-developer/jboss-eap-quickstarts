@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV, EAR, i18n, l10n  
 Summary: The `kitchensink-ml-ear` quickstart demonstrates a localized database application, using JSF, CDI, EJB, JPA, and Bean Validation, packaged as an EAR.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Security  
 Summary: The `ejb-security-interceptors` quickstart demonstrates how to use client and server side interceptors to switch the identity for an EJB call.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
 Deprecated: This quickstart is deprecated in favour of ejb-security-context-propagation and ejb-security-programatic-auth
 
 ## What is it?

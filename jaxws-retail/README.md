@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JAX-WS  
 Summary: The `jaxws-retail` quickstart is a working example of a simple web service endpoint.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

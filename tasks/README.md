@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JPA, Arquillian  
 Summary: The `tasks` quickstart includes a persistence unit and sample persistence code to demonstrate how to use JPA for database access in JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 ## What is it?

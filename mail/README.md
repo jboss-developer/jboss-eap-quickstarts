@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JavaMail, CDI, JSF  
 Summary: The `mail` quickstart demonstrates how to send email using CDI and JSF and the default Mail provider that ships with JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

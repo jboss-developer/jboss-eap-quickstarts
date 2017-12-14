@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: Mutual SSL, Undertow  
 Summary: The `helloworld-mutual-ssl` quickstart is a basic example that demonstrates mutual SSL configuration in JBoss EAP  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

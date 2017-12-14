@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Security  
 Summary: The `ejb-security-context-propagation` quickstart demonstrates how the security context can be propagated to a remote EJB using a remote outbound connection configuration  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

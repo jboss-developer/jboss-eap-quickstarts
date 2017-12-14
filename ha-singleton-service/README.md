@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: MSC, Singleton Service, Clustering  
 Summary: The `ha-singleton-service` quickstart demonstrates how to deploy a cluster-wide singleton MSC service.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 ## What is it?

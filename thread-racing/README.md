@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: Batch, CDI, EE Concurrency, JAX-RS, JMS, JPA, JSON, Web Sockets  
 Summary: A thread racing web application that demonstrates technologies introduced or updated in the latest Java EE specification.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

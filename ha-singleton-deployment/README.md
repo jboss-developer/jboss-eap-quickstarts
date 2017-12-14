@@ -5,7 +5,7 @@ Level: Advanced
 Technologies: EJB, Singleton Deployments, Clustering  
 Summary: The `ha-singleton-deployment` quickstart demonstrates the recommended way to deploy any service packaged in an application archive as a cluster-wide singleton.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 ## What is it?

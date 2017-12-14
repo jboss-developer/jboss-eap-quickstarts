@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: SSL, Undertow  
 Summary: The `helloworld-ssl` quickstart is a basic example that demonstrates server side SSL configuration in JBoss EAP.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

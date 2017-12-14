@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JBoss Modules  
 Summary: The `log4j` quickstart demonstrates how to use container defined modules to add dependencies on 3rd party libraries and limit the application package size.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

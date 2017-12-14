@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, EAR  
 Summary: The `ejb-throws-exception` quickstart demonstrates how to throw and handle Exceptions across JARs in an EAR.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

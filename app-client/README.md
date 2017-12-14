@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: EJB, EAR, AppClient  
 Summary: The `app-client` quickstart demonstrates how to code and package a client app and use the JBoss EAP client container to start the client Main program.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 
 ## What is it?

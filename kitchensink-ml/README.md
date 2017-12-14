@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n  
 Summary: The `kitchensink-ml` quickstart demonstrates a localized Java EE 7 compliant application using JSF, CDI, EJB, JPA, and Bean Validation.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 

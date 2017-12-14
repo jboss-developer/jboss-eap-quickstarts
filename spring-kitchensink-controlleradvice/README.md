@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: JSP, JPA, JSON, Spring, JUnit  
 Summary: The `spring-kitchensink-controlleradvice` quickstart showcases Spring 4.x's `@ControllerAdvice`, which was introduced in Spring 3.2.  
 Target Product: JBoss EAP  
-Source: <https://github.com/jbossas/eap-quickstarts/>  
+Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
 
 ## What is it?
 
