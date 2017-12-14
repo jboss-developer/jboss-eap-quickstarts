@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.1.0.CR3-SNAPSHOT</version>
+        <version>7.1.0.GA</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>spring-kitchensink-controlleradvice-test-webdriver</artifactId>

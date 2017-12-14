@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head><title> ejb-security:  Using Java EE Declarative Security to Control Access</title>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/documentation.css" rel="stylesheet"></link>
+    <link href="http://static.jboss.org/ffe/0/www/vendor/redhat/pygments.css" rel="stylesheet"></link>
+</head>
+<body><h1><a href="#ejb-security-using-java-ee-declarative-security-to-control-access" id="ejb-security-using-java-ee-declarative-security-to-control-access">ejb-security:  Using Java EE Declarative Security to Control Access</a></h1>
+<p>Author: Sherif F. Makary, Stefan Guilhen<br />
+Level: Intermediate<br />
+Technologies: EJB, Security<br />
+Summary: The <code>ejb-security</code> quickstart demonstrates the use of Java EE declarative security to control access to EJBs in JBoss EAP.<br />
+Target Product: JBoss EAP<br />
+Source: <a href="https://github.com/jbossas/eap-quickstarts/">https://github.com/jbossas/eap-quickstarts/</a></p>
+<h2><a href="#what-is-it" id="what-is-it">What is it?</a></h2>
+<p>The <code>ejb-security</code> quickstart demonstrates the use of Java EE declarative security to control access to EJBs in Red Hat JBoss Enterprise Application Platform.</p>
+<p>This quickstart takes the following steps to implement EJB security:</p>
+<ol>
+<li>Add an <code>application-security-domain</code> mapping in the <code>ejb3</code> subsystem to enable Elytron security for the <code>SecuredEJB</code>.</li>
+<li>Add the <code>@SecurityDomain(&quot;other&quot;)</code> security annotation to the EJB declaration to tell the EJB container to apply authorization to this EJB.</li>
+<li>Add the <code>@RolesAllowed({ &quot;guest&quot; })</code> annotation to the EJB declaration to authorize access only to users with <code>guest</code> role access rights.</li>
+<li>Add the <code>@RolesAllowed({ &quot;admin&quot; })</code> annotation to the administrative method in the <code>SecuredEJB</code> to authorize access only to users with <code>admin</code> role access rights.</li>
+<li>Add an application user with <code>guest</code> role access rights to the EJB. This quickstart defines a user <code>quickstartUser</code> with password <code>quickstartPwd1!</code> in the <code>guest</code> role. The <code>guest</code> role matches the allowed user role defined in the <code>@RolesAllowed</code> annotation in the EJB but it should not be granted access to the administrative method annotated with <code>RolesAllowed({&quot;admin&quot;})</code>.</li>
+</ol>
+<h2><a href="#system-requirements" id="system-requirements">System Requirements</a></h2>
+<p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.</p>
+<p>All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP7.md#configure-maven-to-build-and-deploy-the-quickstarts">Configure Maven for JBoss EAP 7.1</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>To run these quickstarts with the provided build scripts, you need the JBoss EAP distribution ZIP. For information on how to install and run JBoss EAP, see the Red Hat JBoss Enterprise Application Platform <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/"><em>Getting Started Guide</em></a> located on the Customer Portal.</p>
+<p>You can also <a href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse">run the quickstart in Red Hat JBoss Developer Studio or Eclipse</a>.</p>
+<h2><a href="#use-of-eap7-home" id="use-of-eap7-home">Use of EAP7_HOME</a></h2>
+<p>In the following instructions, replace <code>EAP7_HOME</code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP7_HOME.md#use-of-eap_home-and-jboss_home-variables">Use of EAP7_HOME and JBOSS_HOME Variables</a>.</p>
+<h2><a href="#add-the-application-users" id="add-the-application-users">Add the Application Users</a></h2>
+<p>Using the add-user utility script, you must add the following users to the <code>ApplicationRealm</code>:</p>
+<table>
+<thead>
+<tr><th align="left"> <strong>UserName</strong> </th><th align="left"> <strong>Realm</strong> </th><th align="left"> <strong>Password</strong> </th><th align="left"> <strong>Roles</strong> </th></tr>
+</thead>
+<tbody>
+<tr><td align="left"> quickstartUser</td><td align="left"> ApplicationRealm </td><td align="left"> quickstartPwd1!</td><td align="left"> guest </td></tr>
+</tbody>
+</table>
+<p>The application user has <code>guest</code> access rights to the application but no <code>admin</code> rights.</p>
+<p>To add the application users, open a command prompt and type the following commands:</p>
+<pre><code>For Linux:
+  EAP7_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+
+For Windows:
+  EAP7_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest'
+</code></pre>
+<p>If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see the instructions located here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user">Add an Application User</a>.</p>
+<h2><a href="#configure-the-server" id="configure-the-server">Configure the Server</a></h2>
+<p>These steps assume you are running the server in standalone mode and using the default <code>standalone.xml</code> supplied with the distribution.</p>
+<p>You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-elytron.cli</code> script provided in the root directory of this quickstart.</p>
+<ol>
+<li>
+<p>Before you begin, back up your server configuration file</p>
+<ul>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Back up the file: <code>EAP7_HOME/standalone/configuration/standalone.xml</code></li>
+<li>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</li>
+</ul>
+</li>
+<li>
+<p>Start the JBoss EAP server by typing the following:</p>
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Review the <code>configure-elytron.cli</code> file in the root of this quickstart directory. This script adds the configuration that enables Elytron security for the quickstart components. Comments in the script describe the purpose of each block of commands.</li>
+<li>
+<p>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:</p>
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=configure-elytron.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=configure-elytron.cli
+</code></pre>
+<p>You should see the following result when you run the script:</p>
+<pre><code>The batch executed successfully
+process-state: reload-required
+</code></pre>
+</li>
+<li>
+<p>Stop the JBoss EAP server.</p>
+</li>
+</ol>
+<h2><a href="#review-the-modified-server-configuration" id="review-the-modified-server-configuration">Review the Modified Server Configuration</a></h2>
+<p>After stopping the server, open the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file and review the changes.</p>
+<ol>
+<li>The following <code>application-security-domain</code> mapping was added to the <code>ejb3</code> subsystem:
+<pre><code>&lt;application-security-domains&gt;
+    &lt;application-security-domain name=&quot;other&quot; security-domain=&quot;ApplicationDomain&quot;/&gt;
+&lt;/application-security-domains&gt;
+</code></pre>
+<p>The <code>application-security-domain</code> essentially enables Elytron security for the quickstart EJBs. It maps the <code>other</code> security domain that was set in the EJBs via annotation to the Elytron <code>ApplicationDomain</code> that will be responsible for authenticating and authorizing access to the EJBs.</p>
+</li>
+<li>The <code>http-remoting-connector</code> in the <code>remoting</code> subsystem was updated to use the <code>application-sasl-authentication</code> factory:
+<pre><code>    &lt;http-connector name=&quot;http-remoting-connector&quot; connector-ref=&quot;default&quot; security-realm=&quot;ApplicationRealm&quot; sasl-authentication-factory=&quot;application-sasl-authentication&quot;/&gt;
+</code></pre>
+<p>This configuration allows for the identity that was established at the connection level to be propagated to the components.</p>
+</li>
+</ol>
+<h2><a href="#start-the-server" id="start-the-server">Start the Server</a></h2>
+<ol>
+<li>Open a command prompt and navigate to the root of the JBoss EAP directory.</li>
+<li>The following shows the command line to start the server:
+<pre><code>For Linux:   EAP7_HOME/bin/standalone.sh
+For Windows: EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+</ol>
+<h2><a href="#build-and-deploy-the-quickstart" id="build-and-deploy-the-quickstart">Build and Deploy the Quickstart</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>Type this command to build and deploy the archive:
+<pre><code>mvn clean package wildfly:deploy
+</code></pre>
+</li>
+<li>
+<p>This will deploy <code>target/ejb-security.jar</code> to the running instance of the server.</p>
+</li>
+</ol>
+<h2><a href="#run-the-client" id="run-the-client">Run the Client</a></h2>
+<p>Before you run the client, make sure you have already successfully deployed the EJBs to the server in the previous step and that your command prompt is still in the root directory of this quickstart.</p>
+<p>Type this command to execute the client:</p>
+<pre><code>mvn exec:exec
+</code></pre>
+<h2><a href="#investigate-the-console-output" id="investigate-the-console-output">Investigate the Console Output</a></h2>
+<p>When you run the <code>mvn exec:exec</code> command, you see the following output. Note there may be other log messages interspersed between these messages.</p>
+<pre><code>    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    Successfully called secured bean, caller principal quickstartUser
+
+    Principal has admin permission: false
+
+
+    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+</code></pre>
+<p>The username and credentials used to establish the connection to the application server are configured in the <code>wildfly-config.xml</code> file. As expected, the <code>quickstartUser</code> was able to invoke the method available for the <code>guest</code>role, but not the administrative method that requires the <code>admin</code> role.</p>
+<p><em>NOTE:</em> You should also see the following <code>EJBAccessException</code> printed in the server log, followed by a stack trace. This is to be expected because the user does not have the correct permissions to access the EJB.</p>
+<pre><code>07:00:15,364 ERROR [org.jboss.as.ejb3.invocation] (default task-38) WFLYEJB0034: EJB Invocation failed on component SecuredEJB for method public abstract boolean org.jboss.as.quickstarts.ejb_security.SecuredEJBRemote.administrativeMethod(): javax.ejb.EJBAccessException: WFLYEJB0364: Invocation on method: public abstract boolean org.jboss.as.quickstarts.ejb_security.SecuredEJBRemote.administrativeMethod() of bean: SecuredEJB is not allowed
+</code></pre>
+<p>As an exercise, you can rerun the <code>add-user</code> script described in the <a href="#add-the-application-users">Add the Application Users</a> section, but this time grant the <code>quickstartUser</code> the admin role as follows:</p>
+<pre><code>    For Linux:
+      EAP7_HOME/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest,admin'
+
+    For Windows:
+      EAP7_HOME\bin\add-user.bat  -a -u 'quickstartUser' -p 'quickstartPwd1!' -g 'guest,admin'
+</code></pre>
+<p>After you update the <code>quickstartUser</code> user role, you must restart the server for it to take effect. Running the client again should immediately reflect the new permission level of the user:</p>
+<pre><code>    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+
+    Successfully called secured bean, caller principal quickstartUser
+
+    Principal has admin permission: true
+
+
+    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+</code></pre>
+<h2><a href="#undeploy-the-archive" id="undeploy-the-archive">Undeploy the Archive</a></h2>
+<ol>
+<li>Make sure you have started the JBoss EAP server as described above.</li>
+<li>Open a command prompt and navigate to the root directory of this quickstart.</li>
+<li>When you are finished testing, type this command to undeploy the archive:
+<pre><code>mvn wildfly:undeploy
+</code></pre>
+</li>
+</ol>
+<h2><a href="#restore-the-server-configuration" id="restore-the-server-configuration">Restore the Server Configuration</a></h2>
+<p>You can restore the original server configuration by running the  <code>restore-configuration.cli</code> script provided in the root directory of this quickstart or by manually restoring the back-up copy the configuration file.</p>
+<h3><a href="#restore-the-server-configuration-by-running-the-jboss-cli-script" id="restore-the-server-configuration-by-running-the-jboss-cli-script">Restore the Server Configuration by Running the JBoss CLI Script</a></h3>
+<ol>
+<li>Start the JBoss EAP server by typing the following:
+<pre><code>For Linux:  EAP7_HOME/bin/standalone.sh
+For Windows:  EAP7_HOME\bin\standalone.bat
+</code></pre>
+</li>
+<li>Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing EAP7_HOME with the path to your server:
+<pre><code>For Linux: EAP7_HOME/bin/jboss-cli.sh --connect --file=restore-configuration.cli
+For Windows: EAP7_HOME\bin\jboss-cli.bat --connect --file=restore-configuration.cli
+</code></pre>
+<p>This script reverts the changes made to the <code>ejb3</code> and <code>undertow</code> subsystems. You should see the following result when you run the script:</p>
+<pre><code>The batch executed successfully
+process-state: reload-required
+</code></pre>
+</li>
+</ol>
+<h3><a href="#restore-the-server-configuration-manually" id="restore-the-server-configuration-manually">Restore the Server Configuration Manually</a></h3>
+<ol>
+<li>If it is running, stop the JBoss EAP server.</li>
+<li>Replace the <code>EAP7_HOME/standalone/configuration/standalone.xml</code> file with the back-up copy of the file.</li>
+</ol>
+<h2><a href="#run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse" id="run-the-quickstart-in-red-hat-jboss-developer-studio-or-eclipse">Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</a></h2>
+<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
+<ol>
+<li>Be sure to <a href="#add-the-application-users">Add the Application Users</a> as described above.</li>
+<li>Be sure to configure the server by running the JBoss CLI script as described above under <a href="#configure-the-server">Configure the Server</a>.</li>
+<li>To deploy the server project, right-click on the <code>ejb-security</code> project and choose <code>Run As</code> --&gt; <code>Maven build</code>. Enter <code>clean package wildfly:deploy</code> for the <code>Goals:</code> and click <code>Run</code>. This deploys the <code>ejb-security</code> JAR to the JBoss EAP server.</li>
+<li>Right-click on the <code>ejb-security</code> project and choose <code>Run As</code> --&gt; <code>Run Configurations</code>. Enter <code>exec:exec</code> for the <code>Goals</code>, and then click <code>Run</code>.</li>
+<li>Review the output in the console window. You should see the same results as when running Maven in the command line.</li>
+<li>To undeploy the project, right-click on the <code>ejb-security</code> project and choose <code>Run As</code> --&gt; <code>Run Configurations</code>. Enter <code>wildfly:undeploy</code> for the <code>Goals</code> and click <code>Run</code>.</li>
+<li>Be sure to <a href="#restore-the-server-configuration">Restore the Server Configuration</a> when you have completed testing this quickstart.</li>
+</ol>
+<h2><a href="#debug-the-application" id="debug-the-application">Debug the Application</a></h2>
+<p>If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.</p>
+<pre><code>mvn dependency:sources
+</code></pre>
+</body>
+</html>

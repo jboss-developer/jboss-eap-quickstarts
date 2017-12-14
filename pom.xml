@@ -26,7 +26,7 @@
     </parent>
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
-    <version>7.1.0.CR3-SNAPSHOT</version>
+    <version>7.1.0.GA</version>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
@@ -244,10 +244,6 @@
                         <headerDefinition>dist/headerdefinition.xml</headerDefinition>
                     </headerDefinitions>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
         </plugins>
         <pluginManagement>
