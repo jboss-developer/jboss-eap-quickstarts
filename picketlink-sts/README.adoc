@@ -32,30 +32,32 @@ NOTE: This quickstart is not a fully functional application. It is a JAX-WS Endp
 
 This quickstart is preconfigured to use the `picketlink-sts` security domain. By default, the STS is protected to only allow requests from authenticated users. All users and also their roles, are defined in two properties files:
 
+[source,options="nowrap"]
 ----
-    Users: src/main/resources/users.properties
-    Roles: src/main/resources/roles.properties
+Users: src/main/resources/users.properties
+Roles: src/main/resources/roles.properties
 ----
 
 You can view the WSDL for the STS at the following URL: http://localhost:8080/{artifactId}?wsdl.
 
 From a JAX-WS perspective, you can use any tool you want to start using the STS. Below is an example of a SOAP envelope asking the STS to issue a SAML v2.0 Assertion:
 
+[source,xml,options="nowrap"]
 ----
-    <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:picketlink:identity-federation:sts">
-        <soap:Header/>
-        <soap:Body>
-            <wst:RequestSecurityToken xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
-                <wst:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0</wst:TokenType>
-                <wst:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</wst:RequestType>
-            </wst:RequestSecurityToken>
-        </soap:Body>
-    </soap:Envelope>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:picketlink:identity-federation:sts">
+    <soap:Header/>
+    <soap:Body>
+        <wst:RequestSecurityToken xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
+            <wst:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0</wst:TokenType>
+            <wst:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</wst:RequestType>
+        </wst:RequestSecurityToken>
+    </soap:Body>
+</soap:Envelope>
 ----
 
-There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `$ mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled <<access-the-application,Access the Application>>.
+There is a simple example of WS-Trust client usage provided by PicketLink. To use this example deploy PicketLink STS as described below and run the `$ mvn exec:java` command. The assertion from PicketLink STS is printed to the console. This process is described in detail below in the section entitled xref:access_the_application[Access the Application].
 
-_Note: This example is not suitable for production use. You must change the application security to comply with your organization's standards._
+NOTE: This example is not suitable for production use. You must change the application security to comply with your organization's standards.
 
 == Where to Find Additional Information
 
@@ -73,6 +75,7 @@ All you need to build this project is {buildRequirements}. See link:{configureMa
 
 In the following instructions, replace `__{jbossHomeName}__` with the actual path to your {productName} installation. The installation path is described in detail here: link:{useProductHomeDocUrl}[Use of {jbossHomeName} and JBOSS_HOME Variables].
 
+[[configure_the_server]]
 == Configure the Server
 
 You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart.
@@ -83,35 +86,39 @@ You configure the security domain by running JBoss CLI commands. For your conven
 ** Back up the file: `{jbossHomeName}/standalone/configuration/standalone.xml`
 ** After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
 . Start the {productName} server by typing the following:
-
 +
-[subs="+quotes,attributes+"]
+[source,subs="+quotes,attributes+",options="nowrap"]
 ----
-For Linux:  $ __{jbossHomeName}__/bin/standalone.sh
-For Windows:  __{jbossHomeName}__\bin\standalone.bat
+$ __{jbossHomeName}__/bin/standalone.sh
 ----
++
+NOTE: For Windows, use the `__{jbossHomeName}__\bin\standalone.bat` script.
 
 . Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `picketlink-sts` security domain to the `security` subsystem in the server configuration and configures authentication access.
 . Open a new terminal, navigate to the root directory of this quickstart, and run the following command, replacing {jbossHomeName} with the path to your server:
-
 +
-[subs="+quotes,attributes+"]
+[source,subs="+quotes,attributes+",options="nowrap"]
 ----
-For Linux: $ __{jbossHomeName}__/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
-For Windows: __{jbossHomeName}__\bin\jboss-cli.bat --connect --file=configure-security-domain.cli
+$ __{jbossHomeName}__/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 ----
++
+NOTE: For Windows, use the `__{jbossHomeName}__\bin\jboss-cli.bat` script.
+
 +
 If you are running the controller on different host, pass the following argument, replacing HOST_NAME and PORT_NUMBER with the correct values:
 +
+[source,options="nowrap"]
+
 ----
-    --controller=HOST_NAME:PORT_NUMBER
+--controller=HOST_NAME:PORT_NUMBER
 ----
 +
 You should see the following result when you run the script:
 +
+[source,options="nowrap"]
 ----
-    The batch executed successfully
-    {"outcome" => "success"}
+The batch executed successfully
+{"outcome" => "success"}
 ----
 +
 The batch file also restarts the server.
@@ -124,7 +131,6 @@ After stopping the server, open the `{jbossHomeName}/standalone/configuration/st
 
 The following `picketlink-sts` security-domain was added to the `security` subsystem.
 
-+
 [source,xml,options="nowrap"]
 ----
 <security-domain name="picketlink-sts">
@@ -142,13 +148,14 @@ The following `picketlink-sts` security-domain was added to the `security` subsy
 If you do not have a running server:
 
 . Open a terminal and navigate to the root of the {productName} directory.
-. The following shows the command line to start the server:
-
-[subs=normal]
+. Start the {productName} server with the default standalone profile by typing the following command.
++
+[source,subs="+quotes,attributes+",options="nowrap"]
 ----
-For Linux:   $ __{jbossHomeName}__/bin/standalone.sh
-For Windows: __{jbossHomeName}__\bin\standalone.bat
+$ __{jbossHomeName}__/bin/standalone.sh
 ----
++
+NOTE: For Windows, use the `__{jbossHomeName}__\bin\standalone.bat` script.
 
 == Build and Deploy the Quickstart
 
@@ -156,19 +163,24 @@ For Windows: __{jbossHomeName}__\bin\standalone.bat
 . Open a terminal and navigate to the root directory of this quickstart.
 . Type this command to build and deploy the archive:
 +
+[source,options="nowrap"]
 ----
 $ mvn clean install wildfly:deploy
 ----
 
 . This deploys `target/{artifactId}.war` to the running instance of the server.
 
-NOTE: When you deploy the quickstart, you will see the following warnings in the server log. These warnings are expected.
+== Server Log: Expected Warnings and Errors
 
+When you deploy the quickstart, you will see the following warnings in the server log. These warnings are expected.
+
+[source,options="nowrap"]
 ----
 WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.{artifactId}.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
 WARN  [org.jboss.as.dependency.deprecated] (MSC service thread 1-5) WFLYSRV0221: Deployment "deployment.{artifactId}.war" is using a deprecated module ("org.picketlink:main") which may be removed in future versions without notice.
 ----
 
+[[access_the_application]]
 == Access the Application
 
 You can test the service as follows:
@@ -176,12 +188,14 @@ You can test the service as follows:
 . Open a terminal and navigate to the root directory of this quickstart.
 . Type the following command:
 +
+[source,options="nowrap"]
 ----
 $ mvn exec:java
 ----
 +
 . You should see a `&lt;saml:Assertion` assertion from PicketLink STS along with a `BUILD SUCCESS` printed to the console.
 +
+[source,options="nowrap"]
 ----
 Invoking token service to get SAML assertion for user:UserA with password:PassA
 SAML assertion for user:UserA successfully obtained!
@@ -194,9 +208,10 @@ SAML assertion for user:UserA successfully obtained!
 [INFO] Final Memory: 7M/146M
 [INFO] ------------------------------------------------------------------------
 ----
-
-NOTE: You also see the following warnings in the server log. These warnings are expected because the quickstart does not provide a configuration that persists tokens.
-
++
+You also see the following warnings in the server log. These warnings are expected because the quickstart does not provide a configuration that persists tokens.
++
+[source,options="nowrap"]
 ----
 INFO  [org.picketlink.common] (http-/127.0.0.1:8080-4) Loading STS configuration
 WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Security Token registry option not specified: Issued Tokens will not be persisted!
@@ -205,6 +220,7 @@ INFO  [org.picketlink.common] (http-/127.0.0.1:8080-4) picketlink-sts.xml config
 WARN  [org.picketlink.common] (http-/127.0.0.1:8080-4) Lifetime has not been specified. Using the default timeout value.
 ----
 
+[[undeploy_and_remove_the_security_domain_configuration]]
 == Undeploy and Remove the Security Domain Configuration
 
 === Undeploy and Remove the Security Domain Using the JBoss CLI
@@ -214,9 +230,20 @@ You can undeploy the quickstart and remove the security domain configuration in 
 . Open a new terminal, navigate to the root directory of this quickstart.
 . Run the following command, replacing {jbossHomeName} with the path to your server:
 +
+[source,subs="+quotes,attributes+",options="nowrap"]
 ----
-For Linux: $ __{jbossHomeName}__/bin/jboss-cli.sh --file=undeploy-and-remove-security-domain.cli
-For Windows: __{jbossHomeName}__\bin\jboss-cli.bat --file=undeploy-and-remove-security-domain.cli
+$ __{jbossHomeName}__/bin/jboss-cli.sh --connect --file=undeploy-and-remove-security-domain.cli
+----
++
+NOTE: For Windows, use the `__{jbossHomeName}__\bin\jboss-cli.bat` script.
+
++
+You should see the following result when you run the script:
++
+[source,options="nowrap"]
+----
+The batch executed successfully
+process-state: reload-required
 ----
 
 === Undeploy the quickstart and Remove the Security Domain Manually
@@ -225,6 +252,7 @@ For Windows: __{jbossHomeName}__\bin\jboss-cli.bat --file=undeploy-and-remove-se
 . Open a terminal and navigate to the root directory of this quickstart.
 . When you are finished testing, type this command to undeploy the archive:
 +
+[source,options="nowrap"]
 ----
 $ mvn wildfly:undeploy
 ----
@@ -236,29 +264,33 @@ $ mvn wildfly:undeploy
 
 You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a {productName} server, and build and deploy a quickstart, see link:{useEclipseUrl}[Use JBoss Developer Studio or Eclipse to Run the Quickstarts].
 
-. Be sure to configure the security domain by running the JBoss CLI commands as described above under <<configure-the-server,Configure the {productName} Server>>. Stop the server at the end of that step.
-. To deploy the server project, right-click on the `{artifactId}` project and choose `Run As` –&gt; `Run on Server`.
-. You are presented with a server message `PicketLinkSTSRealm` and challenged to enter valid authentication credentials. Enter the following information and then click `OK`.
-
+. Make sure you configure the security domain by running the JBoss CLI commands as described above under xref:configure_the_server[Configure the Server]. Stop the server at the end of that step.
+. To deploy the server project, right-click on the *{artifactId}* project and choose *Run As* –> *Run on Server*.
+. You are presented with a server message *PicketLinkSTSRealm* and challenged to enter valid authentication credentials. Enter the following information and then click *OK*.
++
+[source,options="nowrap"]
 ----
-    UserName: JBoss
-    Password: JBoss
+UserName: JBoss
+Password: JBoss
 ----
++
+JBoss Developer Studio then displays the welcome file.
 
 . Follow these steps to test the service.
-** Right-click on the `{artifactId}` project and choose `Run As` –&gt; `Maven Build`.
-** Enter `picketlink-sts` for the `Name`.
-** Enter `exec:java` for the `Goals:`.
-** Click `Run`.
+** Right-click on the *{artifactId}* project and choose *Run As* –> *Maven Build*.
+** Enter `picketlink-sts` for the *Name*.
+** Enter *exec:java* for the *Goals:*.
+** Click *Run*.
 ** Review the output in the console window.
-. To undeploy the project, right-click on the `{artifactId}` project and choose `Run As` –&gt; `Maven build`. Enter `wildfly:undeploy` for the `Goals` and click `Run`.
+. To undeploy the project, right-click on the *{artifactId}* project and choose *Run As* –&gt; *Maven build*. Enter `wildfly:undeploy` for the *Goals* and click *Run*.
 
-NOTE: Be sure to <<undeploy-and-remove-the-security-domain-configuration,Undeploy and Remove the Security Domain Configuration>> when you have completed testing this quickstart.
+NOTE: Make sure you xref:undeploy_and_remove_the_security_domain_configuration[Undeploy and Remove the Security Domain Configuration] when you have completed testing this quickstart.
 
 == Debug the Application
 
 If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
 
+[source,options="nowrap"]
 ----
 $ mvn dependency:sources
 ----
