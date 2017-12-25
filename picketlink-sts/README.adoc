@@ -193,7 +193,7 @@ You can test the service as follows:
 $ mvn exec:java
 ----
 +
-. You should see a `&lt;saml:Assertion` assertion from PicketLink STS along with a `BUILD SUCCESS` printed to the console.
+. You should see a `<saml:Assertion ...` assertion from PicketLink STS along with a `BUILD SUCCESS` printed to the console.
 +
 [source,options="nowrap"]
 ----
