@@ -78,24 +78,29 @@ include::../shared-doc/system-requirements.adoc[leveloffset=+1]
 // == Use of {jbossHomeName}
 include::../shared-doc/use-of-jboss-home-name.adoc[leveloffset=+1]
 
+//*************************************************
+// Back up the server configuration files
+//*************************************************
+// == Back Up the {productName} Standalone Server Configuration
+:standalone-server-default:
+include::../shared-doc/back-up-server-standalone-configuration.adoc[leveloffset=+1]
+
+//*************************************************
+// Start the server with the default profile
+//*************************************************
+// == Start the Server with the Default Profile
+include::../shared-doc/start-server-default-profile.adoc[leveloffset=+1]
+
+
 [[configure_the_server]]
 == Configure the Server
 
 You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart.
 
-. Before you begin, back up your server configuration file
+. Before you begin, make sure you do the following:
 
-** If it is running, stop the {productName} server.
-** Back up the file: `{jbossHomeName}/standalone/configuration/standalone.xml`
-** After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-. Start the {productName} server by typing the following:
-+
-[source,subs="+quotes,attributes+",options="nowrap"]
-----
-$ __{jbossHomeName}__/bin/standalone.sh
-----
-+
-NOTE: For Windows, use the `__{jbossHomeName}__\bin\standalone.bat` script.
+* xref:back_up_standalone_server_configuration[Back up the {productName} standalone server configuration] as described above.
+* xref:start_eap_standalone_server_with_the_default_profile[Start the {productName} server with the standalone default profile] as described above.
 
 . Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `picketlink-sts` security domain to the `security` subsystem in the server configuration and configures authentication access.
 . Open a new terminal, navigate to the root directory of this quickstart, and run the following command, replacing {jbossHomeName} with the path to your server:
@@ -146,23 +151,9 @@ The following `picketlink-sts` security-domain was added to the `security` subsy
 </security-domain>
 ----
 
-== Start the Server
-
-If you do not have a running server:
-
-. Open a terminal and navigate to the root of the {productName} directory.
-. Start the {productName} server with the default standalone profile by typing the following command.
-+
-[source,subs="+quotes,attributes+",options="nowrap"]
-----
-$ __{jbossHomeName}__/bin/standalone.sh
-----
-+
-NOTE: For Windows, use the `__{jbossHomeName}__\bin\standalone.bat` script.
-
 == Build and Deploy the Quickstart
 
-. Make sure you have started the {productName} server as described above.
+. xref:start_eap_standalone_server_with_the_default_profile[Start the {productName} server with the standalone default profile] as described above.
 . Open a terminal and navigate to the root directory of this quickstart.
 . Type this command to build and deploy the archive:
 +
@@ -289,11 +280,8 @@ JBoss Developer Studio then displays the welcome file.
 
 NOTE: Make sure you xref:undeploy_and_remove_the_security_domain_configuration[Undeploy and Remove the Security Domain Configuration] when you have completed testing this quickstart.
 
-== Debug the Application
-
-If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
-
-[source,options="nowrap"]
-----
-$ mvn dependency:sources
-----
+//*************************************************
+// Add info to debug the application
+//*************************************************
+// == Debug the Application
+include::../shared-doc/debug-the-application.adoc[leveloffset=+1]
