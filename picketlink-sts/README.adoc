@@ -14,7 +14,7 @@ include::../shared-doc/attributes.adoc[]
 [abstract]
 The `picketlink-sts` quickstart demonstrates how to deploy a fully compliant WS-Trust Security Token Service (STS).
 
-:standalone-server-default:
+:standalone-server-type: default
 :archiveType: war
 
 == What is it?
