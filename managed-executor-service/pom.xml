@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.2.0-SNAPSHOT</version>
+        <version>EAP_7.2.0.CD12-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>managed-executor-service</artifactId>
@@ -38,12 +38,7 @@
     </licenses>
 
     <dependencies>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <scope>test</scope>
-        </dependency>
-
+  
         <!-- Import the CDI API, we use provided scope as the API is included in
             JBoss EAP -->
         <dependency>

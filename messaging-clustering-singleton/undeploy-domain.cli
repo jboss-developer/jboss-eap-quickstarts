@@ -1,3 +1,0 @@
-# Management CLI script to undeploy messaging-clustering-singleton.war
-
-undeploy --server-groups=quickstart-messaging-clustering-singleton-group messaging-clustering-singleton.war
