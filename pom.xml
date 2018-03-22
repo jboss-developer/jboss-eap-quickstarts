@@ -61,7 +61,7 @@
         <!-- EAP component version management BOM -->
         <version.server.bom>7.1.0.GA</version.server.bom>
         
-        <version.jboss.spec.javaee.7.0>1.1.0.Final-redhat-3</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.1.1.Final-redhat-1</version.jboss.spec.javaee.7.0>
 
         <version.jaxws-tools-maven-plugin>1.2.2.Final</version.jaxws-tools-maven-plugin>
 
