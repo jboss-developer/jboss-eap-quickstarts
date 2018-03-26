@@ -1,7 +1,9 @@
+<<<<<<< HEAD
 :productName: JBoss EAP
 :productNameFull: Red Hat JBoss Enterprise Application Platform
 :jbossHomeName: EAP_HOME
 :productVersion: 7.1
+:ProductShortName: JBoss EAP
 :buildRequirements: Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later
 :jbdsEapServerName: Red Hat JBoss Enterprise Application Platform 7.1
 :githubRepoUrl: https://github.com/jbossas/eap-quickstarts/
@@ -33,3 +35,24 @@
 :MailSubsystemNamespace: urn:jboss:domain:mail:3.0
 :SingletonSubsystemNamespace: urn:jboss:domain:singleton:1.0
 :TransactionsSubsystemNamespace: urn:jboss:domain:transactions:4.0
+
+:DocInfoProductNameURL: jboss_enterprise_application_platform_continuous_delivery
+:DocInfoProductName: JBoss Enterprise Application Platform Continuous Delivery
+:DocInfoProductNumber: 12
+
+:LinkProductDocHome: https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
+:LinkConfigGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/configuration_guide/
+:LinkDevelopmentGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/development_guide/
+:LinkGettingStartedGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/getting_started_guide/
+:LinkOpenShiftWelcome: https://docs.openshift.com/online/welcome/index.html
+:LinkOpenShiftSignup: https://docs.openshift.com/online/getting_started/choose_a_plan.html
+:ConfigBookName: Configuration Guide
+:DevelopmentBookName: Development Guide
+:GettingStartedBookName: Getting Started Guide
+
+:OpenShiftOnlinePlatformName: Red Hat OpenShift Container Platform
+:OpenShiftOnlineName: Red Hat OpenShift Online
+:LinkOpenShiftGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/
+:LinkOpenShiftOnlineGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/getting_started_with_jboss_eap_for_openshift_online/
+:EapForOpenshiftBookName: Getting Started with {ProductShortName} for OpenShift Container Platform
+:EapForOpenshiftOnlineBookName: Getting Started with {ProductShortName} for OpenShift Online
