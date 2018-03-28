@@ -449,7 +449,6 @@
                 <module>payment-cdi-event</module>
                 <module>servlet-async</module>
                 <module>servlet-filterlistener</module>
-                <module>shrinkwrap-resolver</module>
                 <module>spring-greeter</module>
                 <module>spring-kitchensink-basic</module>
                 <module>spring-kitchensink-springmvctest</module>
