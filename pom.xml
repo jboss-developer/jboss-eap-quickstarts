@@ -455,7 +455,6 @@
                 <module>spring-kitchensink-basic</module>
                 <module>spring-kitchensink-springmvctest</module>
                 <module>spring-resteasy</module>
-                <module>tasks</module>
                 <module>tasks-jsf</module>
                 <module>temperature-converter</module>
                 <module>thread-racing</module>
