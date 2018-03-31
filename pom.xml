@@ -437,7 +437,6 @@
                 <module>helloworld-mdb</module>
                 <module>helloworld-rs</module>
                 <module>helloworld-singleton</module>
-                <module>helloworld-ws</module>
                 <module>hibernate</module>
                 <module>jaxrs-client</module>
                 <module>jsonp</module>
