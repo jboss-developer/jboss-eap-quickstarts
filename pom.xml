@@ -177,20 +177,6 @@
             <id>jboss-enterprise-maven-repository-ea</id>
             <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
         </repository>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <id>jboss-eap-7.1-product-repository</id>
-            <name>JBoss EAP Product Repository</name>
-            <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
-            <layout>default</layout>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -213,20 +199,6 @@
             </snapshots>
             <id>jboss-enterprise-maven-repository-ea</id>
             <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <id>jboss-eap-7.1-product-repository</id>
-            <name>JBoss EAP Product Repository</name>
-            <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
-            <layout>default</layout>
         </pluginRepository>
         <pluginRepository>
             <id>jboss-public-repository-group</id>
