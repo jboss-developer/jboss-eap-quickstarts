@@ -26,7 +26,7 @@
     </parent>
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
-    <version>EAP_7.2.0.CD12-dev2</version>
+    <version>7.2.0.CD12-dev3</version>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
