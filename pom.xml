@@ -21,12 +21,12 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-       <version>26</version>
+       <version>25.0.0.redhat-1</version>
        <relativePath />
     </parent>
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
-    <version>EAP_7.2.0.CD12-dev2</version>
+    <version>7.2.0.CD12-dev3</version>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
@@ -45,6 +45,7 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
+        <product.version>7.2.0.CD12</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>1.2.1.Final</version.wildfly.maven.plugin>
 
@@ -58,16 +59,16 @@
 
         <version.spring.framework>4.3.10.RELEASE</version.spring.framework>
         <!-- EAP component version management BOM -->
-        <version.server.bom>7.1.0.GA</version.server.bom>
+        <version.server.bom>7.2.0.CD12</version.server.bom>
         
-        <version.jboss.spec.javaee.7.0>1.1.0.Final-redhat-3</version.jboss.spec.javaee.7.0>
+        <version.jboss.spec.javaee.7.0>1.1.1.Final-redhat-1</version.jboss.spec.javaee.7.0>
 
         <version.jaxws-tools-maven-plugin>1.2.2.Final</version.jaxws-tools-maven-plugin>
 
         <!-- Other dependency versions -->
         <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
         <httpclient.version>4.5.2.redhat-1</httpclient.version>
-        <version.org.apache.commons.commons-lang3>3.5</version.org.apache.commons.commons-lang3>
+        <version.org.apache.commons.commons-lang3>3.6.0.redhat-1</version.org.apache.commons.commons-lang3>
         <version.h2db>1.4.193.redhat-2</version.h2db>
         <version.org.wildfly.checkstyle-config>1.0.6.Final</version.org.wildfly.checkstyle-config>
         <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Beta1</version.org.wildfly.quickstarts.documentation.plugin>
@@ -176,20 +177,6 @@
             <id>jboss-enterprise-maven-repository-ea</id>
             <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
         </repository>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <id>jboss-eap-7.1-product-repository</id>
-            <name>JBoss EAP Product Repository</name>
-            <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
-            <layout>default</layout>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -212,20 +199,6 @@
             </snapshots>
             <id>jboss-enterprise-maven-repository-ea</id>
             <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <id>jboss-eap-7.1-product-repository</id>
-            <name>JBoss EAP Product Repository</name>
-            <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven/</url>
-            <layout>default</layout>
         </pluginRepository>
         <pluginRepository>
             <id>jboss-public-repository-group</id>
