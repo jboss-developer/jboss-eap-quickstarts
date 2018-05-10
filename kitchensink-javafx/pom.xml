@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.kitchensinkfx</groupId>
+	<artifactId>kitchensink-fx</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<resteasy.version>2.3.1.GA</resteasy.version>
+		<junit-version>4.8.2</junit-version>
+		<javafx-path>C:\Java\jdk1.7.0_09\jre\lib\jfxrt.jar</javafx-path>
+		<datafx-path>C:\datafx-all\datafx.jar</datafx-path>
+	</properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+    <dependency>
+        <groupId>org.jboss.resteasy</groupId>
+        <artifactId>resteasy-bom</artifactId>
+        <version>2.3.1.GA</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency> 
+        </dependencies>
+    </dependencyManagement>
+
+	<profiles>
+      <profile>
+
+         <id>run</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+         </activation>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>exec-maven-plugin</artifactId>
+                  <version>1.1</version>
+                  <executions>
+                     <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                           <goal>java</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+                  <configuration>
+                     <mainClass>org.kitchensinkfx.view.Main</mainClass>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+</profiles>
+
+	<dependencies>
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--RESTEasy -->
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.8.5</version>
+		</dependency>
+		<dependency>
+			<groupId>javafx</groupId>
+			<artifactId>javafx</artifactId>
+			<version>2.1</version>
+			<scope>system</scope>
+			<systemPath>${javafx-path}</systemPath>
+		</dependency>
+	</dependencies>
+</project>
