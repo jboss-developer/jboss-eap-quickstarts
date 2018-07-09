@@ -611,10 +611,10 @@ For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
 </div>
 </div>
 <div class="sect1">
-<h2 id="run_the_arquillian_functional_tests">Run the Arquillian Functional Tests</h2>
+<h2 id="run_the_arquillian_tests">Run the Arquillian Tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This quickstart provides Arquillian functional tests. They are located under the  <code>functional-tests/</code> directory. Functional tests verify that your application behaves correctly from the user&#8217;s point of view and simulate clicking around the web page as a normal user would do.</p>
+<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped since Arquillian tests require the use of a container.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -623,13 +623,13 @@ For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
 <div class="title">Note</div>
 </td>
 <td class="content">
-The Arquillian functional tests deploy the application, so make sure you undeploy the quickstart before you begin.
+The Arquillian tests deploy the application, so make sure you undeploy the quickstart before you begin.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Follow these steps to run the functional tests.</p>
+<p>Follow these steps to run the tests.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -637,25 +637,7 @@ The Arquillian functional tests deploy the application, so make sure you undeplo
 <p><a href="#start_the_eap_standalone_server">Start the JBoss EAP server</a> as described above.</p>
 </li>
 <li>
-<p>Build the quickstart archive.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
 <p>Open a terminal and navigate to the root directory of this quickstart.</p>
-</li>
-<li>
-<p>Build the quickstart archive using the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Navigate to the <code>functional-tests/</code> directory in this quickstart.</p>
 </li>
 <li>
 <p>Type the following command to run the <code>verify</code> goal with the <code>arq-remote</code> profile activated.</p>
@@ -675,7 +657,7 @@ The Arquillian functional tests deploy the application, so make sure you undeplo
 </td>
 <td class="content">
 <div class="paragraph">
-<p>You can also let Arquillian manage the JBoss EAP server by using the <code>arq-managed</code> profile, meaning the tests will start the server for you. This profile requires that you provide Arquillian with the location of the JBoss EAP server, either by setting the <code>JBOSS_HOME</code> environment variable, or by setting the <code>jbossHome</code> property in the <code>arquillian.xml</code> file.  For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.adoc#run_the_arquillian_tests">Run the Arquillian Tests</a>.</p>
+<p>You can also let Arquillian manage the JBoss EAP server by using the <code>arq-managed</code> profile, meaning the tests will start the server for you. This profile requires that you provide Arquillian with the location of the JBoss EAP server, either by setting the <code>JBOSS_HOME</code> environment variable, or by setting the <code>jbossHome</code> property in the <code>arquillian.xml</code> file. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.adoc#run_the_arquillian_tests">Run the Arquillian Tests</a>.</p>
 </div>
 </td>
 </tr>
@@ -805,7 +787,7 @@ Pushing ...</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-27 09:20:20 EDT
+Last updated 2018-06-24 20:59:42 UTC
 </div>
 </div>
 </body>
