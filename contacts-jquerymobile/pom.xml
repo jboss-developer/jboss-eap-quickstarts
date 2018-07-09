@@ -15,13 +15,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.2.0.CD12-dev3</version>
+        <version>7.2.0.CD13</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>contacts-jquerymobile</artifactId>
@@ -47,7 +46,7 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
+                <version>${version.org.apache.httpcomponents.httpclient}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -186,7 +185,6 @@
                 minification of JavaScript and CSS files during the build -->
             <id>minify</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
             </activation>
 
             <build>
@@ -196,8 +194,7 @@
                         <artifactId>wro4j-maven-plugin</artifactId>
                         <version>${version.ro.isdc.wro4j}</version>
                         <configuration>
-                            <targetGroups>app.min,formSetup.min,namespace.min,submissions.min,theming.min,util.min,validation.min,app-style.min,validator.min
-                            </targetGroups>
+                            <targetGroups>app.min,formSetup.min,namespace.min,submissions.min,theming.min,util.min,validation.min,app-style.min,validator.min</targetGroups>
                             <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/css/</cssDestinationFolder>
                             <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/js/</jsDestinationFolder>
                             <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>

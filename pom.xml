@@ -21,12 +21,12 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-       <version>25.0.0.redhat-1</version>
-       <relativePath />
+       <version>26.0.0.redhat-1</version>
     </parent>
+
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
-    <version>7.2.0.CD12-dev3</version>
+    <version>7.2.0.CD13</version>
     <packaging>pom</packaging>
     <name>${qs.name.prefix} Parent</name>
     <description>JBoss EAP Quickstarts Parent</description>
@@ -45,7 +45,7 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.2.0.CD12</product.version>
+        <product.version>7.2.0.CD13</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>1.2.1.Final</version.wildfly.maven.plugin>
 
@@ -59,18 +59,16 @@
 
         <version.spring.framework>4.3.10.RELEASE</version.spring.framework>
         <!-- EAP component version management BOM -->
-        <version.server.bom>7.2.0.CD12</version.server.bom>
+        <version.server.bom>7.2.0.CD13</version.server.bom>
         
-        <version.jboss.spec.javaee.7.0>1.1.1.Final-redhat-1</version.jboss.spec.javaee.7.0>
-
         <version.jaxws-tools-maven-plugin>1.2.2.Final</version.jaxws-tools-maven-plugin>
 
         <!-- Other dependency versions -->
-        <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
-        <httpclient.version>4.5.2.redhat-1</httpclient.version>
+        <version.org.apache.httpcomponents.httpclient>4.5.2.redhat-2</version.org.apache.httpcomponents.httpclient>
+        <version.commons-io>2.5.0.redhat-3</version.commons-io>
         <version.org.apache.commons.commons-lang3>3.6.0.redhat-1</version.org.apache.commons.commons-lang3>
         <version.h2db>1.4.193.redhat-2</version.h2db>
-        <version.org.wildfly.checkstyle-config>1.0.6.Final</version.org.wildfly.checkstyle-config>
+        <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
         <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Beta1</version.org.wildfly.quickstarts.documentation.plugin>
         <jboss.developer.drupal.url>http://developer-rhdp-drupal.web.stage.ext.phx2.redhat.com/</jboss.developer.drupal.url>
         <linkXRef>false</linkXRef>
@@ -88,7 +86,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.5.0.redhat-2</version>
+                <version>${version.commons-io}</version>
                 <scope>compile</scope>
             </dependency>
      
@@ -111,7 +109,7 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
+                <version>${version.org.apache.httpcomponents.httpclient}</version>
             </dependency>
             <!-- JBoss distributes a complete set of Java EE APIs including a Bill
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
@@ -123,21 +121,6 @@
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-javaee7-with-tools</artifactId>
                 <version>${version.server.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Define the version of the JBoss Java EE APIs we want to use -->
-            <!-- JBoss distributes a complete set of Java EE APIs including
-               a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
-               a collection) of artifacts. We use this here so that we always get the correct
-               versions of artifacts. Here we use the jboss-javaee-7.0 stack (you can
-               read this as the JBoss stack of the Java EE APIs). You can actually
-               use this stack with any version of JBoss EAP that implements Java EE. -->
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>${version.jboss.spec.javaee.7.0}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
