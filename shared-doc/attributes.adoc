@@ -2,7 +2,7 @@
 // Enable the following flag to build README.html files for Product (CD or JBoss EAP) builds.
 // Comment it out to build README.html files for WildFly builds.
 //***********************************************************************************
-//:ProductRelease:
+:ProductRelease:
 
 //***********************************************************************************
 // Enable the following flag to build README.html files for CD product builds.
