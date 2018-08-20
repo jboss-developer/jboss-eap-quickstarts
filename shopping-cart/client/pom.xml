@@ -42,7 +42,7 @@
             client API isn't directly used in this example. We just need it in our runtime
             classpath -->
         <dependency>
-            <groupId>org.wildfly</groupId>
+            <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ejb-client-bom</artifactId>
             <type>pom</type>
             <scope>runtime</scope>
