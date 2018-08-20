@@ -8,7 +8,7 @@
 // Enable the following flag to build README.html files for EAP CD product builds.
 // Comment it out for WildFly or JBoss EAP product builds.
 //***********************************************************************************
-//:EAPCDRelease:
+:EAPCDRelease:
 
 // This is a universal name for all releases
 :ProductShortName: JBoss EAP
@@ -50,12 +50,12 @@ endif::[]
 :source: {githubRepoUrl}
 
 // Attributes for CD releases
-:CDProductName: JBoss Enterprise Application Platform continuous delivery
-:CDProductShortName: {ProductShortName} Continuous Delivery
-:CDProductTitle: JBoss Enterprise Application Platform Continuous Delivery
-:CDProductNameSentence: continuous delivery release for {ProductShortName}
-:CDProductAcronym: JBoss EAP CD
-:CDProductVersion: 17
+:CDProductName: JBoss Enterprise Application Platform for OpenShift
+:CDProductShortName: {ProductShortName} for OpenShift
+:CDProductTitle: JBoss Enterprise Application Platform for OpenShift
+:CDProductNameSentence: Openshift release for {ProductShortName}
+:CDProductAcronym: JBoss EAP for OpenShift
+:CDProductVersion: 7.3
 :EapForOpenshiftBookName: Red Hat JBoss Enterprise Application Platform for OpenShift
 :EapForOpenshiftOnlineBookName: Red Hat JBoss Enterprise Application Platform for OpenShift Online
 :xpaasproduct: Red Hat JBoss Enterprise Application Platform for OpenShift
@@ -66,26 +66,26 @@ endif::[]
 :EapForOpenshiftBookName: Red Hat JBoss Enterprise Application Platform for OpenShift
 :EapForOpenshiftOnlineBookName: Red Hat JBoss Enterprise Application Platform for OpenShift Online
 :ImagePrefixVersion: eap-cd
-:ImageandTemplateImportURL: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD{CDProductVersion}/templates/
+:ImageandTemplateImportURL: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/EAP_730_SP01/templates/
 
 ifdef::EAPCDRelease[]
 // EAP CD release
 :productName: {CDProductShortName}
 :productNameFull: {CDProductName}
 :productVersion: {CDProductVersion}
-:githubRepoUrl: https://github.com/jboss-developer/jboss-eap-quickstarts/tree/openshift/
+:githubRepoUrl: https://github.com/jboss-developer/jboss-eap-quickstarts/tree/7.3.x-openshift/
 :jbossHomeName: EAP_HOME
-:DocInfoProductNameURL: jboss_enterprise_application_platform_continuous_delivery
-:DocInfoProductName: JBoss Enterprise Application Platform Continuous Delivery
-:DocInfoProductNumber: {productVersion}
-:quickstartDownloadName: JBoss EAP CD {productVersion} Quickstarts
-:quickstartDownloadUrl: https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=eap-cd&downloadType=distributions
+//:DocInfoProductNameURL: jboss_enterprise_application_platform_continuous_delivery
+//:DocInfoProductName: JBoss Enterprise Application Platform Continuous Delivery
+//:DocInfoProductNumber: {productVersion}
+//:quickstartDownloadName: JBoss EAP for Openshift {productVersion} Quickstarts
+//:quickstartDownloadUrl: https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=eap-cd&downloadType=distributions
 // END ifdef::EAPCDRelease[]
 endif::[]
 
 // OpenShift repository and reference for quickstarts
 :EAPQuickStartRepo: https://github.com/jboss-developer/jboss-eap-quickstarts
-:EAPQuickStartRepoRef: openshift
+:EAPQuickStartRepoRef: 7.3.x-openshift
 // Links to the OpenShift documentation
 :LinkOpenShiftGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/
 :LinkOpenShiftOnlineGuide: https://access.redhat.com/documentation/en-us/{DocInfoProductNameURL}/{DocInfoProductNumber}/html-single/getting_started_with_jboss_eap_for_openshift_online/
