@@ -1,5 +1,0 @@
-# Script to remove a quorum from a singleton election policy
-/subsystem=singleton/singleton-policy=default:undefine-attribute(name=quorum)
-
-# Reload the server configuration
-reload
