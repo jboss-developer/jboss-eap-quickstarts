@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>28</version>
+        <version>28.0.0.redhat-00001</version>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
@@ -65,21 +65,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Version of BOMs
-        note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
+        note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/jbossas/eap-boms and build through "mvn clean install"
         -->
-        <version.server.bom>15.0.0.Alpha1-SNAPSHOT</version.server.bom>
+        <version.server.bom>7.2.0.GA-redhat-SNAPSHOT</version.server.bom>
 
         <!-- Versions of dependencies on server's core -->
-        <version.commons-io>2.5</version.commons-io>
-        <version.org.apache.httpcomponents.httpclient>4.5.2</version.org.apache.httpcomponents.httpclient>
-        <version.org.jboss.msc.jboss-msc>1.4.3.Final</version.org.jboss.msc.jboss-msc>
-        <version.org.slf4j>1.7.22.jbossorg-1</version.org.slf4j>
+        <version.commons-io>2.5.0.redhat-3</version.commons-io>
+        <version.org.apache.httpcomponents.httpclient>4.5.2.redhat-2</version.org.apache.httpcomponents.httpclient>
+        <version.org.jboss.msc.jboss-msc>1.4.5.Final-redhat-00001</version.org.jboss.msc.jboss-msc>
+        <version.org.slf4j>1.7.22.redhat-2</version.org.slf4j>
 
         <!-- Versions of dependencies on server -->
-        <version.com.fasterxml.jackson>2.9.5</version.com.fasterxml.jackson>
-        <version.com.h2database>1.4.193</version.com.h2database>
-        <version.com.sun.istack>3.0.5</version.com.sun.istack>
-        <version.org.bouncycastle>1.60</version.org.bouncycastle>
+        <version.com.fasterxml.jackson>2.9.5.redhat-2</version.com.fasterxml.jackson>
+        <version.com.h2database>1.4.193.redhat-2</version.com.h2database>
+        <version.com.sun.istack>3.0.5.redhat-1</version.com.sun.istack>
+        <version.org.bouncycastle>1.60.0.redhat-00001</version.org.bouncycastle>
         <version.org.jboss.ws.cxf>5.2.4.Final</version.org.jboss.ws.cxf>
 
         <!-- Other versions of dependencies -->
