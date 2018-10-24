@@ -1,13 +1,9 @@
-= {productNameFull} ({productName}) Quickstarts
-:productName: JBoss EAP
-:productNameFull: Red Hat JBoss Enterprise Application Platform
-:jbossHomeName: EAP_HOME
-:productVersion: 7.1
-:ext-relative: {outfilesuffix}
 include::shared-doc/attributes.adoc[]
 
+= {productNameFull} ({productName}) Quickstarts
+
 [abstract]
-The quickstarts demonstrate Java EE 7 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
+The quickstarts demonstrate {javaVersion} and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
 
 [[introduction]]
 == Introduction
@@ -35,12 +31,12 @@ Make sure you read this entire document before you attempt to work with the quic
 [[use_of_product_home_and_jboss_home_variables]]
 == Use of {jbossHomeName} and JBOSS_HOME Variables
 
-The quickstart `README` files use the _replaceable_ value `__{jbossHomeName}__` to denote the path to the {productName} installation. When you encounter this value in a `README` file, make sure you replace it with the actual path to your {productName} installation. The installation path is described in detail here: link:{useProductHomeDocUrl}[Use of {jbossHomeName} and JBOSS_HOME Variables].
+The quickstart `README` files use the _replaceable_ value `__{jbossHomeName}__` to denote the path to the {productName} installation. When you encounter this value in a `README` file, make sure you replace it with the actual path to your {productName} installation. The installation path is described in detail here: link:{useProductHomeDocUrl}[Use of __{jbossHomeName}__ and __JBOSS_HOME__ Variables].
 
 [[available_quickstarts]]
 == Available Quickstarts
 
-All available quickstarts can be found here: https://developers.redhat.com/quickstarts/eap/. You can review the technologies demonstrated by the quickstart. You can also view the required experience level. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the `Prerequisites` section of the quickstart `README` file.
+All available quickstarts can be found here: {githubRepoUrl}. You can review the technologies demonstrated by the quickstart. You can also view the required experience level. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the `Prerequisites` section of the quickstart `README` file.
 
 NOTE: Some of these quickstarts use the H2 database included with {productName}. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 
@@ -51,7 +47,7 @@ NOTE: Some of these quickstarts use the H2 database included with {productName}.
 | link:batch-processing/README{outfilesuffix}[batch-processing]|CDI, Batch 1.0, JSF | The `batch-processing` quickstart shows how to use chunk oriented batch jobs to import a file to a database. | Intermediate | _none_
 | link:bmt/README{outfilesuffix}[bmt]|EJB, BMT | The `bmt` quickstart demonstrates Bean-Managed Transactions (BMT), showing how to manually manage transaction demarcation while accessing JPA entities. | Intermediate | _none_
 | link:cmt/README{outfilesuffix}[cmt]|EJB, CMT, JMS | The `cmt` quickstart demonstrates Container-Managed Transactions (CMT), showing how to use transactions managed by the container. | Intermediate | _none_
-| link:contacts-jquerymobile/README{outfilesuffix}[contacts-jquerymobile]|jQuery Mobile, jQuery, JavaScript, HTML5, REST | The `contacts-jquerymobile` quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST. | Beginner | _none_
+| link:contacts-jquerymobile/README{outfilesuffix}[contacts-jquerymobile]|jQuery Mobile, jQuery, JavaScript, HTML5, REST | The `contacts-jquerymobile` quickstart demonstrates a {javaVersion} mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST. | Beginner | _none_
 | link:ejb-in-war/README{outfilesuffix}[ejb-in-war]|EJB, JSF, WAR | The `ejb-in-war` quickstart demonstrates how to package an EJB bean in a WAR archive and deploy it to {productName}. Arquillian tests are also provided. | Intermediate | _none_
 | link:ejb-timer/README{outfilesuffix}[ejb-timer]|EJB Timer | The `ejb-timer` quickstart demonstrates how to use the EJB timer service `@Schedule` and `@Timeout` annotations with {productName}. | Beginner | _none_
 | link:greeter/README{outfilesuffix}[greeter]|CDI, JSF, JPA, EJB, JTA | The `greeter` quickstart demonstrates the use of CDI, JPA, JTA, EJB and JSF in {productName}. | Beginner | _none_
@@ -63,10 +59,10 @@ NOTE: Some of these quickstarts use the H2 database included with {productName}.
 | link:hibernate/README{outfilesuffix}[hibernate]|Hibernate | The `hibernate` quickstart demonstrates how to use Hibernate ORM 5 API over JPA, using Hibernate-Core and Hibernate Bean Validation, and EJB. | Intermediate | _none_
 | link:jaxrs-client/README{outfilesuffix}[jaxrs-client]|JAX-RS | The `jaxrs-client` quickstart demonstrates JAX-RS Client API, which interacts with a JAX-RS Web service that runs on {productName}. | Beginner | _none_
 | link:jsonp/README{outfilesuffix}[jsonp]|CDI, JSF, JSON-P | The `jsonp` quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings. | Beginner | _none_
-| link:kitchensink/README{outfilesuffix}[kitchensink]|CDI, JSF, JPA, EJB, JAX-RS, BV | The `kitchensink` quickstart demonstrates a Java EE 7 web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
-| link:kitchensink-angularjs/README{outfilesuffix}[kitchensink-angularjs]|AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV | The `kitchensink-angularjs` quickstart demonstrates a Java EE 7 application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
+| link:kitchensink/README{outfilesuffix}[kitchensink]|CDI, JSF, JPA, EJB, JAX-RS, BV | The `kitchensink` quickstart demonstrates a {javaVersion} web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
+| link:kitchensink-angularjs/README{outfilesuffix}[kitchensink-angularjs]|AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV | The `kitchensink-angularjs` quickstart demonstrates a {javaVersion} application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
 | link:kitchensink-jsp/README{outfilesuffix}[kitchensink-jsp]|JSP, JSTL, CDI, JPA, EJB, JAX-RS, BV | The `kitchensink-jsp` quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in {productName}. | Intermediate | _none_
-| link:kitchensink-ml/README{outfilesuffix}[kitchensink-ml]|CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n | The `kitchensink-ml` quickstart demonstrates a localized Java EE 7 compliant application using JSF, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
+| link:kitchensink-ml/README{outfilesuffix}[kitchensink-ml]|CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n | The `kitchensink-ml` quickstart demonstrates a localized {javaVersion} compliant application using JSF, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
 | link:logging-tools/README{outfilesuffix}[logging-tools]|JBoss Logging Tools | The `logging-tools` quickstart shows how to use JBoss Logging Tools to create internationalized loggers, exceptions, and messages and localize them. | Beginner | _none_
 | link:managed-executor-service/README{outfilesuffix}[managed-executor-service]|EE Concurrency Utilities, JAX-RS, JAX-RS Client API | The `managed-executor-service` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution. | Beginner | _none_
 | link:numberguess/README{outfilesuffix}[numberguess]|CDI, JSF | The `numberguess` quickstart demonstrates the use of CDI  (Contexts and Dependency Injection) and JSF (JavaServer Faces) in {productName}. | Beginner | _none_
@@ -74,7 +70,7 @@ NOTE: Some of these quickstarts use the H2 database included with {productName}.
 | link:servlet-async/README{outfilesuffix}[servlet-async]|Asynchronous Servlet, CDI, EJB | The `servlet-async` quickstart demonstrates how to use asynchronous servlets to detach long-running tasks and free up the request processing thread. | Intermediate | _none_
 | link:servlet-filterlistener/README{outfilesuffix}[servlet-filterlistener]|Servlet Filter, Servlet Listener | The `servlet-filterlistener` quickstart demonstrates how to use Servlet filters and listeners in an application. | Intermediate | _none_
 | link:spring-greeter/README{outfilesuffix}[spring-greeter]|Spring MVC, JSP, JPA | The `spring-greeter` quickstart is based on the `greeter` quickstart, but differs in that it uses Spring MVC for Mapping `GET` and `POST` requests. | Beginner | _none_
-| link:spring-kitchensink-basic/README{outfilesuffix}[spring-kitchensink-basic]|JSP, JPA, JSON, Spring, JUnit | The `spring-kitchensink-basic` quickstart is an example of a Java EE 7 application using JSP, JPA and Spring 4.x. | Intermediate | _none_
+| link:spring-kitchensink-basic/README{outfilesuffix}[spring-kitchensink-basic]|JSP, JPA, JSON, Spring, JUnit | The `spring-kitchensink-basic` quickstart is an example of a {javaVersion} application using JSP, JPA and Spring 4.x. | Intermediate | _none_
 | link:spring-kitchensink-springmvctest/README{outfilesuffix}[spring-kitchensink-springmvctest]|JSP, JPA, JSON, Spring, JUnit | The  `spring-kitchensink-springmvctest` quickstart demonstrates how to create an MVC application using JSP, JPA and Spring 4.x. | Intermediate | _none_
 | link:spring-resteasy/README{outfilesuffix}[spring-resteasy]|Resteasy, Spring | The `spring-resteasy` quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration. | Beginner | _none_
 | link:tasks-jsf/README{outfilesuffix}[tasks-jsf]|JSF, JPA | The `tasks-jsf` quickstart demonstrates how to use JPA persistence with JSF as the view layer. | Intermediate | link:tasks/README{outfilesuffix}[tasks]
@@ -103,7 +99,7 @@ The applications these projects produce are designed to be run on {productNameFu
 
 All you need to build these projects is {buildRequirements}. See link:{configureMavenDocUrl}[Configure Maven to Build and Deploy the Quickstarts] to make sure you are configured correctly for testing the quickstarts.
 
-To run these quickstarts with the provided build scripts, you need the {productName} distribution ZIP. For information on how to install and run JBoss, see the https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[{productNameFull} Documentation] _Getting Started Guide_ located on the Customer Portal.
+To run these quickstarts with the provided build scripts, you need the {productName} distribution ZIP. For information on how to install and run JBoss, see the {LinkGettingStartedGuide}[__{GettingStartedBookName}__] located on the Red Hat Customer Portal.
 
 You can also run the quickstarts in xref:run_the_quickstarts_in_jboss_developer_studio_or_eclipse[JBoss Developer Studio or Eclipse].
 

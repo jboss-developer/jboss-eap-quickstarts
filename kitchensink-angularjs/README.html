@@ -447,7 +447,7 @@ The <code>kitchensink-angularjs</code> quickstart demonstrates a Java EE 7 appli
 <h2 id="_what_is_it">What is it?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>kitchensink-angularjs</code> quickstart is a deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 7 with Red Hat JBoss Enterprise Application Platform.</p>
+<p>The <code>kitchensink-angularjs</code> quickstart is a deployable Maven 3 project to help you get your foot in the door developing with AngularJS on Java EE 7 with Red Hat JBoss Enterprise Application Platform for OpenShift.</p>
 </div>
 <div class="paragraph">
 <p>This project is setup to allow you to create a compliant Java EE 7 application using CDI 1.2, EJB 3.2, JPA 2.1 and Bean Validation 1.1. It includes a persistence unit and some sample persistence and transaction code to introduce you to database access in enterprise Java.</p>
@@ -455,37 +455,83 @@ The <code>kitchensink-angularjs</code> quickstart demonstrates a Java EE 7 appli
 </div>
 </div>
 <div class="sect1">
-<h2 id="system_requirements">System Requirements</h2>
+<h2 id="getting_started_with_openshift">Getting Started with OpenShift</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.1 or later.</p>
+<p>This document contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/14/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/14/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="use_of_jboss_home_name">Use of EAP_HOME</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the following instructions, replace <code><em>EAP_HOME</em></code> with the actual path to your JBoss EAP installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.adoc#use_of_product_home_and_jboss_home_variables">Use of EAP_HOME and JBOSS_HOME Variables</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="start_the_eap_standalone_server">Start the JBoss EAP Standalone Server</h2>
+<h2 id="prepare_openshift_for_quickstart_deployment">Prepare OpenShift for Quickstart Deployment</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Open a terminal and navigate to the root of the JBoss EAP directory.</p>
+<p>Log in to your OpenShift instance using the <code>oc login</code> command.</p>
 </li>
 <li>
-<p>Start the JBoss EAP server with the default profile by typing the following command.</p>
+<p>Create a new project for the quickstart in OpenShift. You can create a project in OpenShift using the following command.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh </code></pre>
+<pre class="nowrap">$ oc new-project kitchensink-angularjs-project</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="import_imagestreams_templates">Import the Latest JBoss EAP for OpenShift Image Streams and Templates</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/14/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
+</div>
+<div class="paragraph">
+<p>Configuration of authentication to the registry is not necessary if you are building and deploying this quickstart on JBoss EAP for OpenShift Online.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Use the following command to import the latest JBoss EAP for OpenShift image streams and templates into your OpenShift project&#8217;s namespace.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">for resource in \
+  eap-cd-image-stream.json \
+  eap-cd-amq-persistent-s2i.json \
+  eap-cd-amq-s2i.json \
+  eap-cd-basic-s2i.json \
+  eap-cd-https-s2i.json \
+  eap-cd-mongodb-persistent-s2i.json \
+  eap-cd-mongodb-s2i.json \
+  eap-cd-mysql-persistent-s2i.json \
+  eap-cd-mysql-s2i.json \
+  eap-cd-postgresql-persistent-s2i.json \
+  eap-cd-postgresql-s2i.json \
+  eap-cd-third-party-db-s2i.json \
+  eap-cd-tx-recovery-s2i.json \
+  eap-cd-sso-s2i.json
+do
+  oc replace --force -f \
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/${resource}
+done</pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -495,115 +541,57 @@ The <code>kitchensink-angularjs</code> quickstart demonstrates a Java EE 7 appli
 <div class="title">Note</div>
 </td>
 <td class="content">
-For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
+<div class="paragraph">
+<p>The JBoss EAP image streams and templates imported using the above command are only available within that OpenShift project.</p>
+</div>
+<div class="paragraph">
+<p>If you have administrative access to the general <code>openshift</code> namespace and want the image streams and templates to be accessible by all projects, add <code>-n openshift</code> to the <code>oc replace</code> line of the command. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">...
+oc replace -n openshift --force -f \
+...</pre>
+</div>
+</div>
 </td>
 </tr>
 </table>
 </div>
-</li>
-</ol>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build_and_deploy_the_quickstart">Build and Deploy the Quickstart</h2>
+<h2 id="deploy_eap_s2i">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make sure you <a href="#start_the_eap_standalone_server">start the JBoss EAP server</a> as described above.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of this quickstart.</p>
-</li>
-<li>
-<p>Type the following command to build the artifacts.</p>
+<p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-cd-basic-s2i</code> template with the <code>kitchensink-angularjs</code> source code on GitHub.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package wildfly:deploy</code></pre>
+<pre class="nowrap">oc new-app --template=eap-cd-basic-s2i \<b class="conum">(1)</b>
+ -p IMAGE_STREAM_NAMESPACE="kitchensink-angularjs-project" \<b class="conum">(2)</b>
+ -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \<b class="conum">(3)</b>
+ -p SOURCE_REPOSITORY_REF="openshift" \<b class="conum">(4)</b>
+ -p CONTEXT_DIR="kitchensink-angularjs"<b class="conum">(5)</b></pre>
 </div>
 </div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>This deploys the <code>kitchensink-angularjs/target/kitchensink-angularjs.war</code> to the running instance of the server.</p>
-</div>
-<div class="paragraph">
-<p>You should see a message in the server log indicating that the archive deployed successfully.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_access_the_application">Access the Application</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The application will be running at the following URL: <a href="http://localhost:8080/kitchensink-angularjs/" class="bare">http://localhost:8080/kitchensink-angularjs/</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="undeploy_the_quickstart">Undeploy the Quickstart</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When you are finished testing the quickstart, follow these steps to undeploy the archive.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="colist arabic">
+<ol>
 <li>
-<p>Make sure you <a href="#start_the_eap_standalone_server">start the JBoss EAP server</a> as described above.</p>
+<p>The template to use.</p>
 </li>
 <li>
-<p>Open a terminal and navigate to the root directory of this quickstart.</p>
+<p>The latest images streams and templates <a href="#import_imagestreams_templates">were imported into the project&#8217;s namespace</a>, so you must specify the namespace of where to find the image stream. This is usually the OpenShift project&#8217;s name.</p>
 </li>
 <li>
-<p>Type this command to undeploy the archive:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_arquillian_tests">Run the Arquillian Tests</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This quickstart provides Arquillian tests. By default, these tests are configured to be skipped since Arquillian tests require the use of a container.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The Arquillian tests deploy the application, so make sure you undeploy the quickstart before you begin.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the tests.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="#start_the_eap_standalone_server">Start the JBoss EAP server</a> as described above.</p>
+<p>URL to the repository containing the application source code.</p>
 </li>
 <li>
-<p>Open a terminal and navigate to the root directory of this quickstart.</p>
+<p>The Git repository reference to use for the source code. This can be a Git branch or tag reference.</p>
 </li>
 <li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>arq-remote</code> profile activated.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean verify -Parq-remote</code></pre>
-</div>
-</div>
+<p>The directory within the source repository to build.</p>
 </li>
 </ol>
 </div>
@@ -614,251 +602,36 @@ The Arquillian tests deploy the application, so make sure you undeploy the quick
 <div class="title">Note</div>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>You can also let Arquillian manage the JBoss EAP server by using the <code>arq-managed</code> profile, meaning the tests will start the server for you. This profile requires that you provide Arquillian with the location of the JBoss EAP server, either by setting the <code>JBOSS_HOME</code> environment variable, or by setting the <code>jbossHome</code> property in the <code>arquillian.xml</code> file. For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.adoc#run_the_arquillian_tests">Run the Arquillian Tests</a>.</p>
-</div>
+A template can specify default values for many template parameters, and you might have to override some, or all, of the defaults. To see template information, including a list of parameters and any default values, use the command <code>oc describe template <em>TEMPLATE_NAME</em></code>.
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_arquillian_functional_tests">Run the Arquillian Functional Tests</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This quickstart provides Arquillian functional tests. They are located under the  <code>functional-tests/</code> directory. Functional tests verify that your application behaves correctly from the user&#8217;s point of view and simulate clicking around the web page as a normal user would do.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The Arquillian functional tests deploy the application, so make sure you undeploy the quickstart before you begin.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the functional tests.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="#start_the_eap_standalone_server">Start the JBoss EAP server</a> as described above.</p>
 </li>
 <li>
-<p>Build the quickstart archive.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Open a terminal and navigate to the root directory of this quickstart.</p>
-</li>
-<li>
-<p>Build the quickstart archive using the following command:</p>
+<p>Retrieve the name of the build configuration.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
+<pre class="nowrap">$ oc get bc -o name</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the name of the build configuration from the previous step to view the Maven progress of the build.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ oc logs -f buildconfig/eap-app</pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
-</li>
-<li>
-<p>Navigate to the <code>functional-tests/</code> directory in this quickstart.</p>
-</li>
-<li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>arq-remote</code> profile activated.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean verify -Parq-remote</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You can also let Arquillian manage the JBoss EAP server by using the <code>arq-managed</code> profile, meaning the tests will start the server for you. This profile requires that you provide Arquillian with the location of the JBoss EAP server, either by setting the <code>JBOSS_HOME</code> environment variable, or by setting the <code>jbossHome</code> property in the <code>arquillian.xml</code> file.  For more information, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.adoc#run_the_arquillian_tests">Run the Arquillian Tests</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_quickstart_in_jboss_developer_studio_or_eclipse">Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can also start the server and deploy the quickstarts or run the Arquillian tests in Red Hat JBoss Developer Studio or from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.adoc#use_red_hat_jboss_developer_studio_or_eclipse_to_run_the_quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If you have not installed the <a href="https://github.com/angelozerr/angularjs-eclipse">AngularJS Eclipse plugin</a> into JBoss Developer Studio, you may see one or more of the following warnings when you import this project. You can ignore these warnings.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>HTML Problem: Undefined attribute name (ng-app)
-HTML Problem: Undefined attribute name (ng-click)
-HTML Problem: Undefined attribute name (ng-disabled)
-HTML Problem: Undefined attribute name (ng-hide)
-HTML Problem: Undefined attribute name (ng-model)
-HTML Problem: Undefined attribute name (ng-pattern)
-HTML Problem: Undefined attribute name (ng-repeat)
-HTML Problem: Undefined attribute name (ng-show)
-HTML Problem: Undefined attribute name (ng-submit)
-HTML Problem: Undefined attribute name (ng-view)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="deploy_the_quickstart_to_openshift_online">Deploy the Quickstart to OpenShift Online</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Use these instructions to deploy the quickstart to Red Hat OpenShift Online. If you do not yet have an OpenShift Online account and are interested in signing up for one, see <a href="https://docs.openshift.com/online/getting_started/choose_a_plan.html">Choose a Plan</a> in the OpenShift Online documentation located on the Red Hat Customer Portal. For information about running JBoss EAP on Red Hat OpenShift Online, see <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/12/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a>, also located on the Red Hat Customer Portal.</p>
-</div>
-<div class="sect2">
-<h3 id="create_and_deploy_the_quickstart_project">Create and Deploy the Quickstart Project</h3>
-<div class="paragraph">
-<p>Follow these instructions to deploy this quickstart to OpenShift Online.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Browse to OpenShift Online console and login with your credentials.</p>
-</li>
-<li>
-<p>On the <strong>View All Projects</strong> or <strong>Welcome to Project</strong> page, click <strong>Create Project</strong>.</p>
-</li>
-<li>
-<p>On the <strong>Create Project</strong> page, enter the following information:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code><strong>Name:</strong>  kitchensink-angularjs
-<strong>Display Name</strong> kitchensink-angularjs
-<strong>Description:</strong> kitchensink-angularjs</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Click <strong>Create</strong> to create the project.</p>
-</li>
-<li>
-<p>On the <strong>My Projects</strong> page, choose your new <strong>kitchensink-angularjs</strong> and click <strong>Browse Catalog</strong>.</p>
-</li>
-<li>
-<p>Choose <strong>JBoss EAP CD (no https)</strong> and then click <strong>Next</strong> to view the <strong>Information</strong> page.</p>
-</li>
-<li>
-<p>Click <strong>Next</strong> to navigate to the <strong>Configuration</strong> page. . . Enter the following information. You can leave the remaining fields as they are.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code><strong>Add to Project:</strong> kitchensink-angularjs
-<strong>Application Name:</strong> kitchensink-angularjs
-<strong>Custom http Route Hostname:</strong> (leave blank)
-<strong>Git Repository URL:</strong> https://github.com/jboss-developer/jboss-eap-quickstarts/
-<strong>Git Reference:</strong> openshift
-<strong>Context directory:</strong> kitchensink-angularjs</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Click the <strong>Create</strong> button.</p>
-</li>
-<li>
-<p>Click on the <strong>Continue to the project overview</strong> link.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>You should see "Build #1 is running &#8230;&#8203;" with the console log below.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>Cloning ...
-Downloading ...
-Building ...
-Copying ...
-Pushing ...</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>At the end of the build, you should see "Push successful".</p>
-</li>
-<li>
-<p>Click <strong>View Full Log</strong> to see the entire log.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Click the <strong>Overview</strong> tab to see the <code>kitchensink-angularjs</code> deployment.</p>
-</li>
-<li>
-<p>Click on the application URL on the right side of the page to view the running application. It should be in the following pattern:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>http://<em>APPLICATION_NAME</em>-<em>PROJECT_NAME</em>.<em>PORT</em>.<em>HOST</em>.openshiftapps.com</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="delete_the_quickstart_project">Delete the Quickstart Project</h3>
-<div class="paragraph">
-<p>Follow these instructions to delete the project from OpenShift Online.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Go to the <strong>View All Projects</strong> page and select <strong>Delete Project</strong> from the drop down list to the right of the <strong>kitchensink-angularjs</strong> project.</p>
-</li>
-<li>
-<p>Type the name of the project to confirm, and then click <strong>Delete</strong></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_debug_the_application">Debug the Application</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn dependency:sources
-$ mvn dependency:resolve -Dclassifier=javadoc</code></pre>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-24 20:59:42 UTC
+Last updated 2018-09-25 05:54:13 UTC
 </div>
 </div>
 </body>

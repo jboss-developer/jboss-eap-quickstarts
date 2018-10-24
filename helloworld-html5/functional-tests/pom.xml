@@ -20,11 +20,15 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.2.0.CD13</version>
+        <!--
+        Maintain separation between the artifact id and the version to help prevent
+        merge conflicts between commits changing the GA and those changing the V.
+        -->
+        <version>7.2.0.CD14</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>helloworld-html5-test-webdriver</artifactId>
-    <name>${qs.name.prefix} Hello World test via WebDriver with Arquillian</name>
+    <name>Quickstart: Hello World test via WebDriver with Arquillian</name>
     <description>This project tests a Hello World using HTML5 and REST, for use on JBoss EAP by WebDriver</description>
 
     <properties>

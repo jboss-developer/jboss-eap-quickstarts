@@ -15,17 +15,23 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.2.0.CD13</version>
+        <!--
+        Maintain separation between the artifact id and the version to help prevent
+        merge conflicts between commits changing the GA and those changing the V.
+        -->
+        <version>7.2.0.CD14</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>logging-tools</artifactId>
     <packaging>war</packaging>
-    <name>${qs.name.prefix} logging-tools</name>
+    <name>Quickstart: logging-tools</name>
     <description>This project demonstrates JBoss EAP Logging Tools using JAX-RS</description>
     <properties>
         <!--JBEAP-9389 workaround for buggy eclipse -->
@@ -59,7 +65,7 @@
         <!-- not related to jboss-logging-tools, just required for JAX-RS  -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+            <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

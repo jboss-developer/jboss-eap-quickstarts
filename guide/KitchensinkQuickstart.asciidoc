@@ -1,14 +1,15 @@
-= CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian -- Kitchensink quickstart
+CDI + JSF + EJB + JTA + Bean Validation + JAX-RS + Arquillian: Kitchensink quickstart
+=====================================================================================
 :Author: Pete Muir
 
 [[KitchensinkQuickstart-]]
 
-This quickstart shows off all the new features of Java EE, and makes a great starting point for your project.
+This quickstart shows off all the new features of Java EE 6, and makes a great starting point for your project.
 
 [TIP]
 .Bean Validation
 ========================================================================
-Bean Validation is a new specification in Java EE, inspired by 
+Bean Validation is a new specification in Java EE 6, inspired by 
 Hibernate Validator. It allows application developers to specify 
 constraints once (often in their domain model), and have them applied in
 all layers of the application, protecting data and giving useful 
@@ -18,7 +19,7 @@ feedback to users.
 [TIP]
 .JAX-RS: The Java API for RESTful Web Services
 ========================================================================
-JAX-RS is a new specification in Java EE. It allows application 
+JAX-RS is a new specification in Java EE 6. It allows application 
 developers to easily expose Java services as RESTful web services.
 ========================================================================
 
@@ -26,11 +27,11 @@ Switch to the `quickstarts/kitchensink` directory and instruct Maven to build an
 
     mvn package wildfly:deploy
 
-The quickstart uses a Maven plug-in to deploy the application. The plug-in requires Red Hat JBoss Enterprise Application Platform to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss EAP server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss EAP server on Windows>>).
+The quickstart uses a Maven plugin to deploy the application. The plugin requires JBoss WildFly to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss server on Windows>>).
 
 Or you can start the server using an IDE, like Eclipse.
 
-Now, check if the application has deployed properly by clicking http://localhost:8080/jboss-kitchensink. If you see a splash page it's all working!
+Now, check if the application has deployed properly by clicking http://localhost:8080/wildfly-kitchensink. If you see a splash page it's all working!
 
 
 [TIP]
@@ -45,11 +46,12 @@ some changes, it's pretty easy:
 
 It's time to pull the covers back and dive into the internals of the application.
 
-== Deploying the Kitchensink quickstart using Red Hat JBoss Developer Studio, or Eclipse with JBoss Tools
+Deploying the Kitchensink quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools
+----------------------------------------------------------------------------------------------
 
-You may choose to deploy the quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools. You'll need to have Red Hat JBoss Enterprise Application Platform started in the IDE (as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss EAP server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse,Importing the quickstarts into Eclipse>>).
+You may choose to deploy the quickstart using JBoss Developer Studio, or Eclipse with JBoss Tools. You'll need to have JBoss WildFly started in the IDE (as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse,Importing the quickstarts into Eclipse>>).
 
-With the quickstarts imported, you can deploy the quickstart by right clicking on the `jboss-kitchensink` project, and choosing _Run As -> Run On Server_:
+With the quickstarts imported, you can deploy the quickstart by right clicking on the `wildfly-kitchensink` project, and choosing _Run As -> Run On Server_:
 
 image:gfx/Eclipse_KitchenSink_Deploy_1.jpg[]
 
@@ -57,16 +59,17 @@ Make sure the server is selected, and hit Finish:
  
 image:gfx/Eclipse_Deploy_2.jpg[]
 
-You should see the server start up (unless you already started it in  <<GettingStarted-with_jboss_tools, Starting the JBoss EAP server from JBDS or Eclipse with JBoss Tools>>) and the application deploy in the Console log: 
+You should see the server start up (unless you already started it in  <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and the application deploy in the Console log: 
 
 image:gfx/Eclipse_KitchenSink_Deploy_3.jpg[]
 
 
-== The kitchensink quickstart in depth
+The kitchensink quickstart in depth
+-----------------------------------
 
 The kitchensink application shows off a number of Java EE technologies such as CDI, JSF, EJB, JTA, JAX-RS and Arquillian. It does this by providing a member registration database, available via JSF and JAX-RS.
 
-As usual, let's start by looking at the necessary deployment descriptors. By now, we're very used to seeing `beans.xml` and `faces-config.xml` in `WEB-INF/` (which can be found in the `src/main/webapp` directory). Notice that, once again, we don't need a `web.xml`. There are two configuration files in `WEB-INF/classes/META-INF` (which can be found in the `src/main/resources` directory) — `persistence.xml`, which sets up JPA, and `import.sql` which Hibernate, the JPA provider in Red Hat JBoss Enterprise Application Platform, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in <<GreeterQuickstart-,the Greeter Quickstart>>, and these are largely the same.
+As usual, let's start by looking at the necessary deployment descriptors. By now, we're very used to seeing `beans.xml` and `faces-config.xml` in `WEB-INF/` (which can be found in the `src/main/webapp` directory). Notice that, once again, we don't need a `web.xml`. There are two configuration files in `WEB-INF/classes/META-INF` (which can be found in the `src/main/resources` directory) — `persistence.xml`, which sets up JPA, and `import.sql` which Hibernate, the JPA provider in JBoss WildFly, will use to load the initial users into the application when the application starts. We discussed both of these files in detail in <<GreeterQuickstart-,the Greeter Quickstart>>, and these are largely the same.
 
 Next, let's take a look at the JSF view the user sees. As usual, we use a template to provide the sidebar and footer. This one lives in `src/main/webapp/WEB-INF/templates/default.xhtml`:
 
@@ -87,7 +90,7 @@ Next, let's take a look at the JSF view the user sees. As usual, we use a templa
 <h:body>
     <div id="container">
         <div class="dualbrand">
-            <img src="resources/gfx/rhjb_eap_logo.png" />
+            <img src="resources/gfx/dualbrand_logo.png" />
         </div>
         <div id="content">
             <ui:insert name="content">                               <2>
@@ -95,18 +98,32 @@ Next, let's take a look at the JSF view the user sees. As usual, we use a templa
             </ui:insert>
         </div>
         <div id="aside">                                             <3>
-            <p>Learn more about Red Hat JBoss Enterprise Application Platform.</p>
+            <p>Learn more about JBoss Enterprise Application
+                Platform 6.</p>
             <ul>
                 <li>
-                    <a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/">
+                    <a href="http://red.ht/jbeap-6-docs">
                         Documentation
                     </a>
                 </li>
                 <li>
-                    <a href="http://www.redhat.com/en/technologies/jboss-middleware/application-platform">
+                    <a href="http://red.ht/jbeap-6">
                         Product Information
                     </a>
                </li>
+            </ul>
+            <p>Learn more about JBoss WildFly.</p>
+            <ul>
+                <li>
+                    <a href="http://jboss.org/jdf/quickstarts/wildfly-quickstart/guide">
+                        Getting Started Developing Applications Guide
+                    </a>
+                </li>
+                <li>
+                    <a href="http://jboss.org/jbossas">
+                        Community Project Information
+                    </a>
+                </li>
             </ul>
         </div>
         <div id="footer">
@@ -418,7 +435,7 @@ public class Resources {
 <2> We expose a JDK logger for injection. In order to save a bit more boiler plate, we automatically set the logger category as the class name!
 <3> We expose the `FacesContext` via a producer method, which allows it to be injected. If we were adding tests, we could also then mock it out.
 
-If you want to define your own datasource, take a look at the link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Product Documentation] for Red Hat JBoss Enterprise Application Platform or the link:https://docs.jboss.org/author/display/WFLY10/Getting+Started+Guide[Getting Started Guide].
+If you want to define your own datasource, take a look at the link:http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/index.html[Administration and Configuration Guide for JBoss Enterprise Application Platform 6] or the link:https://docs.jboss.org/author/display/AS71/Getting+Started+Guide[Getting Started Guide].
 
 Of course, we need to allow JSF to interact with the services. The `MemberController` class is responsible for this:
 
@@ -483,7 +500,7 @@ public class MemberController {
 
 }
 ------------------------------------------------------------------------
-<1> The `MemberController` class uses the `@Member` stereotype, which adds `@Named` and `@RequestScoped` to the class
+<1> The `MemberController` class uses the `@Model` stereotype, which adds `@Named` and `@RequestScoped` to the class
 <2> The `FacesContext` is injected, so that messages can be sent to the user
 <3> The `MemberRegistration` bean is injected, to allow the controller to interact with the database
 <4> The `Member` class is exposed using a named producer field, which allows access from JSF. Note that that the named producer field has dependent scope, so every time it is injected, the field will be read
@@ -492,7 +509,7 @@ public class MemberController {
 <7> We also send a message to the user, to give them feedback on their actions
 <8> Finally, we replace the `newMember` with a new object, thus blanking out the data the user has added so far. This works as the producer field is dependent scoped
 
-Before we wrap up our tour of the kitchensink application, let's take a look at how the JAX-RS endpoints are created. Firstly, `JaxRSActivator`, which extends `Application` and is annotated with `@ApplicationPath`, is the Java EE "no XML" approach to activating JAX-RS.
+Before we wrap up our tour of the kitchensink application, let's take a look at how the JAX-RS endpoints are created. Firstly, `JaxRSActivator`, which extends `Application` and is annotated with `@ApplicationPath`, is the Java EE 6 "no XML" approach to activating JAX-RS.
 
 .src/main/java/org/jboss/as/quickstarts/kitchensink/rest/JaxRsActivator.java
 [source,java]
@@ -568,14 +585,14 @@ public class MemberResourceRESTService {
         } catch (ValidationException e) {
             //Handle the unique constrain violation
             Map<String, String> responseObj = 
-                new HashMap<>();
+                new HashMap<String, String>();
             responseObj.put("email", "Email taken");
             builder = Response.status(Response.Status.CONFLICT)
                               .entity(responseObj);
         } catch (Exception e) {
             // Handle generic exceptions
             Map<String, String> responseObj 
-                = new HashMap<>();
+                = new HashMap<String, String>();
             responseObj.put("error", e.getMessage());
             builder = Response.status(Response.Status.BAD_REQUEST)
                               .entity(responseObj);
@@ -614,7 +631,7 @@ public class MemberResourceRESTService {
 
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(
-                new HashSet<>(violations));
+                new HashSet<ConstraintViolation<?>>(violations));
         }
 
         //Check the uniqueness of the email address
@@ -638,7 +655,7 @@ public class MemberResourceRESTService {
             + violations.size());
 
         Map<String, String> responseObj = 
-            new HashMap<>();
+            new HashMap<String, String>();
 
         for (ConstraintViolation<?> violation : violations) {
             responseObj.put(violation.getPropertyPath().toString(), 
@@ -676,7 +693,7 @@ public class MemberResourceRESTService {
 <4> CDI allows us to inject a Bean Validation `Validator` instance, which is used to validate the POSTed member before it is persisted
 <5> `MemberRegistration` is injected to allow us to alter the member database
 <6> `MemberRepository` is injected to allow us to query the member database
-<7> The `listAllMembers()` method is called when the raw endpoint is accessed and offers up a list of endpoints. Notice that the object is automatically marshalled to JSON by RESTEasy (the JAX-RS implementation included in Red Hat JBoss Enterprise Application Platform). 
+<7> The `listAllMembers()` method is called when the raw endpoint is accessed and offers up a list of endpoints. Notice that the object is automatically marshalled to JSON by RESTEasy (the JAX-RS implementation included in JBoss WildFly).
 <8> The `lookupMemberById()` method is called when the endpoint is accessed with a member id parameter appended (for example `rest/members/1)`. Again, the object is automatically marshalled to JSON by RESTEasy.
 <9> `createMember()` is called when a POST is performed on the URL. Once again, the object is automatically unmarshalled from JSON.
 <10> In order to ensure that the member is valid, we call the `validateMember` method, which validates the object, and adds any constraint violations to the response. These can then be handled on the client side, and displayed to the user
@@ -684,11 +701,12 @@ public class MemberResourceRESTService {
 <12> We then handle any remaining issues with validating the object, which are raised when the object is persisted
 
 
-=== Arquillian
+Arquillian
+~~~~~~~~~~
 
 If you've been following along with the Test Driven Development craze of the past few years, you're probably getting a bit nervous by now, wondering how on earth you are going to test your application. Lucky for you, the Arquillian project is here to help!
 
-Arquillian provides all the boiler plate for running your test inside Red Hat JBoss Enterprise Application Platform, allowing you to concentrate on testing your application. In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, to create an archive to deploy. We'll go through the testcase, and how you configure Arquillian in just a moment, but first let's run the test.
+Arquillian provides all the boiler plate for running your test inside JBoss WildFly, allowing you to concentrate on testing your application. In order to do that, it utilizes Shrinkwrap, a fluent API for defining packaging, to create an archive to deploy. We'll go through the testcase, and how you configure Arquillian in just a moment, but first let's run the test.
 
 Before we start, we need to let Arquillian know the path to our server. Open up `src/test/resources/arquillian.xml`, uncomment the `<configuration>` elements, and set the `jbossHome` property to the path to the server:
 
@@ -696,194 +714,126 @@ image:gfx/eclipse_arquillian_0.png[]
 
 Now, make sure the server is not running (so that the instance started for running the test does not interfere), and then run the tests from the command line by typing:
 
-    mvn clean verify -Parq-managed
+    mvn clean test -Parq-managed
 
 You should see the server start up, a `test.war` deployed, test executed, and then the results displayed to you on the console: 
 
 ------------------------------------------------------------------------
-$ > mvn clean verify -Parq-managed
+$ > mvn clean test -Parq-managed
 
 
 [INFO] Scanning for projects...
-[INFO]                                                                         
+[INFO]
 [INFO] ------------------------------------------------------------------------
-[INFO] Building JBoss EAP Quickstart: kitchensink 7.1.0-SNAPSHOT
+[INFO] Building WildFly Quickstarts: Kitchensink 7.0.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ jboss-kitchensink ---
-[INFO] Deleting /home/username/jboss-eap-quickstarts/kitchensink/target
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ jboss-kitchensink ---
+[INFO]
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ wildfly-kitchensink ---
+[INFO] Deleting /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target
+[INFO]
+[INFO] --- maven-resources-plugin:2.4.3:resources (default-resources) @ wildfly-kitchensink ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 2 resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ jboss-kitchensink ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 8 source files to /home/username/jboss-eap-quickstarts/kitchensink/target/classes
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ jboss-kitchensink ---
+[INFO]
+[INFO] --- maven-compiler-plugin:2.3.1:compile (default-compile) @ wildfly-kitchensink ---
+[INFO] Compiling 6 source files to /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target/classes
+[INFO]
+[INFO] --- maven-resources-plugin:2.4.3:testResources (default-testResources) @ wildfly-kitchensink ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 3 resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ jboss-kitchensink ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to /home/username/jboss-eap-quickstarts/kitchensink/target/test-classes
-[INFO] 
-[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ jboss-kitchensink ---
-[INFO] Surefire report directory: /home/username/jboss-eap-quickstarts/kitchensink/target/surefire-reports
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:2.3.1:testCompile (default-testCompile) @ wildfly-kitchensink ---
+[INFO] Compiling 1 source file to /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target/test-classes
+[INFO]
+[INFO] --- maven-surefire-plugin:2.7.2:test (default-test) @ wildfly-kitchensink ---
+[INFO] Surefire report directory: /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target/surefire-reports
 
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
 Running org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest
-Jul 28, 2015 9:34:50 AM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
-WARNING: Bundles path is deprecated and no longer used.
-Jul 28, 2015 9:34:50 AM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
-INFO: Starting container with: [/home/username/JDKs/jdk1.8.0_45/bin/java, -D[Standalone], -Xms64m, -Xmx512m, -Djava.net.preferIPv4Stack=true, -Djava.awt.headless=true, -Djboss.modules.system.pkgs=org.jboss.byteman, -ea, -Djboss.home.dir=/home/username/tools/jboss-eap-7.1, -Dorg.jboss.boot.log.file=/home/username/tools/jboss-eap-7.1/standalone/log/server.log, -Dlogging.configuration=file:/home/username/tools/jboss-eap-7.1/standalone/configuration/logging.properties, -jar, /home/username/tools/jboss-eap-7.1/jboss-modules.jar, -mp, /home/username/tools/jboss-eap-7.1/modules, org.jboss.as.standalone, -Djboss.home.dir=/home/username/tools/jboss-eap-7.1, -Djboss.server.base.dir=/home/username/tools/jboss-eap-7.1/standalone, -Djboss.server.log.dir=/home/username/tools/jboss-eap-7.1/standalone/log, -Djboss.server.config.dir=/home/username/tools/jboss-eap-7.1/standalone/configuration]
-Jul 28, 2015 9:34:50 AM org.xnio.Xnio <clinit>
-INFO: XNIO version 3.3.1.Final
-Jul 28, 2015 9:34:50 AM org.xnio.nio.NioXnio <clinit>
-INFO: XNIO NIO Implementation Version 3.3.1.Final
-Jul 28, 2015 9:34:50 AM org.jboss.remoting3.EndpointImpl <clinit>
-INFO: JBoss Remoting version 4.0.9.Final
-09:34:50,687 INFO  [org.jboss.modules] (main) JBoss Modules version 1.4.3.Final
-09:34:50,932 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.6.Final
-09:34:50,988 INFO  [org.jboss.as] (MSC service thread 1-6) WFLYSRV0049: WildFly Core 2.0.0.Alpha9 "Kenny" starting
-09:34:51,971 INFO  [org.jboss.as.controller.management-deprecated] (ServerService Thread Pool -- 21) WFLYCTL0028: Attribute 'enabled' in the resource at address '/subsystem=datasources/data-source=ExampleDS' is deprecated, and may be removed in future version. See the attribute description in the output of the read-resource-description operation to learn more about the deprecation.
-09:34:52,020 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
-09:34:52,054 INFO  [org.xnio] (MSC service thread 1-5) XNIO version 3.3.1.Final
-09:34:52,066 INFO  [org.xnio.nio] (MSC service thread 1-5) XNIO NIO Implementation Version 3.3.1.Final
-09:34:52,120 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 38) WFLYCLINF0001: Activating Infinispan subsystem.
-09:34:52,121 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 37) WFLYIO001: Worker 'default' has auto-configured to 16 core threads with 128 task threads based on your 8 available processors
-09:34:52,136 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 33) WFLYJCA0004: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
-09:34:52,145 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 46) WFLYNAM0001: Activating Naming Subsystem
-09:34:52,152 INFO  [org.jboss.remoting] (MSC service thread 1-5) JBoss Remoting version 4.0.9.Final
-09:34:52,161 INFO  [org.jboss.as.connector] (MSC service thread 1-3) WFLYJCA0009: Starting JCA Subsystem (IronJacamar 1.2.4.Final)
-09:34:52,164 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-7) WFLYJCA0018: Started Driver service with driver-name = h2
-09:34:52,166 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 44) WFLYJSF0007: Activated the following JSF Implementations: [main]
-09:34:52,190 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 54) WFLYTX0013: Node identifier property is set to the default value. Please make sure it is unique.
-09:34:52,192 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 53) WFLYSEC0002: Activating Security Subsystem
-09:34:52,210 INFO  [org.jboss.as.security] (MSC service thread 1-6) WFLYSEC0001: Current PicketBox version=4.9.2.Final
-09:34:52,210 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 56) WFLYWS0002: Activating WebServices Extension
-09:34:52,313 INFO  [org.jboss.as.naming] (MSC service thread 1-8) WFLYNAM0003: Starting Naming Service
-09:34:52,314 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
-09:34:52,316 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0003: Undertow 1.3.0.Beta3 starting
-09:34:52,318 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0003: Undertow 1.3.0.Beta3 starting
-09:34:52,447 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) WFLYUT0014: Creating file handler for path '/home/username/tools/jboss-eap-7.1/welcome-content' with options [directory-listing: 'false', follow-symlink: 'false', case-sensitive: 'true', safe-symlink-paths: '[]']
-09:34:52,461 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0012: Started server default-server.
-09:34:52,465 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0018: Host default-host starting
-09:34:52,546 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0006: Undertow HTTP listener default listening on /127.0.0.1:8080
-09:34:52,662 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-5) WFLYJCA0001: Bound data source [java:jboss/datasources/ExampleDS]
-09:34:52,744 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-6) WFLYDS0013: Started FileSystemDeploymentService for directory /home/username/tools/jboss-eap-7.1/standalone/deployments
-09:34:52,747 ERROR [org.jboss.as.domain.http.api.undertow] (MSC service thread 1-7) WFLYDMHTTP0003: Unable to load console module for slot main, disabling console
-09:34:52,749 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "jboss-contacts-jquerymobile.war" (runtime-name: "jboss-contacts-jquerymobile.war")
-09:34:52,890 INFO  [org.jboss.ws.common.management] (MSC service thread 1-4) JBWS022052: Starting JBoss Web Services - Stack CXF Server 5.0.0.Final
-09:34:53,213 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) WFLYJPA0002: Read persistence.xml for contacts_pu
-09:34:53,226 WARN  [org.jboss.as.connector] (MSC service thread 1-1) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-09:34:53,278 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) WFLYSRV0018: Deployment "deployment.jboss-contacts-jquerymobile.war" is using a private module ("org.codehaus.jackson.jackson-core-asl:main") which may be changed or removed in future versions without notice.
-09:34:53,282 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) WFLYSRV0018: Deployment "deployment.jboss-contacts-jquerymobile.war" is using a private module ("org.codehaus.jackson.jackson-core-asl:main") which may be changed or removed in future versions without notice.
-09:34:53,283 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) WFLYSRV0018: Deployment "deployment.jboss-contacts-jquerymobile.war" is using a private module ("org.codehaus.jackson.jackson-mapper-asl:main") which may be changed or removed in future versions without notice.
-09:34:53,283 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-6) WFLYSRV0018: Deployment "deployment.jboss-contacts-jquerymobile.war" is using a private module ("org.codehaus.jackson.jackson-mapper-asl:main") which may be changed or removed in future versions without notice.
-09:34:53,337 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-3) WFLYJCA0001: Bound data source [java:jboss/datasources/JbossContactsMobileBasicQuickstartDS]
-09:34:53,340 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'jboss-contacts-jquerymobile.war#contacts_pu'
-09:34:53,370 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 58) HHH000204: Processing PersistenceUnitInfo [
-	name: contacts_pu
-	...]
-09:34:53,419 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0003: Processing weld deployment jboss-contacts-jquerymobile.war
-09:34:53,436 INFO  [org.hibernate.Version] (ServerService Thread Pool -- 58) HHH000412: Hibernate Core {5.0.0.CR2}
-09:34:53,438 INFO  [org.hibernate.cfg.Environment] (ServerService Thread Pool -- 58) HHH000206: hibernate.properties not found
-09:34:53,440 INFO  [org.hibernate.cfg.Environment] (ServerService Thread Pool -- 58) HHH000021: Bytecode provider name : javassist
-09:34:53,473 INFO  [org.hibernate.orm.deprecation] (ServerService Thread Pool -- 58) HHH90000001: Found usage of deprecated setting for specifying Scanner [hibernate.ejb.resource_scanner]; use [hibernate.archive.scanner] instead
-09:34:53,673 INFO  [org.hibernate.annotations.common.Version] (ServerService Thread Pool -- 58) HCANN000001: Hibernate Commons Annotations {5.0.0.Final}
-09:34:53,674 INFO  [org.hibernate.validator.internal.util.Version] (MSC service thread 1-8) HV000001: Hibernate Validator 5.1.3.Final
-09:34:53,743 INFO  [org.jboss.as.ejb3.deployment] (MSC service thread 1-8) WFLYEJB0473: JNDI bindings for session bean named 'ContactRESTService' in deployment unit 'deployment "jboss-contacts-jquerymobile.war"' are as follows:
+Jun 25, 2011 7:17:49 PM org.jboss.arquillian.container.impl.client.container.ContainerRegistryCreator getActivatedConfiguration
+INFO: Could not read active container configuration: null
+log4j:WARN No appenders could be found for logger (org.jboss.remoting).
+log4j:WARN Please initialize the log4j system properly.
+Jun 25, 2011 7:17:54 PM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
+INFO: Starting container with: [java, -Djboss.home.dir=/Users/pmuir/development/jboss, -Dorg.jboss.boot.log.file=/Users/pmuir/development/jboss/standalone/log/boot.log, -Dlogging.configuration=file:/Users/pmuir/development/jboss/standalone/configuration/logging.properties, -jar, /Users/pmuir/development/jboss/jboss-modules.jar, -mp, /Users/pmuir/development/jboss/modules, -logmodule, org.jboss.logmanager, -jaxpmodule, javax.xml.jaxp-provider, org.jboss.as.standalone, -server-config, standalone.xml]
+19:17:55,107 INFO  [org.jboss.modules] JBoss Modules version 1.0.0.CR4
+19:17:55,329 INFO  [org.jboss.msc] JBoss MSC version 1.0.0.CR2
+19:17:55,386 INFO  [org.jboss.as] JBoss WildFly.0.0.Beta4-SNAPSHOT "(TBD)" starting
+19:17:56,159 INFO  [org.jboss.as] creating http management service using network interface (management) port (9990) securePort (-1)
+19:17:56,181 INFO  [org.jboss.as.logging] Removing bootstrap log handlers
+19:17:56,189 INFO  [org.jboss.as.naming] (Controller Boot Thread) Activating Naming Subsystem
+19:17:56,203 INFO  [org.jboss.as.naming] (MSC service thread 1-4) Starting Naming Service
+19:17:56,269 INFO  [org.jboss.as.security] (Controller Boot Thread) Activating Security Subsystem
+19:17:56,305 INFO  [org.jboss.remoting] (MSC service thread 1-1) JBoss Remoting version 3.2.0.Beta2
+19:17:56,317 INFO  [org.xnio] (MSC service thread 1-1) XNIO Version 3.0.0.Beta3
+19:17:56,331 INFO  [org.xnio.nio] (MSC service thread 1-1) XNIO NIO Implementation Version 3.0.0.Beta3
+19:17:56,522 INFO  [org.jboss.as.connector.subsystems.datasources] (Controller Boot Thread) Deploying JDBC-compliant driver class org.h2.Driver (version 1.2)
+19:17:56,572 INFO  [org.apache.catalina.core.AprLifecycleListener] (MSC service thread 1-7) The Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: .:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+19:17:56,627 INFO  [org.jboss.as.remoting] (MSC service thread 1-3) Listening on /127.0.0.1:9999
+19:17:56,641 INFO  [org.jboss.as.jmx.JMXConnectorService] (MSC service thread 1-2) Starting remote JMX connector
+19:17:56,705 INFO  [org.jboss.as.ee] (Controller Boot Thread) Activating EE subsystem
+19:17:56,761 INFO  [org.apache.coyote.http11.Http11Protocol] (MSC service thread 1-7) Starting Coyote HTTP/1.1 on http--127.0.0.1-8080
+19:17:56,793 INFO  [org.jboss.as.connector] (MSC service thread 1-3) Starting JCA Subsystem (JBoss IronJacamar 1.0.0.CR2)
+19:17:56,837 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) Bound data source [java:jboss/datasources/ExampleDS]
+19:17:57,335 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) Starting deployment of "arquillian-service"
+19:17:57,348 INFO  [org.jboss.as.deployment] (MSC service thread 1-7) Started FileSystemDeploymentService for directory /Users/pmuir/development/jboss/standalone/deployments
+19:17:57,693 INFO  [org.jboss.as] (Controller Boot Thread) JBoss WildFly.0.0.Beta4-SNAPSHOT "(TBD)" started in 2806ms - Started 111 of 138 services (27 services are passive or on-demand)
+19:18:00,596 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-6) Stopped deployment arquillian-service in 8ms
+19:18:01,394 INFO  [org.jboss.as.server.deployment] (pool-2-thread-7) Content added at location /Users/pmuir/development/jboss/standalone/data/content/0a/9e20b7bc978fd2778b89c7c06e4d3e1f308dfe/content
+19:18:01,403 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) Starting deployment of "arquillian-service"
+19:18:01,650 INFO  [org.jboss.as.server.deployment] (pool-2-thread-6) Content added at location /Users/pmuir/development/jboss/standalone/data/content/94/8324ab8f5a693c67fa57b59323304d3947bbf6/content
+19:18:01,659 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) Starting deployment of "test.war"
+19:18:01,741 INFO  [org.jboss.jpa] (MSC service thread 1-7) read persistence.xml for primary
+19:18:01,764 INFO  [org.jboss.weld] (MSC service thread 1-3) Processing CDI deployment: test.war
+19:18:01,774 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-3) JNDI bindings for session bean named MemberRegistration in deployment unit deployment "test.war" are as follows:
 
-	java:global/jboss-contacts-jquerymobile/ContactRESTService!org.jboss.quickstarts.contact.ContactRESTService
-	java:app/jboss-contacts-jquerymobile/ContactRESTService!org.jboss.quickstarts.contact.ContactRESTService
-	java:module/ContactRESTService!org.jboss.quickstarts.contact.ContactRESTService
-	java:global/jboss-contacts-jquerymobile/ContactRESTService
-	java:app/jboss-contacts-jquerymobile/ContactRESTService
-	java:module/ContactRESTService
-
-09:34:53,903 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) WFLYWELD0006: Starting Services for CDI deployment: jboss-contacts-jquerymobile.war
-09:34:53,928 INFO  [org.jboss.weld.Version] (MSC service thread 1-8) WELD-000900: 2.3.0 (Beta2)
-09:34:53,958 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) WFLYWELD0009: Starting weld service for deployment jboss-contacts-jquerymobile.war
-09:34:54,083 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 58) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'jboss-contacts-jquerymobile.war#contacts_pu'
-09:34:54,241 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 58) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-09:34:54,245 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 58) HHH000431: Unable to determine H2 database version, certain features may not work
-09:34:54,273 INFO  [org.hibernate.envers.boot.internal.EnversServiceImpl] (ServerService Thread Pool -- 58) Envers integration enabled? : true
-09:34:54,416 INFO  [org.hibernate.id.enhanced.TableGenerator] (ServerService Thread Pool -- 58) HHH000398: Explicit segment value for id generator [hibernate_sequences.sequence_name] suggested; using default [default]
-09:34:54,509 INFO  [org.hibernate.id.enhanced.TableGenerator] (ServerService Thread Pool -- 58) HHH000398: Explicit segment value for id generator [hibernate_sequences.sequence_name] suggested; using default [default]
-09:34:54,595 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000227: Running hbm2ddl schema export
-09:34:54,602 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 58) HHH000230: Schema export complete
-09:34:54,607 INFO  [org.hibernate.hql.internal.QueryTranslatorFactoryInitiator] (ServerService Thread Pool -- 58) HHH000397: Using ASTQueryTranslatorFactory
-09:34:55,539 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (ServerService Thread Pool -- 61) Deploying javax.ws.rs.core.Application: class org.jboss.quickstarts.contact.JaxRsActivator$Proxy$_$$_WeldClientProxy
-09:34:55,679 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 61) WFLYUT0021: Registered web context: /jboss-contacts-jquerymobile
-09:34:55,702 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0010: Deployed "jboss-contacts-jquerymobile.war" (runtime-name : "jboss-contacts-jquerymobile.war")
-09:34:55,801 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
-09:34:55,801 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
-09:34:55,801 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Core 2.0.0.Alpha9 "Kenny" started in 5429ms - Started 336 of 508 services (225 services are lazy, passive or on-demand)
-09:34:56,254 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0001: Content added at location /home/username/tools/jboss-eap-7.1/standalone/data/content/79/129c6b171476bb5106a4218846a11a5071b6fc/content
-09:34:56,258 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
-09:34:56,420 INFO  [org.jboss.as.jpa] (MSC service thread 1-4) WFLYJPA0002: Read persistence.xml for primary
-09:34:56,422 WARN  [org.jboss.as.connector] (MSC service thread 1-4) WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-09:34:56,446 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-7) WFLYJCA0001: Bound data source [java:jboss/datasources/KitchensinkQuickstartTestDS]
-09:34:56,446 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 61) WFLYJPA0010: Starting Persistence Unit (phase 1 of 2) Service 'test.war#primary'
-09:34:56,447 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0003: Processing weld deployment test.war
-09:34:56,447 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 61) HHH000204: Processing PersistenceUnitInfo [
+        java:global/test/MemberRegistration!org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration
+        java:app/test/MemberRegistration!org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration
+        java:module/MemberRegistration!org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration
+        java:global/test/MemberRegistration
+        java:app/test/MemberRegistration
+        java:module/MemberRegistration
+        
+19:18:01,908 INFO  [org.jboss.weld] (MSC service thread 1-5) Starting Services for CDI deployment: test.war
+19:18:02,131 INFO  [org.jboss.weld.Version] (MSC service thread 1-5) WELD-000900 1.1.1 (Final)
+19:18:02,169 INFO  [org.jboss.weld] (MSC service thread 1-2) Starting weld service
+19:18:02,174 INFO  [org.jboss.as.arquillian] (MSC service thread 1-3) Arquillian deployment detected: ArquillianConfig[service=jboss.arquillian.config."test.war",unit=test.war,tests=[org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest]]
+19:18:02,179 INFO  [org.jboss.jpa] (MSC service thread 1-6) starting Persistence Unit Service 'test.war#primary'
+19:18:02,322 INFO  [org.hibernate.annotations.common.Version] (MSC service thread 1-6) Hibernate Commons Annotations 3.2.0.Final
+19:18:02,328 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-6) HHH00412:Hibernate [WORKING]
+19:18:02,330 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-6) HHH00206:hibernate.properties not found
+19:18:02,332 INFO  [org.hibernate.cfg.Environment] (MSC service thread 1-6) HHH00021:Bytecode provider name : javassist
+19:18:02,354 INFO  [org.hibernate.ejb.Ejb3Configuration] (MSC service thread 1-6) HHH00204:Processing PersistenceUnitInfo [
 	name: primary
 	...]
-09:34:56,452 INFO  [org.hibernate.orm.deprecation] (ServerService Thread Pool -- 61) HHH90000001: Found usage of deprecated setting for specifying Scanner [hibernate.ejb.resource_scanner]; use [hibernate.archive.scanner] instead
-09:34:56,455 INFO  [org.jboss.as.ejb3.deployment] (MSC service thread 1-2) WFLYEJB0473: JNDI bindings for session bean named 'MemberRegistration' in deployment unit 'deployment "test.war"' are as follows:
-
-	java:global/test/MemberRegistration!org.jboss.as.quickstarts.kitchensink.service.MemberRegistration
-	java:app/test/MemberRegistration!org.jboss.as.quickstarts.kitchensink.service.MemberRegistration
-	java:module/MemberRegistration!org.jboss.as.quickstarts.kitchensink.service.MemberRegistration
-	java:global/test/MemberRegistration
-	java:app/test/MemberRegistration
-	java:module/MemberRegistration
-
-09:34:56,486 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) WFLYWELD0006: Starting Services for CDI deployment: test.war
-09:34:56,492 INFO  [org.jboss.weld.deployer] (MSC service thread 1-5) WFLYWELD0009: Starting weld service for deployment test.war
-09:34:56,506 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 61) WFLYJPA0010: Starting Persistence Unit (phase 2 of 2) Service 'test.war#primary'
-09:34:56,511 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 61) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-09:34:56,511 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 61) HHH000431: Unable to determine H2 database version, certain features may not work
-09:34:56,517 INFO  [org.hibernate.envers.boot.internal.EnversServiceImpl] (ServerService Thread Pool -- 61) Envers integration enabled? : true
-09:34:56,539 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 61) HHH000227: Running hbm2ddl schema export
-09:34:56,542 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 61) HHH000230: Schema export complete
-09:34:56,750 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 5) WFLYUT0021: Registered web context: /test
-09:34:56,815 INFO  [org.jboss.as.server] (management-handler-thread - 4) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
-Jul 28, 2015 9:34:56 AM org.jboss.remotingjmx.Util warnDeprecated
-WARN: The protocol 'http-remoting-jmx' is deprecated, instead you should use 'remote+http'.
-09:34:57,130 INFO  [org.jboss.as.quickstarts.kitchensink.service.MemberRegistration] (default task-1) Registering Jane Doe
-09:34:57,263 INFO  [org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest] (default task-1) Jane Doe was persisted with id 1
-09:34:57,307 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 5) WFLYUT0022: Unregistered web context: /test
-09:34:57,314 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 28) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'test.war#primary'
-09:34:57,314 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 28) HHH000227: Running hbm2ddl schema export
-09:34:57,318 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 28) HHH000230: Schema export complete
-09:34:57,321 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 28) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'test.war#primary'
-09:34:57,324 INFO  [org.jboss.weld.deployer] (MSC service thread 1-6) WFLYWELD0010: Stopping weld service for deployment test.war
-09:34:57,338 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0010: Unbound data source [java:jboss/datasources/KitchensinkQuickstartTestDS]
-09:34:57,350 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 47ms
-09:34:57,398 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0002: Content removed from location /home/username/tools/jboss-eap-7.1/standalone/data/content/79/129c6b171476bb5106a4218846a11a5071b6fc/content
-09:34:57,399 INFO  [org.jboss.as.server] (management-handler-thread - 4) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.535 sec
-09:34:57,406 INFO  [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0211: Suspending server
-09:34:57,409 INFO  [org.jboss.as.server] (Thread-2) WFLYSRV0220: Server shutdown has been requested.
-09:34:57,422 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 23) WFLYUT0022: Unregistered web context: /jboss-contacts-jquerymobile
-09:34:57,442 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0019: Host default-host stopping
-09:34:57,443 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 2) WFLYJPA0011: Stopping Persistence Unit (phase 2 of 2) Service 'jboss-contacts-jquerymobile.war#contacts_pu'
-09:34:57,443 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 2) HHH000227: Running hbm2ddl schema export
-09:34:57,444 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) WFLYJCA0010: Unbound data source [java:jboss/datasources/ExampleDS]
-09:34:57,445 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 2) HHH000230: Schema export complete
-09:34:57,449 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 2) WFLYJPA0011: Stopping Persistence Unit (phase 1 of 2) Service 'jboss-contacts-jquerymobile.war#contacts_pu'
-09:34:57,449 INFO  [org.jboss.weld.deployer] (MSC service thread 1-3) WFLYWELD0010: Stopping weld service for deployment jboss-contacts-jquerymobile.war
-09:34:57,451 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-3) WFLYJCA0019: Stopped Driver service with driver-name = h2
-09:34:57,459 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) WFLYUT0008: Undertow HTTP listener default suspending
-09:34:57,460 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) WFLYUT0007: Undertow HTTP listener default stopped, was bound to /127.0.0.1:8080
-09:34:57,461 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) WFLYUT0004: Undertow 1.3.0.Beta3 stopping
-09:34:57,469 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0028: Stopped deployment jboss-contacts-jquerymobile.war (runtime-name: jboss-contacts-jquerymobile.war) in 55ms
-09:34:57,475 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0050: WildFly Core 2.0.0.Alpha9 "Kenny" stopped in 59ms
+19:18:02,400 WARN  [org.hibernate.cfg.AnnotationBinder] (MSC service thread 1-6) HHH00194:Package not found or wo package-info.java: org.jboss.as.quickstarts.kitchensink.test
+19:18:02,400 WARN  [org.hibernate.cfg.AnnotationBinder] (MSC service thread 1-6) HHH00194:Package not found or wo package-info.java: org.jboss.as.quickstarts.kitchensink.controller
+19:18:02,401 WARN  [org.hibernate.cfg.AnnotationBinder] (MSC service thread 1-6) HHH00194:Package not found or wo package-info.java: org.jboss.as.quickstarts.kitchensink.util
+19:18:02,401 WARN  [org.hibernate.cfg.AnnotationBinder] (MSC service thread 1-6) HHH00194:Package not found or wo package-info.java: org.jboss.as.quickstarts.kitchensink.model
+19:18:02,592 INFO  [org.hibernate.service.jdbc.connections.internal.ConnectionProviderInitiator] (MSC service thread 1-6) HHH00130:Instantiating explicit connection provider: org.hibernate.ejb.connection.InjectedDataSourceConnectionProvider
+19:18:02,852 INFO  [org.hibernate.dialect.Dialect] (MSC service thread 1-6) HHH00400:Using dialect: org.hibernate.dialect.H2Dialect
+19:18:02,858 WARN  [org.hibernate.dialect.H2Dialect] (MSC service thread 1-6) HHH00431:Unable to determine H2 database version, certain features may not work
+19:18:02,862 INFO  [org.hibernate.engine.jdbc.internal.LobCreatorBuilder] (MSC service thread 1-6) HHH00423:Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+19:18:02,870 INFO  [org.hibernate.engine.transaction.internal.TransactionFactoryInitiator] (MSC service thread 1-6) HHH00268:Transaction strategy: org.hibernate.engine.transaction.internal.jta.CMTTransactionFactory
+19:18:02,874 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (MSC service thread 1-6) HHH00397:Using ASTQueryTranslatorFactory
+19:18:02,911 INFO  [org.hibernate.validator.util.Version] (MSC service thread 1-6) Hibernate Validator 4.1.0.Final
+19:18:02,917 INFO  [org.hibernate.validator.engine.resolver.DefaultTraversableResolver] (MSC service thread 1-6) Instantiated an instance of org.hibernate.validator.engine.resolver.JPATraversableResolver.
+19:18:03,079 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (MSC service thread 1-6) HHH00227:Running hbm2ddl schema export
+19:18:03,093 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (MSC service thread 1-6) HHH00230:Schema export complete
+19:18:03,217 INFO  [org.jboss.web] (MSC service thread 1-5) registering web context: /test
+19:18:03,407 WARN  [org.jboss.weld.Bean] (RMI TCP Connection(3)-127.0.0.1) WELD-000018 Executing producer field or method [method] @Produces public org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest.produceLog(InjectionPoint) on incomplete declaring bean Managed Bean [class org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest] with qualifiers [@Any @Default] due to circular injection
+19:18:03,427 WARN  [org.jboss.weld.Bean] (RMI TCP Connection(3)-127.0.0.1) WELD-000018 Executing producer field or method [method] @Produces public org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest.produceLog(InjectionPoint) on incomplete declaring bean Managed Bean [class org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest] with qualifiers [@Any @Default] due to circular injection
+19:18:03,450 WARN  [org.jboss.as.ejb3.component.EJBComponent] (RMI TCP Connection(3)-127.0.0.1) EJBTHREE-2120: deprecated getTransactionAttributeType method called (dev problem)
+19:18:03,459 INFO  [org.jboss.as.quickstarts.kitchensink.controller.MemberRegistration] (RMI TCP Connection(3)-127.0.0.1) Registering Jane Doe
+19:18:03,616 INFO  [org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest] (RMI TCP Connection(3)-127.0.0.1) Jane Doe was persisted with id 1
+19:18:03,686 INFO  [org.jboss.jpa] (MSC service thread 1-1) stopping Persistence Unit Service 'test.war#primary'
+19:18:03,687 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (MSC service thread 1-1) HHH00227:Running hbm2ddl schema export
+19:18:03,690 INFO  [org.jboss.weld] (MSC service thread 1-3) Stopping weld service
+19:18:03,692 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (MSC service thread 1-1) HHH00230:Schema export complete
+19:18:03,704 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) Stopped deployment test.war in 52ms
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.859 sec
 
 Results :
 
@@ -892,60 +842,56 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 10.620 s
-[INFO] Finished at: 2015-07-28T09:34:57-04:00
-[INFO] Final Memory: 27M/266M
+[INFO] Total time: 22.305s
+[INFO] Finished at: Sat Jun 25 19:18:04 BST 2011
+[INFO] Final Memory: 17M/125M
 [INFO] ------------------------------------------------------------------------
 
-As you can see, that didn't take too long (approximately 15s), and is great for running in your QA environment, but if you running locally, you might prefer to connect to a running server. To do that, start up Red Hat JBoss Enterprise Application Platform (as described in <<GettingStarted-, Getting Started with Red Hat JBoss Enterprise Application Platform of JBoss EAP>>. Now, run your test, but use the `arq-remote` profile:
+------------------------------------------------------------------------
 
-    mvn clean verify -Parq-remote
+As you can see, that didn't take too long (approximately 15s), and is great for running in your QA environment, but if you running locally, you might prefer to connect to a running server. To do that, start up JBoss WildFly (as described in <<GettingStarted-, Getting Started with JBoss Enterprise Application Platform of WildFly>>. Now, run your test, but use the `arq-wildfly-remote` profile:
+
+    mvn clean test -Parq-remote
 
 ------------------------------------------------------------------------
-$ > mvn clean verify -Parq-remote
+$ > mvn clean test -Parq-remote
 
 
 [INFO] Scanning for projects...
-[INFO]                                                                         
+[INFO]
 [INFO] ------------------------------------------------------------------------
-[INFO] Building JBoss EAP Quickstart: kitchensink 7.1.0-SNAPSHOT
+[INFO] Building WildFly Quickstarts: Kitchensink 7.0.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ jboss-kitchensink ---
-[INFO] Deleting /home/username/jboss-eap-quickstarts/kitchensink/target
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ jboss-kitchensink ---
+[INFO]
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ wildfly-kitchensink ---
+[INFO] Deleting /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target
+[INFO]
+[INFO] --- maven-resources-plugin:2.4.3:resources (default-resources) @ wildfly-kitchensink ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Copying 2 resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ jboss-kitchensink ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 8 source files to /home/username/jboss-eap-quickstarts/kitchensink/target/classes
-[INFO] 
-[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ jboss-kitchensink ---
+[INFO]
+[INFO] --- maven-compiler-plugin:2.3.1:compile (default-compile) @ wildfly-kitchensink ---
+[INFO] Compiling 6 source files to /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target/classes
+[INFO]
+[INFO] --- maven-resources-plugin:2.4.3:testResources (default-testResources) @ wildfly-kitchensink ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 3 resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ jboss-kitchensink ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to /home/username/jboss-eap-quickstarts/kitchensink/target/test-classes
-[INFO] 
-[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ jboss-kitchensink ---
-[INFO] Surefire report directory: /home/username/jboss-eap-quickstarts/kitchensink/target/surefire-reports
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:2.3.1:testCompile (default-testCompile) @ wildfly-kitchensink ---
+[INFO] Compiling 1 source file to /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target/test-classes
+[INFO]
+[INFO] --- maven-surefire-plugin:2.7.2:test (default-test) @ wildfly-kitchensink ---
+[INFO] Surefire report directory: /Users/pmuir/workspace/wildfly-docs/quickstarts/kitchensink/target/surefire-reports
 
--------------------------------------------------------
+------------------------------------------------------
  T E S T S
 -------------------------------------------------------
 Running org.jboss.as.quickstarts.kitchensink.test.MemberRegistrationTest
-Jul 28, 2015 9:27:56 AM org.xnio.Xnio <clinit>
-INFO: XNIO version 3.3.1.Final
-Jul 28, 2015 9:27:56 AM org.xnio.nio.NioXnio <clinit>
-INFO: XNIO NIO Implementation Version 3.3.1.Final
-Jul 28, 2015 9:27:56 AM org.jboss.remoting3.EndpointImpl <clinit>
-INFO: JBoss Remoting version 4.0.9.Final
-Jul 28, 2015 9:27:57 AM org.jboss.remotingjmx.Util warnDeprecated
-WARN: The protocol 'http-remoting-jmx' is deprecated, instead you should use 'remote+http'.
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.913 sec
+Jun 25, 2011 7:22:28 PM org.jboss.arquillian.container.impl.client.container.ContainerRegistryCreator getActivatedConfiguration
+INFO: Could not read active container configuration: null
+log4j:WARN No appenders could be found for logger (org.jboss.as.arquillian.container.MBeanServerConnectionProvider).
+log4j:WARN Please initialize the log4j system properly.
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.13 sec
 
 Results :
 
@@ -954,10 +900,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 4.977 s
-[INFO] Finished at: 2015-07-28T09:27:57-04:00
-[INFO] Final Memory: 27M/265M
+[INFO] Total time: 10.474s
+[INFO] Finished at: Sat Jun 25 19:22:33 BST 2011
+[INFO] Final Memory: 17M/125M
 [INFO] ------------------------------------------------------------------------
+$ >
+------------------------------------------------------------------------
 
 
 [IMPORTANT]
@@ -1077,12 +1025,12 @@ Now, let's look at how we configure Arquillian. First of all, let's take a look 
         containers, as it is the most mature -->
    <defaultProtocol type="Servlet 3.0" />                            <2>
 
-   <!-- Example configuration for a remote JBoss EAP 7 instance -->
+   <!-- Example configuration for a remote JBoss WildFly instance -->
    <container qualifier="jboss" default="true">
       <!-- If you want to use the JBOSS_HOME environment variable,
            just delete the jbossHome property -->
       <configuration>
-         <property name="jbossHome">/path/to/jboss/as</property>
+         <property name="jbossHome">/path/to/wildfly</property>
       </configuration>
    </container>
 
@@ -1098,14 +1046,14 @@ Now, we need to look at how we select between containers in the `pom.xml`:
 ------------------------------------------------------------------------
 <profile>
     <!-- An optional Arquillian testing profile that executes tests 
-        in your JBoss EAP instance -->
-    <!-- This profile will start a new JBoss EAP instance, and 
+        in your WildFly instance -->
+    <!-- This profile will start a new WildFly instance, and
         execute the test, shutting it down when done -->
-    <!-- Run with: mvn clean verify -Parq-managed -->
-    <id>arq-managed</id>                                     <1>
+    <!-- Run with: mvn clean test -Parq-managed -->
+    <id>arq-wildfly-managed</id>                                     <1>
     <dependencies>
         <dependency>
-            <groupId>org.wildfly.arquillian</groupId>
+            <groupId>org.jboss.as</groupId>
             <artifactId>                                             <2>
                 wildfly-arquillian-container-managed
             </artifactId>
@@ -1115,13 +1063,13 @@ Now, we need to look at how we select between containers in the `pom.xml`:
 </profile>
 
 <profile>
-    <!-- An optional Arquillian testing profile that executes 
-        tests in a remote JBoss EAP instance -->
-    <!-- Run with: mvn clean verify -Parq-remote -->
-    <id>arq-remote</id>
+    <!-- An optional Arquillian testing profile that executes
+        tests in a remote WildFly instance -->
+    <!-- Run with: mvn clean test -Parq-remote -->
+    <id>arq-wildfly-remote</id>
     <dependencies>
         <dependency>
-            <groupId>org.wildfly.arquillian</groupId>
+            <groupId>org.jboss.as</groupId>
             <artifactId>                                             <3>
                 wildfly-arquillian-container-remote
             </artifactId>
