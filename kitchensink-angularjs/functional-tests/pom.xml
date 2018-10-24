@@ -20,20 +20,16 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.2.0.CD13</version>
+        <!--
+        Maintain separation between the artifact id and the version to help prevent
+        merge conflicts between commits changing the GA and those changing the V.
+        -->
+        <version>7.2.0.CD14</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>kitchensink-angularjs-test-webdriver</artifactId>
-    <name>${qs.name.prefix} Kitchensink AngularJS test via WebDriver with Arquillian</name>
+    <name>Quickstart: Kitchensink AngularJS test via WebDriver with Arquillian</name>
     <description>This project tests a Kitchensink AngularJS for use on JBoss EAP by WebDriver</description>
-
-  
-
-    <properties>
-        <!-- json version -->
-        <version.org.json>20150729</version.org.json>
-        <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
-    </properties>
 
     <build>
         <testResources>

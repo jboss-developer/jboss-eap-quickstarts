@@ -1,19 +1,20 @@
-= CDI + JSF -- Numberguess quickstart
+CDI + JSF: Numberguess quickstart
+=================================
 :Author: Pete Muir
 
 [[NumberguessQuickstart-]]
 
-This quickstart shows you how to create and deploy a simple application to Red Hat JBoss Enterprise Application Platform; the application does not persist any information. Information is displayed using a JSF view, and business logic is encapsulated in two CDI beans.
+This quickstart shows you how to create and deploy a simple application to JBoss WildFly; the application does not persist any information. Information is displayed using a JSF view, and business logic is encapsulated in two CDI beans.
 
 Switch to the `quickstarts/numberguess` directory and instruct Maven to build and deploy the application:
 
     mvn package wildfly:deploy
 
-The quickstart uses a Maven plug-in to deploy the application. The plug-in requires Red Hat JBoss Enterprise Application Platform to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss EAP server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss EAP server on Windows>>).
+The quickstart uses a Maven plugin to deploy the application. The plugin requires JBoss WildFly to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss server on Windows>>).
 
-Or you can start the server using an IDE, like Red Hat JBoss Developer Studio.
+Or you can start the server using an IDE, like JBoss Developer Studio.
 
-Now, see if you can determine the most efficient approach to pinpoint the random number at the URL http://localhost:8080/jboss-numberguess.
+Now, see if you can determine the most efficient approach to pinpoint the random number at the URL http://localhost:8080/wildfly-numberguess.
 
 [TIP]
 ========================================================================
@@ -28,11 +29,12 @@ some changes, it's pretty easy:
 It's time to pull the covers back and dive into the internals of the quickstart.
 
 
-== Deploying the Numberguess quickstart using Eclipse
+Deploying the Numberguess quickstart using Eclipse
+--------------------------------------------------
 
-You may choose to deploy the quickstart using Eclipse. You'll need to have Red Hat JBoss Enterprise Application Platform started in Eclipse as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss EAP server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse, Importing the quickstarts into Eclipse>>).
+You may choose to deploy the quickstart using Eclipse. You'll need to have JBoss WildFly started in Eclipse as described  in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and to have imported the quickstarts into Eclipse (as described in <<GettingStarted-importing_quickstarts_into_eclipse, Importing the quickstarts into Eclipse>>).
 
-With the quickstarts imported, you can deploy the quickstart by right clicking on the `jboss-numberguess` project, and choosing _Run As -> Run On Server_: 
+With the quickstarts imported, you can deploy the quickstart by right clicking on the `wildfly-numberguess` project, and choosing _Run As -> Run On Server_:
 
 image:gfx/Eclipse_Numberguess_Deploy_1.jpg[]
 
@@ -40,18 +42,19 @@ Make sure the correct server is selected, and hit Finish:
  
 image:gfx/Eclipse_Deploy_2.jpg[]
 
-You should see the server start up (unless you already started it in <<GettingStarted-with_jboss_tools, Starting the JBoss EAP server from JBDS or Eclipse with JBoss Tools>>) and the application deploy in the Console log:
+You should see the server start up (unless you already started it in <<GettingStarted-with_jboss_tools, Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and the application deploy in the Console log:
 
 image:gfx/Eclipse_Numberguess_Deploy_3.jpg[]
 
 
-== The numberguess quickstart in depth
+The numberguess quickstart in depth
+-----------------------------------
 
 In the numberguess application you get 10 attempts to guess a number between 1 and 100. After each attempt, you're told whether your guess was too high or too low.
 
 The quickstart is comprised of a number of beans, configuration files and Facelets (JSF) views, packaged as a war module. Let's start by examining the configuration files.
 
-All the configuration files for this quickstart are located in `WEB-INF/`, which can be found in the `src/main/webapp` directory. First, we have the JSF 2.0 version of `faces-config.xml`. A standardized version of Facelets is the default view handler in JSF 2.0, so there's really nothing that we have to configure. JBoss EAP goes above and beyond Java EE here, and will automatically configure JSF for you if you include this file. Thus, the configuration consists of only the root element. 
+All the configuration files for this quickstart are located in `WEB-INF/`, which can be found in the `src/main/webapp` directory. First, we have the JSF 2.0 version of `faces-config.xml`. A standardized version of Facelets is the default view handler in JSF 2.0, so there's really nothing that we have to configure. WildFly goes above and beyond Java EE here, and will automatically configure JSF for you if you include this file. Thus, the configuration consists of only the root element.
 
 .src/main/webapp/WEB-INF/faces-config.xml
 [source,xml]
@@ -66,7 +69,7 @@ All the configuration files for this quickstart are located in `WEB-INF/`, which
 </faces-config>
 ------------------------------------------------------------------------
 
-There's also an empty `beans.xml` file, which tells JBoss EAP to look for beans in this  application and to activate the CDI. 
+There's also an empty `beans.xml` file, which tells WildFly to look for beans in this  application and to activate the CDI.
 
 Notice that we don't even need a `web.xml`! 
 

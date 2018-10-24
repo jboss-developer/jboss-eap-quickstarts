@@ -5,11 +5,11 @@
 
 What we didn't tell you about the kitchensink quickstart is that it is generated from a Maven archetype. Using this archetype offers you the perfect opportunity to generate your own project. 
 
-You can create a project from the archetype using Red Hat JBoss Developer Studio, or Eclipse with JBoss Tools. First, open up _Red Hat Central_, if it isn't already open. Hit _Cmd-3_ (Mac) or _Ctrl-3_ (Windows, Linux) and type _Red Hat Central_:
+You can create a project from the archetype using Red Hat JBoss Developer Studio, or Eclipse with JBoss Tools. First, open up _JBoss Central_, if it isn't already open. Hit _Cmd-3_ (Mac) or _Ctrl-3_ (Windows, Linux) and type _JBoss Central_:
 
 image:gfx/Eclipse_JBoss_Central_1.png[]
 
-You will now be shown _Red Hat Central_, an excellent place to find about all things JBoss!
+You will now be shown _JBoss Central_, an excellent place to find about all things JBoss!
 
 image:gfx/Eclipse_JBoss_Central_2.png[]
 

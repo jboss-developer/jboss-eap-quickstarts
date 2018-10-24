@@ -1,18 +1,19 @@
-= CDI + JPA + EJB + JTA + JSF -- Greeter quickstart
+CDI + JPA + EJB + JTA + JSF: Greeter quickstart
+===============================================
 :Author: Pete Muir
 
 [[GreeterQuickstart-]]
 
-This quickstart shows you how to create and deploy an application which persists information to a database to Red Hat JBoss Enterprise Application Platform. Information is displayed using JSF views, business logic is encapsulated in CDI beans, information is persisted using JPA, and transactions can be controlled manually or using EJB.
+This quickstart shows you how to create and deploy an application which persists information to a database to JBoss WildFly. Information is displayed using JSF views, business logic is encapsulated in CDI beans, information is persisted using JPA, and transactions can be controlled manually or using EJB.
 
 Switch to the `quickstarts/greeter` directory and instruct Maven to build and deploy the application: 
 
     mvn package wildfly:deploy
 
 
-The quickstart uses a Maven plug-in to deploy the application. The plug-in requires Red Hat JBoss Enterprise Application Platform to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss EAP server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss EAP server on Windows>>).
+The quickstart uses a Maven plugin to deploy the application. The plugin requires JBoss WildFly to be running (you can find out how to start the server in <<GettingStarted-on_linux, Installing and starting the JBoss server on Linux, Unix or Mac OS X>> or <<GettingStarted-on_windows, Installing and starting the JBoss server on Windows>>).
 
-Or you can start the server using an IDE, like Red Hat JBoss Developer Studio. If you are using JBoss Developer Studio, you can deploy the quickstart by right clicking on the `greeter` project, and choosing _Run As -> Run On Server_: 
+Or you can start the server using an IDE, like JBoss Developer Studio. If you are using JBoss Developer Studio, you can deploy the quickstart by right clicking on the `greeter` project, and choosing _Run As -> Run On Server_:
 
 image:gfx/Eclipse_Greeter_Deploy_1.png[]
 
@@ -20,18 +21,19 @@ Make sure the server is selected, and hit Finish:
  
 image:gfx/Eclipse_Deploy_2.jpg[]
 
-You should see the server start up (unless you already started it in <<GettingStarted-with_jboss_tools,Starting the JBoss EAP server from JBDS or Eclipse with JBoss Tools>>) and the application deploy in the Console log: 
+You should see the server start up (unless you already started it in <<GettingStarted-with_jboss_tools,Starting the JBoss server from JBDS or Eclipse with JBoss Tools>>) and the application deploy in the Console log: 
 
 image:gfx/Eclipse_Greeter_Deploy_3.png[]
 
 To use the application, visit http://localhost:8080/greeter/.
 
 [[greeter_in_depth]]
-== The greeter quickstart in depth
+The greeter quickstart in depth
+-------------------------------
 
-In the quickstart, all users are stored in an H2 database (an in-memory, embedded database provided out of the box in Red Hat JBoss Enterprise Application Platform). Each user is stored as an entity, and entities are mapped to the database using JPA. By default, transactions are managed manually, using the JTA API. Optionally, you can use EJB to manage transactions (we'll look at how to enable that later). We need a transaction in progress in order to read and write any entities.
+In the quickstart, all users are stored in an H2 database (an in-memory, embedded database provided out of the box in JBoss WildFly). Each user is stored as an entity, and entities are mapped to the database using JPA. By default, transactions are managed manually, using the JTA API. Optionally, you can use EJB to manage transactions (we'll look at how to enable that later). We need a transaction in progress in order to read and write any entities.
 
-The quickstart is comprised of two JSF views, an entity, and a number of CDI beans. Additionally, there are the usual configuration files in `WEB-INF/` (which can be found in the `src/main/webapp` directory). Here we find `beans.xml` and `faces-config.xml` which tell Red Hat JBoss Enterprise Application Platform to enable CDI and JSF for the application. Notice that we don't need a `web.xml`. There are two new configuration files in `WEB-INF/classes/META-INF` (which can be found in the `src/main/resources` directory of the quickstart) — `persistence.xml`, which sets up JPA, and `import.sql` which Hibernate, the JPA provider in Red Hat JBoss Enterprise Application Platform, will use to load the initial users into the application when the application starts. 
+The quickstart is comprised of two JSF views, an entity, and a number of CDI beans. Additionally, there are the usual configuration files in `WEB-INF/` (which can be found in the `src/main/webapp` directory). Here we find `beans.xml` and `faces-config.xml` which tell JBoss WildFly to enable CDI and JSF for the application. Notice that we don't need a `web.xml`. There are two new configuration files in `WEB-INF/classes/META-INF` (which can be found in the `src/main/resources` directory of the quickstart) — `persistence.xml`, which sets up JPA, and `import.sql` which Hibernate, the JPA provider in  JBoss WildFly, will use to load the initial users into the application when the application starts.
 
 `persistence.xml` is pretty straight forward, and links JPA to a datasource: 
 
@@ -72,11 +74,12 @@ The quickstart is comprised of two JSF views, an entity, and a number of CDI bea
 
 [TIP]
 ========================================================================
-Red Hat JBoss Enterprise Application Platform ships with a sample datasource 
-`java:jboss/datasources/ExampleDS`. This data source is backed by h2, 
-an in-memory database. Whilst this datasource is great for quickstarts, 
-you will want to use a different datasource in your application. 
-The link:https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/[Configuration Guide for Red Hat JBoss Enterprise Application Platform] 
+JBoss WildFly ships with a
+sample datasource `java:jboss/datasources/ExampleDS`. This data source 
+is backed by H2, an in-memory database. Whilst this datasource is great
+for quickstarts, you will probably want to use a different datasource in
+your application. The link:http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/index.html[Administration and Configuration Guide for JBoss Enterprise Application Platform 6] or the
+link:https://docs.jboss.org/author/display/WFLY/Getting+Started+Guide[Getting Started Guide for JBoss WildFly]
 tells you how to create a new datasource. 
 ========================================================================
 
@@ -464,8 +467,8 @@ Using declarative transaction management has allowed us to remove a third of the
 [NOTE]
 ========================================================================
 Sharp eyed developers who are used to Java EE will have noticed that we 
-have added this EJB to a war. This was the key improvement offered in 
-EJB 3.1 (which was first included in Java EE).
+have added this EJB to a war. This is the key improvement offered in 
+EJB 3.1 (which was first included in Java EE 6).
 ========================================================================
 
 Finally, let's take a look at the `Resources` class, which provides resources such as the entity manager. CDI recommends using "resource producers", as we do in this quickstart, to alias resources to CDI beans, allowing for a  consistent style throughout our application: 

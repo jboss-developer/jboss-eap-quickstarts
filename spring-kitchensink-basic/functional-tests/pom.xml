@@ -20,19 +20,17 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
-        <version>7.2.0.CD13</version>
+        <!--
+        Maintain separation between the artifact id and the version to help prevent
+        merge conflicts between commits changing the GA and those changing the V.
+        -->
+        <version>7.2.0.CD14</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
+
     <artifactId>spring-kitchensink-basic-test-webdriver</artifactId>
-    <name>${qs.name.prefix} Spring Kitchensink Basic test via WebDriver with Arquillian</name>
+    <name>Quickstart: Spring Kitchensink Basic test via WebDriver with Arquillian</name>
     <description>This project tests a Spring Kitchensink Basic for use on JBoss EAP by WebDriver</description>
-
-    <properties>
-        <!-- json version -->
-        <version.org.json>20150729</version.org.json>
-    </properties>
-
-
 
     <dependencies>
         <dependency>

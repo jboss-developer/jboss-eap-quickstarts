@@ -21,15 +21,21 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-       <version>26.0.0.redhat-1</version>
+        <version>28.0.0.redhat-00001</version>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
-    <version>7.2.0.CD13</version>
+    <!--
+        Maintain separation between the artifact id and the version to help prevent
+        merge conflicts between commits changing the GA and those changing the V.
+        -->
+    <version>7.2.0.CD14</version>
+
     <packaging>pom</packaging>
-    <name>${qs.name.prefix} Parent</name>
-    <description>JBoss EAP Quickstarts Parent</description>
+
+    <name>Quickstart: Parent</name>
+    <description>Quickstart's parent</description>
     <url>http://www.jboss.org/jdf/quickstarts/get-started/</url>
 
     <licenses>
@@ -41,35 +47,42 @@
     </licenses>
 
     <properties>
-        <qs.name.prefix>JBoss EAP Quickstart:</qs.name.prefix>
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.2.0.CD13</product.version>
+        <product.version>7.2.0.CD14</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>1.2.1.Final</version.wildfly.maven.plugin>
-
+        <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
+        <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Beta1</version.org.wildfly.quickstarts.documentation.plugin>
         <!-- other plug-in versions -->
         <version.com.mycyla.license>3.0</version.com.mycyla.license>
-
+        <version.checkstyle>8.5</version.checkstyle>
+        <version.jaxws-tools-maven-plugin>1.2.2.Final</version.jaxws-tools-maven-plugin>
         <!-- Explicitly declaring the source encoding eliminates the following
             message: [WARNING] Using platform encoding (UTF-8 actually) to copy
             filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.spring.framework>4.3.10.RELEASE</version.spring.framework>
-        <!-- EAP component version management BOM -->
-        <version.server.bom>7.2.0.CD13</version.server.bom>
-        
-        <version.jaxws-tools-maven-plugin>1.2.2.Final</version.jaxws-tools-maven-plugin>
+        <!-- Version of BOMs -->
+        <version.server.bom>7.2.0.CD14</version.server.bom>
 
-        <!-- Other dependency versions -->
-        <version.org.apache.httpcomponents.httpclient>4.5.2.redhat-2</version.org.apache.httpcomponents.httpclient>
+        <!-- Versions of dependencies on server's core -->
         <version.commons-io>2.5.0.redhat-3</version.commons-io>
-        <version.org.apache.commons.commons-lang3>3.6.0.redhat-1</version.org.apache.commons.commons-lang3>
-        <version.h2db>1.4.193.redhat-2</version.h2db>
-        <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
-        <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Beta1</version.org.wildfly.quickstarts.documentation.plugin>
+        <version.org.apache.httpcomponents.httpclient>4.5.2.redhat-2</version.org.apache.httpcomponents.httpclient>
+
+        <!-- Versions of dependencies on server -->
+        <version.com.fasterxml.jackson>2.9.5.redhat-2</version.com.fasterxml.jackson>
+        <version.com.h2database>1.4.193.redhat-2</version.com.h2database>
+        <version.commons-lang3>3.6.0.redhat-1</version.commons-lang3>
+
+        <!-- Other versions of dependencies -->
+        <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
+        <version.json.path>2.0.0</version.json.path>
+        <version.org.json>20150729</version.org.json>
+        <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
+        <version.spring.framework>4.3.14.RELEASE</version.spring.framework>
+
         <jboss.developer.drupal.url>http://developer-rhdp-drupal.web.stage.ext.phx2.redhat.com/</jboss.developer.drupal.url>
         <linkXRef>false</linkXRef>
     </properties>
@@ -77,34 +90,24 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- Add H2 dependency for embedded testing database -->
             <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${version.h2db}</version>
+                <groupId>org.jboss.eap</groupId>
+                <artifactId>wildfly-ejb-client-bom</artifactId>
+                <version>${version.server.bom}</version>
+                <type>pom</type>
             </dependency>
+
             <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${version.commons-io}</version>
-                <scope>compile</scope>
+                <groupId>org.jboss.eap</groupId>
+                <artifactId>wildfly-jms-client-bom</artifactId>
+                <version>${version.server.bom}</version>
+                <type>pom</type>
             </dependency>
-     
-            <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>1.2</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
+
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>${version.org.apache.commons.commons-lang3}</version>
+                <version>${version.commons-lang3}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -114,17 +117,16 @@
             <!-- JBoss distributes a complete set of Java EE APIs including a Bill
                 of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
                 of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-eap-javaee7-with-tools stack (you can
+                of artifacts. Here we use the jboss-eap-javaee8-with-tools stack (you can
                 read this as the JBoss stack of the Java EE APIs, with some extras tools
                 for your project, such as Arquillian for testing) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
-                <artifactId>jboss-eap-javaee7-with-tools</artifactId>
+                <artifactId>jboss-eap-javaee8-with-tools</artifactId>
                 <version>${version.server.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -140,6 +142,21 @@
         https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
     -->
     <repositories>
+        <!-- keep this repository the first -->
+        <repository>
+            <id>jboss-eap-7.2-product-repository</id>
+            <name>JBoss EAP Product Repository</name>
+            <url>http://download.devel.redhat.com/brewroot/repos/jb-eap-7.2-maven-build/latest/maven/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
         <repository>
             <releases>
                 <enabled>true</enabled>
@@ -159,6 +176,20 @@
             </snapshots>
             <id>jboss-enterprise-maven-repository-ea</id>
             <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+        </repository>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -419,7 +450,7 @@
                 <module>xml-jaxp</module>
             </modules>
         </profile>
-      
+
         <profile>
             <id>functional-tests</id>
             <modules>
@@ -431,7 +462,7 @@
                 <module>spring-kitchensink-springmvctest/functional-tests</module>
             </modules>
         </profile>
-      
+
         <profile>
             <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
                  This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done.
@@ -501,7 +532,6 @@
             </activation>
             <build>
                 <plugins>
-              
                     <plugin>
                         <groupId>org.wildfly.maven.plugins</groupId>
                         <artifactId>quickstart-documentation-plugin</artifactId>
@@ -532,18 +562,16 @@
                             </attributes>
                             <resources>
                                 <resource>
-                                    <directory>none</directory>
+                                    <directory>.</directory>
                                     <excludes>
                                         <exclude>**/*</exclude>
                                     </excludes>
                                 </resource>
                             </resources>
-                            <!--<baseDir>.</baseDir>-->
                             <doctype>article</doctype>
                             <sourceDirectory>.</sourceDirectory>
                             <sourceDocumentName>README.adoc</sourceDocumentName>
                             <outputFile>README.html</outputFile>
-                            
                         </configuration>
                         <executions>
                             <execution>
@@ -555,7 +583,6 @@
                             </execution>
                         </executions>
                     </plugin>
-             
                 </plugins>
             </build>
         </profile>
