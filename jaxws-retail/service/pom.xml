@@ -53,6 +53,30 @@
             <artifactId>jbossws-cxf-client</artifactId>
             <version>${version.org.jboss.ws.cxf}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.xml.messaging.saaj</groupId>
+                    <artifactId>saaj-impl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>${version.sun.saaj-impl}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>${version.org.apache.xerces}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.xml.ws</groupId>

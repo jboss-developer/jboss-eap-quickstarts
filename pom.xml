@@ -72,6 +72,7 @@
         <!-- Versions of dependencies on server's core -->
         <version.commons-io>2.5.0.redhat-3</version.commons-io>
         <version.org.apache.httpcomponents.httpclient>4.5.2.redhat-2</version.org.apache.httpcomponents.httpclient>
+        <version.org.apache.xerces>2.12.0.SP02-redhat-00001</version.org.apache.xerces>
         <version.org.jboss.msc.jboss-msc>1.4.5.Final-redhat-00001</version.org.jboss.msc.jboss-msc>
         <version.org.slf4j>1.7.22.redhat-2</version.org.slf4j>
 
@@ -80,7 +81,8 @@
         <version.com.h2database>1.4.193.redhat-2</version.com.h2database>
         <version.com.sun.istack>3.0.5.redhat-1</version.com.sun.istack>
         <version.org.bouncycastle>1.60.0.redhat-00001</version.org.bouncycastle>
-        <version.org.jboss.ws.cxf>5.2.4.Final</version.org.jboss.ws.cxf>
+        <version.org.jboss.ws.cxf>5.2.4.Final-redhat-00001</version.org.jboss.ws.cxf>
+        <version.sun.saaj-impl>1.3.16.SP1-redhat-6</version.sun.saaj-impl>
 
         <!-- Other versions of dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
