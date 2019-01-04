@@ -32,7 +32,7 @@ The quickstart README files use the *replaceable* value `EAP7_HOME` to denote th
 
 ## Available Quickstarts
 
-All available quickstarts can be found here: <https://developers.redhat.com/search/?f=type~quickstart>. You can filter by the quickstart name, the product, and the technologies demonstrated by the quickstart. You can also limit the results based on skill level and date published. The resulting page provides a brief description of each matching quickstart, the skill level, and the technologies used. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the `Prerequisites` section of the quickstart README file.
+All available quickstarts can be found here: <https://developers.redhat.com/search/?f=type~quickstart&f=project~eap>. You can filter by the quickstart name, the product, and the technologies demonstrated by the quickstart. You can also limit the results based on skill level and date published. The resulting page provides a brief description of each matching quickstart, the skill level, and the technologies used. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the `Prerequisites` section of the quickstart README file.
 
 _Note_: Some of these quickstarts use the H2 database included with JBoss EAP. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 
