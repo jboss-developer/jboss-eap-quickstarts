@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>7.2.0.GA-redhat-SNAPSHOT</version>
+    <version>7.2.0.GA</version>
 
     <packaging>pom</packaging>
 
@@ -67,7 +67,7 @@
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/jbossas/eap-boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.2.0.GA-redhat-SNAPSHOT</version.server.bom>
+        <version.server.bom>7.2.0.GA</version.server.bom>
 
         <!-- Versions of dependencies on server's core -->
         <version.commons-io>2.5.0.redhat-3</version.commons-io>
@@ -145,21 +145,6 @@
         https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
     -->
     <repositories>
-        <!-- keep this repository the first -->
-        <repository>
-            <id>jboss-eap-7.2-product-repository</id>
-            <name>JBoss EAP Product Repository</name>
-            <url>http://download.devel.redhat.com/brewroot/repos/jb-eap-7.2-maven-build/latest/maven/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </repository>
         <repository>
             <releases>
                 <enabled>true</enabled>
