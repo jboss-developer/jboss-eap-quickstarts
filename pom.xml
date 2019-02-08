@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>28.0.0.redhat-00001</version>
+        <version>29.0.0.redhat-00001</version>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>7.2.0.CD14</version>
+    <version>7.3.0.CD15</version>
 
     <packaging>pom</packaging>
 
@@ -50,9 +50,9 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.2.0.CD14</product.version>
+        <product.version>7.3.0.CD15</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
-        <version.wildfly.maven.plugin>1.2.1.Final</version.wildfly.maven.plugin>
+        <version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
         <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Beta1</version.org.wildfly.quickstarts.documentation.plugin>
         <!-- other plug-in versions -->
@@ -64,17 +64,18 @@
             filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Version of BOMs -->
-        <version.server.bom>7.2.0.CD14</version.server.bom>
+        <!-- Version of BOMs
+        note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
+        -->
+        <version.server.bom>7.3.0.CD15</version.server.bom>
 
         <!-- Versions of dependencies on server's core -->
         <version.commons-io>2.5.0.redhat-3</version.commons-io>
-        <version.org.apache.httpcomponents.httpclient>4.5.2.redhat-2</version.org.apache.httpcomponents.httpclient>
+        <version.org.apache.httpcomponents.httpclient>4.5.4.redhat-00001</version.org.apache.httpcomponents.httpclient>
 
         <!-- Versions of dependencies on server -->
         <version.com.fasterxml.jackson>2.9.5.redhat-2</version.com.fasterxml.jackson>
         <version.com.h2database>1.4.193.redhat-2</version.com.h2database>
-        <version.commons-lang3>3.6.0.redhat-1</version.commons-lang3>
 
         <!-- Other versions of dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
@@ -90,25 +91,6 @@
     <dependencyManagement>
         <dependencies>
 
-            <dependency>
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>${version.server.bom}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-jms-client-bom</artifactId>
-                <version>${version.server.bom}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${version.commons-lang3}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
@@ -142,21 +124,6 @@
         https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/
     -->
     <repositories>
-        <!-- keep this repository the first -->
-        <repository>
-            <id>jboss-eap-7.2-product-repository</id>
-            <name>JBoss EAP Product Repository</name>
-            <url>http://download.devel.redhat.com/brewroot/repos/jb-eap-7.2-maven-build/latest/maven/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </repository>
         <repository>
             <releases>
                 <enabled>true</enabled>
@@ -270,6 +237,56 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
+            <plugin>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <version>0.3</version>
+        <executions>
+          <execution>
+            <id>project-sources-archive</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>archive</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+            <plugin>
+        <groupId>com.redhat.rcm.maven.plugin</groupId>
+        <artifactId>buildmetadata-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <executions>
+          <execution>
+            <id>build-metadata</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>provide-buildmetadata</goal>
+            </goals>
+            <configuration>
+              <addToLocations>
+                <addToLocation>${session.executionRootDirectory}</addToLocation>
+              </addToLocations>
+              <activateOutputFileMapping>true</activateOutputFileMapping>
+              <addBuildDateInfo>false</addBuildDateInfo>
+              <addLocallyModifiedTagToFullVersion>false</addLocallyModifiedTagToFullVersion>
+              <addHostInfo>false</addHostInfo>
+              <addJavaRuntimeInfo>true</addJavaRuntimeInfo>
+              <addToFilters>false</addToFilters>
+              <validateCheckout>false</validateCheckout>
+              <addOsInfo>false</addOsInfo>
+              <hideJavaOptsInfo>false</hideJavaOptsInfo>
+              <forceNewProperties>true</forceNewProperties>
+              <hideCommandLineInfo>false</hideCommandLineInfo>
+              <addBuildDateToFullVersion>false</addBuildDateToFullVersion>
+              <createPropertiesReport>true</createPropertiesReport>
+              <addToGeneratedSources>false</addToGeneratedSources>
+              <createXmlReport>false</createXmlReport>
+              <propertiesOutputFile>build.metadata</propertiesOutputFile>
+              <addMavenExecutionInfo>false</addMavenExecutionInfo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -332,19 +349,11 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            com.redhat.rcm.maven.plugin
-                                        </groupId>
-                                        <artifactId>
-                                            buildmetadata-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.7.0,)
-                                        </versionRange>
+                                        <groupId>com.redhat.rcm.maven.plugin</groupId>
+                                        <artifactId>buildmetadata-maven-plugin</artifactId>
+                                        <versionRange>[1.7.0,)</versionRange>
                                         <goals>
-                                            <goal>
-                                                provide-buildmetadata
-                                            </goal>
+                                            <goal>provide-buildmetadata</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
@@ -353,15 +362,9 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.commonjava.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            project-sources-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [0.3,)
-                                        </versionRange>
+                                        <groupId>org.commonjava.maven.plugins</groupId>
+                                        <artifactId>project-sources-maven-plugin</artifactId>
+                                        <versionRange>[0.3,)</versionRange>
                                         <goals>
                                             <goal>archive</goal>
                                         </goals>
@@ -372,15 +375,9 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.jboss.ws.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            jaxws-tools-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.2.0.Final,)
-                                        </versionRange>
+                                        <groupId>org.jboss.ws.plugins</groupId>
+                                        <artifactId>jaxws-tools-maven-plugin</artifactId>
+                                        <versionRange>[1.2.0.Final,)</versionRange>
                                         <goals>
                                             <goal>wsconsume</goal>
                                         </goals>
@@ -684,3 +681,7 @@
         </profile>
     </profiles>
 </project>
+<!--
+Modified by POM Manipulation Extension for Maven 2.3.1 ( SHA: f64d03ba ) 
+-->
+

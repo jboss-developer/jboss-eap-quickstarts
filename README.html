@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Red Hat JBoss Enterprise Application Platform for OpenShift (JBoss EAP for OpenShift) Quickstarts</title>
+<title>JBoss Enterprise Application Platform continuous delivery (JBoss EAP Continuous Delivery) Quickstarts</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,70 +427,87 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Red Hat JBoss Enterprise Application Platform for OpenShift (JBoss EAP for OpenShift) Quickstarts</h1>
+<h1>JBoss Enterprise Application Platform continuous delivery (JBoss EAP Continuous Delivery) Quickstarts</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">1. Introduction</a></li>
+<li><a href="#suggested_approach_to_the_quickstarts">2. Suggested Approach to the Quickstarts</a></li>
+<li><a href="#getting_started_with_openshift_overview">3. Getting Started with JBoss EAP for OpenShift</a></li>
+<li><a href="#available_quickstarts">4. Table of Available Quickstarts</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="quoteblock abstract">
 <blockquote>
-The quickstarts demonstrate Java EE 7 and a few additional technologies from the JBoss stack. They provide small, specific, working examples that can be used as a reference for your own project.
+The quickstarts demonstrate Java EE 8 and a few additional technologies from the JBoss Enterprise Application Platform continuous delivery stack. They provide small, specific, working examples that can be used as a reference for your own project.
 </blockquote>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction">Introduction</h2>
+<h2 id="introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These quickstarts run on Red Hat JBoss Enterprise Application Platform for OpenShift 14 or later. We recommend using the JBoss EAP for OpenShift ZIP file. This version uses the correct dependencies and ensures you test and compile against your runtime environment.</p>
+<p>These quickstarts run on JBoss Enterprise Application Platform continuous delivery 15. Each quickstart folder contains a <code>README.html</code> file that describes the quickstart features and provides instructions about how to build and run it.</p>
 </div>
 <div class="paragraph">
-<p>Make sure you read this entire document before you attempt to work with the quickstarts. It contains the following information:</p>
+<p>We recommend that you use the <strong>JBoss EAP CD 15 Quickstarts</strong> ZIP file, which you can download from the <a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=eap-cd&amp;downloadType=distributions">JBoss EAP Continuous Delivery Software Download</a> page on the Red Hat Customer Portal. This version of the quickstarts uses the correct dependencies and ensures that you test and compile against the correct server runtime environment.</p>
+</div>
+<div class="paragraph">
+<p>Each quickstart folder contains a <code>README.html</code> file that describes the quickstart features and provides instructions about how to build and run it.</p>
+</div>
+<div class="paragraph">
+<p>Make sure you read this entire document before you attempt to work with the quickstarts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="suggested_approach_to_the_quickstarts">2. Suggested Approach to the Quickstarts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We suggest you approach the quickstarts as follows:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#available_quickstarts">Available Quickstarts</a>: List of the available quickstarts and details about each one.</p>
+<p>Regardless of your level of expertise, we suggest you start with the <code>helloworld.html</code> quickstart. It is the simplest example and is an easy way to prove the server is configured and running correctly.</p>
 </li>
 <li>
-<p><a href="#suggested_approach_to_the_quickstarts">Suggested Approach to the Quickstarts</a>: A suggested approach on how to work with the quickstarts.</p>
+<p>If you are a beginner or new to JBoss, start with the quickstarts labeled <code>Beginner</code>, then try those marked as <code>Intermediate</code>. When you are comfortable with those, move on to the <code>Advanced</code> quickstarts.</p>
 </li>
 <li>
-<p><a href="#system_requirements">System Requirements</a>: List of software required to run the quickstarts.</p>
-</li>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven</a>: How to configure the Maven repository for use by the quickstarts.</p>
-</li>
-<li>
-<p><a href="#run_the_quickstarts">Run the Quickstarts</a>: General instructions for building, deploying, and running the quickstarts.</p>
-</li>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/RUN_ARQUILLIAN_TESTS.adoc#run_the_arquillian_tests">Run the Arquillian Tests</a>: How to run the Arquillian tests provided by some of the quickstarts.</p>
-</li>
-<li>
-<p><a href="#optional_components">Optional Components</a>: How to install and configure optional components required by some of the quickstarts.</p>
-</li>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONTRIBUTING.adoc#jboss_developer_contributing_guide">Contributing Guide</a>: This document contains information targeted for developers who want to contribute to JBoss developer projects.</p>
+<p>Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, make sure you deploy and test it before looking at the expanded version.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="use_of_product_home_and_jboss_home_variables">Use of EAP_HOME and JBOSS_HOME Variables</h2>
+<h2 id="getting_started_with_openshift_overview">3. Getting Started with JBoss EAP for OpenShift</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The quickstart <code>README</code> files use the <em>replaceable</em> value <code><em>EAP_HOME</em></code> to denote the path to the JBoss EAP for OpenShift installation. When you encounter this value in a <code>README</code> file, make sure you replace it with the actual path to your JBoss EAP for OpenShift installation. The installation path is described in detail here: <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.adoc#use_of_product_home_and_jboss_home_variables">Use of <em>EAP_HOME</em> and <em>JBOSS_HOME</em> Variables</a>.</p>
+<p>Each quickstart <code>README.html</code> file contains the basic instructions to build and deploy the quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/15/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/15/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="available_quickstarts">Available Quickstarts</h2>
+<h2 id="available_quickstarts">4. Table of Available Quickstarts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>All available quickstarts can be found here: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/" class="bare">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>. You can review the technologies demonstrated by the quickstart. You can also view the required experience level. Click on the quickstart to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the <code>Prerequisites</code> section of the quickstart <code>README</code> file.</p>
+<p>All available quickstarts, which are listed in the following table, can be found here: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/tree/openshift/" class="bare">https://github.com/jboss-developer/jboss-eap-quickstarts/tree/openshift/</a>.</p>
+</div>
+<div class="paragraph">
+<p>Each quickstart provides the list of technologies demonstrated by the quickstart and the required experience level needed to build and deploy it. Click on the quickstart link in the table to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the <code>Prerequisites</code> section of the quickstart <code>README.html</code> file.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -499,7 +516,7 @@ The quickstarts demonstrate Java EE 7 and a few additional technologies from the
 <div class="title">Note</div>
 </td>
 <td class="content">
-Some of these quickstarts use the H2 database included with JBoss EAP for OpenShift. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
+Some of these quickstarts use the H2 database included with WildFly. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 </td>
 </tr>
 </table>
@@ -546,35 +563,35 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="contacts-jquerymobile/README.html">contacts-jquerymobile</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jQuery Mobile, jQuery, JavaScript, HTML5, REST</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>contacts-jquerymobile</code> quickstart demonstrates a Java EE 7 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>contacts-jquerymobile</code> quickstart demonstrates a Java EE 8 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-in-war/README.html">ejb-in-war</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EJB, JSF, WAR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-in-war</code> quickstart demonstrates how to package an EJB bean in a WAR archive and deploy it to JBoss EAP for OpenShift. Arquillian tests are also provided.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-in-war</code> quickstart demonstrates how to package an EJB bean in a WAR archive and deploy it to JBoss EAP Continuous Delivery. Arquillian tests are also provided.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-timer/README.html">ejb-timer</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EJB Timer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-timer</code> quickstart demonstrates how to use the EJB timer service <code>@Schedule</code> and <code>@Timeout</code> annotations with JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-timer</code> quickstart demonstrates how to use the EJB timer service <code>@Schedule</code> and <code>@Timeout</code> annotations with JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="greeter/README.html">greeter</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JTA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>greeter</code> quickstart demonstrates the use of CDI, JPA, JTA, EJB and JSF in JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>greeter</code> quickstart demonstrates the use of CDI, JPA, JTA, EJB and JSF in JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld/README.html">helloworld</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, Servlet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld</code> quickstart demonstrates the use of CDI and Servlet 3 and is a good starting point to verify JBoss EAP for OpenShift is configured correctly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld</code> quickstart demonstrates the use of CDI and Servlet 3 and is a good starting point to verify JBoss EAP Continuous Delivery is configured correctly.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -588,7 +605,7 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mdb/README.html">helloworld-mdb</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JMS, EJB, MDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mdb</code> quickstart uses JMS and EJB Message-Driven Bean (MDB) to create and deploy JMS topic and queue resources in JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mdb</code> quickstart uses JMS and EJB Message-Driven Bean (MDB) to create and deploy JMS topic and queue resources in JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -616,7 +633,7 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jaxrs-client/README.html">jaxrs-client</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JAX-RS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jaxrs-client</code> quickstart demonstrates JAX-RS Client API, which interacts with a JAX-RS Web service that runs on JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jaxrs-client</code> quickstart demonstrates JAX-RS Client API, which interacts with a JAX-RS Web service that runs on JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -630,28 +647,28 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink/README.html">kitchensink</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JAX-RS, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink</code> quickstart demonstrates a Java EE 7 web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink</code> quickstart demonstrates a Java EE 8 web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-angularjs/README.html">kitchensink-angularjs</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-angularjs</code> quickstart demonstrates a Java EE 7 application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-angularjs</code> quickstart demonstrates a Java EE 8 application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-jsp/README.html">kitchensink-jsp</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JSP, JSTL, CDI, JPA, EJB, JAX-RS, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-jsp</code> quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-jsp</code> quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-ml/README.html">kitchensink-ml</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-ml</code> quickstart demonstrates a localized Java EE 7 compliant application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-ml</code> quickstart demonstrates a localized Java EE 8 compliant application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -672,14 +689,14 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="numberguess/README.html">numberguess</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>numberguess</code> quickstart demonstrates the use of CDI  (Contexts and Dependency Injection) and JSF (JavaServer Faces) in JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>numberguess</code> quickstart demonstrates the use of CDI  (Contexts and Dependency Injection) and JSF (JavaServer Faces) in JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="payment-cdi-event/README.html">payment-cdi-event</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>payment-cdi-event</code> quickstart demonstrates how to create credit and debit CDI Events in JBoss EAP for OpenShift, using a JSF front-end client.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>payment-cdi-event</code> quickstart demonstrates how to create credit and debit CDI Events in JBoss EAP Continuous Delivery, using a JSF front-end client.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -707,7 +724,7 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spring-kitchensink-basic/README.html">spring-kitchensink-basic</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JSP, JPA, JSON, Spring, JUnit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>spring-kitchensink-basic</code> quickstart is an example of a Java EE 7 application using JSP, JPA and Spring 4.x.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>spring-kitchensink-basic</code> quickstart is an example of a Java EE 8 application using JSP, JPA and Spring 4.x.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -756,7 +773,7 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="websocket-endpoint/README.html">websocket-endpoint</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, WebSocket, JSON-P</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in JBoss EAP for OpenShift.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in JBoss EAP Continuous Delivery.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -770,7 +787,7 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="xml-jaxp/README.html">xml-jaxp</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JAXP, SAX, DOM, Servlet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>xml-jaxp</code> quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP for OpenShift and validate and parse it using DOM or SAX.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>xml-jaxp</code> quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP Continuous Delivery and validate and parse it using DOM or SAX.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -778,214 +795,10 @@ Some of these quickstarts use the H2 database included with JBoss EAP for OpenSh
 </table>
 </div>
 </div>
-<div class="sect1">
-<h2 id="suggested_approach_to_the_quickstarts">Suggested Approach to the Quickstarts</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>We suggest you approach the quickstarts as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Regardless of your level of expertise, we suggest you start with the <code>helloworld</code> quickstart. It is the simplest example and is an easy way to prove your server is configured and started correctly.</p>
-</li>
-<li>
-<p>If you are a beginner or new to JBoss, start with the quickstarts labeled <code>Beginner</code>, then try those marked as <code>Intermediate</code>. When you are comfortable with those, move on to the <code>Advanced</code> quickstarts.</p>
-</li>
-<li>
-<p>Some quickstarts are based upon other quickstarts but have expanded capabilities and functionality. If a prerequisite quickstart is listed, make sure you deploy and test it before looking at the expanded version.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="system_requirements">System Requirements</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform for OpenShift 14 or later.</p>
-</div>
-<div class="paragraph">
-<p>All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
-</div>
-<div class="paragraph">
-<p>To run these quickstarts with the provided build scripts, you need the JBoss EAP for OpenShift distribution ZIP. For information on how to install and run JBoss, see the <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/14/html-single/getting_started_guide/"><em>Getting Started Guide</em></a> located on the Red Hat Customer Portal.</p>
-</div>
-<div class="paragraph">
-<p>You can also run the quickstarts in <a href="#run_the_quickstarts_in_jboss_developer_studio_or_eclipse">JBoss Developer Studio or Eclipse</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_quickstarts">Run the Quickstarts</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The root folder of each individual quickstart contains a <code>README</code> file with specific details on how to build and run the example. In most cases you do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.adoc#start_the_jboss_eap_server">Start the JBoss EAP for OpenShift Server</a></p>
-</li>
-<li>
-<p><a href="#build_and_deploy_the_quickstarts">Build and Deploy the Quickstarts</a></p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="build_and_deploy_the_quickstarts">Build and Deploy the Quickstarts</h3>
-<div class="paragraph">
-<p>See the <code>README</code> file in each individual quickstart folder for specific details and information on how to run and access the example.</p>
-</div>
-<div class="sect3">
-<h4 id="build_the_quickstart_archive">Build the Quickstart Archive</h4>
-<div class="paragraph">
-<p>In most cases, you can use the following steps to build the application to test for compile errors or to view the contents of the archive. See the specific quickstart <code>README</code> file for complete details.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open a terminal and navigate to the root directory of the quickstart you want to build.</p>
-</li>
-<li>
-<p>Use the following command if you only want to build the archive, but not deploy it.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean install</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="build_and_deploy_the_quickstart">Build and Deploy the Quickstart</h4>
-<div class="paragraph">
-<p>This section describes the basic steps to build and deploy an application. See the specific instructions in each quickstart <code>README</code> file for any variations to this process.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make sure you start the JBoss EAP for OpenShift server as described in the quickstart <code>README</code> file.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of the quickstart you want to run.</p>
-</li>
-<li>
-<p>Use the following command to build and deploy the archive.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean install wildfly:deploy</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="undeploy_an_archive">Undeploy an Archive</h4>
-<div class="paragraph">
-<p>Use the following command to undeploy the quickstart.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="verify_the_quickstarts_build_with_one_command">Verify the Quickstarts Build with One Command</h3>
-<div class="paragraph">
-<p>You can verify the quickstarts build using one command. However, quickstarts that have complex dependencies must be skipped. For example, the <code>resteasy-jaxrs-client</code> quickstart is a RESTEasy client that depends on the deployment of the <code>helloworld-rs</code> quickstart. As noted above, the root <code>pom.xml</code> file defines a <code>complex-dependencies</code> profile to exclude these quickstarts from the root build process.</p>
-</div>
-<div class="paragraph">
-<p>To build all of the quickstarts:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Do not start the JBoss EAP for OpenShift server.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of the quickstarts.</p>
-</li>
-<li>
-<p>Use the following command to build the quickstarts that do not have complex dependencies:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean install '-Pdefault,!complex-dependencies'</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="undeploy_the_deployed_quickstarts_with_one_command">Undeploy the Deployed Quickstarts with One Command</h3>
-<div class="paragraph">
-<p>To undeploy the quickstarts from the root of the quickstart folder, you must pass the argument <code>-fae</code> (fail at end) on the command line. This allows the command to continue past quickstarts that fail due to complex dependencies and quickstarts that only have Arquillian tests and do not deploy archives to the server.</p>
-</div>
-<div class="paragraph">
-<p>You can undeploy quickstarts using the following procedure:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Start the JBoss EAP for OpenShift server.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of the quickstarts.</p>
-</li>
-<li>
-<p>Use the following command to undeploy any deployed quickstarts.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy -fae</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>To undeploy any quickstarts that fail due to complex dependencies, follow the undeploy procedure described in the quickstart&#8217;s <code>README</code> file.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_quickstarts_in_jboss_developer_studio_or_eclipse">Run the Quickstarts in Red Hat JBoss Developer Studio or Eclipse</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP for OpenShift server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.adoc#use_red_hat_jboss_developer_studio_or_eclipse_to_run_the_quickstarts">Use JBoss Developer Studio or Eclipse to Run the Quickstarts</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="optional_components">Optional Components</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The following components are needed for only a small subset of the quickstarts. Do not install or configure them unless the quickstart requires it.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.adoc#create_users_required_by_the_quickstarts">Create Users Required by the Quickstarts</a>: Add a Management or Application user for the quickstarts that run in a secured mode.</p>
-</li>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_JBOSS_EAP.adoc#configure_the_postgresql_database_for_use_with_the_quickstarts">Configure the PostgreSQL Database for Use with the Quickstarts</a>: The PostgreSQL database is used for the distributed transaction quickstarts.</p>
-</li>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.adoc#configure_byteman_for_use_with_the_quickstarts">Configure Byteman for Use with the Quickstarts</a>: This tool is used to demonstrate crash recovery for distributed transaction quickstarts.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-25 05:55:26 UTC
+Last updated 2019-01-15 12:33:19 UTC
 </div>
 </div>
 </body>
