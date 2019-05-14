@@ -21,7 +21,6 @@ The `websocket-hello` quickstart demonstrates how to create a simple WebSocket-e
 
 * A JavaScript enabled WebSocket HTML client.
 * A WebSocket server endpoint that uses annotations to interact with the WebSocket events.
-* A `jboss-web.xml` file configured to enable WebSockets
 
 WebSockets are a requirement of the {javaVersion} specification and are implemented in {productName} {productVersion}. They are configured in the `undertow` subsystem of the server configuration file. This quickstart uses the WebSocket default settings, so it is not necessary to modify the server configuration to deploy and run this quickstart.
 
