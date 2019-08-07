@@ -447,7 +447,7 @@ The <code>websocket-hello</code> quickstart demonstrates how to create a simple 
 <h2 id="_what_is_it">What is it?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>websocket-hello</code> quickstart demonstrates how to create a simple WebSocket-enabled application in Red Hat JBoss Enterprise Application Platform. It consists of the following:</p>
+<p>The <code>websocket-hello</code> quickstart demonstrates how to create a simple WebSocket-enabled application in JBoss Enterprise Application Platform continuous delivery. It consists of the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -463,7 +463,7 @@ The <code>websocket-hello</code> quickstart demonstrates how to create a simple 
 </ul>
 </div>
 <div class="paragraph">
-<p>WebSockets are a requirement of the Java EE 8 specification and are implemented in JBoss EAP 7.3. They are configured in the <code>undertow</code> subsystem of the server configuration file. This quickstart uses the WebSocket default settings, so it is not necessary to modify the server configuration to deploy and run this quickstart.</p>
+<p>WebSockets are a requirement of the Java EE 8 specification and are implemented in JBoss EAP Continuous Delivery 17. They are configured in the <code>undertow</code> subsystem of the server configuration file. This quickstart uses the WebSocket default settings, so it is not necessary to modify the server configuration to deploy and run this quickstart.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -486,10 +486,10 @@ This quickstart demonstrates only a few of the basic functions. A fully function
 <p>This document contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
 </div>
 </div>
 </div>
@@ -524,7 +524,7 @@ This quickstart demonstrates only a few of the basic functions. A fully function
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
+<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
 </div>
 <div class="paragraph">
 <p>Configuration of authentication to the registry is not necessary if you are building and deploying this quickstart on JBoss EAP for OpenShift Online.</p>
@@ -555,7 +555,7 @@ This quickstart demonstrates only a few of the basic functions. A fully function
   eap-cd-sso-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD7.3/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/${resource}
 done</pre>
 </div>
 </div>
@@ -594,32 +594,32 @@ oc replace -n openshift --force -f \
 <p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-cd-basic-s2i</code> template with the <code>websocket-hello</code> source code on GitHub.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc new-app --template=eap-cd-basic-s2i \<b class="conum">(1)</b>
- -p IMAGE_STREAM_NAMESPACE="websocket-hello-project" \<b class="conum">(2)</b>
- -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \<b class="conum">(3)</b>
- -p SOURCE_REPOSITORY_REF="openshift" \<b class="conum">(4)</b>
- -p CONTEXT_DIR="websocket-hello"<b class="conum">(5)</b></pre>
+<pre class="nowrap">oc new-app --template=eap-cd-basic-s2i \
+ -p IMAGE_STREAM_NAMESPACE="websocket-hello-project" \
+ -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
+ -p SOURCE_REPOSITORY_REF="openshift" \
+ -p CONTEXT_DIR="websocket-hello"</pre>
 </div>
 </div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>The template to use.</p>
-</li>
-<li>
-<p>The latest images streams and templates <a href="#import_imagestreams_templates">were imported into the project&#8217;s namespace</a>, so you must specify the namespace of where to find the image stream. This is usually the OpenShift project&#8217;s name.</p>
-</li>
-<li>
-<p>URL to the repository containing the application source code.</p>
-</li>
-<li>
-<p>The Git repository reference to use for the source code. This can be a Git branch or tag reference.</p>
-</li>
-<li>
-<p>The directory within the source repository to build.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>With respect to the command parameters:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--template</code> The template to use.</p>
+</li>
+<li>
+<p><code>-p IMAGE_STREAM_NAMESPACE</code> The latest images streams and templates <a href="#import_imagestreams_templates">were imported into the project&#8217;s namespace</a>, so you must specify the namespace of where to find the image stream. This is usually the OpenShift project&#8217;s name.</p>
+</li>
+<li>
+<p><code>-p SOURCE_REPOSITORY_URL</code> The URL to the repository containing the application source code.</p>
+</li>
+<li>
+<p><code>-p SOURCE_REPOSITORY_REF</code> The Git repository reference to use for the source code. This can be a Git branch or tag reference.</p>
+</li>
+<li>
+<p><code>-p CONTEXT_DIR</code> The directory within the source repository to build.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -631,6 +631,9 @@ A template can specify default values for many template parameters, and you migh
 </td>
 </tr>
 </table>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -656,7 +659,7 @@ A template can specify default values for many template parameters, and you migh
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-08 10:30:40 UTC
+Last updated 2019-07-25 06:16:02 UTC
 </div>
 </div>
 </body>

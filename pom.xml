@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>29.0.0.redhat-00001</version>
+        <version>35</version>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>7.3.0.CD16</version>
+    <version>7.3.0.CD17</version>
 
     <packaging>pom</packaging>
 
@@ -50,7 +50,7 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.3.0.CD16</product.version>
+        <product.version>7.3.0.CD17</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
@@ -67,17 +67,9 @@
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.3.0.CD16</version.server.bom>
+        <version.server.bom>7.3.0.CD17</version.server.bom>
 
-        <!-- Versions of dependencies on server's core -->
-        <version.commons-io>2.5.0.redhat-3</version.commons-io>
-        <version.org.apache.httpcomponents.httpclient>4.5.4.redhat-00001</version.org.apache.httpcomponents.httpclient>
-
-        <!-- Versions of dependencies on server -->
-        <version.com.fasterxml.jackson>2.9.8.redhat-00004</version.com.fasterxml.jackson>
-        <version.com.h2database>1.4.193.redhat-2</version.com.h2database>
-
-        <!-- Other versions of dependencies -->
+        <!-- Versions of unmanaged dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
         <version.json.path>2.0.0</version.json.path>
         <version.org.json>20150729</version.org.json>
@@ -90,18 +82,7 @@
 
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${version.org.apache.httpcomponents.httpclient}</version>
-            </dependency>
-            <!-- JBoss distributes a complete set of Java EE APIs including a Bill
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
-                of artifacts. We use this here so that we always get the correct versions
-                of artifacts. Here we use the jboss-eap-javaee8-with-tools stack (you can
-                read this as the JBoss stack of the Java EE APIs, with some extras tools
-                for your project, such as Arquillian for testing) -->
+            <!-- importing the javaee8-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-javaee8-with-tools</artifactId>
@@ -196,6 +177,7 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
     <build>
         <!-- Set the name of the WAR, used as the context root when the app is deployed. -->
         <finalName>${project.artifactId}</finalName>
