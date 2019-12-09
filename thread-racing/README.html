@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <meta name="author" content="Eduardo Martins">
-<title>thread-racing: A Java EE thread racing web application</title>
+<title>thread-racing: A Jakarta EE thread racing web application</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -428,7 +428,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>thread-racing: A Java EE thread racing web application</h1>
+<h1>thread-racing: A Jakarta EE thread racing web application</h1>
 <div class="details">
 <span id="author" class="author">Eduardo Martins</span><br>
 </div>
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="quoteblock abstract">
 <blockquote>
-A thread racing web application that demonstrates technologies introduced or updated in the latest Java EE specification.
+A thread racing web application that demonstrates technologies introduced or updated in the latest Jakarta EE specification.
 </blockquote>
 </div>
 </div>
@@ -447,13 +447,13 @@ A thread racing web application that demonstrates technologies introduced or upd
 <h2 id="_what_is_it">What is it?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>thread-racing</code> quickstart is a web application that demonstrates new and updated technologies introduced by the Java EE 8 specification through simple use cases.</p>
+<p>The <code>thread-racing</code> quickstart is a web application that demonstrates new and updated technologies introduced by the Jakarta EE 8 specification through simple use cases.</p>
 </div>
 <div class="paragraph">
 <p>The web application allows the user to trigger a race between 4 threads and follow, in real time, the progress of each thread until the race ends.</p>
 </div>
 <div class="paragraph">
-<p>The race itself consists of multiple stages, each demonstrating the usage of a specific new or updated Java EE 8 technology:</p>
+<p>The race itself consists of multiple stages, each demonstrating the usage of a specific new or updated Jakarta EE 8 technology:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -475,11 +475,11 @@ A thread racing web application that demonstrates technologies introduced or upd
 </ul>
 </div>
 <div class="paragraph">
-<p>WebSockets 1.0 is one of the most relevant new technologies introduced by Java EE 8. Instead of being used in a race stage, a WebSockets 1.0 ServerEndpoint provides the remote application interface.
+<p>WebSockets 1.0 is one of the most relevant new technologies introduced by Jakarta EE 8. Instead of being used in a race stage, a WebSockets 1.0 ServerEndpoint provides the remote application interface.
 A new race is run when a client establishes a session. That session is then used to update the client in real time, with respect to the race progress and results. The <code>src/main/java/org/jboss/as/quickstarts/threadracing/WebSocketRace.java</code> file is the WebSocket server endpoint class and is a good entry point when studying how the application code works.</p>
 </div>
 <div class="paragraph">
-<p>JPA 2.1 is also present in the application code. Specifically it is used to store race results in the default data source instance, which is also new to Java EE. Further details are included in the <code>src/main/java/org/jboss/as/quickstarts/threadracing/results/RaceResults.java</code> class.</p>
+<p>JPA 2.1 is also present in the application code. Specifically it is used to store race results in the default data source instance, which is also new to Jakarta EE. Further details are included in the <code>src/main/java/org/jboss/as/quickstarts/threadracing/results/RaceResults.java</code> class.</p>
 </div>
 </div>
 </div>
@@ -663,7 +663,7 @@ A template can specify default values for many template parameters, and you migh
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-25 06:16:02 UTC
+Last updated 2019-10-22 07:49:06 UTC
 </div>
 </div>
 </body>

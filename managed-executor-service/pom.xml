@@ -24,14 +24,14 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>7.3.0.CD17</version>
+        <version>7.3.0.CD18</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>managed-executor-service</artifactId>
     <packaging>war</packaging>
     <name>Quickstart: managed-executor-service</name>
-    <description>A starter Java EE web application project for use on JBoss EAP, generated from the jboss-javaee6-webapp archetype</description>
+    <description>A starter Jakarta EE web application project for use on JBoss EAP</description>
 
     <licenses>
         <license>
@@ -45,8 +45,8 @@
         <!-- Import the CDI API, we use provided scope as the API is included in
             JBoss EAP -->
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -67,8 +67,8 @@
         <!-- Import the JPA API, we use provided scope as the API is included in
             JBoss EAP -->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -136,7 +136,7 @@
             JBoss EAP -->
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+            <artifactId>jboss-transaction-api_1.3_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 

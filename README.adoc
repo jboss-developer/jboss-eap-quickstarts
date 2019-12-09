@@ -10,7 +10,7 @@ ifndef::ProductRelease,EAPCDRelease[]
 [toc]
 
 [abstract]
-The quickstarts demonstrate Java EE 8 and a few additional technologies from the WildFly stack. They provide small, specific, working examples that can be used as a reference for your own project.
+The quickstarts demonstrate Jakarta EE 8 and a few additional technologies from the WildFly stack. They provide small, specific, working examples that can be used as a reference for your own project.
 
 [[introduction]]
 == Introduction
@@ -447,7 +447,7 @@ NOTE: Some of these quickstarts use the H2 database included with WildFly. It is
 | link:kitchensink-jsp/README{outfilesuffix}[kitchensink-jsp]|JSP, JSTL, CDI, JPA, EJB, JAX-RS, BV | The `kitchensink-jsp` quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in {productName}. | Intermediate | _none_
 | link:kitchensink-ml/README{outfilesuffix}[kitchensink-ml]|CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n | The `kitchensink-ml` quickstart demonstrates a localized {javaVersion} compliant application using JSF, CDI, EJB, JPA, and Bean Validation. | Intermediate | _none_
 | link:logging-tools/README{outfilesuffix}[logging-tools]|JBoss Logging Tools | The `logging-tools` quickstart shows how to use JBoss Logging Tools to create internationalized loggers, exceptions, and messages and localize them. | Beginner | _none_
-| link:managed-executor-service/README{outfilesuffix}[managed-executor-service]|EE Concurrency Utilities, JAX-RS, JAX-RS Client API | The `managed-executor-service` quickstart demonstrates how Java EE applications can submit tasks for asynchronous execution. | Beginner | _none_
+| link:managed-executor-service/README{outfilesuffix}[managed-executor-service]|EE Concurrency Utilities, JAX-RS, JAX-RS Client API | The `managed-executor-service` quickstart demonstrates how Jakarta EE applications can submit tasks for asynchronous execution. | Beginner | _none_
 | link:numberguess/README{outfilesuffix}[numberguess]|CDI, JSF | The `numberguess` quickstart demonstrates the use of CDI  (Contexts and Dependency Injection) and JSF (JavaServer Faces) in {productName}. | Beginner | _none_
 | link:payment-cdi-event/README{outfilesuffix}[payment-cdi-event]|CDI, JSF | The `payment-cdi-event` quickstart demonstrates how to create credit and debit CDI Events in {productName}, using a JSF front-end client. | Beginner | _none_
 | link:servlet-async/README{outfilesuffix}[servlet-async]|Asynchronous Servlet, CDI, EJB | The `servlet-async` quickstart demonstrates how to use asynchronous servlets to detach long-running tasks and free up the request processing thread. | Intermediate | _none_
@@ -458,7 +458,7 @@ NOTE: Some of these quickstarts use the H2 database included with WildFly. It is
 | link:spring-resteasy/README{outfilesuffix}[spring-resteasy]|Resteasy, Spring | The `spring-resteasy` quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration. | Beginner | _none_
 | link:tasks-jsf/README{outfilesuffix}[tasks-jsf]|JSF, JPA | The `tasks-jsf` quickstart demonstrates how to use JPA persistence with JSF as the view layer. | Intermediate | _none_
 | link:temperature-converter/README{outfilesuffix}[temperature-converter]|CDI, JSF, SLSB EJB | The `temperature-converter` quickstart does temperature conversion using an EJB Stateless Session Bean (SLSB), CDI, and a JSF front-end client. | Beginner | _none_
-| link:thread-racing/README{outfilesuffix}[thread-racing]|Batch, CDI, EE Concurrency, JAX-RS, JMS, JPA, JSON, Web Sockets | A thread racing web application that demonstrates technologies introduced or updated in the latest Java EE specification. | Beginner | _none_
+| link:thread-racing/README{outfilesuffix}[thread-racing]|Batch, CDI, EE Concurrency, JAX-RS, JMS, JPA, JSON, Web Sockets | A thread racing web application that demonstrates technologies introduced or updated in the latest Jakarta EE specification. | Beginner | _none_
 | link:websocket-client/README{outfilesuffix}[websocket-client]|Web Socket, CDI Events, JSON, SSL | Demonstrates use of a Javascript WebSocket client, WebSocket configuration, programmatic binding, and secure WebSocket. | Intermediate | _none_
 | link:websocket-endpoint/README{outfilesuffix}[websocket-endpoint]|CDI, WebSocket, JSON-P | Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in {productName}. | Beginner | _none_
 | link:websocket-hello/README{outfilesuffix}[websocket-hello]|WebSocket, CDI, JSF | The `websocket-hello` quickstart demonstrates how to create a simple WebSocket application. | Beginner | _none_

@@ -24,14 +24,14 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>7.3.0.CD17</version>
+        <version>7.3.0.CD18</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>thread-racing</artifactId>
     <packaging>war</packaging>
     <name>Quickstart: thread-racing</name>
-    <description>A web application that triggers a thread race to complete Java EE 7 related tasks</description>
+    <description>A web application that triggers a thread race to complete Jakarta EE related tasks</description>
 
     <licenses>
         <license>
@@ -45,15 +45,15 @@
 
         <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
             <scope>provided</scope>
         </dependency>
         
@@ -95,8 +95,8 @@
 
         <!-- Import the JSON API, we use provided scope as the API is included in JBoss EAP. -->
         <dependency>
-            <groupId>javax.json</groupId>
-            <artifactId>javax.json-api</artifactId>
+            <groupId>jakarta.json</groupId>
+            <artifactId>jakarta.json-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
