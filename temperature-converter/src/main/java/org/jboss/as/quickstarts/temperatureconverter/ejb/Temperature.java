@@ -61,13 +61,13 @@ public class Temperature {
                 try {
                     s = Scale.valueOfAbbreviation(matcher.group(2));
                 } catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException("You must provide a valid temperature to convert.");
+                    throw new IllegalArgumentException("Illegal Exception: You must provide a valid temperature to convert.");
                 }
             } else {
                 s = defaultScale;
             }
         } else {
-            throw new IllegalArgumentException("You must provide a valid temperature to convert.");
+            throw new IllegalArgumentException("IE: You must provide a valid temperature to convert.");
         }
 
         return new Temperature(t, s);
