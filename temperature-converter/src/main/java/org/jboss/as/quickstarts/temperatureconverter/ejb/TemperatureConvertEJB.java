@@ -45,15 +45,15 @@ public class TemperatureConvertEJB {
             if (source.getTemperature() < Temperature.ABSOLUTE_ZERO_C) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SVB - Below Absolute Zero!"));
             } else if (source.getTemperature() == Temperature.ABSOLUTE_ZERO_C) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Absolute Zero!"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SVB - Absolute Zero!"));
             }
             return new Temperature((source.getTemperature() * 9 / 5) + 32, FAHRENHEIT);
         } else if (source.getScale() == FAHRENHEIT) { // Fahrenheit to Celsius
             // Easter egg for Absolute Zero.
             if (source.getTemperature() < Temperature.ABSOLUTE_ZERO_F) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Below Absolute Zero!"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SVB - Below Absolute Zero!"));
             } else if (source.getTemperature() == Temperature.ABSOLUTE_ZERO_F) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Absolute Zero!"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SVB - Absolute Zero!"));
             }
             return new Temperature((source.getTemperature() - 32) * 5 / 9, CELSIUS);
         } else { // Should never get here!
