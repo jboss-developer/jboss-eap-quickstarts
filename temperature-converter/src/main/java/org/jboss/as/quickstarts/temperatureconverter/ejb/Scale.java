@@ -40,7 +40,7 @@ public enum Scale {
 
     public static Scale valueOfAbbreviation(String value) {
         if (value == null) {
-            throw new IllegalArgumentException("value must not be null");
+            throw new IllegalArgumentException("The provided value must not be null");
         } else if ("C".equals(value.toUpperCase())) {
             return CELSIUS;
         } else if ("F".equals(value.toUpperCase())) {
