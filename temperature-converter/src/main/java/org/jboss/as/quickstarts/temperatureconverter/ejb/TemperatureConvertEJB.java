@@ -43,7 +43,7 @@ public class TemperatureConvertEJB {
         if (source.getScale() == CELSIUS) { // Celsius to Fahrenheit
             // Easter egg for Absolute Zero.
             if (source.getTemperature() < Temperature.ABSOLUTE_ZERO_C) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Below Absolute Zero!"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("SVB - Below Absolute Zero!"));
             } else if (source.getTemperature() == Temperature.ABSOLUTE_ZERO_C) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Absolute Zero!"));
             }
