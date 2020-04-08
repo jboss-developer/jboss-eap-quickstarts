@@ -80,17 +80,7 @@
         <version.server.bom>19.0.2.Final-SNAPSHOT</version.server.bom>
 
         <!-- Versions of unmanaged dependencies -->
-        <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
         <version.com.nimbusds.jose.jwt>5.4</version.com.nimbusds.jose.jwt>
-        <version.deltaspike.core>1.5.1</version.deltaspike.core>
-        <version.json.path>2.0.0</version.json.path>
-        <version.org.apache.wicket>7.3.0</version.org.apache.wicket>
-        <version.hibernate4>4.2.21.Final</version.hibernate4>
-        <version.hibernate4.validator>4.3.2.Final</version.hibernate4.validator>
-        <version.org.json>20150729</version.org.json>
-        <version.org.richfaces>4.5.7.Final</version.org.richfaces>
-        <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
-        <version.spring.framework>4.3.14.RELEASE</version.spring.framework>
 
         <jboss.developer.drupal.url>http://rhdp-drupal.stage.redhat.com/</jboss.developer.drupal.url>
         <linkXRef>false</linkXRef>
@@ -383,69 +373,6 @@
                 </property>
             </activation>
             <modules>
-                <!-- All the modules that require nothing but JBoss Enterprise
-                    Application Platform or JBoss EAP -->
-                <module>app-client</module>
-                <module>batch-processing</module>
-                <module>bean-validation</module>
-                <module>bean-validation-custom-constraint</module>
-                <module>bmt</module>
-                <module>cmt</module>
-                <module>contacts-jquerymobile</module>
-                <module>deltaspike-authorization</module>
-                <module>deltaspike-beanbuilder</module>
-                <module>deltaspike-projectstage</module>
-                <module>ee-security</module>
-                <module>ejb-asynchronous</module>
-                <module>ejb-in-ear</module>
-                <module>ejb-in-war</module>
-                <module>ejb-multi-server</module>
-                <module>ejb-security</module>
-                <module>ejb-security-context-propagation</module>
-                <module>ejb-security-jaas</module>
-                <module>ejb-security-programmatic-auth</module>
-                <module>ejb-throws-exception</module>
-                <module>ejb-timer</module>
-                <module>greeter</module>
-                <module>ha-singleton-deployment</module>
-                <module>ha-singleton-service</module>
-                <module>helloworld</module>
-                <module>helloworld-classfiletransformer</module>
-                <module>helloworld-html5</module>
-                <module>helloworld-jms</module>
-                <module>helloworld-mbean</module>
-                <module>helloworld-mdb</module>
-                <module>helloworld-mdb-propertysubstitution</module>
-                <module>helloworld-mutual-ssl</module>
-                <module>helloworld-mutual-ssl-secured</module>
-                <module>helloworld-rf</module>
-                <module>helloworld-rs</module>
-                <module>helloworld-singleton</module>
-                <module>helloworld-ssl</module>
-                <module>helloworld-ws</module>
-                <module>hibernate4</module>
-                <module>hibernate</module>
-                <module>http-custom-mechanism</module>
-                <module>inter-app</module>
-                <module>jaxrs-client</module>
-                <module>jaxrs-jwt</module>
-                <module>jaxws-addressing</module>
-                <module>jaxws-ejb</module>
-                <module>jaxws-pojo</module>
-                <module>jaxws-retail</module>
-                <module>jsonp</module>
-                <module>kitchensink</module>
-                <module>kitchensink-angularjs</module>
-                <module>kitchensink-ear</module>
-                <module>kitchensink-jsp</module>
-                <module>kitchensink-ml</module>
-                <module>kitchensink-utjs-angularjs</module>
-                <module>kitchensink-utjs-mustache</module>
-                <module>logging</module>
-                <module>logging-tools</module>
-                <module>mail</module>
-                <module>managed-executor-service</module>
-                <module>messaging-clustering-singleton</module>
                 <module>microprofile-config</module>
                 <module>microprofile-fault-tolerance</module>
                 <module>microprofile-health</module>
@@ -455,103 +382,6 @@
                 <module>microprofile-opentracing</module>
                 <module>microprofile-rest-client/country-client</module>
                 <module>microprofile-rest-client/country-server</module>
-                <module>numberguess</module>
-                <module>payment-cdi-event</module>
-                <module>resteasy-jaxrs-client</module>
-                <module>security-domain-to-domain</module>
-                <module>servlet-async</module>
-                <module>servlet-filterlistener</module>
-                <module>servlet-security</module>
-                <module>shopping-cart</module>
-                <module>spring-greeter</module>
-                <module>spring-kitchensink-basic</module>
-                <module>spring-kitchensink-springmvctest</module>
-                <module>spring-resteasy</module>
-                <module>tasks-jsf</module>
-                <module>tasks-rs</module>
-                <module>temperature-converter</module>
-                <module>thread-racing</module>
-                <module>websocket-client</module>
-                <module>websocket-endpoint</module>
-                <module>websocket-hello</module>
-                <module>wicket-ear</module>
-                <module>wicket-war</module>
-                <module>xml-jaxp</module>
-            </modules>
-        </profile>
-        <profile>
-            <!-- All the quickstarts that require Postgres to be running -->
-            <id>requires-postgres</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>requires-postgres</name>
-                    <value>!disabled</value>
-                </property>
-            </activation>
-            <modules>
-                <module>jts</module>
-            </modules>
-        </profile>
-        <profile>
-            <!-- All the quickstarts that have weird requirements around deployment that Maven can't handle -->
-            <id>complex-dependencies</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>complex-dependencies</name>
-                    <value>!disabled</value>
-                </property>
-            </activation>
-            <modules>
-                <module>ejb-remote</module>
-                <module>resteasy-jaxrs-client</module>
-                <module>jts</module>
-            </modules>
-        </profile>
-        <profile>
-            <!-- All the quickstarts that require the "standalone-full" profile
-                to be in use -->
-            <id>requires-full</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>requires-full</name>
-                    <value>!disabled</value>
-                </property>
-            </activation>
-            <modules>
-                <module>helloworld-mbean</module>
-                <module>helloworld-mdb</module>
-                <module>helloworld-mdb-propertysubstitution</module>
-                <module>jta-crash-rec</module>
-            </modules>
-        </profile>
-        <profile>
-            <!-- All the quickstarts that require the xts to be enabled -->
-            <id>requires-xts</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>requires-xts</name>
-                    <value>!disabled</value>
-                </property>
-            </activation>
-            <modules>
-                <module>wsat-simple</module>
-                <module>wsba-coordinator-completion-simple</module>
-                <module>wsba-participant-completion-simple</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>functional-tests</id>
-            <modules>
-                <module>contacts-jquerymobile/functional-tests</module>
-                <module>helloworld-html5/functional-tests</module>
-                <module>kitchensink-angularjs/functional-tests</module>
-                <module>spring-greeter/functional-tests</module>
-                <module>spring-kitchensink-basic/functional-tests</module>
-                <module>spring-kitchensink-springmvctest/functional-tests</module>
             </modules>
         </profile>
 
@@ -622,11 +452,6 @@
                     <name>release</name>
                 </property>
             </activation>
-            <modules>
-                <!-- not real maven projects, but here for centralized mgmt and docs -->
-                <module>jts-distributed-crash-rec</module>
-                <module>messaging-clustering</module>
-            </modules>
             <build>
                 <plugins>
                     <plugin>
