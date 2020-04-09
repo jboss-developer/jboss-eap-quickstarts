@@ -20,7 +20,7 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.wildfly.quickstarts</groupId>
+        <groupId>org.jboss.eap.xp.quickstarts</groupId>
         <artifactId>quickstart-parent</artifactId>
         <!--
         Maintain separation between the artifact id and the version to help prevent
@@ -53,8 +53,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-microprofile</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-xp-microprofile</artifactId>
                 <version>${version.microprofile.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>

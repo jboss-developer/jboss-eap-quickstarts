@@ -24,7 +24,7 @@
         <version>35</version>
     </parent>
 
-    <groupId>org.wildfly.quickstarts</groupId>
+    <groupId>org.jboss.eap.xp.quickstarts</groupId>
     <artifactId>quickstart-parent</artifactId>
     <!--
         Maintain separation between the artifact id and the version to help prevent
@@ -36,7 +36,7 @@
 
     <name>Quickstart: Parent</name>
     <description>Quickstart's parent</description>
-    <url>https://github.com/wildfly/quickstart</url>
+    <url>https://developers.redhat.com/quickstarts/eap/</url>
 
     <licenses>
         <license>
@@ -48,8 +48,9 @@
 
     <properties>
         <root.dir>${project.basedir}</root.dir>
-        <jboss.home.name>WILDFLY_HOME</jboss.home.name>
-        <product.name>WildFly</product.name>
+        <jboss.home.name>EAP7_HOME</jboss.home.name>
+        <product.name>JBoss EAP XP</product.name>
+        <product.version>1.0.0.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
@@ -79,7 +80,7 @@
         -->
         <version.server.bom>7.3.1.GA-redhat-SNAPSHOT</version.server.bom>
         <version.microprofile.bom>1.0.0.GA-redhat-SNAPSHOT</version.microprofile.bom>
-        
+
         <!-- Versions of unmanaged dependencies -->
         <version.com.nimbusds.jose.jwt>5.4</version.com.nimbusds.jose.jwt>
 
@@ -91,16 +92,16 @@
         <dependencies>
             <!-- importing the jakartaee8-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
             <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-jakartaee8-with-tools</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-jakartaee8-with-tools</artifactId>
                 <version>${version.server.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <!-- importing the microprofile BOM adds MicroProfile specs -->
             <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-microprofile</artifactId>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-xp-microprofile</artifactId>
                 <version>${version.microprofile.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
