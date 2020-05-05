@@ -471,10 +471,10 @@ The <code>ejb-timer</code> quickstart demonstrates how to use the EJB timer serv
 <p>This document contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/19/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/19/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
 </div>
 </div>
 </div>
@@ -509,7 +509,7 @@ The <code>ejb-timer</code> quickstart demonstrates how to use the EJB timer serv
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/17/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
+<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/19/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
 </div>
 <div class="paragraph">
 <p>Configuration of authentication to the registry is not necessary if you are building and deploying this quickstart on JBoss EAP for OpenShift Online.</p>
@@ -540,7 +540,7 @@ The <code>ejb-timer</code> quickstart demonstrates how to use the EJB timer serv
   eap-cd-sso-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD18/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD19/templates/${resource}
 done</pre>
 </div>
 </div>
@@ -605,6 +605,9 @@ oc replace -n openshift --force -f \
 </li>
 <li>
 <p><code>-p CONTEXT_DIR</code> The directory within the source repository to build.</p>
+</li>
+</ul>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -618,9 +621,22 @@ A template can specify default values for many template parameters, and you migh
 </table>
 </div>
 </li>
-</ul>
+</ol>
 </div>
-</li>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+It is possible to trim down the JBoss EAP image that will be used to run this quickstart. To do so, please add the <code>-p GALLEON_PROVISION_LAYERS=&lt;galleon layers&gt;</code> argument when creating the new application. Please refer to the JBoss EAP documentation for the list of supported galleon layers.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Retrieve the name of the build configuration.</p>
 <div class="listingblock">
@@ -644,7 +660,7 @@ A template can specify default values for many template parameters, and you migh
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-22 07:49:06 UTC
+Last updated 2020-03-27 12:49:46 UTC
 </div>
 </div>
 </body>

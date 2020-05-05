@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>7.3.0.CD18</version>
+    <version>7.4.0.CD19</version>
 
     <packaging>pom</packaging>
 
@@ -50,7 +50,7 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.3.0.CD18</product.version>
+        <product.version>7.4.0.CD19</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
@@ -73,11 +73,11 @@
         <maven.repository.url>${maven.repository.protocol}://repository.jboss.org/nexus/content/groups/public/</maven.repository.url>
         <!-- https://access.redhat.com/maven-repository -->
         <maven.redhat.repository.url>${maven.repository.protocol}://maven.repository.redhat.com/ga/</maven.redhat.repository.url>
-        <maven.redhat.repository.ea.url>${maven.repository.protocol}://maven.repository.redhat.com/earlyaccess/all/</maven.redhat.repository.ea.url>
+
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.3.0.CD18</version.server.bom>
+        <version.server.bom>7.4.0.CD19</version.server.bom>
 
         <!-- Versions of unmanaged dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
@@ -140,7 +140,7 @@
                 <enabled>false</enabled>
             </snapshots>
             <id>jboss-enterprise-maven-repository-ea</id>
-            <url>${maven.redhat.repository.ea.url}</url>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
         </repository>
     </repositories>
 
@@ -175,7 +175,7 @@
                 <enabled>false</enabled>
             </snapshots>
             <id>jboss-enterprise-maven-repository-ea</id>
-            <url>${maven.redhat.repository.ea.url}</url>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
         </pluginRepository>
     </pluginRepositories>
 
