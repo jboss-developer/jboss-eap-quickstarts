@@ -427,14 +427,14 @@ NOTE: Some of these quickstarts use the H2 database included with WildFly. It is
 [cols="1,1,2,1,1", options="header"]
 |===
 | Quickstart Name | Demonstrated Technologies | Description | Experience Level Required | Prerequisites 
-| link:microprofile-config/README{outfilesuffix}[microprofile-config]|MicroProfile Config | The `microprofile-config` quickstart demonstrates the use of the MicroProfile Config | Beginner | _none_
+| link:microprofile-config/README{outfilesuffix}[microprofile-config]|MicroProfile Config | The `microprofile-config` quickstart demonstrates the use of the MicroProfile Config specification in {productName}. | Beginner | _none_
 | link:microprofile-fault-tolerance/README{outfilesuffix}[microprofile-fault-tolerance]|MicroProfile, Fault Tolerance | The `microprofile-fault-tolerance` quickstart demonstrates how to use Eclipse MicroProfile Fault Tolerance in {productName}. | Intermediate | _none_
-| link:microprofile-health/README{outfilesuffix}[microprofile-health]|MicroProfile Health | The `microprofile-health` quickstart demonstrates the use of the MicroProfile Health | Beginner | _none_
-| link:microprofile-jwt/README{outfilesuffix}[microprofile-jwt]|JWT, Security, MicroProfile | The `microprofile-jwt` quickstart demonstrates the use of the MicroProfile JWT | Intermediate | _none_
-| link:microprofile-metrics/README{outfilesuffix}[microprofile-metrics]|MicroProfile Metrics | The `microprofile-metrics` quickstart demonstrates the use of the MicroProfile | Beginner | _none_
+| link:microprofile-health/README{outfilesuffix}[microprofile-health]|MicroProfile Health | The `microprofile-health` quickstart demonstrates the use of the MicroProfile Health specification in {productName}. | Beginner | _none_
+| link:microprofile-jwt/README{outfilesuffix}[microprofile-jwt]|JWT, Security, MicroProfile | The `microprofile-jwt` quickstart demonstrates the use of the MicroProfile JWT specification in {productName}. | Intermediate | _none_
+| link:microprofile-metrics/README{outfilesuffix}[microprofile-metrics]|MicroProfile Metrics | The `microprofile-metrics` quickstart demonstrates the use of the MicroProfile Metrics specification use in {productName}. | Beginner | _none_
 | link:microprofile-openapi/README{outfilesuffix}[microprofile-openapi]|MicroProfile OpenAPI | null | Beginner | _none_
-| link:microprofile-opentracing/README{outfilesuffix}[microprofile-opentracing]|MicroProfile OpenTracing | The `microprofile-opentracing` quickstart demonstrates the use of the | Beginner | _none_
-| link:microprofile-rest-client/README{outfilesuffix}[microprofile-rest-client]|MicroProfile REST Client | The `microprofile-rest-client` quickstart demonstrates the use of the MicroProfile | Beginner | _none_
+| link:microprofile-opentracing/README{outfilesuffix}[microprofile-opentracing]|MicroProfile OpenTracing | The `microprofile-opentracing` quickstart demonstrates the use of the MicroProfile OpenTracing specification in {productName}. | Beginner | _none_
+| link:microprofile-rest-client/README{outfilesuffix}[microprofile-rest-client]|MicroProfile REST Client | The `microprofile-rest-client` quickstart demonstrates the use of the MicroProfile REST Client specification in {productName}. | Beginner | _none_
 |===
 //</TOC>
 
