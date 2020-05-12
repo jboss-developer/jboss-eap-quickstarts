@@ -50,7 +50,7 @@
       <repositories>
         <repository>
           <id>jboss-ga-repository</id>
-          <url>http://maven.repository.redhat.com/techpreview/all</url>
+          <url>https://maven.repository.redhat.com/techpreview/all</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -62,7 +62,7 @@
       <pluginRepositories>
         <pluginRepository>
           <id>jboss-ga-plugin-repository</id>
-          <url>http://maven.repository.redhat.com/techpreview/all</url>
+          <url>https://maven.repository.redhat.com/techpreview/all</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -79,7 +79,7 @@
       <repositories>
         <repository>
           <id>jboss-earlyaccess-repository</id>
-          <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
+          <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -91,7 +91,7 @@
       <pluginRepositories>
         <pluginRepository>
           <id>jboss-earlyaccess-plugin-repository</id>
-          <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
+          <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -108,7 +108,7 @@
       <repositories>
         <repository>
           <id>jboss-developer-repository</id>
-          <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+          <url>https://jboss-developer.github.io/temp-maven-repo/</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -120,7 +120,7 @@
       <pluginRepositories>
         <pluginRepository>
           <id>jboss-developer-plugin-repository</id>
-          <url>http://jboss-developer.github.io/temp-maven-repo/</url>
+          <url>https://jboss-developer.github.io/temp-maven-repo/</url>
           <releases>
             <enabled>true</enabled>
           </releases>
