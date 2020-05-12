@@ -24,19 +24,19 @@
   </properties>
 
   <dependencies>
-    <!-- Import the MicroProfile Health API, we use provided scope as the API is included in WildFly -->
+    <!-- Import the MicroProfile Health API, we use provided scope as the API is included in JBoss EAP XP -->
     <dependency>
       <groupId>org.eclipse.microprofile.health</groupId>
       <artifactId>microprofile-health-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP -->
+    <!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP XP -->
     <dependency>
       <groupId>jakarta.enterprise</groupId>
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <!-- Import the MicroProfile Config API, we use provided scope as the API is included in WildFly -->
+    <!-- Import the MicroProfile Config API, we use provided scope as the API is included in JBoss EAP XP -->
     <dependency>
       <groupId>org.eclipse.microprofile.config</groupId>
       <artifactId>microprofile-config-api</artifactId>

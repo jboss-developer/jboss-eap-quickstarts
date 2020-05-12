@@ -59,14 +59,14 @@
 
     <dependencies>
 
-        <!-- Import the MicroProfile JWT API, we use provided scope as the API is included  in JBoss EAP -->
+        <!-- Import the MicroProfile JWT API, we use provided scope as the API is included  in JBoss EAP XP -->
         <dependency>
             <groupId>org.eclipse.microprofile.jwt</groupId>
             <artifactId>microprofile-jwt-auth-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the CDI API, we use provided scope as the API is included  in JBoss EAP -->
+        <!-- Import the CDI API, we use provided scope as the API is included  in JBoss EAP XP -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -74,14 +74,14 @@
         </dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
-        as the API is included in JBoss EAP -->
+        as the API is included in JBoss EAP XP -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.3_spec</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss EAP -->
+        <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss EAP XP -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
