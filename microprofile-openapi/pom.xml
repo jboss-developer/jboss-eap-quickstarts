@@ -34,13 +34,9 @@
         <!-- Set the name of the archive -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!-- Allows to use mvn wildfly:deploy -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
-                <configuration>
-                    <version>7.3.1.GA-redhat-SNAPSHOT</version>
-                </configuration>
             </plugin>
         </plugins>
     </build>
