@@ -101,10 +101,6 @@
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
                     <artifactId>wildfly-maven-plugin</artifactId>
-                    <configuration>
-                        <version>${version.server.bom}</version>
-                        <serverConfig>standalone-microprofile.xml</serverConfig>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
