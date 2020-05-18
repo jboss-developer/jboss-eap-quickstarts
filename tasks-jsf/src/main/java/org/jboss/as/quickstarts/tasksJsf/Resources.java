@@ -22,7 +22,6 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -55,10 +54,5 @@ public class Resources {
     public Logger getLogger(InjectionPoint ip) {
         String category = ip.getMember().getDeclaringClass().getName();
         return Logger.getLogger(category);
-    }
-
-    @Produces
-    public FacesContext getFacesContext() {
-        return FacesContext.getCurrentInstance();
     }
 }
