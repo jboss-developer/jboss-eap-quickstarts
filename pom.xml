@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>7.4.0.CD19</version>
+    <version>7.4.0.CD20</version>
 
     <packaging>pom</packaging>
 
@@ -50,9 +50,9 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.4.0.CD19</product.version>
+        <product.version>7.4.0.CD20</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
-        <version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
+        <version.wildfly.maven.plugin>2.0.2.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
         <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Final</version.org.wildfly.quickstarts.documentation.plugin>
         <!-- other plug-in versions -->
@@ -73,11 +73,12 @@
         <maven.repository.url>${maven.repository.protocol}://repository.jboss.org/nexus/content/groups/public/</maven.repository.url>
         <!-- https://access.redhat.com/maven-repository -->
         <maven.redhat.repository.url>${maven.repository.protocol}://maven.repository.redhat.com/ga/</maven.redhat.repository.url>
+        <maven.redhat.ea.repository.url>${maven.repository.protocol}://maven.repository.redhat.com/earlyaccess/all/</maven.redhat.ea.repository.url>
 
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.4.0.CD19</version.server.bom>
+        <version.server.bom>7.4.0.CD20</version.server.bom>
 
         <!-- Versions of unmanaged dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
@@ -135,12 +136,16 @@
         <repository>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
             </snapshots>
-            <id>jboss-enterprise-maven-repository-ea</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <id>jboss-enterprise-ea-maven-repository</id>
+            <name>JBoss Enterprise Early Access Maven Repository</name>
+            <url>${maven.redhat.ea.repository.url}</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 
@@ -172,10 +177,11 @@
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
-            <id>jboss-enterprise-maven-repository-ea</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <id>jboss-enterprise-ea-maven-repository</id>
+            <name>JBoss Enterprise Early Access Maven Repository</name>
+            <url>${maven.redhat.ea.repository.url}</url>
         </pluginRepository>
     </pluginRepositories>
 
