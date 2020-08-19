@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>1.0.0.GA</version>
+    <version>1.0.1.GA</version>
 
     <packaging>pom</packaging>
 
@@ -50,7 +50,7 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP XP</product.name>
-        <product.version>1.0.0.GA</product.version>
+        <product.version>1.0.1.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.wildfly.maven.plugin>2.0.0.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
@@ -77,8 +77,8 @@
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.3.1.GA</version.server.bom>
-        <version.microprofile.bom>1.0.0.GA</version.microprofile.bom>
+        <version.server.bom>7.3.2.GA</version.server.bom>
+        <version.microprofile.bom>1.0.1.GA</version.microprofile.bom>
 
         <!-- Versions of unmanaged dependencies -->
         <version.com.nimbusds.jose.jwt>5.4</version.com.nimbusds.jose.jwt>
@@ -205,6 +205,56 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
+            <plugin>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <version>0.3</version>
+        <executions>
+          <execution>
+            <id>project-sources-archive</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>archive</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+            <plugin>
+        <groupId>com.redhat.rcm.maven.plugin</groupId>
+        <artifactId>buildmetadata-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <executions>
+          <execution>
+            <id>build-metadata</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>provide-buildmetadata</goal>
+            </goals>
+            <configuration>
+              <addToLocations>
+                <addToLocation>${session.executionRootDirectory}</addToLocation>
+              </addToLocations>
+              <activateOutputFileMapping>true</activateOutputFileMapping>
+              <addBuildDateInfo>false</addBuildDateInfo>
+              <addLocallyModifiedTagToFullVersion>false</addLocallyModifiedTagToFullVersion>
+              <addHostInfo>false</addHostInfo>
+              <addJavaRuntimeInfo>true</addJavaRuntimeInfo>
+              <addToFilters>false</addToFilters>
+              <validateCheckout>false</validateCheckout>
+              <addOsInfo>false</addOsInfo>
+              <hideJavaOptsInfo>false</hideJavaOptsInfo>
+              <forceNewProperties>true</forceNewProperties>
+              <hideCommandLineInfo>false</hideCommandLineInfo>
+              <addBuildDateToFullVersion>false</addBuildDateToFullVersion>
+              <createPropertiesReport>true</createPropertiesReport>
+              <addToGeneratedSources>false</addToGeneratedSources>
+              <createXmlReport>false</createXmlReport>
+              <propertiesOutputFile>build.metadata</propertiesOutputFile>
+              <addMavenExecutionInfo>false</addMavenExecutionInfo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -267,19 +317,11 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            com.redhat.rcm.maven.plugin
-                                        </groupId>
-                                        <artifactId>
-                                            buildmetadata-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.7.0,)
-                                        </versionRange>
+                                        <groupId>com.redhat.rcm.maven.plugin</groupId>
+                                        <artifactId>buildmetadata-maven-plugin</artifactId>
+                                        <versionRange>[1.7.0,)</versionRange>
                                         <goals>
-                                            <goal>
-                                                provide-buildmetadata
-                                            </goal>
+                                            <goal>provide-buildmetadata</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
@@ -288,15 +330,9 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.commonjava.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            project-sources-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [0.3,)
-                                        </versionRange>
+                                        <groupId>org.commonjava.maven.plugins</groupId>
+                                        <artifactId>project-sources-maven-plugin</artifactId>
+                                        <versionRange>[0.3,)</versionRange>
                                         <goals>
                                             <goal>archive</goal>
                                         </goals>
@@ -307,15 +343,9 @@
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>
-                                            org.jboss.ws.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            jaxws-tools-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.2.0.Final,)
-                                        </versionRange>
+                                        <groupId>org.jboss.ws.plugins</groupId>
+                                        <artifactId>jaxws-tools-maven-plugin</artifactId>
+                                        <versionRange>[1.2.0.Final,)</versionRange>
                                         <goals>
                                             <goal>wsconsume</goal>
                                         </goals>
@@ -577,3 +607,7 @@
         </profile>
     </profiles>
 </project>
+<!--
+Modified by POM Manipulation Extension for Maven 2.3.1 ( SHA: f64d03ba ) 
+-->
+

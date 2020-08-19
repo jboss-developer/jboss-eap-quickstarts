@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2020, Red Hat, Inc. and/or its affiliates, and individual
@@ -24,7 +24,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>1.0.0.GA</version>
+        <version>1.0.1.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -47,6 +47,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-jakartaee8-with-tools</artifactId>
+                <version>${version.server.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-xp-microprofile</artifactId>
@@ -129,6 +136,22 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <configuration>
+                    <!-- adds versions properties as attributes for substitutions in README.adoc source blocks -->
+                    <attributes>
+                        <versionServerBom>${version.server.bom}</versionServerBom>
+                        <versionMicroprofileBom>${version.microprofile.bom}</versionMicroprofileBom>
+                        <versionGlassfishJson>${version.glassfish.json}</versionGlassfishJson>
+                        <versionComNimbusdsJoseJwt>${version.com.nimbusds.jose.jwt}</versionComNimbusdsJoseJwt>
+                    </attributes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
-

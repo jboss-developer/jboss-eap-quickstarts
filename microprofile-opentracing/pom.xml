@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.jboss.eap.xp.quickstarts</groupId>
@@ -8,7 +8,7 @@
     Maintain separation between the artifact id and the version to help prevent
     merge conflicts between commits changing the GA and those changing the V.
     -->
-    <version>1.0.0.GA</version>
+    <version>1.0.1.GA</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -80,5 +80,17 @@
   <build>
     <!-- Set the name of the archive -->
     <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.asciidoctor</groupId>
+        <artifactId>asciidoctor-maven-plugin</artifactId>
+        <configuration>
+          <!-- adds versions properties as attributes for substitutions in README.adoc source blocks -->
+          <attributes>
+            <versionMicroprofileBom>${version.microprofile.bom}</versionMicroprofileBom>
+          </attributes>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
