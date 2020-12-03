@@ -79,7 +79,6 @@
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
         <version.server.bom>23.0.0.Beta1-SNAPSHOT</version.server.bom>
-        <version.microprofile.bom>23.0.0.Beta1-SNAPSHOT</version.microprofile.bom>
 
         <!-- Versions of unmanaged dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
@@ -99,14 +98,6 @@
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-jakartaee8-with-tools</artifactId>
                 <version>${version.server.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- importing the microprofile BOM adds MicroProfile specs -->
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>wildfly-microprofile</artifactId>
-                <version>${version.microprofile.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -407,14 +398,6 @@
                 <module>mail</module>
                 <module>managed-executor-service</module>
                 <module>messaging-clustering-singleton</module>
-                <module>microprofile-config</module>
-                <module>microprofile-fault-tolerance</module>
-                <module>microprofile-health</module>
-                <module>microprofile-jwt</module>
-                <module>microprofile-metrics</module>
-                <module>microprofile-openapi</module>
-                <module>microprofile-opentracing</module>
-                <module>microprofile-rest-client</module>
                 <module>numberguess</module>
                 <module>payment-cdi-event</module>
                 <module>resteasy-jaxrs-client</module>
