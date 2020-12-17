@@ -2,7 +2,7 @@
 
 == Testing the quickstarts
 
-Most of the quickstarts require starting server in standalone mode. Some require the "standalone-full" profile, some require XTS, some require Postgres and some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:
+Most of the quickstarts require starting the server in stand alone mode. Some require the "standalone-full" profile, some require XTS, some require Postgres while some require other quickstarts to be deployed. Profiles are used in the root POM to separate out these groups, allowing you to test the quickstarts easily. For example, to run those that require only standalone mode:
 
 [source]
 ----
