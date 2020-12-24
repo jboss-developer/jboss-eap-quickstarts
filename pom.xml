@@ -603,6 +603,7 @@
                         <configuration>
                             <rootDirectory>.</rootDirectory>
                             <targetDocument>README.adoc</targetDocument>
+                            <includeOpenshift>true</includeOpenshift>
                         </configuration>
                         <executions>
                             <execution>
