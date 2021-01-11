@@ -24,7 +24,7 @@
     Maintain separation between the artifact id and the version to help prevent
     merge conflicts between commits changing the GA and those changing the V.
     -->
-    <version>1.0.1.GA</version>
+    <version>2.0.0.GA</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>microprofile-rest-client</artifactId>
@@ -39,12 +39,33 @@
     </license>
   </licenses>
 
+  <properties>
+    <version.server.bootable-jar>2.0.0.GA-redhat-00002</version.server.bootable-jar>
+    <version.wildfly-jar.maven.plugin>2.0.2.Final-redhat-00001</version.wildfly-jar.maven.plugin>
+    <version.jkube.maven.plugin>1.0.1</version.jkube.maven.plugin>
+    <jkube.generator.from>registry.redhat.io/ubi8/openjdk-11:latest</jkube.generator.from>
+  </properties>
+
   <modules>
     <module>country-client</module>
     <module>country-server</module>
   </modules>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.wildfly.plugins</groupId>
+          <artifactId>wildfly-jar-maven-plugin</artifactId>
+          <version>${version.wildfly-jar.maven.plugin}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.eclipse.jkube</groupId>
+          <artifactId>openshift-maven-plugin</artifactId>
+          <version>${version.jkube.maven.plugin}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.asciidoctor</groupId>
