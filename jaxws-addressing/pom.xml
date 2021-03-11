@@ -15,8 +15,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
@@ -25,7 +24,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>7.4.0.Beta-redhat-SNAPSHOT</version>
+        <version>7.4.0.Beta</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>jaxws-addressing</artifactId>
@@ -51,7 +50,7 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>jaxws-addressing-service</artifactId>
                 <classifier>classes</classifier>
-                <version>${project.version}</version>
+                <version>7.4.0.Beta</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
