@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>kitchensink-ear</artifactId>
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
     </parent>
     <artifactId>kitchensink-ear-ear</artifactId>
     <packaging>ear</packaging>
@@ -64,7 +64,18 @@
                         are in easy way to package any libraries needed in the ear, and automatically
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <modules></modules>
+                    <modules>
+                        <!-- Default context root of the web app is /kitchensink-ear-web.
+                        If a custom context root is needed, uncomment the following snippet to
+                        register our War as a web module and set the contextRoot property -->
+                        <!--
+                    <webModule>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>kitchensink-ear-web</artifactId>
+                        <contextRoot>/kitchensink-ear</contextRoot>
+                    </webModule>
+                    -->
+                    </modules>
                     <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
                 </configuration>
             </plugin>

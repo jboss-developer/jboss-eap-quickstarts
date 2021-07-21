@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>7.4.0.Beta</version>
+    <version>7.4.0.GA</version>
 
     <packaging>pom</packaging>
 
@@ -50,7 +50,7 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>7.4.0.Beta</product.version>
+        <product.version>7.4.0.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.1.0</version.org.asciidoctor.asciidoctor-maven-plugin>
         <version.wildfly.maven.plugin>2.0.2.Final</version.wildfly.maven.plugin>
@@ -74,19 +74,16 @@
         <maven.repository.url>${maven.repository.protocol}://repository.jboss.org/nexus/content/groups/public/</maven.repository.url>
         <!-- https://access.redhat.com/maven-repository -->
         <maven.redhat.repository.url>${maven.repository.protocol}://maven.repository.redhat.com/ga/</maven.redhat.repository.url>
-        <maven.redhat.ea.repository.url>${maven.repository.protocol}://maven.repository.redhat.com/earlyaccess/all/</maven.redhat.ea.repository.url>
 
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.4.0.Beta</version.server.bom>
+        <version.server.bom>7.4.0.GA</version.server.bom>
 
         <!-- Versions of unmanaged dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
-        <version.json.path>2.0.0</version.json.path>
         <version.org.json>20150729</version.org.json>
         <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
-        <version.spring.framework>4.3.14.RELEASE</version.spring.framework>
 
         <jboss.developer.drupal.url>http://rhdp-drupal.stage.redhat.com/</jboss.developer.drupal.url>
         <linkXRef>false</linkXRef>
@@ -134,20 +131,6 @@
             <url>${maven.redhat.repository.url}</url>
             <layout>default</layout>
         </repository>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <id>jboss-enterprise-ea-maven-repository</id>
-            <name>JBoss Enterprise Early Access Maven Repository</name>
-            <url>${maven.redhat.ea.repository.url}</url>
-            <layout>default</layout>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -172,17 +155,6 @@
             <id>jboss-enterprise-maven-repository</id>
             <name>JBoss Enterprise Maven Repository</name>
             <url>${maven.redhat.repository.url}</url>
-        </pluginRepository>
-        <pluginRepository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>jboss-enterprise-ea-maven-repository</id>
-            <name>JBoss Enterprise Early Access Maven Repository</name>
-            <url>${maven.redhat.ea.repository.url}</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -227,56 +199,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-            <plugin>
-        <groupId>org.commonjava.maven.plugins</groupId>
-        <artifactId>project-sources-maven-plugin</artifactId>
-        <version>0.3</version>
-        <executions>
-          <execution>
-            <id>project-sources-archive</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>archive</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-            <plugin>
-        <groupId>com.redhat.rcm.maven.plugin</groupId>
-        <artifactId>buildmetadata-maven-plugin</artifactId>
-        <version>1.7.0</version>
-        <executions>
-          <execution>
-            <id>build-metadata</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>provide-buildmetadata</goal>
-            </goals>
-            <configuration>
-              <addToLocations>
-                <addToLocation>${session.executionRootDirectory}</addToLocation>
-              </addToLocations>
-              <activateOutputFileMapping>true</activateOutputFileMapping>
-              <addBuildDateInfo>false</addBuildDateInfo>
-              <addLocallyModifiedTagToFullVersion>false</addLocallyModifiedTagToFullVersion>
-              <addHostInfo>false</addHostInfo>
-              <addJavaRuntimeInfo>true</addJavaRuntimeInfo>
-              <addToFilters>false</addToFilters>
-              <validateCheckout>false</validateCheckout>
-              <addOsInfo>false</addOsInfo>
-              <hideJavaOptsInfo>false</hideJavaOptsInfo>
-              <forceNewProperties>true</forceNewProperties>
-              <hideCommandLineInfo>false</hideCommandLineInfo>
-              <addBuildDateToFullVersion>false</addBuildDateToFullVersion>
-              <createPropertiesReport>true</createPropertiesReport>
-              <addToGeneratedSources>false</addToGeneratedSources>
-              <createXmlReport>false</createXmlReport>
-              <propertiesOutputFile>build.metadata</propertiesOutputFile>
-              <addMavenExecutionInfo>false</addMavenExecutionInfo>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -344,41 +266,61 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>com.redhat.rcm.maven.plugin</groupId>
-                                        <artifactId>buildmetadata-maven-plugin</artifactId>
-                                        <versionRange>[1.7.0,)</versionRange>
+                                        <groupId>
+                                            com.redhat.rcm.maven.plugin
+                                        </groupId>
+                                        <artifactId>
+                                            buildmetadata-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.7.0,)
+                                        </versionRange>
                                         <goals>
-                                            <goal>provide-buildmetadata</goal>
+                                            <goal>
+                                                provide-buildmetadata
+                                            </goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.commonjava.maven.plugins</groupId>
-                                        <artifactId>project-sources-maven-plugin</artifactId>
-                                        <versionRange>[0.3,)</versionRange>
+                                        <groupId>
+                                            org.commonjava.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            project-sources-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [0.3,)
+                                        </versionRange>
                                         <goals>
                                             <goal>archive</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.jboss.ws.plugins</groupId>
-                                        <artifactId>jaxws-tools-maven-plugin</artifactId>
-                                        <versionRange>[1.2.0.Final,)</versionRange>
+                                        <groupId>
+                                            org.jboss.ws.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            jaxws-tools-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [1.2.0.Final,)
+                                        </versionRange>
                                         <goals>
                                             <goal>wsconsume</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -421,6 +363,7 @@
                 <module>ejb-security-programmatic-auth</module>
                 <module>ejb-throws-exception</module>
                 <module>ejb-timer</module>
+                <module>ejb-txn-remote-call</module>
                 <module>greeter</module>
                 <module>ha-singleton-deployment</module>
                 <module>ha-singleton-service</module>
@@ -468,6 +411,7 @@
                 <module>tasks-jsf</module>
                 <module>tasks-rs</module>
                 <module>temperature-converter</module>
+                <module>todo-backend</module>
                 <module>thread-racing</module>
                 <module>websocket-client</module>
                 <module>websocket-endpoint</module>
@@ -779,6 +723,5 @@
     </profiles>
 </project>
 <!--
-Modified by POM Manipulation Extension for Maven 2.3.1 ( SHA: f64d03ba ) 
+Modified by POM Manipulation Extension for Maven 4.2 ( SHA: cfe5b3db )
 -->
-

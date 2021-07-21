@@ -24,7 +24,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -40,6 +40,10 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <properties>
+        <version.spring.framework>5.2.4.RELEASE</version.spring.framework>
+    </properties>
 
     <dependencyManagement>
         <dependencies>

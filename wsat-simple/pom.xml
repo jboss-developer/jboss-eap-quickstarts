@@ -24,7 +24,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -111,7 +111,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifest></manifest>
+                        <manifest />
                         <manifestEntries>
                             <Dependencies>org.jboss.xts</Dependencies>
                         </manifestEntries>

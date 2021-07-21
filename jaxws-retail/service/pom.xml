@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>jaxws-retail</artifactId>
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>jaxws-retail-service</artifactId>
@@ -92,7 +92,7 @@
                     <fork>false</fork>
                     <extension>true</extension>
                     <verbose>false</verbose>
-                    <endpointClass></endpointClass>
+                    <endpointClass />
                     <!-- some JDK implementations forbid file access for external schema,
                          see http://docs.oracle.com/javase/8/docs/api/javax/xml/XMLConstants.html#ACCESS_EXTERNAL_SCHEMA -->
                     <argLine>-Djavax.xml.accessExternalSchema=all -Dlog4j.configuration=file:${basedir}/src/main/resources/log4j.properties</argLine>

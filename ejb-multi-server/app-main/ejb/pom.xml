@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>ejb-multi-server-app-main</artifactId>
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
     </parent>
     <artifactId>ejb-multi-server-app-main-ejb</artifactId>
     <packaging>ejb</packaging>
@@ -54,6 +54,11 @@
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
             <artifactId>jboss-annotations-api_1.3_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.ejb3</groupId>
+            <artifactId>jboss-ejb3-ext-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

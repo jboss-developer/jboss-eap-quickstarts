@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>ejb-asynchronous</artifactId>
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
     </parent>
     <artifactId>ejb-asynchronous-client</artifactId>
     <packaging>jar</packaging>
@@ -81,7 +81,7 @@
                         <!-- automatically creates the classpath using all
                             project dependencies, also adding the project build directory -->
                         <argument>-classpath</argument>
-                        <classpath></classpath>
+                        <classpath />
                         <argument>org.jboss.as.quickstarts.ejb.asynchronous.client.AsynchronousClient</argument>
                     </arguments>
                 </configuration>

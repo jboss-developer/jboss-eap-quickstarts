@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>ejb-multi-server-app-one</artifactId>
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
     </parent>
     <artifactId>ejb-multi-server-app-one-ejb</artifactId>
     <packaging>ejb</packaging>
@@ -47,6 +47,11 @@
         <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.ejb3</groupId>
+            <artifactId>jboss-ejb3-ext-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

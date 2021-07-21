@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>ejb-remote</artifactId>
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>ejb-remote-client</artifactId>
@@ -71,7 +71,7 @@
                     <arguments>
                         <argument>-Dhttp=${http}</argument>
                         <argument>-classpath</argument>
-                        <classpath></classpath>
+                        <classpath />
                         <argument>org.jboss.as.quickstarts.ejb.remote.client.RemoteEJBClient</argument>
                     </arguments>
                     <!--<detail>true</detail>-->

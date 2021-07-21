@@ -24,7 +24,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>7.4.0.Beta</version>
+        <version>7.4.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>contacts-jquerymobile</artifactId>
@@ -188,7 +188,8 @@
                         <artifactId>wro4j-maven-plugin</artifactId>
                         <version>${version.ro.isdc.wro4j}</version>
                         <configuration>
-                            <targetGroups>app.min,formSetup.min,namespace.min,submissions.min,theming.min,util.min,validation.min,app-style.min,validator.min</targetGroups>
+                            <targetGroups>app.min,formSetup.min,namespace.min,submissions.min,theming.min,util.min,validation.min,app-style.min,validator.min
+                            </targetGroups>
                             <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/css/</cssDestinationFolder>
                             <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/js/</jsDestinationFolder>
                             <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
