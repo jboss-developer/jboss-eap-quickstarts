@@ -1,0 +1,3 @@
+/subsystem=infinispan/cache-container=rhdg-container:add()
+/subsystem=infinispan/cache-container=rhdg-container/transport=TRANSPORT:add(lock-timeout=60000)
+/subsystem=infinispan/cache-container=rhdg-container/distributed-cache=AppCache:add()

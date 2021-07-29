@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Simple application to access the RHDG cache configured inside of the EAP configuration</title>
+</head>
+
+<!--
+  Simple JSF page to demonstrate how a (web) application can use the RHDG caches 
+  which are managed by the EAP server with the datagrid-infinispan subsystem. 
+ -->
+<body>
+
+    <h1>Simple add String based keys and values to the Cache</h1>
+    <div id="container">
+        <h:form id="invokeForm">
+            <h:panelGrid columns="3">
+                <h:outputLabel>Key:</h:outputLabel>
+                <h:inputText value="#{cache.key}" />
+                <h:inputText value="#{cache.value}" />
+            </h:panelGrid>
+            <h:panelGrid columns="4">
+                <h:commandButton id="add" value="Add" action="#{jsfController.add()}" />
+                <h:commandButton id="get" value="Get" action="#{jsfController.get()}" />
+                <h:commandButton id="del" value="Delete" action="#{jsfController.delete()}" />
+                <h:commandButton id="list" value="List" action="#{jsfController.list()}" />
+                <h:commandButton id="clear" value="ClearForm" action="#{jsfController.initForm()}" />
+            </h:panelGrid>
+        </h:form>
+        <h:form id="response">
+            <h:panelGrid columns="1">
+                <h:outputLabel value="#{cache.entries}" />
+                <h:outputLabel value="#{cache.size}" />
+            </h:panelGrid>
+        </h:form>
+        <br /> <br />
+    </div>
+</body>
+</html>

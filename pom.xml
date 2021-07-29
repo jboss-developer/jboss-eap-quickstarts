@@ -352,6 +352,7 @@
                 <module>bean-validation-custom-constraint</module>
                 <module>bmt</module>
                 <module>cmt</module>
+                <module>clustered-cache</module>
                 <module>contacts-jquerymobile</module>
                 <module>ejb-asynchronous</module>
                 <module>ejb-in-ear</module>
