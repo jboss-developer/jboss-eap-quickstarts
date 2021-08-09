@@ -1,0 +1,85 @@
+---
+apiVersion: 1.0.0
+metadata:
+  generateName: jboss-eap-xp-quickstart-
+projects:
+  -
+    name: jboss-eap-xp-quickstart
+    source:
+      sparseCheckoutDir: microprofile-config
+      location: "https://github.com/jboss-developer/jboss-eap-quickstarts.git"
+      branch: "xp-3.0.x"
+      type: git
+components:
+  -
+    type: chePlugin
+    id: redhat/java11/latest
+    preferences:
+      java.server.launchMode: Standard
+  -
+    type: chePlugin
+    id: redhat/dependency-analytics/latest
+  -
+    type: dockerimage
+    alias: maven
+    image: registry.redhat.io/jboss-eap-7/eap-xp3-openjdk11-openshift-rhel8:latest
+    env:
+      - name: MAVEN_OPTS
+        value: "-Xmx200m -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom -Duser.home=/home/jboss"
+      - name: JAVA_OPTS_APPEND
+        value: "-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -Dsun.util.logging.disableCallerCheck=true"
+    memoryLimit: 1024Mi
+    endpoints:
+      - name: Value
+        port: 8080
+        attributes:
+          path: /config/value
+      - name: Required
+        port: 8080
+        attributes:
+          path: /config/required
+    mountSources: true
+    volumes:
+      - name: m2
+        containerPath: /home/jboss/.m2
+commands:
+  -
+    name: 1. Build
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-quickstart/microprofile-config'
+        type: exec
+        command: mvn -P openshift clean install
+        component: maven
+  -
+    name: 2. Deploy the application
+    actions:
+      -
+        type: exec
+        component: maven
+        command: 'cp target/*.war /opt/eap/standalone/deployments/ROOT.war && echo ''The application was deployed, click on the endpoint from Workspace view to test it'''
+        workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-quickstart/microprofile-config'
+  -
+    name: 3. Hot update
+    actions:
+      -
+        type: exec
+        component: maven
+        command: "mvn -P openshift clean install && sleep 2 && cp target/*.war /opt/eap/standalone/deployments/ROOT.war"
+        workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-quickstart/microprofile-config'
+  -
+    name: Debug (Attach)
+    actions:
+    - type: vscode-launch
+      referenceContent: |
+        {
+        "version": "0.2.0",
+        "configurations": [
+        {
+            "type": "java",
+            "request": "attach",
+            "name": "Debug (Attach)",
+            "hostName": "localhost",
+            "port": 8000
+        }
+        ]
+        }

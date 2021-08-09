@@ -477,7 +477,7 @@ client consumes this API through the MicroProfile REST Client specification.</p>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 2.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 3.0 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -504,10 +504,10 @@ client consumes this API through the MicroProfile REST Client specification.</p>
 <p>Open a terminal and navigate to the root of the JBoss EAP XP directory.</p>
 </li>
 <li>
-<p>Start the JBoss EAP XP server with the default profile by typing the following command.</p>
+<p>Start the JBoss EAP XP server with the MicroProfile profile by typing the following command.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh </code></pre>
+<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh -c standalone-microprofile.xml</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -721,7 +721,7 @@ cd country-client</code></pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-eap-xp-microprofile&lt;/artifactId&gt;
-        &lt;version&gt;2.0.0.GA&lt;/version&gt;
+        &lt;version&gt;3.0.0.GA&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -784,26 +784,16 @@ the generated build section):</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Setup the required repositories (if you don&#8217;t have them set up globally):</p>
+<p>Setup the required Maven repositories (if you don&#8217;t have them set up in Maven global settings):</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;repositories&gt;
     &lt;repository&gt;
-        &lt;releases&gt;
-            &lt;enabled&gt;true&lt;/enabled&gt;
-            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
-        &lt;/releases&gt;
-        &lt;snapshots&gt;
-            &lt;enabled&gt;true&lt;/enabled&gt;
-            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
-        &lt;/snapshots&gt;
-        &lt;id&gt;jboss-public-repository-group&lt;/id&gt;
-        &lt;name&gt;JBoss Public Repository Group&lt;/name&gt;
+        &lt;id&gt;jboss-public-maven-repository&lt;/id&gt;
+        &lt;name&gt;JBoss Public Maven Repository&lt;/name&gt;
         &lt;url&gt;https://repository.jboss.org/nexus/content/groups/public&lt;/url&gt;
         &lt;layout&gt;default&lt;/layout&gt;
-    &lt;/repository&gt;
-    &lt;repository&gt;
         &lt;releases&gt;
             &lt;enabled&gt;true&lt;/enabled&gt;
             &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
@@ -812,34 +802,44 @@ the generated build section):</p>
             &lt;enabled&gt;true&lt;/enabled&gt;
             &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
         &lt;/snapshots&gt;
-        &lt;id&gt;jboss-enterprise-maven-repository&lt;/id&gt;
-        &lt;name&gt;JBoss Enterprise Maven Repository&lt;/name&gt;
+    &lt;/repository&gt;
+    &lt;repository&gt;
+        &lt;id&gt;redhat-ga-maven-repository&lt;/id&gt;
+        &lt;name&gt;Red Hat GA Maven Repository&lt;/name&gt;
         &lt;url&gt;https://maven.repository.redhat.com/ga/&lt;/url&gt;
         &lt;layout&gt;default&lt;/layout&gt;
+        &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+        &lt;/releases&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+        &lt;/snapshots&gt;
     &lt;/repository&gt;
 &lt;/repositories&gt;
 &lt;pluginRepositories&gt;
     &lt;pluginRepository&gt;
+        &lt;id&gt;jboss-public-maven-repository&lt;/id&gt;
+        &lt;name&gt;JBoss Public Maven Repository&lt;/name&gt;
+        &lt;url&gt;https://repository.jboss.org/nexus/content/groups/public&lt;/url&gt;
         &lt;releases&gt;
             &lt;enabled&gt;true&lt;/enabled&gt;
         &lt;/releases&gt;
         &lt;snapshots&gt;
             &lt;enabled&gt;true&lt;/enabled&gt;
         &lt;/snapshots&gt;
-        &lt;id&gt;jboss-public-repository-group&lt;/id&gt;
-        &lt;name&gt;JBoss Public Repository Group&lt;/name&gt;
-        &lt;url&gt;https://repository.jboss.org/nexus/content/groups/public&lt;/url&gt;
     &lt;/pluginRepository&gt;
     &lt;pluginRepository&gt;
+        &lt;id&gt;redhat-ga-maven-repository&lt;/id&gt;
+        &lt;name&gt;Red Hat GA Maven Repository&lt;/name&gt;
+        &lt;url&gt;https://maven.repository.redhat.com/ga/&lt;/url&gt;
         &lt;releases&gt;
             &lt;enabled&gt;true&lt;/enabled&gt;
         &lt;/releases&gt;
         &lt;snapshots&gt;
             &lt;enabled&gt;true&lt;/enabled&gt;
         &lt;/snapshots&gt;
-        &lt;id&gt;jboss-enterprise-maven-repository&lt;/id&gt;
-        &lt;name&gt;JBoss Enterprise Maven Repository&lt;/name&gt;
-        &lt;url&gt;https://maven.repository.redhat.com/ga/&lt;/url&gt;
     &lt;/pluginRepository&gt;
 &lt;/pluginRepositories&gt;</code></pre>
 </div>
@@ -1567,7 +1567,7 @@ the application will return a 204 No Content response instead of the 404 error
 <p>The following sections contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default"><em>Red Hat JBoss Enterprise Application Platform expansion pack for OpenShift</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
 </div>
 <div class="sect2">
 <h3 id="prepare_openshift_for_quickstart_deployment">Prepare OpenShift for Quickstart Deployment</h3>
@@ -1648,7 +1648,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
+<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default#container_registry_authentication"><em>Red Hat JBoss Enterprise Application Platform expansion pack for OpenShift</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
 </div>
 <div class="paragraph">
 <p>Configuration of authentication to the registry is not necessary if you are building and deploying this quickstart on JBoss EAP for OpenShift Online.</p>
@@ -1668,7 +1668,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 8 image streams:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp2/jboss-eap-xp2-openjdk8-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk8-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1677,10 +1677,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 8 builder imagestream: jboss-eap-xp2-openjdk8-openshift</p>
+<p>The JDK 8 builder imagestream: jboss-eap-xp3-openjdk8-openshift</p>
 </li>
 <li>
-<p>The JDK 8 runtime imagestream: jboss-eap-xp2-openjdk8-runtime-openshift</p>
+<p>The JDK 8 runtime imagestream: jboss-eap-xp3-openjdk8-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -1689,7 +1689,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 11 image stream:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp2/jboss-eap-xp2-openjdk11-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1698,10 +1698,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 11 builder imagestream: jboss-eap-xp2-openjdk11-openshift</p>
+<p>The JDK 11 builder imagestream: jboss-eap-xp3-openjdk11-openshift</p>
 </li>
 <li>
-<p>The JDK 11 runtime imagestream: jboss-eap-xp2-openjdk11-runtime-openshift</p>
+<p>The JDK 11 runtime imagestream: jboss-eap-xp3-openjdk11-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -1711,11 +1711,11 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">for resource in \
-  eap-xp2-basic-s2i.json \
-  eap-xp2-third-party-db-s2i.json
+  eap-xp3-basic-s2i.json \
+  eap-xp3-third-party-db-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp2/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/${resource}
 done</pre>
 </div>
 </div>
@@ -1756,18 +1756,18 @@ oc replace -n openshift --force -f \
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create new OpenShift applications using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp2-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-rest-client</code> source code on GitHub.</p>
+<p>Create new OpenShift applications using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp3-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-rest-client</code> source code on GitHub.</p>
 <div class="paragraph">
 <p><strong>Country-server application:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp2-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp2-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp2-openjdk8-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-2.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-server/target" \
  -p APPLICATION_NAME="country-server"</pre>
@@ -1807,12 +1807,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp2-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp2-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp2-openjdk11-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-2.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-server/target" \
  -p APPLICATION_NAME="country-server"</pre>
@@ -1852,12 +1852,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp2-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp2-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp2-openjdk8-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-2.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-client/target" \
  -p APPLICATION_NAME="country-client" \
@@ -1898,12 +1898,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp2-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp2-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp2-openjdk11-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-2.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-client/target" \
  -p APPLICATION_NAME="country-client" \
@@ -1990,11 +1990,11 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc logs -f bc/eap-xp2-basic-app-build-artifacts
+<pre class="nowrap">$ oc logs -f bc/eap-xp3-basic-app-build-artifacts
 
 …
 Push successful
-$ oc logs -f bc/eap-xp2-basic-app
+$ oc logs -f bc/eap-xp3-basic-app
 …
 Push successful</pre>
 </div>
@@ -2050,7 +2050,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc expose service/eap-xp2-basic-app --port=8080</pre>
+<pre class="nowrap">$ oc expose service/eap-xp3-basic-app --port=8080</pre>
 </div>
 </div>
 </li>
@@ -2091,7 +2091,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc scale deploymentconfig/eap-xp2-basic-app --replicas=3</pre>
+<pre class="nowrap">$ oc scale deploymentconfig/eap-xp3-basic-app --replicas=3</pre>
 </div>
 </div>
 </li>
@@ -2126,6 +2126,9 @@ Push successful</pre>
                               &lt;layer&gt;jaxrs-server&lt;/layer&gt;
                               &lt;layer&gt;microprofile-platform&lt;/layer&gt;
                           &lt;/layers&gt;
+                          &lt;plugin-options&gt;
+                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
+                          &lt;/plugin-options&gt;
                       &lt;/configuration&gt;
                       &lt;executions&gt;
                           &lt;execution&gt;
@@ -2222,6 +2225,9 @@ This configuration needs to be added to both the country-server and the country-
                               &lt;layer&gt;jaxrs-server&lt;/layer&gt;
                               &lt;layer&gt;microprofile-platform&lt;/layer&gt;
                           &lt;/layers&gt;
+                          &lt;plugin-options&gt;
+                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
+                          &lt;/plugin-options&gt;
                           &lt;cloud/&gt;
                       &lt;/configuration&gt;
                       &lt;executions&gt;
@@ -2335,7 +2341,7 @@ You can find more information about the MicroProfile REST Client specification a
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-17 10:23:16 UTC
+Last updated 2021-07-29 13:16:24 UTC
 </div>
 </div>
 </body>

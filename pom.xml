@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>35</version>
+        <version>37</version>
     </parent>
 
     <groupId>org.jboss.eap.xp.quickstarts</groupId>
@@ -30,13 +30,13 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>2.0.0.GA</version>
+    <version>3.0.0.GA</version>
 
     <packaging>pom</packaging>
 
     <name>Quickstart: Parent</name>
     <description>Quickstart's parent</description>
-    <url>https://developers.redhat.com/quickstarts/eap/</url>
+    <url>https://github.com/jboss-developer/jboss-eap-quickstarts</url>
 
     <licenses>
         <license>
@@ -50,12 +50,12 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP7_HOME</jboss.home.name>
         <product.name>JBoss EAP XP</product.name>
-        <product.version>2.0.0.GA</product.version>
+        <product.version>3.0.0.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.1.0</version.org.asciidoctor.asciidoctor-maven-plugin>
         <version.wildfly.maven.plugin>2.0.2.Final</version.wildfly.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
-        <version.org.wildfly.quickstarts.documentation.plugin>2.0.0.Final</version.org.wildfly.quickstarts.documentation.plugin>
+        <version.org.wildfly.quickstarts.documentation.plugin>2.3.0.Final</version.org.wildfly.quickstarts.documentation.plugin>
         <!-- other plug-in versions -->
         <version.com.mycyla.license>3.0</version.com.mycyla.license>
         <version.checkstyle>8.5</version.checkstyle>
@@ -78,8 +78,8 @@
         <!-- Version of BOMs
         note: a SNAPSHOT version *requires* checkout of BOMs at https://github.com/wildfly/boms and build through "mvn clean install"
         -->
-        <version.server.bom>7.3.4.GA</version.server.bom>
-        <version.microprofile.bom>2.0.0.GA</version.microprofile.bom>
+        <version.server.bom>7.4.0.GA</version.server.bom>
+        <version.microprofile.bom>3.0.0.GA</version.microprofile.bom>
 
         <!-- Versions of unmanaged dependencies -->
         <version.com.nimbusds.jose.jwt>5.4</version.com.nimbusds.jose.jwt>
@@ -289,7 +289,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -308,7 +308,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -327,7 +327,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -358,7 +358,9 @@
                 <module>microprofile-metrics</module>
                 <module>microprofile-openapi</module>
                 <module>microprofile-opentracing</module>
+                <module>microprofile-reactive-messaging-kafka</module>
                 <module>microprofile-rest-client</module>
+                <module>todo-backend</module>
             </modules>
         </profile>
 
@@ -583,3 +585,6 @@
         </profile>
     </profiles>
 </project>
+<!--
+Modified by POM Manipulation Extension for Maven 4.2 ( SHA: cfe5b3db )
+-->

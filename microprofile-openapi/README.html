@@ -713,7 +713,7 @@ $ curl http://localhost:8080/openapi?format=JSON &gt; src/main/webapp/META-INF/o
 <p>The following sections contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
+<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default"><em>Red Hat JBoss Enterprise Application Platform expansion pack for OpenShift</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
 </div>
 <div class="sect2">
 <h3 id="prepare_openshift_for_quickstart_deployment">Prepare OpenShift for Quickstart Deployment</h3>
@@ -794,7 +794,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/#container_registry_authentication"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
+<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default#container_registry_authentication"><em>Red Hat JBoss Enterprise Application Platform expansion pack for OpenShift</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
 </div>
 <div class="paragraph">
 <p>Configuration of authentication to the registry is not necessary if you are building and deploying this quickstart on JBoss EAP for OpenShift Online.</p>
@@ -814,7 +814,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 8 image streams:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp2/jboss-eap-xp2-openjdk8-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk8-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -823,10 +823,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 8 builder imagestream: jboss-eap-xp2-openjdk8-openshift</p>
+<p>The JDK 8 builder imagestream: jboss-eap-xp3-openjdk8-openshift</p>
 </li>
 <li>
-<p>The JDK 8 runtime imagestream: jboss-eap-xp2-openjdk8-runtime-openshift</p>
+<p>The JDK 8 runtime imagestream: jboss-eap-xp3-openjdk8-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -835,7 +835,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 11 image stream:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp2/jboss-eap-xp2-openjdk11-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -844,10 +844,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 11 builder imagestream: jboss-eap-xp2-openjdk11-openshift</p>
+<p>The JDK 11 builder imagestream: jboss-eap-xp3-openjdk11-openshift</p>
 </li>
 <li>
-<p>The JDK 11 runtime imagestream: jboss-eap-xp2-openjdk11-runtime-openshift</p>
+<p>The JDK 11 runtime imagestream: jboss-eap-xp3-openjdk11-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -857,11 +857,11 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">for resource in \
-  eap-xp2-basic-s2i.json \
-  eap-xp2-third-party-db-s2i.json
+  eap-xp3-basic-s2i.json \
+  eap-xp3-third-party-db-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp2/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/${resource}
 done</pre>
 </div>
 </div>
@@ -902,15 +902,15 @@ oc replace -n openshift --force -f \
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp2-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-openapi</code> source code on GitHub.</p>
+<p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp3-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-openapi</code> source code on GitHub.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp2-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp2-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp2-openjdk8-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-openapi-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-2.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
  -p CONTEXT_DIR="microprofile-openapi"</pre>
 </div>
 </div>
@@ -942,12 +942,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp2-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp2-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp2-openjdk11-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-openapi-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-2.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
  -p CONTEXT_DIR="microprofile-openapi"</pre>
 </div>
 </div>
@@ -1025,11 +1025,11 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc logs -f bc/eap-xp2-basic-app-build-artifacts
+<pre class="nowrap">$ oc logs -f bc/eap-xp3-basic-app-build-artifacts
 
 …
 Push successful
-$ oc logs -f bc/eap-xp2-basic-app
+$ oc logs -f bc/eap-xp3-basic-app
 …
 Push successful</pre>
 </div>
@@ -1085,7 +1085,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc expose service/eap-xp2-basic-app --port=8080</pre>
+<pre class="nowrap">$ oc expose service/eap-xp3-basic-app --port=8080</pre>
 </div>
 </div>
 </li>
@@ -1126,7 +1126,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc scale deploymentconfig/eap-xp2-basic-app --replicas=3</pre>
+<pre class="nowrap">$ oc scale deploymentconfig/eap-xp3-basic-app --replicas=3</pre>
 </div>
 </div>
 </li>
@@ -1161,6 +1161,9 @@ Push successful</pre>
                               &lt;layer&gt;jaxrs-server&lt;/layer&gt;
                               &lt;layer&gt;microprofile-platform&lt;/layer&gt;
                           &lt;/layers&gt;
+                          &lt;plugin-options&gt;
+                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
+                          &lt;/plugin-options&gt;
                       &lt;/configuration&gt;
                       &lt;executions&gt;
                           &lt;execution&gt;
@@ -1234,6 +1237,9 @@ Push successful</pre>
                               &lt;layer&gt;jaxrs-server&lt;/layer&gt;
                               &lt;layer&gt;microprofile-platform&lt;/layer&gt;
                           &lt;/layers&gt;
+                          &lt;plugin-options&gt;
+                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
+                          &lt;/plugin-options&gt;
                           &lt;cloud/&gt;
                       &lt;/configuration&gt;
                       &lt;executions&gt;
@@ -1334,7 +1340,7 @@ Push successful</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-17 10:23:16 UTC
+Last updated 2021-07-29 13:16:24 UTC
 </div>
 </div>
 </body>

@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.jboss.eap.xp.quickstarts</groupId>
@@ -8,7 +7,7 @@
     Maintain separation between the artifact id and the version to help prevent
     merge conflicts between commits changing the GA and those changing the V.
     -->
-    <version>2.0.0.GA</version>
+    <version>3.0.0.GA</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -21,8 +20,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <version.server.bootable-jar>2.0.0.GA-redhat-00002</version.server.bootable-jar>
-    <version.wildfly-jar.maven.plugin>2.0.2.Final-redhat-00001</version.wildfly-jar.maven.plugin>
+    <version.server.bootable-jar>3.0.0.GA-redhat-00004</version.server.bootable-jar>
+    <version.wildfly-jar.maven.plugin>4.0.3.Final-redhat-00001</version.wildfly-jar.maven.plugin>
     <version.jkube.maven.plugin>1.0.1</version.jkube.maven.plugin>
     <jkube.generator.from>registry.redhat.io/ubi8/openjdk-11:latest</jkube.generator.from>
   </properties>
@@ -50,7 +49,7 @@
     <dependency>
       <groupId>io.opentracing</groupId>
       <artifactId>opentracing-api</artifactId>
-      <version>0.31.0</version>
+      <version>0.33.0</version>
     </dependency>
 
 
@@ -70,7 +69,7 @@
     <dependency>
       <groupId>io.opentracing</groupId>
       <artifactId>opentracing-mock</artifactId>
-      <version>0.31.0</version>
+      <version>0.33.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -113,6 +112,9 @@
                 <layer>jaxrs-server</layer>
                 <layer>microprofile-platform</layer>
               </layers>
+              <plugin-options>
+                <jboss-fork-embedded>true</jboss-fork-embedded>
+              </plugin-options>
             </configuration>
             <executions>
               <execution>
@@ -139,7 +141,10 @@
                 <layer>jaxrs-server</layer>
                 <layer>microprofile-platform</layer>
               </layers>
-              <cloud/>
+              <plugin-options>
+                <jboss-fork-embedded>true</jboss-fork-embedded>
+              </plugin-options>
+              <cloud />
             </configuration>
             <executions>
               <execution>

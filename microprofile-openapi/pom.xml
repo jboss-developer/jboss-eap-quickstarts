@@ -9,7 +9,7 @@
             Maintain separation between the artifact id and the version to help prevent
             merge conflicts between commits changing the GA and those changing the V.
             -->
-        <version>2.0.0.GA</version>
+        <version>3.0.0.GA</version>
     </parent>
 
     <artifactId>microprofile-openapi</artifactId>
@@ -18,8 +18,8 @@
     <name>Quickstart: microprofile-openapi</name>
 
     <properties>
-        <version.server.bootable-jar>2.0.0.GA-redhat-00002</version.server.bootable-jar>
-        <version.wildfly-jar.maven.plugin>2.0.2.Final-redhat-00001</version.wildfly-jar.maven.plugin>
+        <version.server.bootable-jar>3.0.0.GA-redhat-00004</version.server.bootable-jar>
+        <version.wildfly-jar.maven.plugin>4.0.3.Final-redhat-00001</version.wildfly-jar.maven.plugin>
         <version.jkube.maven.plugin>1.0.1</version.jkube.maven.plugin>
         <jkube.generator.from>registry.redhat.io/ubi8/openjdk-11:latest</jkube.generator.from>
     </properties>
@@ -63,6 +63,9 @@
                                 <layer>jaxrs-server</layer>
                                 <layer>microprofile-platform</layer>
                             </layers>
+                            <plugin-options>
+                                <jboss-fork-embedded>true</jboss-fork-embedded>
+                            </plugin-options>
                         </configuration>
                         <executions>
                             <execution>
@@ -89,7 +92,10 @@
                                 <layer>jaxrs-server</layer>
                                 <layer>microprofile-platform</layer>
                             </layers>
-                            <cloud/>
+                            <plugin-options>
+                                <jboss-fork-embedded>true</jboss-fork-embedded>
+                            </plugin-options>
+                            <cloud />
                         </configuration>
                         <executions>
                             <execution>
