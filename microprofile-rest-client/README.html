@@ -477,7 +477,7 @@ client consumes this API through the MicroProfile REST Client specification.</p>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 3.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 4.0 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -721,7 +721,7 @@ cd country-client</code></pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-eap-xp-microprofile&lt;/artifactId&gt;
-        &lt;version&gt;3.0.0.GA&lt;/version&gt;
+        &lt;version&gt;4.0.0.GA&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -1668,7 +1668,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 8 image streams:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk8-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/jboss-eap-xp4-openjdk8-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1677,10 +1677,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 8 builder imagestream: jboss-eap-xp3-openjdk8-openshift</p>
+<p>The JDK 8 builder imagestream: jboss-eap-xp4-openjdk8-openshift</p>
 </li>
 <li>
-<p>The JDK 8 runtime imagestream: jboss-eap-xp3-openjdk8-runtime-openshift</p>
+<p>The JDK 8 runtime imagestream: jboss-eap-xp4-openjdk8-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -1689,7 +1689,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 11 image stream:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/jboss-eap-xp4-openjdk11-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1698,10 +1698,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 11 builder imagestream: jboss-eap-xp3-openjdk11-openshift</p>
+<p>The JDK 11 builder imagestream: jboss-eap-xp4-openjdk11-openshift</p>
 </li>
 <li>
-<p>The JDK 11 runtime imagestream: jboss-eap-xp3-openjdk11-runtime-openshift</p>
+<p>The JDK 11 runtime imagestream: jboss-eap-xp4-openjdk11-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -1711,11 +1711,11 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">for resource in \
-  eap-xp3-basic-s2i.json \
-  eap-xp3-third-party-db-s2i.json
+  eap-xp4-basic-s2i.json \
+  eap-xp4-third-party-db-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/templates/${resource}
 done</pre>
 </div>
 </div>
@@ -1756,18 +1756,18 @@ oc replace -n openshift --force -f \
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create new OpenShift applications using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp3-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-rest-client</code> source code on GitHub.</p>
+<p>Create new OpenShift applications using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp4-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-rest-client</code> source code on GitHub.</p>
 <div class="paragraph">
 <p><strong>Country-server application:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp4-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp4-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp4-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-4.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-server/target" \
  -p APPLICATION_NAME="country-server"</pre>
@@ -1807,12 +1807,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp4-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp4-openjdk11-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp4-openjdk11-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-4.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-server/target" \
  -p APPLICATION_NAME="country-server"</pre>
@@ -1852,12 +1852,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp4-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp4-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp4-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-4.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-client/target" \
  -p APPLICATION_NAME="country-client" \
@@ -1898,12 +1898,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp4-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp4-openjdk11-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp4-openjdk11-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-rest-client-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-4.0.x" \
  -p CONTEXT_DIR="microprofile-rest-client" \
  -p ARTIFACT_DIR="country-client/target" \
  -p APPLICATION_NAME="country-client" \
@@ -1990,11 +1990,11 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc logs -f bc/eap-xp3-basic-app-build-artifacts
+<pre class="nowrap">$ oc logs -f bc/eap-xp4-basic-app-build-artifacts
 
 …
 Push successful
-$ oc logs -f bc/eap-xp3-basic-app
+$ oc logs -f bc/eap-xp4-basic-app
 …
 Push successful</pre>
 </div>
@@ -2050,7 +2050,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc expose service/eap-xp3-basic-app --port=8080</pre>
+<pre class="nowrap">$ oc expose service/eap-xp4-basic-app --port=8080</pre>
 </div>
 </div>
 </li>
@@ -2091,7 +2091,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc scale deploymentconfig/eap-xp3-basic-app --replicas=3</pre>
+<pre class="nowrap">$ oc scale deploymentconfig/eap-xp4-basic-app --replicas=3</pre>
 </div>
 </div>
 </li>
@@ -2341,7 +2341,7 @@ You can find more information about the MicroProfile REST Client specification a
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-29 13:16:24 UTC
+Last updated 2022-04-04 13:05:11 UTC
 </div>
 </div>
 </body>

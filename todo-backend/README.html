@@ -524,7 +524,7 @@ to manage a list of ToDo which are persisted in a database with <code>JPA</code>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 3.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 4.0 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -601,7 +601,7 @@ JBoss EAP XP S2I builder image.</p>
 the <code>org.jboss.eap:eap-datasources-galleon-pack</code> feature pack.</p>
 </div>
 <div class="paragraph">
-<p>The Git repository for this feature pack is hosted at <a href="https://github.com/jbossas/eap-datasources-galleon-pack" class="bare">https://github.com/jbossas/eap-datasources-galleon-pack</a>.
+<p>The Git repository for this feature pack is hosted at <a href="https://github.com/wildfly-extras/wildfly-datasources-galleon-pack" class="bare">https://github.com/wildfly-extras/wildfly-datasources-galleon-pack</a>.
 It provides JDBC drivers and datasources for different databases but for this quickstart, we will only need the <code>postgresql-datasource</code>.</p>
 </div>
 </div>
@@ -784,7 +784,7 @@ The Arquillian tests deploy the application, so make sure you undeploy the quick
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -P bootable-jar-openshift -Dorg.jboss.eap.datasources.postgresql.driver.version=&lt;version of the PostgreSQL JDBC Driver&gt;</code></pre>
+<pre class="highlight nowrap"><code>$ mvn clean package -P bootable-jar-openshift</code></pre>
 </div>
 </div>
 </div>
@@ -897,7 +897,7 @@ when the database is deployed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install todo-backend -f https://raw.githubusercontent.com/jbossas/eap-charts/main/examples/eap-xp3/todo-backend/todo-backend-bootable-jar.yaml jboss-eap/eap-xp3
+<pre class="highlight nowrap"><code>$ helm install todo-backend --set build.ref=EAP_7.4.0.Final -f https://raw.githubusercontent.com/jbossas/eap-charts/main/examples/eap-xp3/todo-backend/todo-backend-bootable-jar.yaml jboss-eap/eap-xp3
 NAME: todo-backend
 ...
 STATUS: deployed
@@ -922,7 +922,7 @@ REVISION: 1</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install todo-backend -f https://raw.githubusercontent.com/jbossas/eap-charts/main/examples/eap-xp3/todo-backend/todo-backend-s2i.yaml jboss-eap/eap-xp3
+<pre class="highlight nowrap"><code>$ helm install todo-backend --set build.ref=EAP_7.4.0.Final -f https://raw.githubusercontent.com/jbossas/eap-charts/main/examples/eap-xp3/todo-backend/todo-backend-s2i.yaml jboss-eap/eap-xp3
 NAME: todo-backend
 ...
 STATUS: deployed
@@ -935,7 +935,7 @@ REVISION: 1</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>build:
-  uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
+  uri: https://github.com/wildfly/quickstart.git
   mode: s2i
   s2i:
     galleonLayers:
@@ -1089,7 +1089,7 @@ deployment on OpenShift.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-29 13:16:24 UTC
+Last updated 2022-04-04 13:05:11 UTC
 </div>
 </div>
 </body>

@@ -8,7 +8,7 @@ projects:
     source:
       sparseCheckoutDir: microprofile-config
       location: "https://github.com/jboss-developer/jboss-eap-quickstarts.git"
-      branch: "xp-3.0.x"
+      branch: "xp-4.0.x"
       type: git
 components:
   -
@@ -22,7 +22,7 @@ components:
   -
     type: dockerimage
     alias: maven
-    image: registry.redhat.io/jboss-eap-7/eap-xp3-openjdk11-openshift-rhel8:latest
+    image: registry.redhat.io/jboss-eap-7/eap-xp4-openjdk11-openshift-rhel8:latest
     env:
       - name: MAVEN_OPTS
         value: "-Xmx200m -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom -Duser.home=/home/jboss"
@@ -56,7 +56,8 @@ commands:
       -
         type: exec
         component: maven
-        command: 'cp target/*.war /opt/eap/standalone/deployments/ROOT.war && echo ''The application was deployed, click on the endpoint from Workspace view to test it'''
+        command: mvn -P openshift package wildfly:deploy && 
+          echo 'The application was deployed, click on the endpoint from Workspace view to test it'
         workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-quickstart/microprofile-config'
   -
     name: 3. Hot update

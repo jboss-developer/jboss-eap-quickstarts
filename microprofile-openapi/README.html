@@ -814,7 +814,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 8 image streams:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk8-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/jboss-eap-xp4-openjdk8-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -823,10 +823,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 8 builder imagestream: jboss-eap-xp3-openjdk8-openshift</p>
+<p>The JDK 8 builder imagestream: jboss-eap-xp4-openjdk8-openshift</p>
 </li>
 <li>
-<p>The JDK 8 runtime imagestream: jboss-eap-xp3-openjdk8-runtime-openshift</p>
+<p>The JDK 8 runtime imagestream: jboss-eap-xp4-openjdk8-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -835,7 +835,7 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <p>Import JDK 11 image stream:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json</pre>
+<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/jboss-eap-xp4-openjdk11-openshift.json</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -844,10 +844,10 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 11 builder imagestream: jboss-eap-xp3-openjdk11-openshift</p>
+<p>The JDK 11 builder imagestream: jboss-eap-xp4-openjdk11-openshift</p>
 </li>
 <li>
-<p>The JDK 11 runtime imagestream: jboss-eap-xp3-openjdk11-runtime-openshift</p>
+<p>The JDK 11 runtime imagestream: jboss-eap-xp4-openjdk11-runtime-openshift</p>
 </li>
 </ul>
 </div>
@@ -857,11 +857,11 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">for resource in \
-  eap-xp3-basic-s2i.json \
-  eap-xp3-third-party-db-s2i.json
+  eap-xp4-basic-s2i.json \
+  eap-xp4-third-party-db-s2i.json
 do
   oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/${resource}
+https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/templates/${resource}
 done</pre>
 </div>
 </div>
@@ -902,15 +902,15 @@ oc replace -n openshift --force -f \
 <div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp3-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-openapi</code> source code on GitHub.</p>
+<p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp4-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-openapi</code> source code on GitHub.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp4-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp4-openjdk8-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp4-openjdk8-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-openapi-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-4.0.x" \
  -p CONTEXT_DIR="microprofile-openapi"</pre>
 </div>
 </div>
@@ -942,12 +942,12 @@ oc replace -n openshift --force -f \
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
+<pre class="nowrap">$ oc new-app --template=eap-xp4-basic-s2i \
+ -p EAP_IMAGE_NAME=jboss-eap-xp4-openjdk11-openshift:latest \
+ -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp4-openjdk11-runtime-openshift:latest \
  -p IMAGE_STREAM_NAMESPACE="microprofile-openapi-project" \
  -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
+ -p SOURCE_REPOSITORY_REF="xp-4.0.x" \
  -p CONTEXT_DIR="microprofile-openapi"</pre>
 </div>
 </div>
@@ -1025,11 +1025,11 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc logs -f bc/eap-xp3-basic-app-build-artifacts
+<pre class="nowrap">$ oc logs -f bc/eap-xp4-basic-app-build-artifacts
 
 …
 Push successful
-$ oc logs -f bc/eap-xp3-basic-app
+$ oc logs -f bc/eap-xp4-basic-app
 …
 Push successful</pre>
 </div>
@@ -1085,7 +1085,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc expose service/eap-xp3-basic-app --port=8080</pre>
+<pre class="nowrap">$ oc expose service/eap-xp4-basic-app --port=8080</pre>
 </div>
 </div>
 </li>
@@ -1126,7 +1126,7 @@ Push successful</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc scale deploymentconfig/eap-xp3-basic-app --replicas=3</pre>
+<pre class="nowrap">$ oc scale deploymentconfig/eap-xp4-basic-app --replicas=3</pre>
 </div>
 </div>
 </li>
@@ -1340,7 +1340,7 @@ Push successful</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-29 13:16:24 UTC
+Last updated 2022-04-04 13:05:11 UTC
 </div>
 </div>
 </body>

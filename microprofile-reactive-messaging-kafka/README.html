@@ -477,7 +477,7 @@ The <code>microprofile-reactive-messaging-kafka</code> quickstart demonstrates t
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 3.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 4.0 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -504,10 +504,10 @@ The <code>microprofile-reactive-messaging-kafka</code> quickstart demonstrates t
 <p>Open a terminal and navigate to the root of the JBoss EAP XP directory.</p>
 </li>
 <li>
-<p>Start the JBoss EAP XP server with the default profile by typing the following command.</p>
+<p>Start the JBoss EAP XP server with the MicroProfile profile by typing the following command.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh </code></pre>
+<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh -c standalone-microprofile.xml</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -534,6 +534,18 @@ For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
 <p>We recommend that you follow the instructions that
 <a href="#creating-new-project">create the application step by step</a>. However, you can
 also go right to the completed example which is available in this directory.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">
+Kafka must be running before attempting to deploy the Quickstart application. See <a href="#running-the-apache-kafka-service">Running the Apache Kafka Service</a> for how to do this in your local environment.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -701,7 +713,7 @@ cd microprofile-reactive-messaging-kafka</code></pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-eap-jakartaee8-with-tools&lt;/artifactId&gt;
-        &lt;version&gt;7.4.0.GA&lt;/version&gt;
+        &lt;version&gt;7.4.3.GA&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -710,7 +722,7 @@ cd microprofile-reactive-messaging-kafka</code></pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-eap-xp-microprofile&lt;/artifactId&gt;
-        &lt;version&gt;3.0.0.GA&lt;/version&gt;
+        &lt;version&gt;4.0.0.GA&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -729,31 +741,37 @@ cd microprofile-reactive-messaging-kafka</code></pre>
 <pre class="highlight"><code class="language-xml" data-lang="xml">&lt;dependencies&gt;
     &lt;!-- Core dependencies --&gt;
 
-    &lt;!-- Import the CDI API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the CDI API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;jakarta.enterprise&lt;/groupId&gt;
         &lt;artifactId&gt;jakarta.enterprise.cdi-api&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the Kafka Client API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Kafka Client API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;
         &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the Reactive Messaging API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the SmallRye Kafka API, we use provided scope as the API is included in JBoss EAP XP --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.smallrye.reactive&lt;/groupId&gt;
+        &lt;artifactId&gt;smallrye-reactive-messaging-kafka-api&lt;/artifactId&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Import the Reactive Messaging API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.eclipse.microprofile.reactive.messaging&lt;/groupId&gt;
         &lt;artifactId&gt;microprofile-reactive-messaging-api&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the Reactive Streams Operators API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Reactive Streams Operators API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.eclipse.microprofile.reactive-streams-operators&lt;/groupId&gt;
         &lt;artifactId&gt;microprofile-reactive-streams-operators-api&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the Reactive Streams Operators API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Reactive Streams Operators API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.reactivestreams&lt;/groupId&gt;
         &lt;artifactId&gt;reactive-streams&lt;/artifactId&gt;
@@ -762,28 +780,34 @@ cd microprofile-reactive-messaging-kafka</code></pre>
 
     &lt;!-- 'Supporting' dependencies --&gt;
 
-    &lt;!-- Import the Persistence API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Persistence API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;jakarta.persistence&lt;/groupId&gt;
         &lt;artifactId&gt;jakarta.persistence-api&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the Annotations API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Annotations API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.spec.javax.annotation&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-annotations-api_1.3_spec&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the Persistence API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Persistence API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.spec.javax.transaction&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-transaction-api_1.3_spec&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the JAX-RS API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss EAP XP --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.spec.javax.ws.rs&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-jaxrs-api_2.1_spec&lt;/artifactId&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Import the resteasy-jaxrs API, we use provided scope as the API is included in JBoss EAP XP --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.jboss.resteasy&lt;/groupId&gt;
+        &lt;artifactId&gt;resteasy-jaxrs&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
@@ -1128,45 +1152,78 @@ public class MessagingBean {</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Next we have another 'processor' method, which receives data from the <code>sender</code> stream and forwards it on to the <code>to-kafka</code> stream.</p>
+<p>Next we have another 'processor' method, which receives data from the <code>sender</code> stream and forwards it on to the <code>to-kafka</code> stream. It&#8217;s parameter is a simple <code>String</code>, MicroProfile Reactive Messaging will unwrap the stream from the <code>PublisherBuilder</code> returned in the previous method and call this next method with the individual entries.</p>
 </div>
 <div class="paragraph">
-<p>In this method we want to wrap up the data into the <code>TimedEntry</code> class we defined earlier, so we have tuple of the message and a timestamp. Since we are converting data, we should use a Reactive Stream artifact for the method parameter and return type. In this case, we are using <code>Publisher</code> from the Reactive Streams specification. Since <code>Publisher</code> does not provide any methods to modify the stream, we call <code>ReactiveStreams.fromPublisher()</code> to convert it to a MicroProfile Reactive Streams Operators <code>PublisherBuilder</code>.</p>
+<p>In this method we want to wrap up the data into the <code>TimedEntry</code> class we defined earlier, so we have tuple of the message and a timestamp.</p>
 </div>
 <div class="paragraph">
-<p>The <code>PublisherBuilder</code> gives us the <code>map()</code> method which we use to wrap our simple message (which at this stage is either 'Hello' or 'Kafka') and wrap it as a <code>TimedEntry</code> which adds a timestamp.</p>
+<p>Additionally we want to set a Kafka key for the entries so that we can take advantage of Kafka&#8217;s querying capabilities (not done in this quickstart). In order to do this, we do the following steps:</p>
 </div>
-<div class="paragraph">
-<p>Finally, we convert the <code>PublisherBuilder</code> to a <code>Publisher</code> again by calling <code>PublisherBuilder.buildRs()</code>.</p>
-</div>
-<div class="paragraph">
-<p>Note that the conversion fromm <code>Publisher</code> to <code>PublisherBuilder</code> and back to <code>Publisher</code> again is merely illustrative - it would have been perfectly fine to use <code>PublisherBuilder</code> as the method parameter and return type as we did for the <code>filter()</code> method above.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create an instance of <code>Message</code> from the MicroProfile Reactive Messaging API. A <code>Message</code> is a simple wrapper around the payload. In our case we use the <code>TimedEntry</code> instance we created.</p>
+</li>
+<li>
+<p>We create the key for the <code>TimedEntry</code>. In this case we just use a hash of the message.</p>
+</li>
+<li>
+<p>Use the <code>OutgoingKafkaRecordMetadata</code> builder to create an instance of <code>OutgoingKafkaRecordMetadata</code> with the key</p>
+</li>
+<li>
+<p>Next we call <code>KafkaMetadataUtil.writeOutgoingKafkaMetadata()</code> to augment the <code>Message</code> with the <code>OutgoingKafkaRecordMetadata</code>. Note that the <code>Message</code> passed in to <code>KafkaMetadataUtil.writeOutgoingKafkaMetadata()</code> is not modified, we need the returned one.</p>
+</li>
+<li>
+<p>We return the augmented <code>Message</code> to the stream which is backed by Kafka</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">    @Incoming("sender")
     @Outgoing("to-kafka")
-    public Publisher&lt;TimedEntry&gt; sendToKafka(Publisher&lt;String&gt; messages) {
-        return ReactiveStreams.fromPublisher(messages)
-                .map(s -&gt; new TimedEntry(new Timestamp(System.currentTimeMillis()), s))
-                .buildRs();
+    public Message&lt;TimedEntry&gt; sendToKafka(String msg) {
+        // Simpler example for debugging
+        TimedEntry te = new TimedEntry(new Timestamp(System.currentTimeMillis()), msg);
+        Message&lt;TimedEntry&gt; m = Message.of(te);
+        // Just use the hash as the Kafka key for this example
+        int key = te.getMessage().hashCode();
+
+        // Create Metadata containing the Kafka key
+        OutgoingKafkaRecordMetadata&lt;Integer&gt; md = OutgoingKafkaRecordMetadata
+                .&lt;Integer&gt;builder()
+                .withKey(key)
+                .build();
+
+        // The returned message will have the metadata added
+        return KafkaMetadataUtil.writeOutgoingKafkaMetadata(m, md);
     }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Our final method is a 'consumer' method, as it has only an <code>@Incoming</code> annotation. You can think of this as a 'final destination' for the data in your application. We are using a simple <code>TimedEntry</code> as our method parameter, so Reactive Messaging will unwrap the <code>Publisher&lt;TimedEntry&gt;</code> sent to the stream in the previous method.</p>
+<p>Our final method is a 'consumer' method, as it has only an <code>@Incoming</code> annotation. You can think of this as a 'final destination' for the data in your application. We are using a  <code>Message&lt;TimedEntry&gt;</code> as our method parameter. We are using this signature since we want to access the <code>IncomingKafkaRecordMetadata</code>, which contains the key we added in the previous method and additional information such as the Kafka partition and topic the message was sent on. Since we are using the signature taking a <code>Message</code> as the parameter, we need to <code>ack()</code> the message and return the resulting <code>CompletionStage&lt;Void&gt;</code>. (If we don&#8217;t want to ack the receipt of the message and are not interested in the <code>IncomingKafkaRecordMetadata</code>, we could have used a simpler signature such as <code>void receiveFromKafka(TimedEntry message)</code>.)</p>
 </div>
 <div class="paragraph">
-<p>It calls through to our <code>dbBean</code> to store the received data in a RDBMS. We will look at this briefly later.</p>
+<p>The methid calls through to our <code>dbBean</code> to store the received data in a RDBMS. We will look at this briefly later.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">    @Incoming("from-kafka")
-    public void receiveFromKafka(TimedEntry message) {
-        System.out.println("Received from Kafka, storing it in database: " + message);
-        dbBean.store(message);
-    }
-} // MessagingBean - END</code></pre>
+    public CompletionStage&lt;Void&gt; receiveFromKafka(Message&lt;TimedEntry&gt; message) {
+        TimedEntry payload = message.getPayload();
+
+        IncomingKafkaRecordMetadata&lt;Integer, TimedEntry&gt; md =
+            KafkaMetadataUtil.readIncomingKafkaMetadata(message).get();
+        String msg =
+                "Received from Kafka, storing it in database\n" +
+                "\t%s\n" +
+                "\tkey: %d; partition: %d, topic: %s";
+        msg = String.format(msg, payload, md.getKey(), md.getPartition(), md.getTopic());
+        System.out.println(msg);
+        dbBean.store(payload);
+        return message.ack();
+    }} // MessagingBean - END</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1204,6 +1261,18 @@ public class MessagingBean {</code></pre>
 <div class="paragraph">
 <p>These 'unpaired' sets of methods indicate that we do not want to use an in-memory stream, and want to use an external system for these streams. If we were try to deploy the MessagingBean in this state the application would fail to deploy. To fix this, and tell it what to map onto, we need to provide some configuration.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<code>IncomingKafkaRecordMetadata</code> is only available on incoming streams coming from Kafka. <code>OutgoingKafkaRecordMetadata</code> will only have effect on outgoing streams going to Kafka.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
 <h4 id="_mapping_streams_to_kafka_using_microprofile_config">Mapping Streams to Kafka using MicroProfile Config</h4>
 <div class="paragraph">
@@ -1218,12 +1287,14 @@ public class MessagingBean {</code></pre>
 
 mp.messaging.outgoing.to-kafka.connector=smallrye-kafka
 mp.messaging.outgoing.to-kafka.topic=testing
+mp.messaging.outgoing.to-kafka.key.serializer=org.apache.kafka.common.serialization.IntegerSerializer
 mp.messaging.outgoing.to-kafka.value.serializer=org.wildfly.quickstarts.microprofile.reactive.messaging.TimedEntrySerializer
 
 # Configure the Kafka source (we read from it)
 mp.messaging.incoming.from-kafka.connector=smallrye-kafka
 mp.messaging.incoming.from-kafka.topic=testing
-mp.messaging.incoming.from-kafka.value.deserializer=org.wildfly.quickstarts.microprofile.reactive.messaging.TimedEntryDeserializer</code></pre>
+mp.messaging.incoming.from-kafka.value.deserializer=org.wildfly.quickstarts.microprofile.reactive.messaging.TimedEntryDeserializer
+mp.messaging.incoming.from-kafka.key.deserializer=org.apache.kafka.common.serialization.IntegerDeserializer</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1257,7 +1328,10 @@ mp.messaging.incoming.from-kafka.value.deserializer=org.wildfly.quickstarts.micr
 <p>For the incoming and outgoing properties we can see that they all specify that they should use the <code>smallrye-kafka</code> connector and that the outgoing one writes to the same topic, <code>testing</code>, as the incoming one reads from.</p>
 </div>
 <div class="paragraph">
-<p>Finally we see that the outgoing configuration uses a <code>TimedEntrySerializer</code> while the incoming one uses <code>TimedEntryDeserializer</code>. Kafka just deals with byte streams, so we need to tell it how to serialize the data we are sending and how to deserialize the data we are receiving. As seen is configured with properties of the form <code>mp.messaging.outgoing.&lt;stream name&gt;.value.serializer</code> and <code>mp.messaging.incoming.&lt;stream name&gt;.value.deserializer</code>. The <a href="https://kafka.apache.org/27/javadoc/org/apache/kafka/common/serialization/package-summary.html">org.apache.kafka.common.serialization</a> package contains implementations of serializers and deserializers for simple data types and constructs such as maps.</p>
+<p>We see that the outgoing configuration uses a <code>TimedEntrySerializer</code> while the incoming one uses <code>TimedEntryDeserializer</code> for the values. Kafka just deals with byte streams, so we need to tell it how to serialize the data we are sending and how to deserialize the data we are receiving. As seen is configured with properties of the form <code>mp.messaging.outgoing.&lt;stream name&gt;.value.serializer</code> and <code>mp.messaging.incoming.&lt;stream name&gt;.value.deserializer</code>. The <a href="https://kafka.apache.org/27/javadoc/org/apache/kafka/common/serialization/package-summary.html">org.apache.kafka.common.serialization</a> package contains implementations of serializers and deserializers for simple data types and constructs such as maps.</p>
+</div>
+<div class="paragraph">
+<p>Finally, since the Kafka key is an <code>Integer</code>, we use <code>IntegerSerializer</code> and <code>IntegerDeserializer</code> for the keys. The concept is exactly the same as for the value (de)serializers, but is instead configured with the properties <code>mp.messaging.outgoing.&lt;stream name&gt;.key.serializer</code> and <code>mp.messaging.incoming.&lt;stream name&gt;.key.deserializer</code>.</p>
 </div>
 <div class="sect4">
 <h5 id="_custom_deserializers">Custom (De)Serializers</h5>
@@ -1383,7 +1457,7 @@ public class DatabaseBean {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;persistence version="2.2"
              xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="
@@ -1457,6 +1531,192 @@ public class JaxRsApplication extends Application {
 }</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_interaction_with_user_initiated_code">Interaction with User Initiated Code</h3>
+<div class="paragraph">
+<p>So far what we have seen is really happening in the back-end with little user interaction.
+The MicroProfile Reactive Messaging 2.0 specification adds a <code>@Channel</code> annotation and an <code>Emitter</code> interface which makes it easier to send data to MicroProfile Reactive Messaging streams from user initiated code and to receive data from Reactive Messaging streams.</p>
+</div>
+<div class="paragraph">
+<p>To showcase this functionality we add another CDI bean called <code>UserMessagingBean</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.wildfly.quickstarts.microprofile.reactive.messaging;
+
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+@ApplicationScoped
+public class UserMessagingBean {
+
+    @Inject
+    @Channel("user")
+    private Emitter&lt;String&gt; emitter;
+
+    private BroadcastPublisher&lt;String&gt; broadcastPublisher;
+
+    public UserMessagingBean() {
+        //Needed for CDI spec compliance
+        //The @Inject annotated one will be used
+    }
+
+    @Inject
+    public UserMessagingBean(@Channel("user") Publisher&lt;String&gt; receiver) {
+        this.broadcastPublisher = new BroadcastPublisher(receiver);
+    }
+
+    @PreDestroy
+    public void destroy() {
+        broadcastPublisher.close();
+    }
+
+    public Response send(String value) {
+        System.out.println("Sending " + value);
+        emitter.send(value);
+        return Response.accepted().build();
+    }
+
+    public Publisher&lt;String&gt; getPublisher() {
+        return broadcastPublisher;
+    }
+
+    private class BroadcastPublisher&lt;T&gt; implements Publisher&lt;T&gt; {
+        // See source code for more details
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Looking at this in more detail, the following field</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">    @Inject
+    @Channel("user")
+    private Emitter&lt;String&gt; emitter;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is used to send data to the MicroProfile Reactive Messagin stream called <code>user</code>, which is done in the following method</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">    public Response send(String value) {
+        System.out.println("Sending " + value);
+        emitter.send(value);
+        return Response.accepted().build();
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>@Inject @Channel</code> on an <code>Emitter</code> can be considered similiar to an <code>@Outgoing</code> annotated method but with the data coming from code paths invoked by user interaction. In this case we are not using Kafka to back the stream but if we wanted to, for this example, the MicroProfile Config properties would be prefixed with the <code>mp.messaging.outgoing.user.</code> prefix.</p>
+</div>
+<div class="paragraph">
+<p>Next we have the constructor where we inject a <code>Publisher</code> (We could also have used a MicroProfile Reactive Streams Operators <code>PublisherBuiilder</code>) to define the receiving side.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">    @Inject
+    public UserMessagingBean(@Channel("user") Publisher&lt;String&gt; receiver) {
+        this.broadcastPublisher = new BroadcastPublisher(receiver);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We store this injected <code>Publisher</code> in the <code>broadcastPublisher</code> field. We will come back to why we are wrapping it in a <code>BroadcastPublisher</code> in a second.  So an <code>@Inject @Channel</code> on a <code>Publisher</code> (or <code>PublisherBuilder</code>) can be considered equivalent to use of the <code>@Incoming</code> annotation. In this case we are listening to the <code>user</code> in memory stream so messages sent via the <code>Emitter</code> will be received on this <code>Publisher</code>. If instead we wanted to configure it to send via Kafka we would use MicroProfile Config properties prefixed with the <code>mp.messaging.incoming.user.</code> prefix.</p>
+</div>
+<div class="paragraph">
+<p>There are a few caveats on this mechanism though:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>There must be an active <code>Subscription</code> (from the Reactive Streams specification) on the channel before the <code>Emitter.send()</code> method is called.</p>
+</li>
+<li>
+<p>There can only be one <code>Subscription</code> on the injected <code>Publisher</code>. This means that we cannot simply return this <code>Publisher</code> as is via an asynchronous JAX-RS endpoint as each client request would result in a separate <code>Subscription</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The above two points will hopefully be fixed in a future version of the specification. For the purposes of this quickstart we are bypassing the above limitations by creating the <code>BroadcastPublisher</code> class and wrapping the original <code>Publisher</code> in that instead. Note that implementing <code>Publisher</code> is hard, and that <code>BroadcastPublisher</code> should be considered a 'proof of concept'. For more details about the <code>BroadcastPublisher</code> see the source code of the <code>UserMessagingBean</code> class. In a nutshell what it does is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Its constructor subscribes to the injected <code>Publisher</code> to avoid the first problem</p>
+</li>
+<li>
+<p>When code subscribes to it, it handles the <code>Subscription</code> on its own level, and forwards on code received on the ' a separate level and forwards on data received from the base <code>Subsciption</code> created in the constructor.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Finally we have a JAX-RS endpoint</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.wildfly.quickstarts.microprofile.reactive.messaging;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.jboss.resteasy.annotations.Stream;
+import org.reactivestreams.Publisher;
+
+@ApplicationScoped
+@Path("/user")
+@Produces(MediaType.TEXT_PLAIN)
+public class UserResource {
+    @Inject
+    UserMessagingBean bean;
+
+    @POST
+    @Path("{value}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response send(@PathParam("value") String value) {
+        bean.send(value);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Produces(MediaType.SERVER_SENT_EVENTS)
+    @Stream
+    public Publisher&lt;String&gt; get() {
+        return bean.getPublisher();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It simply delegates the values received from <code>POST</code> requests under <code>/user/&lt;value&gt;</code> onto the bean which sends them via the <code>Emitter</code>.</p>
+</div>
+<div class="paragraph">
+<p>Then <code>GET</code> requests for <code>/user</code> return the <code>BroadCastPublisher</code> to the user who will then receive data received on the MicroProfile Reactive Messaging channel.</p>
+</div>
+<hr>
 <div class="paragraph">
 <p>Now you should be able to compile the application and prepare it for deployment.</p>
 </div>
@@ -1470,7 +1730,7 @@ public class JaxRsApplication extends Application {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_running_the_apache_kafka_service">Running the Apache Kafka Service</h2>
+<h2 id="running-the-apache-kafka-service">Running the Apache Kafka Service</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To run the Apache Kafka service we will use its Docker container. Note that this also requires Apache Zookeeper, so rather than a simple <code>docker run</code> command this quickstart directory contains a <code>docker-compose.yaml</code> file defining the two Docker containers needed. The
@@ -1539,19 +1799,22 @@ This can take a minute.
 </div>
 </div>
 <div class="paragraph">
-<p>Now we should see output in the server console. First, we see output for the the ones in the determined order:</p>
+<p>Now we should see output in the server console. First, we see output for the ones in the determined order:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>7:34:53,388 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0010: Deployed "microprofile-reactive-messaging-kafka.war" (runtime-name : "microprofile-reactive-messaging-kafka.war")
-17:34:55,266 INFO  [stdout] (pool-50-thread-1) Received Hello
-17:34:55,285 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database: TimedEntry{time=2021-01-26 17:34:55.267, message='Hello'}
-17:34:57,263 INFO  [stdout] (pool-50-thread-1) Received world
-17:34:59,264 INFO  [stdout] (pool-50-thread-1) Received Reactive
-17:35:01,265 INFO  [stdout] (pool-50-thread-1) Received Messaging
-17:35:03,264 INFO  [stdout] (pool-50-thread-1) Received with
-17:35:05,266 INFO  [stdout] (pool-50-thread-1) Received Kafka
-17:35:05,275 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database: TimedEntry{time=2021-01-26 17:35:05.266, message='Kafka'}</code></pre>
+<pre class="highlight nowrap"><code>14:24:39,197 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database
+14:24:39,197 INFO  [stdout] (vert.x-eventloop-thread-0) 	TimedEntry{time=2021-08-06 14:24:39.183, message='Hello'}
+14:24:39,197 INFO  [stdout] (vert.x-eventloop-thread-0) 	key: 69609650; partition: 0, topic: testing
+14:24:41,185 INFO  [stdout] (pool-22-thread-1) Received world
+14:24:43,183 INFO  [stdout] (pool-22-thread-1) Received Reactive
+14:24:45,183 INFO  [stdout] (pool-22-thread-1) Received Messaging
+14:24:47,183 INFO  [stdout] (pool-22-thread-1) Received with
+14:24:49,182 INFO  [stdout] (pool-22-thread-1) Received Kafka
+14:24:49,188 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database
+14:24:49,188 INFO  [stdout] (vert.x-eventloop-thread-0) 	TimedEntry{time=2021-08-06 14:24:49.183, message='Kafka'}
+14:24:49,188 INFO  [stdout] (vert.x-eventloop-thread-0) 	key: 72255238; partition: 0, topic: testing
+14:24:51,184 INFO  [stdout] (pool-22-thread-1) Received Kafka</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1559,14 +1822,17 @@ This can take a minute.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>17:35:07,264 INFO  [stdout] (pool-50-thread-1) Received Kafka
-17:35:07,274 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database: TimedEntry{time=2021-01-26 17:35:07.265, message='Kafka'}
-17:35:09,266 INFO  [stdout] (pool-50-thread-1) Received Reactive
-17:35:11,266 INFO  [stdout] (pool-50-thread-1) Received world
-17:35:13,261 INFO  [stdout] (pool-50-thread-1) Received Hello
-17:35:13,268 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database: TimedEntry{time=2021-01-26 17:35:13.261, message='Hello'}
-17:35:15,262 INFO  [stdout] (pool-50-thread-1) Received Kafka
-17:35:15,270 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database: TimedEntry{time=2021-01-26 17:35:15.262, message='Kafka'}</code></pre>
+<pre class="highlight nowrap"><code>14:24:51,184 INFO  [stdout] (pool-22-thread-1) Received Kafka
+14:24:51,190 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database
+14:24:51,190 INFO  [stdout] (vert.x-eventloop-thread-0) 	TimedEntry{time=2021-08-06 14:24:51.184, message='Kafka'}
+14:24:51,190 INFO  [stdout] (vert.x-eventloop-thread-0) 	key: 72255238; partition: 0, topic: testing
+14:24:53,184 INFO  [stdout] (pool-22-thread-1) Received world
+14:24:55,184 INFO  [stdout] (pool-22-thread-1) Received world
+14:24:57,184 INFO  [stdout] (pool-22-thread-1) Received Reactive
+14:24:59,181 INFO  [stdout] (pool-22-thread-1) Received Hello
+14:24:59,187 INFO  [stdout] (vert.x-eventloop-thread-0) Received from Kafka, storing it in database
+14:24:59,187 INFO  [stdout] (vert.x-eventloop-thread-0) 	TimedEntry{time=2021-08-06 14:24:59.182, message='Hello'}
+14:24:59,187 INFO  [stdout] (vert.x-eventloop-thread-0) 	key: 69609650; partition: 0, topic: testing</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1577,15 +1843,50 @@ This can take a minute.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>TimedEntry{id=1, time=2021-01-26 17:34:55.267, message='Hello'}
-TimedEntry{id=2, time=2021-01-26 17:35:05.266, message='Kafka'}
-TimedEntry{id=3, time=2021-01-26 17:35:07.265, message='Kafka'}
-TimedEntry{id=4, time=2021-01-26 17:35:13.261, message='Hello'}
-TimedEntry{id=5, time=2021-01-26 17:35:15.262, message='Kafka'}</code></pre>
+<pre class="highlight nowrap"><code>TimedEntry{id=1, time=2021-08-06 14:24:39.183, message='Hello'}
+TimedEntry{id=2, time=2021-08-06 14:24:49.183, message='Kafka'}
+TimedEntry{id=3, time=2021-08-06 14:24:51.184, message='Kafka'}
+TimedEntry{id=4, time=2021-08-06 14:24:59.182, message='Hello'}</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The timestamps of the entries in the browser match the ones we saw in the server logs.</p>
+</div>
+<div class="sect2">
+<h3 id="_interaction_with_user_initiated_code_2">Interaction with User Initiated Code</h3>
+<div class="paragraph">
+<p>With the application still running, open two terminal windows. Enter the following <code>curl</code> command in both of them</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$curl -N http://localhost:8080/microprofile-reactive-messaging-kafka/user</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-N</code> option keeps the connection open, so we receive data as it becomes available on the publisher.</p>
+</div>
+<div class="paragraph">
+<p>In a third terminal window enter the commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/one
+$curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/two
+$curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/three</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the first two terminal windows you should see these entries appear as they are posted:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>data: one
+
+data: two
+
+data: three</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1668,91 +1969,19 @@ oc secrets link builder <em>1234567-myserviceaccount-pull-secret</em> --for=pull
 </div>
 </div>
 <div class="sect2">
-<h3 id="import_imagestreams_templates">Import the Latest JBoss EAP for OpenShift Image Streams and Templates</h3>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
+<h3 id="installing-kafka-on-openshift">Installing Kafka on OpenShift</h3>
 <div class="paragraph">
-<p>If you are building and deploying this quickstart on JBoss EAP for OpenShift, you must configure authentication to the Red Hat Container Registry before you import the image streams and templates into your namespace. <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default#container_registry_authentication"><em>Red Hat JBoss Enterprise Application Platform expansion pack for OpenShift</em></a> provides an example of one way to configure authentication to the registry. For additional information, see <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry Authentication</a> on the Red Hat Customer Portal.</p>
-</div>
-<div class="paragraph">
-<p>Configuration of authentication to the registry is not necessary if you are building and deploying this quickstart on JBoss EAP for OpenShift Online.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Use the following commands to import the latest JDK 8 and JDK 11 image streams and templates for the OpenShift image for JBoss EAP for OpenShift, into your OpenShift project&#8217;s namespace.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Import JDK 8 image streams:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk8-openshift.json</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This command imports the following imagestreams and templates:</p>
+<p>Kafka on OpenShift is provided by either:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The JDK 8 builder imagestream: jboss-eap-xp3-openjdk8-openshift</p>
+<p><a href="#install_amq_streams">AMQ Streams</a></p>
 </li>
 <li>
-<p>The JDK 8 runtime imagestream: jboss-eap-xp3-openjdk8-runtime-openshift</p>
+<p><a href="#install_rhosak">RHOSAK</a></p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>Import JDK 11 image stream:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This command imports the following imagestreams and templates:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The JDK 11 builder imagestream: jboss-eap-xp3-openjdk11-openshift</p>
-</li>
-<li>
-<p>The JDK 11 runtime imagestream: jboss-eap-xp3-openjdk11-runtime-openshift</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Import the JDK 8 and JDK 11 templates:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">for resource in \
-  eap-xp3-basic-s2i.json \
-  eap-xp3-third-party-db-s2i.json
-do
-  oc replace --force -f \
-https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/${resource}
-done</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1761,26 +1990,13 @@ done</pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>The JBoss EAP image streams and templates imported using the above command are only available within that OpenShift project.</p>
-</div>
-<div class="paragraph">
-<p>If you have administrative access to the general <code>openshift</code> namespace and want the image streams and templates to be accessible by all projects, add <code>-n openshift</code> to the <code>oc replace</code> line of the command. For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">...
-oc replace -n openshift --force -f \
-...</pre>
-</div>
-</div>
+For the purposes of this Quickstart you should only select one of these, and your choice should match what we will do later in <a href="#deploy-to-openshift">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift</a>.
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="install_amq_streams">Install AMQ Streams on Openshift</h3>
+<div class="sect3">
+<h4 id="install_amq_streams">Install AMQ Streams on Openshift</h4>
 <div class="paragraph">
 <p>The functionality of this quickstart depends on a running instance of the
 <a href="https://access.redhat.com/products/red-hat-amq#streams">AMQ Streams</a> Operator. AMQ Streams is a Red Hat project based on Apache Kafka. To deploy AMQ Streams in the Openshift environment:</p>
@@ -1802,7 +2018,7 @@ Install it with the default values.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">$ oc apply -n microprofile-reactive-messaging-kafka-project -f - &lt;&lt;EOF
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: my-cluster
@@ -1826,12 +2042,28 @@ EOF</pre>
 </div>
 </div>
 </li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If you see errors along the lines of <em>no matches for kind "Kafka" in version "kafka.strimzi.io/v1beta2"</em>, execute the command <code>oc get crd kafkas.kafka.strimzi.io -o jsonpath="{.spec.versions[*].name}"</code> and update <code>apiVersion</code> to the returned version.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Next set up a topic called <code>testing</code> in the <code>my-cluster</code> cluster we created:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">oc apply -n microprofile-reactive-messaging-kafka-project -f - &lt;&lt;EOF
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: testing
@@ -1847,197 +2079,179 @@ EOF</pre>
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deploy_eap_s2i">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift</h3>
+<div class="sect3">
+<h4 id="install_rhosak">Install RHOSAK on Openshift</h4>
+<div class="paragraph">
+<p>The functionality of this quickstart depends on a running instance of the
+<a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-streams-for-apache-kafka">Red Hat OpenShift Streams for Apache Kafka (RHOSAK)</a> Operator. RHOSAK is a Red Hat managed cloud service based on Apache Kafka. It runs on OpenShift but outside your OpenShift environment.</p>
+</div>
+<div class="sect4">
+<h5 id="_setting_up_rhosak">Setting up RHOSAK</h5>
+<div class="paragraph">
+<p>We will summarize the steps required to set up a Kafka instance in RHOSAK here. They were correct at the time of writing and inspired by the following <a href="https://developers.redhat.com/developer-sandbox/activities/connecting-to-your-managed-kafka-instance">article</a> explaining how to set up an instance in the Developer Sandbox for Red Hat OpenShift, which allows you to try technologies on OpenShift for free. If these steps change, the RHOSAK documentation will have the up to date instructions. Finally, the steps below assume you are using the Developer Sandbox. If you are a paying customer of RHOSAK you should adjust the steps accordingly.</p>
+</div>
+<div class="paragraph">
+<p><strong>Prerequisites:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On your OpenShift cluster make sure that the <code>RHOAS</code> and <code>Service Binding Operator</code> operators are installed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You can check this by going to Operators/Installed Operators in the Administrator perspective of the console</p>
+</li>
+<li>
+<p>If not installed, install (or ask an admin if you don&#8217;t have permissions) these operators via Operators/OperatorHub in the Administrator perspective of the console</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Create a <a href="https://developers.redhat.com/products/rhosak/getting-started">RHOSAK account</a> before doing the following steps:</p>
 <div class="olist arabic">
-<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Create a new OpenShift application using the JBoss EAP for OpenShift image and the quickstart&#8217;s source code. Use the following command to use the <code>eap-xp3-basic-s2i</code> template with the JDK 8 images and the <code>microprofile-reactive-messaging-kafka</code> source code on GitHub.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk8-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk8-runtime-openshift:latest \
- -p IMAGE_STREAM_NAMESPACE="microprofile-reactive-messaging-kafka-project" \
- -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
- -p ENABLE_GENERATE_DEFAULT_DATASOURCE="true" \
- -e MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS=my-cluster-kafka-bootstrap:9092 \
- -p GALLEON_PROVISION_LAYERS=cloud-server,microprofile-reactive-messaging-kafka,h2-default-datasource \
- -p CONTEXT_DIR="microprofile-reactive-messaging-kafka"</pre>
-</div>
-</div>
-<div class="openblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>--template</code> The template to use.</p>
+<p>From the <a href="https://developers.redhat.com/products/rhosak/getting-started">RHOSAK</a> console, create a Kafka instance. You need to specify a name for it Kafka instance, for example <code>my-quickstart-kafka</code>. In the rest of this text we will use <code>&lt;kafka-name&gt;</code> to represent <code>my-quickstart-kafka</code>. Apart from the name you can use default values for everything else. It will take a few minutes for your Kafka instance to be ready.</p>
 </li>
 <li>
-<p><code>-p IMAGE_STREAM_NAMESPACE</code> The latest images streams and templates <a href="#import_imagestreams_templates">were imported into the project&#8217;s namespace</a>, so you must specify the namespace of where to find the image stream. This is usually the OpenShift project&#8217;s name.</p>
+<p>Go into the instance and create a topic called <code>testing</code>. Use the suggested defaults for everything else.</p>
 </li>
 <li>
-<p><code>-p SOURCE_REPOSITORY_URL</code> The URL to the repository containing the application source code.</p>
-</li>
-<li>
-<p><code>-p SOURCE_REPOSITORY_REF</code> The Git repository reference to use for the source code. This can be a Git branch or tag reference.</p>
-</li>
-<li>
-<p><code>-p ENABLE_GENERATE_DEFAULT_DATASOURCE</code> Enables the default datasource, which is required by this quickstart.</p>
-</li>
-<li>
-<p><code>-e MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS=my-cluster-kafka-bootstrap:9092</code> Sets the location of the AMQ Streams cluster. This environment variable resolves to the same as the MicroProfile Config property <code>mp.messaging.connector.smallrye-kafka.bootstrap.servers=localhost:9092</code> used in the quickstart source code. However, the environment variable takes precedence.</p>
-</li>
-<li>
-<p><code>-p GALLEON_PROVISION_LAYERS=cloud-server,microprofile-reactive-messaging-kafka,h2-default-datasource</code> adds Galleon layers needed for this quickstart to run. Behind the scenes they enable the server functionality to run MicroProfile Reactive Messaging applications backed by Kafka.</p>
-</li>
-<li>
-<p><code>-p CONTEXT_DIR</code> The directory within the source repository to build.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Alternatively, to create the quickstart application using the JDK 11 images enter the following command.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc new-app --template=eap-xp3-basic-s2i \
- -p EAP_IMAGE_NAME=jboss-eap-xp3-openjdk11-openshift:latest \
- -p EAP_RUNTIME_IMAGE_NAME=jboss-eap-xp3-openjdk11-runtime-openshift:latest \
- -p IMAGE_STREAM_NAMESPACE="microprofile-reactive-messaging-kafka-project" \
- -p SOURCE_REPOSITORY_URL="https://github.com/jboss-developer/jboss-eap-quickstarts" \
- -p SOURCE_REPOSITORY_REF="xp-3.0.x" \
- -p ENABLE_GENERATE_DEFAULT_DATASOURCE="true" \
- -e MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS=my-cluster-kafka-bootstrap:9092 \
- -p GALLEON_PROVISION_LAYERS=cloud-server,microprofile-reactive-messaging-kafka,h2-default-datasource \
- -p CONTEXT_DIR="microprofile-reactive-messaging-kafka"</pre>
-</div>
-</div>
-<div class="openblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>--template</code> The template to use.</p>
-</li>
-<li>
-<p><code>-p IMAGE_STREAM_NAMESPACE</code> The latest images streams and templates <a href="#import_imagestreams_templates">were imported into the project&#8217;s namespace</a>, so you must specify the namespace of where to find the image stream. This is usually the OpenShift project&#8217;s name.</p>
-</li>
-<li>
-<p><code>-p SOURCE_REPOSITORY_URL</code> The URL to the repository containing the application source code.</p>
-</li>
-<li>
-<p><code>-p SOURCE_REPOSITORY_REF</code> The Git repository reference to use for the source code. This can be a Git branch or tag reference.</p>
-</li>
-<li>
-<p><code>-p ENABLE_GENERATE_DEFAULT_DATASOURCE</code> Enables the default datasource, which is required by this quickstart.</p>
-</li>
-<li>
-<p><code>-p CONTEXT_DIR</code> The directory within the source repository to build.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-A template can specify default values for many template parameters, and you might have to override some, or all, of the defaults. To see template information, including a list of parameters and any default values, use the command <code>oc describe template <em>TEMPLATE_NAME</em></code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-It is possible to trim down the JBoss EAP for OpenShift image that will be used to run this quickstart. To do so, please add the <code>-p GALLEON_PROVISION_LAYERS=&lt;galleon layers&gt;</code> argument when creating the new application. Please refer to the JBoss EAP documentation for the list of supported galleon layers.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Retrieve the name of the build configuration.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc get bc -o name</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Use the name of the build configurations from the previous step to view the Maven progress of the builds.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc logs -f bc/${APPLICATION_NAME}-build-artifacts
-
-…
-Push successful
-$ oc logs -f bc/${APPLICATION_NAME}
-…
-Push successful</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For example, for the previously created application, the following command shows the progress of the Maven builds.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc logs -f bc/eap-xp3-basic-app-build-artifacts
-
-…
-Push successful
-$ oc logs -f bc/eap-xp3-basic-app
-…
-Push successful</pre>
-</div>
-</div>
+<p><a href="https://github.com/redhat-developer/app-services-cli">Download</a> the <code>rhoas</code> application for your OS. Make it available on your path.</p>
 </li>
 </ol>
 </div>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="post_deployment">OpenShift Post Deployment Tasks</h3>
+</div>
+<div class="sect4">
+<h5 id="_connecting_the_application_to_kafka">Connecting the application to Kafka</h5>
 <div class="paragraph">
-<p>Depending on your application, you might need to complete some tasks after your OpenShift application has been built and deployed.</p>
+<p>First we need to log in to RHOAS. The login process uses the browser session for the console.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>rhoas login</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Examples of post-deployment tasks include the following:</p>
+<p>Then we need to make <code>rhoas</code> use our Kafka instance</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># Substitute &lt;kafka-name&gt; with the name of your Kafka instance
+rhoas kafka use --name &lt;kafka-name&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then go to <a href="https://console.redhat.com/openshift/token" class="bare">https://console.redhat.com/openshift/token</a> and get the token to authenticate with your OpenShift cluster.</p>
+</div>
+<div class="paragraph">
+<p>Execute</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>rhoas cluster connect --service-type kafka --yes --token {your token pasted here}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output of the above will show that the connection to Kafka has been created. Make a note of the <code>Client ID</code> which appears in the output of the <code>rhoas cluster connect</code> command. We will need this <code>Client ID</code> later:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>✔️  Service Account Secret "rh-cloud-services-service-account" created successfully
+
+Client ID:     srvc-acct-4321abcd-123a-98cb-1234-01234abcd123
+
+Make a copy of the client ID to store in a safe place. Credentials won't appear again after closing the terminal.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At the time of writing, if you did not make a note of the <code>Client ID</code>, it is possible to recover it by running <code>rhoas service-account list</code>, and looking for the <code>Client ID</code> associated with your account.</p>
+</div>
+<div class="paragraph">
+<p>The <code>rhoas cluster connect</code> output will also tell you to run <code>rhoas cluster bind</code>. However, we need to wait until we have deployed our application with <code>helm install</code> in the next step. Once we run <code>rhoas cluster bind --binding-name kafka-config</code> after  deploying our application, the Service Binding Operator will create a config map bound to the <code>/bindings/kafka-config</code> directory in the application pods. We will use this service binding in the next section, although we need to wait before we actually perform this binding.</p>
+</div>
+<div class="paragraph">
+<p>Next, we need to grant access to our service account. This is done by running the following command</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>rhoas kafka acl grant-access --consumer --producer     --service-account &lt;client id&gt; --topic "*" --group "*"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Substitute &lt;client id&gt; with the <code>Client ID</code> reported by the earlier <code>rhoas cluster connect</code> command.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_configuring_your_application">Configuring your application</h5>
+<div class="paragraph">
+<p>The final part of the setup is to map the created service binding config map to our application. As mentioned, once we run <code>rhoas cluster bind</code>, we will get a Config Map with entries mapped to files under the /bindings/kafka-config` directory in the application pods.</p>
+</div>
+<div class="paragraph">
+<p>When building the application the <a href="/src/main/scripts/rhosak/s2i/initialize-server.cli" class="bare">/src/main/scripts/rhosak/s2i/initialize-server.cli</a> CLI script gets run, and performs the following steps.</p>
+</div>
+<div class="paragraph">
+<p>First it adds the config map stored in the <code>/bindings/kafka-config</code> directory as a config source in the MicroProfile Config subsystem.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo "Adding the kafka-config service binding..."
+/subsystem=microprofile-config-smallrye/config-source=rhosak-binding:add(dir={path=/bindings/kafka-config})/subsystem=microprofile-config-smallrye/config-source=rhosak-binding:add(dir={path=/bindings/kafka-config})</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This config map contains properties such as <code>bootstrapServers</code>, <code>securityProtocol</code>, <code>saslMechanism</code>, <code>user</code> and <code>password</code>. These contain all the information we need to connect to the managed Kafka instance. However, we need to map these onto what our application understands, and this is done in the second part of the CLI script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>echo "Adding the MicroProfile Config entries mapping the service binding..."
+/subsystem=microprofile-config-smallrye/config-source=reactive-messaging-properties:add(properties={\
+mp.messaging.connector.smallrye-kafka.bootstrap.servers=${bootstrapServers},\
+mp.messaging.connector.smallrye-kafka.security.protocol=${securityProtocol},\
+mp.messaging.connector.smallrye-kafka.sasl.mechanism=${saslMechanism},\
+mp.messaging.connector.smallrye-kafka.sasl.jaas.config="\n\
+org.apache.kafka.common.security.plain.PlainLoginModule required\n\
+username=\"${user}\"\n\
+password=\"${password}\";"\
+}, ordinal=500)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This has the effect of, for example, the value <code>mp.messaging.connector.smallrye-kafka.bootstrap.servers</code> will use the <code>${bootstrapServers}</code> value provided by the service binding config map.</p>
+</div>
+<div class="paragraph">
+<p>These properties from the MicroProfile Config subsystem have the same names as some of the ones we already defined in <a href="src/main/resources/META-INF/microprofile-config.properties">microprofile-config.properties</a>. These get merged into one overall configuration. Where the same value exists in both places the one added in the CLI script above takes precedence, so <code>mp.messaging.connector.smallrye-kafka.bootstrap.servers</code> from the values provided by CLI script will be used. This is because the CLI script uses a higher <code>ordinal</code> when adding these properties.
+Once deployed this will store the ConfigMap settings in the application pod&#8217;s <code>/etc/config/reactive-messaging-properties</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>The CLI script will get run as part of initialising the application pod, when we pass in the environment variable <code>QS_USE_RHOSAK=true</code> when building the application as we will see later. For the bootable jar with RHOSAK combination there is a <code>src/main/scripts/rhoasak/bootable-jar/initialise-server.cli</code> script that does the same.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy-to-openshift">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The sub-sections describe how to deploy the application to OpenShift interacting with Kafka provided by either:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Exposing a service so that the application is viewable from outside of OpenShift.</p>
+<p><a href="#xp-deploy-project-amq-streams">AMQ Streams</a></p>
 </li>
 <li>
-<p>Scaling your application to a specific number of replicas.</p>
+<p><a href="#xp-deploy-project-rhosak">RHOSAK</a></p>
 </li>
 </ul>
 </div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Get the service name of your application using the following command.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc get service</pre>
-</div>
-</div>
-</li>
-<li>
-<p><strong>Optional</strong>: Expose the main service as a route so you can access your application from outside of OpenShift. For example, for the previously created application, use the following command to expose the required service and port.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2045,29 +2259,30 @@ Push successful</pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>If you used a template to create the application, the route might already exist. If it does, continue on to the next step.</p>
-</div>
+For the purposes of this Quickstart, you should choose one of these approaches, not both. Your choice should match the type of Kafka instance you selected earlier in <a href="#installing-kafka-on-openshift">Installing Kafka on OpenShift</a>.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>In both cases we will use Helm to install the application. Make sure you have downloaded the <a href="https://docs.openshift.com/container-platform/4.9/applications/working_with_helm_charts/installing-helm.html">Helm CLI Tool</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="xp-deploy-project-amq-streams">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with AMQ Streams</h3>
+<div class="paragraph">
+<p>This section describes how to deploy the application to OpenShift interacting with Kafka provided by AMQ Streams. If you want to use RHOSAK instead, see the <a href="#xp-deploy-project-rhosak">RHOSAK instructions</a>.</p>
+</div>
+<div class="paragraph">
+<p>First add the Helm repository, if you have not done so already, as described in <a href="https://jbossas.github.io/eap-charts/" class="bare">https://jbossas.github.io/eap-charts/</a>.</p>
+</div>
+<div class="paragraph">
+<p>Then run the following command to deploy and start the application (note we are using the name <code>mp-rm-qs</code> for our application here):</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc expose service/eap-xp3-basic-app --port=8080</pre>
+<pre class="highlight nowrap"><code>helm install mp-rm-qs -f ./helm-amq-streams.yml jboss-eap/eap-xp4 --set build.uri=https://github.com/jboss-developer/jboss-eap-quickstarts.git --set build.ref=XP_4.0.0.GA</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Get the URL of the route.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc get route</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Access the application in your web browser using the URL. The URL is the value of the <code>HOST/PORT</code> field from previous command&#8217;s output.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2075,31 +2290,114 @@ Push successful</pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>For example, to interact with this quickstart , the root of its application URLs should be <code>https://<em>HOST_PORT_Value</em>/</code>.</p>
-</div>
+Although the above command will return quite quickly, it will take a while until the application pod is actually brought up. In the OpenShift console you will see a pod whose name starts with mp-rm-qs in the <code>ErrImagePull</code> or <code>ImagePullBackoff</code> state until the build has completed.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>The contents of the <a href="helm-amq-streams.yml"><code>helm-amq-streams.yml</code></a> file specify:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The Galleon layers to use when creating the server under <code>build/s2i/galleonLayers</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>microprofile-reactive-messaging-kafka</code> contains the MicroProfile Reactive Messaging with Kafka functionality</p>
 </li>
 <li>
-<p>Optionally, you can scale up the application instance by running the following command. This command increases the number of replicas to 3.</p>
+<p><code>h2-default-datasource</code> enables the HSQL database we store data in</p>
+</li>
+<li>
+<p><code>cloud-server</code> provides among other things the web server functionality</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For both the build (under <code>build/env</code>) and the deploy <code>deploy/env</code>) parts, we specify environment variables to increase some JVM arguments from the default.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Run <code>oc get route</code> to find the URL of our application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xp-deploy-project-rhosak">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with RHOSAK</h3>
+<div class="paragraph">
+<p>This section describes how to deploy the application to OpenShift interacting with Kafka provided by RHOSAK. If you want to use AMQ Streams instead, see the <a href="#xp-deploy-project-amq-streams">AMQ Streams instructions</a>.</p>
+</div>
+<div class="paragraph">
+<p>To deploy your application make sure you have downloaded the <a href="https://docs.openshift.com/container-platform/4.9/applications/working_with_helm_charts/installing-helm.html">Helm CLI Tool</a>. <code>./helm-rhosak.yml</code> contains the information to deploy the application to be backed by Kafka provided by RHOSAK.</p>
+</div>
+<div class="paragraph">
+<p>First add the Helm repository, if you have not done so already, as described in <a href="https://jbossas.github.io/eap-charts/" class="bare">https://jbossas.github.io/eap-charts/</a>.</p>
+</div>
+<div class="paragraph">
+<p>Then run the following command to deploy and start the application (note we are using the name <code>mp-rm-qs</code> for our application here, as mentioned when we connected RHOSAK to our OpenShift project):</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc scale deploymentconfig <em>DEPLOYMENTCONFIG_NAME</em> --replicas=3</pre>
+<pre class="highlight nowrap"><code>helm install mp-rm-qs -f ./helm-rhosak.yml jboss-eap/eap-xp4  --set build.uri=https://github.com/jboss-developer/jboss-eap-quickstarts.git --set build.ref=XP_4.0.0.GA</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Although the above command will return quite quickly, it will take a while until the application pod is actually brought up. In the OpenShift console you will see a pod whose name starts with mp-rm-qs in the <code>ErrImagePull</code> or <code>ImagePullBackoff</code> state until the build has completed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>While the OpenShift cluster is doing the work to build and deploy the application (i.e. as soon as the <code>helm install</code> has completed in your terminal), run the following command to set up the service binding for the Kafka connection as mentioned earlier:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>rhoas cluster bind --app-name mp-rm-qs --service-type kafka --binding-name kafka-config --yes</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For example, for this` quickstart, use the following command to scale up the application.</p>
+<p>You may also wait performing the above command until the application pod has been brought up. In this case it will log errors that it is not able to connect to Kafka. Once the above command is run, the 'faulty' pod will be taken down and replaced by one containing the correct configuration.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap">$ oc scale deploymentconfig/eap-xp3-basic-app --replicas=3</pre>
+<div class="paragraph">
+<p>The contents of the <a href="helm-rhosak.yml"><code>helm-rhosak.yml</code></a> file:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Specify the Galleon layers to use when creating the server under <code>build/s2i/galleonLayers</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>microprofile-reactive-messaging-kafka</code> contains the MicroProfile Reactive Messaging with Kafka functionality</p>
+</li>
+<li>
+<p><code>h2-default-datasource</code> enables the HSQL database we store data in</p>
+</li>
+<li>
+<p><code>cloud-server</code> provides among other things the web server functionality.</p>
+</li>
+</ul>
 </div>
 </li>
-</ol>
+<li>
+<p>For both the build (under <code>build/env</code>) and the deploy <code>deploy/env</code>) parts, we specify environment variables to increase some JVM arguments from the default.</p>
+</li>
+<li>
+<p>Additionally, under <code>build/env</code> we set <code>QS_USE_RHOSAK</code> to <code>1</code> which makes the script in <a href="src/main/scripts/rhosak/s2i/install.sh"><code>src/main/scripts/rhosak/s2i/install.sh</code></a> copy the contents of the directory, which in turn runs the <a href=""><code>src/main/scripts/rhosak/s2i/initialize-server.cli</code></a> CLI script to enable the service binding and points relevant MicroProfile Config properties to the service binding via the <code>microprofile-config-smallrye</code> subsystem.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Run <code>oc get route</code> find the URL of our application.</p>
 </div>
 </div>
 </div>
@@ -2256,6 +2554,51 @@ Push successful</pre>
                   &lt;/plugin&gt;
               &lt;/plugins&gt;
           &lt;/build&gt;
+      &lt;/profile&gt;
+      &lt;profile&gt;
+          &lt;id&gt;os-jar-amq-streams&lt;/id&gt;
+          &lt;build&gt;
+              &lt;plugins&gt;
+                  &lt;plugin&gt;
+                      &lt;groupId&gt;org.eclipse.jkube&lt;/groupId&gt;
+                      &lt;artifactId&gt;openshift-maven-plugin&lt;/artifactId&gt;
+                      &lt;version&gt;${version.jkube.maven.plugin}&lt;/version&gt;
+                      &lt;configuration&gt;
+                          &lt;resources&gt;
+                              &lt;env&gt;
+                                &lt;!-- Set the AMQ Streams URL to what is set up by the instructions --&gt;
+                                  &lt;MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS&gt;my-cluster-kafka-bootstrap:9092&lt;/MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS&gt;
+                              &lt;/env&gt;
+                          &lt;/resources&gt;
+                      &lt;/configuration&gt;
+                  &lt;/plugin&gt;
+              &lt;/plugins&gt;
+          &lt;/build&gt;
+      &lt;/profile&gt;
+      &lt;profile&gt;
+          &lt;!-- Extra parameters needed for RHOSAK with bootable jar --&gt;
+          &lt;id&gt;os-jar-rhosak&lt;/id&gt;
+          &lt;build&gt;
+              &lt;plugins&gt;
+                  &lt;plugin&gt;
+                      &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
+                      &lt;artifactId&gt;wildfly-jar-maven-plugin&lt;/artifactId&gt;
+                      &lt;version&gt;${version.wildfly-jar.maven.plugin}&lt;/version&gt;
+                      &lt;configuration&gt;
+                          &lt;cli-sessions&gt;
+                              &lt;cli-session&gt;
+                                  &lt;!-- do not resolve expression as they reference env vars that --&gt;
+                                  &lt;!-- can be set at runtime --&gt;
+                                  &lt;resolve-expressions&gt;false&lt;/resolve-expressions&gt;
+                                  &lt;script-files&gt;
+                                      &lt;script&gt;src/main/scripts/bootable-jar/initialize-server.cli&lt;/script&gt;
+                                  &lt;/script-files&gt;
+                              &lt;/cli-session&gt;
+                          &lt;/cli-sessions&gt;
+                      &lt;/configuration&gt;
+                  &lt;/plugin&gt;
+              &lt;/plugins&gt;
+          &lt;/build&gt;
       &lt;/profile&gt;</code></pre>
 </div>
 </div>
@@ -2274,14 +2617,89 @@ Push successful</pre>
 </div>
 </li>
 <li>
-<p>Install AMQ Streams into the <code>bootable-jar-project</code> OpenShift project as outlined <a href="#install_amq_streams">earlier</a>  in this quickstart. Note that the <code>MP_MESSAGING_CONNECTOR_SMALLRYE_KAFKA_BOOTSTRAP_SERVERS</code> environment variable in the pom.xml assume you have used the indicated name for your AMQ Streams cluster.</p>
+<p>Depending on which kind of Kafka you would like:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha">
+<li>
+<p>Install <strong>AMQ Streams</strong> into the <code>bootable-jar-project</code> OpenShift project as outlined <a href="#install_amq_streams">earlier</a>  in this quickstart.</p>
+</li>
+<li>
+<p>Set up a Kafka instance on <strong>RHOSAK</strong>, and connect it to the <code>mp-rm-qs</code> application as outlined <a href="#install_rhosak">earlier</a>  in this quickstart. The <code>os-jar-rhosak</code> profile in the pom.xml triggers running the <code>src/main/scripts/bootable-jar/initialize-server.cli</code> when preparing the bootable jar, so that the config map and service binding become part of the configuration provided by the <code>microprofile-config-smallrye</code> subsystem.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Build the quickstart bootable JAR by issuing the following command. This command also completes the following tasks: creates the OpenShift deployment, service and route; generates a docker image and pushes the docker image to OpenShift; and runs the application.</p>
+<div class="paragraph">
+<p>The command to deploy the application is slightly different depending on which Kafka installation you want to target.</p>
+</div>
+<div class="paragraph">
+<p>First add the Helm repository, if you have not done so already, as described in <a href="https://jbossas.github.io/eap-charts/" class="bare">https://jbossas.github.io/eap-charts/</a>.</p>
+</div>
+<div class="paragraph">
+<p>Then, either:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha">
+<li>
+<p>If you are targeting Kafka supplied by <strong>AMQ Streams</strong>, use the following command:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn oc:deploy -Pbootable-jar-openshift</code></pre>
+<pre class="highlight nowrap"><code>$ helm install mp-rm-qs -f ./helm-bootable-jar-amq-streams.yml jboss-eap/eap-xp4 --set build.uri=https://github.com/jboss-developer/jboss-eap-quickstarts.git --set build.ref=XP_4.0.0.GA</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The contents of <a href="./helm-bootable-jar-amq-streams.yml"><code>helm-bootable-jar-amq-streams.yml</code></a> are mostly similar to what was discussed for <a href="./helm-amq-streams.yml"><code>helm-amq-streams.yml</code></a> earlier. The main difference is that <code>build.mode</code> is set to <code>bootable-jar</code>, and we specify <code>-Pbootable-jar-openshift</code> in the <code>MAVEN_ARGS_APPEND</code> environment variable to trigger the <code>bootable-jar-openshift</code> Maven profile when building the bootable jar.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Although the above command will return quite quickly, it will take a while until the application pod is actually brought up. In the OpenShift console you will see a pod whose name starts with {hemlAppName} in the <code>ErrImagePull</code> or <code>ImagePullBackoff</code> state until the build has completed.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>If you are targeting Kafka supplied by <strong>RHOSAK</strong>, use the following commands.</p>
+<div class="paragraph">
+<p>Then install our application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm install mp-rm-qs -f ./helm-bootable-jar-rhosak.yml jboss-eap/eap-xp4 --set build.uri=https://github.com/jboss-developer/jboss-eap-quickstarts.git --set build.ref=XP_4.0.0.GA</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The contents of <a href="./helm-bootable-jar-rhosak.yml"><code>helm-bootable-jar-rhosak.yml</code></a> are mostly similar to what was discussed for <a href="./helm-rhosak.yml"><code>helm-rhoask.yml</code></a> earlier. The main difference is that <code>build.mode</code> is set to <code>bootable-jar</code>, and we specify <code>-Pbootable-jar-openshift,os-jar-rhosak</code> in the <code>MAVEN_ARGS_APPEND</code> environment variable to trigger the <code>bootable-jar-openshift</code> and <code>os-jar-rhosak</code> Maven profiles when building the bootable jar. For this combination we don&#8217;t need the <code>QS_USE_RHOSAK</code> environment variable as the <code>os-jar-rhosak</code> contains the CLI script needed to configure the config map and service binding.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Although the above command will return quite quickly, it will take a while until the application pod is actually brought up. In the OpenShift console you will see a pod whose name starts with {hemlAppName} in the <code>ErrImagePull</code> or <code>ImagePullBackoff</code> state until the build has completed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once the CLI returns, remember to bind the RHOSAK Kafka connection so the service binding is available and the <code>/bindings/kafka-config</code> directory gets created on the application pod:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>rhoas cluster bind --app-name mp-rm-qs  --binding-name kafka-config --yes</code></pre>
+</div>
+</div>
+</li>
+</ol>
 </div>
 </li>
 <li>
@@ -2334,7 +2752,7 @@ Push successful</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-29 13:16:24 UTC
+Last updated 2022-04-04 13:05:11 UTC
 </div>
 </div>
 </body>

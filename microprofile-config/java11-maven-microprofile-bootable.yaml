@@ -8,7 +8,7 @@ projects:
     source:
       sparseCheckoutDir: microprofile-config
       location: "https://github.com/jboss-developer/jboss-eap-quickstarts.git"
-      branch: "xp-3.0.x"
+      branch: "xp-4.0.x"
       type: git
 components:
   -
@@ -22,7 +22,7 @@ components:
   -
     type: dockerimage
     alias: maven
-    image:  'registry.redhat.io/ubi8/openjdk-11:1.3'
+    image: registry.redhat.io/ubi8/openjdk-11:latest
     env:
       - name: MAVEN_OPTS
         value: "-Xmx200m -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom -Duser.home=/home/jboss"
@@ -42,43 +42,38 @@ components:
     volumes:
       - name: m2
         containerPath: /home/jboss/.m2
-    command:
-      - bash
-    args:
-      - '-c'
-      - 'sed "/^jboss/s/[^:]*/$(id -u)/3" /etc/passwd > "$HOME/passwd" && tail -f > /dev/null'
 commands:
   -
     name: 1. Build
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-bootable-quickstart/microprofile-config'
         type: exec
-        command: mvn -Pbootable-jar clean package -Ddev
+        command: mvn -Pbootable-jar  clean package
         component: maven
   -
     name: 2. Run
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-bootable-quickstart/microprofile-config'
         type: exec
-        command:  'mvn -Pbootable-jar -Dwildfly.bootable.arguments="-b=0.0.0.0" org.wildfly.plugins:wildfly-jar-maven-plugin:dev && BOOTABLE_XP_PID=$(jps | grep microprofile-config-bootable.jar | awk ''{print $1}'') && while [[ ( -d /proc/$BOOTABLE_XP_PID ) && ( -z `grep zombie /proc/$BOOTABLE_XP_PID/status` ) ]]; do sleep 1; done'
+        command: mvn -Pbootable-jar -Dwildfly.bootable.arguments="-b=0.0.0.0"  org.wildfly.plugins:wildfly-jar-maven-plugin:run
         component: maven
   -
     name: 3. Build and run in debug
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-bootable-quickstart/microprofile-config'
         type: exec
-        command: mvn -Pbootable-jar -Dwildfly.bootable.arguments="-b=0.0.0.0" -Dwildfly.bootable.jvmArguments="-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=n" clean org.wildfly.plugins:wildfly-jar-maven-plugin:dev && 
+        command: mvn -Pbootable-jar  -Dwildfly.bootable.arguments="-b=0.0.0.0" -Dwildfly.bootable.jvmArguments="-agentlib:jdwp=transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=n" clean org.wildfly.plugins:wildfly-jar-maven-plugin:dev && 
           mvn package -Ddev -Pbootable-jar && BOOTABLE_XP_PID=$(jps | grep microprofile-config-bootable.jar | awk '{print $1}') && while [[ ( -d /proc/$BOOTABLE_XP_PID ) && ( -z `grep zombie /proc/$BOOTABLE_XP_PID/status` ) ]]; do sleep 1; done 
         component: maven
   -
-    name: 4. Hot update Run and Debug
+    name: 4. Hot update
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-bootable-quickstart/microprofile-config'
         type: exec
-        command: mvn package -Pbootable-jar -Ddev
+        command: mvn package -Ddev  -Pbootable-jar
         component: maven
   -
-    name: 5. Stop server to switch between Run and Debug
+    name: 5. Stop server
     actions:
       - workdir: '${CHE_PROJECTS_ROOT}/jboss-eap-xp-bootable-quickstart/microprofile-config'
         type: exec
