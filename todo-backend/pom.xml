@@ -194,8 +194,8 @@
                                     <location>org.jboss.eap:wildfly-galleon-pack:${version.server.bootable-jar}</location>
                                 </feature-pack>
                                 <feature-pack>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-datasources-galleon-pack</artifactId>
+                                    <groupId>org.jboss.eap</groupId>
+                                    <artifactId>eap-datasources-galleon-pack</artifactId>
                                     <version>${version.wildfly-datasources-galleon-pack}</version>
                                 </feature-pack>
                             </feature-packs>
