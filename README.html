@@ -446,33 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#system_requirements">2. System Requirements</a></li>
 <li><a href="#use_of_product_home_and_jboss_home_variables">3. Use of EAP_HOME and QUICKSTART_HOME Variables</a></li>
 <li><a href="#suggested_approach_to_the_quickstarts">4. Suggested Approach to the Quickstarts</a></li>
-<li><a href="#run_the_quickstarts">5. Run the Quickstarts Using the Maven Command Line</a>
-<ul class="sectlevel2">
-<li><a href="#build_the_quickstart_archive">5.1. Build the Quickstart Archive</a></li>
-<li><a href="#build_and_deploy_the_quickstart">5.2. Build and Deploy the Quickstart</a></li>
-<li><a href="#undeploy_the_quickstart">5.3. Undeploy an Quickstart</a></li>
-</ul>
-</li>
-<li><a href="#getting_started_with_openshift_overview">6. Getting Started with JBoss EAP for OpenShift</a></li>
-<li><a href="#use_red_hat_codeready_workspaces_or_eclipse_che_to_run_the_quickstarts">7. Use Red Hat CodeReady Workspaces or Eclipse Che</a>
-<ul class="sectlevel2">
-<li><a href="#_what_is_a_devfile">7.1. What is a devfile</a></li>
-<li><a href="#_how_to_use_those_devfiles">7.2. How to use those devfiles</a>
-<ul class="sectlevel3">
-<li><a href="#where_to_find_information">7.2.1. Where to Find Information</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#run_the_quickstarts_in_jboss_developer_studio_or_eclipse">8. Run the Quickstarts in Red Hat CodeReady Studio or Eclipse</a></li>
-<li><a href="#optional_components">9. Configure Optional Components</a>
-<ul class="sectlevel2">
-<li><a href="#create_quickstart_users">9.1. Create Quickstart Users</a></li>
-<li><a href="#configure_postgresql">9.2. Configure the PostgreSQL Database</a></li>
-<li><a href="#configure_byteman">9.3. Configure Byteman</a></li>
-</ul>
-</li>
-<li><a href="#available_quickstarts">10. Table of Available Quickstarts</a></li>
+<li><a href="#available_quickstarts">5. Table of Available Quickstarts</a></li>
 </ul>
 </div>
 </div>
@@ -481,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="quoteblock abstract">
 <blockquote>
-The quickstarts demonstrate Jakarta EE 8 and a few additional technologies from the Red Hat JBoss Enterprise Application Platform stack. They provide small, specific, working examples that can be used as a reference for your own project.
+The quickstarts demonstrate Jakarta EE 10 and a few additional technologies from the Red Hat JBoss Enterprise Application Platform stack. They provide small, specific, working examples that can be used as a reference for your own project.
 </blockquote>
 </div>
 </div>
@@ -490,10 +464,10 @@ The quickstarts demonstrate Jakarta EE 8 and a few additional technologies from 
 <h2 id="introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These quickstarts run on Red Hat JBoss Enterprise Application Platform 7.4. Each quickstart folder contains a <code>README.html</code> file that describes the quickstart features and provides instructions about how to build and run it.</p>
+<p>These quickstarts run on Red Hat JBoss Enterprise Application Platform 8.0. Each quickstart folder contains a <code>README.html</code> file that describes the quickstart features and provides instructions about how to build and run it.</p>
 </div>
 <div class="paragraph">
-<p>We recommend that you use the <strong>Red Hat JBoss Enterprise Application Platform 7.4 Quickstarts</strong> ZIP file, which you can download from the <a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&amp;downloadType=distributions">JBoss EAP Software Download</a> page on the Red Hat Customer Portal. This version of the quickstarts uses the correct dependencies and ensures that you test and compile against the correct server runtime environment.</p>
+<p>We recommend that you use the <strong>Red Hat JBoss Enterprise Application Platform 8.0 Quickstarts</strong> ZIP file, which you can download from the <a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&amp;downloadType=distributions">JBoss EAP Software Download</a> page on the Red Hat Customer Portal. This version of the quickstarts uses the correct dependencies and ensures that you test and compile against the correct server runtime environment.</p>
 </div>
 <div class="paragraph">
 <p>Each quickstart folder contains a <code>README.html</code> file that describes the quickstart features and provides instructions about how to build and run it.</p>
@@ -507,10 +481,10 @@ The quickstarts demonstrate Jakarta EE 8 and a few additional technologies from 
 <h2 id="system_requirements">2. System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 7.4 or later.</p>
+<p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform 8.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build these projects is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later.</p>
+<p>All you need to build these projects is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later.</p>
 </div>
 </div>
 </div>
@@ -547,276 +521,10 @@ The quickstarts demonstrate Jakarta EE 8 and a few additional technologies from 
 </div>
 </div>
 <div class="sect1">
-<h2 id="run_the_quickstarts">5. Run the Quickstarts Using the Maven Command Line</h2>
+<h2 id="available_quickstarts">5. Table of Available Quickstarts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The root folder of each individual quickstart contains a <code>README</code> file with specific details on how to build and run the example. In most cases you do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/START_JBOSS_EAP.adoc#start_the_jboss_eap_server">Start the JBoss EAP server</a>.</p>
-</li>
-<li>
-<p>Optionally, you can <a href="#build_the_quickstart_archive">build the quickstart archive</a> to test for compile errors.</p>
-</li>
-<li>
-<p><a href="#build_and_deploy_the_quickstart">Build and deploy the quickstart</a>.</p>
-</li>
-<li>
-<p><a href="#undeploy_the_quickstart">Undeploy the quickstart</a> when you are finished testing.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-See the <code>README</code> file in each individual quickstart folder for specific details and information on how to run and access the example.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="build_the_quickstart_archive">5.1. Build the Quickstart Archive</h3>
-<div class="paragraph">
-<p>You can follow these steps to build the application to test for compile errors or to view the contents of the archive. See the specific quickstart <code>README</code> file for complete details.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open a terminal and navigate to the root directory of the quickstart you want to build.</p>
-</li>
-<li>
-<p>Use the following command if you only want to build the archive, but not deploy it.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean install</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="build_and_deploy_the_quickstart">5.2. Build and Deploy the Quickstart</h3>
-<div class="paragraph">
-<p>This section describes the basic steps to build and deploy an application. See the specific instructions in each quickstart <code>README</code> file for any variations to this process.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make sure you start the JBoss EAP server as described in the quickstart <code>README</code> file.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of the quickstart you want to run.</p>
-</li>
-<li>
-<p>Use the following command to build and deploy the archive.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean install wildfly:deploy</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="undeploy_the_quickstart">5.3. Undeploy an Quickstart</h3>
-<div class="paragraph">
-<p>Use the following command to undeploy the quickstart.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="getting_started_with_openshift_overview">6. Getting Started with JBoss EAP for OpenShift</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Each quickstart <code>README.html</code> file contains the basic instructions to build and deploy the quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html-single/getting_started_with_jboss_eap_for_openshift_container_platform/"><em>Getting Started with JBoss EAP for OpenShift Container Platform</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html-single/getting_started_with_jboss_eap_for_openshift_online/"><em>Getting Started with JBoss EAP for OpenShift Online</em></a> for more detailed information about building and running applications on JBoss EAP for OpenShift Online.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="use_red_hat_codeready_workspaces_or_eclipse_che_to_run_the_quickstarts">7. Use Red Hat CodeReady Workspaces or Eclipse Che</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_what_is_a_devfile">7.1. What is a devfile</h3>
-<div class="literalblock">
-<div class="content">
-<pre>A devfile is a file that describes and define a development environment:</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The source code.</p>
-</li>
-<li>
-<p>The development components, such as browser IDE tools and application runtimes.</p>
-</li>
-<li>
-<p>A list of pre-defined commands.</p>
-</li>
-<li>
-<p>Projects to clone.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>A devfiles is a YAML file that CodeReady Workspaces consumes and transforms into a cloud workspace composed of multiple containers. You can find more details in <a href="https://access.redhat.com/documentation/en-us/red_hat_codeready_workspaces/2.8/html-single/end-user_guide/index#configuring-a-workspace-using-a-devfile_crw">the End-user Guide for Red Hat CodeReady Workspaces</a>.</p>
-</div>
-<div class="paragraph">
-<p>We provide sample Red Hat CodeReady Workspaces or Eclipse Che devfiles to build and run the <strong>kitchensink-jsp</strong> Quickstart with this cloud IDE.</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-The devfiles provided are <strong>UNSUPPORTED</strong>. They are provided as examples only.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_how_to_use_those_devfiles">7.2. How to use those devfiles</h3>
-<div class="paragraph">
-<p>To create your workspace you can either copy and paste the content from our devfiles accessible at <a href="https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java8-maven-eap.yaml">crw-java8-maven-eap.yaml</a> and <a href="https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java11-maven-eap.yaml">crw-java11-maven-eap.yaml</a>.</p>
-</div>
-<div class="paragraph">
-<p>Another solution is to paste the URL:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java8-maven-eap.yaml" class="bare">https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java8-maven-eap.yaml</a></p>
-</li>
-<li>
-<p><a href="https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java11-maven-eap.yaml" class="bare">https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java11-maven-eap.yaml</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>and let the IDE download the files.</p>
-</div>
-<div class="paragraph">
-<p>If you want to try this Quickstart on the <a href="https://developers.redhat.com/developer-sandbox">Developer Sandbox for Red Hat OpenShift</a> you can use the following links :</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://workspaces.openshift.com/f?url=https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java8-maven-eap.yaml">EAP on Developer Sandbox Java 8</a></p>
-</li>
-<li>
-<p><a href="https://workspaces.openshift.com/f?url=https://raw.githubusercontent.com/jboss-developer/jboss-eap-quickstarts/7.4.x/kitchensink-jsp/crw-java11-maven-eap.yaml">EAP on Developer Sandbox Java 11</a></p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-When using the Java 8 devfile, you must not install the Java11 plugin in your workspace as it will conflict with the selected Java8 plugin and this will break debugging (see <a href="https://issues.redhat.com/browse/CRW-1789">CRW-1789</a> for more details). So don&#8217;t install the proposed plugins when you are prompted.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect3">
-<h4 id="where_to_find_information">7.2.1. Where to Find Information</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>For information about how to download and install Red Hat CodeReady Workspaces, see the <a href="https://access.redhat.com/documentation/en-us/red_hat_codeready_workspaces/2.8/html-single/installation_guide/">Installation Guide</a>.</p>
-</li>
-<li>
-<p>For information about how to configure JBoss EAP within Red Hat CodeReady Workspaces, see <a href="https://access.redhat.com/documentation/en-us/red_hat_codeready_workspaces/2.8/html-single/end-user_guide/index">End-user Guide</a>.</p>
-</li>
-<li>
-<p>For information about how to import the quickstarts into Red Hat CodeReady Workspaces, and for examples of how to build and deploy a basic quickstart, see <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html-single/getting_started_guide/#using_the_quickstart_examples">Using the Quickstart Examples</a> in the <em>Getting Started Guide</em> for JBoss EAP.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>See <a href="https://developers.redhat.com/products/codeready-workspaces/overview">Red Hat CodeReady Workspaces</a> on the Red Hat Developer Program website for additional information.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_quickstarts_in_jboss_developer_studio_or_eclipse">8. Run the Quickstarts in Red Hat CodeReady Studio or Eclipse</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.adoc#use_red_hat_jboss_developer_studio_or_eclipse_to_run_the_quickstarts">Use Red Hat CodeReady Studio or Eclipse to Run the Quickstarts</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="optional_components">9. Configure Optional Components</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The following components are needed for only a small subset of the quickstarts. Do not install or configure them unless the quickstart requires it.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#create_quickstart_users">Create Quickstart Users</a></p>
-</li>
-<li>
-<p><a href="#configure_postgresql">Configure the PostgreSQL Database</a></p>
-</li>
-<li>
-<p><a href="#configure_byteman">Configure Byteman</a></p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="create_quickstart_users">9.1. Create Quickstart Users</h3>
-<div class="paragraph">
-<p>Some of the quickstarts, particularly those that run in a secured mode and demonstrate security, require that you create quickstart users with different roles for authorization purposes. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.adoc#create_users_required_by_the_quickstarts">Create Users Required by the Quickstarts</a> for detailed instructions to create users required by the quickstarts.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configure_postgresql">9.2. Configure the PostgreSQL Database</h3>
-<div class="paragraph">
-<p>Some of the quickstarts that demonstrate transactions require that you install and configure the PostgreSQL database. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_POSTGRESQL_JBOSS_EAP.adoc#configure_the_postgresql_database_for_use_with_the_quickstarts">Configure the PostgreSQL Database for Use with the Quickstarts</a> for instructions.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configure_byteman">9.3. Configure Byteman</h3>
-<div class="paragraph">
-<p>A few of the quickstarts use <em>Byteman</em> to demonstrate distributed transaction processing and crash recovery. See  <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_BYTEMAN.adoc#configure_byteman_for_use_with_the_quickstarts">Configure Byteman for Use with the Quickstarts</a> for instructions.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="available_quickstarts">10. Table of Available Quickstarts</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>All available quickstarts, which are listed in the following table, can be found here: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/" class="bare">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>.</p>
+<p>The sources for all available quickstarts, which are listed in the following table, can be found here: <a href="https://github.com/jboss-developer/jboss-eap-quickstarts/" class="bare">https://github.com/jboss-developer/jboss-eap-quickstarts/</a>.</p>
 </div>
 <div class="paragraph">
 <p>Each quickstart provides the list of technologies demonstrated by the quickstart and the required experience level needed to build and deploy it. Click on the quickstart link in the table to see more detailed information about how to run it. Some quickstarts require deployment of other quickstarts. This information is noted in the <code>Prerequisites</code> section of the quickstart <code>README.html</code> file.</p>
@@ -854,46 +562,6 @@ Some of these quickstarts use the H2 database included with WildFly. It is a lig
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="app-client/README.html">app-client</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, EAR, AppClient</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>app-client</code> quickstart demonstrates how to code and package a client app and use the JBoss EAP client container to start the client <code>Main</code> program.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="batch-processing/README.html">batch-processing</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, Batch 1.0, JSF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>batch-processing</code> quickstart shows how to use chunk oriented batch jobs to import a file to a database.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="bean-validation/README.html">bean-validation</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JPA, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>bean-validation</code> quickstart provides Arquillian tests to demonstrate how to use CDI, JPA, and Bean Validation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="bean-validation-custom-constraint/README.html">bean-validation-custom-constraint</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JPA, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>bean-validation-custom-constraint</code> quickstart demonstrates how to use the Bean Validation API to define custom constraints and validators.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="bmt/README.html">bmt</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, BMT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>bmt</code> quickstart demonstrates Bean-Managed Transactions (BMT), showing how to manually manage transaction demarcation while accessing JPA entities.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="cmt/README.html">cmt</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EJB, CMT, JMS</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
@@ -902,243 +570,27 @@ Some of these quickstarts use the H2 database included with WildFly. It is a lig
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="contacts-jquerymobile/README.html">contacts-jquerymobile</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">jQuery Mobile, jQuery, JavaScript, HTML5, REST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ee-security/README.html">ee-security</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EE Security, Servlet, CDI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>contacts-jquerymobile</code> quickstart demonstrates a Jakarta EE 8 mobile database application using HTML5, jQuery Mobile, JAX-RS, JPA, and REST.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-asynchronous/README.html">ejb-asynchronous</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Asynchronous EJB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-asynchronous</code> quickstart demonstrates the behavior of asynchronous EJB invocations by a deployed EJB and a remote client and how to handle errors.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-in-ear/README.html">ejb-in-ear</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, EAR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-in-ear</code> quickstart demonstrates how to deploy an EAR archive that contains a <strong>JSF</strong> WAR and an EJB JAR.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ee-security</code> quickstart demonstrates Jakarta EE security.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-in-war/README.html">ejb-in-war</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, JSF, WAR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-in-war</code> quickstart demonstrates how to package an EJB bean in a WAR archive and deploy it to JBoss EAP. Arquillian tests are also provided.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-multi-server/README.html">ejb-multi-server</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, EAR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-multi-server</code> quickstart shows how to communicate between multiple applications deployed to different servers using an EJB to log the invocation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-remote/README.html">ejb-remote</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, JNDI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-remote</code> quickstart uses EJB and JNDI to demonstrate how to access an EJB, deployed to JBoss EAP, from a remote Java client application.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-security/README.html">ejb-security</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-security</code> quickstart demonstrates the use of Jakarta EE declarative security to control access to EJBs in JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-security-context-propagation/README.html">ejb-security-context-propagation</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-security-context-propagation</code> quickstart demonstrates how the security context can be propagated to a remote EJB using a remote outbound connection configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-security-jaas/README.html">ejb-security-jaas</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-security-jaas</code> quickstart demonstrates how legacy <code>JAAS</code> security domains can be used in conjunction with <code>Elytron</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-security-programmatic-auth/README.html">ejb-security-programmatic-auth</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-security-programmatic-auth</code> quickstart demonstrates how to programmatically setup different identities when invoking a remote secured EJB.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-throws-exception/README.html">ejb-throws-exception</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, EAR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-throws-exception</code> quickstart demonstrates how to throw and handle exceptions across JARs in an EAR.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-timer/README.html">ejb-timer</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB Timer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-timer</code> quickstart demonstrates how to use the EJB timer service <code>@Schedule</code> and <code>@Timeout</code> annotations with JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ejb-txn-remote-call/README.html">ejb-txn-remote-call</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, JTA, Clustering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ejb-txn-remote-call</code> quickstart demonstrates remote transactional EJB calls over two application servers of JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="greeter/README.html">greeter</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JTA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>greeter</code> quickstart demonstrates the use of CDI, JPA, JTA, EJB and JSF in JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ha-singleton-deployment/README.html">ha-singleton-deployment</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, Singleton Deployments, Clustering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ha-singleton-deployment</code> quickstart demonstrates the recommended way to deploy any service packaged in an application archive as a cluster-wide singleton.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="ha-singleton-service/README.html">ha-singleton-service</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JBoss MSC, Singleton Service, Clustering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>ha-singleton-service</code> quickstart demonstrates how to deploy a cluster-wide singleton JBoss MSC service.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld/README.html">helloworld</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, Servlet</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld</code> quickstart demonstrates the use of CDI and Servlet 3 and is a good starting point to verify JBoss EAP is configured correctly.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-html5/README.html">helloworld-html5</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JAX-RS, HTML5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-html5</code> quickstart demonstrates the use of CDI 1.2 and JAX-RS 2.0 using the HTML5 architecture and RESTful services on the backend.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-jms/README.html">helloworld-jms</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JMS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-jms</code> quickstart demonstrates the use of external JMS clients with JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mbean/README.html">helloworld-mbean</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JMX, MBean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mbean</code> quickstart demonstrates the use of CDI and MBean in JBoss EAP and includes JConsole instructions and Arquillian tests.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mdb/README.html">helloworld-mdb</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JMS, EJB, MDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mdb</code> quickstart uses JMS and EJB Message-Driven Bean (MDB) to create and deploy JMS topic and queue resources in JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mdb-propertysubstitution/README.html">helloworld-mdb-propertysubstitution</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JMS, EJB, MDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mdb-propertysubstitution</code> quickstart demonstrates the use of JMS and EJB MDB, enabling property substitution with annotations.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mutual-ssl/README.html">helloworld-mutual-ssl</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mutual SSL, Undertow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mutual-ssl</code> quickstart is a basic example that demonstrates mutual SSL configuration in JBoss EAP</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mutual-ssl-secured/README.html">helloworld-mutual-ssl-secured</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mutual SSL, Security, Undertow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-mutual-ssl-secured</code> quickstart demonstrates securing a Web application using client mutual SSL authentication and role-based access control</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-rs/README.html">helloworld-rs</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JAX-RS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-rs</code> quickstart demonstrates a simple Hello World application, bundled and deployed as a WAR, that uses JAX-RS to say Hello.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-singleton/README.html">helloworld-singleton</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, Singleton</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-singleton</code> quickstart demonstrates an EJB Singleton Bean that is instantiated once and maintains state for the life of the session.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-ssl/README.html">helloworld-ssl</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSL, Undertow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-ssl</code> quickstart is a basic example that demonstrates server side SSL configuration in JBoss EAP.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld</code> quickstart demonstrates the use of CDI and Servlet 6 and is a good starting point to verify JBoss EAP is configured correctly.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-ws/README.html">helloworld-ws</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>helloworld-ws</code> quickstart demonstrates a simple Hello World application, bundled and deployed as a WAR, that uses JAX-WS to say Hello.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="hibernate/README.html">hibernate</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hibernate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>hibernate</code> quickstart demonstrates how to use Hibernate ORM 5 API over JPA, using Hibernate-Core and Hibernate Bean Validation, and EJB.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="inter-app/README.html">inter-app</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EJB, CDI, JSF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>inter-app</code> quickstart shows you how to use a shared API JAR and an EJB to provide inter-application communication between two WAR deployments.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
@@ -1150,155 +602,11 @@ Some of these quickstarts use the H2 database included with WildFly. It is a lig
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jaxws-addressing/README.html">jaxws-addressing</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jaxws-addressing</code> quickstart is a working example of the web service using WS-Addressing.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jaxws-ejb/README.html">jaxws-ejb</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jaxws-ejb</code> quickstart is a working example of the web service endpoint created from an EJB.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jaxws-pojo/README.html">jaxws-pojo</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jaxws-pojo</code> quickstart is a working example of the web service endpoint created from a POJO.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jaxws-retail/README.html">jaxws-retail</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jaxws-retail</code> quickstart is a working example of a simple web service endpoint.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jsonp/README.html">jsonp</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JSON-P</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jsonp</code> quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jta-crash-rec/README.html">jta-crash-rec</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JTA, Crash Recovery</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jta-crash-rec</code> quickstart uses JTA and Byteman to show how to code distributed (XA) transactions in order to preserve ACID properties on server crash.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jts/README.html">jts</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JTS, EJB, JMS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jts</code> quickstart shows how to use JTS to perform distributed transactions across multiple containers, fulfilling the properties of an ACID transaction.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="cmt/README.html">cmt</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jts-distributed-crash-rec/README.html">jts-distributed-crash-rec</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JTS, Crash Recovery</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>jts-distributed-crash-rec</code> quickstart uses JTS and Byteman to demonstrate distributed crash recovery across multiple application servers.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="jts/README.html">jts</a></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink/README.html">kitchensink</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JAX-RS, BV</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink</code> quickstart demonstrates a Jakarta EE 8 web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink</code> quickstart demonstrates a Jakarta EE 10 web-enabled database application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-angularjs/README.html">kitchensink-angularjs</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AngularJS, CDI, JPA, EJB, JPA, JAX-RS, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-angularjs</code> quickstart demonstrates a Jakarta EE 8 application using AngularJS with JAX-RS, CDI, EJB, JPA, and Bean Validation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-ear/README.html">kitchensink-ear</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JAX-RS, BV, EAR</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-ear</code> quickstart demonstrates web-enabled database application, using JSF, CDI, EJB, JPA, and Bean Validation, packaged as an EAR.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-jsp/README.html">kitchensink-jsp</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSP, JSTL, CDI, JPA, EJB, JAX-RS, BV</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-jsp</code> quickstart demonstrates how to use JSP, JSTL, CDI, EJB, JPA, and Bean Validation in JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="kitchensink-ml/README.html">kitchensink-ml</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF, JPA, EJB, JAX-RS, BV, i18n, l10n</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>kitchensink-ml</code> quickstart demonstrates a localized Jakarta EE 8 compliant application using JSF, CDI, EJB, JPA, and Bean Validation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="logging/README.html">logging</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Logging</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>logging</code> quickstart demonstrates how to configure different logging levels in JBoss EAP. It also includes an asynchronous logging example.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="logging-tools/README.html">logging-tools</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JBoss Logging Tools</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>logging-tools</code> quickstart shows how to use JBoss Logging Tools to create internationalized loggers, exceptions, and messages and localize them.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mail/README.html">mail</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JavaMail, CDI, JSF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>mail</code> quickstart demonstrates how to send email using CDI and JSF and the default Mail provider that ships with JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="managed-executor-service/README.html">managed-executor-service</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EE Concurrency Utilities, JAX-RS, JAX-RS Client API</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>managed-executor-service</code> quickstart demonstrates how Jakarta EE applications can submit tasks for asynchronous execution.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="messaging-clustering/README.html">messaging-clustering</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JMS, MDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>messaging-clustering</code> quickstart does not contain any code and instead uses the <code>helloworld-mdb</code> quickstart to demonstrate clustering using ActiveMQ Messaging.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-mdb/README.html">helloworld-mdb</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="messaging-clustering-singleton/README.html">messaging-clustering-singleton</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JMS, MDB, Clustering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>messaging-clustering-singleton</code> quickstart uses a JMS topic and a queue to demonstrate clustering using JBoss EAP messaging with MDB singleton configuration where only one node in the cluster will be active.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
@@ -1310,98 +618,10 @@ Some of these quickstarts use the H2 database included with WildFly. It is a lig
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="payment-cdi-event/README.html">payment-cdi-event</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, JSF</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>payment-cdi-event</code> quickstart demonstrates how to create credit and debit CDI Events in JBoss EAP, using a JSF front-end client.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resteasy-jaxrs-client/README.html">resteasy-jaxrs-client</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JAX-RS, CDI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>resteasy-jaxrs-client</code> quickstart demonstrates an external JAX-RS RestEasy client, which interacts with a JAX-RS Web service that uses CDI and JAX-RS.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="helloworld-rs/README.html">helloworld-rs</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="servlet-async/README.html">servlet-async</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Asynchronous Servlet, CDI, EJB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>servlet-async</code> quickstart demonstrates how to use asynchronous servlets to detach long-running tasks and free up the request processing thread.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="servlet-filterlistener/README.html">servlet-filterlistener</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Servlet Filter, Servlet Listener</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>servlet-filterlistener</code> quickstart demonstrates how to use Servlet filters and listeners in an application.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="servlet-security/README.html">servlet-security</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Servlet, Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>servlet-security</code> quickstart demonstrates the use of Jakarta EE declarative security to control access to Servlets and Security in JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="shopping-cart/README.html">shopping-cart</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SFSB EJB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>shopping-cart</code> quickstart demonstrates how to deploy and run a simple Jakarta EE 8 shopping cart application that uses a stateful session bean (SFSB).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spring-greeter/README.html">spring-greeter</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Spring MVC, JSP, JPA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>spring-greeter</code> quickstart is based on the <code>greeter</code> quickstart, but differs in that it uses Spring MVC for Mapping <code>GET</code> and <code>POST</code> requests.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spring-kitchensink-basic/README.html">spring-kitchensink-basic</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSP, JPA, JSON, Spring, JUnit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>spring-kitchensink-basic</code> quickstart is an example of a Jakarta EE 8 application using JSP, JPA and Spring 5.x.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spring-kitchensink-springmvctest/README.html">spring-kitchensink-springmvctest</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSP, JPA, JSON, Spring, JUnit</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The  <code>spring-kitchensink-springmvctest</code> quickstart demonstrates how to create an MVC application using JSP, JPA and Spring 5.x.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="spring-resteasy/README.html">spring-resteasy</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resteasy, Spring</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>spring-resteasy</code> quickstart demonstrates how to package and deploy a web application that includes resteasy-spring integration.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tasks-jsf/README.html">tasks-jsf</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSF, JPA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>tasks-jsf</code> quickstart demonstrates how to use JPA persistence with JSF as the view layer.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="tasks-rs/README.html">tasks-rs</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JPA, JAX-RS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>tasks-rs</code> quickstart demonstrates how to implement a JAX-RS service that uses JPA persistence.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
@@ -1430,59 +650,11 @@ Some of these quickstarts use the H2 database included with WildFly. It is a lig
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="websocket-client/README.html">websocket-client</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Web Socket, CDI Events, JSON, SSL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Demonstrates use of a Javascript WebSocket client, WebSocket configuration, programmatic binding, and secure WebSocket.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="websocket-endpoint/README.html">websocket-endpoint</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CDI, WebSocket, JSON-P</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Shows how to use WebSockets with JSON to broadcast information to all open WebSocket sessions in JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="websocket-hello/README.html">websocket-hello</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WebSocket, CDI, JSF</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>websocket-hello</code> quickstart demonstrates how to create a simple WebSocket application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wsat-simple/README.html">wsat-simple</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WS-AT, JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>wsat-simple</code> quickstart demonstrates a WS-AT (WS-AtomicTransaction) enabled JAX-WS Web service, bundled as a WAR, and deployed to JBoss EAP.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wsba-coordinator-completion-simple/README.html">wsba-coordinator-completion-simple</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WS-BA, JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>wsba-coordinator-completion-simple</code> quickstart deploys a WS-BA (WS Business Activity) enabled JAX-WS Web service WAR (CoordinatorCompletion protocol).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="wsba-participant-completion-simple/README.html">wsba-participant-completion-simple</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WS-BA, JAX-WS</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>wsba-participant-completion-simple</code> quickstart deploys a WS-BA (WS Business Activity) enabled JAX-WS Web service WAR (ParticipantCompletion Protocol).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="xml-jaxp/README.html">xml-jaxp</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JAXP, SAX, DOM, Servlet</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>xml-jaxp</code> quickstart demonstrates how to use Servlet and JSF to upload an XML file to JBoss EAP and validate and parse it using DOM or SAX.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 </tbody>
@@ -1492,7 +664,7 @@ Some of these quickstarts use the H2 database included with WildFly. It is a lig
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-23 15:59:31 UTC
+Last updated 2022-12-05 17:08:07 UTC
 </div>
 </div>
 </body>

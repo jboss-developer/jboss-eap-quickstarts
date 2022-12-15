@@ -457,8 +457,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#prerequisites">Prerequisites</a></li>
 <li><a href="#deploy-a-postgresql-database-on-openshift">Deploy a PostgreSQL Database on OpenShift</a></li>
-<li><a href="#build-and-deploy-the-backend-on-openshift-with-jboss-eap-s2i">Build and Deploy the Backend on OpenShift with JBoss EAP S2I</a></li>
+<li><a href="#deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</a></li>
+<li><a href="#undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</a></li>
 <li><a href="#environment-variables-for-postgresql">Environment variables for PostgreSQL</a></li>
+<li><a href="#run_the_arquillian_integration_tests_with_openshift">Run the Arquillian Integration Tests with OpenShift</a></li>
 <li><a href="#use-the-todobackend-web-frontend">Use the todobackend Web Frontend</a></li>
 <li><a href="#clean-up">Clean Up</a></li>
 </ul>
@@ -511,10 +513,10 @@ to manage a list of ToDo which are persisted in a database with <code>JPA</code>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 7.4 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build this project is Java 8.0 (Java SDK 1.8) or later and Maven 3.3.1 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>All you need to build this project is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
 </div>
 </div>
 </div>
@@ -524,21 +526,32 @@ to manage a list of ToDo which are persisted in a database with <code>JPA</code>
 <div class="sect2">
 <h3 id="architecture-with-s2i">Architecture with S2I</h3>
 <div class="paragraph">
-<p>This backend is built using JBoss EAP S2I Builder and Runtime images. When the image is built, it provisions the JBoss EAP application server and all the feature packs it needs for its features:</p>
+<p>This backend is built using JBoss EAP S2I Builder and Runtime images.</p>
+</div>
+<div class="paragraph">
+<p>When the image is built, <code>org.jboss.eap.plugins:eap-maven-plugin</code> plugin provisions the JBoss EAP application server and all the feature packs it needs for its features.
+The layers are defined in the <code>pom.xml</code> file in the <code>&lt;configuration&gt;</code> section of the <code>org.jboss.eap.plugins:eap-maven-plugin</code> plugin:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
-  s2i:
-    galleonLayers:
-      - cloud-server
-      - postgresql-datasource</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;layers&gt;
+  &lt;layer&gt;cloud-server&lt;/layer&gt;
+  &lt;layer&gt;postgresql-datasource&lt;/layer&gt;
+&lt;/layers&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The <code>cloud-server</code> layer provides everything needed to run the backend on OpenShift. This also includes access to
 Jakarta EE APIs such as CDI, JAX-RS, JPA, etc. These two layers comes from the JBoss EAP feature pack provided in the
 JBoss EAP S2I builder image.</p>
+</div>
+<div class="paragraph">
+<p>The <code>postgresql-datasource</code> layer provides a JDBC driver and DataSource to connect to a PostgreSQL database. It is also provided by
+the <code>org.jboss.eap:eap-datasources-galleon-pack</code> feature pack.</p>
+</div>
+<div class="paragraph">
+<p>The Git repository for this feature pack is hosted at <a href="https://github.com/jbossas/eap-datasources-galleon-pack" class="bare">https://github.com/jbossas/eap-datasources-galleon-pack</a>.
+It provides JDBC drivers and datasources for different databases but for this quickstart, we will only need the <code>postgresql-datasource</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -591,35 +604,34 @@ these HTTP requests to succeed.</p>
 <div class="sect3">
 <h4 id="configuration-with-jboss-eap-s2i">Configuration with JBoss EAP S2I</h4>
 <div class="paragraph">
-<p>As we use S2I to build the application, we need to provide environment variables that will be used to configure the CORS filters in Undertow.</p>
+<p>As we use S2I to provision the server and build the application, we provide a CLI script that contains all the commands to
+create and configure the CORS filters in Undertow. This script is located in the <code>src/scripts/cors_filters.cli</code>.</p>
 </div>
 <div class="paragraph">
-<p>Each filter requires three environment variables (its name, its header key and value) to define them. So to define an
-HTTP header such as <code>Access-Control-Allow-Methods: GET, POST, OPTION, PUT, DELETE, PATCH</code> we need three environment variables:</p>
+<p>This script is executed at build time and will provide the following HTTP headers to enabled CORS:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>acam_FILTER_RESPONSE_HEADER_NAME=Access-Control-Allow-Methods</code></p>
+<p><code>Access-Control-Allow-Origin: *</code></p>
 </li>
 <li>
-<p><code>acam_FILTER_RESPONSE_HEADER_VALUE=GET, POST, OPTION, PUT, DELETE, PATCH</code></p>
+<p><code>Access-Control-Allow-Methods: GET, POST, OPTION, PUT, DELETE, PATCH</code></p>
 </li>
 <li>
-<p><code>acam_FILTER_REF_NAME=Access-Control-Allow-Methods</code></p>
+<p><code>Access-Control-Allow-Headers: accept, authorization, content-type, x-requested-with</code></p>
+</li>
+<li>
+<p><code>Access-Control-Allow-Credentials: true</code></p>
+</li>
+<li>
+<p><code>Access-Control-Max-Age: 1</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>We need one more environment variable to specify all the filters we want to enabled. The value is the list
-of prefixes we used for each individual filter (such as <code>acam</code> in the example above):</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FILTERS=acao, acam, acah, acac, acma</code></p>
-</li>
-</ul>
+<p>By default, the backend accepts requests from any origin (<code>*</code>). This is only simplicity. It is possible to restrict
+the allowed origin using the environment variable <code>CORS_ORIGIN</code> at runtime.</p>
 </div>
 </div>
 </div>
@@ -641,7 +653,7 @@ of prefixes we used for each individual filter (such as <code>acam</code> in the
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP:</p>
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP and for postgresql:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -649,7 +661,7 @@ of prefixes we used for each individual filter (such as <code>acam</code> in the
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap74         ...             ...             A Helm chart to build and deploy EAP 7.4 applications</code></pre>
+jboss-eap/eap8         ...             ...             A Helm chart to build and deploy EAP 8.0 applications</code></pre>
 </div>
 </div>
 </div>
@@ -658,24 +670,28 @@ jboss-eap/eap74         ...             ...             A Helm chart to build an
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>$ oc new-app postgresql-ephemeral \
-   -p DATABASE_SERVICE_NAME=todos-db \
+   -p DATABASE_SERVICE_NAME=todo-backend-db \
    -p POSTGRESQL_DATABASE=todos</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will create a PostgreSQL database named <code>todos</code> on OpenShift that can be accessed on the port <code>5432</code> on the service <code>todos-db</code>.
-We don&#8217;t need to copy the credentials to connect to the database as we will retrieve them later using the <code>todos-db</code> secret that was created
+<p>This will create a PostgreSQL database named <code>todos</code> on OpenShift that can be accessed on the port <code>5432</code> on the service <code>todo-backend-db</code>.
+We don&#8217;t need to copy the credentials to connect to the database as we will retrieve them later using the <code>todo-backend-db</code> secret that was created
 when the database is deployed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="build-and-deploy-the-backend-on-openshift-with-jboss-eap-s2i">Build and Deploy the Backend on OpenShift with JBoss EAP S2I</h3>
+<h3 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
 <div class="paragraph">
-<p>The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
+<p>Log in to your OpenShift instance using the <code>oc login</code> command.
+The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the root directory of this quickstart and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install todo-backend --set build.ref=EAP_7.4.0.Final -f https://raw.githubusercontent.com/jbossas/eap-charts/main/examples/eap74/todo-backend/todo-backend-s2i.yaml jboss-eap/eap74
+<pre class="highlight nowrap"><code>$ helm install todo-backend -f charts/helm.yaml jboss-eap/eap8
 NAME: todo-backend
 ...
 STATUS: deployed
@@ -683,26 +699,72 @@ REVISION: 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I:</p>
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I on Java 17:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>build:
   uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-  mode: s2i
-  s2i:
-    galleonLayers:
-      - cloud-server
-      - postgresql-datasource</code></pre>
+  ref: 8.0.x
+  contextDir: todo-backend
+deploy:
+  replicas: 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Any configuration specified by this chart is described in its README that is displayed in OpenShift Dev console
-or using the command:</p>
+<p>This will create a new deployment on OpenShift and deploy the application.</p>
+</div>
+<div class="paragraph">
+<p>If you want to see all the configuration elements to customize your deployment you can use the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap74</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap8</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let’s wait for the application to be built and deployed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ oc get deployment todo-backend -w
+NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+todo-backend   1         1         1            0           12s
+...
+todo-backend   1         1         1            1           2m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the URL of the route to the deployment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ oc get route todo-backend -o jsonpath="{.spec.host}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Access the application in your web browser using the displayed URL.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Maven profile named <code>openshift</code> is used by the Helm chart to provision the server with the quickstart deployed on the root web context, and thus the application should be accessed with the URL without the <code>/todo-backend</code> path segment after <code>HOST:PORT</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm uninstall todo-backend</code></pre>
 </div>
 </div>
 </div>
@@ -710,7 +772,6 @@ or using the command:</p>
 <h3 id="environment-variables-for-postgresql">Environment variables for PostgreSQL</h3>
 <div class="paragraph">
 <p>The Helm Chart also contains the environment variables required to connect to the PostgreSQL database.
-In local deployment the credentials were passed directly as the values of the environment variables.
 For OpenShift, we rely on secrets so that the credentials are never copied outside OpenShift:</p>
 </div>
 <div class="listingblock">
@@ -721,24 +782,66 @@ For OpenShift, we rely on secrets so that the credentials are never copied outsi
       valueFrom:
         secretKeyRef:
           key: database-password
-          name: todos-db</code></pre>
+          name: todo-backend-db</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>When the application is deployed, the value for the <code>POSTGRESQL_PASSWORD</code> will be taken from the key <code>database-password</code>
-in the secret <code>todos-db</code>.</p>
+in the secret <code>todo-backend-db</code>.</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s wait for the application to be built and deployed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ oc get deployment/todo-backend -w
+<pre class="highlight nowrap"><code>$ oc get deployment todo-backend -w
 NAME           READY   UP-TO-DATE   AVAILABLE   AGE
-todo-backend   0/3     3            0           31s
+todo-backend   0/1     1            0           31s
 ...
-todo-backend   3/3     3            3           4m31s</code></pre>
+todo-backend   1/1     1            1           4m31s</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_the_arquillian_integration_tests_with_openshift">Run the Arquillian Integration Tests with OpenShift</h3>
+<div class="paragraph">
+<p>This quickstart includes Arquillian integration tests. They are located under the  <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Arquillian integration tests expect a deployed application, so make sure you have deployed the quickstart on OpenShift before you begin.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the integration tests using the following command to run the <code>verify</code> goal with the <code>arq-remote</code> profile activated and the proper URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn clean verify -Parq-remote -Dserver.host=https://$(oc get route todo-backend --template='{{ .spec.host }}')</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The tests are using SSL to connect to the quickstart running on OpenShift. So you need the certificates to be trusted by the machine the tests are run from.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -815,11 +918,11 @@ release "todo-backend" uninstalled</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>$ oc delete all -l template=postgresql-ephemeral-template
-replicationcontroller "todos-db-1" deleted
-service "todos-db" deleted
-deploymentconfig.apps.openshift.io "todos-db" deleted
-$ oc delete secret todos-db
-secret "todos-db" deleted</code></pre>
+replicationcontroller "todo-backend-db-1" deleted
+service "todo-backend-db" deleted
+deploymentconfig.apps.openshift.io "todo-backend-db" deleted
+$ oc delete secret todo-backend-db
+secret "todo-backend-db" deleted</code></pre>
 </div>
 </div>
 </div>
@@ -838,7 +941,7 @@ of a JBoss EAP Jakarta EE backend on OpenShift to connect to an external databas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-06-23 15:53:26 UTC
+Last updated 2022-12-05 17:06:40 UTC
 </div>
 </div>
 </body>
