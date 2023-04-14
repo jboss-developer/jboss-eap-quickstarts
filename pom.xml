@@ -82,7 +82,7 @@
 
         <!-- Versions of unmanaged dependencies -->
         <version.arquillian.angularjs.graphene>1.2.0.Beta1</version.arquillian.angularjs.graphene>
-        <version.org.json>20150729</version.org.json>
+        <version.org.json>20230227</version.org.json>
         <version.ro.isdc.wro4j>1.7.9</version.ro.isdc.wro4j>
 
         <jboss.developer.drupal.url>http://rhdp-drupal.stage.redhat.com/</jboss.developer.drupal.url>
