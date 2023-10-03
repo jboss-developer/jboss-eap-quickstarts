@@ -784,9 +784,10 @@ The Arquillian tests deploy the application, so make sure you undeploy the quick
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -P bootable-jar-openshift</code></pre>
+<pre class="highlight nowrap"><code>$ mvn clean package -P bootable-jar-openshift -Dorg.jboss.eap.datasources.postgresql.driver.version=42.2.19</code></pre>
 </div>
 </div>
+<p>Here, we also need to provide build time configuration for <code>postgresql-datasource</code>.
 </div>
 <div class="sect2">
 <h3 id="run-a-local-postgresql-database">Run a Local PostgreSQL Database</h3>
