@@ -22,7 +22,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public final class CalleeUser {
+public class CalleeUser {
 
     @Id
     @GeneratedValue
@@ -31,7 +31,7 @@ public final class CalleeUser {
     private String firstName, lastName;
 
 
-    private CalleeUser() {
+    protected CalleeUser() {
         // no-op constructor for the Hibernate initiation
     }
 

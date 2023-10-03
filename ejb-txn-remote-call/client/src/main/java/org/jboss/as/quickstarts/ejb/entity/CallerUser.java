@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-public final class CallerUser {
+public class CallerUser {
 
     @Id
     @GeneratedValue
@@ -36,7 +36,7 @@ public final class CallerUser {
     private String firstName, lastName;
 
 
-    private CallerUser() {
+    protected CallerUser() {
         // no-op constructor for the Hibernate initiation
     }
 
