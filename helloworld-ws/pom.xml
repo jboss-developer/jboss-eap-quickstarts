@@ -25,11 +25,11 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>1.0.0.redhat-00001</version>
+        <version>6.0.0.redhat-00001</version>
         <relativePath/>
     </parent>
     <artifactId>helloworld-ws</artifactId>
-    <version>8.0.0.Beta</version>
+    <version>8.0.0.GA</version>
     <packaging>war</packaging>
     <name>Quickstart: helloworld-ws</name>
     <description>This project demonstrates a Hello World JAX-WS web service</description>
@@ -44,8 +44,8 @@
 
     <properties>
         <!-- The versions for BOMs, Dependencies and Plugins -->
-        <version.server.bom>8.0.0.Beta-redhat-00004</version.server.bom>
-        <version.eap.maven.plugin>1.0.0.Beta6-redhat-00001</version.eap.maven.plugin>
+        <version.server.bom>8.0.0.GA-redhat-00009</version.server.bom>
+        <version.eap.maven.plugin>1.0.0.Final-redhat-00014</version.eap.maven.plugin>
     </properties>
 
     <repositories>
@@ -68,20 +68,6 @@
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
             <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -117,22 +103,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
     </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
-            <!-- importing the jakartaee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
+            <!-- importing the ee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-ee-with-tools</artifactId>
@@ -172,7 +147,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
-            <artifactId>arquillian-protocol-servlet</artifactId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -205,42 +180,13 @@
         <dependency>
             <groupId>org.jboss.spec.jakarta.xml.ws</groupId>
             <artifactId>jboss-jakarta-xml-ws-api_4.0_spec</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
 
 
     <profiles>
-        <profile>
-            <!-- An optional Arquillian testing profile that executes tests in your JBoss EAP instance.
-            This profile will start a new JBoss EAP instance, and execute the test, shutting it down when done.
-            Run with: mvn clean verify -Parq-managed -->
-            <id>arq-managed</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.wildfly.arquillian</groupId>
-                    <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <includes>
-                                <include>**/ClientArqIT</include>
-                            </includes>
-                            <excludes>
-                                <exclude>**/RemoteClientIT</exclude>
-                                <exclude>**/ClientIT</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
             Run with: mvn clean verify -Parq-remote -->
@@ -309,8 +255,10 @@
                         <configuration>
                             <channels>
                                 <channel>
-                                    <groupId>org.jboss.eap.channels</groupId>
-                                    <artifactId>eap-8.0-beta</artifactId>
+                                    <manifest>
+                                        <groupId>org.jboss.eap.channels</groupId>
+                                        <artifactId>eap-8.0</artifactId>
+                                    </manifest>
                                 </channel>
                             </channels>
                             <feature-packs>

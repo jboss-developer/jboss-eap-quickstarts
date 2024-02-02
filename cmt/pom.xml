@@ -25,11 +25,11 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>1.0.0.redhat-00001</version>
+        <version>6.0.0.redhat-00001</version>
         <relativePath/>
     </parent>
     <artifactId>cmt</artifactId>
-    <version>8.0.0.Beta</version>
+    <version>8.0.0.GA</version>
     <packaging>war</packaging>
     <name>Quickstart: cmt</name>
     <description>This project demonstrates how to use transactions managed by the container</description>
@@ -44,8 +44,8 @@
 
     <properties>
         <!-- The versions for BOMs, Dependencies and Plugins -->
-        <version.server.bom>8.0.0.Beta-redhat-00004</version.server.bom>
-        <version.eap.maven.plugin>1.0.0.Beta6-redhat-00001</version.eap.maven.plugin>
+        <version.server.bom>8.0.0.GA-redhat-00009</version.server.bom>
+        <version.eap.maven.plugin>1.0.0.Final-redhat-00014</version.eap.maven.plugin>
     </properties>
 
     <repositories>
@@ -68,20 +68,6 @@
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
             <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -117,22 +103,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
     </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
-            <!-- importing the jboss-eap-ee-with-tools BOM adds specs as managed dependencies -->
+            <!-- importing the ee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-ee-with-tools</artifactId>
@@ -212,7 +187,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
-            <artifactId>arquillian-protocol-servlet</artifactId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -239,8 +214,10 @@
                         <configuration>
                             <channels>
                                 <channel>
-                                    <groupId>org.jboss.eap.channels</groupId>
-                                    <artifactId>eap-8.0-beta</artifactId>
+                                    <manifest>
+                                        <groupId>org.jboss.eap.channels</groupId>
+                                        <artifactId>eap-8.0</artifactId>
+                                    </manifest>
                                 </channel>
                             </channels>
                             <feature-packs>

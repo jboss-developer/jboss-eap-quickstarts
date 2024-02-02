@@ -455,8 +455,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#run-the-backend-on-openshift">Run the Backend on OpenShift</a>
 <ul class="sectlevel2">
+<li><a href="#build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</a></li>
 <li><a href="#prerequisites">Prerequisites</a></li>
-<li><a href="#deploy-a-postgresql-database-on-openshift">Deploy a PostgreSQL Database on OpenShift</a></li>
 <li><a href="#deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</a></li>
 <li><a href="#undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</a></li>
 <li><a href="#environment-variables-for-postgresql">Environment variables for PostgreSQL</a></li>
@@ -604,8 +604,7 @@ these HTTP requests to succeed.</p>
 <div class="sect3">
 <h4 id="configuration-with-jboss-eap-s2i">Configuration with JBoss EAP S2I</h4>
 <div class="paragraph">
-<p>As we use S2I to provision the server and build the application, we provide a CLI script that contains all the commands to
-create and configure the CORS filters in Undertow. This script is located in the <code>src/scripts/cors_filters.cli</code>.</p>
+<p>As we use S2I to provision the server and build the application, we provide a CLI script that contains all the commands to create and configure the CORS filters in Undertow. This script is located in the <code>src/scripts/cors_filters.cli</code>.</p>
 </div>
 <div class="paragraph">
 <p>This script is executed at build time and will provide the following HTTP headers to enabled CORS:</p>
@@ -641,6 +640,76 @@ the allowed origin using the environment variable <code>CORS_ORIGIN</code> at ru
 <h2 id="run-the-backend-on-openshift">Run the Backend on OpenShift</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
+<div class="paragraph">
+<p>On OpenShift, the S2I build with Apache Maven will use an <code>openshift</code> profile used to provision a JBoss EAP server to deploy and run the quickstart in OpenShift environment.
+You can activate the Maven profile named <code>openshift</code> when building the quickstart:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn clean package -Popenshift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The provisioned JBoss EAP server for OpenShift, with the quickstart deployed, can then be found in the <code>target/server</code> directory, and its usage is similar to a standard server distribution.
+You may note that it uses the cloud feature pack which enables a configuration tuned for OpenShift environment.</p>
+</div>
+<div class="paragraph">
+<p>The server provisioning functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">        &lt;profile&gt;
+            &lt;id&gt;openshift&lt;/id&gt;
+            &lt;build&gt;
+                &lt;plugins&gt;
+                    &lt;plugin&gt;
+                        &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                        &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                        &lt;version&gt;${version.eap.maven.plugin}&lt;/version&gt;
+                        &lt;configuration&gt;
+                            &lt;feature-packs&gt;
+                                &lt;feature-pack&gt;
+                                    &lt;location&gt;org.jboss.eap:wildfly-ee-galleon-pack&lt;/location&gt;
+                                &lt;/feature-pack&gt;
+                                &lt;feature-pack&gt;
+                                    &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
+                                &lt;/feature-pack&gt;
+                            &lt;/feature-packs&gt;
+                            &lt;layers&gt;
+                                &lt;layer&gt;cloud-server&lt;/layer&gt;
+                            &lt;/layers&gt;
+                            &lt;filename&gt;ROOT.war&lt;/filename&gt;
+                        &lt;/configuration&gt;
+                        &lt;executions&gt;
+                            &lt;execution&gt;
+                                &lt;goals&gt;
+                                    &lt;goal&gt;package&lt;/goal&gt;
+                                &lt;/goals&gt;
+                            &lt;/execution&gt;
+                        &lt;/executions&gt;
+                    &lt;/plugin&gt;
+                &lt;/plugins&gt;
+            &lt;/build&gt;
+        &lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Since the plugin configuration above deploys quickstart on root web context of the provisioned server, the URL to access the application should not have the <code>/todo-backend</code> path segment after <code>HOST:PORT</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="prerequisites">Prerequisites</h3>
 <div class="ulist">
 <ul>
@@ -653,7 +722,7 @@ the allowed origin using the environment variable <code>CORS_ORIGIN</code> at ru
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP and for postgresql:</p>
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -661,12 +730,11 @@ the allowed origin using the environment variable <code>CORS_ORIGIN</code> at ru
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap8         ...             ...             A Helm chart to build and deploy EAP 8.0 applications</code></pre>
+jboss-eap/eap8         ...             ...             A Helm chart to build and deploy 8.0 applications</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="deploy-a-postgresql-database-on-openshift">Deploy a PostgreSQL Database on OpenShift</h3>
+<div class="sect3">
+<h4 id="deploy-a-postgresql-database-on-openshift">Deploy a PostgreSQL Database on OpenShift</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>$ oc new-app postgresql-ephemeral \
@@ -678,6 +746,10 @@ jboss-eap/eap8         ...             ...             A Helm chart to build and
 <p>This will create a PostgreSQL database named <code>todos</code> on OpenShift that can be accessed on the port <code>5432</code> on the service <code>todo-backend-db</code>.
 We don&#8217;t need to copy the credentials to connect to the database as we will retrieve them later using the <code>todo-backend-db</code> secret that was created
 when the database is deployed.</p>
+</div>
+<div class="paragraph">
+<p>The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -771,8 +843,10 @@ todo-backend   1         1         1            1           2m</code></pre>
 <div class="sect2">
 <h3 id="environment-variables-for-postgresql">Environment variables for PostgreSQL</h3>
 <div class="paragraph">
-<p>The Helm Chart also contains the environment variables required to connect to the PostgreSQL database.
-For OpenShift, we rely on secrets so that the credentials are never copied outside OpenShift:</p>
+<p>The Helm Chart also contains the environment variables required to connect to the PostgreSQL database.</p>
+</div>
+<div class="paragraph">
+<p>For OpenShift, we rely on secrets so that the credentials are never copied outside OpenShift:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -788,18 +862,6 @@ For OpenShift, we rely on secrets so that the credentials are never copied outsi
 <div class="paragraph">
 <p>When the application is deployed, the value for the <code>POSTGRESQL_PASSWORD</code> will be taken from the key <code>database-password</code>
 in the secret <code>todo-backend-db</code>.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s wait for the application to be built and deployed:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ oc get deployment todo-backend -w
-NAME           READY   UP-TO-DATE   AVAILABLE   AGE
-todo-backend   0/1     1            0           31s
-...
-todo-backend   1/1     1            1           4m31s</code></pre>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -905,7 +967,7 @@ It might not always be functional but does not impact the availability of this b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm delete todo-backend
+<pre class="highlight nowrap"><code>$ helm uninstall todo-backend
 release "todo-backend" uninstalled</code></pre>
 </div>
 </div>
@@ -941,7 +1003,7 @@ of a JBoss EAP Jakarta EE backend on OpenShift to connect to an external databas
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-05 17:06:40 UTC
+Last updated 2024-01-19 11:44:45 UTC
 </div>
 </div>
 </body>

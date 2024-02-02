@@ -6,7 +6,7 @@ build:
   contextDir: todo-backend
   env:
     - name: POSTGRESQL_DRIVER_VERSION
-      value: '42.5.1'
+      value: '42.6.0'
 deploy:
   replicas: 1
   env:

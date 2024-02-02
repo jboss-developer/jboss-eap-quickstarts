@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>37</version>
+        <version>39</version>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
@@ -30,13 +30,13 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>8.0.0.Beta</version>
+    <version>8.0.0.GA</version>
 
     <packaging>pom</packaging>
 
     <name>Quickstart: Aggregator</name>
     <description>Quickstart's aggregator</description>
-    <url>https://github.com/wildfly/quickstart</url>
+    <url>https://github.com/jboss-developer/jboss-eap-quickstarts</url>
 
     <licenses>
         <license>
@@ -50,10 +50,10 @@
         <root.dir>${project.basedir}</root.dir>
         <jboss.home.name>EAP8_HOME</jboss.home.name>
         <product.name>JBoss EAP</product.name>
-        <product.version>8.0.0.Beta</product.version>
+        <product.version>8.0.0.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.1.0</version.org.asciidoctor.asciidoctor-maven-plugin>
-        <version.wildfly.maven.plugin>4.0.0.Final</version.wildfly.maven.plugin>
+        <version.eap.maven.plugin>1.0.0.Final-redhat-00014</version.eap.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
         <version.org.wildfly.quickstarts.documentation.plugin>2.3.0.Final</version.org.wildfly.quickstarts.documentation.plugin>
         <!-- other plug-in versions -->
@@ -96,20 +96,6 @@
             </snapshots>
             <layout>default</layout>
         </repository>
-        <repository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
     </repositories>
     <pluginRepositories>
         <!-- keep this repository the first -->
@@ -128,17 +114,6 @@
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
             <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -198,9 +173,9 @@
                     <version>${version.org.asciidoctor.asciidoctor-maven-plugin}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.wildfly.plugins</groupId>
-                    <artifactId>wildfly-maven-plugin</artifactId>
-                    <version>${version.wildfly.maven.plugin}</version>
+                    <groupId>org.jboss.eap.plugins</groupId>
+                    <artifactId>eap-maven-plugin</artifactId>
+                    <version>${version.eap.maven.plugin}</version>
                 </plugin>
                 <!-- Checkstyle -->
                 <plugin>
@@ -334,6 +309,7 @@
                 <module>jaxrs-client</module>
                 <module>kitchensink</module>
                 <module>numberguess</module>
+                <module>remote-helloworld-mdb</module>
                 <module>servlet-security</module>
                 <module>temperature-converter</module>
                 <module>todo-backend</module>
@@ -341,7 +317,6 @@
                 <module>websocket-hello</module>
             </modules>
         </profile>
-
         <profile>
             <id>docs</id>
             <activation>
@@ -359,7 +334,6 @@
                         <configuration>
                             <rootDirectory>.</rootDirectory>
                             <targetDocument>README.adoc</targetDocument>
-                            <includeOpenshift>true</includeOpenshift>
                         </configuration>
                         <executions>
                             <execution>

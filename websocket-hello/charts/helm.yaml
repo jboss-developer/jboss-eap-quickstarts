@@ -3,4 +3,4 @@ build:
   ref: 8.0.x
   contextDir: websocket-hello
 deploy:
-  replicas: 1
+  replicas: 2
