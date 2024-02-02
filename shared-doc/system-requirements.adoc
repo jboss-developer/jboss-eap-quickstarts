@@ -1,0 +1,13 @@
+[[system_requirements]]
+= System Requirements
+//******************************************************************************
+// Include this template to describe the standard system requirements for
+// running the quickstarts.
+//
+// The Forge quickstarts define a `forge-from-scratch` attribute because they
+// run entirely in CodeReady Studio and have different requirements .
+//******************************************************************************
+
+The application this project produces is designed to be run on {productNameFull} {productVersion} or later.
+
+All you need to build this project is {buildRequirements}. See link:{configureMavenDocUrl}[Configure Maven to Build and Deploy the Quickstarts] to make sure you are configured correctly for testing the quickstarts.

@@ -1,0 +1,50 @@
+[[start_the_eap_standalone_server]]
+= Start the {productName} Standalone Server
+//******************************************************************************
+// Include this template if your quickstart requires a normal start of a single
+// standalone server.
+//
+// You must define the `standalone-server-type`. Supported values are:
+//    default
+//    full
+//    full-ha
+//    ha
+//    custom
+//
+// * For mobile applications, you can define the `mobileApp` variable in the
+//   `README.adoc` file to add `-b 0.0.0.0` to the command line. This allows
+//    external clients, such as phones, tablets, and desktops, to connect
+//    to the application through through your local network
+//    ::mobileApp: {artifactId}-service
+//
+//******************************************************************************
+
+include::define-standalone-server-attributes.adoc[]
+
+. Open a terminal and navigate to the root of the {productName} directory.
+. Start the {productName} server with the {serverProfile} by typing the following command.
++
+ifdef::uses-jaeger[]
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+$ __JAEGER_REPORTER_LOG_SPANS=true JAEGER_SAMPLER_TYPE=const JAEGER_SAMPLER_PARAM=1__ __{jbossHomeName}__/bin/standalone.sh {serverArguments}
+----
+endif::[]
+ifndef::uses-jaeger[]
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+$ __{jbossHomeName}__/bin/standalone.sh {serverArguments}
+----
+endif::[]
++
+NOTE: For Windows, use the `__{jbossHomeName}__\bin\standalone.bat` script.
+
+ifdef::mobileApp[]
++
+Adding `-b 0.0.0.0` to the above command allows external clients, such as phones, tablets, and desktops, to connect through your local network. For example:
++
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+$ __{jbossHomeName}__/bin/standalone.sh {serverArguments} -b 0.0.0.0
+----
+endif::[]
