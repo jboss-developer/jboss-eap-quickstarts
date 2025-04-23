@@ -1,0 +1,55 @@
+ifdef::env-github[]
+:artifactId: helloworld
+endif::[]
+
+Unresolved directive in README-source.adoc - include::../shared-doc/attributes.adoc[]
+
+= helloworld: Helloworld Example
+:author: Pete Muir
+:level: Beginner
+:technologies: Servlet
+:openshift: true
+
+[abstract]
+The `helloworld` quickstart demonstrates the use of Servlet 6 and is a good starting point to verify {productName} is configured correctly.
+
+:standalone-server-type: default
+:archiveType: war
+
+== What is it?
+
+The `helloworld` quickstart demonstrates the use of _Servlet 6_ in {productNameFull} {productVersion}.
+
+// Link to the quickstart source
+Unresolved directive in README-source.adoc - include::../shared-doc/view-the-source.adoc[leveloffset=+1]
+// System Requirements
+Unresolved directive in README-source.adoc - include::../shared-doc/system-requirements.adoc[leveloffset=+1]
+// Use of {jbossHomeName}
+Unresolved directive in README-source.adoc - include::../shared-doc/use-of-jboss-home-name.adoc[leveloffset=+1]
+
+// build and run with standard server distribution
+[[build_and_run_the_quickstart_with_server_dist]]
+== Building and running the quickstart application with a {productName} server distribution
+// Start the {productName} Standalone Server
+Unresolved directive in README-source.adoc - include::../shared-doc/start-the-standalone-server.adoc[leveloffset=+2]
+// Build and Deploy the Quickstart
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-deploy-the-quickstart.adoc[leveloffset=+2]
+
+=== Access the Application
+The application will be running at the following URL: http://localhost:8080/{artifactId}/.
+
+// Server Distribution Testing
+Unresolved directive in README-source.adoc - include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+// Undeploy the Quickstart
+Unresolved directive in README-source.adoc - include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
+
+// Build and run sections for other environments/builds
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
+// Bootable JAR
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-bootable-jar.adoc[leveloffset=+1]
+// OpenShift
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+//Kubernetes
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]

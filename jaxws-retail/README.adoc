@@ -1,0 +1,51 @@
+ifdef::env-github[]
+:artifactId: jaxws-retail
+endif::[]
+
+Unresolved directive in README-source.adoc - include::../shared-doc/attributes.adoc[]
+
+= jaxws-retail: A Retail JAX-WS Web Service
+:author: R Searls
+:level: Beginner
+:technologies: JAX-WS
+:standalone-server-type: default
+:archiveType: war
+// Override the archive directory
+:archiveDir: {artifactId}/target
+// Override the archive name
+:archiveName: {artifactId}
+:openshift: true
+
+[abstract]
+The `jaxws-retail` quickstart is a working example of a simple web service endpoint.
+
+== What is it?
+
+The `jaxws-retail` quickstart demonstrates the use of _JAX-WS_ in {productNameFull} as a simple profile management application. It also demonstrates usage of wsconsume to generate classes from WSDL file.
+
+// Link to the quickstart source
+Unresolved directive in README-source.adoc - include::../shared-doc/view-the-source.adoc[leveloffset=+1]
+// System Requirements
+Unresolved directive in README-source.adoc - include::../shared-doc/system-requirements.adoc[leveloffset=+1]
+// Use of {jbossHomeName}
+Unresolved directive in README-source.adoc - include::../shared-doc/use-of-jboss-home-name.adoc[leveloffset=+1]
+// Start the {productName} Standalone Server
+Unresolved directive in README-source.adoc - include::../shared-doc/start-the-standalone-server.adoc[leveloffset=+1]
+// Build and Deploy the Quickstart
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-deploy-the-quickstart.adoc[leveloffset=+1]
+
+== Access the Application
+You can check that the Web Service is running and deployed correctly by accessing the following URL: http://localhost:8080/{artifactId}/ProfileMgmtService/ProfileMgmt?wsdl. This URL will display the deployed WSDL endpoint for the Web Service.
+
+// Server Distribution Testing
+Unresolved directive in README-source.adoc - include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+1]
+// Undeploy the Quickstart
+Unresolved directive in README-source.adoc - include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+1]
+
+// Build and run sections for other environments/builds
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+//Kubernetes
+Unresolved directive in README-source.adoc - include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]
