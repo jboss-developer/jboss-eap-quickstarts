@@ -3,7 +3,7 @@ include::../shared-doc/attributes.adoc[]
 = thread-racing: A Jakarta EE thread racing web application
 :author: Eduardo Martins
 :level: Beginner
-:technologies: Batch, CDI, EE Concurrency, JAX-RS, JMS, JPA, JSON, Web Sockets
+:technologies: Batch, CDI, EE Concurrency, Jakarta REST, JMS, JPA, JSON, Web Sockets
 :openshift: true
 
 [abstract]
@@ -23,7 +23,7 @@ The race itself consists of multiple stages, each demonstrating the usage of a s
 
 * Batch 2.1
 * EE Concurrency 3.0
-* JAX-RS 3.1
+* Jakarta REST 3.1
 * JMS 3.1
 * JSON 2.1
 
@@ -39,6 +39,8 @@ JPA 3.1 is also present in the application code. Specifically it is used to stor
 
 ifndef::EAPCDRelease[]
 
+// Link to the quickstart source
+include::../shared-doc/view-the-source.adoc[leveloffset=+1]
 // Considerations for Use in a Production Environment
 include::../shared-doc/development-shortcuts.adoc[leveloffset=+1]
 // System Requirements
@@ -58,15 +60,17 @@ include::../shared-doc/build-and-deploy-the-quickstart.adoc[leveloffset=+2]
 
 The application will be running at the following URL http://localhost:8080/{artifactId}/.
 
-To start a race press the `Insert Coin` button. The page displays the names of the threads as they join the race. It then tracks the progress of each thread through the Batch, EE Concurrency, JAX-RS, JMS, and JSON stages of the race. Finally, it displays the official race results and championship standings.
+To start a race press the `Insert Coin` button. The page displays the names of the threads as they join the race. It then tracks the progress of each thread through the Batch, EE Concurrency, Jakarta REST, JMS, and JSON stages of the race. Finally, it displays the official race results and championship standings.
 
-// Testing with Arquillian
-include::../shared-doc/run-arquillian-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+// Server Distribution Testing
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
 
 // Build and run sections for other environments/builds
-ifndef::ProductRelease,EAPXPRelease[]
 include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
-endif::[]
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+// Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]

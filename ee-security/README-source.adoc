@@ -21,6 +21,8 @@ The deployment in this quickstart contains a simple HTTP servlet, which is secur
 
 This quickstart is hard coded to work with a user `quickstartUser` with password `quickstartPwd1!`.
 
+// Link to the quickstart source
+include::../shared-doc/view-the-source.adoc[leveloffset=+1]
 // System Requirements
 include::../shared-doc/system-requirements.adoc[leveloffset=+1]
 // Use of {jbossHomeName}
@@ -114,8 +116,8 @@ Identity as available from injection 'quickstartUser'
 
 The resulting output shows authentication was successful and the correct identity has been established.
 
-// Testing with Arquillian
-include::../shared-doc/run-arquillian-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+// Server Distribution Testing
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
 //  Restore the {productName} Standalone Server Configuration
@@ -124,8 +126,9 @@ include::../shared-doc/restore-standalone-server-configuration.adoc[leveloffset=
 include::../shared-doc/restore-standalone-server-configuration-manual.adoc[leveloffset=+3]
 
 // Build and run sections for other environments/builds
-ifndef::ProductRelease,EAPXPRelease[]
 include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
-endif::[]
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
-
+ifndef::ProductRelease,EAPXPRelease[]
+// Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]

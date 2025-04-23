@@ -19,18 +19,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.eap.quickstarts</groupId>
-        <artifactId>jboss-eap-quickstart-parent</artifactId>
+        <groupId>org.wildfly.quickstarts</groupId>
+        <artifactId>wildfly-quickstart-parent</artifactId>
         <!--
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>6.0.0.redhat-00001</version>
+        <version>10</version>
         <relativePath/>
     </parent>
 
+    <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>servlet-security</artifactId>
-    <version>8.0.0.GA</version>
+    <version>8.1.0.Beta-redhat-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Quickstart: servlet-security</name>
     <description>This project demonstrates servlet security in JBoss EAP</description>
@@ -44,67 +45,15 @@
     </licenses>
 
     <properties>
-        <!-- The versions for BOMs, Dependencies and Plugins -->
-        <version.server.bom>8.0.0.GA-redhat-00009</version.server.bom>
-        <version.eap.maven.plugin>1.0.0.Final-redhat-00014</version.eap.maven.plugin>
+        <!-- the Maven project should use the minimum Java SE version supported -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- the versions for BOMs, Dependencies and Plugins -->
+        <version.bom.ee>8.1.0.Beta-redhat-00018</version.bom.ee>
+        <version.plugin.eap>2.0.0.Beta1-redhat-00011</version.plugin.eap>
+        <version.plugin.wildfly>5.1.1.Final</version.plugin.wildfly>
+        <!-- the versions for other Dependencies and Plugins -->
+        <version.org.junit.jupiter>5.9.1</version.org.junit.jupiter>
     </properties>
-
-    <repositories>
-        <!-- keep this repository the first -->
-        <repository>
-            <id>jboss-public-maven-repository</id>
-            <name>JBoss Public Maven Repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>redhat-ga-maven-repository</id>
-            <name>Red Hat GA Maven Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <!-- keep this repository the first -->
-        <pluginRepository>
-            <id>jboss-public-maven-repository</id>
-            <name>JBoss Public Maven Repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ga-maven-repository</id>
-            <name>Red Hat GA Maven Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
@@ -112,7 +61,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-ee-with-tools</artifactId>
-                <version>${version.server.bom}</version>
+                <version>${version.bom.ee}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -149,30 +98,99 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Needed for running tests (you may also use TestNG) -->
+        <!-- Import test dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Optional, but highly recommended -->
-        <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA)
-        JPA from JUnit/TestNG -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.protocol</groupId>
-            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${version.org.junit.jupiter}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+    <build>
+        <!-- Set the name of the WAR, used as the context root when the app is deployed. -->
+        <finalName>${project.artifactId}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jboss.eap.plugins</groupId>
+                    <artifactId>eap-maven-plugin</artifactId>
+                    <version>${version.plugin.eap}</version>
+                    <configuration>
+                        <channels>
+                            <channel>
+                                <manifest>
+                                    <groupId>org.jboss.eap.channels</groupId>
+                                    <artifactId>eap-8.1</artifactId>
+                                </manifest>
+                            </channel>
+                        </channels>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${version.plugin.wildfly}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
+        <profile>
+            <id>provisioned-server</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.eap.plugins</groupId>
+                        <artifactId>eap-maven-plugin</artifactId>
+                        <configuration>
+                            <feature-packs>
+                                <feature-pack>
+                                    <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                                </feature-pack>
+                                <feature-pack>
+                                    <location>org.jboss.eap:eap-datasources-galleon-pack</location>
+                                </feature-pack>
+                            </feature-packs>
+                            <layers>
+                                <layer>cloud-server</layer>
+                                <layer>h2-datasource</layer>
+                            </layers>
+                            <packaging-scripts>
+                                <packaging-script>
+                                    <scripts>
+                                        <script>${basedir}/configure-server.cli</script>
+                                    </scripts>
+                                    <!-- Expressions resolved during server execution -->
+                                    <resolve-expressions>false</resolve-expressions>
+                                </packaging-script>
+                            </packaging-scripts>
+                            <!-- set 'jboss-fork-embedded' option to 'true' in order to fork Galleon provisioning and CLI scripts execution in dedicated processes -->
+                            <galleon-options>
+                                <jboss-fork-embedded>true</jboss-fork-embedded>
+                            </galleon-options>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>openshift</id>
             <build>
@@ -180,16 +198,7 @@
                     <plugin>
                         <groupId>org.jboss.eap.plugins</groupId>
                         <artifactId>eap-maven-plugin</artifactId>
-                        <version>${version.eap.maven.plugin}</version>
                         <configuration>
-                            <channels>
-                                <channel>
-                                    <manifest>
-                                        <groupId>org.jboss.eap.channels</groupId>
-                                        <artifactId>eap-8.0</artifactId>
-                                    </manifest>
-                                </channel>
-                            </channels>
                             <feature-packs>
                                 <feature-pack>
                                     <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
@@ -205,7 +214,6 @@
                                 <layer>cloud-server</layer>
                                 <layer>h2-datasource</layer>
                             </layers>
-                            <filename>ROOT.war</filename>
                             <packaging-scripts>
                                 <packaging-script>
                                     <scripts>
@@ -224,24 +232,31 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- do not attach sources to openshift deployments -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
         <profile>
-            <id>arq-remote</id>
+            <id>integration-testing</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${version.failsafe.plugin}</version>
                         <configuration>
                             <includes>
-                                <include>**/RemoteSecureIT</include>
+                                <include>**/*IT</include>
                             </includes>
-                            <excludes>
-                                <exclude>**/ProvisionedManagedSecureIT</exclude>
-                            </excludes>
                         </configuration>
                         <executions>
                             <execution>
@@ -256,4 +271,84 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

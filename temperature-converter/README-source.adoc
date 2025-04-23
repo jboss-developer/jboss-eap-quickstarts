@@ -24,6 +24,8 @@ The application does the following:
 . The response from TemperatureConvertEJB is stored in the `temperature` field of the managed bean.
 . The managed bean is annotated as @SessionScoped, so the same managed bean instance is used for the entire session.
 
+// Link to the quickstart source
+include::../shared-doc/view-the-source.adoc[leveloffset=+1]
 // System Requirements
 include::../shared-doc/system-requirements.adoc[leveloffset=+1]
 // Use of {jbossHomeName}
@@ -47,13 +49,15 @@ You will be presented with a simple form for temperature conversion.
 . Enter a temperature.
 . Press the `Convert` button to see the results.
 
-// Testing with Arquillian
-include::../shared-doc/run-arquillian-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+// Server Distribution Testing
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
 
 // Build and run sections for other environments/builds
-ifndef::ProductRelease,EAPXPRelease[]
 include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
-endif::[]
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+// Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]

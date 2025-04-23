@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>39</version>
+        <version>47</version>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
@@ -30,11 +30,11 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>8.0.0.GA</version>
+    <version>8.1.0.Beta-redhat-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
-    <name>Quickstart: Aggregator</name>
+    <name>Quickstarts Aggregator</name>
     <description>Quickstart's aggregator</description>
     <url>https://github.com/jboss-developer/jboss-eap-quickstarts</url>
 
@@ -48,14 +48,10 @@
 
     <properties>
         <root.dir>${project.basedir}</root.dir>
-        <jboss.home.name>EAP8_HOME</jboss.home.name>
-        <product.name>JBoss EAP</product.name>
-        <product.version>8.0.0.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.1.0</version.org.asciidoctor.asciidoctor-maven-plugin>
-        <version.eap.maven.plugin>1.0.0.Final-redhat-00014</version.eap.maven.plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
-        <version.org.wildfly.quickstarts.documentation.plugin>2.3.0.Final</version.org.wildfly.quickstarts.documentation.plugin>
+        <version.org.wildfly.quickstarts.documentation.plugin>2.4.1.Final</version.org.wildfly.quickstarts.documentation.plugin>
         <!-- other plug-in versions -->
         <version.com.mycyla.license>3.0</version.com.mycyla.license>
         <version.checkstyle>8.5</version.checkstyle>
@@ -64,68 +60,11 @@
             filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <linkXRef>false</linkXRef>
+        <!-- the Maven project should use the minimum Java SE version supported -->
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
-    <repositories>
-        <!-- keep this repository the first -->
-        <repository>
-            <id>jboss-public-maven-repository</id>
-            <name>JBoss Public Maven Repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>redhat-ga-maven-repository</id>
-            <name>Red Hat GA Maven Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <!-- keep this repository the first -->
-        <pluginRepository>
-            <id>jboss-public-maven-repository</id>
-            <name>JBoss Public Maven Repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ga-maven-repository</id>
-            <name>Red Hat GA Maven Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app is deployed. -->
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>com.mycila</groupId>
@@ -141,7 +80,7 @@
                         <exclude>**/*.sql</exclude>
                         <exclude>**/LICENSE*</exclude>
                         <exclude>**/license*</exclude>
-                        <!-- Javascrip Libraries -->
+                        <!-- Javascript Libraries -->
                         <exclude>**/jquery*</exclude>
                         <exclude>**/angular*</exclude>
                         <exclude>**/qunit*</exclude>
@@ -171,11 +110,6 @@
                     <groupId>org.asciidoctor</groupId>
                     <artifactId>asciidoctor-maven-plugin</artifactId>
                     <version>${version.org.asciidoctor.asciidoctor-maven-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.jboss.eap.plugins</groupId>
-                    <artifactId>eap-maven-plugin</artifactId>
-                    <version>${version.eap.maven.plugin}</version>
                 </plugin>
                 <!-- Checkstyle -->
                 <plugin>
@@ -302,19 +236,95 @@
             <modules>
                 <!-- All the modules that require nothing but JBoss Enterprise
                     Application Platform or JBoss EAP -->
+                <module>batch-processing</module>
+                <module>bmt</module>
                 <module>cmt</module>
                 <module>ee-security</module>
+                <module>ejb-multi-server</module>
+                <module>ejb-security-context-propagation</module>
+                <module>ejb-security-programmatic-auth</module>
+                <module>ejb-throws-exception</module>
+                <module>ejb-timer</module>
+                <module>ejb-txn-remote-call</module>
+                <module>ha-singleton-deployment</module>
+                <module>ha-singleton-service</module>
                 <module>helloworld</module>
+                <module>helloworld-jms</module>
+                <module>helloworld-mdb</module>
+                <module>helloworld-mutual-ssl</module>
+                <module>helloworld-mutual-ssl-secured</module>
+                <module>helloworld-rs</module>
+                <module>helloworld-singleton</module>
                 <module>helloworld-ws</module>
+                <module>hibernate</module>
+                <module>http-custom-mechanism</module>
                 <module>jaxrs-client</module>
+                <module>jaxrs-jwt</module>
+                <module>jaxws-ejb</module>
+                <module>jaxws-retail</module>
+                <module>jsonp</module>
                 <module>kitchensink</module>
+                <module>logging</module>
+                <module>mail</module>
+                <module>messaging-clustering-singleton</module>
                 <module>numberguess</module>
                 <module>remote-helloworld-mdb</module>
+                <module>security-domain-to-domain</module>
+                <module>servlet-async</module>
+                <module>servlet-filterlistener</module>
                 <module>servlet-security</module>
+                <module>spring-resteasy</module>
+                <module>tasks-jsf</module>
                 <module>temperature-converter</module>
                 <module>todo-backend</module>
                 <module>thread-racing</module>
+                <module>websocket-endpoint</module>
                 <module>websocket-hello</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- All the quickstarts that require Postgres to be running -->
+            <id>requires-postgres</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>requires-postgres</name>
+                    <value>!disabled</value>
+                </property>
+            </activation>
+            <modules>
+                <module>jts</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- All the quickstarts that have weird requirements around deployment that Maven can't handle -->
+            <id>complex-dependencies</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>complex-dependencies</name>
+                    <value>!disabled</value>
+                </property>
+            </activation>
+            <modules>
+                <module>ejb-remote</module>
+                <module>jts</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- All the quickstarts that require the "standalone-full" profile
+                to be in use -->
+            <id>requires-full</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>requires-full</name>
+                    <value>!disabled</value>
+                </property>
+            </activation>
+            <modules>
+                <module>helloworld-mdb</module>
+                <module>jta-crash-rec</module>
             </modules>
         </profile>
         <profile>
@@ -333,7 +343,9 @@
                         <inherited>false</inherited>
                         <configuration>
                             <rootDirectory>.</rootDirectory>
-                            <targetDocument>README.adoc</targetDocument>
+                            <includeOpenshift>true</includeOpenshift>
+                            <sourceDocument>README-source.adoc</sourceDocument>
+                            <targetDocument>README-source.adoc</targetDocument>
                         </configuration>
                         <executions>
                             <execution>
@@ -363,7 +375,7 @@
                             </resources>
                             <doctype>article</doctype>
                             <sourceDirectory>.</sourceDirectory>
-                            <sourceDocumentName>README.adoc</sourceDocumentName>
+                            <sourceDocumentName>README-source.adoc</sourceDocumentName>
                             <outputFile>README.html</outputFile>
                             <outputDirectory>.</outputDirectory>
                         </configuration>
@@ -384,7 +396,7 @@
             <id>adoc</id>
             <activation>
                 <file>
-                    <missing>README.adoc</missing>
+                    <missing>README-source.adoc</missing>
                 </file>
             </activation>
             <properties>
@@ -402,5 +414,95 @@
                 <module>dist</module>
             </modules>
         </profile>
+        <profile>
+            <id>publish</id>
+            <activation>
+                <property>
+                    <name>publish</name>
+                </property>
+            </activation>
+            <modules>
+                <module>dist</module>
+            </modules>
+        </profile>
     </profiles>
+    <repositories>
+        <repository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

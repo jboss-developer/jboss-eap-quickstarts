@@ -1,0 +1,2 @@
+# -- Restart the node2 server
+/host=primary/server=quickstart-messagingcluster-node2:restart(blocking=true)

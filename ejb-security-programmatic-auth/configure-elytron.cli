@@ -1,0 +1,15 @@
+# Batch script to enable elytron for the quickstart application in the JBoss EAP server
+
+# Start batching commands
+batch
+
+# Add security domain mapping in EJB3 subsystem for the quickstart deployment
+/subsystem=ejb3/application-security-domain=quickstart-domain:add(security-domain=ApplicationDomain)
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+#reload
+
+

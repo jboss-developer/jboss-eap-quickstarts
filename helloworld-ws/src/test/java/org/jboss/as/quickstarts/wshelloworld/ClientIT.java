@@ -38,7 +38,7 @@ public class ClientIT {
     /**
      * The path of the WSDL endpoint in relation to the deployed web application.
      */
-    private static final String WSDL_PATH = "HelloWorldService?wsdl";
+    private static final String WSDL_PATH = "helloworld-ws/HelloWorldService?wsdl";
 
     protected static URL getHTTPEndpoint() {
         String host = getServerHost();
@@ -46,7 +46,7 @@ public class ClientIT {
             host = "http://localhost:8080";
         }
         try {
-            return new URI(host + "/helloworld-ws/" + WSDL_PATH).toURL();
+            return new URI(host + "/" + WSDL_PATH).toURL();
         } catch (URISyntaxException | MalformedURLException ex) {
             throw new RuntimeException(ex);
         }
@@ -75,11 +75,7 @@ public class ClientIT {
 
     @Before
     public void setup() {
-        try {
-            client = new Client(new URL(deploymentUrl, WSDL_PATH));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+         client = new Client(deploymentUrl);
     }
 
     @Test

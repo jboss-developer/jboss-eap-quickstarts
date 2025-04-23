@@ -1,0 +1,16 @@
+# Batch script to add the random election policy
+
+# Start batching commands
+batch
+
+# Remove the simple election policy
+/subsystem=singleton/singleton-policy=default/election-policy=simple:remove(){allow-resource-service-restart=true}
+
+# Add the random election policy
+/subsystem=singleton/singleton-policy=default/election-policy=random:add()
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+reload

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2019, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.wildfly.quickstarts</groupId>
+        <artifactId>wildfly-quickstart-parent</artifactId>
+        <!--
+        Maintain separation between the artifact id and the version to help prevent
+        merge conflicts between commits changing the GA and those changing the V.
+        -->
+        <version>10</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>org.jboss.eap.quickstarts</groupId>
+    <artifactId>ejb-txn-remote-call-server</artifactId>
+    <version>8.1.0.Beta-redhat-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Quickstart: ejb-txn-remote-call-server</name>
+    <description>The project is the application to be deployed on the second server to receive the call</description>
+
+    <properties>
+        <!-- the Maven project should use the minimum Java SE version supported -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <!-- the versions for BOMs, Dependencies and Plugins -->
+        <version.bom.ee>8.1.0.Beta-redhat-00018</version.bom.ee>
+        <version.plugin.eap>2.0.0.Beta1-redhat-00011</version.plugin.eap>
+        <version.plugin.wildfly>5.1.1.Final</version.plugin.wildfly>
+        <!-- the versions for other Dependencies and Plugins -->
+        <version.narayana>7.0.0.Final</version.narayana>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- importing the ee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-eap-ee-with-tools</artifactId>
+                <version>${version.bom.ee}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Import the WS/Jakarta REST -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Import the EJB API -->
+        <dependency>
+            <groupId>jakarta.ejb</groupId>
+            <artifactId>jakarta.ejb-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Import the Common Annotations API (JSR-250) -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Import the JTA API -->
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Import the JPA/Hibernate API -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Import logging by JBoss -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- for Mock XAResource recovery we need the dependency to Narayana -->
+        <dependency>
+            <groupId>org.jboss.narayana.jts</groupId>
+            <artifactId>narayana-jts-idlj</artifactId>
+            <version>${version.narayana}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Tests -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>server</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jboss.eap.plugins</groupId>
+                    <artifactId>eap-maven-plugin</artifactId>
+                    <version>${version.plugin.eap}</version>
+                    <configuration>
+                        <channels>
+                            <channel>
+                                <manifest>
+                                    <groupId>org.jboss.eap.channels</groupId>
+                                    <artifactId>eap-8.1</artifactId>
+                                </manifest>
+                            </channel>
+                        </channels>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${version.plugin.wildfly}</version>
+                    <configuration>
+                        <!-- Env used when calling wildfly:start goal -->
+                        <env>
+                            <POSTGRESQL_DATABASE>test</POSTGRESQL_DATABASE>
+                            <POSTGRESQL_JNDI>java:jboss/datasources/ejbJtaDs</POSTGRESQL_JNDI>
+                            <POSTGRESQL_PASSWORD>${postgresqlUsername}</POSTGRESQL_PASSWORD>
+                            <POSTGRESQL_USER>${postgresqlPassword}</POSTGRESQL_USER>
+                        </env>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- Modifying webappDirectory to avoid overlapping with WildFly Maven Plugin's output directory -->
+                    <webappDirectory>${project.build.directory}/serverWebAppOutput</webappDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>provisioned-server</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.eap.plugins</groupId>
+                        <artifactId>eap-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>package</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <feature-packs>
+                                        <feature-pack>
+                                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                                        </feature-pack>
+                                        <feature-pack>
+                                            <location>org.jboss.eap:eap-datasources-galleon-pack</location>
+                                        </feature-pack>
+                                    </feature-packs>
+                                    <layers>
+                                        <layer>ee-core-profile-server</layer>
+                                        <layer>jaxrs</layer>
+                                        <layer>ejb</layer>
+                                        <layer>postgresql-datasource</layer>
+                                        <layer>core-tools</layer>
+                                        <layer>ejb-dist-cache</layer>
+                                        <layer>jpa-distributed</layer>
+                                    </layers>
+                                    <excludedLayers>
+                                        <layer>ejb-local-cache</layer>
+                                    </excludedLayers>
+                                    <!-- set 'jboss-fork-embedded' option to 'true' in order to fork Galleon provisioning and CLI scripts execution in dedicated processes -->
+                                    <galleon-options>
+                                        <jboss-fork-embedded>true</jboss-fork-embedded>
+                                    </galleon-options>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>openshift</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.eap.plugins</groupId>
+                        <artifactId>eap-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>package</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                                <configuration>
+                                    <feature-packs>
+                                        <feature-pack>
+                                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                                        </feature-pack>
+                                        <feature-pack>
+                                            <location>org.jboss.eap.cloud:eap-cloud-galleon-pack</location>
+                                        </feature-pack>
+                                        <feature-pack>
+                                            <location>org.jboss.eap:eap-datasources-galleon-pack</location>
+                                        </feature-pack>
+                                    </feature-packs>
+                                    <layers>
+                                        <layer>ee-core-profile-server</layer>
+                                        <layer>jaxrs</layer>
+                                        <layer>ejb</layer>
+                                        <layer>postgresql-datasource</layer>
+                                        <layer>core-tools</layer>
+                                        <layer>ejb-dist-cache</layer>
+                                        <layer>jpa-distributed</layer>
+                                    </layers>
+                                    <excludedLayers>
+                                        <layer>ejb-local-cache</layer>
+                                    </excludedLayers>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- do not attach sources to openshift deployments -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>integration-testing</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

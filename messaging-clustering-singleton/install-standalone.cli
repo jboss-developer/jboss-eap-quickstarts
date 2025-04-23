@@ -1,0 +1,12 @@
+## Batch file to configure the standalone server for the messaging-clustering-singleton quickstart.
+
+batch
+
+# -- Enable clustering, and set a cluster password
+/subsystem=messaging-activemq/server=default:write-attribute(name=cluster-password, value=password)
+
+# -- Add mdb-delivery-group named "my-mdb-delivery-group"
+/subsystem=ejb3/mdb-delivery-group=my-mdb-delivery-group:add(active=true)
+
+# -- Run this batch file
+run-batch

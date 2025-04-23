@@ -1,9 +1,9 @@
-name: JBoss EAP 8.0 Quickstarts Update 'README.adoc's
+name: JBoss EAP 8.1 Quickstarts Update 'README.adoc's
 
 on:
   push:
     branches:
-      - 8.0.x
+      - 8.1.x
 
 # Only run the latest job
 concurrency:

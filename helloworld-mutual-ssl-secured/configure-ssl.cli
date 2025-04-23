@@ -1,0 +1,40 @@
+# Batch script to configure mutual(two way) SSL and role based access control in the JBoss EAP server
+
+# Start batching commands
+batch
+
+# Add the trust manager configuration in the elytron subsystem
+/subsystem=elytron/trust-manager=qsTrustManager:add(key-store=serverTS)
+
+# Update the default server-ssl-context to reference the new trust-manager and require client auth
+/subsystem=elytron/server-ssl-context=applicationSSC:write-attribute(name=trust-manager, value=qsTrustManager)
+/subsystem=elytron/server-ssl-context=applicationSSC:write-attribute(name=need-client-auth, value=true)
+
+# Add a keystore realm that relies on the truststore to authenticate requests
+/subsystem=elytron/key-store-realm=KeyStoreRealm:add(key-store=serverTS)
+
+# Add an aggregate realm that uses the keystore realm for authentication and the application realm for authorization
+/subsystem=elytron/aggregate-realm=QuickstartRealm:add(authentication-realm=KeyStoreRealm,authorization-realm=ApplicationRealm)
+
+# Add a principal decoder to select the CN attribute from the certificate presented by the client
+/subsystem=elytron/x500-attribute-principal-decoder=QuickstartDecoder:add(attribute-name=cn)
+
+# Add a security domain that uses the aggregate realm and principal decoder defined above
+/subsystem=elytron/security-domain=QuickstartDomain:add(default-realm=QuickstartRealm,permission-mapper=default-permission-mapper,principal-decoder=QuickstartDecoder,realms=[{realm=QuickstartRealm,role-decoder=groups-to-roles}])
+
+# Add the http-authentication-factory that uses the new security domain for the CLIENT_CERT authentication
+/subsystem=elytron/http-authentication-factory=quickstart-http-authentication:add(security-domain=QuickstartDomain,http-server-mechanism-factory=global,mechanism-configurations=[{mechanism-name=CLIENT_CERT}])
+
+# Add an application-security-domain in the undertow subsystem to map the client_cert_domain from the quickstart app to the http-authentication-factory
+/subsystem=undertow/application-security-domain=client_cert_domain:add(http-authentication-factory=quickstart-http-authentication)
+
+# Generate the server's certificate
+/subsystem=elytron/key-store=applicationKS:generate-key-pair(alias=server, algorithm=RSA, key-size=2048, validity=365, credential-reference={clear-text=password}, distinguished-name="cn=localhost")
+
+/subsystem=elytron/key-store=applicationKS:store()
+
+# Run the batch commands
+run-batch
+
+# Reload the server configuration
+#reload
