@@ -1,0 +1,139 @@
+[[build_and_run_the_quickstart_with_bootable_jar]]
+= Building and Running the quickstart application in a bootable JAR
+
+include::define-standalone-server-attributes.adoc[]
+
+ifndef::mavenServerProvisioningCommand[]
+ifeval::["{archiveType}"=="ear"]
+:mavenServerProvisioningCommand: clean install
+endif::[]
+ifeval::["{archiveType}"=="war"]
+:mavenServerProvisioningCommand: clean package
+endif::[]
+ifeval::["{archiveType}"=="jar"]
+:mavenServerProvisioningCommand: clean install
+endif::[]
+endif::mavenServerProvisioningCommand[]
+
+You can use the WildFly Maven Plugin to build a {productName} bootable JAR to run this quickstart.
+
+The quickstart `pom.xml` file contains a Maven profile named *bootable-jar*, which activates the bootable JAR packaging when provisioning {productName}, through the `<bootable-jar>true</bootable-jar>` configuration element:
+
+ifndef::ProductRelease[]
+[source,xml,subs="attributes+"]
+----
+<profile>
+    <id>bootable-jar</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <build>
+          <plugins>
+              <plugin>
+                  <groupId>org.wildfly.plugins</groupId>
+                  <artifactId>wildfly-maven-plugin</artifactId>
+                  <configuration>
+                      <discover-provisioning-info>
+                          <version>${version.server}</version>
+                      </discover-provisioning-info>
+                      <bootable-jar>true</bootable-jar>
+                      <add-ons>...</add-ons>
+                  </configuration>
+                  <executions>
+                      <execution>
+                          <goals>
+                              <goal>package</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin>
+              ...
+          </plugins>
+    </build>
+</profile>
+----
+endif::[]
+
+ifdef::ProductRelease[]
+[source,xml,subs="attributes+"]
+----
+<profile>
+    <id>bootable-jar</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jboss.eap.plugins</groupId>
+                <artifactId>eap-maven-plugin</artifactId>
+                <configuration>
+                    ...
+                    <feature-packs>
+                        <feature-pack>
+                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                        </feature-pack>
+                        ...
+                    </feature-packs>
+                    <layers>...</layers>
+                    <bootable-jar>true</bootable-jar>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+    </build>
+</profile>
+----
+endif::[]
+
+[NOTE]
+====
+The *bootable-jar* profile is activate by default, and when built the {productName} bootable jar file is named `{artifactId}-bootable.jar`, and may be found in the `target` directory.
+====
+
+.Procedure
+
+. Ensure the bootable jar is built.
++
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn {mavenServerProvisioningCommand}
+----
+
+. Start the {productName} bootable jar use the WildFly Maven Plugin `start-jar` goal.
++
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn wildfly:start-jar
+----
++
+[NOTE]
+====
+You may also start the bootable jar without Maven, using the `java` command.
+[source,subs="attributes+",options="nowrap"]
+----
+$ java -jar target/{artifactId}-bootable.jar
+----
+====
+
+. Run the integration tests use the `verify` goal, with the `integration-testing` profile activated.
++
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn verify -Pintegration-testing
+----
+
+. Shut down the {productName} bootable jar use the WildFly Maven Plugin `shutdown` goal.
++
+[source,options="nowrap"]
+----
+$ mvn wildfly:shutdown
+----
+

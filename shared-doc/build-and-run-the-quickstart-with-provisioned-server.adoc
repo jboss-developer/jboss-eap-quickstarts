@@ -1,0 +1,171 @@
+[[build_and_run_the_quickstart_with_provisioned_server]]
+= Building and running the quickstart application with provisioned {productName} server
+
+ifndef::mavenServerProvisioningCommand[]
+ifeval::["{archiveType}"=="ear"]
+:mavenServerProvisioningCommand: clean install
+endif::[]
+ifeval::["{archiveType}"=="war"]
+:mavenServerProvisioningCommand: clean package
+endif::[]
+ifeval::["{archiveType}"=="jar"]
+:mavenServerProvisioningCommand: clean install
+endif::[]
+endif::mavenServerProvisioningCommand[]
+
+ifndef::deploymentTargetDir[]
+ifndef::deploymentDir[:deploymentTargetDir: target]
+ifdef::deploymentDir[:deploymentTargetDir: {deploymentDir}/target]
+endif::deploymentTargetDir[]
+
+ifndef::extraStartParams[:extraStartParams: ]
+ifndef::extraProvisioningTestParams[:extraProvisioningTestParams: ]
+
+Instead of using a standard {productName} server distribution, you can alternatively provision a {productName} server to deploy and run the quickstart. The functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the quickstart `pom.xml`:
+
+ifndef::ProductRelease[]
+[source,xml,subs="attributes+"]
+----
+<profile>
+    <id>provisioned-server</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <discover-provisioning-info>
+                        <version>${version.server}</version>
+                    </discover-provisioning-info>
+                    <add-ons>...</add-ons>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+    </build>
+</profile>
+----
+endif::[]
+
+ifdef::ProductRelease[]
+[source,xml,subs="attributes+"]
+----
+<profile>
+    <id>provisioned-server</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jboss.eap.plugins</groupId>
+                <artifactId>eap-maven-plugin</artifactId>
+                <configuration>
+                    ...
+                    <feature-packs>
+                        <feature-pack>
+                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                        </feature-pack>
+                        ...
+                    </feature-packs>
+                    <layers>...</layers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+    </build>
+</profile>
+----
+endif::[]
+
+[NOTE]
+====
+When built, the provisioned {productName} server can be found in the `{deploymentTargetDir}/server` directory, and its usage is similar to a standard server distribution, with the simplification that there is never the need to specify the server configuration to be started.
+====
+
+Follow these steps to run the quickstart using the provisioned server.
+
+.Procedure
+
+. Make sure the server is provisioned.
++
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn {mavenServerProvisioningCommand}
+----
+
+ifdef::addQuickstartUser[]
+. Add the quickstart user:
++
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+$ {deploymentTargetDir}/server/bin/add-user.sh -a -u 'quickstartUser' -p 'quickstartPwd1!' {app-group-command}
+----
+endif::[]
+
+ifdef::addQuickstartAdmin[]
+. Add the quickstart admin:
++
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+$ {deploymentTargetDir}/server/bin/add-user.sh -a -u 'quickstartAdmin' -p 'adminPwd1!' {admin-group-command}
+----
+[NOTE]
+====
+For Windows, use the `__{jbossHomeName}__\bin\add-user.bat` script.
+====
+endif::[]
+
+. Start the {productName} provisioned server, using the WildFly Maven Plugin `start` goal.
++
+ifndef::deploymentDir[]
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn wildfly:start {extraStartParams}
+----
+endif::[]
+ifdef::deploymentDir[]
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn -f {deploymentDir}/pom.xml wildfly:start {extraStartParams}
+----
+endif::[]
+
+. Type the following command to run the integration tests.
++
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn verify -Pintegration-testing {extraProvisioningTestParams}
+----
+
+. Shut down the {productName} provisioned server.
++
+ifndef::deploymentDir[]
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn wildfly:shutdown
+----
+endif::[]
+ifdef::deploymentDir[]
+[source,subs="attributes+",options="nowrap"]
+----
+$ mvn -f {deploymentDir}/pom.xml wildfly:shutdown
+----
+endif::[]

@@ -1,0 +1,20 @@
+[[back_up_managed_domain_configuration]]
+= Back Up the {productName} Managed Domain Configuration
+//******************************************************************************
+// Include this template if your quickstart runs in a managed domain and
+// needs to back up the server configuration files before running
+// a CLI script to modify the server.
+//******************************************************************************
+
+Before you begin, back up your server configuration files.
+
+. If it is running, stop the {productName} server.
+. Back up the following files:
++
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+__{jbossHomeName}__/domain/configuration/domain.xml
+__{jbossHomeName}__/domain/configuration/host.xml
+----
+
+After you have completed testing this quickstart, you can replace these file to restore the server to its original configuration.

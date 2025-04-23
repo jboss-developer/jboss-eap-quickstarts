@@ -1,0 +1,78 @@
+ifndef::ProductRelease,EAPXPRelease[]
+The server provisioning functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the quickstart `pom.xml`:
+endif::[]
+ifdef::ProductRelease,EAPXPRelease[]
+The server provisioning functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart `pom.xml`:
+endif::[]
+
+ifndef::ProductRelease,EAPXPRelease[]
+
+[source,xml,subs="attributes+"]
+----
+<profile>
+    <id>openshift</id>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <configuration>
+                    <discover-provisioning-info>
+                        <version>${version.server}</version>
+                        <context>cloud</context>
+                    </discover-provisioning-info>
+                    <add-ons>...</add-ons>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+    </build>
+</profile>
+----
+You may note that unlike the `provisioned-server` profile it uses the cloud context which enables a configuration tuned for {cloud-platform} environment.
+endif::ProductRelease,EAPXPRelease[]
+
+ifdef::ProductRelease,EAPXPRelease[]
+[source,xml,subs="attributes+"]
+----
+<profile>
+    <id>openshift</id>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jboss.eap.plugins</groupId>
+                <artifactId>eap-maven-plugin</artifactId>
+                <configuration>
+                    ...
+                    <feature-packs>
+                        <feature-pack>
+                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
+                        </feature-pack>
+                        <feature-pack>
+                            <location>org.jboss.eap.cloud:eap-cloud-galleon-pack</location>
+                        </feature-pack>
+                    </feature-packs>
+                    <layers>...</layers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+        </plugins>
+    </build>
+</profile>
+----
+You may note that it uses the cloud feature pack which enables a configuration tuned for the {cloud-platform} environment.
+endif::[]
