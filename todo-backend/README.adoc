@@ -12,7 +12,7 @@ endif::[]
 // Enable the following flag to build README.html files for EAP XP product builds.
 // Comment it out for WildFly or JBoss EAP product builds.
 //***********************************************************************************
-:EAPXPRelease:
+//:EAPXPRelease:
 
 // This is a universal name for all releases
 :ProductShortName: JBoss EAP
