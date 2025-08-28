@@ -315,6 +315,14 @@ mvn wildfly:deploy -Dwildfly.port=10190
 The commands just run employed the WildFly Maven plugin to connect to the running instances of {productName}
 and deploy the `war` archives to the servers.
 
+The following warnings might appear in the server output after the applications are deployed. These warnings can be safely ignored in a development environment.
+
+[source,options="nowrap"]
+----
+WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 90) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 20MB, but the OS only allocated 6.71MB
+WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 90) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 6.71MB
+----
+
 ==== Checkpoints
 
 . If errors occur, verify that the {productName} servers are running and that they are configured properly
@@ -787,15 +795,13 @@ To build the `client` and the `server` applications, this quickstart employs
 For more information about {productName}'s Helm chart, please refer to the official
 https://github.com/wildfly/wildfly-charts/blob/main/charts/wildfly/README.md[documentation].
 
-ifndef::ProductRelease[]
 [source,sh,options="nowrap",subs="+quotes,attributes+"]
 ----
-helm repo add wildfly https://docs.wildfly.org/wildfly-charts/
+helm repo add {helmRepoName} {helmRepoUrl}
 
-helm install client -f charts/client.yaml wildfly/wildfly
-helm install server -f charts/server.yaml wildfly/wildfly
+helm install client -f charts/client.yaml {helmChartName}
+helm install server -f charts/server.yaml {helmChartName}
 ----
-endif::[]
 
 Wait for the builds to finish. Their status can be verified by executing the `oc get pod` command.
 
@@ -912,10 +918,17 @@ helm uninstall postgresql
 
 Finally, to undeploy and uninstall the {productName}'s operator:
 
+ifndef::ProductRelease[]
 [source,sh,options="nowrap"]
 ----
 cd /tmp/wildfly-operator;
 make undeploy
 ----
+endif::[]
 
-The above commands completely clean the OpenShift namespace
+ifdef::ProductRelease[]
+[source,sh,options="nowrap"]
+----
+oc delete -f eap-operator-sub.yaml
+----
+endif::[]

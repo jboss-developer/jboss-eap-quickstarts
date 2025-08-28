@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>http-custom-mechanism</artifactId>
-        <version>8.1.0.Beta-redhat-SNAPSHOT</version>
+        <version>8.1.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>http-custom-mechanism-webapp</artifactId>
@@ -38,12 +38,6 @@
     </licenses>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.wildfly.security</groupId>
-            <artifactId>wildfly-elytron</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.wildfly.common</groupId>
             <artifactId>wildfly-common</artifactId>

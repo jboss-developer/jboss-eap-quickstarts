@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>security-domain-to-domain</artifactId>
-        <version>8.1.0.Beta-redhat-SNAPSHOT</version>
+        <version>8.1.0.GA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>security-domain-to-domain-web</artifactId>
@@ -81,7 +81,7 @@
         <!-- Import WildFly Elytron so the APIs can be used. -->
         <dependency>
             <groupId>org.wildfly.security</groupId>
-            <artifactId>wildfly-elytron</artifactId>
+            <artifactId>wildfly-elytron-auth-server</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

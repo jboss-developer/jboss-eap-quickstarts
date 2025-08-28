@@ -894,6 +894,15 @@ mvn wildfly:deploy -Dwildfly.port=10190</code></pre>
 <p>The commands just run employed the WildFly Maven plugin to connect to the running instances of JBoss EAP
 and deploy the <code>war</code> archives to the servers.</p>
 </div>
+<div class="paragraph">
+<p>The following warnings might appear in the server output after the applications are deployed. These warnings can be safely ignored in a development environment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 90) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 20MB, but the OS only allocated 6.71MB
+WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 90) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 6.71MB</code></pre>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_checkpoints">Checkpoints</h4>
 <div class="olist arabic">
@@ -1522,6 +1531,14 @@ JBoss EAP&#8217;s <a href="https://github.com/wildfly/wildfly-charts/tree/main">
 For more information about JBoss EAP&#8217;s Helm chart, please refer to the official
 <a href="https://github.com/wildfly/wildfly-charts/blob/main/charts/wildfly/README.md">documentation</a>.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">helm repo add jboss-eap https://jbossas.github.io/eap-charts/
+
+helm install client -f charts/client.yaml jboss-eap/eap81
+helm install server -f charts/server.yaml jboss-eap/eap81</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>Wait for the builds to finish. Their status can be verified by executing the <code>oc get pod</code> command.</p>
 </div>
@@ -1657,12 +1674,8 @@ helm uninstall postgresql</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">cd /tmp/wildfly-operator;
-make undeploy</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc delete -f eap-operator-sub.yaml</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The above commands completely clean the OpenShift namespace</p>
 </div>
 </div>
 </div>
@@ -1671,7 +1684,7 @@ make undeploy</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-17 11:52:59 UTC
+Last updated 2025-08-05 09:29:22 UTC
 </div>
 </div>
 </body>

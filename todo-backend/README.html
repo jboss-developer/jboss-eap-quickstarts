@@ -825,17 +825,17 @@ REVISION: 1</code></pre>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: v2
 name: todo-backend-chart
-description: A Helm chart to deploy a WildFly todo-backend application and its Postgresql database
+description: A Helm chart to deploy a JBoss EAP todo-backend application and its Postgresql database
 type: application
 version: 1.0.0
-appVersion: 31.0.0.Final
+appVersion: 8.1
 dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 13.1.5
-    - name: wildfly
-      repository: http://docs.wildfly.org/wildfly-charts/
-      version: 2.3.2</code></pre>
+    - name: eap81
+      repository: https://jbossas.github.io/eap-charts/
+      version: 1.0.1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1009,7 +1009,7 @@ deployment on cloud platforms such as OpenShift and Kubernetes.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-17 11:52:59 UTC
+Last updated 2025-08-05 09:29:22 UTC
 </div>
 </div>
 </body>

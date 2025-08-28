@@ -81,6 +81,11 @@ The applications these projects produce are designed to be run on {productNameFu
 
 All you need to build these projects is {buildRequirements}.
 
+[NOTE]
+====
+All Quickstarts that support {productName} server provisioning activate such new feature by default, and this results in considerable more disk space usage.
+====
+
 [[use_of_product_home_and_jboss_home_variables]]
 == Use of {jbossHomeName} and QUICKSTART_HOME Variables
 

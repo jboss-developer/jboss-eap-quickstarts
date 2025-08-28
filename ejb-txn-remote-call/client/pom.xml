@@ -31,7 +31,7 @@
 
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>ejb-txn-remote-call-client</artifactId>
-    <version>8.1.0.Beta-redhat-SNAPSHOT</version>
+    <version>8.1.0.GA</version>
     <packaging>war</packaging>
     <name>Quickstart: ejb-txn-remote-call-client</name>
     <description>The project is the application to be deployed on the client server to call the second server</description>
@@ -40,8 +40,8 @@
         <!-- the Maven project should use the minimum Java SE version supported -->
         <maven.compiler.release>17</maven.compiler.release>
         <!-- the versions for BOMs, Dependencies and Plugins -->
-        <version.bom.ee>8.1.0.Beta-redhat-00018</version.bom.ee>
-        <version.plugin.eap>2.0.0.Beta1-redhat-00011</version.plugin.eap>
+        <version.bom.ee>8.1.0.GA-redhat-00013</version.bom.ee>
+        <version.plugin.eap>2.0.0.Final-redhat-00009</version.plugin.eap>
         <version.plugin.wildfly>5.1.1.Final</version.plugin.wildfly>
         <!-- the versions for other Dependencies and Plugins -->
         <version.postgresql>42.7.2</version.postgresql>
@@ -49,26 +49,13 @@
 
     <repositories>
         <repository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-        <repository>
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
             <url>https://maven.repository.redhat.com/ga/</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
+                <!-- always check for the latest JBoss EAP manifest -->
+                <updatePolicy>always</updatePolicy>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
@@ -92,17 +79,6 @@
         </repository>
     </repositories>
     <pluginRepositories>
-        <pluginRepository>
-            <id>redhat-ea-maven-repository</id>
-            <name>Red Hat Early Access Maven Repository</name>
-            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
         <pluginRepository>
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>

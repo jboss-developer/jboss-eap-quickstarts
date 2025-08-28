@@ -35,6 +35,7 @@ ifdef::EAPXPRelease[]
 :DocInfoProductNumber: 8.1
 :WildFlyQuickStartRepoTag: xp-6.0.x
 :productImageVersion: 6.0
+:helmChartName: jboss-eap/eap-xp6
 endif::[]
 
 ifdef::ProductRelease,EAPXPRelease[]
@@ -117,12 +118,12 @@ ifdef::EAPXPRelease[]
 :ContainerRegistryName: Red Hat Container Registry
 :EapForOpenshiftBookName: {productNameFull} for OpenShift
 :EapForOpenshiftOnlineBookName: {productNameFull} for OpenShift Online
-:ImagePrefixVersion: eap-xp6
+:ImagePrefixVersion: eap-xp3
 :ImageandTemplateImportURL: {ImageandTemplateImportBaseURL}/{ImagePrefixVersion}/
 :BuildImageStream: jboss-{ImagePrefixVersion}-openjdk11-openshift
 :RuntimeImageStream: jboss-{ImagePrefixVersion}-openjdk11-runtime-openshift
 // OpenShift repository and reference for quickstarts
-:EAPQuickStartRepoRef: xp-6.0.x
+:EAPQuickStartRepoRef: xp-5.0.x
 // Links to the OpenShift documentation
 :LinkOpenShiftGuide: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/{DocInfoProductNumber}/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default
 :LinkOpenShiftOnlineGuide: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/{DocInfoProductNumber}/html/using_eclipse_microprofile_in_jboss_eap/using-the-openshift-image-for-jboss-eap-xp_default

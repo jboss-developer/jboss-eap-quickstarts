@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>security-domain-to-domain</artifactId>
-        <version>8.1.0.Beta-redhat-SNAPSHOT</version>
+        <version>8.1.0.GA</version>
     </parent>
     <artifactId>security-domain-to-domain-ejb</artifactId>
     <name>Quickstart: security-domain-to-domain - ejb</name>
