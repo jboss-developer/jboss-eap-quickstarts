@@ -33,7 +33,7 @@ body {
   border-bottom: 25px solid #8c8f91;
   width: 865px; /* subtract 40px from banner width for padding */
   background: #FFFFFF;
-  background-image: url(#{request.contextPath}/resources/gfx/headerbkg.png);
+  background-image: url(/gfx/headerbkg.png);
   background-repeat: repeat-x;
   padding-top: 30px;
   box-shadow: 3px 3px 15px #d5d5d5;
@@ -50,7 +50,7 @@ body {
   margin: 20px 0px;
   border: 1px solid #D5D5D5;
   background: #F1F1F1;
-  background-image: url(#{request.contextPath}/resources/gfx/asidebkg.png);
+  background-image: url(/gfx/asidebkg.png);
   background-repeat: repeat-x;
   padding: 20px;
 }
@@ -106,6 +106,19 @@ form {
   width: 375px;
   border: 1px solid #D5D5D5;
 }
+.messages {
+  margin: 10px 0;
+  padding: 8px;
+}
+
+.messages.valid {
+  color: green;
+}
+
+.messages.invalid {
+  color: red;
+}
+
 label {
   float: left;
   width: 15%;
@@ -147,7 +160,7 @@ input {
 }
 
 .simpletablestyle th {
-	background: url(#{request.contextPath}/resources/gfx/bkg-blkheader.png) black repeat-x top left;
+	background: url(/gfx/bkg-blkheader.png) black repeat-x top left;
   font-size:12px;
   font-weight:normal;
   padding:0 10px 0 5px;
@@ -155,7 +168,7 @@ input {
 }
 
 .simpletablestyle thead {
-  background: url(#{request.contextPath}/resources/gfx/bkg-blkheader.png) black repeat-x top left;
+  background: url(/gfx/bkg-blkheader.png) black repeat-x top left;
   height:31px;
   font-size:10px;
   font-weight:bold;

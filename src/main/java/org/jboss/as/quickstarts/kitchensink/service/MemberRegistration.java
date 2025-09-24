@@ -16,30 +16,40 @@
  */
 package org.jboss.as.quickstarts.kitchensink.service;
 
+import org.jboss.as.quickstarts.kitchensink.data.MemberRepository;
 import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.ejb.Stateless;
-import jakarta.enterprise.event.Event;
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import java.util.logging.Logger;
+import org.springframework.validation.annotation.Validated;
 
-// The @Stateless annotation eliminates the need for manual transaction demarcation
-@Stateless
+import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
+
+@Service
+@Validated
 public class MemberRegistration {
 
-    @Inject
-    private Logger log;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MemberRegistration.class);
 
-    @Inject
-    private EntityManager em;
+    private final MemberRepository memberRepository;
 
-    @Inject
-    private Event<Member> memberEventSrc;
+    public MemberRegistration(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
-    public void register(Member member) throws Exception {
-        log.info("Registering " + member.getName());
-        em.persist(member);
-        memberEventSrc.fire(member);
+    @Transactional
+    public Member register(@Valid Member member) {
+        LOGGER.info("Registering {}", member.getName());
+        validateUniqueEmail(member.getEmail());
+        return memberRepository.save(member);
+    }
+
+    private void validateUniqueEmail(String email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new ValidationException("Email taken");
+        }
     }
 }

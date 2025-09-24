@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>kitchensink</title>
+    <link rel="stylesheet" th:href="@{/css/screen.css}" href="/css/screen.css" />
+</head>
+<body>
+<div id="container">
+    <div class="dualbrand">
+        <img src="/gfx/rhjb_eap_logo.png" alt="Logo" width="300" height="175" />
+    </div>
+    <div id="content">
+        <h1>Welcome to Spring Boot!</h1>
+        <div>
+            <p>You have successfully migrated the Kitchensink quickstart to Spring Boot.</p>
+        </div>
+
+        <form th:action="@{/members}" th:object="${newMember}" method="post" id="reg">
+            <h2>Member Registration</h2>
+            <p>Enforces annotation-based constraints defined on the model class.</p>
+            <div th:if="${successMessage}" class="messages valid" th:text="${successMessage}"></div>
+            <div th:if="${#fields.hasErrors()}" class="messages invalid">Registration unsuccessful</div>
+            <table>
+                <tbody>
+                <tr>
+                    <td><label for="name">Name:</label></td>
+                    <td><input id="name" type="text" th:field="*{name}" /></td>
+                    <td><span class="invalid" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input id="email" type="email" th:field="*{email}" /></td>
+                    <td><span class="invalid" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
+                </tr>
+                <tr>
+                    <td><label for="phoneNumber">Phone #:</label></td>
+                    <td><input id="phoneNumber" type="text" th:field="*{phoneNumber}" /></td>
+                    <td><span class="invalid" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <p>
+                <button type="submit" class="register">Register</button>
+            </p>
+        </form>
+
+        <h2>Members</h2>
+        <div th:if="${#lists.isEmpty(members)}">
+            <em>No registered members.</em>
+        </div>
+        <table th:if="${!#lists.isEmpty(members)}" class="simpletablestyle">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone #</th>
+                <th>REST URL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.phoneNumber}"></td>
+                <td>
+                    <a th:href="@{/rest/members/{id}(id=${member.id})}" th:text="@{/rest/members/{id}(id=${member.id})}"></a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    REST URL for all members: <a th:href="@{/rest/members}" th:text="@{/rest/members}"></a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div id="aside">
+        <p>Learn more about Red Hat JBoss Enterprise Application Platform.</p>
+        <ul>
+            <li><a href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/">Documentation</a></li>
+            <li><a href="http://www.redhat.com/en/technologies/jboss-middleware/application-platform">Product Information</a></li>
+        </ul>
+    </div>
+    <div id="footer">
+        <p>This project was migrated from a JBoss EAP quickstart to Spring Boot.</p>
+    </div>
+</div>
+</body>
+</html>
