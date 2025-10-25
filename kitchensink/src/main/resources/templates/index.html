@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchensink - Member Registration</title>
+    <link rel="stylesheet" th:href="@{/css/screen.css}">
+</head>
+<body>
+    <div id="container">
+        <div id="content">
+            <div class="dualbrand">
+                <img src="https://design.jboss.org/jbossas/logo/final/jboss_as_logo_450px.png" alt="JBoss AS 7"/>
+            </div>
+
+            <h1>Welcome to JBoss!</h1>
+
+            <div>
+                <p>You have successfully deployed a Spring Boot web application.</p>
+                <h3>Your application can run on:</h3>
+                <img src="https://design.jboss.org/jbosseap/logo/final/jboss_eap_logo_450px.png" alt="Red Hat JBoss EAP"/>
+            </div>
+
+            <!-- Success message -->
+            <div th:if="${message}" class="success-message">
+                <p th:text="${message}"></p>
+            </div>
+
+            <!-- Member Registration Form -->
+            <form th:action="@{/register}" th:object="${newMember}" method="post" id="reg">
+                <h2>Member Registration</h2>
+                <p>Enforces annotation-based constraints defined on the model class.</p>
+
+                <table>
+                    <tr>
+                        <td align="right">
+                            <label for="name">Name:</label>
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{name}" id="name" size="25" />
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="email">Email:</label>
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{email}" id="email" size="25" />
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label for="phoneNumber">Phone #:</label>
+                        </td>
+                        <td>
+                            <input type="text" th:field="*{phoneNumber}" id="phoneNumber" size="12" maxlength="12" />
+                            <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error"></span>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Global errors -->
+                <div th:if="${#fields.hasGlobalErrors()}" class="error">
+                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+                </div>
+
+                <p>
+                    <input type="submit" id="register" value="Register" />
+                </p>
+            </form>
+
+            <!-- Members Table -->
+            <h2>Members</h2>
+            <div th:if="${members != null and !members.empty}">
+                <table class="simpletablestyle">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone #</th>
+                            <th>REST URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="member : ${members}">
+                            <td th:text="${member.id}"></td>
+                            <td th:text="${member.name}"></td>
+                            <td th:text="${member.email}"></td>
+                            <td th:text="${member.phoneNumber}"></td>
+                            <td>
+                                <a th:href="@{/rest/members/{id}(id=${member.id})}"
+                                   th:text="@{/rest/members/{id}(id=${member.id})}"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:unless="${members != null and !members.empty}">
+                <p><em>No registered members.</em></p>
+            </div>
+
+            <div class="footer">
+                <p>
+                    This application is running on Spring Boot with Thymeleaf.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
