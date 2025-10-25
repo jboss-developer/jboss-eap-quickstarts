@@ -16,20 +16,24 @@
  */
 package org.jboss.as.quickstarts.kitchensink.data;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.springframework.stereotype.Repository;
+
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import java.util.List;
 
-import org.jboss.as.quickstarts.kitchensink.model.Member;
-
-@ApplicationScoped
+/**
+ * Repository for Member entities.
+ * Migrated from CDI @ApplicationScoped to Spring @Repository.
+ */
+@Repository
 public class MemberRepository {
 
-    @Inject
+    @PersistenceContext
     private EntityManager em;
 
     public Member findById(Long id) {
