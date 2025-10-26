@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.quickstarts.kitchensink.data.MemberRepository;
 import org.quickstarts.kitchensink.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +33,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import de.flapdoodle.embed.mongo.spring.autoconfigure.EmbeddedMongoAutoConfiguration;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,14 +42,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Integration tests for REST GET endpoints.
  * Tests member listing and lookup operations via HTTP.
+ *
+ * This test automatically starts embedded MongoDB and the Spring Boot application.
+ * No manual setup required!
  */
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = WebEnvironment.RANDOM_PORT,
+    classes = {EmbeddedMongoAutoConfiguration.class}
+)
 public class RemoteMemberRESTServiceIT {
 
     private static final Logger log = Logger.getLogger(RemoteMemberRESTServiceIT.class.getName());
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private MemberRepository repository;
+
+    @BeforeEach
+    public void setUp() {
+        repository.deleteAll();
+    }
 
     @Test
     public void testListAllMembers() {

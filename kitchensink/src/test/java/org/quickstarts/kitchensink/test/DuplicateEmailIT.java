@@ -19,13 +19,17 @@ package org.quickstarts.kitchensink.test;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.quickstarts.kitchensink.data.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import de.flapdoodle.embed.mongo.spring.autoconfigure.EmbeddedMongoAutoConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,14 +38,28 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Integration tests for duplicate email handling.
  * Tests that the system properly prevents duplicate email registrations.
+ *
+ * This test automatically starts embedded MongoDB and the Spring Boot application.
+ * No manual setup required!
  */
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = WebEnvironment.RANDOM_PORT,
+    classes = {EmbeddedMongoAutoConfiguration.class}
+)
 public class DuplicateEmailIT {
 
     private static final Logger log = Logger.getLogger(DuplicateEmailIT.class.getName());
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private MemberRepository repository;
+
+    @BeforeEach
+    public void setUp() {
+        repository.deleteAll();
+    }
 
     @Test
     public void testDuplicateEmailRejected() {
