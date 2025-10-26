@@ -57,7 +57,7 @@ public class MemberController {
     @GetMapping("/")
     public String index(Model model) {
         // Get all members to display in the table
-        List<Member> members = repository.findAllOrderedByName();
+        List<Member> members = repository.findAllByOrderByNameAsc();
         model.addAttribute("members", members);
 
         return "index";
@@ -72,7 +72,7 @@ public class MemberController {
         // Check for validation errors
         if (bindingResult.hasErrors()) {
             // Re-populate the members list for display
-            List<Member> members = repository.findAllOrderedByName();
+            List<Member> members = repository.findAllByOrderByNameAsc();
             model.addAttribute("members", members);
             return "index";
         }
@@ -80,7 +80,7 @@ public class MemberController {
         // Check for duplicate email
         if (emailAlreadyExists(member.getEmail())) {
             bindingResult.rejectValue("email", "error.member", "Email already taken");
-            List<Member> members = repository.findAllOrderedByName();
+            List<Member> members = repository.findAllByOrderByNameAsc();
             model.addAttribute("members", members);
             return "index";
         }
@@ -93,7 +93,7 @@ public class MemberController {
         } catch (Exception e) {
             log.error("Error registering member", e);
             bindingResult.reject("error.registration", "An error occurred during registration");
-            List<Member> members = repository.findAllOrderedByName();
+            List<Member> members = repository.findAllByOrderByNameAsc();
             model.addAttribute("members", members);
             return "index";
         }

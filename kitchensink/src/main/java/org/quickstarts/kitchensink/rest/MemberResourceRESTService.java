@@ -27,18 +27,16 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.persistence.NoResultException;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Spring REST Controller for Member resources.
- * Migrated from JAX-RS to Spring MVC.
+ * Migrated from JAX-RS to Spring MVC, and from JPA to MongoDB.
  * <p/>
- * This class produces a RESTful service to read/write the contents of the members table.
+ * This class produces a RESTful service to read/write the contents of the members collection.
  */
 @RestController
 @RequestMapping("/rest/members")
@@ -56,12 +54,12 @@ public class MemberResourceRESTService {
 
     @GetMapping
     public List<Member> listAllMembers() {
-        return repository.findAllOrderedByName();
+        return repository.findAllByOrderByNameAsc();
     }
 
-    @GetMapping("/{id:[0-9]+}")
-    public ResponseEntity<Member> lookupMemberById(@PathVariable("id") long id) {
-        Member member = repository.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Member> lookupMemberById(@PathVariable("id") String id) {
+        Member member = repository.findMemberById(id);
         if (member == null) {
             return ResponseEntity.notFound().build();
         }
@@ -111,19 +109,14 @@ public class MemberResourceRESTService {
     }
 
     /**
-     * Checks if a member with the same email address is already registered. This is the only way to easily capture the
-     * "@UniqueConstraint(columnNames = "email")" constraint from the Member class.
+     * Checks if a member with the same email address is already registered.
+     * Verifies the @Indexed(unique = true) constraint on the email field.
      *
      * @param email The email to check
      * @return True if the email already exists, and false otherwise
      */
     public boolean emailAlreadyExists(String email) {
-        Member member = null;
-        try {
-            member = repository.findByEmail(email);
-        } catch (NoResultException e) {
-            // ignore
-        }
+        Member member = repository.findByEmail(email);
         return member != null;
     }
 }

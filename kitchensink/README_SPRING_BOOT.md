@@ -1,6 +1,6 @@
-# Kitchensink Spring Boot Application
+# Kitchensink Spring Boot Application with MongoDB
 
-A modern member registration application migrated from Jakarta EE/JBoss EAP to Spring Boot 3.4.0. This application demonstrates best practices for building web applications with Spring Boot, including MVC controllers, REST APIs, JPA data access, and validation.
+A modern member registration application migrated from Jakarta EE/JBoss EAP to Spring Boot 3.4.0 with MongoDB. This application demonstrates best practices for building web applications with Spring Boot, including MVC controllers, REST APIs, MongoDB data access, and validation.
 
 ## Table of Contents
 
@@ -51,12 +51,12 @@ This application was originally built for JBoss EAP using Jakarta EE technologie
 - **Spring Boot**: 3.4.0
 - **Java**: 21
 - **Spring MVC**: Web layer and REST controllers
-- **Spring Data JPA**: Data access layer
-- **Hibernate**: JPA implementation
+- **Spring Data MongoDB**: Data access layer for MongoDB
+- **MongoDB**: NoSQL document database
 - **Thymeleaf**: Template engine for server-side rendering
-- **H2 Database**: In-memory database (development)
 - **Bean Validation**: Jakarta Bean Validation 3.0
 - **JUnit 5**: Testing framework
+- **Embedded MongoDB**: For testing (Flapdoodle)
 - **Maven**: Build and dependency management
 
 ## Prerequisites
@@ -70,6 +70,18 @@ Before building and running the application, ensure you have:
 - **Maven 3.6+** installed
   ```bash
   mvn -version
+  ```
+- **MongoDB 5.0+** installed and running
+  ```bash
+  # On macOS with Homebrew
+  brew install mongodb-community
+  brew services start mongodb-community
+
+  # On Linux (Ubuntu/Debian)
+  sudo systemctl start mongod
+
+  # Verify MongoDB is running
+  mongosh --eval "db.version()"
   ```
 - **Git** (to clone the repository)
 
@@ -321,39 +333,79 @@ Success Rate:   100%
 
 ## Database
 
-### Development Database (H2)
+### MongoDB Configuration
 
-The application uses an in-memory H2 database for development:
+The application uses MongoDB as its database. Configuration is in `application.properties`:
 
-- **Database**: H2 (in-memory)
-- **Schema**: Auto-created from JPA entities
-- **Data**: Sample data loaded from `src/main/resources/import.sql`
-- **Lifecycle**: Data is reset on each application restart
+```properties
+# MongoDB Configuration
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=kitchensink
+
+# Auto-create indexes
+spring.data.mongodb.auto-index-creation=true
+```
 
 ### Sample Data
 
-On startup, the application loads one sample member:
+On startup, the `DataInitializer` component loads one sample member:
 
-```sql
-INSERT INTO Member(id, name, email, phone_number)
-VALUES (0, 'John Smith', 'john.smith@mailinator.com', '2125551234');
+```java
+Member johnSmith = new Member();
+johnSmith.setName("John Smith");
+johnSmith.setEmail("john.smith@mailinator.com");
+johnSmith.setPhoneNumber("2125551234");
 ```
 
-### Production Database
+### MongoDB Collections
 
-To use a production database (PostgreSQL, MySQL, etc.), update `application.properties`:
+The application uses a single collection:
+
+- **Collection Name**: `members`
+- **Document Structure**:
+  ```json
+  {
+    "_id": "ObjectId",
+    "name": "String",
+    "email": "String (unique index)",
+    "phoneNumber": "String"
+  }
+  ```
+
+### MongoDB Administration
+
+#### Access MongoDB Shell
+
+```bash
+mongosh
+use kitchensink
+db.members.find().pretty()
+```
+
+#### View All Members
+
+```bash
+db.members.find()
+```
+
+#### Clear All Data
+
+```bash
+db.members.deleteMany({})
+```
+
+### MongoDB Atlas (Cloud)
+
+To use MongoDB Atlas instead of local MongoDB, update `application.properties`:
 
 ```properties
-# Example for PostgreSQL
-spring.datasource.url=jdbc:postgresql://localhost:5432/kitchensink
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-spring.datasource.driver-class-name=org.postgresql.Driver
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto=update
+spring.data.mongodb.uri=mongodb+srv://username:password@cluster.mongodb.net/kitchensink?retryWrites=true&w=majority
 ```
 
-Don't forget to add the appropriate JDBC driver dependency to `pom.xml`.
+### Testing with Embedded MongoDB
+
+Tests use Flapdoodle embedded MongoDB, which automatically starts a MongoDB instance for testing. No separate MongoDB installation needed for tests.
 
 ## Project Structure
 
@@ -375,9 +427,11 @@ kitchensink/
 │   │   │       └── Member.java                   # JPA entity
 │   │   └── resources/
 │   │       ├── application.properties             # Configuration
-│   │       ├── import.sql                         # Sample data
+│   │       ├── application.properties             # Configuration
 │   │       └── templates/
 │   │           └── index.html                     # Thymeleaf template
+│   │   │   ├── config/
+│   │   │   │   └── DataInitializer.java          # Sample data loader
 │   └── test/
 │       └── java/org/quickstarts/kitchensink/test/
 │           ├── MemberValidationTest.java          # Unit tests
@@ -398,18 +452,15 @@ Key configuration in `src/main/resources/application.properties`:
 # Server
 server.port=8080
 
-# Database
-spring.datasource.url=jdbc:h2:mem:kitchensink
-spring.jpa.hibernate.ddl-auto=create-drop
-spring.jpa.show-sql=false
-
-# H2 Console
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
+# MongoDB Configuration
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=kitchensink
+spring.data.mongodb.auto-index-creation=true
 
 # Logging
 logging.level.org.springframework=INFO
-logging.level.org.hibernate=INFO
+logging.level.org.springframework.data.mongodb=INFO
 logging.level.org.quickstarts.kitchensink=INFO
 ```
 
@@ -427,41 +478,74 @@ java -jar target/kitchensink-8.0.0.GA.jar --server.port=9090
 
 ## Migration Notes
 
-This application was migrated from Jakarta EE/JBoss EAP to Spring Boot. Key changes:
+This application has undergone two major migrations:
 
-### Architecture Changes
+### Migration 1: Jakarta EE/JBoss EAP → Spring Boot
 
 | Jakarta EE | Spring Boot |
 |------------|-------------|
-| EJB @Stateless | @Service + @Transactional |
+| EJB @Stateless | @Service |
 | CDI @Inject | @Autowired |
 | JAX-RS | Spring MVC @RestController |
 | JSF | Thymeleaf |
-| JBoss @ApplicationScoped | Spring @Component |
+| EntityManager | MongoRepository |
+
+### Migration 2: JPA/H2 → MongoDB
+
+| JPA/H2 | MongoDB |
+|--------|---------|
+| @Entity | @Document |
+| @Table | @Document(collection="...") |
+| @Id Long | @Id String (ObjectId) |
+| @Column | Direct field mapping |
+| EntityManager | MongoRepository |
+| JpaRepository | MongoRepository |
+| SQL (import.sql) | DataInitializer component |
+| Relational tables | Document collections |
 
 ### Package Structure
 
 - **Old**: `org.jboss.as.quickstarts.kitchensink.*`
 - **New**: `org.quickstarts.kitchensink.*`
 
-### Testing Framework
+### ID Field Changes
 
-- **Old**: Manual HttpClient with jakarta.json parsing
-- **New**: @SpringBootTest with TestRestTemplate
-- **Assertions**: Migrated from JUnit 4 to JUnit 5 style
+- **JPA**: `Long id` with `@GeneratedValue`
+- **MongoDB**: `String id` with MongoDB ObjectId generation
+- **REST API**: ID parameter changed from numeric to alphanumeric
 
-### Benefits of Migration
+### Benefits of Migrations
 
 ✅ Modern Spring Boot framework
-✅ Simplified configuration (no XML)
+✅ NoSQL flexibility with MongoDB
+✅ Better scalability with document database
+✅ Simplified configuration
 ✅ Embedded Tomcat server
-✅ Better testing support
-✅ Auto-configuration
-✅ Production-ready features (actuator, metrics)
-✅ Larger community and ecosystem
-✅ Easier deployment
+✅ Better testing support with embedded MongoDB
+✅ Cloud-ready (easy MongoDB Atlas integration)
+✅ Larger Spring + MongoDB ecosystem
 
 ## Troubleshooting
+
+### MongoDB Not Running
+
+If you see connection errors like "MongoSocketOpenException":
+
+```bash
+# Check if MongoDB is running
+mongosh --eval "db.version()"
+
+# Start MongoDB
+# macOS
+brew services start mongodb-community
+
+# Linux
+sudo systemctl start mongod
+
+# Check MongoDB status
+brew services list  # macOS
+sudo systemctl status mongod  # Linux
+```
 
 ### Port Already in Use
 

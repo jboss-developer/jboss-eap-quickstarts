@@ -14,35 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.quickstarts.kitchensink.service;
+package org.quickstarts.kitchensink.config;
 
 import org.quickstarts.kitchensink.data.MemberRepository;
 import org.quickstarts.kitchensink.model.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /**
- * Service for member registration.
- * Migrated from JPA to MongoDB - uses MongoRepository for persistence.
+ * Initializes the MongoDB database with sample data on application startup.
+ * Replaces the import.sql file used with JPA/H2.
  */
-@Service
-public class MemberRegistration {
+@Component
+public class DataInitializer implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(MemberRegistration.class);
+    private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
 
     private final MemberRepository repository;
-    private final ApplicationEventPublisher eventPublisher;
 
-    public MemberRegistration(MemberRepository repository, ApplicationEventPublisher eventPublisher) {
+    public DataInitializer(MemberRepository repository) {
         this.repository = repository;
-        this.eventPublisher = eventPublisher;
     }
 
-    public void register(Member member) throws Exception {
-        log.info("Registering {}", member.getName());
-        repository.save(member);
-        eventPublisher.publishEvent(member);
+    @Override
+    public void run(String... args) {
+        // Clear existing data
+        repository.deleteAll();
+
+        // Insert sample member
+        Member johnSmith = new Member();
+        johnSmith.setName("John Smith");
+        johnSmith.setEmail("john.smith@mailinator.com");
+        johnSmith.setPhoneNumber("2125551234");
+
+        repository.save(johnSmith);
+
+        log.info("Sample data initialized: 1 member loaded");
     }
 }

@@ -80,7 +80,7 @@ public class RemoteMemberRESTServiceIT {
     @Test
     public void testLookupMemberById() {
         // First, create a test member
-        Long memberId = createTestMember("Jane Smith", "jane.smith.lookup@example.com", "5559876543");
+        String memberId = createTestMember("Jane Smith", "jane.smith.lookup@example.com", "5559876543");
 
         // Test: GET /rest/members/{id}
         ResponseEntity<Member> response = restTemplate.getForEntity("/rest/members/" + memberId, Member.class);
@@ -103,7 +103,8 @@ public class RemoteMemberRESTServiceIT {
     @Test
     public void testLookupMemberByIdNotFound() {
         // Test: GET /rest/members/{nonExistentId}
-        ResponseEntity<String> response = restTemplate.getForEntity("/rest/members/999999", String.class);
+        // Using a fake MongoDB ObjectId format
+        ResponseEntity<String> response = restTemplate.getForEntity("/rest/members/507f1f77bcf86cd799439011", String.class);
 
         // Verify response
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode(), "Should return 404 Not Found");
@@ -152,11 +153,11 @@ public class RemoteMemberRESTServiceIT {
 
     @Test
     public void testLookupMemberByInvalidId() {
-        // Test: GET /rest/members/invalid (non-numeric ID)
-        // Note: The path pattern is {id:[0-9][0-9]*} so this should return 404
-        ResponseEntity<String> response = restTemplate.getForEntity("/rest/members/abc", String.class);
+        // Test: GET /rest/members/invalid
+        // MongoDB will return 404 for invalid ObjectId strings
+        ResponseEntity<String> response = restTemplate.getForEntity("/rest/members/invalidObjectId123", String.class);
 
-        // Should return 404 because the path doesn't match the pattern
+        // Should return 404 for invalid MongoDB ObjectId
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode(), "Should return 404 for invalid ID format");
 
         log.info("Successfully verified 404 response for invalid member ID format");
@@ -165,7 +166,7 @@ public class RemoteMemberRESTServiceIT {
     /**
      * Helper method to create a test member and return its ID
      */
-    private Long createTestMember(String name, String email, String phoneNumber) {
+    private String createTestMember(String name, String email, String phoneNumber) {
         Map<String, String> memberData = Map.of(
                 "name", name,
                 "email", email,

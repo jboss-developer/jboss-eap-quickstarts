@@ -17,49 +17,43 @@
 package org.quickstarts.kitchensink.data;
 
 import org.quickstarts.kitchensink.model.Member;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Repository for Member entities.
- * Migrated from CDI @ApplicationScoped to Spring @Repository.
+ * MongoDB repository for Member documents.
+ * Migrated from JPA EntityManager to Spring Data MongoDB.
+ * Spring Data automatically implements basic CRUD operations and custom query methods.
  */
-@Repository
-public class MemberRepository {
+public interface MemberRepository extends MongoRepository<Member, String> {
 
-    @PersistenceContext
-    private EntityManager em;
+    /**
+     * Find a member by email address.
+     * Spring Data MongoDB automatically implements this based on method naming convention.
+     *
+     * @param email The email to search for
+     * @return The member with the given email, or null if not found
+     */
+    Member findByEmail(String email);
 
-    public Member findById(Long id) {
-        return em.find(Member.class, id);
-    }
+    /**
+     * Find all members ordered by name in ascending order.
+     * Spring Data MongoDB automatically implements this based on method naming convention.
+     *
+     * @return List of all members sorted by name
+     */
+    List<Member> findAllByOrderByNameAsc();
 
-    public Member findByEmail(String email) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-        // feature in JPA 2.0
-        // criteria.select(member).where(cb.equal(member.get(Member_.email), email));
-        criteria.select(member).where(cb.equal(member.get("email"), email));
-        List<Member> results = em.createQuery(criteria).getResultList();
-        return results.isEmpty() ? null : results.get(0);
-    }
-
-    public List<Member> findAllOrderedByName() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
-        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-        // feature in JPA 2.0
-        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-        criteria.select(member).orderBy(cb.asc(member.get("name")));
-        return em.createQuery(criteria).getResultList();
+    /**
+     * Find a member by ID, returning Member or null.
+     * Helper method for backward compatibility with existing code.
+     *
+     * @param id The member ID
+     * @return The member with the given ID, or null if not found
+     */
+    default Member findMemberById(String id) {
+        return findById(id).orElse(null);
     }
 }
