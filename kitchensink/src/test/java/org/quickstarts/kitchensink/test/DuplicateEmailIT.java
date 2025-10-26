@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.kitchensink.test;
+package org.quickstarts.kitchensink.test;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;

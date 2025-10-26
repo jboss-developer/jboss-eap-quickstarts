@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.as.quickstarts.kitchensink.test;
+package org.quickstarts.kitchensink.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,7 +29,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import org.jboss.as.quickstarts.kitchensink.model.Member;
+import org.quickstarts.kitchensink.model.Member;
 import org.junit.jupiter.api.Test;
 
 public class RemoteMemberRegistrationIT {
