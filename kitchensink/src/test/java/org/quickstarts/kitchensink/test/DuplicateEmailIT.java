@@ -16,247 +16,179 @@
  */
 package org.quickstarts.kitchensink.test;
 
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
-
-import java.io.StringReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration tests for duplicate email handling.
  * Tests that the system properly prevents duplicate email registrations.
  */
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class DuplicateEmailIT {
 
     private static final Logger log = Logger.getLogger(DuplicateEmailIT.class.getName());
-    private HttpClient httpClient;
 
-    @BeforeEach
-    public void setUp() {
-        httpClient = HttpClient.newHttpClient();
-    }
-
-    protected URI getHTTPEndpoint() {
-        String host = getServerHost();
-        if (host == null) {
-            host = "http://localhost:8080/kitchensink";
-        }
-        try {
-            return new URI(host + "/rest/members");
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private String getServerHost() {
-        String host = System.getenv("SERVER_HOST");
-        if (host == null) {
-            host = System.getProperty("server.host");
-        }
-        return host;
-    }
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
-    public void testDuplicateEmailRejected() throws Exception {
+    public void testDuplicateEmailRejected() {
         String duplicateEmail = "duplicate.test@example.com";
 
         // First registration - should succeed
-        JsonObject json1 = Json.createObjectBuilder()
-                .add("name", "First User")
-                .add("email", duplicateEmail)
-                .add("phoneNumber", "1234567890")
-                .build();
+        Map<String, String> member1 = Map.of(
+                "name", "First User",
+                "email", duplicateEmail,
+                "phoneNumber", "1234567890"
+        );
 
-        HttpRequest request1 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json1.toString()))
-                .build();
-
-        HttpResponse<String> response1 = httpClient.send(request1, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals("First registration should succeed", 200, response1.statusCode());
+        ResponseEntity<String> response1 = restTemplate.postForEntity("/rest/members", member1, String.class);
+        assertEquals(HttpStatus.OK, response1.getStatusCode(), "First registration should succeed");
         log.info("First registration succeeded for: " + duplicateEmail);
 
         // Second registration with same email - should fail
-        JsonObject json2 = Json.createObjectBuilder()
-                .add("name", "Second User")
-                .add("email", duplicateEmail)
-                .add("phoneNumber", "0987654321")
-                .build();
+        Map<String, String> member2 = Map.of(
+                "name", "Second User",
+                "email", duplicateEmail,
+                "phoneNumber", "0987654321"
+        );
 
-        HttpRequest request2 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json2.toString()))
-                .build();
-
-        HttpResponse<String> response2 = httpClient.send(request2, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<Map> response2 = restTemplate.postForEntity("/rest/members", member2, Map.class);
 
         // Verify duplicate is rejected with 409 Conflict
-        Assertions.assertEquals("Duplicate email should return 409 Conflict", 409, response2.statusCode());
-        Assertions.assertNotNull("Response body should not be null", response2.body());
-
-        // Parse error response
-        JsonReader jsonReader = Json.createReader(new StringReader(response2.body()));
-        JsonObject errorResponse = jsonReader.readObject();
+        assertEquals(HttpStatus.CONFLICT, response2.getStatusCode(), "Duplicate email should return 409 Conflict");
+        assertNotNull(response2.getBody(), "Response body should not be null");
 
         // Verify error message mentions email
-        Assertions.assertTrue("Error response should contain 'email' field", errorResponse.containsKey("email"));
-        String emailError = errorResponse.getString("email");
-        Assertions.assertTrue("Error message should mention 'taken' or similar",
-            emailError.toLowerCase().contains("taken") || emailError.toLowerCase().contains("exists"));
+        Map<String, String> errorResponse = response2.getBody();
+        assertTrue(errorResponse.containsKey("email"), "Error response should contain 'email' field");
+        String emailError = errorResponse.get("email");
+        assertTrue(emailError.toLowerCase().contains("taken") || emailError.toLowerCase().contains("exists"),
+                "Error message should mention 'taken' or similar");
 
         log.info("Successfully rejected duplicate email with 409 Conflict: " + duplicateEmail);
     }
 
     @Test
-    public void testDuplicateEmailWithDifferentCase() throws Exception {
+    public void testDuplicateEmailWithDifferentCase() {
         String baseEmail = "case.sensitive@example.com";
 
         // First registration with lowercase
-        JsonObject json1 = Json.createObjectBuilder()
-                .add("name", "Lowercase User")
-                .add("email", baseEmail)
-                .add("phoneNumber", "1112223333")
-                .build();
+        Map<String, String> member1 = Map.of(
+                "name", "Lowercase User",
+                "email", baseEmail,
+                "phoneNumber", "1112223333"
+        );
 
-        HttpRequest request1 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json1.toString()))
-                .build();
-
-        HttpResponse<String> response1 = httpClient.send(request1, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals("First registration should succeed", 200, response1.statusCode());
+        ResponseEntity<String> response1 = restTemplate.postForEntity("/rest/members", member1, String.class);
+        assertEquals(HttpStatus.OK, response1.getStatusCode(), "First registration should succeed");
 
         // Second registration with different case
         String upperCaseEmail = baseEmail.toUpperCase();
-        JsonObject json2 = Json.createObjectBuilder()
-                .add("name", "Uppercase User")
-                .add("email", upperCaseEmail)
-                .add("phoneNumber", "4445556666")
-                .build();
+        Map<String, String> member2 = Map.of(
+                "name", "Uppercase User",
+                "email", upperCaseEmail,
+                "phoneNumber", "4445556666"
+        );
 
-        HttpRequest request2 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json2.toString()))
-                .build();
-
-        HttpResponse<String> response2 = httpClient.send(request2, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<String> response2 = restTemplate.postForEntity("/rest/members", member2, String.class);
 
         // This test documents the current behavior - whether case-sensitive or not
         // If the database constraint is case-insensitive, this should return 409
         // If case-sensitive, this should return 200
-        log.info("Registration with different case returned status: " + response2.statusCode());
+        log.info("Registration with different case returned status: " + response2.getStatusCode());
 
         // For now, we just document the behavior without asserting
         // During migration, you may want to enforce case-insensitive email uniqueness
-        if (response2.statusCode() == 409) {
+        if (response2.getStatusCode() == HttpStatus.CONFLICT) {
             log.info("System enforces case-insensitive email uniqueness");
-        } else if (response2.statusCode() == 200) {
+        } else if (response2.getStatusCode() == HttpStatus.OK) {
             log.info("System allows different cases as different emails");
         }
     }
 
     @Test
-    public void testMultipleUsersWithUniqueEmails() throws Exception {
+    public void testMultipleUsersWithUniqueEmails() {
         // Test that multiple users can register with different emails
         String email1 = "unique1@example.com";
         String email2 = "unique2@example.com";
         String email3 = "unique3@example.com";
 
         // Register first user
-        JsonObject json1 = Json.createObjectBuilder()
-                .add("name", "User One")
-                .add("email", email1)
-                .add("phoneNumber", "1231231234")
-                .build();
-        HttpRequest request1 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json1.toString()))
-                .build();
-        HttpResponse<String> response1 = httpClient.send(request1, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals("First user should register successfully", 200, response1.statusCode());
+        Map<String, String> member1 = Map.of(
+                "name", "User One",
+                "email", email1,
+                "phoneNumber", "1231231234"
+        );
+        ResponseEntity<String> response1 = restTemplate.postForEntity("/rest/members", member1, String.class);
+        assertEquals(HttpStatus.OK, response1.getStatusCode(), "First user should register successfully");
 
         // Register second user
-        JsonObject json2 = Json.createObjectBuilder()
-                .add("name", "User Two")
-                .add("email", email2)
-                .add("phoneNumber", "4564564567")
-                .build();
-        HttpRequest request2 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json2.toString()))
-                .build();
-        HttpResponse<String> response2 = httpClient.send(request2, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals("Second user should register successfully", 200, response2.statusCode());
+        Map<String, String> member2 = Map.of(
+                "name", "User Two",
+                "email", email2,
+                "phoneNumber", "4564564567"
+        );
+        ResponseEntity<String> response2 = restTemplate.postForEntity("/rest/members", member2, String.class);
+        assertEquals(HttpStatus.OK, response2.getStatusCode(), "Second user should register successfully");
 
         // Register third user
-        JsonObject json3 = Json.createObjectBuilder()
-                .add("name", "User Three")
-                .add("email", email3)
-                .add("phoneNumber", "7897897890")
-                .build();
-        HttpRequest request3 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json3.toString()))
-                .build();
-        HttpResponse<String> response3 = httpClient.send(request3, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals("Third user should register successfully", 200, response3.statusCode());
+        Map<String, String> member3 = Map.of(
+                "name", "User Three",
+                "email", email3,
+                "phoneNumber", "7897897890"
+        );
+        ResponseEntity<String> response3 = restTemplate.postForEntity("/rest/members", member3, String.class);
+        assertEquals(HttpStatus.OK, response3.getStatusCode(), "Third user should register successfully");
 
         log.info("Successfully registered 3 users with unique emails");
     }
 
     @Test
-    public void testDuplicateEmailErrorMessageFormat() throws Exception {
+    public void testDuplicateEmailErrorMessageFormat() {
         String duplicateEmail = "format.test@example.com";
 
         // First registration
-        JsonObject json1 = Json.createObjectBuilder()
-                .add("name", "Original User")
-                .add("email", duplicateEmail)
-                .add("phoneNumber", "5556667777")
-                .build();
+        Map<String, String> member1 = Map.of(
+                "name", "Original User",
+                "email", duplicateEmail,
+                "phoneNumber", "5556667777"
+        );
 
-        HttpRequest request1 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json1.toString()))
-                .build();
-
-        httpClient.send(request1, HttpResponse.BodyHandlers.ofString());
+        restTemplate.postForEntity("/rest/members", member1, String.class);
 
         // Second registration with duplicate email
-        JsonObject json2 = Json.createObjectBuilder()
-                .add("name", "Duplicate User")
-                .add("email", duplicateEmail)
-                .add("phoneNumber", "8889990000")
-                .build();
+        Map<String, String> member2 = Map.of(
+                "name", "Duplicate User",
+                "email", duplicateEmail,
+                "phoneNumber", "8889990000"
+        );
 
-        HttpRequest request2 = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json2.toString()))
-                .build();
-
-        HttpResponse<String> response2 = httpClient.send(request2, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<Map> response2 = restTemplate.postForEntity("/rest/members", member2, Map.class);
 
         // Verify error response format
-        Assertions.assertEquals("Should return 409 Conflict", 409, response2.statusCode());
+        assertEquals(HttpStatus.CONFLICT, response2.getStatusCode(), "Should return 409 Conflict");
 
-        JsonReader jsonReader = Json.createReader(new StringReader(response2.body()));
-        JsonObject errorResponse = jsonReader.readObject();
+        Map<String, String> errorResponse = response2.getBody();
 
         // Verify it's a proper JSON object with email field
-        Assertions.assertTrue("Should be a JSON object with 'email' field", errorResponse.containsKey("email"));
-        Assertions.assertTrue("Email field should be a string", errorResponse.get("email").getValueType() == jakarta.json.JsonValue.ValueType.STRING);
-        Assertions.assertFalse("Error message should not be empty", errorResponse.getString("email").isEmpty());
+        assertNotNull(errorResponse, "Response body should not be null");
+        assertTrue(errorResponse.containsKey("email"), "Should be a JSON object with 'email' field");
+        assertTrue(errorResponse.get("email") instanceof String, "Email field should be a string");
+        assertTrue(!errorResponse.get("email").isEmpty(), "Error message should not be empty");
 
-        log.info("Duplicate email error format verified: " + errorResponse.toString());
+        log.info("Duplicate email error format verified: " + errorResponse);
     }
 }

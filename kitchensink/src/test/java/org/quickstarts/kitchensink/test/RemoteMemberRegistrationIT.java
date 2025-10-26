@@ -18,61 +18,39 @@ package org.quickstarts.kitchensink.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
-
-import java.util.logging.Logger;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 import org.quickstarts.kitchensink.model.Member;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+/**
+ * Spring Boot integration test for member registration.
+ * Uses @SpringBootTest to start the full application context and TestRestTemplate for HTTP calls.
+ */
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class RemoteMemberRegistrationIT {
 
-    private static final Logger log = Logger.getLogger(RemoteMemberRegistrationIT.class.getName());
-
-    protected URI getHTTPEndpoint() {
-        String host = getServerHost();
-        if (host == null) {
-            host = "http://localhost:8080/kitchensink";
-        }
-        try {
-            return new URI(host + "/rest/members");
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private String getServerHost() {
-        String host = System.getenv("SERVER_HOST");
-        if (host == null) {
-            host = System.getProperty("server.host");
-        }
-        return host;
-    }
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
-    public void testRegister() throws Exception {
+    public void testRegister() {
         Member newMember = new Member();
         newMember.setName("Jane Doe");
         newMember.setEmail("jane@mailinator.com");
         newMember.setPhoneNumber("2125551234");
-        JsonObject json = Json.createObjectBuilder()
-                .add("name", "Jane Doe")
-                .add("email", "jane@mailinator.com")
-                .add("phoneNumber", "2125551234").build();
-        HttpRequest request = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
-                .build();
-        HttpResponse response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, response.statusCode());
-        assertEquals("", response.body().toString());
-    }
 
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            "/rest/members",
+            newMember,
+            String.class
+        );
+
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Registration should succeed");
+        // Response body is null for successful registration with no content
+    }
 }

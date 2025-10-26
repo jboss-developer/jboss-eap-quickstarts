@@ -16,156 +16,117 @@
  */
 package org.quickstarts.kitchensink.test;
 
-import jakarta.json.Json;
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
-
-import java.io.StringReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.quickstarts.kitchensink.model.Member;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration tests for REST GET endpoints.
  * Tests member listing and lookup operations via HTTP.
  */
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class RemoteMemberRESTServiceIT {
 
     private static final Logger log = Logger.getLogger(RemoteMemberRESTServiceIT.class.getName());
-    private HttpClient httpClient;
 
-    @BeforeEach
-    public void setUp() {
-        httpClient = HttpClient.newHttpClient();
-    }
-
-    protected URI getHTTPEndpoint() {
-        String host = getServerHost();
-        if (host == null) {
-            host = "http://localhost:8080/kitchensink";
-        }
-        try {
-            return new URI(host + "/rest/members");
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private String getServerHost() {
-        String host = System.getenv("SERVER_HOST");
-        if (host == null) {
-            host = System.getProperty("server.host");
-        }
-        return host;
-    }
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     @Test
-    public void testListAllMembers() throws Exception {
+    public void testListAllMembers() {
         // First, create a test member to ensure there's at least one in the database
         createTestMember("John Doe", "john.doe.list@example.com", "5551234567");
 
         // Test: GET /rest/members
-        HttpRequest request = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<List<Member>> response = restTemplate.exchange(
+                "/rest/members",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Member>>() {}
+        );
 
         // Verify response
-        Assertions.assertEquals("Should return 200 OK", 200, response.statusCode());
-        Assertions.assertNotNull("Response body should not be null", response.body());
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Should return 200 OK");
+        assertNotNull(response.getBody(), "Response body should not be null");
 
-        // Parse JSON array
-        JsonReader jsonReader = Json.createReader(new StringReader(response.body()));
-        JsonArray members = jsonReader.readArray();
+        List<Member> members = response.getBody();
+        assertTrue(members.size() >= 1, "Should return at least one member");
 
-        Assertions.assertTrue("Should return at least one member", members.size() >= 1);
-
-        // Verify JSON structure of first member
-        JsonObject firstMember = members.getJsonObject(0);
-        Assertions.assertTrue("Member should have 'id' field", firstMember.containsKey("id"));
-        Assertions.assertTrue("Member should have 'name' field", firstMember.containsKey("name"));
-        Assertions.assertTrue("Member should have 'email' field", firstMember.containsKey("email"));
-        Assertions.assertTrue("Member should have 'phoneNumber' field", firstMember.containsKey("phoneNumber"));
+        // Verify structure of first member
+        Member firstMember = members.get(0);
+        assertNotNull(firstMember.getId(), "Member should have 'id' field");
+        assertNotNull(firstMember.getName(), "Member should have 'name' field");
+        assertNotNull(firstMember.getEmail(), "Member should have 'email' field");
+        assertNotNull(firstMember.getPhoneNumber(), "Member should have 'phoneNumber' field");
 
         log.info("Successfully listed " + members.size() + " members");
     }
 
     @Test
-    public void testLookupMemberById() throws Exception {
+    public void testLookupMemberById() {
         // First, create a test member
         Long memberId = createTestMember("Jane Smith", "jane.smith.lookup@example.com", "5559876543");
 
         // Test: GET /rest/members/{id}
-        URI memberUri = new URI(getHTTPEndpoint().toString() + "/" + memberId);
-        HttpRequest request = HttpRequest.newBuilder(memberUri)
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<Member> response = restTemplate.getForEntity("/rest/members/" + memberId, Member.class);
 
         // Verify response
-        Assertions.assertEquals("Should return 200 OK", 200, response.statusCode());
-        Assertions.assertNotNull("Response body should not be null", response.body());
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Should return 200 OK");
+        assertNotNull(response.getBody(), "Response body should not be null");
 
-        // Parse JSON object
-        JsonReader jsonReader = Json.createReader(new StringReader(response.body()));
-        JsonObject member = jsonReader.readObject();
+        Member member = response.getBody();
 
         // Verify member data
-        Assertions.assertEquals("Should return correct ID", memberId.longValue(), member.getJsonNumber("id").longValue());
-        Assertions.assertEquals("Should return correct name", "Jane Smith", member.getString("name"));
-        Assertions.assertEquals("Should return correct email", "jane.smith.lookup@example.com", member.getString("email"));
-        Assertions.assertEquals("Should return correct phone", "5559876543", member.getString("phoneNumber"));
+        assertEquals(memberId, member.getId(), "Should return correct ID");
+        assertEquals("Jane Smith", member.getName(), "Should return correct name");
+        assertEquals("jane.smith.lookup@example.com", member.getEmail(), "Should return correct email");
+        assertEquals("5559876543", member.getPhoneNumber(), "Should return correct phone");
 
         log.info("Successfully looked up member by ID: " + memberId);
     }
 
     @Test
-    public void testLookupMemberByIdNotFound() throws Exception {
+    public void testLookupMemberByIdNotFound() {
         // Test: GET /rest/members/{nonExistentId}
-        URI memberUri = new URI(getHTTPEndpoint().toString() + "/999999");
-        HttpRequest request = HttpRequest.newBuilder(memberUri)
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<String> response = restTemplate.getForEntity("/rest/members/999999", String.class);
 
         // Verify response
-        Assertions.assertEquals("Should return 404 Not Found", 404, response.statusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode(), "Should return 404 Not Found");
 
         log.info("Successfully verified 404 response for non-existent member ID");
     }
 
     @Test
-    public void testListAllMembersIsOrderedByName() throws Exception {
+    public void testListAllMembersIsOrderedByName() {
         // Create multiple members in non-alphabetical order
         createTestMember("Zoe Taylor", "zoe.rest@example.com", "5551111111");
         createTestMember("Alice Brown", "alice.rest@example.com", "5552222222");
         createTestMember("Mike Davis", "mike.rest@example.com", "5553333333");
 
         // Test: GET /rest/members
-        HttpRequest request = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Accept", "application/json")
-                .GET()
-                .build();
+        ResponseEntity<List<Member>> response = restTemplate.exchange(
+                "/rest/members",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Member>>() {}
+        );
 
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-        // Parse JSON array
-        JsonReader jsonReader = Json.createReader(new StringReader(response.body()));
-        JsonArray members = jsonReader.readArray();
+        List<Member> members = response.getBody();
 
         // Find our test members and verify they're in alphabetical order
         int aliceIndex = -1;
@@ -173,36 +134,30 @@ public class RemoteMemberRESTServiceIT {
         int zoeIndex = -1;
 
         for (int i = 0; i < members.size(); i++) {
-            JsonObject member = members.getJsonObject(i);
-            String email = member.getString("email");
+            Member member = members.get(i);
+            String email = member.getEmail();
             if (email.equals("alice.rest@example.com")) aliceIndex = i;
             if (email.equals("mike.rest@example.com")) mikeIndex = i;
             if (email.equals("zoe.rest@example.com")) zoeIndex = i;
         }
 
-        Assertions.assertTrue("Alice should be found", aliceIndex >= 0);
-        Assertions.assertTrue("Mike should be found", mikeIndex >= 0);
-        Assertions.assertTrue("Zoe should be found", zoeIndex >= 0);
-        Assertions.assertTrue("Alice should come before Mike", aliceIndex < mikeIndex);
-        Assertions.assertTrue("Mike should come before Zoe", mikeIndex < zoeIndex);
+        assertTrue(aliceIndex >= 0, "Alice should be found");
+        assertTrue(mikeIndex >= 0, "Mike should be found");
+        assertTrue(zoeIndex >= 0, "Zoe should be found");
+        assertTrue(aliceIndex < mikeIndex, "Alice should come before Mike");
+        assertTrue(mikeIndex < zoeIndex, "Mike should come before Zoe");
 
         log.info("Successfully verified members are ordered alphabetically by name");
     }
 
     @Test
-    public void testLookupMemberByInvalidId() throws Exception {
+    public void testLookupMemberByInvalidId() {
         // Test: GET /rest/members/invalid (non-numeric ID)
         // Note: The path pattern is {id:[0-9][0-9]*} so this should return 404
-        URI memberUri = new URI(getHTTPEndpoint().toString() + "/abc");
-        HttpRequest request = HttpRequest.newBuilder(memberUri)
-                .header("Accept", "application/json")
-                .GET()
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        ResponseEntity<String> response = restTemplate.getForEntity("/rest/members/abc", String.class);
 
         // Should return 404 because the path doesn't match the pattern
-        Assertions.assertEquals("Should return 404 for invalid ID format", 404, response.statusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode(), "Should return 404 for invalid ID format");
 
         log.info("Successfully verified 404 response for invalid member ID format");
     }
@@ -210,36 +165,30 @@ public class RemoteMemberRESTServiceIT {
     /**
      * Helper method to create a test member and return its ID
      */
-    private Long createTestMember(String name, String email, String phoneNumber) throws Exception {
-        JsonObject json = Json.createObjectBuilder()
-                .add("name", name)
-                .add("email", email)
-                .add("phoneNumber", phoneNumber)
-                .build();
+    private Long createTestMember(String name, String email, String phoneNumber) {
+        Map<String, String> memberData = Map.of(
+                "name", name,
+                "email", email,
+                "phoneNumber", phoneNumber
+        );
 
-        HttpRequest request = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
-                .build();
-
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        Assertions.assertEquals("Member creation should succeed", 200, response.statusCode());
+        ResponseEntity<String> response = restTemplate.postForEntity("/rest/members", memberData, String.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode(), "Member creation should succeed");
 
         // Get the created member's ID by looking it up via the list endpoint
-        HttpRequest getRequest = HttpRequest.newBuilder(getHTTPEndpoint())
-                .header("Accept", "application/json")
-                .GET()
-                .build();
+        ResponseEntity<List<Member>> getResponse = restTemplate.exchange(
+                "/rest/members",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Member>>() {}
+        );
 
-        HttpResponse<String> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-        JsonReader jsonReader = Json.createReader(new StringReader(getResponse.body()));
-        JsonArray members = jsonReader.readArray();
+        List<Member> members = getResponse.getBody();
 
         // Find the member we just created
-        for (int i = 0; i < members.size(); i++) {
-            JsonObject member = members.getJsonObject(i);
-            if (member.getString("email").equals(email)) {
-                return member.getJsonNumber("id").longValue();
+        for (Member member : members) {
+            if (member.getEmail().equals(email)) {
+                return member.getId();
             }
         }
 
