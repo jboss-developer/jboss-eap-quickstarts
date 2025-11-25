@@ -474,10 +474,10 @@ The <code>microprofile-reactive-messaging-kafka</code> quickstart demonstrates t
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 5.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 6.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build this project is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
 </div>
 </div>
 </div>
@@ -493,154 +493,11 @@ The <code>microprofile-reactive-messaging-kafka</code> quickstart demonstrates t
 </div>
 </div>
 <div class="sect1">
-<h2 id="start_the_eap_standalone_server">Start the JBoss EAP XP Standalone Server</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open a terminal and navigate to the root of the JBoss EAP XP directory.</p>
-</li>
-<li>
-<p>Start the JBoss EAP XP server with the MicroProfile profile by typing the following command.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh -c standalone-microprofile.xml</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_solution">Solution</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We recommend that you follow the instructions that
-<a href="#creating-new-project">create the application step by step</a>. However, you can
-also go right to the completed example which is available in this directory.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Caution</div>
-</td>
-<td class="content">
-Kafka must be running before attempting to deploy the Quickstart application. See <a href="#running-the-apache-kafka-service">Running the Apache Kafka Service</a> for how to do this in your local environment.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="build_and_deploy_the_quickstart">Build and Deploy the Quickstart</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make sure JBoss EAP XP server is started.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of this quickstart.</p>
-</li>
-<li>
-<p>Type the following command to build the quickstart.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Type the following command to deploy the quickstart.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly:deploy</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>This deploys the <code>microprofile-reactive-messaging-kafka/target/microprofile-reactive-messaging-kafka.war</code> to the running instance of the server.</p>
-</div>
-<div class="paragraph">
-<p>You should see a message in the server log indicating that the archive deployed successfully.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="undeploy_the_quickstart">Undeploy the Quickstart</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When you are finished testing the quickstart, follow these steps to undeploy the archive.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make sure JBoss EAP XP server is started.</p>
-</li>
-<li>
-<p>Open a terminal and navigate to the root directory of this quickstart.</p>
-</li>
-<li>
-<p>Type this command to undeploy the archive:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h3>
-<div class="paragraph">
-<p>This quickstart includes integration tests, which are located under the <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the integration tests.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make sure JBoss EAP XP server is started.</p>
-</li>
-<li>
-<p>Make sure the quickstart is deployed.</p>
-</li>
-<li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="run_the_quickstart_in_redhat_codeready_studio_or_eclipse">Run the Quickstart in Red Hat CodeReady Studio or Eclipse</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can also start the server and deploy the quickstarts or run the Arquillian tests in Red Hat CodeReady Studio or from Eclipse using JBoss tools. For general information about how to import a quickstart, add a JBoss EAP XP server, and build and deploy a quickstart, see <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.adoc#use_red_hat_jboss_developer_studio_or_eclipse_to_run_the_quickstarts">Use Red Hat CodeReady Studio or Eclipse to Run the Quickstarts</a>.</p>
+<p>We recommend that you follow the instructions that create the application step by step. However, you can also
+skip this and <a href="#running-the-microprofile-reactive-messaging-application">try the completed example which is available in this directory</a>.</p>
 </div>
 </div>
 </div>
@@ -650,7 +507,7 @@ Kafka must be running before attempting to deploy the Quickstart application. Se
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate \
-    -DgroupId=org.jboss.eap.xp.quickstarts \
+    -DgroupId=org.wildfly.quickstarts \
     -DartifactId=microprofile-reactive-messaging-kafka \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.apache.maven.archetypes \
@@ -662,12 +519,11 @@ cd microprofile-reactive-messaging-kafka</code></pre>
 <p>Open the project in your favourite IDE.</p>
 </div>
 <div class="paragraph">
-<p>The project needs to be updated to use Java 8 as the minimum:</p>
+<p>The project needs to be updated to use Java 17 as the minimum:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>&lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
-&lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;</code></pre>
+<pre class="highlight nowrap"><code>&lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -682,16 +538,16 @@ cd microprofile-reactive-messaging-kafka</code></pre>
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
         &lt;artifactId&gt;jboss-eap-ee-with-tools&lt;/artifactId&gt;
-        &lt;version&gt;8.0.2.GA-redhat-00008&lt;/version&gt;
+        &lt;version&gt;8.1.2.GA-redhat-00004&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
 
-    &lt;!-- importing the microprofile BOM adds MicroProfile specs --&gt;
+    &lt;!-- importing the Expansion BOM adds MicroProfile specs --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
-        &lt;artifactId&gt;jboss-eap-xp-microprofile&lt;/artifactId&gt;
-        &lt;version&gt;5.0.0.GA-redhat-00009&lt;/version&gt;
+        &lt;artifactId&gt;jboss-eap-expansion&lt;/artifactId&gt;
+        &lt;version&gt;6.0.0.GA-redhat-00016&lt;/version&gt;
         &lt;type&gt;pom&lt;/type&gt;
         &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -703,7 +559,7 @@ cd microprofile-reactive-messaging-kafka</code></pre>
 <p>By using boms the majority of dependencies used within this quickstart align with the version used by the application server.</p>
 </div>
 <div class="paragraph">
-<p>Now we need to add the dependencies which are needed by what is the focus of this QuickStart (CDI, MicroProfile Reactive Messaging, Reactive Streams Operators, Reactive Streams and the Apache Kafka Client). Additionally we need to add dependencies for 'supporting' functionality (JPA, JTA and JAX-RS):</p>
+<p>Now we need to add the dependencies which are needed by what is the focus of this QuickStart (CDI, MicroProfile Reactive Messaging, Reactive Streams Operators, Reactive Streams and the Apache Kafka Client). Additionally we need to add dependencies for 'supporting' functionality (JPA, JTA and Jakarta REST):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -767,16 +623,16 @@ cd microprofile-reactive-messaging-kafka</code></pre>
         &lt;artifactId&gt;jakarta.transaction-api&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the JAX-RS API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the Jakarta REST API, we use provided scope as the API is included in WildFly --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;jakarta.ws.rs&lt;/groupId&gt;
         &lt;artifactId&gt;jakarta.ws.rs-api&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
-    &lt;!-- Import the resteasy-jaxrs API, we use provided scope as the API is included in WildFly --&gt;
+    &lt;!-- Import the resteasy-core-spi, we use provided scope as the SPI is included in WildFly --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jboss.resteasy&lt;/groupId&gt;
-        &lt;artifactId&gt;resteasy-jaxrs&lt;/artifactId&gt;
+        &lt;artifactId&gt;resteasy-core-spi&lt;/artifactId&gt;
         &lt;scope&gt;provided&lt;/scope&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
@@ -892,7 +748,7 @@ the generated build section):</p>
 <p>Create a CDI bean that will be used to store and retrieve entries from a RDBMS.</p>
 </li>
 <li>
-<p>Create a JAX-RS endpoint to return the data that was stored in the RDBMS to the user.</p>
+<p>Create a Jakarta REST endpoint to return the data that was stored in the RDBMS to the user.</p>
 </li>
 </ul>
 </div>
@@ -1451,7 +1307,7 @@ public class DatabaseBean {
 <div class="sect2">
 <h3 id="_viewing_the_data_stored_in_the_rdbms">Viewing the Data Stored in the RDBMS</h3>
 <div class="paragraph">
-<p>Finally, we would like to be able to view the data that was stored in the database. To do this we will add a JAX-RS endpoint that queries the database by calling <code>DatabaseBean.loadAllTimedEntries()</code>.</p>
+<p>Finally, we would like to be able to view the data that was stored in the database. To do this we will add a Jakarta REST endpoint that queries the database by calling <code>DatabaseBean.loadAllTimedEntries()</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1487,7 +1343,7 @@ public class RootResource {
 </div>
 </div>
 <div class="paragraph">
-<p>We expose our JAX-RS application at the context path:</p>
+<p>We expose our Jakarta REST application at the context path:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1618,7 +1474,7 @@ public class UserMessagingBean {
 <p>There must be an active <code>Subscription</code> (from the Reactive Streams specification) on the channel before the <code>Emitter.send()</code> method is called.</p>
 </li>
 <li>
-<p>There can only be one <code>Subscription</code> on the injected <code>Publisher</code>. This means that we cannot simply return this <code>Publisher</code> as is via an asynchronous JAX-RS endpoint as each client request would result in a separate <code>Subscription</code>.</p>
+<p>There can only be one <code>Subscription</code> on the injected <code>Publisher</code>. This means that we cannot simply return this <code>Publisher</code> as is via an asynchronous Jakarta REST endpoint as each client request would result in a separate <code>Subscription</code>.</p>
 </li>
 </ol>
 </div>
@@ -1636,7 +1492,7 @@ public class UserMessagingBean {
 </ul>
 </div>
 <div class="paragraph">
-<p>Finally we have a JAX-RS endpoint</p>
+<p>Finally we have a Jakarta REST endpoint</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1691,32 +1547,33 @@ public class UserResource {
 <p>Now you should be able to compile the application and prepare it for deployment.</p>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-the-microprofile-reactive-messaging-application">Building and Running the quickstart application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We need to first start Apache Kafka. Then we will run the JBoss EAP XP server with our application deployed, using the standalone zip distribution, or a bootable JAR, or the cloud.</p>
+</div>
 <div class="sect2">
-<h3 id="_running_the_application_on_a_standalone_jboss_eap_xp_server">Running the Application on a Standalone JBoss EAP XP Server</h3>
+<h3 id="running-the-apache-kafka-service">Running the Apache Kafka Service</h3>
 <div class="paragraph">
-<p>We need to first start Apache Kafka. Then we will run the JBoss EAP XP server and deploy our application to the server.</p>
+<p>This quickstart requires Apache Kafka running locally, and this can be done with a container service like Podman or Docker.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="running-the-apache-kafka-service">Running the Apache Kafka Service</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>To run Apache Kafka locally you will need to <a href="https://kafka.apache.org/downloads">download</a> it first. Extract the zip to a location, and
-enter that directory in a terminal window. Then enter the following command to start Apache Zookeeper:</p>
+<p>Open a new terminal window and get the Apache Kafka image:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">$ ./bin/zookeeper-server-start.sh config/zookeeper.properties</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">podman pull apache/kafka:4.1.0</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then open a new terminal window and go to the same directory. In this terminal, to start a Kafka instance, enter the command:</p>
+<p>Then start the container:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">$ ./bin/kafka-server-start.sh config/server.properties</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">podman run -p 9092:9092 apache/kafka:4.1.0</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1726,7 +1583,7 @@ enter that directory in a terminal window. Then enter the following command to s
 <div class="title">Note</div>
 </td>
 <td class="content">
-Zookeeper and Kafka must be left running, so use a new terminal for other commands outlined in this quickstart.
+To use Docker instead of Podman, please replace <code>podman</code> with <code>docker</code> in the commands above.
 </td>
 </tr>
 </table>
@@ -1738,40 +1595,153 @@ Zookeeper and Kafka must be left running, so use a new terminal for other comman
 <div class="title">Note</div>
 </td>
 <td class="content">
-Kafka is not supported on Microsoft Windows, but Docker may be used to start a Kafka service on it.
+For alternative ways to run Apache Kafka, please refer to its own <a href="https://kafka.apache.org/quickstart">quickstart</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_building_and_running_the_quickstart_application_with_jboss_eap_xp_standalone_zip_distribution">Building and Running the quickstart application with JBoss EAP XP standalone zip distribution</h3>
+<div class="sect3">
+<h4 id="start_the_eap_standalone_server">Start the JBoss EAP XP Standalone Server</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a terminal and navigate to the root of the JBoss EAP XP directory.</p>
+</li>
+<li>
+<p>Start the JBoss EAP XP server with the MicroProfile profile by typing the following command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/standalone.sh -c standalone-microprofile.xml</code></pre>
 </div>
-<div class="sect1">
-<h2 id="_build_and_deploy_the_initial_application">Build and Deploy the Initial Application</h2>
-<div class="sectionbody">
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configure_the_server">Configure the Server</h4>
 <div class="paragraph">
-<p>Let&#8217;s check that our application works!</p>
+<p>The application requires JBoss EAP XP subsystems named <code>microprofile-reactive-streams-operators-smallrye</code> and <code>microprofile-reactive-messaging-smallrye</code>. For your convenience, this quickstart batches the configuration change commands into a <code>enable-reactive-messaging.cli</code> script provided in the root directory of this quickstart.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make sure <a href="#start_the_eap_standalone_server">the JBoss EAP XP server is started</a> as described above.</p>
+<p>Before you begin, make sure you do the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#start_the_eap_standalone_server">Start the JBoss EAP XP server with the standalone microprofile profile</a> as described above.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>JBoss EAP XP ships with all the modules to run MicroProfile Reactive Messaging applications with Kafka, but the functionality is not enabled out of the box, so we need to enable it. Run: <code>$ <em>EAP_HOME</em>/bin/jboss-cli.sh --connect --file=enable-reactive-messaging.cli</code> to set everything up. The <code>enable-reactive-messaging.cli</code> file used can be found <a href="enable-reactive-messaging.cli">here</a>.
-<strong>NOTE</strong>: This is only required if running against the downloaded server. If the <code>microprofile-reactive-messaging-kafka</code> layer is provisioned, as is done by the <code>openshift</code> and <code>bootable-jar</code> maven profiles, the Kafka functionality is there</p>
-</li>
-<li>
-<p>Open new terminal and navigate to the root directory of your project.</p>
-</li>
-<li>
-<p>Type the following command to build and deploy the project:</p>
-</li>
-</ol>
+<p>Open a new terminal, navigate to the root directory of this quickstart, and run the following command, replacing <code><em>EAP_HOME</em></code> with the path to your server:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/jboss-cli.sh --connect --file=enable-reactive-messaging.cli</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For Windows, use the <code><em>EAP_HOME</em>\bin\jboss-cli.bat</code> script.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You should see the following result when you run the script:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package wildfly:deploy</code></pre>
+<pre class="highlight nowrap"><code>The batch executed successfully
+process-state: reload-required</code></pre>
 </div>
+</div>
+</li>
+<li>
+<p>You&#8217;ll need to reload the configuration after that:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/jboss-cli.sh --connect --commands=reload</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="build_and_deploy_the_quickstart">Build and Deploy the Quickstart</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure JBoss EAP XP server is started.</p>
+</li>
+<li>
+<p>Open a terminal and navigate to the root directory of this quickstart.</p>
+</li>
+<li>
+<p>Type the following command to build the quickstart.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type the following command to deploy the quickstart.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn wildfly:deploy</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This deploys the <code>microprofile-reactive-messaging-kafka/target/microprofile-reactive-messaging-kafka.war</code> to the running instance of the server.</p>
+</div>
+<div class="paragraph">
+<p>You should see a message in the server log indicating that the archive deployed successfully.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may see the following warning when the application is deployed, which is safe to ignore:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>SROAP04005: Could not find schema class in index: org.reactivestreams.Publisher</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Now we should see output in the server console. First, we see output for the ones in the determined order:</p>
@@ -1827,14 +1797,14 @@ TimedEntry{id=4, time=2021-08-06 14:24:59.182, message='Hello'}</code></pre>
 <div class="paragraph">
 <p>The timestamps of the entries in the browser match the ones we saw in the server logs.</p>
 </div>
-<div class="sect2">
-<h3 id="_interaction_with_user_initiated_code_2">Interaction with User Initiated Code</h3>
+<div class="sect4">
+<h5 id="_interaction_with_user_initiated_code_2">Interaction with User Initiated Code</h5>
 <div class="paragraph">
 <p>With the application still running, open two terminal windows. Enter the following <code>curl</code> command in both of them</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$curl -N http://localhost:8080/microprofile-reactive-messaging-kafka/user</code></pre>
+<pre class="highlight"><code>$ curl -N http://localhost:8080/microprofile-reactive-messaging-kafka/user</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1845,9 +1815,9 @@ TimedEntry{id=4, time=2021-08-06 14:24:59.182, message='Hello'}</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/one
-$curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/two
-$curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/three</code></pre>
+<pre class="highlight"><code>$ curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/one
+$ curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/two
+$ curl -X POST http://localhost:8080/microprofile-reactive-messaging-kafka/user/three</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1864,69 +1834,102 @@ data: three</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and running the quickstart application in a bootable JAR</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h4>
 <div class="paragraph">
-<p>You can use the WildFly JAR Maven plug-in to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
+<p>This quickstart includes integration tests, which are located under the <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
 </div>
 <div class="paragraph">
-<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong> which configures the bootable JAR building:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;profile&gt;
-          &lt;id&gt;bootable-jar&lt;/id&gt;
-          &lt;build&gt;
-              &lt;plugins&gt;
-                  &lt;plugin&gt;
-                      &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
-                      &lt;artifactId&gt;wildfly-jar-maven-plugin&lt;/artifactId&gt;
-                      &lt;configuration&gt;
-                          ...
-                          &lt;feature-pack-location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/feature-pack-location&gt;
-                          &lt;layers&gt;...&lt;/layers&gt;
-                          &lt;plugin-options&gt;
-                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
-                          &lt;/plugin-options&gt;
-                      &lt;/configuration&gt;
-                      &lt;executions&gt;
-                          &lt;execution&gt;
-                              &lt;goals&gt;
-                                  &lt;goal&gt;package&lt;/goal&gt;
-                              &lt;/goals&gt;
-                          &lt;/execution&gt;
-                      &lt;/executions&gt;
-                  &lt;/plugin&gt;
-              &lt;/plugins&gt;
-          &lt;/build&gt;
-      &lt;/profile&gt;</code></pre>
-</div>
+<p>Follow these steps to run the integration tests.</p>
 </div>
 <div class="olist arabic">
-<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Build the quickstart bootable JAR with the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
-</div>
-</div>
+<p>Make sure JBoss EAP XP server is started.</p>
 </li>
 <li>
-<p>Run the quickstart application contained in the bootable JAR:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ java -jar target/microprofile-reactive-messaging-kafka-bootable.jar</code></pre>
-</div>
-</div>
+<p>Make sure the quickstart is deployed.</p>
 </li>
 <li>
-<p>You can now interact with the quickstart application.</p>
+<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing </code></pre>
+</div>
+</div>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="undeploy_the_quickstart">Undeploy the Quickstart</h4>
+<div class="paragraph">
+<p>When you are finished testing the quickstart, follow these steps to undeploy the archive.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure JBoss EAP XP server is started.</p>
+</li>
+<li>
+<p>Open a terminal and navigate to the root directory of this quickstart.</p>
+</li>
+<li>
+<p>Type this command to undeploy the archive:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build_and_run_the_quickstart_with_bootable_jar">Building and Running the quickstart application in a bootable JAR</h3>
+<div class="paragraph">
+<p>You can use the EAP Maven Plugin to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
+</div>
+<div class="paragraph">
+<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong>, which activates the bootable JAR packaging when provisioning JBoss EAP XP, through the <code>&lt;bootable-jar&gt;true&lt;/bootable-jar&gt;</code> configuration element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;bootable-jar&lt;/id&gt;
+    &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+    &lt;/activation&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    ...
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        ...
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                    &lt;bootable-jar&gt;true&lt;/bootable-jar&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1936,51 +1939,63 @@ data: three</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>After the quickstart application is deployed, the bootable JAR includes the application in the root context. Therefore, any URLs related to the application should not have the <code>/microprofile-reactive-messaging-kafka</code> path segment after <code>HOST:PORT</code>.</p>
+<p>The <strong>bootable-jar</strong> profile is activate by default, and when built the JBoss EAP XP bootable jar file is named <code>microprofile-reactive-messaging-kafka-bootable.jar</code>, and may be found in the <code>target</code> directory.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_bootable_jar_">Run the Integration Tests with a bootable jar</h3>
-<div class="paragraph">
-<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with a bootable jar.</p>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the integration tests.</p>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Make sure the bootable jar is provisioned.</p>
+<p>Ensure the bootable jar is built.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Start the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin, which is recommend for testing due to simpler automation.</p>
+<p>Start the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>start-jar</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:start -Djar-file-name=target/microprofile-reactive-messaging-kafka-bootable.jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:start-jar</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may also start the bootable jar without Maven, using the <code>java</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ java -jar target/microprofile-reactive-messaging-kafka-bootable.jar</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Run the integration tests use the <code>verify</code> goal, with the <code>integration-testing</code> profile activated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated, and specifying the quickstart&#8217;s URL using the <code>server.host</code> system property, which for a bootable jar by default is <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code>.</p>
+<p>Shut down the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>shutdown</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Shutdown the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin too.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:shutdown</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:shutdown</code></pre>
 </div>
 </div>
 </li>
@@ -2014,13 +2029,10 @@ data: three</code></pre>
 </table>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="build_and_run_the_quickstart_on_openshift">Building and running the quickstart application with OpenShift</h2>
-<div class="sectionbody">
-<div class="sect3">
-<h4 id="build-the-quickstart-for-openshift">Build the JBoss EAP XP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
+<div class="sect2">
+<h3 id="build_and_run_the_quickstart_on_openshift">Building and running the quickstart application with OpenShift</h3>
+<div class="sect4">
+<h5 id="build-the-quickstart-for-openshift">Build the JBoss EAP XP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h5>
 <div class="paragraph">
 <p>On OpenShift, the S2I build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP XP server, deploy and run the quickstart in OpenShift environment.</p>
 </div>
@@ -2029,65 +2041,50 @@ data: three</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">        &lt;profile&gt;
-            &lt;id&gt;openshift&lt;/id&gt;
-            &lt;build&gt;
-                &lt;plugins&gt;
-                    &lt;plugin&gt;
-                        &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
-                        &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
-                        &lt;configuration&gt;
-                            ...
-                            &lt;feature-packs&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                            &lt;/feature-packs&gt;
-                            &lt;layers&gt;...&lt;/layers&gt;
-                            &lt;name&gt;ROOT.war&lt;/name&gt;
-                        &lt;/configuration&gt;
-                        &lt;executions&gt;
-                            &lt;execution&gt;
-                                &lt;goals&gt;
-                                    &lt;goal&gt;package&lt;/goal&gt;
-                                &lt;/goals&gt;
-                            &lt;/execution&gt;
-                        &lt;/executions&gt;
-                    &lt;/plugin&gt;
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
                     ...
-                &lt;/plugins&gt;
-            &lt;/build&gt;
-        &lt;/profile&gt;</code></pre>
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You may note that the cloud feature pack is used, this enables a configuration tuned for OpenShift environment.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Previous JBoss EAP XP releases used the WildFly JAR Maven Plugin to package the quickstart in a Bootable JAR, when deploying it on OpenShift, and while that&#8217;s still supported it&#8217;s no longer recommended.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="getting_started_with_helm">Getting Started with JBoss EAP for OpenShift and Helm Charts</h3>
+<div class="sect3">
+<h4 id="getting_started_with_helm">Getting Started with JBoss EAP for OpenShift and Helm Charts</h4>
 <div class="paragraph">
 <p>This section contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online using Helm Charts.</p>
 </div>
-<div class="sect3">
-<h4 id="prerequisites_helm_openshift">Prerequisites</h4>
+<div class="sect4">
+<h5 id="prerequisites_helm_openshift">Prerequisites</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -2099,7 +2096,7 @@ data: three</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP XP.</p>
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2107,23 +2104,26 @@ data: three</code></pre>
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP 5.0 applications</code></pre>
+jboss-eap/eap81         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
-"jboss-eap" has been added to your repositories
-$ helm search repo jboss-eap
-NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP XP 5.0 applications</code></pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="deploy_helm_prerequisites">Install AMQ Streams on OpenShift</h5>
+<div class="sect5">
+<h6 id="deploy_helm_prerequisites">Install AMQ Streams on OpenShift</h6>
 <div class="paragraph">
 <p>The functionality of this quickstart depends on a running instance of the
 <a href="https://access.redhat.com/products/red-hat-amq#streams">AMQ Streams</a> Operator. AMQ Streams is a Red Hat project based on Apache Kafka. To deploy AMQ Streams in the Openshift environment:</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+For simplicity, this quickstart installs the AMQ Streams operator globally in the <code>openshift-operators</code> namespace, making it available across all namespaces in the cluster. The <code>openshift-operators</code> namespace already contains a <code>global-operators</code> OperatorGroup, so you must NOT create an additional OperatorGroup or the operator will fail to start. In production environments, consider namespace-scoped installation (see note below) to limit scope and improve security.
+</td>
+</tr>
+</table>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2131,26 +2131,29 @@ jboss-eap/eap-xp5         ...             ...             A Helm chart to build 
 <p>Log in into the Openshift console as <code>kubeadmin</code> user (or any cluster administrator).</p>
 </li>
 <li>
-<p>Install the <code>Red Hat Streams for Apache Kafka</code> operator</p>
-</li>
-<li>
-<p>Create an instance of <code>Red Hat Streams for Apache Kafka</code></p>
-</li>
-<li>
-<p>Create a topic in the <code>Red Hat Streams for Apache Kafka</code></p>
+<p>Install the <code>Streams for Apache Kafka</code> operator globally.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Install it with the default values and wait for the message telling you it has been installed and is ready for use.</p>
-</div>
-<div class="paragraph">
-<p>In your terminal, run the following command to subscribe the <code>Red Hat Streams for Apache Kafka</code> operator.</p>
+<p>In your terminal, run the following command to subscribe the <code>Streams for Apache Kafka</code> operator.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">$ oc apply -f ./charts/amq-operator-on-openshift.yaml --wait --timeout=10m0s</pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For namespace-scoped installation: Edit <code>charts/amq-operator-group-on-openshift.yaml</code> to replace <code>&lt;your-namespace&gt;</code> with your project namespace, and edit <code>charts/amq-operator-on-openshift.yaml</code> to replace <code>openshift-operators</code> with your project namespace. Then apply both files: <code>oc apply -f ./charts/amq-operator-group-on-openshift.yaml &amp;&amp; oc apply -f ./charts/amq-operator-on-openshift.yaml</code>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>To verify the operator is ready to use, you can run the following command. You should see the following output.
@@ -2158,18 +2161,37 @@ The <code>PHASE</code> needs to be <code>Succeeded</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap">$ oc get ClusterServiceVersion
-
-NAME                  DISPLAY                            VERSION   REPLACES              PHASE
-amqstreams.v2.7.0-1   Red Hat Streams for Apache Kafka   2.7.0-1   amqstreams.v2.7.0-0   Succeeded</pre>
+<pre class="nowrap">$ oc get ClusterServiceVersion -n openshift-operators
+NAME                   DISPLAY                    VERSION    REPLACES               PHASE
+amqstreams.v3.0.1-3    Streams for Apache Kafka   3.0.1-3    amqstreams.v3.0.1-2    Succeeded</pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For namespace-scoped installation: To verify the operator is ready to use remove the <code>-n openshift-operators</code> parameter.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Then you can set up a Kafka cluster called <code>my-cluster</code> with topic <code>testing</code> in your project:</p>
+<p>Then you can set up a Kafka cluster called <code>my-cluster</code> in your project:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap">$ oc apply -f ./charts/kafka-on-openshift.yaml --wait --timeout=10m0s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the Kafka cluster is ready, create the topic <code>testing</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap">$ oc apply -f ./charts/kafka-topic.yaml --wait --timeout=10m0s</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2180,33 +2202,32 @@ amqstreams.v2.7.0-1   Red Hat Streams for Apache Kafka   2.7.0-1   amqstreams.v2
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap"> oc get pods -w
-
-NAME                     READY   STATUS    RESTARTS   AGE
-my-cluster-zookeeper-0   0/1     Running   0          29s
+<pre class="nowrap">$   oc get pods -w
+NAME                      READY   STATUS              RESTARTS   AGE
+my-cluster-broker-0       0/1     ContainerCreating   0          10s
+....
+my-cluster-broker-0       1/1     Running             0          71s
+my-cluster-broker-1       1/1     Running             0          71s
+my-cluster-broker-2       1/1     Running             0          72s
+my-cluster-entity-operator-7985c76b85-h6jc4   0/1     Pending             0          0s
 ...
-my-cluster-entity-operator-cbdbffd4d-m7fzh   0/2     Pending             0          0s
-my-cluster-entity-operator-cbdbffd4d-m7fzh   0/2     ContainerCreating   0          0s
-my-cluster-entity-operator-cbdbffd4d-m7fzh   0/2     ContainerCreating   0          0s
-my-cluster-entity-operator-cbdbffd4d-m7fzh   0/2     Running             0          1s
-my-cluster-entity-operator-cbdbffd4d-m7fzh   1/2     Running             0          20s
-my-cluster-entity-operator-cbdbffd4d-m7fzh   2/2     Running             0          21s</pre>
+my-cluster-entity-operator-7985c76b85-h6jc4   1/1     Running             0          20s</pre>
 </div>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
+<div class="sect4">
+<h5 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h5>
 <div class="paragraph">
 <p>Log in to your OpenShift instance using the <code>oc login</code> command.
-The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP XP.</p>
+The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
 </div>
 <div class="paragraph">
 <p>Navigate to the root directory of this quickstart and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install mp-rm-qs -f charts/helm.yaml jboss-eap/eap-xp5 --wait --timeout=10m0s
+<pre class="highlight nowrap"><code>$ helm install mp-rm-qs -f charts/helm.yaml jboss-eap/eap81 --wait --timeout=10m0s 
 NAME: mp-rm-qs
 ...
 STATUS: deployed
@@ -2230,7 +2251,7 @@ REVISION: 1</code></pre>
 # Will need a diff commit in the upstream-to-product repository
 build:
   uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-  ref: xp-5.0.x
+  ref: xp-6.0.x
   contextDir: microprofile-reactive-messaging-kafka
 deploy:
   replicas: 1
@@ -2247,7 +2268,7 @@ deploy:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap-xp5</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap81</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2261,24 +2282,10 @@ deploy:
 <div class="paragraph">
 <p>Access the application in your web browser using the displayed URL.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The Maven profile named <code>openshift</code> is used by the Helm chart to provision the server with the quickstart deployed on the root web context, and thus the application should be accessed with the URL without the <code>/microprofile-reactive-messaging-kafka</code> path segment after <code>HOST:PORT</code>.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_openshift">Run the Integration Tests with OpenShift</h3>
+<div class="sect3">
+<h4 id="run_the_integration_tests_with_openshift">Run the Integration Tests with OpenShift</h4>
 <div class="paragraph">
 <p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with the quickstart running on OpenShift.</p>
 </div>
@@ -2318,17 +2325,75 @@ deploy:
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h4>
+<div class="sect4">
+<h5 id="undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>$ helm uninstall mp-rm-qs</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>To uninstall the AMQ Streams operator (global installation):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc delete -f ./charts/kafka-topic.yaml --wait --timeout=10m0s
+$ oc delete -f ./charts/kafka-on-openshift.yaml --wait --timeout=10m0s
+$ oc delete -f ./charts/amq-operator-on-openshift.yaml --wait --timeout=10m0s</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the case that the operator was added to the cluster only for trying this quickstart, and should now be deleted, use the following procedure:</p>
+</div>
+<div class="paragraph">
+<p>Obtain the operator CSV name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get csv -n openshift-operators</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Delete it from the cluster, replacing <code>CSV_NAME</code> with the obtained operator CSV name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc delete csv CSV_NAME -n openshift-operators</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To uninstall the AMQ Streams operator (name-scoped installation):</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>$ oc delete -f ./charts/kafka-on-openshift.yaml --wait --timeout=10m0s
-$ oc delete -f ./charts/amq-operator-on-openshift.yaml --wait --timeout=10m0s</pre>
+$ oc delete -f ./charts/amq-operator-on-openshift.yaml -n NAMESPACE --wait --timeout=10m0s
+$ oc delete -f ./charts/amq-operator-group-on-openshift.yaml
+$ oc delete csv --all -n NAMESPACE</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Replace NAMESPACE above, with the actual name of the namespace used in the name-scoped installation.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -2346,7 +2411,7 @@ $ oc delete -f ./charts/amq-operator-on-openshift.yaml --wait --timeout=10m0s</p
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-05 13:53:48 UTC
+Last updated 2025-11-13 15:09:19 UTC
 </div>
 </div>
 </body>

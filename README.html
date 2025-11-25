@@ -464,10 +464,10 @@ The quickstarts demonstrate Eclipse MicroProfile and a few additional technologi
 <h2 id="introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These quickstarts run on Red Hat JBoss Enterprise Application Platform expansion pack 5.0.</p>
+<p>These quickstarts run on Red Hat JBoss Enterprise Application Platform expansion pack 6.0.</p>
 </div>
 <div class="paragraph">
-<p>We recommend that you use the <strong>Red Hat JBoss Enterprise Application Platform expansion pack 5.0 Quickstarts</strong> ZIP file, which you can download from the <a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&amp;downloadType=distributions">JBoss EAP XP Software Download</a> page on the Red Hat Customer Portal. This version of the quickstarts uses the correct dependencies and ensures that you test and compile against the correct server runtime environment.</p>
+<p>We recommend that you use the <strong>Red Hat JBoss Enterprise Application Platform expansion pack 6.0 Quickstarts</strong> ZIP file, which you can download from the <a href="https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&amp;downloadType=distributions">JBoss EAP XP Software Download</a> page on the Red Hat Customer Portal. This version of the quickstarts uses the correct dependencies and ensures that you test and compile against the correct server runtime environment.</p>
 </div>
 <div class="paragraph">
 <p>Each quickstart folder contains a <code>README.html</code> file that describes the quickstart features and provides instructions about how to build and run it.</p>
@@ -481,10 +481,10 @@ The quickstarts demonstrate Eclipse MicroProfile and a few additional technologi
 <h2 id="system_requirements">2. System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 5.0 or later.</p>
+<p>The applications these projects produce are designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 6.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build these projects is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later.</p>
+<p>All you need to build these projects is Java SE 17.0 or later, and Maven 3.6.0 or later.</p>
 </div>
 </div>
 </div>
@@ -536,23 +536,25 @@ The quickstarts demonstrate Eclipse MicroProfile and a few additional technologi
 <div class="title">Note</div>
 </td>
 <td class="content">
-Some of these quickstarts use the H2 database included with Red Hat JBoss Enterprise Application Platform expansion pack 5.0. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
+Some of these quickstarts use the H2 database included with Red Hat JBoss Enterprise Application Platform expansion pack 6.0. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 </td>
 </tr>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 33.3333%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6669%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Quickstart Name</th>
 <th class="tableblock halign-left valign-top">Demonstrated Technologies</th>
+<th class="tableblock halign-left valign-top">Openshift Compatible</th>
 <th class="tableblock halign-left valign-top">Description</th>
 <th class="tableblock halign-left valign-top">Experience Level Required</th>
 <th class="tableblock halign-left valign-top">Prerequisites</th>
@@ -562,6 +564,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="micrometer/README.html">micrometer</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Micrometer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>micrometer</code> quickstart demonstrates the use of the Micrometer library in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -569,6 +572,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-config/README.html">microprofile-config</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile Config</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-config</code> quickstart demonstrates the use of the MicroProfile Config specification in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -576,6 +580,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-fault-tolerance/README.html">microprofile-fault-tolerance</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile, Fault Tolerance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-fault-tolerance</code> quickstart demonstrates how to use Eclipse MicroProfile Fault Tolerance in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -583,6 +588,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-health/README.html">microprofile-health</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile Health</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-health</code> quickstart demonstrates the use of the MicroProfile Health specification in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -590,6 +596,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-jwt/README.html">microprofile-jwt</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JWT, Security, MicroProfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-jwt</code> quickstart demonstrates the use of the MicroProfile JWT specification in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -597,6 +604,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-lra/README.html">microprofile-lra</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile LRA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-lra</code> quickstart demonstrates the use of the MicroProfile LRA specification in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -604,6 +612,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-openapi/README.html">microprofile-openapi</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile OpenAPI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This guide demonstrate how to use the MicroProfile OpenAPI functionality in JBoss EAP XP to expose an OpenAPI document for a simple REST application.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -611,6 +620,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-reactive-messaging-kafka/README.html">microprofile-reactive-messaging-kafka</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile Reactive Messaging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-reactive-messaging-kafka</code> quickstart demonstrates the use of the MicroProfile Reactive Messaging specification backed by Apache Kafka in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -618,6 +628,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="microprofile-rest-client/README.html">microprofile-rest-client</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile REST Client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>microprofile-rest-client</code> quickstart demonstrates the use of the MicroProfile REST Client specification in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -625,6 +636,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="opentelemetry-tracing/README.html">opentelemetry-tracing</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpenTelemetry Tracing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The <code>opentelemetry-tracing</code> quickstart demonstrates the use of the OpenTelemetry tracing specification in JBoss EAP XP.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Beginner</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
@@ -636,7 +648,7 @@ Some of these quickstarts use the H2 database included with Red Hat JBoss Enterp
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-05 13:55:35 UTC
+Last updated 2025-11-13 15:15:13 UTC
 </div>
 </div>
 </body>

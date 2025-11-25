@@ -505,10 +505,10 @@ environment it would be more appropriate to make use of an identity provider to 
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 5.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 6.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build this project is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
 </div>
 </div>
 </div>
@@ -545,30 +545,45 @@ For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
 </div>
 </div>
 <div class="sect1">
-<h2 id="configure_the_server">Configure the Server</h2>
+<h2 id="build_and_deploy_the_quickstart">Build and Deploy the Quickstart</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure JBoss EAP XP server is started.</p>
+</li>
+<li>
+<p>Open a terminal and navigate to the root directory of this quickstart.</p>
+</li>
+<li>
+<p>Type the following command to build the quickstart.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type the following command to deploy the quickstart.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn wildfly:deploy</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
-<p>One of the benefits of using MicroProfile JWT is that the configuration is contained entirely within the deployment,
-for this reason no manual configuration of the server is required to execute the quickstart.</p>
+<p>This deploys the <code>microprofile-jwt/target/microprofile-jwt.war.war</code> to the running instance of the server.</p>
+</div>
+<div class="paragraph">
+<p>You should see a message in the server log indicating that the archive deployed successfully.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_solution">Solution</h2>
+<h2 id="_using_the_application">Using the application</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>We recommend that you follow the instructions in the next sections and create the application step by step as this will
-provide a better foundation for creating your own MP-JWT secured deployment, however if you want to jump straight to
-executing the quickstarts the steps here can be followed to execute the included code.</p>
-</div>
-<div class="paragraph">
-<p>The quickstart can be deployed to the running application server using the following command: -</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>mvn package wildfly:deploy</code></pre>
-</div>
-</div>
 <div class="paragraph">
 <p>An unauthenticated call can be made to one of the deployed endpoints using the following command: -</p>
 </div>
@@ -639,15 +654,11 @@ Access forbidden: role not allowed</code></pre>
 7 months and 19 days until your next birthday.</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>This section has been a fast run through of the commands required to deploy the quickstart, generate JWT tokens and call the various endpoints, for further information as to how this was achieved
-please read through the next section where the process to generate this quickstart from scratch is described step by step.</p>
 </div>
-<div class="paragraph">
-<p>It is also possible to run each of these calls from the test case included in the quickstart.</p>
 </div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h3>
+<div class="sect1">
+<h2 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This quickstart includes integration tests, which are located under the <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
 </div>
@@ -666,7 +677,7 @@ please read through the next section where the process to generate this quicksta
 <p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing </code></pre>
 </div>
 </div>
 </li>
@@ -674,19 +685,44 @@ please read through the next section where the process to generate this quicksta
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="undeploy_the_quickstart">Undeploy the Quickstart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you are finished testing the quickstart, follow these steps to undeploy the archive.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure JBoss EAP XP server is started.</p>
+</li>
+<li>
+<p>Open a terminal and navigate to the root directory of this quickstart.</p>
+</li>
+<li>
+<p>Type this command to undeploy the archive:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn wildfly:undeploy</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <div class="sect1">
 <h2 id="_starting_from_scratch">Starting from Scratch</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section we will go through the steps to create a new JAX-RS deployment from scratch and incrementally
+<p>In this section we will go through the steps to create a new Jakarta REST deployment from scratch and incrementally
 add support for MicroProfile JWT including token generation, activation of authorization and the injection
 of claims.</p>
 </div>
 <div class="sect2">
 <h3 id="_project_generation">Project Generation</h3>
 <div class="paragraph">
-<p>This quickstart will be making use of JAX-RS endpoints secured using MicroProfile JWT so the first step
+<p>This quickstart will be making use of Jakarta REST endpoints secured using MicroProfile JWT so the first step
 is to generate a new <code>webapp</code> project: -</p>
 </div>
 <div class="listingblock">
@@ -694,7 +730,7 @@ is to generate a new <code>webapp</code> project: -</p>
 <pre class="highlight nowrap"><code>mvn archetype:generate -DinteractiveMode=false \
     -DarchetypeGroupId=org.apache.maven.archetypes \
     -DarchetypeArtifactId=maven-archetype-webapp \
-    -DgroupId=org.jboss.eap.xp.quickstarts -DartifactId=microprofile-jwt \
+    -DgroupId=org.wildfly.quickstarts -DartifactId=microprofile-jwt \
     -Dversion=1.0.0.Alpha1-SNAPSHOT
 cd microprofile-jwt</code></pre>
 </div>
@@ -716,17 +752,16 @@ available and so we have a plug-in installed which can deploy the quickstart dir
 <div class="content">
 <pre class="highlight nowrap"><code>&lt;version.com.nimbusds.jose.jwt&gt;9.24.4.redhat-00001&lt;/version.com.nimbusds.jose.jwt&gt;
 &lt;version.glassfish.json&gt;1.1.6&lt;/version.glassfish.json&gt;
-&lt;version.bom.microprofile&gt;5.0.0.GA-redhat-00009&lt;/version.bom.microprofile&gt;
-&lt;version.bom.ee&gt;8.0.2.GA-redhat-00008&lt;/version.bom.ee&gt;</code></pre>
+&lt;version.bom.expansion&gt;6.0.0.GA-redhat-00016&lt;/version.bom.expansion&gt;
+&lt;version.bom.ee&gt;8.1.2.GA-redhat-00004&lt;/version.bom.ee&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Also the project can be updated to use Java 11 as the minimum.</p>
+<p>Also the project can be updated to use Java 17 as the minimum.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>&lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
-&lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;</code></pre>
+<pre class="highlight nowrap"><code>&lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -745,8 +780,8 @@ available and so we have a plug-in installed which can deploy the quickstart dir
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
-      &lt;artifactId&gt;jboss-eap-xp-microprofile&lt;/artifactId&gt;
-      &lt;version&gt;${version.bom.microprofile}&lt;/version&gt;
+      &lt;artifactId&gt;jboss-eap-expansion&lt;/artifactId&gt;
+      &lt;version&gt;${version.bom.expansion}&lt;/version&gt;
       &lt;type&gt;pom&lt;/type&gt;
       &lt;scope&gt;import&lt;/scope&gt;
     &lt;/dependency&gt;
@@ -755,7 +790,7 @@ available and so we have a plug-in installed which can deploy the quickstart dir
 </div>
 </div>
 <div class="paragraph">
-<p>By using boms the majority of dependencies used within this quickstart align with the version uses by the application server.</p>
+<p>By using BOMs the majority of dependencies used within this quickstart align with the version uses by the application server.</p>
 </div>
 <div class="paragraph">
 <p>The following dependencies can now be added to the project.</p>
@@ -892,10 +927,10 @@ available and so we have a plug-in installed which can deploy the quickstart dir
 </div>
 </div>
 <div class="sect3">
-<h4 id="_jax_rs_conversion">JAX-RS Conversion</h4>
+<h4 id="_jakarta_rest_conversion">Jakarta REST Conversion</h4>
 <div class="paragraph">
 <p>The generated project is a standard web application so the next step will be to delete the files not
-required by this quickstart and add the JAX-RS application and a <code>helloWorld</code> endpoint.</p>
+required by this quickstart and add the Jakarta REST application and a <code>helloWorld</code> endpoint.</p>
 </div>
 <div class="paragraph">
 <p>Under <code>src/main/webapp</code> delete the generated <code>index.jsp</code>.</p>
@@ -909,7 +944,7 @@ to enable CDI for the deployment.</p>
 </div>
 <div class="paragraph">
 <p>Add the following class in the <code>org.wildfly.quickstarts.mpjwt</code> package, this will be the main trigger to
-process the deployment as a JAX-RS deployment.</p>
+process the deployment as a Jakarta REST deployment.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -949,7 +984,7 @@ public class SampleEndPoint {
 </div>
 </div>
 <div class="paragraph">
-<p>At this stage the project contains a simple JAX-RS endpoint we can deploy to the server and invoke to verify
+<p>At this stage the project contains a simple Jakarta REST endpoint we can deploy to the server and invoke to verify
 everything is working as expected before moving on to enable JWT based authentication and authorization.</p>
 </div>
 <div class="paragraph">
@@ -1191,7 +1226,7 @@ eyJraWQiOiJUZXN0IEtleSIsInR5cCI6Imp3dCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJ0ZXN0VXNl
 <div class="sect2">
 <h3 id="_activating_microprofile_jwt">Activating MicroProfile JWT</h3>
 <div class="paragraph">
-<p>At this stage we have a basic JAX-RS deployment, a pair of keys for the generation of and validation of JWT tokens and a utility to generate JWT tokens.
+<p>At this stage we have a basic Jakarta REST deployment, a pair of keys for the generation of and validation of JWT tokens and a utility to generate JWT tokens.
 Our next step is to activate MicroProfile JWT authentication for the deployment and we can then make use of some of the advanced features such as role
 based access control using the groups from within the token and access to individual claims within the token.</p>
 </div>
@@ -1267,7 +1302,7 @@ public String helloRolesAllowed(@Context SecurityContext ctx) {
 </div>
 </div>
 <div class="paragraph">
-<p>Within WildFly the JAX-RS deployment is handled by RESTEasy so under <code>src/main/webapp/WEB-INF</code> add the following to the web.xml to enable RESTEasy authorization checks.</p>
+<p>Within WildFly the Jakarta REST deployment is handled by RESTEasy so under <code>src/main/webapp/WEB-INF</code> add the following to the web.xml to enable RESTEasy authorization checks.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1384,67 +1419,50 @@ the JWT token this endpoint will calculate how many days until the next birthday
 </div>
 </div>
 <div class="sect1">
-<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and running the quickstart application in a bootable JAR</h2>
+<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and Running the quickstart application in a bootable JAR</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use the WildFly JAR Maven plug-in to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
+<p>You can use the EAP Maven Plugin to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
 </div>
 <div class="paragraph">
-<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong> which configures the bootable JAR building:</p>
+<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong>, which activates the bootable JAR packaging when provisioning JBoss EAP XP, through the <code>&lt;bootable-jar&gt;true&lt;/bootable-jar&gt;</code> configuration element:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;profile&gt;
-          &lt;id&gt;bootable-jar&lt;/id&gt;
-          &lt;build&gt;
-              &lt;plugins&gt;
-                  &lt;plugin&gt;
-                      &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
-                      &lt;artifactId&gt;wildfly-jar-maven-plugin&lt;/artifactId&gt;
-                      &lt;configuration&gt;
-                          ...
-                          &lt;feature-pack-location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/feature-pack-location&gt;
-                          &lt;layers&gt;...&lt;/layers&gt;
-                          &lt;plugin-options&gt;
-                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
-                          &lt;/plugin-options&gt;
-                      &lt;/configuration&gt;
-                      &lt;executions&gt;
-                          &lt;execution&gt;
-                              &lt;goals&gt;
-                                  &lt;goal&gt;package&lt;/goal&gt;
-                              &lt;/goals&gt;
-                          &lt;/execution&gt;
-                      &lt;/executions&gt;
-                  &lt;/plugin&gt;
-              &lt;/plugins&gt;
-          &lt;/build&gt;
-      &lt;/profile&gt;</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;bootable-jar&lt;/id&gt;
+    &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+    &lt;/activation&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    ...
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        ...
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                    &lt;bootable-jar&gt;true&lt;/bootable-jar&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Build the quickstart bootable JAR with the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Run the quickstart application contained in the bootable JAR:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ java -jar target/microprofile-jwt-bootable.jar</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>You can now interact with the quickstart application.</p>
-</li>
-</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1454,56 +1472,67 @@ the JWT token this endpoint will calculate how many days until the next birthday
 </td>
 <td class="content">
 <div class="paragraph">
-<p>After the quickstart application is deployed, the bootable JAR includes the application in the root context. Therefore, any URLs related to the application should not have the <code>/microprofile-jwt</code> path segment after <code>HOST:PORT</code>.</p>
+<p>The <strong>bootable-jar</strong> profile is activate by default, and when built the JBoss EAP XP bootable jar file is named <code>microprofile-jwt-bootable.jar</code>, and may be found in the <code>target</code> directory.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_bootable_jar_">Run the Integration Tests with a bootable jar</h3>
-<div class="paragraph">
-<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with a bootable jar.</p>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the integration tests.</p>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Make sure the bootable jar is provisioned.</p>
+<p>Ensure the bootable jar is built.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Start the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin, which is recommend for testing due to simpler automation.</p>
+<p>Start the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>start-jar</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:start -Djar-file-name=target/microprofile-jwt-bootable.jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:start-jar</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may also start the bootable jar without Maven, using the <code>java</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ java -jar target/microprofile-jwt-bootable.jar</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Run the integration tests use the <code>verify</code> goal, with the <code>integration-testing</code> profile activated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated, and specifying the quickstart&#8217;s URL using the <code>server.host</code> system property, which for a bootable jar by default is <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code>.</p>
+<p>Shut down the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>shutdown</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Shutdown the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin too.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:shutdown</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:shutdown</code></pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 </div>
@@ -1520,56 +1549,41 @@ the JWT token this endpoint will calculate how many days until the next birthday
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">        &lt;profile&gt;
-            &lt;id&gt;openshift&lt;/id&gt;
-            &lt;build&gt;
-                &lt;plugins&gt;
-                    &lt;plugin&gt;
-                        &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
-                        &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
-                        &lt;configuration&gt;
-                            ...
-                            &lt;feature-packs&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                            &lt;/feature-packs&gt;
-                            &lt;layers&gt;...&lt;/layers&gt;
-                            &lt;name&gt;ROOT.war&lt;/name&gt;
-                        &lt;/configuration&gt;
-                        &lt;executions&gt;
-                            &lt;execution&gt;
-                                &lt;goals&gt;
-                                    &lt;goal&gt;package&lt;/goal&gt;
-                                &lt;/goals&gt;
-                            &lt;/execution&gt;
-                        &lt;/executions&gt;
-                    &lt;/plugin&gt;
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
                     ...
-                &lt;/plugins&gt;
-            &lt;/build&gt;
-        &lt;/profile&gt;</code></pre>
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You may note that the cloud feature pack is used, this enables a configuration tuned for OpenShift environment.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Previous JBoss EAP XP releases used the WildFly JAR Maven Plugin to package the quickstart in a Bootable JAR, when deploying it on OpenShift, and while that&#8217;s still supported it&#8217;s no longer recommended.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1590,7 +1604,7 @@ the JWT token this endpoint will calculate how many days until the next birthday
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP XP.</p>
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1598,16 +1612,7 @@ the JWT token this endpoint will calculate how many days until the next birthday
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP 5.0 applications</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
-"jboss-eap" has been added to your repositories
-$ helm search repo jboss-eap
-NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP XP 5.0 applications</code></pre>
+jboss-eap/eap81         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
 </div>
 </div>
 </div>
@@ -1615,14 +1620,14 @@ jboss-eap/eap-xp5         ...             ...             A Helm chart to build 
 <h4 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
 <div class="paragraph">
 <p>Log in to your OpenShift instance using the <code>oc login</code> command.
-The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP XP.</p>
+The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
 </div>
 <div class="paragraph">
 <p>Navigate to the root directory of this quickstart and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install microprofile-jwt -f charts/helm.yaml jboss-eap/eap-xp5 --wait --timeout=10m0s
+<pre class="highlight nowrap"><code>$ helm install microprofile-jwt -f charts/helm.yaml jboss-eap/eap81 --wait --timeout=10m0s 
 NAME: microprofile-jwt
 ...
 STATUS: deployed
@@ -1644,7 +1649,7 @@ REVISION: 1</code></pre>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
   uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-  ref: xp-5.0.x
+  ref: xp-6.0.x
   contextDir: microprofile-jwt
 deploy:
   replicas: 1</code></pre>
@@ -1658,7 +1663,7 @@ deploy:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap-xp5</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap81</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1671,20 +1676,6 @@ deploy:
 </div>
 <div class="paragraph">
 <p>Access the application in your web browser using the displayed URL.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The Maven profile named <code>openshift</code> is used by the Helm chart to provision the server with the quickstart deployed on the root web context, and thus the application should be accessed with the URL without the <code>/microprofile-jwt</code> path segment after <code>HOST:PORT</code>.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -1753,7 +1744,7 @@ secured enpoints or to add MicroProfile JWT authentication to your existing depl
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-05 13:53:48 UTC
+Last updated 2025-11-13 15:09:19 UTC
 </div>
 </div>
 </body>

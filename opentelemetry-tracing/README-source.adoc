@@ -13,7 +13,8 @@ The `opentelemetry-tracing` quickstart demonstrates the use of the OpenTelemetry
 :archiveType: war
 :archiveName: {artifactId}
 :restoreScriptName: restore-configuration.cli
-:helm-install-prerequisites: ../opentelemetry-tracing/helm-install-prerequisites.adoc
+:helm-install-prerequisites-openshift: ../opentelemetry-tracing/helm-install-prerequisites-openshift.adoc
+:helm-install-prerequisites-kubernetes: ../opentelemetry-tracing/helm-install-prerequisites-kubernetes.adoc
 
 
 == What is it?
@@ -215,7 +216,7 @@ otel-collector_1  |     {"kind": "exporter", "data_type": "traces", "name": "log
 -----
 
 // Server Distribution Testing
-include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+1]
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
 //  Restore the {productName} Standalone Server Configuration
@@ -223,13 +224,15 @@ include::../shared-doc/restore-standalone-server-configuration.adoc[leveloffset=
 // Restore the {productName} Standalone Server Configuration Manually
 include::../shared-doc/restore-standalone-server-configuration-manual.adoc[leveloffset=+3]
 // Build and run sections for other environments/builds
-ifndef::ProductRelease,EAPXPRelease[]
 include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
-endif::[]
 // Bootable JAR
 include::../shared-doc/build-and-run-the-quickstart-with-bootable-jar.adoc[leveloffset=+1]
 // OpenShift
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+//Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]
 
 == Conclusion
 

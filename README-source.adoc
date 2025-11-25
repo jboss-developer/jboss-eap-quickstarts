@@ -17,8 +17,6 @@ The quickstarts demonstrate {javaVersion} and a few additional technologies from
 
 These quickstarts run on the WildFly application server. The quickstarts are configured to use the correct Maven dependencies and ensure that you test and compile the quickstarts against the correct runtime environment.
 
-Each quickstart folder contains a `README-source.adoc` file that describes the quickstart features and provides instructions about how to build and run it. Instructions are provided to build the more readable `README.html` files.
-
 Make sure you read this entire document before you attempt to work with the quickstarts.
 
 [[system_requirements]]
@@ -115,19 +113,19 @@ Each quickstart provides the list of technologies demonstrated by the quickstart
 NOTE: Some of these quickstarts use the H2 database included with {productNameFull} {productVersion}. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment!
 
 //<TOC>
-[cols="1,1,2,1,1", options="header"]
+[cols="1,1,1,2,1,1", options="header"]
 |===
-| Quickstart Name | Demonstrated Technologies | Description | Experience Level Required | Prerequisites 
-| link:micrometer/README{outfilesuffix}[micrometer]|Micrometer | The `micrometer` quickstart demonstrates the use of the Micrometer library in {productName}. | Beginner | _none_
-| link:microprofile-config/README{outfilesuffix}[microprofile-config]|MicroProfile Config | The `microprofile-config` quickstart demonstrates the use of the MicroProfile Config specification in {productName}. | Beginner | _none_
-| link:microprofile-fault-tolerance/README{outfilesuffix}[microprofile-fault-tolerance]|MicroProfile, Fault Tolerance | The `microprofile-fault-tolerance` quickstart demonstrates how to use Eclipse MicroProfile Fault Tolerance in {productName}. | Intermediate | _none_
-| link:microprofile-health/README{outfilesuffix}[microprofile-health]|MicroProfile Health | The `microprofile-health` quickstart demonstrates the use of the MicroProfile Health specification in {productName}. | Beginner | _none_
-| link:microprofile-jwt/README{outfilesuffix}[microprofile-jwt]|JWT, Security, MicroProfile | The `microprofile-jwt` quickstart demonstrates the use of the MicroProfile JWT specification in {productName}. | Intermediate | _none_
-| link:microprofile-lra/README{outfilesuffix}[microprofile-lra]|MicroProfile LRA | The `microprofile-lra` quickstart demonstrates the use of the MicroProfile LRA specification in {productName}. | Beginner | _none_
-| link:microprofile-openapi/README{outfilesuffix}[microprofile-openapi]|MicroProfile OpenAPI | This guide demonstrate how to use the MicroProfile OpenAPI functionality in {productName} to expose an OpenAPI document for a simple REST application. | Beginner | _none_
-| link:microprofile-reactive-messaging-kafka/README{outfilesuffix}[microprofile-reactive-messaging-kafka]|MicroProfile Reactive Messaging | The `microprofile-reactive-messaging-kafka` quickstart demonstrates the use of the MicroProfile Reactive Messaging specification backed by Apache Kafka in {productName}. | Beginner | _none_
-| link:microprofile-rest-client/README{outfilesuffix}[microprofile-rest-client]|MicroProfile REST Client | The `microprofile-rest-client` quickstart demonstrates the use of the MicroProfile REST Client specification in {productName}. | Beginner | _none_
-| link:opentelemetry-tracing/README{outfilesuffix}[opentelemetry-tracing]|OpenTelemetry Tracing | The `opentelemetry-tracing` quickstart demonstrates the use of the OpenTelemetry tracing specification in {productName}. | Beginner | _none_
+| Quickstart Name | Demonstrated Technologies | Openshift Compatible | Description | Experience Level Required | Prerequisites 
+| link:micrometer/README{outfilesuffix}[micrometer]|Micrometer | Yes | The `micrometer` quickstart demonstrates the use of the Micrometer library in {productName}. | Beginner | _none_
+| link:microprofile-config/README{outfilesuffix}[microprofile-config]|MicroProfile Config | Yes | The `microprofile-config` quickstart demonstrates the use of the MicroProfile Config specification in {productName}. | Beginner | _none_
+| link:microprofile-fault-tolerance/README{outfilesuffix}[microprofile-fault-tolerance]|MicroProfile, Fault Tolerance | Yes | The `microprofile-fault-tolerance` quickstart demonstrates how to use Eclipse MicroProfile Fault Tolerance in {productName}. | Intermediate | _none_
+| link:microprofile-health/README{outfilesuffix}[microprofile-health]|MicroProfile Health | Yes | The `microprofile-health` quickstart demonstrates the use of the MicroProfile Health specification in {productName}. | Beginner | _none_
+| link:microprofile-jwt/README{outfilesuffix}[microprofile-jwt]|JWT, Security, MicroProfile | Yes | The `microprofile-jwt` quickstart demonstrates the use of the MicroProfile JWT specification in {productName}. | Intermediate | _none_
+| link:microprofile-lra/README{outfilesuffix}[microprofile-lra]|MicroProfile LRA | Yes | The `microprofile-lra` quickstart demonstrates the use of the MicroProfile LRA specification in {productName}. | Beginner | _none_
+| link:microprofile-openapi/README{outfilesuffix}[microprofile-openapi]|MicroProfile OpenAPI | Yes | This guide demonstrate how to use the MicroProfile OpenAPI functionality in {productName} to expose an OpenAPI document for a simple REST application. | Beginner | _none_
+| link:microprofile-reactive-messaging-kafka/README{outfilesuffix}[microprofile-reactive-messaging-kafka]|MicroProfile Reactive Messaging | Yes | The `microprofile-reactive-messaging-kafka` quickstart demonstrates the use of the MicroProfile Reactive Messaging specification backed by Apache Kafka in {productName}. | Beginner | _none_
+| link:microprofile-rest-client/README{outfilesuffix}[microprofile-rest-client]|MicroProfile REST Client | Yes | The `microprofile-rest-client` quickstart demonstrates the use of the MicroProfile REST Client specification in {productName}. | Beginner | _none_
+| link:opentelemetry-tracing/README{outfilesuffix}[opentelemetry-tracing]|OpenTelemetry Tracing | Yes | The `opentelemetry-tracing` quickstart demonstrates the use of the OpenTelemetry tracing specification in {productName}. | Beginner | _none_
 |===
 //</TOC>
 

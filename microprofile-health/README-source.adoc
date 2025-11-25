@@ -5,17 +5,24 @@ include::../shared-doc/attributes.adoc[]
 :level: Beginner
 :technologies: MicroProfile Health
 :management-port-openshift:
-:post-helm-install-actions: ../microprofile-health/expose-management-port.adoc
-:extra-openshift-testing-actions: ../microprofile-health/expose-management-port.adoc
-:extra-openshift-test-arguments: -Dserver.management.host=https://$(oc get route {artifactId}-management --template='{{ .spec.host }}')
-
-[abstract]
-The `microprofile-health` quickstart demonstrates the use of the MicroProfile Health specification in {productName}.
-
 :standalone-server-type: microprofile
 :archiveType: war
 :archiveName: {artifactId}
 :include-management-port: http://localhost:9990/health/live
+:openshift: true
+
+// Additional Info for OpenShift
+:post-helm-install-actions-openshift: ../microprofile-health/expose-management-port-openshift.adoc
+:extra-testing-actions-openshift: {post-helm-install-actions-openshift}
+:extra-test-arguments-openshift: -Dserver.management.host=https://$(oc get route {artifactId}-management --template='{{ .spec.host }}')
+
+// Additional Info for Kubernetes
+:post-helm-install-actions-kubernetes: ../microprofile-health/expose-management-port-kubernetes.adoc
+:extra-testing-actions-kubernetes: {post-helm-install-actions-kubernetes}
+:extra-test-arguments-kubernetes: -Dserver.management.host=http://localhost:9990
+
+[abstract]
+The `microprofile-health` quickstart demonstrates the use of the MicroProfile Health specification in {productName}.
 
 == What is it?
 
@@ -74,17 +81,10 @@ declared health check procedures.
 NOTE: Similarly, you can access `http://localhost:9990/health/ready`,
 `http://localhost:9990/health/started`, and `http://localhost:9990/health`
 
-Congratulations! You successfully deployed and run this quickstart. If you wish to
-create the application step by step you can follow the subsequent sections.
-
+// Server Distribution Testing
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+1]
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+1]
-
-// Server Distribution Testing
-include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
-
-// Run the Quickstart in Red Hat CodeReady Studio or Eclipse
-include::../shared-doc/run-the-quickstart-in-jboss-developer-studio.adoc[leveloffset=+1]
 
 [[creating-new-project]]
 == Creating the Maven Project
@@ -92,7 +92,7 @@ include::../shared-doc/run-the-quickstart-in-jboss-developer-studio.adoc[levelof
 [source,options="nowrap"]
 ----
 mvn archetype:generate \
-    -DgroupId=org.jboss.eap.xp.quickstarts \
+    -DgroupId=org.wildfly.quickstarts \
     -DartifactId=microprofile-health \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.apache.maven.archetypes \
@@ -122,11 +122,11 @@ Next we need to setup our dependencies. Add the following section to your
 ----
 <dependencyManagement>
   <dependencies>
-    <!-- importing the microprofile BOM adds MicroProfile specs -->
+    <!-- importing the Expansion BOM adds MicroProfile specs -->
     <dependency>
       <groupId>org.jboss.bom</groupId>
-      <artifactId>jboss-eap-xp-microprofile</artifactId>
-      <version>{versionMicroprofileBom}</version>
+      <artifactId>jboss-eap-expansion</artifactId>
+      <version>{versionExpansionBom}</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -454,6 +454,10 @@ include::../shared-doc/build-and-run-the-quickstart-with-bootable-jar.adoc[level
 
 // OpenShift
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+// Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]
 
 == Conclusion
 

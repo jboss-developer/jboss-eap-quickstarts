@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>43</version>
+        <version>47</version>
     </parent>
 
     <groupId>org.jboss.eap.xp.quickstarts</groupId>
@@ -30,7 +30,7 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-    <version>5.0.0.GA</version>
+    <version>6.0.0.GA</version>
 
     <packaging>pom</packaging>
 
@@ -48,9 +48,6 @@
 
     <properties>
         <root.dir>${project.basedir}</root.dir>
-        <jboss.home.name>EAP8_HOME</jboss.home.name>
-        <product.name>JBoss EAP XP</product.name>
-        <product.version>5.0.0.GA</product.version>
         <!-- A base list of dependency and plug-in version used in the various quick starts. -->
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.1.0</version.org.asciidoctor.asciidoctor-maven-plugin>
         <version.org.wildfly.checkstyle-config>1.0.7.Final</version.org.wildfly.checkstyle-config>
@@ -63,68 +60,11 @@
             filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <linkXRef>false</linkXRef>
+        <!-- the Maven project should use the minimum Java SE version supported -->
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
-    <repositories>
-        <!-- keep this repository the first -->
-        <repository>
-            <id>jboss-public-maven-repository</id>
-            <name>JBoss Public Maven Repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>redhat-ga-maven-repository</id>
-            <name>Red Hat GA Maven Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <!-- keep this repository the first -->
-        <pluginRepository>
-            <id>jboss-public-maven-repository</id>
-            <name>JBoss Public Maven Repository</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ga-maven-repository</id>
-            <name>Red Hat GA Maven Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
-        <!-- Set the name of the WAR, used as the context root when the app is deployed. -->
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>com.mycila</groupId>
@@ -283,6 +223,8 @@
 
     <profiles>
         <profile>
+            <!-- All the modules that require nothing but JBoss Enterprise
+                    Application Platform or JBoss EAP -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -292,6 +234,8 @@
                 </property>
             </activation>
             <modules>
+                <!-- All the modules that require nothing but JBoss Enterprise
+                    Application Platform or JBoss EAP -->
                 <module>micrometer</module>
                 <module>microprofile-config</module>
                 <module>microprofile-fault-tolerance</module>
@@ -320,7 +264,7 @@
                         <inherited>false</inherited>
                         <configuration>
                             <rootDirectory>.</rootDirectory>
-                            <includeOpenshift/>
+                            <includeOpenshift>true</includeOpenshift>
                             <sourceDocument>README-source.adoc</sourceDocument>
                             <targetDocument>README-source.adoc</targetDocument>
                         </configuration>
@@ -403,4 +347,59 @@
             </modules>
         </profile>
     </profiles>
+    <repositories>
+        <repository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+                <!-- always check for the latest JBoss EAP manifest -->
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ga-maven-repository</id>
+            <name>Red Hat GA Maven Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jboss-public-maven-repository</id>
+            <name>JBoss Public Maven Repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>

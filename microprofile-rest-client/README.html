@@ -474,10 +474,10 @@ MicroProfile REST Client specification.</p>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 5.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 6.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build this project is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
 </div>
 </div>
 </div>
@@ -719,7 +719,7 @@ public class CountriesResource {
 <p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing </code></pre>
 </div>
 </div>
 </li>
@@ -754,67 +754,50 @@ public class CountriesResource {
 </div>
 </div>
 <div class="sect1">
-<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and running the quickstart application in a bootable JAR</h2>
+<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and Running the quickstart application in a bootable JAR</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use the WildFly JAR Maven plug-in to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
+<p>You can use the EAP Maven Plugin to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
 </div>
 <div class="paragraph">
-<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong> which configures the bootable JAR building:</p>
+<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong>, which activates the bootable JAR packaging when provisioning JBoss EAP XP, through the <code>&lt;bootable-jar&gt;true&lt;/bootable-jar&gt;</code> configuration element:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;profile&gt;
-          &lt;id&gt;bootable-jar&lt;/id&gt;
-          &lt;build&gt;
-              &lt;plugins&gt;
-                  &lt;plugin&gt;
-                      &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
-                      &lt;artifactId&gt;wildfly-jar-maven-plugin&lt;/artifactId&gt;
-                      &lt;configuration&gt;
-                          ...
-                          &lt;feature-pack-location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/feature-pack-location&gt;
-                          &lt;layers&gt;...&lt;/layers&gt;
-                          &lt;plugin-options&gt;
-                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
-                          &lt;/plugin-options&gt;
-                      &lt;/configuration&gt;
-                      &lt;executions&gt;
-                          &lt;execution&gt;
-                              &lt;goals&gt;
-                                  &lt;goal&gt;package&lt;/goal&gt;
-                              &lt;/goals&gt;
-                          &lt;/execution&gt;
-                      &lt;/executions&gt;
-                  &lt;/plugin&gt;
-              &lt;/plugins&gt;
-          &lt;/build&gt;
-      &lt;/profile&gt;</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;bootable-jar&lt;/id&gt;
+    &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+    &lt;/activation&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    ...
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        ...
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                    &lt;bootable-jar&gt;true&lt;/bootable-jar&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Build the quickstart bootable JAR with the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Run the quickstart application contained in the bootable JAR:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ java -jar target/microprofile-rest-client-bootable.jar</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>You can now interact with the quickstart application.</p>
-</li>
-</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -824,56 +807,67 @@ public class CountriesResource {
 </td>
 <td class="content">
 <div class="paragraph">
-<p>After the quickstart application is deployed, the bootable JAR includes the application in the root context. Therefore, any URLs related to the application should not have the <code>/microprofile-rest-client</code> path segment after <code>HOST:PORT</code>.</p>
+<p>The <strong>bootable-jar</strong> profile is activate by default, and when built the JBoss EAP XP bootable jar file is named <code>microprofile-rest-client-bootable.jar</code>, and may be found in the <code>target</code> directory.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_bootable_jar_">Run the Integration Tests with a bootable jar</h3>
-<div class="paragraph">
-<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with a bootable jar.</p>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the integration tests.</p>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Make sure the bootable jar is provisioned.</p>
+<p>Ensure the bootable jar is built.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn clean install</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Start the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin, which is recommend for testing due to simpler automation.</p>
+<p>Start the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>start-jar</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:start -Djar-file-name=target/microprofile-rest-client-bootable.jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:start-jar</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may also start the bootable jar without Maven, using the <code>java</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ java -jar target/microprofile-rest-client-bootable.jar</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Run the integration tests use the <code>verify</code> goal, with the <code>integration-testing</code> profile activated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated, and specifying the quickstart&#8217;s URL using the <code>server.host</code> system property, which for a bootable jar by default is <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code>.</p>
+<p>Shut down the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>shutdown</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Shutdown the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin too.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:shutdown</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:shutdown</code></pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 </div>
@@ -890,56 +884,41 @@ public class CountriesResource {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">        &lt;profile&gt;
-            &lt;id&gt;openshift&lt;/id&gt;
-            &lt;build&gt;
-                &lt;plugins&gt;
-                    &lt;plugin&gt;
-                        &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
-                        &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
-                        &lt;configuration&gt;
-                            ...
-                            &lt;feature-packs&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                            &lt;/feature-packs&gt;
-                            &lt;layers&gt;...&lt;/layers&gt;
-                            &lt;name&gt;ROOT.war&lt;/name&gt;
-                        &lt;/configuration&gt;
-                        &lt;executions&gt;
-                            &lt;execution&gt;
-                                &lt;goals&gt;
-                                    &lt;goal&gt;package&lt;/goal&gt;
-                                &lt;/goals&gt;
-                            &lt;/execution&gt;
-                        &lt;/executions&gt;
-                    &lt;/plugin&gt;
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
                     ...
-                &lt;/plugins&gt;
-            &lt;/build&gt;
-        &lt;/profile&gt;</code></pre>
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You may note that the cloud feature pack is used, this enables a configuration tuned for OpenShift environment.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Previous JBoss EAP XP releases used the WildFly JAR Maven Plugin to package the quickstart in a Bootable JAR, when deploying it on OpenShift, and while that&#8217;s still supported it&#8217;s no longer recommended.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
 </div>
 </div>
 <div class="sect2">
@@ -960,7 +939,7 @@ public class CountriesResource {
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP XP.</p>
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -968,16 +947,7 @@ public class CountriesResource {
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP 5.0 applications</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
-"jboss-eap" has been added to your repositories
-$ helm search repo jboss-eap
-NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP XP 5.0 applications</code></pre>
+jboss-eap/eap81         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
 </div>
 </div>
 </div>
@@ -985,14 +955,14 @@ jboss-eap/eap-xp5         ...             ...             A Helm chart to build 
 <h4 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
 <div class="paragraph">
 <p>Log in to your OpenShift instance using the <code>oc login</code> command.
-The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP XP.</p>
+The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
 </div>
 <div class="paragraph">
 <p>Navigate to the root directory of this quickstart and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install microprofile-rest-client -f charts/helm.yaml jboss-eap/eap-xp5 --wait --timeout=10m0s
+<pre class="highlight nowrap"><code>$ helm install microprofile-rest-client -f charts/helm.yaml jboss-eap/eap81 --wait --timeout=10m0s 
 NAME: microprofile-rest-client
 ...
 STATUS: deployed
@@ -1014,7 +984,7 @@ REVISION: 1</code></pre>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
   uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-  ref: xp-5.0.x
+  ref: xp-6.0.x
   contextDir: microprofile-rest-client
 deploy:
   replicas: 1</code></pre>
@@ -1028,7 +998,7 @@ deploy:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap-xp5</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap81</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1041,20 +1011,6 @@ deploy:
 </div>
 <div class="paragraph">
 <p>Access the application in your web browser using the displayed URL.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The Maven profile named <code>openshift</code> is used by the Helm chart to provision the server with the quickstart deployed on the root web context, and thus the application should be accessed with the URL without the <code>/microprofile-rest-client</code> path segment after <code>HOST:PORT</code>.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -1126,7 +1082,7 @@ You can find more information about the MicroProfile REST Client specification a
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-05 13:53:48 UTC
+Last updated 2025-11-13 15:09:19 UTC
 </div>
 </div>
 </body>

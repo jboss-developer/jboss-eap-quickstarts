@@ -4,21 +4,20 @@ include::../shared-doc/attributes.adoc[]
 :author: Martin Stefanko
 :level: Beginner
 :technologies: MicroProfile LRA
-
-[abstract]
-The `microprofile-lra` quickstart demonstrates the use of the MicroProfile LRA specification in {productName}.
-
 :standalone-server-type: microprofile
 :configFileName: standalone-microprofile.xml
 :archiveType: war
 :archiveName: {artifactId}
 :microprofile-lra:
 :restoreScriptName: restore-configuration.cli
-:openshift: true
 :custom-bootable-jar-layers:
 :custom-openshift-layers:
 :extra-openshift-test-arguments:
 :requires-http-route:
+:openshift: true
+
+[abstract]
+The `microprofile-lra` quickstart demonstrates the use of the MicroProfile LRA specification in {productName}.
 
 == What is it?
 
@@ -137,7 +136,7 @@ also go right to the completed example which is available in this directory.
 include::../shared-doc/build-and-deploy-the-quickstart.adoc[leveloffset=+1]
 
 // Server Distribution Testing
-include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+1]
 
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+1]
@@ -163,6 +162,10 @@ include::../shared-doc/build-and-run-the-quickstart-with-bootable-jar.adoc[level
 
 // OpenShift
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+// Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]
 
 [[creating-new-project]]
 == Creating the Maven Project
@@ -170,7 +173,7 @@ include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloff
 [source,options="nowrap"]
 ----
 mvn archetype:generate \
-    -DgroupId=org.jboss.eap.xp.quickstarts \
+    -DgroupId=org.wildfly.quickstarts \
     -DartifactId=microprofile-lra \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.apache.maven.archetypes \
@@ -182,20 +185,17 @@ Open the project in your favourite IDE.
 
 Open the generated `pom.xml`.
 
-The first thing to do is to change the minimum JDK to Java 11 and set the other relevant version properties:
+The first thing to do is to change the minimum JDK to Java 17 and set the other relevant version properties:
 
 [source,xml,subs="attributes+"]
 ----
-<maven.compiler.source>11</maven.compiler.source>
-<maven.compiler.target>11</maven.compiler.target>
-
-<!-- the version for the Server -->
-<version.server>{versionServer}</version.server>
-<!-- The versions for the BOMs, Packs and Plugins -->
+<!-- the Maven project should use the minimum Java SE version supported -->
+<maven.compiler.release>17</maven.compiler.release>
+<!-- the versions for the BOMs, Packs and Plugins -->
 <version.bom.ee>{versionBomEE}</version.bom.ee>
-<version.bom.microprofile>{versionBomMicroprofile}</version.bom.microprofile>
+<version.bom.expansion>{versionBomMicroprofile}</version.bom.expansion>
+<version.plugin.eap>{versionPluginEAP}</version.plugin.eap>
 <version.plugin.wildfly>{versionPluginWildfly}</version.plugin.wildfly>
-<version.plugin.wildfly-jar>{versionPluginWildflyJar}</version.plugin.wildfly-jar>
 ----
 
 Next we need to setup our dependencies. Add the following section to your
@@ -214,8 +214,8 @@ Next we need to setup our dependencies. Add the following section to your
         </dependency>
         <dependency>
             <groupId>org.jboss.bom</groupId>
-            <artifactId>jboss-eap-xp-microprofile</artifactId>
-            <version>${version.bom.microprofile}</version>
+            <artifactId>jboss-eap-expansion</artifactId>
+            <version>${version.bom.expansion}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -249,7 +249,7 @@ Now we need to add the following  dependencies:
 </dependency>
 ----
 
-NOTE: We need Jakarta REST (JAX-RS) since LRA exposes functionality over JAX-RS resources and uses HTTP as its
+NOTE: We need Jakarta REST since LRA exposes functionality over Jakarta REST resources and uses HTTP as its
 communication protocol.
 
 All dependencies can have provided scope. The versions are taken from the above
@@ -267,14 +267,14 @@ the generated build section):
     <pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${version.plugin.wildfly}</version>
+                <groupId>org.jboss.eap.plugins</groupId>
+                <artifactId>eap-maven-plugin</artifactId>
+                <version>${version.plugin.eap}</version>
             </plugin>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-jar-maven-plugin</artifactId>
-                <version>${version.plugin.wildfly-jar}</version>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.plugin.wildfly}</version>
             </plugin>
         </plugins>
     </pluginManagement>
@@ -286,9 +286,9 @@ include::../shared-doc/setup-repositories.adoc[leveloffset=+1]
 
 Now we are ready to start working with MicroProfile LRA.
 
-== Set up JAX-RS server and result wrapper
+== Set up Jakarta REST server and result wrapper
 
-LRA works on top of JAX-RS. To set up JAX-RS server in our service, we need to create a new application class
+LRA works on top of Jakarta REST. To set up Jakarta REST server in our service, we need to create a new application class
 `org.wildfly.quickstarts.microprofile.lra.JaxRsApplication` in the file
 `microprofile-lra/src/main/java/org/wildfly/quickstarts/microprofile/lra/JaxRsApplication.java` that looks like this:
 
@@ -304,7 +304,7 @@ public class JaxRsApplication extends Application {
 }
 ----
 
-Now we can declare our LRA JAX-RS resources.
+Now we can declare our LRA Jakarta REST resources.
 
 The LRAs we're going to create also accumulate results in a wrapper called `ParticipantResult` which we can create in `org.wildfly.quickstarts.microprofile.lra.ParticipantResult` class:
 
@@ -403,8 +403,8 @@ similarly to `@Transactional` annotation from JTA. By default, it uses the `REQU
 started or existing LRA (if passed to the invocation) is joined before the method is started. The LRA is also closed
 (success) or cancelled (failure/exception) at the end of the method.
 
-LRA currently works on top of the JAX-RS resources. We can place `@LRA` annotation on any JAX-RS method and the LRA
-is already managed for us by {productName}. Let's create a simple JAX-RS resource that uses lra in `org.wildfly .quickstarts.microprofile.lra.LRAParticipant1`:
+LRA currently works on top of the Jakarta REST resources. We can place `@LRA` annotation on any Jakarta REST method and the LRA
+is already managed for us by {productName}. Let's create a simple Jakarta REST resource that uses lra in `org.wildfly .quickstarts.microprofile.lra.LRAParticipant1`:
 
 [source,java]
 ----
@@ -552,7 +552,7 @@ public Response work(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lraId,
 }
 ----
 
-In this `GET` JAX-RS method, we also use the `@LRA` annotation that either starts a new LRA or joins an existing one
+In this `GET` Jakarta REST method, we also use the `@LRA` annotation that either starts a new LRA or joins an existing one
 which is defined by the default LRA type `REQUIRED`. This is decided based on the `LRA.LRA_HTTP_CONTEXT_HEADER` header
 we called `lraId`. If the framework starts a new LRA,
 this header is automatically populated with its ID. If the caller specifies this `LRA.LRA_HTTP_CONTEXT_HEADER`
@@ -582,13 +582,13 @@ public Response compensateWork(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lra
 }
 ----
 
-The compensation is defined by the `@Compensate` annotation which needs to be placed on the JAX-RS PUT method so the LRA
+The compensation is defined by the `@Compensate` annotation which needs to be placed on the Jakarta REST PUT method so the LRA
 coordinator knows how to call it. For simplicity, we are just printing the messages to the console. The participant can
 control how it finishes its participation in LRA via the returned status code. Please see the
 link:https://github.com/eclipse/microprofile-lra/blob/main/spec/src/main/asciidoc/microprofile-lra-spec.asciidoc[specification]
 for more details.
 
-The complete method looks similarly. It uses the `@Complete` annotation and it also needs to be the JAX-RS PUT method.
+The complete method looks similarly. It uses the `@Complete` annotation and it also needs to be the Jakarta REST PUT method.
 
 [source,java]
 ----
@@ -609,13 +609,13 @@ public Response completeWork(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lraId
 The LRA coordinator invokes the `@Compensate` method when the LRA cancels on failure and it invokes the `@Complete`
 method when the LRA closes successfully.
 
-NOTE: The `@Complete` and `@Compensate` methods don't need to be JAX-RS methods. See the specification for details.
+NOTE: The `@Complete` and `@Compensate` methods don't need to be Jakarta REST methods. See the specification for details.
 
 Now we are already able to start our first LRA. You can deploy the application to the {productName} as demonstrated in
 the <<solution>> section. Remember that you need to enable the LRA extensions and subsystems with the
 `enable-microprofile-lra.cli` script.
 
-Then you can invoke the `LRAParticipant1` JAX-RS resource as:
+Then you can invoke the `LRAParticipant1` Jakarta REST resource as:
 
 [source,bash]
 ----
@@ -774,7 +774,7 @@ compensate or complete callbacks on all enlisted participants (including `LRAPar
 LRA into this class soon). However, it would also try to close/cancel LRA at the end of the `LRAParticipant1#work`
 method and by this time the LRA would already be ended. This would be reported by the coordinator.
 
-We also need to add the call to the newly created JAX-RS resource to the `LRAParticipant1#work` method as showed in
+We also need to add the call to the newly created Jakarta REST resource to the `LRAParticipant1#work` method as showed in
 this
 snipped:
 
@@ -808,14 +808,14 @@ public Response work(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lraId,
 ----
 
 You might remember that we need to propagate the LRA id (LRA context) in the `LRA.LRA_HTTP_CONTEXT_HEADER`. However, if
-we make the outgoing JAX-RS call in the JAX-RS method that already carries an active LRA context, the context is
+we make the outgoing Jakarta REST call in the Jakarta REST method that already carries an active LRA context, the context is
 automatically added to the outgoing call. So we don't need to pass it manually to each outgoing call.
 
 Now we are ready to propagate LRA started in Participant 1 to the Participant 2, enlist both in the newly started
 LRA, and finish the LRA when the Participant 1 ends its `work` method.
 
 Redeploy the application into the {productName} as showed in <<solution>>. Then you can repeat the calls to the
-`LRAParticipant1` JAX-RS resource as we used them previously:
+`LRAParticipant1` Jakarta REST resource as we used them previously:
 
 [source,bash]
 ----

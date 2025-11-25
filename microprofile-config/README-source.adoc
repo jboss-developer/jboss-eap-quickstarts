@@ -4,14 +4,14 @@ include::../shared-doc/attributes.adoc[]
 :author: Martin Stefanko
 :level: Beginner
 :technologies: MicroProfile Config
-
-[abstract]
-The `microprofile-config` quickstart demonstrates the use of the MicroProfile Config specification in {productName}.
-
 :standalone-server-type: microprofile
 :archiveType: war
 :archiveName: {artifactId}
 :arq-prerequisities: These tests require that JBOSS_HOME environment variable is set.
+:openshift: true
+
+[abstract]
+The `microprofile-config` quickstart demonstrates the use of the MicroProfile Config specification in {productName}.
 
 == What is it?
 
@@ -47,7 +47,7 @@ also go right to the completed example which is available in this directory.
 include::../shared-doc/build-and-deploy-the-quickstart.adoc[leveloffset=+1]
 
 // Server Distribution Testing
-include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
+include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+1]
 
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+1]
@@ -58,7 +58,7 @@ include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+1]
 [source,options="nowrap"]
 ----
 mvn archetype:generate \
-    -DgroupId=org.jboss.eap.xp.quickstarts \
+    -DgroupId=org.wildfly.quickstarts \
     -DartifactId=microprofile-config \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.apache.maven.archetypes \
@@ -77,11 +77,11 @@ The first thing to do is to setup our dependencies. Add the following section to
 ----
 <dependencyManagement>
   <dependencies>
-    <!-- importing the microprofile BOM adds MicroProfile specs -->
+    <!-- importing the Expansion BOM adds MicroProfile specs -->
     <dependency>
         <groupId>org.jboss.bom</groupId>
-        <artifactId>jboss-eap-xp-microprofile</artifactId>
-        <version>{versionMicroprofileBom}</version>
+        <artifactId>jboss-eap-expansion</artifactId>
+        <version>{versionExpansionBom}</version>
         <type>pom</type>
         <scope>import</scope>
     </dependency>
@@ -163,7 +163,7 @@ Now we are ready to start working with MicroProfile Config.
 == Injecting a configuration value
 
 Let's start by creating a new CDI bean which will use for the injection of our
-configuration values. This CDI bean will also be a JAX-RS resource. Create a new
+configuration values. This CDI bean will also be a Jakarta REST resource. Create a new
 class `org.wildfly.quickstarts.microprofile.config.ConfigResource`;
 
 To inject any configuration value, MicroProfile Config provides a custom qualifier
@@ -801,6 +801,10 @@ include::../shared-doc/build-and-run-the-quickstart-with-bootable-jar.adoc[level
 
 // Openshift
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+//Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]
 
 == Conclusion
 

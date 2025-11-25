@@ -515,10 +515,10 @@ endpoints:</p>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 5.0 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform expansion pack 6.0 or later.</p>
 </div>
 <div class="paragraph">
-<p>All you need to build this project is Java 11.0 (Java SDK 11) or later and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
+<p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
 </div>
 </div>
 </div>
@@ -724,8 +724,11 @@ also go right to the completed example which is available in this directory.</p>
 <div class="paragraph">
 <p>You should see a message in the server log indicating that the archive deployed successfully.</p>
 </div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This quickstart includes integration tests, which are located under the <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
 </div>
@@ -744,12 +747,11 @@ also go right to the completed example which is available in this directory.</p>
 <p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing </code></pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 </div>
@@ -853,67 +855,50 @@ process-state: reload-required</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and running the quickstart application in a bootable JAR</h2>
+<h2 id="build_and_run_the_quickstart_with_bootable_jar">Building and Running the quickstart application in a bootable JAR</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can use the WildFly JAR Maven plug-in to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
+<p>You can use the EAP Maven Plugin to build a JBoss EAP XP bootable JAR to run this quickstart.</p>
 </div>
 <div class="paragraph">
-<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong> which configures the bootable JAR building:</p>
+<p>The quickstart <code>pom.xml</code> file contains a Maven profile named <strong>bootable-jar</strong>, which activates the bootable JAR packaging when provisioning JBoss EAP XP, through the <code>&lt;bootable-jar&gt;true&lt;/bootable-jar&gt;</code> configuration element:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">      &lt;profile&gt;
-          &lt;id&gt;bootable-jar&lt;/id&gt;
-          &lt;build&gt;
-              &lt;plugins&gt;
-                  &lt;plugin&gt;
-                      &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
-                      &lt;artifactId&gt;wildfly-jar-maven-plugin&lt;/artifactId&gt;
-                      &lt;configuration&gt;
-                          ...
-                          &lt;feature-pack-location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/feature-pack-location&gt;
-                          &lt;layers&gt;...&lt;/layers&gt;
-                          &lt;plugin-options&gt;
-                              &lt;jboss-fork-embedded&gt;true&lt;/jboss-fork-embedded&gt;
-                          &lt;/plugin-options&gt;
-                      &lt;/configuration&gt;
-                      &lt;executions&gt;
-                          &lt;execution&gt;
-                              &lt;goals&gt;
-                                  &lt;goal&gt;package&lt;/goal&gt;
-                              &lt;/goals&gt;
-                          &lt;/execution&gt;
-                      &lt;/executions&gt;
-                  &lt;/plugin&gt;
-              &lt;/plugins&gt;
-          &lt;/build&gt;
-      &lt;/profile&gt;</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;bootable-jar&lt;/id&gt;
+    &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+    &lt;/activation&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    ...
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        ...
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                    &lt;bootable-jar&gt;true&lt;/bootable-jar&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Build the quickstart bootable JAR with the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Run the quickstart application contained in the bootable JAR:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ java -jar target/microprofile-lra-bootable.jar</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>You can now interact with the quickstart application.</p>
-</li>
-</ol>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -923,56 +908,67 @@ process-state: reload-required</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>After the quickstart application is deployed, the bootable JAR includes the application in the root context. Therefore, any URLs related to the application should not have the <code>/microprofile-lra</code> path segment after <code>HOST:PORT</code>.</p>
+<p>The <strong>bootable-jar</strong> profile is activate by default, and when built the JBoss EAP XP bootable jar file is named <code>microprofile-lra-bootable.jar</code>, and may be found in the <code>target</code> directory.</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="run_the_integration_tests_with_bootable_jar_">Run the Integration Tests with a bootable jar</h3>
-<div class="paragraph">
-<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with a bootable jar.</p>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run the integration tests.</p>
-</div>
 <div class="olist arabic">
+<div class="title">Procedure</div>
 <ol class="arabic">
 <li>
-<p>Make sure the bootable jar is provisioned.</p>
+<p>Ensure the bootable jar is built.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn clean package -Pbootable-jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn clean package</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Start the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin, which is recommend for testing due to simpler automation.</p>
+<p>Start the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>start-jar</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:start -Djar-file-name=target/microprofile-lra-bootable.jar</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:start-jar</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may also start the bootable jar without Maven, using the <code>java</code> command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ java -jar target/microprofile-lra-bootable.jar</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Run the integration tests use the <code>verify</code> goal, with the <code>integration-testing</code> profile activated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated, and specifying the quickstart&#8217;s URL using the <code>server.host</code> system property, which for a bootable jar by default is <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code>.</p>
+<p>Shut down the JBoss EAP XP bootable jar use the WildFly Maven Plugin <code>shutdown</code> goal.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Shutdown the JBoss EAP XP bootable jar, this time using the JBoss EAP XP Maven Jar Plugin too.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ mvn wildfly-jar:shutdown</code></pre>
+<pre class="highlight nowrap"><code>$ mvn wildfly:shutdown</code></pre>
 </div>
 </div>
 </li>
 </ol>
-</div>
 </div>
 </div>
 </div>
@@ -989,56 +985,41 @@ process-state: reload-required</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">        &lt;profile&gt;
-            &lt;id&gt;openshift&lt;/id&gt;
-            &lt;build&gt;
-                &lt;plugins&gt;
-                    &lt;plugin&gt;
-                        &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
-                        &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
-                        &lt;configuration&gt;
-                            ...
-                            &lt;feature-packs&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                                &lt;feature-pack&gt;
-                                    &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
-                                &lt;/feature-pack&gt;
-                            &lt;/feature-packs&gt;
-                            &lt;layers&gt;...&lt;/layers&gt;
-                            &lt;name&gt;ROOT.war&lt;/name&gt;
-                        &lt;/configuration&gt;
-                        &lt;executions&gt;
-                            &lt;execution&gt;
-                                &lt;goals&gt;
-                                    &lt;goal&gt;package&lt;/goal&gt;
-                                &lt;/goals&gt;
-                            &lt;/execution&gt;
-                        &lt;/executions&gt;
-                    &lt;/plugin&gt;
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
                     ...
-                &lt;/plugins&gt;
-            &lt;/build&gt;
-        &lt;/profile&gt;</code></pre>
+                    &lt;feature-packs&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.xp:wildfly-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                        &lt;feature-pack&gt;
+                            &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
+                        &lt;/feature-pack&gt;
+                    &lt;/feature-packs&gt;
+                    &lt;layers&gt;...&lt;/layers&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You may note that the cloud feature pack is used, this enables a configuration tuned for OpenShift environment.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Previous JBoss EAP XP releases used the WildFly JAR Maven Plugin to package the quickstart in a Bootable JAR, when deploying it on OpenShift, and while that&#8217;s still supported it&#8217;s no longer recommended.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1059,7 +1040,7 @@ process-state: reload-required</code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP XP.</p>
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1067,16 +1048,7 @@ process-state: reload-required</code></pre>
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP 5.0 applications</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
-"jboss-eap" has been added to your repositories
-$ helm search repo jboss-eap
-NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap-xp5         ...             ...             A Helm chart to build and deploy EAP XP 5.0 applications</code></pre>
+jboss-eap/eap81         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
 </div>
 </div>
 </div>
@@ -1084,14 +1056,14 @@ jboss-eap/eap-xp5         ...             ...             A Helm chart to build 
 <h4 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
 <div class="paragraph">
 <p>Log in to your OpenShift instance using the <code>oc login</code> command.
-The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP XP.</p>
+The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
 </div>
 <div class="paragraph">
 <p>Navigate to the root directory of this quickstart and run the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install microprofile-lra -f charts/helm.yaml jboss-eap/eap-xp5 --wait --timeout=10m0s
+<pre class="highlight nowrap"><code>$ helm install microprofile-lra -f charts/helm.yaml jboss-eap/eap81 --wait --timeout=10m0s 
 NAME: microprofile-lra
 ...
 STATUS: deployed
@@ -1113,7 +1085,7 @@ REVISION: 1</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code>build:
   uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-  ref: XP_5.0.0.GA
+  ref: xp-6.0.x
   contextDir: microprofile-lra
 deploy:
   replicas: 1
@@ -1130,7 +1102,7 @@ deploy:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap-xp5</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap81</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1143,20 +1115,6 @@ deploy:
 </div>
 <div class="paragraph">
 <p>Access the application in your web browser using the displayed URL.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The Maven profile named <code>openshift</code> is used by the Helm chart to provision the server with the quickstart deployed on the root web context, and thus the application should be accessed with the URL without the <code>/microprofile-lra</code> path segment after <code>HOST:PORT</code>.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
@@ -1218,7 +1176,7 @@ deploy:
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>mvn archetype:generate \
-    -DgroupId=org.jboss.eap.xp.quickstarts \
+    -DgroupId=org.wildfly.quickstarts \
     -DartifactId=microprofile-lra \
     -DinteractiveMode=false \
     -DarchetypeGroupId=org.apache.maven.archetypes \
@@ -1233,20 +1191,17 @@ cd microprofile-lra</code></pre>
 <p>Open the generated <code>pom.xml</code>.</p>
 </div>
 <div class="paragraph">
-<p>The first thing to do is to change the minimum JDK to Java 11 and set the other relevant version properties:</p>
+<p>The first thing to do is to change the minimum JDK to Java 17 and set the other relevant version properties:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
-&lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
-
-&lt;!-- the version for the Server --&gt;
-&lt;version.server&gt;5.0.0.GA-redhat-00005&lt;/version.server&gt;
-&lt;!-- The versions for the BOMs, Packs and Plugins --&gt;
-&lt;version.bom.ee&gt;8.0.2.GA-redhat-00008&lt;/version.bom.ee&gt;
-&lt;version.bom.microprofile&gt;5.0.0.GA-redhat-00009&lt;/version.bom.microprofile&gt;
-&lt;version.plugin.wildfly&gt;4.1.6.Final-redhat-00003&lt;/version.plugin.wildfly&gt;
-&lt;version.plugin.wildfly-jar&gt;9.0.1.Final-redhat-00010&lt;/version.plugin.wildfly-jar&gt;</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;!-- the Maven project should use the minimum Java SE version supported --&gt;
+&lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+&lt;!-- the versions for the BOMs, Packs and Plugins --&gt;
+&lt;version.bom.ee&gt;8.1.2.GA-redhat-00004&lt;/version.bom.ee&gt;
+&lt;version.bom.expansion&gt;6.0.0.GA-redhat-00016&lt;/version.bom.expansion&gt;
+&lt;version.plugin.eap&gt;2.0.0.Final-redhat-00012&lt;/version.plugin.eap&gt;
+&lt;version.plugin.wildfly&gt;5.1.1.Final&lt;/version.plugin.wildfly&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1266,8 +1221,8 @@ cd microprofile-lra</code></pre>
         &lt;/dependency&gt;
         &lt;dependency&gt;
             &lt;groupId&gt;org.jboss.bom&lt;/groupId&gt;
-            &lt;artifactId&gt;jboss-eap-xp-microprofile&lt;/artifactId&gt;
-            &lt;version&gt;${version.bom.microprofile}&lt;/version&gt;
+            &lt;artifactId&gt;jboss-eap-expansion&lt;/artifactId&gt;
+            &lt;version&gt;${version.bom.expansion}&lt;/version&gt;
             &lt;type&gt;pom&lt;/type&gt;
             &lt;scope&gt;import&lt;/scope&gt;
         &lt;/dependency&gt;
@@ -1309,7 +1264,7 @@ cd microprofile-lra</code></pre>
 <div class="title">Note</div>
 </td>
 <td class="content">
-We need Jakarta REST (JAX-RS) since LRA exposes functionality over JAX-RS resources and uses HTTP as its
+We need Jakarta REST since LRA exposes functionality over Jakarta REST resources and uses HTTP as its
 communication protocol.
 </td>
 </tr>
@@ -1332,14 +1287,14 @@ the generated build section):</p>
     &lt;pluginManagement&gt;
         &lt;plugins&gt;
             &lt;plugin&gt;
-                &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;wildfly-maven-plugin&lt;/artifactId&gt;
-                &lt;version&gt;${version.plugin.wildfly}&lt;/version&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${version.plugin.eap}&lt;/version&gt;
             &lt;/plugin&gt;
             &lt;plugin&gt;
                 &lt;groupId&gt;org.wildfly.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;wildfly-jar-maven-plugin&lt;/artifactId&gt;
-                &lt;version&gt;${version.plugin.wildfly-jar}&lt;/version&gt;
+                &lt;artifactId&gt;wildfly-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${version.plugin.wildfly}&lt;/version&gt;
             &lt;/plugin&gt;
         &lt;/plugins&gt;
     &lt;/pluginManagement&gt;
@@ -1413,10 +1368,10 @@ the generated build section):</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_set_up_jax_rs_server_and_result_wrapper">Set up JAX-RS server and result wrapper</h2>
+<h2 id="_set_up_jakarta_rest_server_and_result_wrapper">Set up Jakarta REST server and result wrapper</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>LRA works on top of JAX-RS. To set up JAX-RS server in our service, we need to create a new application class
+<p>LRA works on top of Jakarta REST. To set up Jakarta REST server in our service, we need to create a new application class
 <code>org.wildfly.quickstarts.microprofile.lra.JaxRsApplication</code> in the file
 <code>microprofile-lra/src/main/java/org/wildfly/quickstarts/microprofile/lra/JaxRsApplication.java</code> that looks like this:</p>
 </div>
@@ -1433,7 +1388,7 @@ public class JaxRsApplication extends Application {
 </div>
 </div>
 <div class="paragraph">
-<p>Now we can declare our LRA JAX-RS resources.</p>
+<p>Now we can declare our LRA Jakarta REST resources.</p>
 </div>
 <div class="paragraph">
 <p>The LRAs we&#8217;re going to create also accumulate results in a wrapper called <code>ParticipantResult</code> which we can create in <code>org.wildfly.quickstarts.microprofile.lra.ParticipantResult</code> class:</p>
@@ -1538,8 +1493,8 @@ started or existing LRA (if passed to the invocation) is joined before the metho
 (success) or cancelled (failure/exception) at the end of the method.</p>
 </div>
 <div class="paragraph">
-<p>LRA currently works on top of the JAX-RS resources. We can place <code>@LRA</code> annotation on any JAX-RS method and the LRA
-is already managed for us by JBoss EAP XP. Let&#8217;s create a simple JAX-RS resource that uses lra in <code>org.wildfly .quickstarts.microprofile.lra.LRAParticipant1</code>:</p>
+<p>LRA currently works on top of the Jakarta REST resources. We can place <code>@LRA</code> annotation on any Jakarta REST method and the LRA
+is already managed for us by JBoss EAP XP. Let&#8217;s create a simple Jakarta REST resource that uses lra in <code>org.wildfly .quickstarts.microprofile.lra.LRAParticipant1</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1690,7 +1645,7 @@ public Response work(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lraId,
 </div>
 </div>
 <div class="paragraph">
-<p>In this <code>GET</code> JAX-RS method, we also use the <code>@LRA</code> annotation that either starts a new LRA or joins an existing one
+<p>In this <code>GET</code> Jakarta REST method, we also use the <code>@LRA</code> annotation that either starts a new LRA or joins an existing one
 which is defined by the default LRA type <code>REQUIRED</code>. This is decided based on the <code>LRA.LRA_HTTP_CONTEXT_HEADER</code> header
 we called <code>lraId</code>. If the framework starts a new LRA,
 this header is automatically populated with its ID. If the caller specifies this <code>LRA.LRA_HTTP_CONTEXT_HEADER</code>
@@ -1723,14 +1678,14 @@ public Response compensateWork(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lra
 </div>
 </div>
 <div class="paragraph">
-<p>The compensation is defined by the <code>@Compensate</code> annotation which needs to be placed on the JAX-RS PUT method so the LRA
+<p>The compensation is defined by the <code>@Compensate</code> annotation which needs to be placed on the Jakarta REST PUT method so the LRA
 coordinator knows how to call it. For simplicity, we are just printing the messages to the console. The participant can
 control how it finishes its participation in LRA via the returned status code. Please see the
 <a href="https://github.com/eclipse/microprofile-lra/blob/main/spec/src/main/asciidoc/microprofile-lra-spec.asciidoc">specification</a>
 for more details.</p>
 </div>
 <div class="paragraph">
-<p>The complete method looks similarly. It uses the <code>@Complete</code> annotation and it also needs to be the JAX-RS PUT method.</p>
+<p>The complete method looks similarly. It uses the <code>@Complete</code> annotation and it also needs to be the Jakarta REST PUT method.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1759,7 +1714,7 @@ method when the LRA closes successfully.</p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-The <code>@Complete</code> and <code>@Compensate</code> methods don&#8217;t need to be JAX-RS methods. See the specification for details.
+The <code>@Complete</code> and <code>@Compensate</code> methods don&#8217;t need to be Jakarta REST methods. See the specification for details.
 </td>
 </tr>
 </table>
@@ -1770,7 +1725,7 @@ the <a href="#solution">Solution</a> section. Remember that you need to enable t
 <code>enable-microprofile-lra.cli</code> script.</p>
 </div>
 <div class="paragraph">
-<p>Then you can invoke the <code>LRAParticipant1</code> JAX-RS resource as:</p>
+<p>Then you can invoke the <code>LRAParticipant1</code> Jakarta REST resource as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1939,7 +1894,7 @@ LRA into this class soon). However, it would also try to close/cancel LRA at the
 method and by this time the LRA would already be ended. This would be reported by the coordinator.</p>
 </div>
 <div class="paragraph">
-<p>We also need to add the call to the newly created JAX-RS resource to the <code>LRAParticipant1#work</code> method as showed in
+<p>We also need to add the call to the newly created Jakarta REST resource to the <code>LRAParticipant1#work</code> method as showed in
 this
 snipped:</p>
 </div>
@@ -1974,7 +1929,7 @@ public Response work(@HeaderParam(LRA.LRA_HTTP_CONTEXT_HEADER) URI lraId,
 </div>
 <div class="paragraph">
 <p>You might remember that we need to propagate the LRA id (LRA context) in the <code>LRA.LRA_HTTP_CONTEXT_HEADER</code>. However, if
-we make the outgoing JAX-RS call in the JAX-RS method that already carries an active LRA context, the context is
+we make the outgoing Jakarta REST call in the Jakarta REST method that already carries an active LRA context, the context is
 automatically added to the outgoing call. So we don&#8217;t need to pass it manually to each outgoing call.</p>
 </div>
 <div class="paragraph">
@@ -1983,7 +1938,7 @@ LRA, and finish the LRA when the Participant 1 ends its <code>work</code> method
 </div>
 <div class="paragraph">
 <p>Redeploy the application into the JBoss EAP XP as showed in <a href="#solution">Solution</a>. Then you can repeat the calls to the
-<code>LRAParticipant1</code> JAX-RS resource as we used them previously:</p>
+<code>LRAParticipant1</code> Jakarta REST resource as we used them previously:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2032,7 +1987,7 @@ about the MicroProfile LRA in the specification <a href="https://github.com/ecli
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-05 13:53:48 UTC
+Last updated 2025-11-13 15:09:19 UTC
 </div>
 </div>
 </body>

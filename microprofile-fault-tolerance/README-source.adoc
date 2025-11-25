@@ -1,18 +1,11 @@
-////
-This guide is adapted from the main Quarkus repository
-https://github.com/quarkusio/quarkus/tree/master/docs/src/main/asciidoc
-////
-
-// Needed to correctly render on GitHub
-:productName: WildFly
-:standalone-server-type: microprofile
-
 include::../shared-doc/attributes.adoc[]
 
 = microprofile-fault-tolerance: MicroProfile Fault Tolerance
 :author: Radoslav Husar, Tomas Hofman
 :level: Intermediate
 :technologies: MicroProfile, Fault Tolerance
+:standalone-server-type: microprofile
+:openshift: true
 
 [abstract]
 The `microprofile-fault-tolerance` quickstart demonstrates how to use Eclipse MicroProfile Fault Tolerance in {productName}.
@@ -55,7 +48,7 @@ include::../shared-doc/start-the-standalone-server.adoc[leveloffset=+1]
 [[project-from-scratch]]
 == Creating an Application from Scratch
 
-In this section we will go through the steps to create a new JAX-RS deployment from scratch and then make it more
+In this section we will go through the steps to create a new Jakarta REST deployment from scratch and then make it more
 resilient by using MicroProfile Fault Tolerance annotations.
 
 === Project Generation
@@ -65,7 +58,7 @@ First, we need to generate a maven project. Open a terminal and create an empty 
 [source]
 ----
 mvn archetype:generate \
-    -DgroupId=org.jboss.eap.xp.quickstarts.microprofile.faulttolerance \
+    -DgroupId=org.wildfly.quickstarts.microprofile.faulttolerance \
     -DartifactId=microprofile-fault-tolerance \
     -DarchetypeGroupId=org.apache.maven.archetypes \
     -DarchetypeArtifactId=maven-archetype-webapp \
@@ -84,21 +77,20 @@ Add the following properties to the `pom.xml`:
 
 [source,options="nowrap",subs="attributes+"]
 ----
-<version.bom.microprofile>{versionMicroprofileBom}</version.bom.microprofile>
+<version.bom.expansion>{versionExpansionBom}</version.bom.expansion>
 <version.bom.ee>{versionServerBom}</version.bom.ee>
 ----
 
-Also the project can be updated to use Java 8 as the minimum:
+Also the project can be updated to use Java 17 as the minimum:
 
 [source,options="nowrap"]
 ----
-<maven.compiler.source>1.8</maven.compiler.source>
-<maven.compiler.target>1.8</maven.compiler.target>
+<maven.compiler.release>17</maven.compiler.release>
 ----
 
 Before the dependencies are defined add the following boms:
 
-[source,xml]
+[source,xml,subs="attributes+"]
 ----
 <dependencyManagement>
     <dependencies>
@@ -106,15 +98,15 @@ Before the dependencies are defined add the following boms:
         <dependency>
             <groupId>org.jboss.bom</groupId>
             <artifactId>jboss-eap-ee-with-tools</artifactId>
-            <version>${version.bom.ee}</version>
+            <version>{versionServerBom}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
-        <!-- importing the microprofile BOM adds MicroProfile specs -->
+        <!-- importing the Expansion BOM adds MicroProfile specs -->
         <dependency>
             <groupId>org.jboss.bom</groupId>
-            <artifactId>jboss-eap-xp-microprofile</artifactId>
-            <version>${version.bom.microprofile}</version>
+            <artifactId>jboss-eap-expansion</artifactId>
+            <version>{versionExpansionBom}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -207,7 +199,7 @@ public class Coffee {
 }
 ----
 
-Now, lets expose our JAX-RS application at the context path:
+Now, lets expose our Jakarta REST application at the context path:
 
 [source,java]
 ----
@@ -623,7 +615,6 @@ See details in the section <<adding_resiliency_circuit_breakers, Adding Resilien
 
 // Server Distribution Testing
 include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
-
 // Undeploy the Quickstart
 include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
 
@@ -632,6 +623,10 @@ include::../shared-doc/build-and-run-the-quickstart-with-bootable-jar.adoc[level
 
 // OpenShift
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
+ifndef::ProductRelease,EAPXPRelease[]
+// Kubernetes
+include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
+endif::[]
 
 == Conclusion
 
