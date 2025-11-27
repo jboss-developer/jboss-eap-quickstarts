@@ -3,7 +3,7 @@ name: JBoss EAP XP5 Quickstarts Update 'README.adoc's
 on:
   push:
     branches:
-      - xp-5.0.x
+      - xp-6.0.x
 
 # Only run the latest job
 concurrency:
