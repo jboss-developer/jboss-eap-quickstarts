@@ -159,11 +159,6 @@
                                 </manifest>
                             </channel>
                         </channels>
-                        <jboss-home>${jboss.home}</jboss-home>
-                        <fail-on-error>false</fail-on-error>
-                        <scripts>
-                            <script>${project.basedir}${file.separator}configure-logging.cli</script>
-                        </scripts>
                     </configuration>
                 </plugin>
                 <plugin>
