@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="keywords" content="openshift,galleon,helm">
 <title>todo-backend: quickstart for backend deployment on OpenShift</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -459,12 +460,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#run-the-backend-on-openshift">Run the Backend on OpenShift</a></li>
 <li><a href="#build_and_run_the_quickstart_on_openshift">Building and running the quickstart application with OpenShift</a>
-<ul class="sectlevel3">
+<ul class="sectlevel2">
 <li><a href="#build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</a></li>
-<li><a href="#getting_started_with_helm">Getting Started with JBoss EAP for OpenShift and Helm Charts</a></li>
+<li><a href="#getting_started_with_helm_openshift">Getting Started with JBoss EAP for OpenShift and Helm Charts</a></li>
+<li><a href="#environment-variables-for-postgresql">Environment variables for PostgreSQL</a></li>
+<li><a href="#deploy_helm_openshift">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</a></li>
 <li><a href="#run_the_integration_tests_with_openshift">Run the Integration Tests with OpenShift</a></li>
-<li><a href="#use-the-todobackend-web-frontend">Use the todobackend Web Frontend</a></li>
-<li><a href="#clean-up">Clean Up</a></li>
+<li><a href="#undeploy_helm_openshift">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</a></li>
+</ul>
+</li>
+<li><a href="#run-the-backend-on-kubernetes">Run the Backend on Kubernetes</a></li>
+<li><a href="#build_and_run_the_quickstart_on_kubernetes">Building and running the quickstart application with Kubernetes</a>
+<ul class="sectlevel2">
+<li><a href="#build-the-quickstart-for-kubernetes">Build the JBoss EAP Quickstart to Kubernetes with Helm Charts</a></li>
+<li><a href="#getting_started_with_helm_kubernetes">Getting Started with Kubernetes and Helm Charts</a></li>
+<li><a href="#environment-variables-for-postgresql-2">Environment variables for PostgreSQL</a></li>
+<li><a href="#deploy_helm_kubernetes">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to Kubernetes with Helm Charts</a></li>
+<li><a href="#run_the_integration_tests_with_kubernetes">Run the Integration Tests with Kubernetes</a></li>
+<li><a href="#undeploy_helm_kubernetes">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from Kubernetes with Helm Charts</a></li>
 </ul>
 </li>
 <li><a href="#conclusion">Conclusion</a></li>
@@ -481,7 +494,7 @@ to manage a list of ToDo which are persisted in a database with JPA.
 </blockquote>
 </div>
 <div class="paragraph">
-<p>This quickstart shows how to deploy a JBoss EAP application on OpenShift that connects
+<p>This quickstart shows how to setup a local deployment of this backend, as well as a deployment on OpenShift to connect
 to a PostgreSQL database also hosted on OpenShift.</p>
 </div>
 </div>
@@ -502,10 +515,10 @@ to manage a list of ToDo which are persisted in a database with <code>JPA</code>
 <p>It requires a connection to a PostgreSQL database to persist the todos.</p>
 </li>
 <li>
-<p>It can be build with JBoss EAP S2I images for cloud deployment</p>
+<p>It uses the Server Provisioning for local and cloud deployment</p>
 </li>
 <li>
-<p>It is deployed on OpenShift using the <a href="https://jbossas.github.io/eap-charts//">Helm Chart for JBoss EAP</a>.</p>
+<p>It is deployed on OpenShift using the <a href="https://https://jbossas.github.io/eap-charts//">Helm Chart for JBoss EAP</a>.</p>
 </li>
 </ul>
 </div>
@@ -515,7 +528,7 @@ to manage a list of ToDo which are persisted in a database with <code>JPA</code>
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.1 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.2 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -531,40 +544,19 @@ to manage a list of ToDo which are persisted in a database with <code>JPA</code>
 <p>This backend is built using JBoss EAP S2I Builder and Runtime images.</p>
 </div>
 <div class="paragraph">
-<p>When the image is built, <code>org.jboss.eap.plugins:eap-maven-plugin</code> plugin provisions the JBoss EAP application server and all the feature packs it needs for its features.
-The layers are defined in the <code>pom.xml</code> file in the <code>&lt;configuration&gt;</code> section of the <code>org.jboss.eap.plugins:eap-maven-plugin</code> plugin:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;layers&gt;
-  &lt;layer&gt;cloud-server&lt;/layer&gt;
-  &lt;layer&gt;postgresql-datasource&lt;/layer&gt;
-&lt;/layers&gt;</code></pre>
-</div>
+<p>When the image is built, <code>org.jboss.eap.plugins:eap-maven-plugin</code> provisions the JBoss EAP application server and all the feature packs it needs for its features.</p>
 </div>
 <div class="paragraph">
-<p>The <code>cloud-server</code> layer provides everything needed to run the backend on OpenShift. This also includes access to
-Jakarta EE APIs such as CDI, Jakarta REST, JPA, etc. These two layers comes from the JBoss EAP feature pack provided in the
-JBoss EAP S2I builder image.</p>
-</div>
-<div class="paragraph">
-<p>The <code>postgresql-datasource</code> layer provides a JDBC driver and DataSource to connect to a PostgreSQL database. It is also provided by
-the <code>org.jboss.eap:eap-datasources-galleon-pack</code> feature pack.</p>
-</div>
-<div class="paragraph">
-<p>The Git repository for this feature pack is hosted at <a href="https://github.com/jbossas/eap-datasources-galleon-pack" class="bare">https://github.com/jbossas/eap-datasources-galleon-pack</a>.
-It provides JDBC drivers and datasources for different databases but for this quickstart, we will only need the <code>postgresql-datasource</code>.</p>
+<p>The plugin discovers most feature packs needed automatically, we just need the <code>postgresql</code> add-on, which provides a JDBC driver and Datasource to connect to a PostgreSQL database.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="connection-to-the-postgresql-database">Connection to the PostgreSQL database</h3>
 <div class="paragraph">
-<p>As mentioned, the JDBC drivers and datasource configuration that the backend uses to connect to the PostgreSQL database
-is provided by the <code>org.jboss.eap:eap-datasources-galleon-pack</code> feature pack.</p>
+<p>By default the provisioned <code>postgresql</code> add-on exposes a single datasource.</p>
 </div>
 <div class="paragraph">
-<p>By default, it exposes a single datasource.
-In the backend, the name of this datasource is <code>ToDos</code> and is specified in the <code>persistence.xml</code> to configure JPA:</p>
+<p>In the backend, the name of this datasource is <code>ToDos</code> and is specified in the <code>persistence.xml</code> to configure JPA:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -603,8 +595,6 @@ In the backend, the name of this datasource is <code>ToDos</code> and is specifi
 We must enable Cross-Origin Resource Sharing (CORS) filters in the <code>undertow</code> subsystem of JBoss EAP to allow
 these HTTP requests to succeed.</p>
 </div>
-<div class="sect3">
-<h4 id="configuration-with-jboss-eap-s2i">Configuration with JBoss EAP S2I</h4>
 <div class="paragraph">
 <p>As we use S2I to provision the server and build the application, we provide a CLI script that contains all the commands to create and configure the CORS filters in Undertow. This script is located in the <code>src/scripts/cors_filters.cli</code>.</p>
 </div>
@@ -633,7 +623,6 @@ these HTTP requests to succeed.</p>
 <div class="paragraph">
 <p>By default, the backend accepts requests from any origin (<code>*</code>). This is only simplicity. It is possible to restrict
 the allowed origin using the environment variable <code>CORS_ORIGIN</code> at runtime.</p>
-</div>
 </div>
 </div>
 </div>
@@ -703,6 +692,27 @@ $ curl http://localhost:8080/todo-backend
 <pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>We can also verify that this application is properly working as a ToDo Backend by running its <a href="https://todobackend.com/specs/index.html">specs</a> on it.</p>
+</div>
+<div class="paragraph">
+<p>Once all tests passed, we can use the <a href="https://todobackend.com/client/index.html">todobackend client</a> to have a Web application connected to the backend.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://todobackend.com/">todobackend.com</a> is an external service used to showcase this quickstart.
+It might not always be functional but does not impact the availability of this backend.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -715,8 +725,8 @@ $ curl http://localhost:8080/todo-backend
 <div class="sect1">
 <h2 id="build_and_run_the_quickstart_on_openshift">Building and running the quickstart application with OpenShift</h2>
 <div class="sectionbody">
-<div class="sect3">
-<h4 id="build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
+<div class="sect2">
+<h3 id="build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
 <div class="paragraph">
 <p>On OpenShift, the S2I build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP server, deploy and run the quickstart in OpenShift environment.</p>
 </div>
@@ -733,16 +743,11 @@ $ curl http://localhost:8080/todo-backend
                 &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
                 &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
                 &lt;configuration&gt;
+                    &lt;discover-provisioning-info&gt;
+                        ...
+                        &lt;context&gt;cloud&lt;/context&gt;
+                    &lt;/discover-provisioning-info&gt;
                     ...
-                    &lt;feature-packs&gt;
-                        &lt;feature-pack&gt;
-                            &lt;location&gt;org.jboss.eap:wildfly-ee-galleon-pack&lt;/location&gt;
-                        &lt;/feature-pack&gt;
-                        &lt;feature-pack&gt;
-                            &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
-                        &lt;/feature-pack&gt;
-                    &lt;/feature-packs&gt;
-                    &lt;layers&gt;...&lt;/layers&gt;
                 &lt;/configuration&gt;
                 &lt;executions&gt;
                     &lt;execution&gt;
@@ -761,14 +766,28 @@ $ curl http://localhost:8080/todo-backend
 <div class="paragraph">
 <p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="getting_started_with_helm">Getting Started with JBoss EAP for OpenShift and Helm Charts</h3>
+<h3 id="getting_started_with_helm_openshift">Getting Started with JBoss EAP for OpenShift and Helm Charts</h3>
 <div class="paragraph">
-<p>This section contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online using Helm Charts.</p>
+<p>This section contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift using Helm Charts.</p>
 </div>
 <div class="sect3">
-<h4 id="prerequisites_helm_openshift">Prerequisites</h4>
+<h4 id="prerequisites">Prerequisites</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -788,12 +807,57 @@ $ curl http://localhost:8080/todo-backend
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap81         ...             ...             A Helm chart to build and deploy EAP 8.1 applications</code></pre>
+jboss-eap/eap82         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
+</div>
+</div>
+<div id="deploy_helm_prerequisites_openshift" class="paragraph">
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I.
+It also deploys the PostGreSQL database to store the data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>dependencies:
+    - name: jboss-eap
+      repository: https://jbossas.github.io/eap-charts/
+      version: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To update the dependencies of our Helm Chart execute the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm dependency update charts</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
+</div>
+<div class="sect2">
+<h3 id="environment-variables-for-postgresql">Environment variables for PostgreSQL</h3>
+<div class="paragraph">
+<p>The Helm Chart also contains the environment variables required to connect to the PostgreSQL database.</p>
+</div>
+<div class="paragraph">
+<p>Unlike local deployments, where credentials are set directly, for OpenShift we rely on secrets, so that the credentials are never copied outside OpenShift:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>    deploy:
+      env:
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_PASSWORD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the application is deployed, the value for the <code>POSTGRESQL_PASSWORD</code> will be taken from the key <code>POSTGRES_PASSWORD</code>
+in the secret <code>postgres-configmap</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploy_helm_openshift">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
 <div class="paragraph">
 <p>Log in to your OpenShift instance using the <code>oc login</code> command.
 The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
@@ -828,14 +892,10 @@ name: todo-backend-chart
 description: A Helm chart to deploy a JBoss EAP todo-backend application and its Postgresql database
 type: application
 version: 1.0.0
-appVersion: 8.1
 dependencies:
-    - name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.1.5
-    - name: eap81
+    - name: eap82
       repository: https://jbossas.github.io/eap-charts/
-      version: 1.0.1</code></pre>
+      version: 1.0.0</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -846,7 +906,7 @@ dependencies:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap81</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap82</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -859,7 +919,6 @@ dependencies:
 </div>
 <div class="paragraph">
 <p>Access the application in your web browser using the displayed URL.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -903,62 +962,80 @@ dependencies:
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h4>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm_openshift">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>$ helm uninstall todo-backend</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="environment-variables-for-postgresql">Environment variables for PostgreSQL</h4>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run-the-backend-on-kubernetes">Run the Backend on Kubernetes</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="build_and_run_the_quickstart_on_kubernetes">Building and running the quickstart application with Kubernetes</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>The Helm Chart also contains the environment variables required to connect to the PostgreSQL database.</p>
+<p>Building and running this JBoss EAP quickstart with Kubernetes is not supported.</p>
 </div>
-<div class="paragraph">
-<p>For OpenShift, we rely on secrets so that the credentials are never copied outside OpenShift:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>deploy:
-  env:
-    - name: POSTGRESQL_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          key: database-password
-          name: todo-backend-db</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When the application is deployed, the value for the <code>POSTGRESQL_PASSWORD</code> will be taken from the key <code>database-password</code>
-in the secret <code>todo-backend-db</code>.</p>
-</div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
-<h3 id="use-the-todobackend-web-frontend">Use the todobackend Web Frontend</h3>
+<h3 id="build-the-quickstart-for-kubernetes">Build the JBoss EAP Quickstart to Kubernetes with Helm Charts</h3>
 <div class="paragraph">
-<p>Once the backend is deployed on OpenShift, it can be accessed from the route <code>todo-backend</code>.
-Let&#8217;s find the host that we can use to connect to this backend:</p>
+<p>For Kubernetes, the build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP server, suitable for running on Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>The server provisioning functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ oc get route todo-backend -o jsonpath="{.spec.host}"
-todo-backend-jmesnil1-dev.apps.sandbox.x8i5.p1.openshiftapps.com</code></pre>
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;discover-provisioning-info&gt;
+                        ...
+                        &lt;context&gt;cloud&lt;/context&gt;
+                    &lt;/discover-provisioning-info&gt;
+                    ...
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This value will be different for every installation of the backend.</p>
-</div>
-<div class="paragraph">
-<p>To be able to connect to the backend from the ToDo Backend Specs or Client, then prepend the host with <code>https://</code>, and append the relative web context <code>/todo-backend</code>. For the previous example host this would be <code><a href="https://todo-backend-jmesnil1-dev.apps.sandbox.x8i5.p1.openshiftapps.com/todo-backend" class="bare">https://todo-backend-jmesnil1-dev.apps.sandbox.x8i5.p1.openshiftapps.com/todo-backend</a></code>.</p>
-</div>
-<div class="paragraph">
-<p>We can verify that this application is properly working as a ToDo Backend by running its <a href="https://todobackend.com/specs/index.html">specs</a> on it.</p>
-</div>
-<div class="paragraph">
-<p>Once all tests passed, we can use the <a href="https://todobackend.com/client/index.html">todobackend client</a> to have a Web application connected to the backend.</p>
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the Kubernetes environment.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -968,8 +1045,7 @@ todo-backend-jmesnil1-dev.apps.sandbox.x8i5.p1.openshiftapps.com</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><a href="https://todobackend.com/">todobackend.com</a> is an external service used to showcase this quickstart.
-It might not always be functional but does not impact the availability of this backend.</p>
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
 </div>
 </td>
 </tr>
@@ -977,17 +1053,258 @@ It might not always be functional but does not impact the availability of this b
 </div>
 </div>
 <div class="sect2">
-<h3 id="clean-up">Clean Up</h3>
-<div class="sect3">
-<h4 id="remove-the-backend">Remove the Backend</h4>
+<h3 id="getting_started_with_helm_kubernetes">Getting Started with Kubernetes and Helm Charts</h3>
 <div class="paragraph">
-<p>The backend can be deleted from OpenShift by running the command:</p>
+<p>This section contains the basic instructions to build and deploy this quickstart to Kubernetes using Helm Charts.</p>
+</div>
+<div class="sect3">
+<h4 id="install-kubernetes">Install Kubernetes</h4>
+<div class="paragraph">
+<p>In this example we are using <a href="https://github.com/kubernetes/minikube">Minikube</a> as our Kubernetes provider. See the <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube Getting Started guide</a> for how to install it. After installing it, we start it with 4GB of memory.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm uninstall todo-backend
-release "todo-backend" uninstalled</code></pre>
+<pre class="highlight nowrap"><code>minikube start --memory='4gb'</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The above command should work if you have Docker installed on your machine. If, you are using <a href="https://podman-desktop.io">Podman</a> instead of Docker, you will also need to pass in <code>--driver=podman</code>, as covered in the <a href="https://minikube.sigs.k8s.io/docs/handbook/config/">Minikube documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once Minikube has started, we need to enable its <a href="https://minikube.sigs.k8s.io/docs/handbook/registry/">registry</a> since that is where we will push the image needed to deploy the quickstart, and where we will tell the Helm charts to download it from.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>minikube addons enable registry</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to be able to push images to the registry we need to make it accessible from outside Kubernetes. How we do this depends on your operating system. All the below examples will expose it at <code>localhost:5000</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code># On Mac:
+docker run --rm -it --network=host alpine ash -c "apk add socat &amp;&amp; socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
+
+# On Linux:
+kubectl port-forward --namespace kube-system service/registry 5000:80 &amp;
+
+# On Windows:
+kubectl port-forward --namespace kube-system service/registry 5000:80
+docker run --rm -it --network=host alpine ash -c "apk add socat &amp;&amp; socat TCP-LISTEN:5000,reuseaddr,fork TCP:host.docker.internal:5000"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="prerequisites-2">Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://helm.sh">Helm</a> must be installed to deploy the backend on Kubernetes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
+"jboss-eap" has been added to your repositories
+$ helm search repo jboss-eap
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+jboss-eap/eap82         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
+</div>
+</div>
+<div id="deploy_helm_prerequisites_kubernetes" class="paragraph">
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I.
+It also deploys the PostGreSQL database to store the data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>dependencies:
+    - name: jboss-eap
+      repository: https://jbossas.github.io/eap-charts/
+      version: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To update the dependencies of our Helm Chart execute the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm dependency update charts</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="environment-variables-for-postgresql-2">Environment variables for PostgreSQL</h3>
+<div class="paragraph">
+<p>The Helm Chart also contains the environment variables required to connect to the PostgreSQL database.</p>
+</div>
+<div class="paragraph">
+<p>Unlike local deployments, where credentials are set directly, for Kubernetes we rely on secrets, so that the credentials are never copied outside Kubernetes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>    deploy:
+      env:
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_PASSWORD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the application is deployed, the value for the <code>POSTGRESQL_PASSWORD</code> will be taken from the key <code>POSTGRES_PASSWORD</code>
+in the secret <code>postgres-configmap</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploy_helm_kubernetes">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to Kubernetes with Helm Charts</h3>
+<div class="paragraph">
+<p>The backend will be built and deployed on Kubernetes with a Helm Chart for JBoss EAP.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the root directory of this quickstart and run the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>mvn -Popenshift package wildfly:image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will use the <code>openshift</code> Maven profile we saw earlier to build the application, and create a Docker image containing the JBoss EAP server with the application deployed. The name of the image will be <code>todo-backend</code>.</p>
+</div>
+<div class="paragraph">
+<p>Next we need to tag the image and make it available to Kubernetes. You can push it to a registry like <code>quay.io</code>. In this case we tag as <code>localhost:5000/todo-backend:latest</code> and push it to the internal registry in our Kubernetes instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code># Tag the image
+docker tag todo-backend localhost:5000/todo-backend:latest
+# Push the image to the registry
+docker push localhost:5000/todo-backend:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the below call to <code>helm install</code> which deploys our application to Kubernetes, we are passing in some extra arguments to tweak the Helm build:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--set wildfly.build.enabled=false</code> - This turns off the s2i build for the Helm chart since Kubernetes, unlike OpenShift, does not have s2i. Instead, we are providing the image to use.</p>
+</li>
+<li>
+<p><code>--set wildfly.deploy.route.enabled=false</code> - This disables route creation normally performed by the Helm chart. On Kubernetes we will use port-forwards instead to access our application, since routes are an OpenShift specific concept and thus not available on Kubernetes.</p>
+</li>
+<li>
+<p><code>--set wildfly.image.name="localhost:5000/todo-backend"</code> - This tells the Helm chart to use the image we built, tagged and pushed to Kubernetes' internal registry above.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm install todo-backend charts --wait --timeout=10m0s --set wildfly.build.enabled=false --set wildfly.deploy.route.enabled=false --set wildfly.image.name="localhost:5000/todo-backend"
+NAME: todo-backend
+...
+STATUS: deployed
+REVISION: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command will return once the application has successfully deployed. In case of a timeout, you can check the status of the application with the following command in another terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>kubectl get deployment todo-backend</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I on Java 17:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">apiVersion: v2
+name: todo-backend-chart
+description: A Helm chart to deploy a JBoss EAP todo-backend application and its Postgresql database
+type: application
+version: 1.0.0
+dependencies:
+    - name: eap82
+      repository: https://jbossas.github.io/eap-charts/
+      version: 1.0.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a new deployment on Kubernetes and deploy the application.</p>
+</div>
+<div class="paragraph">
+<p>If you want to see all the configuration elements to customize your deployment you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap82</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To be able to connect to our application running in Kubernetes from outside, we need to set up a port-forward to the <code>todo-backend</code> service created for us by the Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>This service will run on port <code>8080</code>, and we set up the port forward to also run on port <code>8080</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>kubectl port-forward service/todo-backend 8080:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The server can now be accessed via <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code> from outside Kubernetes. Note that the command to create the port-forward will not return, so it is easiest to run this in a separate terminal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_the_integration_tests_with_kubernetes">Run the Integration Tests with Kubernetes</h3>
+<div class="paragraph">
+<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with the quickstart running on Kubernetes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The integration tests expect a deployed application, so make sure you have deployed the quickstart on Kubernetes before you begin.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the integration tests using the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated and the proper URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080 </code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm_kubernetes">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from Kubernetes with Helm Charts</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm uninstall todo-backend</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To stop the port forward you created earlier use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ kubectl port-forward service/todo-backend 8080:8080</code></pre>
 </div>
 </div>
 </div>
@@ -1009,7 +1326,7 @@ deployment on cloud platforms such as OpenShift and Kubernetes.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-05 09:29:22 UTC
+Last updated 2026-09-03 20:58:24 UTC
 </div>
 </div>
 </body>

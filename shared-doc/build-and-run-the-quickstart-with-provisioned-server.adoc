@@ -21,7 +21,10 @@ endif::deploymentTargetDir[]
 ifndef::extraStartParams[:extraStartParams: ]
 ifndef::extraProvisioningTestParams[:extraProvisioningTestParams: ]
 
-Instead of using a standard {productName} server distribution, you can alternatively provision a {productName} server to deploy and run the quickstart. The functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the quickstart `pom.xml`:
+ifndef::ProductRelease[:mavenPluginName: WildFly]
+ifdef::ProductRelease[:mavenPluginName: EAP]
+
+Instead of using a standard {productName} server distribution, you can alternatively provision a {productName} server to deploy and run the quickstart. The functionality is provided by the {mavenPluginName} Maven Plugin, and you may find its configuration in the quickstart `pom.xml`:
 
 ifndef::ProductRelease[]
 [source,xml,subs="attributes+"]
@@ -72,13 +75,6 @@ ifdef::ProductRelease[]
                 <artifactId>eap-maven-plugin</artifactId>
                 <configuration>
                     ...
-                    <feature-packs>
-                        <feature-pack>
-                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
-                        </feature-pack>
-                        ...
-                    </feature-packs>
-                    <layers>...</layers>
                 </configuration>
                 <executions>
                     <execution>
@@ -93,6 +89,47 @@ ifdef::ProductRelease[]
     </build>
 </profile>
 ----
+[NOTE]
+====
+The Glow functionality of the EAP Maven Plugin is Tech Preview.
+====
+endif::[]
+
+ifdef::glowWarnsAboutJNDILookups[]
+[NOTE]
+====
+When building, you may notice the following warning:
+
+`[WARNING] * jakarta.naming.Context or InitialContext lookup.`
+
+This is expected, the quickstart uses JNDI lookups, which WildFly Glow is not able to verify. The warning can be safely ignored.
+====
+endif::[]
+
+ifdef::glowWarnsAboutUnboundDatasource[]
+[NOTE]
+====
+When building, you may notice the following warning:
+
+[source,subs="+quotes,attributes+",options="nowrap"]
+----
+[WARNING] * unbound datasources error: {datasourceJndiName}
+  The following suggestions should help you fix the reported warnings:
+  - configure a datasource using CLI script
+  Enabling one of the following add-ons may also fix this issue:
+  - db2
+  - mariadb
+  - mssqlserver
+  - mysql
+  - oracle
+  - postgresql
+
+[INFO] Some suggestions have been found. You could enable suggestions with the <suggest>true</suggest> option.
+[WARNING] Some errors have been identified, check logs.
+----
+
+This is expected, the quickstart uses a CLI script to bind the datasource. The warning can be safely ignored.
+====
 endif::[]
 
 [NOTE]

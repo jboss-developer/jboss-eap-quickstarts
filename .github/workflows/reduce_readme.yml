@@ -1,9 +1,9 @@
-name: JBoss EAP 8.1 Quickstarts Update 'README.adoc's
+name: JBoss EAP 8.2 Quickstarts Update 'README.adoc's
 
 on:
   push:
     branches:
-      - 8.1.x
+      - 8.2.x
 
 # Only run the latest job
 concurrency:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
     - name: Install Asciidoctor Reducer
       run: sudo gem install asciidoctor-reducer
     - name: Reduce README
@@ -42,6 +42,6 @@ jobs:
         #Reduce root README
         asciidoctor-reducer --preserve-conditionals -o README.adoc README-source.adoc
     - name: Commit and Push README
-      uses: EndBug/add-and-commit@v9
+      uses: EndBug/add-and-commit@v11
       with:
         add: '*.adoc'

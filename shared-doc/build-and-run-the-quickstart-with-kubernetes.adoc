@@ -6,6 +6,14 @@ endif::helm-app-name[]
 
 [[build_and_run_the_quickstart_on_kubernetes]]
 = Building and running the quickstart application with Kubernetes
+
+ifdef::ProductRelease[]
+[NOTE]
+====
+Building and running this {productName} quickstart with Kubernetes is not supported.
+====
+endif::[]
+
 // The openshift profile
 include::../shared-doc/build-the-quickstart-for-kubernetes.adoc[leveloffset=+1]
 // Getting Started with Helm
@@ -13,17 +21,19 @@ include::../shared-doc/helm-getting-started-overview-kubernetes.adoc[leveloffset
 
 ifdef::helm-install-prerequisites-kubernetes[]
 // Additional steps needed before deploying in Helm
-[[deploy_helm_prerequisites]]
+[[deploy_helm_prerequisites_kubernetes]]
 include::{helm-install-prerequisites-kubernetes}[leveloffset=+1]
 endif::helm-install-prerequisites-kubernetes[]
 
 //Prepare Helm for Quickstart Deployment
+[[deploy_helm_kubernetes]]
 include::../shared-doc/helm-deploy-project.adoc[leveloffset=+1]
 
 // Testing on Openshift
 include::../shared-doc/run-integration-tests-with-kubernetes.adoc[leveloffset=+1]
 
 //Prepare Helm for Quickstart Deployment
+[[undeploy_helm_kubernetes]]
 include::../shared-doc/helm-undeploy-project.adoc[leveloffset=+1]
 
 // Unset the attribute

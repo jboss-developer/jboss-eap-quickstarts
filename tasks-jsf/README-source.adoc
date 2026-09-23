@@ -12,7 +12,6 @@ The `tasks-jsf` quickstart demonstrates how to use JPA persistence with JSF as t
 :standalone-server-type: default
 :archiveType: war
 :uses-h2:
-:uses-ds-xml:
 :performance-scalability:
 
 == What is it?
@@ -49,17 +48,6 @@ include::../shared-doc/build-and-deploy-the-quickstart.adoc[leveloffset=+2]
 
 The application will be running at the following URL http://localhost:8080/{artifactId}/.
 
-=== Server Log: Expected Warnings and Errors
-
-You will see the following warnings in the server log. You can ignore these warnings.
-
-[source,options="nowrap"]
-----
-WFLYJCA0091: -ds.xml file deployments are deprecated. Support may be removed in a future version.
-
-HHH000431: Unable to determine H2 database version, certain features may not work
-----
-
 // Server Distribution Testing
 include::../shared-doc/run-integration-tests-with-server-distribution.adoc[leveloffset=+2]
 // Undeploy the Quickstart
@@ -68,7 +56,4 @@ include::../shared-doc/undeploy-the-quickstart.adoc[leveloffset=+2]
 // Build and run sections for other environments/builds
 include::../shared-doc/build-and-run-the-quickstart-with-provisioned-server.adoc[leveloffset=+1]
 include::../shared-doc/build-and-run-the-quickstart-with-openshift.adoc[leveloffset=+1]
-ifndef::ProductRelease,EAPXPRelease[]
-// Kubernetes
 include::../shared-doc/build-and-run-the-quickstart-with-kubernetes.adoc[leveloffset=+1]
-endif::[]

@@ -1,19 +1,17 @@
 package org.jboss.as.quickstarts.mail;
 
 import java.io.IOException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
+
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTextArea;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MailTestCaseIT {
 
     private static final String DEFAULT_SERVER_HOST = "http://localhost:8080";
@@ -32,73 +30,67 @@ public class MailTestCaseIT {
     }
 
     @Test
-    public void a_testSMTP() throws IOException, InterruptedException{
+    public void testSendAndRetrieveEmail() throws IOException, InterruptedException {
         try (final WebClient webClient = new WebClient()) {
-            // Get the first page
+            // Get the home page
             HtmlPage mailHomePage = webClient.getPage(serverHost + "/mail");
-
-            HtmlInput from = mailHomePage.getHtmlElementById("smtp_from");
-            HtmlInput to = mailHomePage.getHtmlElementById("smtp_to");
-            HtmlInput subject = mailHomePage.getHtmlElementById("smtp_subject");
-            HtmlTextArea body = mailHomePage.getHtmlElementById("smtp_body");
-            HtmlSubmitInput submitButton = mailHomePage.getHtmlElementById("smtp_send_btn");
-
-            from.setValue("user01@james.local");
-            to.setValue("user02@james.local");
-            subject.setValue("This is a test");
-            body.setText("Hello user02, I've sent an email.");
-
-            submitButton.click();
-            /* will wait JavaScript to execute up to 30s */
-            webClient.waitForBackgroundJavaScript(30 * 1000);
-
-            HtmlElement message = mailHomePage.getFirstByXPath("//ul[@id='smtp_messages']/li");
-            Assert.assertEquals("Unexpected result messages after sending an email via SMTP.", "Email sent to user02@james.local", message.asNormalizedText());
-            // give to mail server extra time to save mail to mail box
+            // Send an email
+            sendEmailBySMTP(webClient, mailHomePage);
+            // give to mail server extra time to save mail to a mailbox
             Thread.sleep(2000);
+            // retrieve an email by POP3 and IMAP
+            retrieveEmailByPOP3(webClient, mailHomePage);
+            retrieveEmailByIMAP(webClient, mailHomePage);
         }
     }
 
-    @Test
-    public void b_retrievePOP3() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
-            // Get the first page
-            HtmlPage mailHomePage = webClient.getPage(serverHost + "/mail");
+    private void sendEmailBySMTP(WebClient webClient, HtmlPage mailHomePage) throws IOException {
+        HtmlInput from = mailHomePage.getHtmlElementById("smtp_from");
+        HtmlInput to = mailHomePage.getHtmlElementById("smtp_to");
+        HtmlInput subject = mailHomePage.getHtmlElementById("smtp_subject");
+        HtmlTextArea body = mailHomePage.getHtmlElementById("smtp_body");
+        HtmlSubmitInput submitButton = mailHomePage.getHtmlElementById("smtp_send_btn");
 
-            HtmlInput user = mailHomePage.getHtmlElementById("pop3_user");
-            HtmlInput password = mailHomePage.getHtmlElementById("pop3_password");
-            HtmlSubmitInput submitButton = mailHomePage.getHtmlElementById("pop3_get_emails_btn");
+        from.setValue("user01@mail.local");
+        to.setValue("user02@mail.local");
+        subject.setValue("This is a test");
+        body.setText("Hello user02, I've sent an email.");
 
-            user.setValue("user02@james.local");
-            password.setValue("1234");
-            submitButton.click();
-            /* will wait JavaScript to execute up to 30s */
-            webClient.waitForBackgroundJavaScript(30 * 1000);
-            HtmlTextArea emails = mailHomePage.getHtmlElementById("pop3_emails");
+        submitButton.click();
+        /* will wait JavaScript to execute up to 30s */
+        webClient.waitForBackgroundJavaScript(30 * 1000);
 
-            Assert.assertTrue("Expected From not found: " + emails.getText(), emails.getText().contains("From : user01@james.local"));
-            Assert.assertTrue("Expected Subject not found: " + emails.getText(), emails.getText().contains("Subject : This is a test"));
-            Assert.assertTrue("Expected Body not found : " + emails.getText(), emails.getText().contains("Body : Hello user02, I've sent an email."));
-        }
+        HtmlElement message = mailHomePage.getFirstByXPath("//ul[@id='smtp_messages']/li");
+        Assert.assertEquals("Unexpected result messages after sending an email via SMTP.", "Email sent to user02@mail.local", message.asNormalizedText());
     }
 
+    private void retrieveEmailByPOP3(WebClient webClient, HtmlPage mailHomePage) throws IOException {
+        HtmlInput user = mailHomePage.getHtmlElementById("pop3_user");
+        HtmlInput password = mailHomePage.getHtmlElementById("pop3_password");
+        HtmlSubmitInput submitButton = mailHomePage.getHtmlElementById("pop3_get_emails_btn");
 
-    @Test
-    public void c_retrieveIMAP() throws IOException {
-        try (final WebClient webClient = new WebClient()) {
-            // Get the first page
-            HtmlPage mailHomePage = webClient.getPage(serverHost + "/mail");
+        user.setValue("user02@mail.local");
+        password.setValue("1234");
+        submitButton.click();
+        /* will wait JavaScript to execute up to 30s */
+        webClient.waitForBackgroundJavaScript(30 * 1000);
+        HtmlTextArea emails = mailHomePage.getHtmlElementById("pop3_emails");
 
-            HtmlSubmitInput submitButton = mailHomePage.getHtmlElementById("imap_get_emails_btn");
-            submitButton.click();
-            /* will wait JavaScript to execute up to 30s */
-            webClient.waitForBackgroundJavaScript(30 * 1000);
-            HtmlTextArea emails = mailHomePage.getHtmlElementById("imap_emails");
+        Assert.assertTrue("Expected From not found: " + emails.getText(), emails.getText().contains("From : user01@mail.local"));
+        Assert.assertTrue("Expected Subject not found: " + emails.getText(), emails.getText().contains("Subject : This is a test"));
+        Assert.assertTrue("Expected Body not found : " + emails.getText(), emails.getText().contains("Body : Hello user02, I've sent an email."));
+    }
 
-            Assert.assertNotNull("IMAP No messages found.", emails.getText());
-            Assert.assertTrue("Expected From not found: " + emails.getText(), emails.getText().contains("From : user01@james.local"));
-            Assert.assertTrue("Expected Subject not found: " + emails.getText(), emails.getText().contains("Subject : This is a test"));
-            Assert.assertTrue("Expected Body not found : " + emails.getText(), emails.getText().contains("Body : Hello user02, I've sent an email."));
-        }
+    private void retrieveEmailByIMAP(WebClient webClient, HtmlPage mailHomePage) throws IOException {
+        HtmlSubmitInput submitButton = mailHomePage.getHtmlElementById("imap_get_emails_btn");
+        submitButton.click();
+        /* will wait JavaScript to execute up to 30s */
+        webClient.waitForBackgroundJavaScript(30 * 1000);
+        HtmlTextArea emails = mailHomePage.getHtmlElementById("imap_emails");
+
+        Assert.assertNotNull("IMAP No messages found.", emails.getText());
+        Assert.assertTrue("Expected From not found: " + emails.getText(), emails.getText().contains("From : user01@mail.local"));
+        Assert.assertTrue("Expected Subject not found: " + emails.getText(), emails.getText().contains("Subject : This is a test"));
+        Assert.assertTrue("Expected Body not found : " + emails.getText(), emails.getText().contains("Body : Hello user02, I've sent an email."));
     }
 }

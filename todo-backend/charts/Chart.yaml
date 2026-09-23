@@ -3,11 +3,7 @@ name: todo-backend-chart
 description: A Helm chart to deploy a JBoss EAP todo-backend application and its Postgresql database
 type: application
 version: 1.0.0
-appVersion: 8.1
 dependencies:
-    - name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 13.1.5
-    - name: eap81
+    - name: eap82
       repository: https://jbossas.github.io/eap-charts/
-      version: 1.0.1
+      version: 1.0.0

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Joel Tosi">
 <title>mail: E-Mail Example using CDI and JSF</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -472,7 +473,7 @@ The <code>mail</code> quickstart demonstrates how to send and receive emails usi
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.1 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.2 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -515,52 +516,34 @@ The <code>mail</code> quickstart demonstrates how to send and receive emails usi
 <div class="ulist">
 <ul>
 <li>
-<p><a href="mailto:user01@james.local">user01@james.local</a></p>
+<p><a href="mailto:user01@mail.local">user01@mail.local</a></p>
 </li>
 <li>
-<p><a href="mailto:user02@james.local">user02@james.local</a></p>
+<p><a href="mailto:user02@mail.local">user02@mail.local</a></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>You can use any Mail Server you consider, although to facilitate this task, you will find under the Mail Quickstart root directory a docker compose file prepared to launch an Apache James Mail server with all the required configuration. You will need to have installed a Container Engine capable of work with Docker compose files and Linux images. The following command assumes you have <a href="https://podman.io/">Podman</a> and <a href="https://docs.podman.io/en/latest/markdown/podman-compose.1.html">Podman Compose</a> installed in your local environment.</p>
+<p>You can use any Mail Server you consider, although to facilitate this task, you will find under the Mail Quickstart root directory a docker compose file prepared to launch a Greenmail mail server with all the required configuration.
+You will need to have installed a Container Engine capable of working with Docker compose files and Linux images.
+The following command assumes you have <a href="https://podman.io/">Podman</a> and <a href="https://docs.podman.io/en/latest/markdown/podman-compose.1.html">Podman Compose</a> installed in your local environment.</p>
 </div>
 <div class="paragraph">
-<p>To launch the Apache James Mail server, open the terminal and navigate to the Mail Quickstart root directory and execute the following:</p>
+<p>To launch the Greenmail server, open the terminal and navigate to the Mail Quickstart root directory and execute the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ podman-compose up --detach
-&gt;&gt;&gt;&gt; Executing external compose provider "/usr/local/bin/docker-compose". Please refer to the documentation for details. &lt;&lt;&lt;&lt;
-
-[+] Running 1/1
- ✔ Container apache-james  Healthy</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ podman compose up --wait
+&gt;&gt;&gt;&gt; Executing external compose provider "/usr/local/bin/docker-compose". Please refer to the documentation for details. &lt;&lt;&lt;&lt;</code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The Apache James server is configured without allowing the relay of the emails to external addresses that are not configured in the server. When you are sending / receiving emails with this server, you have to use the accounts shipped with the apache James demo image. These are the accounts available out of the box: <a href="mailto:user01@james.local">user01@james.local</a>, <a href="mailto:user02@james.local">user02@james.local</a> and <a href="mailto:user03@james.local">user03@james.local</a>.
-All accounts use the same password: <code>1234</code>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>Once you have finished with the Mail Quickstart, you can shutdown and remove the Apache James Mail server with the following command:</p>
+<p>Once you have finished with the Mail Quickstart, you can shutdown and remove the Greenmail server with the following command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ podman-compose down --volumes
-&gt;&gt;&gt;&gt; Executing external compose provider "/usr/local/bin/docker-compose". Please refer to the documentation for details. &lt;&lt;&lt;&lt;
-
-[+] Running 2/1
- ✔ Container apache-james  Removed
- ✔ Network mail_default    Removed</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ podman compose down --volumes
+&gt;&gt;&gt;&gt; Executing external compose provider "/usr/local/bin/docker-compose". Please refer to the documentation for details. &lt;&lt;&lt;&lt;</code></pre>
 </div>
 </div>
 </div>
@@ -691,7 +674,6 @@ process-state: reload-required</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}"&gt;
   ...
-  &lt;/outbound-socket-binding&gt;
   &lt;outbound-socket-binding name="my-imap-binding"&gt;
       &lt;remote-destination host="localhost" port="1143"/&gt;
   &lt;/outbound-socket-binding&gt;
@@ -714,9 +696,9 @@ process-state: reload-required</code></pre>
       &lt;smtp-server outbound-socket-binding-ref="mail-smtp"/&gt;
    &lt;/mail-session&gt;
    &lt;mail-session name="MyOtherMail" debug="true" jndi-name="java:jboss/mail/MyOtherMail"&gt;
-     &lt;smtp-server outbound-socket-binding-ref="my-smtp-binding" username="user01@james.local" password="1234"/&gt;
+     &lt;smtp-server outbound-socket-binding-ref="my-smtp-binding" username="user01@mail.local" password="1234"/&gt;
      &lt;pop3-server outbound-socket-binding-ref="my-pop3-binding"/&gt;
-     &lt;imap-server outbound-socket-binding-ref="my-imap-binding" username="user02@james.local" password="1234"/&gt;
+     &lt;imap-server outbound-socket-binding-ref="my-imap-binding" username="user02@mail.local" password="1234"/&gt;
    &lt;/mail-session&gt;
 &lt;/subsystem&gt;</code></pre>
 </div>
@@ -774,27 +756,14 @@ process-state: reload-required</code></pre>
 </td>
 <td class="content">
 If you see <code>Error processing request</code> in the browser when you access the application and attempt to send email, followed by <code>jakarta.servlet.ServletException: MailConnectException: Couldn&#39;t connect to host, port: localhost, 1025; timeout -1; nested exception is: java.net.ConnectException: Connection refused</code>, make sure you followed the instructions above to <a href="#configure_an_smtp_server_on_your_local_machine">Configure an SMTP Server on Your Local Machine</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If you are using the Mail server shipped with this Quickstart and see <code>Error sending the Email. Invalid Addresses</code> in the browser when you attempt to send email, make sure you are sending your email to an existing account configured in the Mail Server since by default Apache James demo image is shipped with relay disabled. By default, Apache James demo image has the following accounts configured: <a href="mailto:user01@james.local">user01@james.local</a>, <a href="mailto:user02@james.local">user02@james.local</a> and <a href="mailto:user03@james.local">user03@james.local</a>.
+:leveloffset: +1
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h2>
-<div class="sectionbody">
+<h1 id="run_the_integration_tests_with_server_distribution" class="sect0">Run the Integration Tests</h1>
 <div class="paragraph">
 <p>This quickstart includes integration tests, which are located under the <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
 </div>
@@ -818,8 +787,6 @@ If you are using the Mail server shipped with this Quickstart and see <code>Erro
 </div>
 </li>
 </ol>
-</div>
-</div>
 </div>
 <div class="sect1">
 <h2 id="undeploy_the_quickstart">Undeploy the Quickstart</h2>
@@ -924,7 +891,7 @@ process-state: reload-required</code></pre>
 <h2 id="build_and_run_the_quickstart_with_provisioned_server">Building and running the quickstart application with provisioned JBoss EAP server</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Instead of using a standard JBoss EAP server distribution, you can alternatively provision a JBoss EAP server to deploy and run the quickstart. The functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
+<p>Instead of using a standard JBoss EAP server distribution, you can alternatively provision a JBoss EAP server to deploy and run the quickstart. The functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -940,13 +907,6 @@ process-state: reload-required</code></pre>
                 &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
                 &lt;configuration&gt;
                     ...
-                    &lt;feature-packs&gt;
-                        &lt;feature-pack&gt;
-                            &lt;location&gt;org.jboss.eap:wildfly-ee-galleon-pack&lt;/location&gt;
-                        &lt;/feature-pack&gt;
-                        ...
-                    &lt;/feature-packs&gt;
-                    &lt;layers&gt;...&lt;/layers&gt;
                 &lt;/configuration&gt;
                 &lt;executions&gt;
                     &lt;execution&gt;
@@ -961,6 +921,20 @@ process-state: reload-required</code></pre>
     &lt;/build&gt;
 &lt;/profile&gt;</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1019,17 +993,665 @@ process-state: reload-required</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="openshift_incompatibility">JBoss EAP for OpenShift Incompatibility</h2>
+<h2 id="build_and_run_the_quickstart_on_openshift">Building and running the quickstart application with OpenShift</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
 <div class="paragraph">
-<p>This quickstart is not compatible with JBoss EAP for OpenShift.</p>
+<p>On OpenShift, the S2I build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP server, deploy and run the quickstart in OpenShift environment.</p>
+</div>
+<div class="paragraph">
+<p>The server provisioning functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;discover-provisioning-info&gt;
+                        ...
+                        &lt;context&gt;cloud&lt;/context&gt;
+                    &lt;/discover-provisioning-info&gt;
+                    ...
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getting_started_with_helm_openshift">Getting Started with JBoss EAP for OpenShift and Helm Charts</h3>
+<div class="paragraph">
+<p>This section contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift using Helm Charts.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites">Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>You must be logged in OpenShift and have an <code>oc</code> client to connect to OpenShift</p>
+</li>
+<li>
+<p><a href="https://helm.sh">Helm</a> must be installed to deploy the backend on OpenShift.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
+"jboss-eap" has been added to your repositories
+$ helm search repo jboss-eap
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+jboss-eap/eap82         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="deploy_helm_prerequisites_openshift">Install the Mail server on Openshift</h5>
+<div class="paragraph">
+<p>The functionality of this quickstart depends on a running instance of the <a href="https://greenmail-mail-test.github.io/greenmail/">Greenmail Standalone server</a>.</p>
+</div>
+<div class="paragraph">
+<p>To deploy and configure the mail server, you will need to apply a set of configurations to your OpenShift cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greenmail
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: greenmail
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: greenmail
+    spec:
+      containers:
+        - name: greenmailserver
+          image: greenmail/standalone:2.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: greenmail
+spec:
+  ports:
+    - name: "1465"
+      port: 1465
+      targetPort: 3465
+    - name: "1993"
+      port: 1993
+      targetPort: 3993
+    - name: "1025"
+      port: 1025
+      targetPort: 3025
+    - name: "1110"
+      port: 1110
+      targetPort: 3110
+    - name: "8081"
+      port: 8081
+      targetPort: 8080
+    - name: "1143"
+      port: 1143
+      targetPort: 3143
+  selector:
+    app.kubernetes.io/name: greenmail
+  type: ClusterIP</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To make things simpler, you can find these commands in <code>charts/greenmail-openshift.yaml</code>, and to apply them run the following command in your terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ oc apply -f charts/greenmail-openshift.yaml</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When done with the quickstart, the <code>oc delete -f charts/greenmail-openshift.yaml</code> command may be used to revert the applied changes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploy_helm_openshift">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
+<div class="paragraph">
+<p>Log in to your OpenShift instance using the <code>oc login</code> command.
+The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the root directory of this quickstart and run the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm install mail -f charts/helm.yaml jboss-eap/eap82 --wait --timeout=10m0s 
+NAME: mail
+...
+STATUS: deployed
+REVISION: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command will return once the application has successfully deployed. In case of a timeout, you can check the status of the application with the following command in another terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>oc get deployment mail</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I on Java 17:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
+  uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
+  ref: 8.2.x
+  contextDir: mail
+deploy:
+  replicas: 1
+  env:
+    - name: MAIL_SERVER_ADDRESS
+      value: greenmail</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a new deployment on OpenShift and deploy the application.</p>
+</div>
+<div class="paragraph">
+<p>If you want to see all the configuration elements to customize your deployment you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap82</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the URL of the route to the deployment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ oc get route mail -o jsonpath="{.spec.host}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Access the application in your web browser using the displayed URL.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_the_integration_tests_with_openshift">Run the Integration Tests with OpenShift</h3>
+<div class="paragraph">
+<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with the quickstart running on OpenShift.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The integration tests expect a deployed application, so make sure you have deployed the quickstart on OpenShift before you begin.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the integration tests using the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated and the proper URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=https://$(oc get route mail --template='{{ .spec.host }}') </code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The tests are using SSL to connect to the quickstart running on OpenShift. So you need the certificates to be trusted by the machine the tests are run from.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm_openshift">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm uninstall mail</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="build_and_run_the_quickstart_on_kubernetes">Building and running the quickstart application with Kubernetes</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Building and running this JBoss EAP quickstart with Kubernetes is not supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="build-the-quickstart-for-kubernetes">Build the JBoss EAP Quickstart to Kubernetes with Helm Charts</h3>
+<div class="paragraph">
+<p>For Kubernetes, the build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP server, suitable for running on Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>The server provisioning functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;discover-provisioning-info&gt;
+                        ...
+                        &lt;context&gt;cloud&lt;/context&gt;
+                    &lt;/discover-provisioning-info&gt;
+                    ...
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the Kubernetes environment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getting_started_with_helm_kubernetes">Getting Started with Kubernetes and Helm Charts</h3>
+<div class="paragraph">
+<p>This section contains the basic instructions to build and deploy this quickstart to Kubernetes using Helm Charts.</p>
+</div>
+<div class="sect3">
+<h4 id="_install_kubernetes">Install Kubernetes</h4>
+<div class="paragraph">
+<p>In this example we are using <a href="https://github.com/kubernetes/minikube">Minikube</a> as our Kubernetes provider. See the <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube Getting Started guide</a> for how to install it. After installing it, we start it with 4GB of memory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>minikube start --memory='4gb'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should work if you have Docker installed on your machine. If, you are using <a href="https://podman-desktop.io">Podman</a> instead of Docker, you will also need to pass in <code>--driver=podman</code>, as covered in the <a href="https://minikube.sigs.k8s.io/docs/handbook/config/">Minikube documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once Minikube has started, we need to enable its <a href="https://minikube.sigs.k8s.io/docs/handbook/registry/">registry</a> since that is where we will push the image needed to deploy the quickstart, and where we will tell the Helm charts to download it from.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>minikube addons enable registry</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to be able to push images to the registry we need to make it accessible from outside Kubernetes. How we do this depends on your operating system. All the below examples will expose it at <code>localhost:5000</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code># On Mac:
+docker run --rm -it --network=host alpine ash -c "apk add socat &amp;&amp; socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
+
+# On Linux:
+kubectl port-forward --namespace kube-system service/registry 5000:80 &amp;
+
+# On Windows:
+kubectl port-forward --namespace kube-system service/registry 5000:80
+docker run --rm -it --network=host alpine ash -c "apk add socat &amp;&amp; socat TCP-LISTEN:5000,reuseaddr,fork TCP:host.docker.internal:5000"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_2">Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://helm.sh">Helm</a> must be installed to deploy the backend on Kubernetes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
+"jboss-eap" has been added to your repositories
+$ helm search repo jboss-eap
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+jboss-eap/eap82         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="deploy_helm_prerequisites_kubernetes">Install the Mail server on Kubernetes</h5>
+<div class="paragraph">
+<p>The functionality of this quickstart depends on a running instance of the <a href="https://greenmail-mail-test.github.io/greenmail/">Greenmail Standalone server</a>.</p>
+</div>
+<div class="paragraph">
+<p>To deploy and configure the mail server, you will need to apply a set of configurations to your Kubernetes cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greenmail
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: greenmail
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: greenmail
+    spec:
+      containers:
+        - name: greenmailserver
+          image: greenmail/standalone:2.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: greenmail
+spec:
+  ports:
+    - name: "1465"
+      port: 1465
+      targetPort: 3465
+    - name: "1993"
+      port: 1993
+      targetPort: 3993
+    - name: "1025"
+      port: 1025
+      targetPort: 3025
+    - name: "1110"
+      port: 1110
+      targetPort: 3110
+    - name: "8081"
+      port: 8081
+      targetPort: 8080
+    - name: "1143"
+      port: 1143
+      targetPort: 3143
+  selector:
+    app.kubernetes.io/name: greenmail
+  type: ClusterIP</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To make things simpler, you can find these commands in <code>charts/greenmail-kubernetes.yaml</code>, and to apply them run the following command in your terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ kubectl apply -f charts/greenmail-kubernetes.yaml --wait --timeout=10m0s</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When done with the quickstart, the <code>kubectl delete -f charts/greenmail-kubernetes.yaml</code> command may be used to revert the applied changes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploy_helm_kubernetes">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to Kubernetes with Helm Charts</h3>
+<div class="paragraph">
+<p>The backend will be built and deployed on Kubernetes with a Helm Chart for JBoss EAP.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the root directory of this quickstart and run the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>mvn -Popenshift package wildfly:image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will use the <code>openshift</code> Maven profile we saw earlier to build the application, and create a Docker image containing the JBoss EAP server with the application deployed. The name of the image will be <code>mail</code>.</p>
+</div>
+<div class="paragraph">
+<p>Next we need to tag the image and make it available to Kubernetes. You can push it to a registry like <code>quay.io</code>. In this case we tag as <code>localhost:5000/mail:latest</code> and push it to the internal registry in our Kubernetes instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code># Tag the image
+docker tag mail localhost:5000/mail:latest
+# Push the image to the registry
+docker push localhost:5000/mail:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the below call to <code>helm install</code> which deploys our application to Kubernetes, we are passing in some extra arguments to tweak the Helm build:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--set build.enabled=false</code> - This turns off the s2i build for the Helm chart since Kubernetes, unlike OpenShift, does not have s2i. Instead, we are providing the image to use.</p>
+</li>
+<li>
+<p><code>--set deploy.route.enabled=false</code> - This disables route creation normally performed by the Helm chart. On Kubernetes we will use port-forwards instead to access our application, since routes are an OpenShift specific concept and thus not available on Kubernetes.</p>
+</li>
+<li>
+<p><code>--set image.name="localhost:5000/mail"</code> - This tells the Helm chart to use the image we built, tagged and pushed to Kubernetes' internal registry above.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm install mail -f charts/helm.yaml jboss-eap/eap82 --wait --timeout=10m0s --set build.enabled=false --set deploy.route.enabled=false --set image.name="localhost:5000/mail"
+NAME: mail
+...
+STATUS: deployed
+REVISION: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command will return once the application has successfully deployed. In case of a timeout, you can check the status of the application with the following command in another terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>kubectl get deployment mail</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I on Java 17:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
+  uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
+  ref: 8.2.x
+  contextDir: mail
+deploy:
+  replicas: 1
+  env:
+    - name: MAIL_SERVER_ADDRESS
+      value: greenmail</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a new deployment on Kubernetes and deploy the application.</p>
+</div>
+<div class="paragraph">
+<p>If you want to see all the configuration elements to customize your deployment you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap82</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To be able to connect to our application running in Kubernetes from outside, we need to set up a port-forward to the <code>mail</code> service created for us by the Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>This service will run on port <code>8080</code>, and we set up the port forward to also run on port <code>8080</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>kubectl port-forward service/mail 8080:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The server can now be accessed via <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code> from outside Kubernetes. Note that the command to create the port-forward will not return, so it is easiest to run this in a separate terminal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_the_integration_tests_with_kubernetes">Run the Integration Tests with Kubernetes</h3>
+<div class="paragraph">
+<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with the quickstart running on Kubernetes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The integration tests expect a deployed application, so make sure you have deployed the quickstart on Kubernetes before you begin.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the integration tests using the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated and the proper URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080 </code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm_kubernetes">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from Kubernetes with Helm Charts</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm uninstall mail</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To stop the port forward you created earlier use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ kubectl port-forward service/mail 8080:8080</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-05 09:29:22 UTC
+Last updated 2026-09-03 20:58:24 UTC
 </div>
 </div>
 </body>

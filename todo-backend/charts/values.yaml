@@ -2,37 +2,35 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-postgresql:
-  auth:
-    username: todos-db
-    password: todos-db
-    database: todos-db
-  architecture: "standalone"
-  primary:
-    podSecurityContext:
-      enabled: false
-      fsGroup: "auto"
-    containerSecurityContext:
-      enabled: false
-      runAsUser: "auto"
-      runAsGroup: ""
+db:
+  username: todos-db
+  password: todos-db
+  database: todos-db
 
-
-eap81:
+eap82:
     build:
       uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-      ref: 8.1.x
+      ref: 8.2.x
       contextDir: todo-backend
     deploy:
       replicas: 1
       env:
         # Env vars to connect to PostgreSQL DB
         - name: POSTGRESQL_DATABASE
-          value: todos-db
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_DB
         - name: POSTGRESQL_USER
-          value: todos-db
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_USER
         - name: POSTGRESQL_PASSWORD
-          value: todos-db
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-configmap
+              key: POSTGRES_PASSWORD
         - name: POSTGRESQL_DATASOURCE
           value: ToDos
         - name: POSTGRESQL_SERVICE_HOST
@@ -46,8 +44,7 @@ eap81:
           value: "96"
       initContainers:
         - name: check-db-ready
-          image: postgres:9.6.5
-          command: [ 'sh', '-c',
-              'until pg_isready -h todo-backend-postgresql -p 5432; 
-                    do echo waiting for database; sleep 2; done;' ]
-
+          image: busybox:1.36
+          command: ['sh', '-c',
+                    'until nc -z -v -w 2 todo-backend-postgresql 5432; 
+                     do echo "waiting for database"; sleep 2; done;']

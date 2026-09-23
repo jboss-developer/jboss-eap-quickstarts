@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.jboss.eap.quickstarts</groupId>
         <artifactId>http-custom-mechanism</artifactId>
-        <version>8.1.0.GA</version>
+        <version>8.2.0.Beta</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>http-custom-mechanism-webapp</artifactId>
@@ -73,14 +73,11 @@
                         <groupId>org.jboss.eap.plugins</groupId>
                         <artifactId>eap-maven-plugin</artifactId>
                         <configuration>
-                            <feature-packs>
-                                <feature-pack>
-                                    <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
-                                </feature-pack>
-                            </feature-packs>
-                            <layers>
-                                <layer>cloud-server</layer>
-                            </layers>
+                            <discover-provisioning-info>
+                                <addOns>
+                                    <addOn>wildfly-cli</addOn>
+                                </addOns>
+                            </discover-provisioning-info>
                             <packaging-scripts>
                                 <packaging-script>
                                     <commands>
@@ -93,10 +90,6 @@
                                     <resolve-expressions>true</resolve-expressions>
                                 </packaging-script>
                             </packaging-scripts>
-                            <!-- set 'jboss-fork-embedded' option to 'true' in order to fork Galleon provisioning and CLI scripts execution in dedicated processes -->
-                            <galleon-options>
-                                <jboss-fork-embedded>true</jboss-fork-embedded>
-                            </galleon-options>
                         </configuration>
                         <executions>
                             <execution>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Ondra Chaloupka">
 <title>ejb-txn-remote-call: Demonstrates remote EJB calls and transaction propagation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -516,7 +517,7 @@ In more details, the transaction initiated at the server side enlists two partic
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.1 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.2 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -1281,17 +1282,37 @@ mvn clean package \
 <pre class="highlight nowrap"><code class="language-sh" data-lang="sh">cd ${PATH_TO_QUICKSTART_DIR}/server;
 mvn clean package \
   -Dwildfly.provisioning.dir=server2 -Djboss-as.home=target/server2 \
-  -DpostgresqlUsername="test" -DpostgresqlPassword="test" -Dorg.jboss.eap.datasources.postgresql.driver.version="42.7.4";
+  -DpostgresqlUsername="test" -DpostgresqlPassword="test";
 mvn package \
   -Dwildfly.provisioning.dir=server3 -Djboss-as.home=target/server3 \
-  -DpostgresqlUsername="test" -DpostgresqlPassword="test" -Dorg.jboss.eap.datasources.postgresql.driver.version="42.7.4"</code></pre>
+  -DpostgresqlUsername="test" -DpostgresqlPassword="test"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The provisioned JBoss EAP servers, with the quickstart deployed, can then be found in <code>${PATH_TO_QUICKSTART_DIR}/client/target/server</code>, <code>${PATH_TO_QUICKSTART_DIR}/server/target/server2</code>, and <code>${PATH_TO_QUICKSTART_DIR}/server/target/server3</code> directories, and their usage is similar to a standard server distribution, with the simplification that there is never the need to specify the server configuration to be started.</p>
 </div>
 <div class="paragraph">
-<p>The server provisioning functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the pom.xml files of the quickstart.</p>
+<p>The server provisioning functionality is provided by the JBoss EAP Maven Plugin, and you may find its configuration in the pom.xml files of the quickstart.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When building, you may notice the following warning:</p>
+</div>
+<div class="paragraph">
+<p><code>[WARNING] * jakarta.naming.Context or InitialContext lookup.</code></p>
+</div>
+<div class="paragraph">
+<p>This is expected, the quickstart uses JNDI lookups, which WildFly Glow is not able to verify. The warning can be safely ignored.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The quickstart user should be added after provisioning the servers, and before running them:</p>
@@ -1435,25 +1456,15 @@ might result in no-ACID transactions.</p>
 <h3 id="_prerequisites">Prerequisites</h3>
 <div class="sect3">
 <h4 id="_install_operator">Install JBoss EAP&#8217;s Operator</h4>
-<div class="paragraph">
-<p>To install JBoss EAP&#8217;s Operator, follow the <a href="https://docs.redhat.com/en/documentation/red_hat_jboss_enterprise_application_platform/8.0/html/using_jboss_eap_on_openshift_container_platform/assembly_deploying-your-jboss-eap-application-on-the-openshift-container-platform_default#proc_installing-eap-operator-using-the-cli_assembly_jboss-eap-operator-for-automating-application-deployment-on-openshift">official documentation</a> (which instructions are also reported here for convenience)</p>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<div class="title">Note</div>
+<div class="title">Warning</div>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>You have access to an OpenShift Container Platform cluster using an account with cluster-admin permissions.</p>
-</li>
-<li>
-<p>You have installed the oc tool in your local system.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>For simplicity, this quickstart installs the EAP operator globally in the <code>openshift-operators</code> namespace, making it available across all namespaces in the cluster. The <code>openshift-operators</code> namespace already contains a <code>global-operators</code> OperatorGroup, so you must NOT create an additional OperatorGroup or the operator will fail to start. In production environments, consider namespace-scoped installation (see note below) to limit scope and improve security.</p>
 </div>
 </td>
 </tr>
@@ -1462,63 +1473,64 @@ might result in no-ACID transactions.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>View the list of operators available to the cluster from the OperatorHub:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc get packagemanifests -n openshift-marketplace | grep eap</code></pre>
-</div>
-</div>
+<p>Log in into the Openshift console as <code>kubeadmin</code> user (or any cluster administrator).</p>
 </li>
 <li>
-<p>Create a <code>Subscription</code> object YAML file (for example, <code>eap-operator-sub.yaml</code>) to subscribe a namespace to your EAP operator. The following is an example <code>Subscription</code> object YAML file:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: eap
-  namespace: openshift-operators
-spec:
-  channel: stable
-  installPlanApproval: Automatic
-  name: eap
-  source:  redhat-operators
-  sourceNamespace: openshift-marketplace</code></pre>
-</div>
-</div>
+<p>Install the EAP operator globally.</p>
 </li>
-<li>
-<p>Create the <code>Subscription</code> object from the YAML file:</p>
+</ol>
+</div>
+<div class="paragraph">
+<p>In your terminal, run the following command to subscribe the EAP operator.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc apply -f eap-operator-sub.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">$ oc apply -f charts/eap-operator-sub.yaml --wait --timeout=10m0s</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The EAP operator is successfully installed. At this point, the OLM is aware of the EAP operator.
-A ClusterServiceVersion (CSV) for the operator appears in the target namespace, and APIs provided by the EAP operator is available for creation.
-To verify that the JBoss EAP Operator is running, execute the following command:</p>
+<p>To verify the operator is ready to use, you can run the following command. You should see the following output.
+The <code>PHASE</code> needs to be <code>Succeeded</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc get csv -n openshift-operators</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">$ oc get ClusterServiceVersion -n openshift-operators</code></pre>
 </div>
 </div>
-</li>
-</ol>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For namespace-scoped installation: Edit <code>charts/eap-operator-group.yaml</code> to replace <code>&lt;your-namespace&gt;</code> with your project namespace, and edit <code>charts/eap-operator-sub.yaml</code> to replace <code>openshift-operators</code> with your project namespace. Then apply both files: <code>oc apply -f charts/eap-operator-group.yaml &amp;&amp; oc apply -f charts/eap-operator-sub.yaml</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+For namespace-scoped installation: To verify the operator is ready to use remove the <code>-n openshift-operators</code> parameter.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_start_postgresql_database">Start a PostgreSQL database</h4>
 <div class="paragraph">
 <p>This quickstart requires a PostgreSQL database to run correctly. In the scope of this quickstart,
-a PostgreSQL database will be deployed on the OpenShift instance using the Helm chart provided by
-<a href="https://github.com/bitnami/charts/tree/main/bitnami/postgresql">bitnami</a>:</p>
+a PostgreSQL database will be deployed on the OpenShift instance using a simple Helm chart:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install postgresql bitnami/postgresql -f charts/postgresql.yaml --wait --timeout="5m"</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">helm install postgresql charts/postgresql</code></pre>
 </div>
 </div>
 </div>
@@ -1535,8 +1547,8 @@ For more information about JBoss EAP&#8217;s Helm chart, please refer to the off
 <div class="content">
 <pre class="highlight nowrap"><code class="language-sh" data-lang="sh">helm repo add jboss-eap https://jbossas.github.io/eap-charts/
 
-helm install client -f charts/client.yaml jboss-eap/eap81
-helm install server -f charts/server.yaml jboss-eap/eap81</code></pre>
+helm install client -f charts/client.yaml jboss-eap/eap82
+helm install server -f charts/server.yaml jboss-eap/eap82</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1672,10 +1684,65 @@ helm uninstall postgresql</code></pre>
 <div class="paragraph">
 <p>Finally, to undeploy and uninstall the JBoss EAP&#8217;s operator:</p>
 </div>
+<div class="paragraph">
+<p>To uninstall the EAP operator (global installation):</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc delete -f eap-operator-sub.yaml</code></pre>
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc delete -f charts/eap-operator-sub.yaml --wait --timeout=10m0s</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the case that the operator was added to the cluster only for trying this quickstart, and should now be deleted, use the following procedure:
+Obtain the operator CSV name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc get csv -n openshift-operators</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Delete it from the cluster, replacing <code>CSV_NAME</code> with the obtained operator CSV name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ oc delete csv CSV_NAME -n openshift-operators</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To uninstall the EAP operator (namespace-scoped installation):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-sh" data-lang="sh">oc delete -f charts/eap-operator-sub.yaml -n NAMESPACE --wait --timeout=10m0s
+oc delete -f charts/eap-operator-group.yaml
+oc delete csv --all -n NAMESPACE</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Replace NAMESPACE above, with the actual name of the namespace used in the namespace-scoped installation.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1684,7 +1751,7 @@ helm uninstall postgresql</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-05 09:29:22 UTC
+Last updated 2026-09-03 20:58:23 UTC
 </div>
 </div>
 </body>

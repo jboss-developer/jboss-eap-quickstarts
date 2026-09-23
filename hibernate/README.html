@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Madhumita Sadhukhan">
 <title>hibernate: How to Use Hibernate in an Application</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -458,7 +459,7 @@ The <code>hibernate</code> quickstart demonstrates how to use Hibernate ORM 6 ov
 <p>The <code>hibernate</code> quickstart is based upon the <a href="../kitchensink/README.html">kitchensink</a> example, but demonstrates how to use Hibernate Object/Relational Mapping (ORM) over Persistence in Red Hat JBoss Enterprise Application Platform.</p>
 </div>
 <div class="paragraph">
-<p>This project is setup to allow you to create a compliant Jakarta EE 10 application using Faces, Contexts and Dependency Injection, Enterprise Beans, Persistence, Hibernate ORM and Bean Validation. It includes a persistence unit, Persistence use to help you with database access.</p>
+<p>This project is setup to allow you to create a compliant Jakarta EE 11 application using Faces, Contexts and Dependency Injection, Enterprise Beans, Persistence, Hibernate ORM and Bean Validation. It includes a persistence unit, Persistence use to help you with database access.</p>
 </div>
 </div>
 </div>
@@ -469,7 +470,19 @@ The <code>hibernate</code> quickstart demonstrates how to use Hibernate ORM 6 ov
 <dl>
 <dt class="hdlist1">H2 Database</dt>
 <dd>
-<p>This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 8.1. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment.</p>
+<p>This quickstart uses the H2 database included with Red Hat JBoss Enterprise Application Platform 8.2. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment.</p>
+</dd>
+<dt class="hdlist1">H2 Unsupported Module Warning</dt>
+<dd>
+<p>This quickstart uses <code>@DataSourceDefinition</code> to define its datasource, which requires declaring a dependency on the <code>com.h2database.h2</code> server module. Because this module is marked as unsupported (<code>jboss.api=unsupported</code>), the server logs the following warning on every deployment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>WARN  [org.jboss.as.dependency.unsupported] (MSC service thread 1-1) WFLYSRV0019: Deployment "&lt;deployment-name&gt;" is using an unsupported module ("com.h2database.h2") which may be changed or removed in future versions without notice.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This warning is expected and can be safely ignored for this quickstart. It does not affect functionality.</p>
+</div>
 </dd>
 </dl>
 </div>
@@ -479,7 +492,7 @@ The <code>hibernate</code> quickstart demonstrates how to use Hibernate ORM 6 ov
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.1 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.2 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -530,25 +543,6 @@ The <code>hibernate</code> quickstart demonstrates how to use Hibernate ORM 6 ov
 <h2 id="build_and_run_the_quickstart_with_server_dist">Building and running the quickstart application with a JBoss EAP server distribution</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="back_up_standalone_server_configuration">Back Up the JBoss EAP Standalone Server Configuration</h3>
-<div class="paragraph">
-<p>Before you begin, back up your server configuration file.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If it is running, stop the JBoss EAP server.</p>
-</li>
-<li>
-<p>Back up the <code><em>EAP_HOME</em>/standalone/configuration/standalone.xml</code> file.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="start_the_eap_standalone_server">Start the JBoss EAP Standalone Server</h3>
 <div class="olist arabic">
 <ol class="arabic">
@@ -573,90 +567,6 @@ For Windows, use the <code><em>EAP_HOME</em>\bin\standalone.bat</code> script.
 </td>
 </tr>
 </table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configure_the_server">Configure the Server</h3>
-<div class="paragraph">
-<p>You can configure the server by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a <code>configure-server.cli</code> script provided in the root directory of this quickstart.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Before you begin, make sure you do the following:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#back_up_standalone_server_configuration">Back up the JBoss EAP standalone server configuration</a> as described above.</p>
-</li>
-<li>
-<p><a href="#start_the_eap_standalone_server">Start the JBoss EAP server with the standalone default profile</a> as described above.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Review the <code>configure-server.cli</code> file in the root of this quickstart directory. This script adds datasource required for this quickstart.</p>
-</li>
-<li>
-<p>Open a new terminal, navigate to the root directory of this quickstart, and run the following command, replacing <code><em>EAP_HOME</em></code> with the path to your server:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/jboss-cli.sh --connect --file=configure-server.cli</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-For Windows, use the <code><em>EAP_HOME</em>\bin\jboss-cli.bat</code> script.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>You should see the following result when you run the script:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>The batch executed successfully</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Stop the JBoss EAP server.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_review_the_modified_server_configuration">Review the Modified Server Configuration</h3>
-<div class="paragraph">
-<p>After stopping the server, open the <code><em>EAP_HOME</em>/standalone/configuration/standalone.xml</code> file and review the changes.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The following datasource was added to the <code>datasources</code> subsystem.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;datasource jndi-name="java:jboss/datasources/HibernateQuickstartDS"
-      pool-name="HibernateQuickstartDS"
-      use-java-context="true"&gt;
-   &lt;connection-url&gt;jdbc:h2:mem:hibernate-quickstart;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1&lt;/connection-url&gt;
-   &lt;driver&gt;h2&lt;/driver&gt;
-   &lt;security&gt;
-      &lt;user-name&gt;sa&lt;/user-name&gt;
-      &lt;password&gt;sa&lt;/password&gt;
-   &lt;/security&gt;
-&lt;/datasource&gt;</code></pre>
-</div>
 </div>
 </li>
 </ol>
@@ -754,84 +664,13 @@ For Windows, use the <code><em>EAP_HOME</em>\bin\jboss-cli.bat</code> script.
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="restore_the_standalone_server_configuration">Restore the JBoss EAP Standalone Server Configuration</h3>
-<div class="paragraph">
-<p>You can restore the original server configuration using either of the following methods.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>You can <a href="#restore_standalone_server_configuration_using_cli">run the <code>restore-configuration.cli</code> script</a> provided in the root directory of this quickstart.</p>
-</li>
-<li>
-<p>You can <a href="#restore_standalone_server_configuration_manually">manually restore the configuration</a> using the backup copy of the configuration file.</p>
-</li>
-</ul>
-</div>
-<div class="sect3">
-<h4 id="restore_standalone_server_configuration_using_cli">Restore the JBoss EAP Standalone Server Configuration by Running the JBoss CLI Script</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="#start_the_eap_standalone_server">Start the JBoss EAP server</a> as described above.</p>
-</li>
-<li>
-<p>Open a new terminal, navigate to the root directory of this quickstart, and run the following command, replacing <code><em>EAP_HOME</em></code> with the path to your server:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>$ <em>EAP_HOME</em>/bin/jboss-cli.sh --connect --file=restore-configuration.cli</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-For Windows, use the <code><em>EAP_HOME</em>\bin\jboss-cli.bat</code> script.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>This script removes the datasource used for this quickstart. You should see the following result when you run the script:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code>The batch executed successfully
-process-state: reload-required</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="restore_standalone_server_configuration_manually">Restore the JBoss EAP Standalone Server Configuration Manually</h4>
-<div class="paragraph">
-<p>When you have completed testing the quickstart, you can restore the original server configuration by manually restoring the backup copy the configuration file.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If it is running, stop the JBoss EAP server.</p>
-</li>
-<li>
-<p>Replace the <code><em>EAP_HOME</em>/standalone/configuration/standalone.xml</code> file with the backup copy of the file.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="build_and_run_the_quickstart_with_provisioned_server">Building and running the quickstart application with provisioned JBoss EAP server</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Instead of using a standard JBoss EAP server distribution, you can alternatively provision a JBoss EAP server to deploy and run the quickstart. The functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
+<p>Instead of using a standard JBoss EAP server distribution, you can alternatively provision a JBoss EAP server to deploy and run the quickstart. The functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -847,13 +686,6 @@ process-state: reload-required</code></pre>
                 &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
                 &lt;configuration&gt;
                     ...
-                    &lt;feature-packs&gt;
-                        &lt;feature-pack&gt;
-                            &lt;location&gt;org.jboss.eap:wildfly-ee-galleon-pack&lt;/location&gt;
-                        &lt;/feature-pack&gt;
-                        ...
-                    &lt;/feature-packs&gt;
-                    &lt;layers&gt;...&lt;/layers&gt;
                 &lt;/configuration&gt;
                 &lt;executions&gt;
                     &lt;execution&gt;
@@ -868,6 +700,20 @@ process-state: reload-required</code></pre>
     &lt;/build&gt;
 &lt;/profile&gt;</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -928,8 +774,8 @@ process-state: reload-required</code></pre>
 <div class="sect1">
 <h2 id="build_and_run_the_quickstart_on_openshift">Building and running the quickstart application with OpenShift</h2>
 <div class="sectionbody">
-<div class="sect3">
-<h4 id="build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
+<div class="sect2">
+<h3 id="build-the-quickstart-for-openshift">Build the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
 <div class="paragraph">
 <p>On OpenShift, the S2I build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP server, deploy and run the quickstart in OpenShift environment.</p>
 </div>
@@ -946,16 +792,11 @@ process-state: reload-required</code></pre>
                 &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
                 &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
                 &lt;configuration&gt;
+                    &lt;discover-provisioning-info&gt;
+                        ...
+                        &lt;context&gt;cloud&lt;/context&gt;
+                    &lt;/discover-provisioning-info&gt;
                     ...
-                    &lt;feature-packs&gt;
-                        &lt;feature-pack&gt;
-                            &lt;location&gt;org.jboss.eap:wildfly-ee-galleon-pack&lt;/location&gt;
-                        &lt;/feature-pack&gt;
-                        &lt;feature-pack&gt;
-                            &lt;location&gt;org.jboss.eap.cloud:eap-cloud-galleon-pack&lt;/location&gt;
-                        &lt;/feature-pack&gt;
-                    &lt;/feature-packs&gt;
-                    &lt;layers&gt;...&lt;/layers&gt;
                 &lt;/configuration&gt;
                 &lt;executions&gt;
                     &lt;execution&gt;
@@ -974,14 +815,28 @@ process-state: reload-required</code></pre>
 <div class="paragraph">
 <p>You may note that it uses the cloud feature pack which enables a configuration tuned for the OpenShift environment.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="getting_started_with_helm">Getting Started with JBoss EAP for OpenShift and Helm Charts</h3>
+<h3 id="getting_started_with_helm_openshift">Getting Started with JBoss EAP for OpenShift and Helm Charts</h3>
 <div class="paragraph">
-<p>This section contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift or JBoss EAP for OpenShift Online using Helm Charts.</p>
+<p>This section contains the basic instructions to build and deploy this quickstart to JBoss EAP for OpenShift using Helm Charts.</p>
 </div>
 <div class="sect3">
-<h4 id="prerequisites_helm_openshift">Prerequisites</h4>
+<h4 id="_prerequisites">Prerequisites</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1001,12 +856,13 @@ process-state: reload-required</code></pre>
 "jboss-eap" has been added to your repositories
 $ helm search repo jboss-eap
 NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-jboss-eap/eap81         ...             ...             A Helm chart to build and deploy EAP 8.1 applications</code></pre>
+jboss-eap/eap82         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="deploy_helm">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h4>
+</div>
+<div class="sect2">
+<h3 id="deploy_helm_openshift">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to OpenShift with Helm Charts</h3>
 <div class="paragraph">
 <p>Log in to your OpenShift instance using the <code>oc login</code> command.
 The backend will be built and deployed on OpenShift with a Helm Chart for JBoss EAP.</p>
@@ -1016,7 +872,7 @@ The backend will be built and deployed on OpenShift with a Helm Chart for JBoss 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm install hibernate -f charts/helm.yaml jboss-eap/eap81 --wait --timeout=10m0s 
+<pre class="highlight nowrap"><code>$ helm install hibernate -f charts/helm.yaml jboss-eap/eap82 --wait --timeout=10m0s 
 NAME: hibernate
 ...
 STATUS: deployed
@@ -1038,7 +894,7 @@ REVISION: 1</code></pre>
 <div class="content">
 <pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
   uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
-  ref: 8.1.x
+  ref: 8.2.x
   contextDir: hibernate
 deploy:
   replicas: 1</code></pre>
@@ -1052,7 +908,7 @@ deploy:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap81</code></pre>
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap82</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1065,7 +921,6 @@ deploy:
 </div>
 <div class="paragraph">
 <p>Access the application in your web browser using the displayed URL.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1109,8 +964,9 @@ deploy:
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="undeploy_helm">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h4>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm_openshift">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from OpenShift with Helm Charts</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code>$ helm uninstall hibernate</code></pre>
@@ -1119,11 +975,294 @@ deploy:
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="build_and_run_the_quickstart_on_kubernetes">Building and running the quickstart application with Kubernetes</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Building and running this JBoss EAP quickstart with Kubernetes is not supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="build-the-quickstart-for-kubernetes">Build the JBoss EAP Quickstart to Kubernetes with Helm Charts</h3>
+<div class="paragraph">
+<p>For Kubernetes, the build with Apache Maven uses an <code>openshift</code> Maven profile to provision a JBoss EAP server, suitable for running on Kubernetes.</p>
+</div>
+<div class="paragraph">
+<p>The server provisioning functionality is provided by the EAP Maven Plugin, and you may find its configuration in the quickstart <code>pom.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;profile&gt;
+    &lt;id&gt;openshift&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jboss.eap.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;eap-maven-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;discover-provisioning-info&gt;
+                        ...
+                        &lt;context&gt;cloud&lt;/context&gt;
+                    &lt;/discover-provisioning-info&gt;
+                    ...
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;package&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            ...
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may note that it uses the cloud feature pack which enables a configuration tuned for the Kubernetes environment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Glow functionality of the EAP Maven Plugin is Tech Preview.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getting_started_with_helm_kubernetes">Getting Started with Kubernetes and Helm Charts</h3>
+<div class="paragraph">
+<p>This section contains the basic instructions to build and deploy this quickstart to Kubernetes using Helm Charts.</p>
+</div>
+<div class="sect3">
+<h4 id="_install_kubernetes">Install Kubernetes</h4>
+<div class="paragraph">
+<p>In this example we are using <a href="https://github.com/kubernetes/minikube">Minikube</a> as our Kubernetes provider. See the <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube Getting Started guide</a> for how to install it. After installing it, we start it with 4GB of memory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>minikube start --memory='4gb'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command should work if you have Docker installed on your machine. If, you are using <a href="https://podman-desktop.io">Podman</a> instead of Docker, you will also need to pass in <code>--driver=podman</code>, as covered in the <a href="https://minikube.sigs.k8s.io/docs/handbook/config/">Minikube documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Once Minikube has started, we need to enable its <a href="https://minikube.sigs.k8s.io/docs/handbook/registry/">registry</a> since that is where we will push the image needed to deploy the quickstart, and where we will tell the Helm charts to download it from.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>minikube addons enable registry</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to be able to push images to the registry we need to make it accessible from outside Kubernetes. How we do this depends on your operating system. All the below examples will expose it at <code>localhost:5000</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code># On Mac:
+docker run --rm -it --network=host alpine ash -c "apk add socat &amp;&amp; socat TCP-LISTEN:5000,reuseaddr,fork TCP:$(minikube ip):5000"
+
+# On Linux:
+kubectl port-forward --namespace kube-system service/registry 5000:80 &amp;
+
+# On Windows:
+kubectl port-forward --namespace kube-system service/registry 5000:80
+docker run --rm -it --network=host alpine ash -c "apk add socat &amp;&amp; socat TCP-LISTEN:5000,reuseaddr,fork TCP:host.docker.internal:5000"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_2">Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://helm.sh">Helm</a> must be installed to deploy the backend on Kubernetes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once you have installed Helm, you need to add the repository that provides Helm Charts for JBoss EAP.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm repo add jboss-eap https://jbossas.github.io/eap-charts/
+"jboss-eap" has been added to your repositories
+$ helm search repo jboss-eap
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+jboss-eap/eap82         ...             ...             A Helm chart to build and deploy EAP applications</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deploy_helm_kubernetes">Deploy the JBoss EAP Source-to-Image (S2I) Quickstart to Kubernetes with Helm Charts</h3>
+<div class="paragraph">
+<p>The backend will be built and deployed on Kubernetes with a Helm Chart for JBoss EAP.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the root directory of this quickstart and run the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>mvn -Popenshift package wildfly:image</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will use the <code>openshift</code> Maven profile we saw earlier to build the application, and create a Docker image containing the JBoss EAP server with the application deployed. The name of the image will be <code>hibernate</code>.</p>
+</div>
+<div class="paragraph">
+<p>Next we need to tag the image and make it available to Kubernetes. You can push it to a registry like <code>quay.io</code>. In this case we tag as <code>localhost:5000/hibernate:latest</code> and push it to the internal registry in our Kubernetes instance:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code># Tag the image
+docker tag hibernate localhost:5000/hibernate:latest
+# Push the image to the registry
+docker push localhost:5000/hibernate:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the below call to <code>helm install</code> which deploys our application to Kubernetes, we are passing in some extra arguments to tweak the Helm build:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>--set build.enabled=false</code> - This turns off the s2i build for the Helm chart since Kubernetes, unlike OpenShift, does not have s2i. Instead, we are providing the image to use.</p>
+</li>
+<li>
+<p><code>--set deploy.route.enabled=false</code> - This disables route creation normally performed by the Helm chart. On Kubernetes we will use port-forwards instead to access our application, since routes are an OpenShift specific concept and thus not available on Kubernetes.</p>
+</li>
+<li>
+<p><code>--set image.name="localhost:5000/hibernate"</code> - This tells the Helm chart to use the image we built, tagged and pushed to Kubernetes' internal registry above.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm install hibernate -f charts/helm.yaml jboss-eap/eap82 --wait --timeout=10m0s --set build.enabled=false --set deploy.route.enabled=false --set image.name="localhost:5000/hibernate"
+NAME: hibernate
+...
+STATUS: deployed
+REVISION: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command will return once the application has successfully deployed. In case of a timeout, you can check the status of the application with the following command in another terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>kubectl get deployment hibernate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Helm Chart for this quickstart contains all the information to build an image from the source code using S2I on Java 17:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">build:
+  uri: https://github.com/jboss-developer/jboss-eap-quickstarts.git
+  ref: 8.2.x
+  contextDir: hibernate
+deploy:
+  replicas: 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a new deployment on Kubernetes and deploy the application.</p>
+</div>
+<div class="paragraph">
+<p>If you want to see all the configuration elements to customize your deployment you can use the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm show readme jboss-eap/eap82</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To be able to connect to our application running in Kubernetes from outside, we need to set up a port-forward to the <code>hibernate</code> service created for us by the Helm chart.</p>
+</div>
+<div class="paragraph">
+<p>This service will run on port <code>8080</code>, and we set up the port forward to also run on port <code>8080</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>kubectl port-forward service/hibernate 8080:8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The server can now be accessed via <code><a href="http://localhost:8080" class="bare">http://localhost:8080</a></code> from outside Kubernetes. Note that the command to create the port-forward will not return, so it is easiest to run this in a separate terminal.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_the_integration_tests_with_kubernetes">Run the Integration Tests with Kubernetes</h3>
+<div class="paragraph">
+<p>The integration tests included with this quickstart, which verify that the quickstart runs correctly, may also be run with the quickstart running on Kubernetes.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The integration tests expect a deployed application, so make sure you have deployed the quickstart on Kubernetes before you begin.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the integration tests using the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated and the proper URL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing -Dserver.host=http://localhost:8080 </code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undeploy_helm_kubernetes">Undeploy the JBoss EAP Source-to-Image (S2I) Quickstart from Kubernetes with Helm Charts</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ helm uninstall hibernate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To stop the port forward you created earlier use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ kubectl port-forward service/hibernate 8080:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-05 09:29:22 UTC
+Last updated 2026-09-03 20:58:23 UTC
 </div>
 </div>
 </body>

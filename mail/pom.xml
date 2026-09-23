@@ -25,13 +25,13 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>10</version>
+        <version>12</version>
         <relativePath/>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>mail</artifactId>
-    <version>8.1.0.GA</version>
+    <version>8.2.0.Beta</version>
     <packaging>war</packaging>
     <name>Quickstart: mail</name>
     <description>This project demonstrates how to send mail</description>
@@ -47,12 +47,12 @@
     <properties>
         <!-- the Maven project should use the minimum Java SE version supported -->
         <maven.compiler.release>17</maven.compiler.release>
-        <!-- the versions for BOMs, Dependencies and Plugins -->
-        <version.bom.ee>8.1.0.GA-redhat-00013</version.bom.ee>
-        <version.plugin.eap>2.0.0.Final-redhat-00009</version.plugin.eap>
-        <version.plugin.wildfly>5.1.1.Final</version.plugin.wildfly>
+        <!-- the versions for BOMs, Packs and Plugins -->
+        <version.bom.ee>8.2.0.Beta-redhat-00046</version.bom.ee>
+        <version.plugin.eap>3.0.0.Beta-redhat-00058</version.plugin.eap>
+        <version.plugin.wildfly>6.0.0.Final</version.plugin.wildfly>
         <!-- the version for HtmlUnit -->
-        <version.net.sourceforge.htmlunit>2.70.0</version.net.sourceforge.htmlunit>
+        <version.org.htmlunit>4.21.0</version.org.htmlunit>
     </properties>
 
     <dependencyManagement>
@@ -99,12 +99,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
+            <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>${version.net.sourceforge.htmlunit}</version>
+            <version>${version.org.htmlunit}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -121,7 +120,7 @@
                             <channel>
                                 <manifest>
                                     <groupId>org.jboss.eap.channels</groupId>
-                                    <artifactId>eap-8.1</artifactId>
+                                    <artifactId>eap-8.2</artifactId>
                                 </manifest>
                             </channel>
                         </channels>
@@ -157,16 +156,8 @@
                         <groupId>org.jboss.eap.plugins</groupId>
                         <artifactId>eap-maven-plugin</artifactId>
                         <configuration>
-                            <feature-packs>
-                                <feature-pack>
-                                    <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
-                                </feature-pack>
-                            </feature-packs>
-                            <layers>
-                                <layer>cloud-server</layer>
-                                <layer>mail</layer>
-                                <layer>jsf</layer>
-                            </layers>
+                            <discover-provisioning-info>
+                            </discover-provisioning-info>
                             <packaging-scripts>
                                 <packaging-script>
                                     <scripts>
@@ -176,16 +167,55 @@
                                     <resolve-expressions>false</resolve-expressions>
                                 </packaging-script>
                             </packaging-scripts>
-                            <!-- set 'jboss-fork-embedded' option to 'true' in order to fork Galleon provisioning and CLI scripts execution in dedicated processes -->
-                            <galleon-options>
-                                <jboss-fork-embedded>true</jboss-fork-embedded>
-                            </galleon-options>
                         </configuration>
                         <executions>
                             <execution>
                                 <goals>
                                     <goal>package</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>openshift</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.eap.plugins</groupId>
+                        <artifactId>eap-maven-plugin</artifactId>
+                        <configuration>
+                            <discover-provisioning-info>
+                                <context>cloud</context>
+                            </discover-provisioning-info>
+                            <packaging-scripts>
+                                <packaging-script>
+                                    <scripts>
+                                        <script>${basedir}/configure-mail-session.cli</script>
+                                    </scripts>
+                                    <resolve-expressions>false</resolve-expressions>
+                                </packaging-script>
+                            </packaging-scripts>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>package</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- do not attach sources to openshift deployments -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>none</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -221,6 +251,20 @@
 
     <repositories>
         <repository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
+        <repository>
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
             <url>https://maven.repository.redhat.com/ga/</url>
@@ -239,18 +283,20 @@
             <id>jboss-public-maven-repository</id>
             <name>JBoss Public Maven Repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
         </repository>
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
@@ -266,12 +312,6 @@
             <id>jboss-public-maven-repository</id>
             <name>JBoss Public Maven Repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 </project>

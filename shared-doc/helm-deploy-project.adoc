@@ -19,13 +19,12 @@ ifndef::kubernetes[]
 :helm-extra-arguments:
 :cloud-cli: oc
 endif::[]
-[[deploy_helm]]
-== Deploy the {ProductShortName} Source-to-Image (S2I) Quickstart to {cloud-platform} with Helm Charts
+= Deploy the {ProductShortName} Source-to-Image (S2I) Quickstart to {cloud-platform} with Helm Charts
 
 ifndef::kubernetes[]
 Log in to your OpenShift instance using the `oc login` command.
 endif::[]
-The backend will be built and deployed on {cloud-platform} with a Helm Chart for {productName}.
+The backend will be built and deployed on {cloud-platform} with a Helm Chart for {ProductShortName}.
 
 
 ifndef::kubernetes[]

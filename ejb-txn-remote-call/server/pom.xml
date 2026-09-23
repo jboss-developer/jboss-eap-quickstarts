@@ -25,13 +25,13 @@
         Maintain separation between the artifact id and the version to help prevent
         merge conflicts between commits changing the GA and those changing the V.
         -->
-        <version>10</version>
+        <version>12</version>
         <relativePath/>
     </parent>
 
     <groupId>org.jboss.eap.quickstarts</groupId>
     <artifactId>ejb-txn-remote-call-server</artifactId>
-    <version>8.1.0.GA</version>
+    <version>8.2.0.Beta</version>
     <packaging>war</packaging>
     <name>Quickstart: ejb-txn-remote-call-server</name>
     <description>The project is the application to be deployed on the second server to receive the call</description>
@@ -39,15 +39,30 @@
     <properties>
         <!-- the Maven project should use the minimum Java SE version supported -->
         <maven.compiler.release>17</maven.compiler.release>
-        <!-- the versions for BOMs, Dependencies and Plugins -->
-        <version.bom.ee>8.1.0.GA-redhat-00013</version.bom.ee>
-        <version.plugin.eap>2.0.0.Final-redhat-00009</version.plugin.eap>
-        <version.plugin.wildfly>5.1.1.Final</version.plugin.wildfly>
+        <!-- the versions for BOMs, Packs and Plugins -->
+        <version.bom.ee>8.2.0.Beta-redhat-00046</version.bom.ee>
+        <version.plugin.eap>3.0.0.Beta-redhat-00058</version.plugin.eap>
+        <version.plugin.wildfly>6.0.0.Final</version.plugin.wildfly>
         <!-- the versions for other Dependencies and Plugins -->
-        <version.narayana>7.0.0.Final</version.narayana>
+        <version.narayana>7.0.2.Final</version.narayana>
+        <version.postgresql>42.7.13</version.postgresql>
     </properties>
 
     <repositories>
+        <repository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <layout>default</layout>
+        </repository>
         <repository>
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
@@ -67,18 +82,20 @@
             <id>jboss-public-maven-repository</id>
             <name>JBoss Public Maven Repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
         </repository>
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>redhat-ea-maven-repository</id>
+            <name>Red Hat Early Access Maven Repository</name>
+            <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
         <pluginRepository>
             <id>redhat-ga-maven-repository</id>
             <name>Red Hat GA Maven Repository</name>
@@ -94,12 +111,6 @@
             <id>jboss-public-maven-repository</id>
             <name>JBoss Public Maven Repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
@@ -182,7 +193,7 @@
                             <channel>
                                 <manifest>
                                     <groupId>org.jboss.eap.channels</groupId>
-                                    <artifactId>eap-8.1</artifactId>
+                                    <artifactId>eap-8.2</artifactId>
                                 </manifest>
                             </channel>
                         </channels>
@@ -193,7 +204,6 @@
                     <artifactId>wildfly-maven-plugin</artifactId>
                     <version>${version.plugin.wildfly}</version>
                     <configuration>
-                        <!-- Env used when calling wildfly:start goal -->
                         <env>
                             <POSTGRESQL_DATABASE>test</POSTGRESQL_DATABASE>
                             <POSTGRESQL_JNDI>java:jboss/datasources/ejbJtaDs</POSTGRESQL_JNDI>
@@ -215,6 +225,27 @@
                     <!-- Modifying webappDirectory to avoid overlapping with WildFly Maven Plugin's output directory -->
                     <webappDirectory>${project.build.directory}/serverWebAppOutput</webappDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>set-system-properties</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <property>
+                                    <name>org.jboss.eap.datasources.postgresql.driver.version</name>
+                                    <value>${version.postgresql}</value>
+                                </property>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -238,30 +269,16 @@
                                     <goal>package</goal>
                                 </goals>
                                 <configuration>
-                                    <feature-packs>
-                                        <feature-pack>
-                                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
-                                        </feature-pack>
-                                        <feature-pack>
-                                            <location>org.jboss.eap:eap-datasources-galleon-pack</location>
-                                        </feature-pack>
-                                    </feature-packs>
-                                    <layers>
-                                        <layer>ee-core-profile-server</layer>
-                                        <layer>jaxrs</layer>
-                                        <layer>ejb</layer>
-                                        <layer>postgresql-datasource</layer>
-                                        <layer>core-tools</layer>
-                                        <layer>ejb-dist-cache</layer>
-                                        <layer>jpa-distributed</layer>
-                                    </layers>
-                                    <excludedLayers>
-                                        <layer>ejb-local-cache</layer>
-                                    </excludedLayers>
-                                    <!-- set 'jboss-fork-embedded' option to 'true' in order to fork Galleon provisioning and CLI scripts execution in dedicated processes -->
-                                    <galleon-options>
-                                        <jboss-fork-embedded>true</jboss-fork-embedded>
-                                    </galleon-options>
+                                    <recordProvisioningState>true</recordProvisioningState>
+                                    <discover-provisioning-info>
+                                        <add-ons>
+                                            <add-on>postgresql</add-on>
+                                            <add-on>wildfly-cli</add-on>
+                                        </add-ons>
+                                        <!-- Some JNDI lookup to ignore -->
+                                        <failsOnError>false</failsOnError>
+                                        <profile>ha</profile>
+                                    </discover-provisioning-info>
                                 </configuration>
                             </execution>
                         </executions>
@@ -284,29 +301,15 @@
                                     <goal>package</goal>
                                 </goals>
                                 <configuration>
-                                    <feature-packs>
-                                        <feature-pack>
-                                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
-                                        </feature-pack>
-                                        <feature-pack>
-                                            <location>org.jboss.eap.cloud:eap-cloud-galleon-pack</location>
-                                        </feature-pack>
-                                        <feature-pack>
-                                            <location>org.jboss.eap:eap-datasources-galleon-pack</location>
-                                        </feature-pack>
-                                    </feature-packs>
-                                    <layers>
-                                        <layer>ee-core-profile-server</layer>
-                                        <layer>jaxrs</layer>
-                                        <layer>ejb</layer>
-                                        <layer>postgresql-datasource</layer>
-                                        <layer>core-tools</layer>
-                                        <layer>ejb-dist-cache</layer>
-                                        <layer>jpa-distributed</layer>
-                                    </layers>
-                                    <excludedLayers>
-                                        <layer>ejb-local-cache</layer>
-                                    </excludedLayers>
+                                    <discover-provisioning-info>
+                                        <add-ons>
+                                            <add-on>postgresql</add-on>
+                                        </add-ons>
+                                        <context>cloud</context>
+                                        <!-- Some JNDI lookup to ignore -->
+                                        <failsOnError>false</failsOnError>
+                                        <profile>ha</profile>
+                                    </discover-provisioning-info>
                                 </configuration>
                             </execution>
                         </executions>

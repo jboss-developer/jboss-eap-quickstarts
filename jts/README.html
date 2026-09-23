@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Tom Jenkinson">
 <title>jts: Java Transaction Service - Distributed EJB Transactions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -512,7 +513,7 @@ However, in this case the <code>InvoiceManager</code> has been separated to a di
 <h2 id="system_requirements">System Requirements</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.1 or later.</p>
+<p>The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 8.2 or later.</p>
 </div>
 <div class="paragraph">
 <p>All you need to build this project is Java SE 17.0 or later, and Maven 3.6.0 or later. See <a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN_JBOSS_EAP.adoc#configure_maven_to_build_and_deploy_the_quickstarts">Configure Maven to Build and Deploy the Quickstarts</a> to make sure you are configured correctly for testing the quickstarts.</p>
@@ -660,7 +661,7 @@ When you have completed testing this quickstart, it is important to <a href="#re
 <p>The orb initializers <code>transactions</code> attribute is changed from <code>spec</code> to <code>full</code> in the <code>iiop-openjdk</code> subsystem to enable JTS.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="{IiopOpenJdkSubsystemNamespace}"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:iiop-openjdk:3.0"&gt;
     &lt;initializers security="elytron" transactions="full" /&gt;
 &lt;/subsystem&gt;</code></pre>
 </div>
@@ -670,7 +671,7 @@ When you have completed testing this quickstart, it is important to <a href="#re
 <p>An empty <code>&lt;jts/&gt;</code> element is added to the end of the <code>transactions</code> subsystem to enable JTS.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="{TransactionsSubsystemNamespace}"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:transactions:7.0"&gt;
     &lt;core-environment node-identifier="${jboss.tx.node.id}"&gt;
         &lt;process-id&gt;
             &lt;uuid/&gt;
@@ -697,10 +698,7 @@ When you have completed testing this quickstart, it is important to <a href="#re
 <h3 id="_configure_server1_to_use_postgresql">Configure Server1 to use PostgreSQL</h3>
 <div class="paragraph">
 <p>The JBoss EAP server 1 need to be configured to be able to connect to the database created previously in the <a href="#configure_the_postgresql_database_for_use_with_this_quickstart">Create a PostgreSQL Database</a> section.
-First of all, a JDBC driver needs to be installed as <a href="https://docs.wildfly.org/30/Developer_Guide.html#Class_Loading_in_WildFly">jboss module</a>.</p>
-</div>
-<div class="paragraph">
-<p>The following command downloads the PostgreSQL driver automatically through Maven. When needed, replace <em>EAP_HOME_1</em> with the path to your server</p>
+First of all, a JDBC driver needs to be installed. The following command downloads the PostgreSQL driver automatically through Maven. When needed, replace <em>EAP_HOME_1</em> with the path to your server</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -795,9 +793,29 @@ For Windows, use the <code><em>EAP_HOME_1</em>\bin\standalone.bat</code> and  <c
 </div>
 </li>
 <li>
-<p>This will deploy <code>jts-application-component-1.war</code> and <code>jts-application-component-2.jar</code> to the running instance of the server.</p>
+<p>This will deploy <code>jts-application-component-1.war</code> and <code>jts-application-component-2.war</code> to the running instance of the server.</p>
 </li>
 </ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may see the following warnings when the application is deployed, which are due to the database creation, and are safe to ignore:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>WARN  [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] (ServerService Thread Pool -- 84) SQL Warning Code: 0, SQLState: 00000
+WARN  [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] (ServerService Thread Pool -- 84) constraint "uk6m4fuhxj4ckixi1vsb8osii7r" of relation "customer" does not exist, skipping</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -817,6 +835,79 @@ For Windows, use the <code><em>EAP_HOME_1</em>\bin\standalone.bat</code> and  <c
 </div>
 <div class="paragraph">
 <p>The web page will also change and show you the new list of customers.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You can also verify the state of the JMS queue on application server 2 by using the management CLI. Connect to the second server&#8217;s management interface and run:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>/deployment=jts-application-component-2.war/subsystem=messaging-activemq/server=default/jms-queue=jts-quickstart:read-attribute(name=messages-added)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This shows the total number of messages added to the queue since the server started.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run_the_integration_tests_with_server_distribution">Run the Integration Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This quickstart includes integration tests, which are located under the <code>src/test/</code> directory. The integration tests verify that the quickstart runs correctly when deployed on the server.</p>
+</div>
+<div class="paragraph">
+<p>Follow these steps to run the integration tests.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure JBoss EAP server is started.</p>
+</li>
+<li>
+<p>Make sure the quickstart is deployed.</p>
+</li>
+<li>
+<p>Type the following command to run the <code>verify</code> goal with the <code>integration-testing</code> profile activated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code>$ mvn verify -Pintegration-testing </code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When running the integration tests, the <code>testDuplicateCustomerRollback</code> test intentionally submits a duplicate customer name to verify the JTS distributed transaction rollback. The following warnings and errors will appear in the application server 1 log and are safe to ignore:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>WARN  [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] (default task-3) SQL Error: 0, SQLState: 23505
+ERROR [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] (default task-3) ERROR: duplicate key value violates unique constraint "uk6m4fuhxj4ckixi1vsb8osii7r"
+WARN  [com.arjuna.ats.jts] (default task-3) ARJUNA022024: ArjunaTransactionImple.doBeforeCompletion caught exception: org.omg.CORBA.UNKNOWN: ...
+WARN  [com.arjuna.ats.jtax] (default task-3) ARJUNA024068: Caught exception:: org.omg.CORBA.TRANSACTION_ROLLEDBACK: ...
+ERROR [org.jboss.as.ejb3.invocation] (default task-3) WFLYEJB0034: Jakarta Enterprise Beans Invocation failed on component CustomerManagerEJB ...
+WARNING [org.jboss.as.quickstarts.cmt.controller.CustomerManager] (default task-3) Caught a duplicate: ...</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1004,7 +1095,7 @@ For Windows, use the <code><em>EAP_HOME_1</em>\bin\jboss-cli.bat</code> script.
 <p>Find the <code>orb</code> subsystem and change the configuration back to its original state.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="{IiopOpenJdkSubsystemNamespace}"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:iiop-openjdk:3.0"&gt;
     &lt;initializers transactions="spec" security="identity"/&gt;
 &lt;/subsystem&gt;</code></pre>
 </div>
@@ -1014,7 +1105,7 @@ For Windows, use the <code><em>EAP_HOME_1</em>\bin\jboss-cli.bat</code> script.
 <p>Find the <code>transaction</code> subsystem and remove the <code>node-identifier</code> attribute from the <code>core-environment</code> element. Also remove the <code>&lt;jts/&gt;</code> element.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="{TransactionsSubsystemNamespace}"&gt;
+<pre class="highlight nowrap"><code class="language-xml" data-lang="xml">&lt;subsystem xmlns="urn:jboss:domain:transactions:7.0"&gt;
     &lt;core-environment&gt;
         &lt;process-id&gt;
             &lt;uuid/&gt;
@@ -1044,7 +1135,7 @@ For Windows, use the <code><em>EAP_HOME_1</em>\bin\jboss-cli.bat</code> script.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-05 09:29:22 UTC
+Last updated 2026-09-03 20:58:23 UTC
 </div>
 </div>
 </body>

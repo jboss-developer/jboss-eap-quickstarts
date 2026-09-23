@@ -583,15 +583,24 @@ mvn clean package \
 cd ${PATH_TO_QUICKSTART_DIR}/server;
 mvn clean package \
   -Dwildfly.provisioning.dir=server2 -Djboss-as.home=target/server2 \
-  -DpostgresqlUsername="test" -DpostgresqlPassword="test" -Dorg.jboss.eap.datasources.postgresql.driver.version="42.7.4";
+  -DpostgresqlUsername="test" -DpostgresqlPassword="test";
 mvn package \
   -Dwildfly.provisioning.dir=server3 -Djboss-as.home=target/server3 \
-  -DpostgresqlUsername="test" -DpostgresqlPassword="test" -Dorg.jboss.eap.datasources.postgresql.driver.version="42.7.4"
+  -DpostgresqlUsername="test" -DpostgresqlPassword="test"
 ----
 
 The provisioned {productName} servers, with the quickstart deployed, can then be found in `${PATH_TO_QUICKSTART_DIR}/client/target/server`, `${PATH_TO_QUICKSTART_DIR}/server/target/server2`, and `${PATH_TO_QUICKSTART_DIR}/server/target/server3` directories, and their usage is similar to a standard server distribution, with the simplification that there is never the need to specify the server configuration to be started.
 
-The server provisioning functionality is provided by the WildFly Maven Plugin, and you may find its configuration in the pom.xml files of the quickstart.
+The server provisioning functionality is provided by the {productName} Maven Plugin, and you may find its configuration in the pom.xml files of the quickstart.
+
+[NOTE]
+====
+When building, you may notice the following warning:
+
+`[WARNING] * jakarta.naming.Context or InitialContext lookup.`
+
+This is expected, the quickstart uses JNDI lookups, which WildFly Glow is not able to verify. The warning can be safely ignored.
+====
 
 The quickstart user should be added after provisioning the servers, and before running them:
 [source,subs="+quotes,attributes+",options="nowrap"]
@@ -727,64 +736,43 @@ wildfly-operator-5d4b7cc868-zfxcv   1/1     Running     1          22h
 endif::[]
 
 ifdef::ProductRelease[]
-To install {productName}'s Operator, follow the https://docs.redhat.com/en/documentation/red_hat_jboss_enterprise_application_platform/8.0/html/using_jboss_eap_on_openshift_container_platform/assembly_deploying-your-jboss-eap-application-on-the-openshift-container-platform_default#proc_installing-eap-operator-using-the-cli_assembly_jboss-eap-operator-for-automating-application-deployment-on-openshift[official documentation] (which instructions are also reported here for convenience)
 
-[NOTE]
+[WARNING]
 ====
-* You have access to an OpenShift Container Platform cluster using an account with cluster-admin permissions.
-* You have installed the oc tool in your local system.
+For simplicity, this quickstart installs the EAP operator globally in the `openshift-operators` namespace, making it available across all namespaces in the cluster. The `openshift-operators` namespace already contains a `global-operators` OperatorGroup, so you must NOT create an additional OperatorGroup or the operator will fail to start. In production environments, consider namespace-scoped installation (see note below) to limit scope and improve security.
 ====
 
-. View the list of operators available to the cluster from the OperatorHub:
-+
+. Log in into the Openshift console as `kubeadmin` user (or any cluster administrator).
+. Install the EAP operator globally.
+
+In your terminal, run the following command to subscribe the EAP operator.
 [source,sh,options="nowrap",subs="+quotes,attributes+"]
 ----
-oc get packagemanifests -n openshift-marketplace | grep eap
+$ oc apply -f charts/eap-operator-sub.yaml --wait --timeout=10m0s
 ----
-. Create a `Subscription` object YAML file (for example, `eap-operator-sub.yaml`) to subscribe a namespace to your EAP operator. The following is an example `Subscription` object YAML file:
-+
+
+To verify the operator is ready to use, you can run the following command. You should see the following output.
+The `PHASE` needs to be `Succeeded`
 [source,sh,options="nowrap",subs="+quotes,attributes+"]
 ----
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: eap
-  namespace: openshift-operators
-spec:
-  channel: stable
-  installPlanApproval: Automatic
-  name: eap 
-  source:  redhat-operators 
-  sourceNamespace: openshift-marketplace
+$ oc get ClusterServiceVersion -n openshift-operators
 ----
-. Create the `Subscription` object from the YAML file:
-+
-[source,sh,options="nowrap",subs="+quotes,attributes+"]
-----
-oc apply -f eap-operator-sub.yaml
-----
-+
-The EAP operator is successfully installed. At this point, the OLM is aware of the EAP operator.
-A ClusterServiceVersion (CSV) for the operator appears in the target namespace, and APIs provided by the EAP operator is available for creation.
-To verify that the {productName} Operator is running, execute the following command:
-+
-[source,sh,options="nowrap",subs="+quotes,attributes+"]
-----
-oc get csv -n openshift-operators
-----
+
+NOTE: For namespace-scoped installation: Edit `charts/eap-operator-group.yaml` to replace `<your-namespace>` with your project namespace, and edit `charts/eap-operator-sub.yaml` to replace `openshift-operators` with your project namespace. Then apply both files: `oc apply -f charts/eap-operator-group.yaml && oc apply -f charts/eap-operator-sub.yaml`
+
+NOTE: For namespace-scoped installation: To verify the operator is ready to use remove the `-n openshift-operators` parameter.
+
 endif::[]
 
 [#_start_postgresql_database]
 ==== Start a PostgreSQL database
 
 This quickstart requires a PostgreSQL database to run correctly. In the scope of this quickstart,
-a PostgreSQL database will be deployed on the OpenShift instance using the Helm chart provided by
-https://github.com/bitnami/charts/tree/main/bitnami/postgresql[bitnami]:
+a PostgreSQL database will be deployed on the OpenShift instance using a simple Helm chart:
 
 [source,sh,options="nowrap",subs="+quotes,attributes+"]
 ----
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install postgresql bitnami/postgresql -f charts/postgresql.yaml --wait --timeout="5m"
+helm install postgresql charts/postgresql
 ----
 
 [#_build_the_application]
@@ -927,8 +915,36 @@ make undeploy
 endif::[]
 
 ifdef::ProductRelease[]
+
+To uninstall the EAP operator (global installation):
 [source,sh,options="nowrap"]
 ----
-oc delete -f eap-operator-sub.yaml
+oc delete -f charts/eap-operator-sub.yaml --wait --timeout=10m0s
 ----
+
+[NOTE]
+====
+In the case that the operator was added to the cluster only for trying this quickstart, and should now be deleted, use the following procedure:
+Obtain the operator CSV name.
+----
+$ oc get csv -n openshift-operators
+----
+Delete it from the cluster, replacing `CSV_NAME` with the obtained operator CSV name.
+----
+$ oc delete csv CSV_NAME -n openshift-operators
+----
+====
+
+To uninstall the EAP operator (namespace-scoped installation):
+[source,sh,options="nowrap"]
+----
+oc delete -f charts/eap-operator-sub.yaml -n NAMESPACE --wait --timeout=10m0s
+oc delete -f charts/eap-operator-group.yaml
+oc delete csv --all -n NAMESPACE
+----
+
+[NOTE]
+====
+Replace NAMESPACE above, with the actual name of the namespace used in the namespace-scoped installation.
+====
 endif::[]

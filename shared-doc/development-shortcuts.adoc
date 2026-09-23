@@ -3,21 +3,25 @@
 //******************************************************************************
 // Include this template if your quickstart:
 // * Uses the h2 database: Be sure to define the `uses-h2` attribute.
-// * Uses an `*-ds.xml file`: Be sure to define the `uses-ds-xml` attribute.
-// * Has performance or scalability concerns: Be sure to define the `uses-ds-xml` attribute.
+// * Has performance or scalability concerns: Be sure to define the `performance-scalability` attribute.
 //******************************************************************************
 
 ifdef::uses-h2[]
 
 H2 Database:: This quickstart uses the H2 database included with {productNameFull} {productVersion}. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable, is not supported, and should NOT be used in a production environment.
 
+ifdef::ProductRelease[]
+H2 Unsupported Module Warning:: This quickstart uses `@DataSourceDefinition` to define its datasource, which requires declaring a dependency on the `com.h2database.h2` server module. Because this module is marked as unsupported (`jboss.api=unsupported`), the server logs the following warning on every deployment:
++
+[source,options="nowrap"]
+----
+WARN  [org.jboss.as.dependency.unsupported] (MSC service thread 1-1) WFLYSRV0019: Deployment "<deployment-name>" is using an unsupported module ("com.h2database.h2") which may be changed or removed in future versions without notice.
+----
++
+This warning is expected and can be safely ignored for this quickstart. It does not affect functionality.
+endif::[]
+
 endif::uses-h2[]
-
-ifdef::uses-ds-xml[]
-
-Datasource Configuration File:: This quickstart uses a `*-ds.xml` datasource configuration file for convenience and ease of database configuration. These files are deprecated in {productName} and should not be used in a production environment. Instead, you should configure the datasource using the Management CLI or Management Console. Datasource configuration is documented in the {LinkConfigGuide}[__{ConfigBookName}__].
-
-endif::uses-ds-xml[]
 
 ifdef::performance-scalability[]
 

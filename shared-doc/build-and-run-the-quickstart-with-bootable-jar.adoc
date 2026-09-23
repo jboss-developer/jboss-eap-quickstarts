@@ -15,7 +15,10 @@ ifeval::["{archiveType}"=="jar"]
 endif::[]
 endif::mavenServerProvisioningCommand[]
 
-You can use the WildFly Maven Plugin to build a {productName} bootable JAR to run this quickstart.
+ifndef::ProductRelease[:bootableJarPluginName: WildFly]
+ifdef::ProductRelease[:bootableJarPluginName: EAP]
+
+You can use the {bootableJarPluginName} Maven Plugin to build a {productName} bootable JAR to run this quickstart.
 
 The quickstart `pom.xml` file contains a Maven profile named *bootable-jar*, which activates the bootable JAR packaging when provisioning {productName}, through the `<bootable-jar>true</bootable-jar>` configuration element:
 
@@ -69,13 +72,6 @@ ifdef::ProductRelease[]
                 <artifactId>eap-maven-plugin</artifactId>
                 <configuration>
                     ...
-                    <feature-packs>
-                        <feature-pack>
-                            <location>org.jboss.eap:wildfly-ee-galleon-pack</location>
-                        </feature-pack>
-                        ...
-                    </feature-packs>
-                    <layers>...</layers>
                     <bootable-jar>true</bootable-jar>
                 </configuration>
                 <executions>
@@ -91,6 +87,11 @@ ifdef::ProductRelease[]
     </build>
 </profile>
 ----
+[NOTE]
+====
+The Glow functionality of the EAP Maven Plugin is Tech Preview.
+====
+
 endif::[]
 
 [NOTE]
