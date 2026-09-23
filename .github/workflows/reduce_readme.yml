@@ -45,3 +45,4 @@ jobs:
       uses: EndBug/add-and-commit@v11
       with:
         add: '*.adoc'
+
